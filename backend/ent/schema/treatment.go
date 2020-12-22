@@ -14,7 +14,8 @@ type Treatment struct {
 // Fields of the Treatment.
 func (Treatment) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("treatment"),
+		field.String("Treatment").NotEmpty(),
+		field.Time("Datetime"),
 	}
 }
 
