@@ -22,6 +22,7 @@ func (Abilitypatientrights) Fields() []ent.Field {
     }
 }
 
+
 // Edges of the Abilitypatientrights.
 func (Abilitypatientrights) Edges() []ent.Edge {
 	return []ent.Edge{
