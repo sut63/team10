@@ -3,7 +3,7 @@ package schema
 import (
 	"github.com/facebookincubator/ent"
 	"github.com/facebookincubator/ent/schema/field"
-	
+	"github.com/facebookincubator/ent/schema/edge"	
 )
 // Prefix holds the schema definition for the Prefix entity.
 type Prefix struct {
@@ -18,5 +18,7 @@ func (Prefix) Fields() []ent.Field {
 
 // Edges of the Prefix.
 func (Prefix) Edges() []ent.Edge {
-	return nil
+	return []ent.Edge{
+		edge.To("prefix2doctorinfo", Docterinfo.Type).StorageKey(edge.Column("prefix")),
+	}
 }
