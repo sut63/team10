@@ -20,5 +20,8 @@ func (Typetreatment) Fields() []ent.Field {
 
 // Edges of the Typetreatment.
 func (Typetreatment) Edges() []ent.Edge {
-	return nil
+	return []ent.Edge{
+		edge.To("typetreatmenttreatment", Treatment.Type).StorageKey(edge.Column("typetreatment_id")),
+	}
+}
 }

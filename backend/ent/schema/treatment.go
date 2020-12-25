@@ -23,6 +23,9 @@ func (Treatment) Fields() []ent.Field {
 func (Treatment) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("bills", Bill.Type).StorageKey(edge.Column("treatment_id")).Unique(),
+		edge.From("typetreatment", Typetreatment.Type).Ref("typetreatmenttreatment").Unique(),
+		edge.From("doctorinfo", Doctorinfo.Type).Ref("doctorinfotreatment").Unique(),
+		edge.From("patientrecord", Patientrecord.Type).Ref("patientrecordtreatment").Unique(),
 	}
 }
 }
