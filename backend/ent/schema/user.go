@@ -2,8 +2,8 @@ package schema
 
 import (
 	"github.com/facebookincubator/ent"
-	"github.com/facebookincubator/ent/schema/field"
 	"github.com/facebookincubator/ent/schema/edge"
+	"github.com/facebookincubator/ent/schema/field"
 )
 
 // User holds the schema definition for the User entity.
@@ -22,8 +22,9 @@ func (User) Fields() []ent.Field {
 // Edges of the User.
 func (User) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("financier", Financier.Type).StorageKey(edge.Column("user_id")).Unique(), 
+		edge.To("financier", Financier.Type).StorageKey(edge.Column("user_id")).Unique(),
 		edge.To("historytaking", Nurse.Type).StorageKey(edge.Column("user_id")).Unique(),
 		edge.To("UserPatientrights", Patientrights.Type).StorageKey(edge.Column("user_id")).Unique(),
+		edge.To("medicalrecordstaff", Medicalrecordstaff.Type).StorageKey(edge.Column("user_id")).Unique(),
 	}
 }
