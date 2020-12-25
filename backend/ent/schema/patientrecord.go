@@ -1,9 +1,8 @@
 package schema
 
 import (
-	"github.com/facebook/ent"
-	"github.com/facebook/ent/schema/edge"
-
+	"github.com/facebookincubator/ent"
+	"github.com/facebookincubator/ent/schema/edge"
 )
 
 // Patientrecord holds the schema definition for the Patientrecord entity.
