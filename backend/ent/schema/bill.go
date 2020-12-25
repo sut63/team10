@@ -24,5 +24,6 @@ func (Bill) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("paytype", Paytype.Type).Ref("bills").Unique(),
 		edge.From("officer", Financialofficer.Type).Ref("bills").Unique(),
+		edge.From("treatment", Treatment.Type).Ref("bills").Unique(),
 	}
 }
