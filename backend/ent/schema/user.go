@@ -6,25 +6,23 @@ import (
 	"github.com/facebookincubator/ent/schema/edge"
 )
 
-// Nurse holds the schema definition for the Nurse entity.
-type Nurse struct {
+// User holds the schema definition for the User entity.
+type User struct {
 	ent.Schema
 }
 
-// Fields of the Nurse.
-func (Nurse) Fields() []ent.Field {
+// Fields of the User.
+func (User) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name"),
-		field.String("nursinglicense"),
-		field.String("position"),
+		field.String("email").NotEmpty(),
+		field.String("password").NotEmpty(),
 	}
 }
 
-// Edges of the Nurse.
-func (Nurse) Edges() []ent.Edge {
+// Edges of the User.
+func (User) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("historytaking", Historytaking.Type).StorageKey(edge.Column("nurse_id")),
-		edge.From("user", User.Type).Ref("nurse").Unique(),
+		edge.To("financier", Financier.Type).StorageKey(edge.Column("user_id")).Unique(), 
+		edge.To("historytaking", Nurse.Type).StorageKey(edge.Column("user_id")).Unique(), 
 	}
 }
-
