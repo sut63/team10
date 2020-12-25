@@ -21,7 +21,7 @@ func (Patientrecord) Fields() []ent.Field {
 		field.String("Bloodtype"),
 		field.String("Disease"),
 		field.String("Allergic"),
-		field.Int("Phonenumber"),
+		field.String("Phonenumber"),
 		field.String("Email"),
 		field.String("Home"),
 		field.Time("Date"),
