@@ -6,6 +6,7 @@ import (
 	"github.com/facebook/ent/schema/edge"
 
 )
+
 // User holds the schema definition for the User entity.
 type User struct {
 	ent.Schema
@@ -14,15 +15,14 @@ type User struct {
 // Fields of the User.
 func (User) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("name").NotEmpty(),
 		field.String("email").NotEmpty(),
+		field.String("password").NotEmpty(),
 	}
 }
 
 // Edges of the User.
 func (User) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("playlists", Playlist.Type).StorageKey(edge.Column("owner_id")), 
-		edge.To("videos", Video.Type).StorageKey(edge.Column("owner_id")),
+		edge.To("financier", Financier.Type).StorageKey(edge.Column("user_id")).Unique(), 
 	}
 }

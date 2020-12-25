@@ -1,9 +1,10 @@
 package schema
 
 import (
-	"github.com/facebook/ent"
-	"github.com/facebook/ent/schema/edge"
-	"github.com/facebook/ent/schema/field"
+	"github.com/facebookincubator/ent"
+	"github.com/facebookincubator/ent/schema/field"
+	"github.com/facebookincubator/ent/schema/edge"
+
 )
 
 // Bill holds the schema definition for the Bill entity.
@@ -23,7 +24,7 @@ func (Bill) Fields() []ent.Field {
 func (Bill) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("paytype", Paytype.Type).Ref("bills").Unique(),
-		edge.From("officer", Financialofficer.Type).Ref("bills").Unique(),
-		edge.From("treatment", Treatment.Type).Ref("bills").Unique(),
+		edge.From("officer", Financier.Type).Ref("bills").Unique(),
+		//edge.From("treatment", Treatment.Type).Ref("bills").Unique(),
 	}
 }

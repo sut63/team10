@@ -2,8 +2,9 @@ package schema
 
 import (
 	"github.com/facebook/ent"
-	"github.com/facebook/ent/schema/edge"
 	"github.com/facebook/ent/schema/field"
+	"github.com/facebook/ent/schema/edge"
+
 )
 
 // Paytype holds the schema definition for the Paytype entity.
