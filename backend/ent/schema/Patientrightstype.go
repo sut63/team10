@@ -24,7 +24,7 @@ func (Patientrightstype) Fields() []ent.Field {
 func (Patientrightstype) Edges() []ent.Edge {
 	return []ent.Edge{
 
-		edge.To("PatientrightstypePatientrights", Patientrights.Type),
+		edge.To("PatientrightstypePatientrights", Patientrights.Type).StorageKey(edge.Column("Patientrightstype_id")),
 
 		edge.From("PatientrightstypeAbilitypatientrights", Abilitypatientrights.Type).
 			Ref("AbilitypatientrightsPatientrightstype").

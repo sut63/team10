@@ -26,7 +26,7 @@ func (Insurance) Fields() []ent.Field {
 // Edges of the INSURANCE.
 func (Insurance) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("InsurancePatientrights", Patientrights.Type),
+		edge.To("InsurancePatientrights", Patientrights.Type).StorageKey(edge.Column("InsurancePatientrights_id")),
 	
     }
 }
