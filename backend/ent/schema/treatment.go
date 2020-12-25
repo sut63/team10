@@ -14,7 +14,8 @@ type Treatment struct {
 // Fields of the Treatment.
 func (Treatment) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("treatment"),
+		field.String("Treatment").NotEmpty(),
+		field.Time("Datetime"),
 	}
 }
 
@@ -22,6 +23,9 @@ func (Treatment) Fields() []ent.Field {
 func (Treatment) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("bills", Bill.Type).StorageKey(edge.Column("treatment_id")).Unique(),
+		edge.From("typetreatment", Typetreatment.Type).Ref("typetreatmenttreatment").Unique(),
+		edge.From("doctorinfo", Doctorinfo.Type).Ref("doctorinfotreatment").Unique(),
+		edge.From("patientrecord", Patientrecord.Type).Ref("patientrecordtreatment").Unique(),
 	}
 }
 }
