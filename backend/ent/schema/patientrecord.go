@@ -33,5 +33,6 @@ func (Patientrecord) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("gender", Gender.Type).Ref("partientrecord").Unique(),
 		edge.From("medicalrecordstaff", Medicalrecordstaff.Type).Ref("partientrecord").Unique(),
+		edge.To("historytaking", Historytaking.Type).StorageKey(edge.Column("patientrecord_id")),
 	}
 }
