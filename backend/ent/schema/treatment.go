@@ -28,4 +28,3 @@ func (Treatment) Edges() []ent.Edge {
 		edge.From("patientrecord", Patientrecord.Type).Ref("patientrecordtreatment").Unique(),
 	}
 }
-}
