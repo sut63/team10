@@ -24,5 +24,6 @@ func (User) Fields() []ent.Field {
 func (User) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("financier", Financier.Type).StorageKey(edge.Column("user_id")).Unique(), 
+		edge.To("historytaking", Historytaking.Type).StorageKey(edge.Column("user_id")).Unique(), 
 	}
 }
