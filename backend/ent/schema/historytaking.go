@@ -14,14 +14,14 @@ type Historytaking struct {
 // Fields of the Historytaking.
 func (Historytaking) Fields() []ent.Field {
 	return []ent.Field{
-		field.Floats("้hight"),            //ส่วนสูง[เซนติเมตร]
-		field.Floats("weight"),            //น้ำหนัก[กิโลกรัม]
-		field.Floats("temperature"),       //อุณภูมิร่างกาย[เซลเซียส]
-		field.Int("้pulse"),               //ชีพจร[ครั้งต่อวินาที]
-		field.Int("้respiration"),         //การหายใจ[ครั้งต่อนาที]
-		field.Int("้bloodpressure"),       //ความดันโลหิต[มิลลิเมตรปรอท]
-		field.Floats("oxygensaturation"), //ออกซิเจนในเลือด[เปอร์เซ็นต์]
-		field.String("symptom"),           //อาการ
+		field.Floats("้hight"),   //ส่วนสูง[เซนติเมตร]
+		field.Floats("weight"),   //น้ำหนัก[กิโลกรัม]
+		field.Floats("temp"),     //temperature ปกติ คือ 36.5-37.5 °C อุณภูมิร่างกาย[เซลเซียส]
+		field.Int("้pulse"),      //60-100 ครั้ง/นาที ชีพจร[ครั้งต่อนาที]
+		field.Int("respiration"), //16-20ครั้งต่อนาที การหายใจ[ครั้งต่อนาที]
+		field.Int("้bp"),         //bloodpressure 80-120 มม.ปรอท  ความดันโลหิต[มิลลิเมตรปรอท]
+		field.String("oxygen"),   //95 - 100% ออกซิเจนในเลือด[เปอร์เซ็นต์]
+		field.String("symptom"),  //อาการ
 		field.Time("datetime"),
 	}
 }
