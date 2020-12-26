@@ -29,5 +29,6 @@ func (Doctorinfo) Edges() []ent.Edge {
 		edge.From("officeroom", Officeroom.Type).Ref("officeroom2doctorinfo").Unique(),
 		edge.From("prename", Prename.Type).Ref("prename2doctorinfo").Unique(),
 		edge.From("user", User.Type).Ref("user2doctorinfo").Unique(),
+		edge.To("treatment", Treatment.Type).StorageKey(edge.Column("doctorinfo_id")),
 	}
 }
