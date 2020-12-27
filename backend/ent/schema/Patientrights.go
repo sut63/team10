@@ -30,7 +30,7 @@ func (Patientrights) Edges() []ent.Edge {
 			Unique(),
 
 		/*
-		edge.To("Patientrights___", ___.Type),
+		edge.To("Patientrights___", ___.Type).StorageKey(edge.Column("Patientrights_id")),
 
 		*/
 
@@ -42,8 +42,8 @@ func (Patientrights) Edges() []ent.Edge {
 			Ref("PatientrecordPatientrights").
 			Unique(),
 
-		edge.From("PatientrightsUser", User.Type).
-			Ref("UserPatientrights").
+		edge.From("PatientrightsMedicalrecordstaff", Medicalrecordstaff.Type).
+			Ref("MedicalrecordstaffPatientrights").
 			Unique(),
 
 	}
