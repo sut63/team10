@@ -25,5 +25,6 @@ func (Treatment) Edges() []ent.Edge {
 	edge.From("typetreatment", Typetreatment.Type).Ref("treatment").Unique(),
 	edge.From("patientrecord", Patientrecord.Type).Ref("treatment").Unique(),
 	edge.From("doctorinfo", Doctorinfo.Type).Ref("treatment").Unique(),
+	edge.To("bills",Bill.Type).StorageKey(edge.Column("treatment_id")),
 	}
 }
