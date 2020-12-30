@@ -22,6 +22,7 @@ func (Medicalrecordstaff) Fields() []ent.Field {
 func (Medicalrecordstaff) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("patientrecord", Patientrecord.Type).StorageKey(edge.Column("medicalrecordstaff_id")),
+		edge.To("MedicalrecordstaffPatientrights", Patientrights.Type).StorageKey(edge.Column("medicalrecordstaff_id")),
 		edge.From("user", User.Type).Ref("medicalrecordstaff").Unique(),
 	}
 }
