@@ -22,10 +22,6 @@ func (Department) Fields() []ent.Field {
 func (Department) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("department2doctorinfo", Doctorinfo.Type).StorageKey(edge.Column("department")),
-<<<<<<< HEAD
 		edge.To("historytaking", Historytaking.Type).StorageKey(edge.Column("department_id")),
-=======
-		edge.To("historytaking", Historytaking.Type).StorageKey(edge.Column("nurse_id")),
->>>>>>> e4f722bd17b52c827874380781b943ef306fe518
 	}
 }
