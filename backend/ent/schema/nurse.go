@@ -24,6 +24,6 @@ func (Nurse) Fields() []ent.Field {
 func (Nurse) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.To("historytaking", Historytaking.Type).StorageKey(edge.Column("nurse_id")),
-		edge.From("user", User.Type).Ref("nurse").Unique(),
+		edge.From("user", User.Type).Ref("historytaking").Unique(),
 	}
 }
