@@ -11,7 +11,7 @@ import (
 	"github.com/b6109868/app/ent/financier"
 	"github.com/b6109868/app/ent/paytype"
 	"github.com/b6109868/app/ent/predicate"
-	"github.com/b6109868/app/ent/treatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
@@ -81,13 +81,13 @@ func (bu *BillUpdate) SetOfficer(f *Financier) *BillUpdate {
 	return bu.SetOfficerID(f.ID)
 }
 
-// SetTreatmentID sets the treatment edge to Treatment by id.
+// SetTreatmentID sets the treatment edge to Unpaybill by id.
 func (bu *BillUpdate) SetTreatmentID(id int) *BillUpdate {
 	bu.mutation.SetTreatmentID(id)
 	return bu
 }
 
-// SetNillableTreatmentID sets the treatment edge to Treatment by id if the given value is not nil.
+// SetNillableTreatmentID sets the treatment edge to Unpaybill by id if the given value is not nil.
 func (bu *BillUpdate) SetNillableTreatmentID(id *int) *BillUpdate {
 	if id != nil {
 		bu = bu.SetTreatmentID(*id)
@@ -95,9 +95,9 @@ func (bu *BillUpdate) SetNillableTreatmentID(id *int) *BillUpdate {
 	return bu
 }
 
-// SetTreatment sets the treatment edge to Treatment.
-func (bu *BillUpdate) SetTreatment(t *Treatment) *BillUpdate {
-	return bu.SetTreatmentID(t.ID)
+// SetTreatment sets the treatment edge to Unpaybill.
+func (bu *BillUpdate) SetTreatment(u *Unpaybill) *BillUpdate {
+	return bu.SetTreatmentID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -117,7 +117,7 @@ func (bu *BillUpdate) ClearOfficer() *BillUpdate {
 	return bu
 }
 
-// ClearTreatment clears the treatment edge to Treatment.
+// ClearTreatment clears the treatment edge to Unpaybill.
 func (bu *BillUpdate) ClearTreatment() *BillUpdate {
 	bu.mutation.ClearTreatment()
 	return bu
@@ -284,7 +284,7 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if bu.mutation.TreatmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   bill.TreatmentTable,
 			Columns: []string{bill.TreatmentColumn},
@@ -292,7 +292,7 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: treatment.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}
@@ -300,7 +300,7 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if nodes := bu.mutation.TreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   bill.TreatmentTable,
 			Columns: []string{bill.TreatmentColumn},
@@ -308,7 +308,7 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: treatment.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}
@@ -385,13 +385,13 @@ func (buo *BillUpdateOne) SetOfficer(f *Financier) *BillUpdateOne {
 	return buo.SetOfficerID(f.ID)
 }
 
-// SetTreatmentID sets the treatment edge to Treatment by id.
+// SetTreatmentID sets the treatment edge to Unpaybill by id.
 func (buo *BillUpdateOne) SetTreatmentID(id int) *BillUpdateOne {
 	buo.mutation.SetTreatmentID(id)
 	return buo
 }
 
-// SetNillableTreatmentID sets the treatment edge to Treatment by id if the given value is not nil.
+// SetNillableTreatmentID sets the treatment edge to Unpaybill by id if the given value is not nil.
 func (buo *BillUpdateOne) SetNillableTreatmentID(id *int) *BillUpdateOne {
 	if id != nil {
 		buo = buo.SetTreatmentID(*id)
@@ -399,9 +399,9 @@ func (buo *BillUpdateOne) SetNillableTreatmentID(id *int) *BillUpdateOne {
 	return buo
 }
 
-// SetTreatment sets the treatment edge to Treatment.
-func (buo *BillUpdateOne) SetTreatment(t *Treatment) *BillUpdateOne {
-	return buo.SetTreatmentID(t.ID)
+// SetTreatment sets the treatment edge to Unpaybill.
+func (buo *BillUpdateOne) SetTreatment(u *Unpaybill) *BillUpdateOne {
+	return buo.SetTreatmentID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -421,7 +421,7 @@ func (buo *BillUpdateOne) ClearOfficer() *BillUpdateOne {
 	return buo
 }
 
-// ClearTreatment clears the treatment edge to Treatment.
+// ClearTreatment clears the treatment edge to Unpaybill.
 func (buo *BillUpdateOne) ClearTreatment() *BillUpdateOne {
 	buo.mutation.ClearTreatment()
 	return buo
@@ -586,7 +586,7 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 	}
 	if buo.mutation.TreatmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   bill.TreatmentTable,
 			Columns: []string{bill.TreatmentColumn},
@@ -594,7 +594,7 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: treatment.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}
@@ -602,7 +602,7 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 	}
 	if nodes := buo.mutation.TreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   bill.TreatmentTable,
 			Columns: []string{bill.TreatmentColumn},
@@ -610,7 +610,7 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: treatment.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}

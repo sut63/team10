@@ -10,7 +10,7 @@ import (
 	"github.com/b6109868/app/ent/bill"
 	"github.com/b6109868/app/ent/financier"
 	"github.com/b6109868/app/ent/paytype"
-	"github.com/b6109868/app/ent/treatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql"
 )
 
@@ -38,7 +38,7 @@ type BillEdges struct {
 	// Officer holds the value of the officer edge.
 	Officer *Financier
 	// Treatment holds the value of the treatment edge.
-	Treatment *Treatment
+	Treatment *Unpaybill
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [3]bool
@@ -74,12 +74,12 @@ func (e BillEdges) OfficerOrErr() (*Financier, error) {
 
 // TreatmentOrErr returns the Treatment value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e BillEdges) TreatmentOrErr() (*Treatment, error) {
+func (e BillEdges) TreatmentOrErr() (*Unpaybill, error) {
 	if e.loadedTypes[2] {
 		if e.Treatment == nil {
 			// The edge treatment was loaded in eager-loading,
 			// but was not found.
-			return nil, &NotFoundError{label: treatment.Label}
+			return nil, &NotFoundError{label: unpaybill.Label}
 		}
 		return e.Treatment, nil
 	}
@@ -161,7 +161,7 @@ func (b *Bill) QueryOfficer() *FinancierQuery {
 }
 
 // QueryTreatment queries the treatment edge of the Bill.
-func (b *Bill) QueryTreatment() *TreatmentQuery {
+func (b *Bill) QueryTreatment() *UnpaybillQuery {
 	return (&BillClient{config: b.config}).QueryTreatment(b)
 }
 

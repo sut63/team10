@@ -690,6 +690,30 @@ func (f TypetreatmentMutationRuleFunc) EvalMutation(ctx context.Context, m ent.M
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.TypetreatmentMutation", m)
 }
 
+// The UnpaybillQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type UnpaybillQueryRuleFunc func(context.Context, *ent.UnpaybillQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f UnpaybillQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.UnpaybillQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.UnpaybillQuery", q)
+}
+
+// The UnpaybillMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type UnpaybillMutationRuleFunc func(context.Context, *ent.UnpaybillMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f UnpaybillMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.UnpaybillMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.UnpaybillMutation", m)
+}
+
 // The UserQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type UserQueryRuleFunc func(context.Context, *ent.UserQuery) error

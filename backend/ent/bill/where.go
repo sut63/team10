@@ -356,19 +356,19 @@ func HasTreatment() predicate.Bill {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(TreatmentTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, TreatmentTable, TreatmentColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, TreatmentTable, TreatmentColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
 // HasTreatmentWith applies the HasEdge predicate on the "treatment" edge with a given conditions (other predicates).
-func HasTreatmentWith(preds ...predicate.Treatment) predicate.Bill {
+func HasTreatmentWith(preds ...predicate.Unpaybill) predicate.Bill {
 	return predicate.Bill(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
 			sqlgraph.To(TreatmentInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, TreatmentTable, TreatmentColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, TreatmentTable, TreatmentColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

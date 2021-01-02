@@ -11,6 +11,7 @@ import (
 	"github.com/b6109868/app/ent/patientrecord"
 	"github.com/b6109868/app/ent/treatment"
 	"github.com/b6109868/app/ent/typetreatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql"
 )
 
@@ -39,8 +40,8 @@ type TreatmentEdges struct {
 	Patientrecord *Patientrecord
 	// Doctorinfo holds the value of the doctorinfo edge.
 	Doctorinfo *Doctorinfo
-	// Bills holds the value of the bills edge.
-	Bills []*Bill
+	// Unpaybills holds the value of the unpaybills edge.
+	Unpaybills *Unpaybill
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [4]bool
@@ -88,13 +89,18 @@ func (e TreatmentEdges) DoctorinfoOrErr() (*Doctorinfo, error) {
 	return nil, &NotLoadedError{edge: "doctorinfo"}
 }
 
-// BillsOrErr returns the Bills value or an error if the edge
-// was not loaded in eager-loading.
-func (e TreatmentEdges) BillsOrErr() ([]*Bill, error) {
+// UnpaybillsOrErr returns the Unpaybills value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e TreatmentEdges) UnpaybillsOrErr() (*Unpaybill, error) {
 	if e.loadedTypes[3] {
-		return e.Bills, nil
+		if e.Unpaybills == nil {
+			// The edge unpaybills was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: unpaybill.Label}
+		}
+		return e.Unpaybills, nil
 	}
-	return nil, &NotLoadedError{edge: "bills"}
+	return nil, &NotLoadedError{edge: "unpaybills"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -176,9 +182,9 @@ func (t *Treatment) QueryDoctorinfo() *DoctorinfoQuery {
 	return (&TreatmentClient{config: t.config}).QueryDoctorinfo(t)
 }
 
-// QueryBills queries the bills edge of the Treatment.
-func (t *Treatment) QueryBills() *BillQuery {
-	return (&TreatmentClient{config: t.config}).QueryBills(t)
+// QueryUnpaybills queries the unpaybills edge of the Treatment.
+func (t *Treatment) QueryUnpaybills() *UnpaybillQuery {
+	return (&TreatmentClient{config: t.config}).QueryUnpaybills(t)
 }
 
 // Update returns a builder for updating this Treatment.

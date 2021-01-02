@@ -11,7 +11,7 @@ import (
 	"github.com/b6109868/app/ent/bill"
 	"github.com/b6109868/app/ent/financier"
 	"github.com/b6109868/app/ent/paytype"
-	"github.com/b6109868/app/ent/treatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
 )
@@ -73,13 +73,13 @@ func (bc *BillCreate) SetOfficer(f *Financier) *BillCreate {
 	return bc.SetOfficerID(f.ID)
 }
 
-// SetTreatmentID sets the treatment edge to Treatment by id.
+// SetTreatmentID sets the treatment edge to Unpaybill by id.
 func (bc *BillCreate) SetTreatmentID(id int) *BillCreate {
 	bc.mutation.SetTreatmentID(id)
 	return bc
 }
 
-// SetNillableTreatmentID sets the treatment edge to Treatment by id if the given value is not nil.
+// SetNillableTreatmentID sets the treatment edge to Unpaybill by id if the given value is not nil.
 func (bc *BillCreate) SetNillableTreatmentID(id *int) *BillCreate {
 	if id != nil {
 		bc = bc.SetTreatmentID(*id)
@@ -87,9 +87,9 @@ func (bc *BillCreate) SetNillableTreatmentID(id *int) *BillCreate {
 	return bc
 }
 
-// SetTreatment sets the treatment edge to Treatment.
-func (bc *BillCreate) SetTreatment(t *Treatment) *BillCreate {
-	return bc.SetTreatmentID(t.ID)
+// SetTreatment sets the treatment edge to Unpaybill.
+func (bc *BillCreate) SetTreatment(u *Unpaybill) *BillCreate {
+	return bc.SetTreatmentID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -226,7 +226,7 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 	}
 	if nodes := bc.mutation.TreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   bill.TreatmentTable,
 			Columns: []string{bill.TreatmentColumn},
@@ -234,7 +234,7 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: treatment.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}

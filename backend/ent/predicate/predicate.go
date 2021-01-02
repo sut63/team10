@@ -66,5 +66,8 @@ type Treatment func(*sql.Selector)
 // Typetreatment is the predicate function for typetreatment builders.
 type Typetreatment func(*sql.Selector)
 
+// Unpaybill is the predicate function for unpaybill builders.
+type Unpaybill func(*sql.Selector)
+
 // User is the predicate function for user builders.
 type User func(*sql.Selector)

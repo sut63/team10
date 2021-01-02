@@ -29,6 +29,7 @@ import (
 	"github.com/b6109868/app/ent/symptomseverity"
 	"github.com/b6109868/app/ent/treatment"
 	"github.com/b6109868/app/ent/typetreatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/b6109868/app/ent/user"
 
 	"github.com/facebookincubator/ent/dialect"
@@ -81,6 +82,8 @@ type Client struct {
 	Treatment *TreatmentClient
 	// Typetreatment is the client for interacting with the Typetreatment builders.
 	Typetreatment *TypetreatmentClient
+	// Unpaybill is the client for interacting with the Unpaybill builders.
+	Unpaybill *UnpaybillClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 }
@@ -116,6 +119,7 @@ func (c *Client) init() {
 	c.Symptomseverity = NewSymptomseverityClient(c.config)
 	c.Treatment = NewTreatmentClient(c.config)
 	c.Typetreatment = NewTypetreatmentClient(c.config)
+	c.Unpaybill = NewUnpaybillClient(c.config)
 	c.User = NewUserClient(c.config)
 }
 
@@ -169,6 +173,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Symptomseverity:      NewSymptomseverityClient(cfg),
 		Treatment:            NewTreatmentClient(cfg),
 		Typetreatment:        NewTypetreatmentClient(cfg),
+		Unpaybill:            NewUnpaybillClient(cfg),
 		User:                 NewUserClient(cfg),
 	}, nil
 }
@@ -205,6 +210,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Symptomseverity:      NewSymptomseverityClient(cfg),
 		Treatment:            NewTreatmentClient(cfg),
 		Typetreatment:        NewTypetreatmentClient(cfg),
+		Unpaybill:            NewUnpaybillClient(cfg),
 		User:                 NewUserClient(cfg),
 	}, nil
 }
@@ -254,6 +260,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Symptomseverity.Use(hooks...)
 	c.Treatment.Use(hooks...)
 	c.Typetreatment.Use(hooks...)
+	c.Unpaybill.Use(hooks...)
 	c.User.Use(hooks...)
 }
 
@@ -467,14 +474,14 @@ func (c *BillClient) QueryOfficer(b *Bill) *FinancierQuery {
 }
 
 // QueryTreatment queries the treatment edge of a Bill.
-func (c *BillClient) QueryTreatment(b *Bill) *TreatmentQuery {
-	query := &TreatmentQuery{config: c.config}
+func (c *BillClient) QueryTreatment(b *Bill) *UnpaybillQuery {
+	query := &UnpaybillQuery{config: c.config}
 	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
 		id := b.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(bill.Table, bill.FieldID, id),
-			sqlgraph.To(treatment.Table, treatment.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, bill.TreatmentTable, bill.TreatmentColumn),
+			sqlgraph.To(unpaybill.Table, unpaybill.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, bill.TreatmentTable, bill.TreatmentColumn),
 		)
 		fromV = sqlgraph.Neighbors(b.driver.Dialect(), step)
 		return fromV, nil
@@ -2565,15 +2572,15 @@ func (c *TreatmentClient) QueryDoctorinfo(t *Treatment) *DoctorinfoQuery {
 	return query
 }
 
-// QueryBills queries the bills edge of a Treatment.
-func (c *TreatmentClient) QueryBills(t *Treatment) *BillQuery {
-	query := &BillQuery{config: c.config}
+// QueryUnpaybills queries the unpaybills edge of a Treatment.
+func (c *TreatmentClient) QueryUnpaybills(t *Treatment) *UnpaybillQuery {
+	query := &UnpaybillQuery{config: c.config}
 	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
 		id := t.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(treatment.Table, treatment.FieldID, id),
-			sqlgraph.To(bill.Table, bill.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, treatment.BillsTable, treatment.BillsColumn),
+			sqlgraph.To(unpaybill.Table, unpaybill.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, false, treatment.UnpaybillsTable, treatment.UnpaybillsColumn),
 		)
 		fromV = sqlgraph.Neighbors(t.driver.Dialect(), step)
 		return fromV, nil
@@ -2683,6 +2690,121 @@ func (c *TypetreatmentClient) QueryTreatment(t *Typetreatment) *TreatmentQuery {
 // Hooks returns the client hooks.
 func (c *TypetreatmentClient) Hooks() []Hook {
 	return c.hooks.Typetreatment
+}
+
+// UnpaybillClient is a client for the Unpaybill schema.
+type UnpaybillClient struct {
+	config
+}
+
+// NewUnpaybillClient returns a client for the Unpaybill from the given config.
+func NewUnpaybillClient(c config) *UnpaybillClient {
+	return &UnpaybillClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `unpaybill.Hooks(f(g(h())))`.
+func (c *UnpaybillClient) Use(hooks ...Hook) {
+	c.hooks.Unpaybill = append(c.hooks.Unpaybill, hooks...)
+}
+
+// Create returns a create builder for Unpaybill.
+func (c *UnpaybillClient) Create() *UnpaybillCreate {
+	mutation := newUnpaybillMutation(c.config, OpCreate)
+	return &UnpaybillCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Update returns an update builder for Unpaybill.
+func (c *UnpaybillClient) Update() *UnpaybillUpdate {
+	mutation := newUnpaybillMutation(c.config, OpUpdate)
+	return &UnpaybillUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *UnpaybillClient) UpdateOne(u *Unpaybill) *UnpaybillUpdateOne {
+	mutation := newUnpaybillMutation(c.config, OpUpdateOne, withUnpaybill(u))
+	return &UnpaybillUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *UnpaybillClient) UpdateOneID(id int) *UnpaybillUpdateOne {
+	mutation := newUnpaybillMutation(c.config, OpUpdateOne, withUnpaybillID(id))
+	return &UnpaybillUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Unpaybill.
+func (c *UnpaybillClient) Delete() *UnpaybillDelete {
+	mutation := newUnpaybillMutation(c.config, OpDelete)
+	return &UnpaybillDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *UnpaybillClient) DeleteOne(u *Unpaybill) *UnpaybillDeleteOne {
+	return c.DeleteOneID(u.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *UnpaybillClient) DeleteOneID(id int) *UnpaybillDeleteOne {
+	builder := c.Delete().Where(unpaybill.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &UnpaybillDeleteOne{builder}
+}
+
+// Create returns a query builder for Unpaybill.
+func (c *UnpaybillClient) Query() *UnpaybillQuery {
+	return &UnpaybillQuery{config: c.config}
+}
+
+// Get returns a Unpaybill entity by its id.
+func (c *UnpaybillClient) Get(ctx context.Context, id int) (*Unpaybill, error) {
+	return c.Query().Where(unpaybill.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *UnpaybillClient) GetX(ctx context.Context, id int) *Unpaybill {
+	u, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return u
+}
+
+// QueryTreatment queries the treatment edge of a Unpaybill.
+func (c *UnpaybillClient) QueryTreatment(u *Unpaybill) *TreatmentQuery {
+	query := &TreatmentQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := u.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(unpaybill.Table, unpaybill.FieldID, id),
+			sqlgraph.To(treatment.Table, treatment.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, unpaybill.TreatmentTable, unpaybill.TreatmentColumn),
+		)
+		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryBills queries the bills edge of a Unpaybill.
+func (c *UnpaybillClient) QueryBills(u *Unpaybill) *BillQuery {
+	query := &BillQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := u.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(unpaybill.Table, unpaybill.FieldID, id),
+			sqlgraph.To(bill.Table, bill.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, false, unpaybill.BillsTable, unpaybill.BillsColumn),
+		)
+		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *UnpaybillClient) Hooks() []Hook {
+	return c.hooks.Unpaybill
 }
 
 // UserClient is a client for the User schema.

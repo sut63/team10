@@ -28,6 +28,7 @@ import (
 	"github.com/b6109868/app/ent/symptomseverity"
 	"github.com/b6109868/app/ent/treatment"
 	"github.com/b6109868/app/ent/typetreatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/b6109868/app/ent/user"
 
 	"github.com/facebookincubator/ent"
@@ -62,6 +63,7 @@ const (
 	TypeSymptomseverity      = "Symptomseverity"
 	TypeTreatment            = "Treatment"
 	TypeTypetreatment        = "Typetreatment"
+	TypeUnpaybill            = "Unpaybill"
 	TypeUser                 = "User"
 )
 
@@ -794,12 +796,12 @@ func (m *BillMutation) ResetOfficer() {
 	m.clearedofficer = false
 }
 
-// SetTreatmentID sets the treatment edge to Treatment by id.
+// SetTreatmentID sets the treatment edge to Unpaybill by id.
 func (m *BillMutation) SetTreatmentID(id int) {
 	m.treatment = &id
 }
 
-// ClearTreatment clears the treatment edge to Treatment.
+// ClearTreatment clears the treatment edge to Unpaybill.
 func (m *BillMutation) ClearTreatment() {
 	m.clearedtreatment = true
 }
@@ -9939,8 +9941,8 @@ type TreatmentMutation struct {
 	clearedpatientrecord bool
 	doctorinfo           *int
 	cleareddoctorinfo    bool
-	bills                map[int]struct{}
-	removedbills         map[int]struct{}
+	unpaybills           *int
+	clearedunpaybills    bool
 	done                 bool
 	oldValue             func(context.Context) (*Treatment, error)
 }
@@ -10215,46 +10217,43 @@ func (m *TreatmentMutation) ResetDoctorinfo() {
 	m.cleareddoctorinfo = false
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (m *TreatmentMutation) AddBillIDs(ids ...int) {
-	if m.bills == nil {
-		m.bills = make(map[int]struct{})
-	}
-	for i := range ids {
-		m.bills[ids[i]] = struct{}{}
-	}
+// SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
+func (m *TreatmentMutation) SetUnpaybillsID(id int) {
+	m.unpaybills = &id
 }
 
-// RemoveBillIDs removes the bills edge to Bill by ids.
-func (m *TreatmentMutation) RemoveBillIDs(ids ...int) {
-	if m.removedbills == nil {
-		m.removedbills = make(map[int]struct{})
-	}
-	for i := range ids {
-		m.removedbills[ids[i]] = struct{}{}
-	}
+// ClearUnpaybills clears the unpaybills edge to Unpaybill.
+func (m *TreatmentMutation) ClearUnpaybills() {
+	m.clearedunpaybills = true
 }
 
-// RemovedBills returns the removed ids of bills.
-func (m *TreatmentMutation) RemovedBillsIDs() (ids []int) {
-	for id := range m.removedbills {
-		ids = append(ids, id)
+// UnpaybillsCleared returns if the edge unpaybills was cleared.
+func (m *TreatmentMutation) UnpaybillsCleared() bool {
+	return m.clearedunpaybills
+}
+
+// UnpaybillsID returns the unpaybills id in the mutation.
+func (m *TreatmentMutation) UnpaybillsID() (id int, exists bool) {
+	if m.unpaybills != nil {
+		return *m.unpaybills, true
 	}
 	return
 }
 
-// BillsIDs returns the bills ids in the mutation.
-func (m *TreatmentMutation) BillsIDs() (ids []int) {
-	for id := range m.bills {
-		ids = append(ids, id)
+// UnpaybillsIDs returns the unpaybills ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// UnpaybillsID instead. It exists only for internal usage by the builders.
+func (m *TreatmentMutation) UnpaybillsIDs() (ids []int) {
+	if id := m.unpaybills; id != nil {
+		ids = append(ids, *id)
 	}
 	return
 }
 
-// ResetBills reset all changes of the "bills" edge.
-func (m *TreatmentMutation) ResetBills() {
-	m.bills = nil
-	m.removedbills = nil
+// ResetUnpaybills reset all changes of the "unpaybills" edge.
+func (m *TreatmentMutation) ResetUnpaybills() {
+	m.unpaybills = nil
+	m.clearedunpaybills = false
 }
 
 // Op returns the operation name.
@@ -10399,8 +10398,8 @@ func (m *TreatmentMutation) AddedEdges() []string {
 	if m.doctorinfo != nil {
 		edges = append(edges, treatment.EdgeDoctorinfo)
 	}
-	if m.bills != nil {
-		edges = append(edges, treatment.EdgeBills)
+	if m.unpaybills != nil {
+		edges = append(edges, treatment.EdgeUnpaybills)
 	}
 	return edges
 }
@@ -10421,12 +10420,10 @@ func (m *TreatmentMutation) AddedIDs(name string) []ent.Value {
 		if id := m.doctorinfo; id != nil {
 			return []ent.Value{*id}
 		}
-	case treatment.EdgeBills:
-		ids := make([]ent.Value, 0, len(m.bills))
-		for id := range m.bills {
-			ids = append(ids, id)
+	case treatment.EdgeUnpaybills:
+		if id := m.unpaybills; id != nil {
+			return []ent.Value{*id}
 		}
-		return ids
 	}
 	return nil
 }
@@ -10435,9 +10432,6 @@ func (m *TreatmentMutation) AddedIDs(name string) []ent.Value {
 // mutation.
 func (m *TreatmentMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 4)
-	if m.removedbills != nil {
-		edges = append(edges, treatment.EdgeBills)
-	}
 	return edges
 }
 
@@ -10445,12 +10439,6 @@ func (m *TreatmentMutation) RemovedEdges() []string {
 // the given edge name.
 func (m *TreatmentMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
-	case treatment.EdgeBills:
-		ids := make([]ent.Value, 0, len(m.removedbills))
-		for id := range m.removedbills {
-			ids = append(ids, id)
-		}
-		return ids
 	}
 	return nil
 }
@@ -10468,6 +10456,9 @@ func (m *TreatmentMutation) ClearedEdges() []string {
 	if m.cleareddoctorinfo {
 		edges = append(edges, treatment.EdgeDoctorinfo)
 	}
+	if m.clearedunpaybills {
+		edges = append(edges, treatment.EdgeUnpaybills)
+	}
 	return edges
 }
 
@@ -10481,6 +10472,8 @@ func (m *TreatmentMutation) EdgeCleared(name string) bool {
 		return m.clearedpatientrecord
 	case treatment.EdgeDoctorinfo:
 		return m.cleareddoctorinfo
+	case treatment.EdgeUnpaybills:
+		return m.clearedunpaybills
 	}
 	return false
 }
@@ -10497,6 +10490,9 @@ func (m *TreatmentMutation) ClearEdge(name string) error {
 		return nil
 	case treatment.EdgeDoctorinfo:
 		m.ClearDoctorinfo()
+		return nil
+	case treatment.EdgeUnpaybills:
+		m.ClearUnpaybills()
 		return nil
 	}
 	return fmt.Errorf("unknown Treatment unique edge %s", name)
@@ -10516,8 +10512,8 @@ func (m *TreatmentMutation) ResetEdge(name string) error {
 	case treatment.EdgeDoctorinfo:
 		m.ResetDoctorinfo()
 		return nil
-	case treatment.EdgeBills:
-		m.ResetBills()
+	case treatment.EdgeUnpaybills:
+		m.ResetUnpaybills()
 		return nil
 	}
 	return fmt.Errorf("unknown Treatment edge %s", name)
@@ -10889,6 +10885,427 @@ func (m *TypetreatmentMutation) ResetEdge(name string) error {
 		return nil
 	}
 	return fmt.Errorf("unknown Typetreatment edge %s", name)
+}
+
+// UnpaybillMutation represents an operation that mutate the Unpaybills
+// nodes in the graph.
+type UnpaybillMutation struct {
+	config
+	op               Op
+	typ              string
+	id               *int
+	_Status          *string
+	clearedFields    map[string]struct{}
+	treatment        *int
+	clearedtreatment bool
+	bills            *int
+	clearedbills     bool
+	done             bool
+	oldValue         func(context.Context) (*Unpaybill, error)
+}
+
+var _ ent.Mutation = (*UnpaybillMutation)(nil)
+
+// unpaybillOption allows to manage the mutation configuration using functional options.
+type unpaybillOption func(*UnpaybillMutation)
+
+// newUnpaybillMutation creates new mutation for $n.Name.
+func newUnpaybillMutation(c config, op Op, opts ...unpaybillOption) *UnpaybillMutation {
+	m := &UnpaybillMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeUnpaybill,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withUnpaybillID sets the id field of the mutation.
+func withUnpaybillID(id int) unpaybillOption {
+	return func(m *UnpaybillMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Unpaybill
+		)
+		m.oldValue = func(ctx context.Context) (*Unpaybill, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Unpaybill.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withUnpaybill sets the old Unpaybill of the mutation.
+func withUnpaybill(node *Unpaybill) unpaybillOption {
+	return func(m *UnpaybillMutation) {
+		m.oldValue = func(context.Context) (*Unpaybill, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m UnpaybillMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m UnpaybillMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *UnpaybillMutation) ID() (id int, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetStatus sets the Status field.
+func (m *UnpaybillMutation) SetStatus(s string) {
+	m._Status = &s
+}
+
+// Status returns the Status value in the mutation.
+func (m *UnpaybillMutation) Status() (r string, exists bool) {
+	v := m._Status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old Status value of the Unpaybill.
+// If the Unpaybill object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *UnpaybillMutation) OldStatus(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStatus is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// ResetStatus reset all changes of the "Status" field.
+func (m *UnpaybillMutation) ResetStatus() {
+	m._Status = nil
+}
+
+// SetTreatmentID sets the treatment edge to Treatment by id.
+func (m *UnpaybillMutation) SetTreatmentID(id int) {
+	m.treatment = &id
+}
+
+// ClearTreatment clears the treatment edge to Treatment.
+func (m *UnpaybillMutation) ClearTreatment() {
+	m.clearedtreatment = true
+}
+
+// TreatmentCleared returns if the edge treatment was cleared.
+func (m *UnpaybillMutation) TreatmentCleared() bool {
+	return m.clearedtreatment
+}
+
+// TreatmentID returns the treatment id in the mutation.
+func (m *UnpaybillMutation) TreatmentID() (id int, exists bool) {
+	if m.treatment != nil {
+		return *m.treatment, true
+	}
+	return
+}
+
+// TreatmentIDs returns the treatment ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// TreatmentID instead. It exists only for internal usage by the builders.
+func (m *UnpaybillMutation) TreatmentIDs() (ids []int) {
+	if id := m.treatment; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetTreatment reset all changes of the "treatment" edge.
+func (m *UnpaybillMutation) ResetTreatment() {
+	m.treatment = nil
+	m.clearedtreatment = false
+}
+
+// SetBillsID sets the bills edge to Bill by id.
+func (m *UnpaybillMutation) SetBillsID(id int) {
+	m.bills = &id
+}
+
+// ClearBills clears the bills edge to Bill.
+func (m *UnpaybillMutation) ClearBills() {
+	m.clearedbills = true
+}
+
+// BillsCleared returns if the edge bills was cleared.
+func (m *UnpaybillMutation) BillsCleared() bool {
+	return m.clearedbills
+}
+
+// BillsID returns the bills id in the mutation.
+func (m *UnpaybillMutation) BillsID() (id int, exists bool) {
+	if m.bills != nil {
+		return *m.bills, true
+	}
+	return
+}
+
+// BillsIDs returns the bills ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// BillsID instead. It exists only for internal usage by the builders.
+func (m *UnpaybillMutation) BillsIDs() (ids []int) {
+	if id := m.bills; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetBills reset all changes of the "bills" edge.
+func (m *UnpaybillMutation) ResetBills() {
+	m.bills = nil
+	m.clearedbills = false
+}
+
+// Op returns the operation name.
+func (m *UnpaybillMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Unpaybill).
+func (m *UnpaybillMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *UnpaybillMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m._Status != nil {
+		fields = append(fields, unpaybill.FieldStatus)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *UnpaybillMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case unpaybill.FieldStatus:
+		return m.Status()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *UnpaybillMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case unpaybill.FieldStatus:
+		return m.OldStatus(ctx)
+	}
+	return nil, fmt.Errorf("unknown Unpaybill field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *UnpaybillMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case unpaybill.FieldStatus:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Unpaybill field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *UnpaybillMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *UnpaybillMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *UnpaybillMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown Unpaybill numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *UnpaybillMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *UnpaybillMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *UnpaybillMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown Unpaybill nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *UnpaybillMutation) ResetField(name string) error {
+	switch name {
+	case unpaybill.FieldStatus:
+		m.ResetStatus()
+		return nil
+	}
+	return fmt.Errorf("unknown Unpaybill field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *UnpaybillMutation) AddedEdges() []string {
+	edges := make([]string, 0, 2)
+	if m.treatment != nil {
+		edges = append(edges, unpaybill.EdgeTreatment)
+	}
+	if m.bills != nil {
+		edges = append(edges, unpaybill.EdgeBills)
+	}
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *UnpaybillMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case unpaybill.EdgeTreatment:
+		if id := m.treatment; id != nil {
+			return []ent.Value{*id}
+		}
+	case unpaybill.EdgeBills:
+		if id := m.bills; id != nil {
+			return []ent.Value{*id}
+		}
+	}
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *UnpaybillMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 2)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *UnpaybillMutation) RemovedIDs(name string) []ent.Value {
+	switch name {
+	}
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *UnpaybillMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 2)
+	if m.clearedtreatment {
+		edges = append(edges, unpaybill.EdgeTreatment)
+	}
+	if m.clearedbills {
+		edges = append(edges, unpaybill.EdgeBills)
+	}
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *UnpaybillMutation) EdgeCleared(name string) bool {
+	switch name {
+	case unpaybill.EdgeTreatment:
+		return m.clearedtreatment
+	case unpaybill.EdgeBills:
+		return m.clearedbills
+	}
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *UnpaybillMutation) ClearEdge(name string) error {
+	switch name {
+	case unpaybill.EdgeTreatment:
+		m.ClearTreatment()
+		return nil
+	case unpaybill.EdgeBills:
+		m.ClearBills()
+		return nil
+	}
+	return fmt.Errorf("unknown Unpaybill unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *UnpaybillMutation) ResetEdge(name string) error {
+	switch name {
+	case unpaybill.EdgeTreatment:
+		m.ResetTreatment()
+		return nil
+	case unpaybill.EdgeBills:
+		m.ResetBills()
+		return nil
+	}
+	return fmt.Errorf("unknown Unpaybill edge %s", name)
 }
 
 // UserMutation represents an operation that mutate the Users
