@@ -37,9 +37,9 @@ const (
 	OfficerColumn = "officer_id"
 	// TreatmentTable is the table the holds the treatment relation/edge.
 	TreatmentTable = "bills"
-	// TreatmentInverseTable is the table name for the Treatment entity.
-	// It exists in this package in order to avoid circular dependency with the "treatment" package.
-	TreatmentInverseTable = "treatments"
+	// TreatmentInverseTable is the table name for the Unpaybill entity.
+	// It exists in this package in order to avoid circular dependency with the "unpaybill" package.
+	TreatmentInverseTable = "unpaybills"
 	// TreatmentColumn is the table column denoting the treatment relation/edge.
 	TreatmentColumn = "treatment_id"
 )

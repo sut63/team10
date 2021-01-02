@@ -14,6 +14,7 @@ import (
 	"github.com/b6109868/app/ent/schema"
 	"github.com/b6109868/app/ent/treatment"
 	"github.com/b6109868/app/ent/typetreatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/b6109868/app/ent/user"
 )
 
@@ -93,6 +94,12 @@ func init() {
 	typetreatmentDescType := typetreatmentFields[0].Descriptor()
 	// typetreatment.TypeValidator is a validator for the "type" field. It is called by the builders before save.
 	typetreatment.TypeValidator = typetreatmentDescType.Validators[0].(func(string) error)
+	unpaybillFields := schema.Unpaybill{}.Fields()
+	_ = unpaybillFields
+	// unpaybillDescStatus is the schema descriptor for Status field.
+	unpaybillDescStatus := unpaybillFields[0].Descriptor()
+	// unpaybill.StatusValidator is a validator for the "Status" field. It is called by the builders before save.
+	unpaybill.StatusValidator = unpaybillDescStatus.Validators[0].(func(string) error)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescEmail is the schema descriptor for email field.

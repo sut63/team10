@@ -9,12 +9,12 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/b6109868/app/ent/bill"
 	"github.com/b6109868/app/ent/doctorinfo"
 	"github.com/b6109868/app/ent/patientrecord"
 	"github.com/b6109868/app/ent/predicate"
 	"github.com/b6109868/app/ent/treatment"
 	"github.com/b6109868/app/ent/typetreatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
@@ -32,7 +32,7 @@ type TreatmentQuery struct {
 	withTypetreatment *TypetreatmentQuery
 	withPatientrecord *PatientrecordQuery
 	withDoctorinfo    *DoctorinfoQuery
-	withBills         *BillQuery
+	withUnpaybills    *UnpaybillQuery
 	withFKs           bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -117,17 +117,17 @@ func (tq *TreatmentQuery) QueryDoctorinfo() *DoctorinfoQuery {
 	return query
 }
 
-// QueryBills chains the current query on the bills edge.
-func (tq *TreatmentQuery) QueryBills() *BillQuery {
-	query := &BillQuery{config: tq.config}
+// QueryUnpaybills chains the current query on the unpaybills edge.
+func (tq *TreatmentQuery) QueryUnpaybills() *UnpaybillQuery {
+	query := &UnpaybillQuery{config: tq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := tq.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(treatment.Table, treatment.FieldID, tq.sqlQuery()),
-			sqlgraph.To(bill.Table, bill.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, treatment.BillsTable, treatment.BillsColumn),
+			sqlgraph.To(unpaybill.Table, unpaybill.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, false, treatment.UnpaybillsTable, treatment.UnpaybillsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
 		return fromU, nil
@@ -347,14 +347,14 @@ func (tq *TreatmentQuery) WithDoctorinfo(opts ...func(*DoctorinfoQuery)) *Treatm
 	return tq
 }
 
-//  WithBills tells the query-builder to eager-loads the nodes that are connected to
-// the "bills" edge. The optional arguments used to configure the query builder of the edge.
-func (tq *TreatmentQuery) WithBills(opts ...func(*BillQuery)) *TreatmentQuery {
-	query := &BillQuery{config: tq.config}
+//  WithUnpaybills tells the query-builder to eager-loads the nodes that are connected to
+// the "unpaybills" edge. The optional arguments used to configure the query builder of the edge.
+func (tq *TreatmentQuery) WithUnpaybills(opts ...func(*UnpaybillQuery)) *TreatmentQuery {
+	query := &UnpaybillQuery{config: tq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	tq.withBills = query
+	tq.withUnpaybills = query
 	return tq
 }
 
@@ -429,7 +429,7 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 			tq.withTypetreatment != nil,
 			tq.withPatientrecord != nil,
 			tq.withDoctorinfo != nil,
-			tq.withBills != nil,
+			tq.withUnpaybills != nil,
 		}
 	)
 	if tq.withTypetreatment != nil || tq.withPatientrecord != nil || tq.withDoctorinfo != nil {
@@ -537,7 +537,7 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 		}
 	}
 
-	if query := tq.withBills; query != nil {
+	if query := tq.withUnpaybills; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Treatment)
 		for i := range nodes {
@@ -545,8 +545,8 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 			nodeids[nodes[i].ID] = nodes[i]
 		}
 		query.withFKs = true
-		query.Where(predicate.Bill(func(s *sql.Selector) {
-			s.Where(sql.InValues(treatment.BillsColumn, fks...))
+		query.Where(predicate.Unpaybill(func(s *sql.Selector) {
+			s.Where(sql.InValues(treatment.UnpaybillsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -561,7 +561,7 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "treatment_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Bills = append(node.Edges.Bills, n)
+			node.Edges.Unpaybills = n
 		}
 	}
 

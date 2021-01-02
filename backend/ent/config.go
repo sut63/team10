@@ -44,6 +44,7 @@ type hooks struct {
 	Symptomseverity      []ent.Hook
 	Treatment            []ent.Hook
 	Typetreatment        []ent.Hook
+	Unpaybill            []ent.Hook
 	User                 []ent.Hook
 }
 

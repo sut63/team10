@@ -29,7 +29,7 @@ var (
 		{Name: "date", Type: field.TypeTime},
 		{Name: "officer_id", Type: field.TypeInt, Nullable: true},
 		{Name: "paytype_id", Type: field.TypeInt, Nullable: true},
-		{Name: "treatment_id", Type: field.TypeInt, Nullable: true},
+		{Name: "treatment_id", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
 	// BillsTable holds the schema information for the "bills" table.
 	BillsTable = &schema.Table{
@@ -52,10 +52,10 @@ var (
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "bills_treatments_bills",
+				Symbol:  "bills_unpaybills_bills",
 				Columns: []*schema.Column{BillsColumns[5]},
 
-				RefColumns: []*schema.Column{TreatmentsColumns[0]},
+				RefColumns: []*schema.Column{UnpaybillsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -495,6 +495,27 @@ var (
 		PrimaryKey:  []*schema.Column{TypetreatmentsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// UnpaybillsColumns holds the columns for the "unpaybills" table.
+	UnpaybillsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "status", Type: field.TypeString},
+		{Name: "treatment_id", Type: field.TypeInt, Unique: true, Nullable: true},
+	}
+	// UnpaybillsTable holds the schema information for the "unpaybills" table.
+	UnpaybillsTable = &schema.Table{
+		Name:       "unpaybills",
+		Columns:    UnpaybillsColumns,
+		PrimaryKey: []*schema.Column{UnpaybillsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:  "unpaybills_treatments_unpaybills",
+				Columns: []*schema.Column{UnpaybillsColumns[2]},
+
+				RefColumns: []*schema.Column{TreatmentsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -539,6 +560,7 @@ var (
 		SymptomseveritiesTable,
 		TreatmentsTable,
 		TypetreatmentsTable,
+		UnpaybillsTable,
 		UsersTable,
 	}
 )
@@ -546,7 +568,7 @@ var (
 func init() {
 	BillsTable.ForeignKeys[0].RefTable = FinanciersTable
 	BillsTable.ForeignKeys[1].RefTable = PaytypesTable
-	BillsTable.ForeignKeys[2].RefTable = TreatmentsTable
+	BillsTable.ForeignKeys[2].RefTable = UnpaybillsTable
 	DoctorinfosTable.ForeignKeys[0].RefTable = DepartmentsTable
 	DoctorinfosTable.ForeignKeys[1].RefTable = EducationlevelsTable
 	DoctorinfosTable.ForeignKeys[2].RefTable = OfficeroomsTable
@@ -570,5 +592,6 @@ func init() {
 	TreatmentsTable.ForeignKeys[0].RefTable = DoctorinfosTable
 	TreatmentsTable.ForeignKeys[1].RefTable = PatientrecordsTable
 	TreatmentsTable.ForeignKeys[2].RefTable = TypetreatmentsTable
+	UnpaybillsTable.ForeignKeys[0].RefTable = TreatmentsTable
 	UsersTable.ForeignKeys[0].RefTable = PatientrightsTable
 }

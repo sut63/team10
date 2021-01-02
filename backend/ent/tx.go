@@ -52,6 +52,8 @@ type Tx struct {
 	Treatment *TreatmentClient
 	// Typetreatment is the client for interacting with the Typetreatment builders.
 	Typetreatment *TypetreatmentClient
+	// Unpaybill is the client for interacting with the Unpaybill builders.
+	Unpaybill *UnpaybillClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 
@@ -209,6 +211,7 @@ func (tx *Tx) init() {
 	tx.Symptomseverity = NewSymptomseverityClient(tx.config)
 	tx.Treatment = NewTreatmentClient(tx.config)
 	tx.Typetreatment = NewTypetreatmentClient(tx.config)
+	tx.Unpaybill = NewUnpaybillClient(tx.config)
 	tx.User = NewUserClient(tx.config)
 }
 

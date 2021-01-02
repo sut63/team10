@@ -7,12 +7,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/b6109868/app/ent/bill"
 	"github.com/b6109868/app/ent/doctorinfo"
 	"github.com/b6109868/app/ent/patientrecord"
 	"github.com/b6109868/app/ent/predicate"
 	"github.com/b6109868/app/ent/treatment"
 	"github.com/b6109868/app/ent/typetreatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
@@ -101,19 +101,23 @@ func (tu *TreatmentUpdate) SetDoctorinfo(d *Doctorinfo) *TreatmentUpdate {
 	return tu.SetDoctorinfoID(d.ID)
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (tu *TreatmentUpdate) AddBillIDs(ids ...int) *TreatmentUpdate {
-	tu.mutation.AddBillIDs(ids...)
+// SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
+func (tu *TreatmentUpdate) SetUnpaybillsID(id int) *TreatmentUpdate {
+	tu.mutation.SetUnpaybillsID(id)
 	return tu
 }
 
-// AddBills adds the bills edges to Bill.
-func (tu *TreatmentUpdate) AddBills(b ...*Bill) *TreatmentUpdate {
-	ids := make([]int, len(b))
-	for i := range b {
-		ids[i] = b[i].ID
+// SetNillableUnpaybillsID sets the unpaybills edge to Unpaybill by id if the given value is not nil.
+func (tu *TreatmentUpdate) SetNillableUnpaybillsID(id *int) *TreatmentUpdate {
+	if id != nil {
+		tu = tu.SetUnpaybillsID(*id)
 	}
-	return tu.AddBillIDs(ids...)
+	return tu
+}
+
+// SetUnpaybills sets the unpaybills edge to Unpaybill.
+func (tu *TreatmentUpdate) SetUnpaybills(u *Unpaybill) *TreatmentUpdate {
+	return tu.SetUnpaybillsID(u.ID)
 }
 
 // Mutation returns the TreatmentMutation object of the builder.
@@ -139,19 +143,10 @@ func (tu *TreatmentUpdate) ClearDoctorinfo() *TreatmentUpdate {
 	return tu
 }
 
-// RemoveBillIDs removes the bills edge to Bill by ids.
-func (tu *TreatmentUpdate) RemoveBillIDs(ids ...int) *TreatmentUpdate {
-	tu.mutation.RemoveBillIDs(ids...)
+// ClearUnpaybills clears the unpaybills edge to Unpaybill.
+func (tu *TreatmentUpdate) ClearUnpaybills() *TreatmentUpdate {
+	tu.mutation.ClearUnpaybills()
 	return tu
-}
-
-// RemoveBills removes bills edges to Bill.
-func (tu *TreatmentUpdate) RemoveBills(b ...*Bill) *TreatmentUpdate {
-	ids := make([]int, len(b))
-	for i := range b {
-		ids[i] = b[i].ID
-	}
-	return tu.RemoveBillIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -348,36 +343,33 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := tu.mutation.RemovedBillsIDs(); len(nodes) > 0 {
+	if tu.mutation.UnpaybillsCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.BillsTable,
-			Columns: []string{treatment.BillsColumn},
+			Table:   treatment.UnpaybillsTable,
+			Columns: []string{treatment.UnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: bill.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := tu.mutation.UnpaybillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.BillsTable,
-			Columns: []string{treatment.BillsColumn},
+			Table:   treatment.UnpaybillsTable,
+			Columns: []string{treatment.UnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: bill.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}
@@ -473,19 +465,23 @@ func (tuo *TreatmentUpdateOne) SetDoctorinfo(d *Doctorinfo) *TreatmentUpdateOne 
 	return tuo.SetDoctorinfoID(d.ID)
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (tuo *TreatmentUpdateOne) AddBillIDs(ids ...int) *TreatmentUpdateOne {
-	tuo.mutation.AddBillIDs(ids...)
+// SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
+func (tuo *TreatmentUpdateOne) SetUnpaybillsID(id int) *TreatmentUpdateOne {
+	tuo.mutation.SetUnpaybillsID(id)
 	return tuo
 }
 
-// AddBills adds the bills edges to Bill.
-func (tuo *TreatmentUpdateOne) AddBills(b ...*Bill) *TreatmentUpdateOne {
-	ids := make([]int, len(b))
-	for i := range b {
-		ids[i] = b[i].ID
+// SetNillableUnpaybillsID sets the unpaybills edge to Unpaybill by id if the given value is not nil.
+func (tuo *TreatmentUpdateOne) SetNillableUnpaybillsID(id *int) *TreatmentUpdateOne {
+	if id != nil {
+		tuo = tuo.SetUnpaybillsID(*id)
 	}
-	return tuo.AddBillIDs(ids...)
+	return tuo
+}
+
+// SetUnpaybills sets the unpaybills edge to Unpaybill.
+func (tuo *TreatmentUpdateOne) SetUnpaybills(u *Unpaybill) *TreatmentUpdateOne {
+	return tuo.SetUnpaybillsID(u.ID)
 }
 
 // Mutation returns the TreatmentMutation object of the builder.
@@ -511,19 +507,10 @@ func (tuo *TreatmentUpdateOne) ClearDoctorinfo() *TreatmentUpdateOne {
 	return tuo
 }
 
-// RemoveBillIDs removes the bills edge to Bill by ids.
-func (tuo *TreatmentUpdateOne) RemoveBillIDs(ids ...int) *TreatmentUpdateOne {
-	tuo.mutation.RemoveBillIDs(ids...)
+// ClearUnpaybills clears the unpaybills edge to Unpaybill.
+func (tuo *TreatmentUpdateOne) ClearUnpaybills() *TreatmentUpdateOne {
+	tuo.mutation.ClearUnpaybills()
 	return tuo
-}
-
-// RemoveBills removes bills edges to Bill.
-func (tuo *TreatmentUpdateOne) RemoveBills(b ...*Bill) *TreatmentUpdateOne {
-	ids := make([]int, len(b))
-	for i := range b {
-		ids[i] = b[i].ID
-	}
-	return tuo.RemoveBillIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -718,36 +705,33 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := tuo.mutation.RemovedBillsIDs(); len(nodes) > 0 {
+	if tuo.mutation.UnpaybillsCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.BillsTable,
-			Columns: []string{treatment.BillsColumn},
+			Table:   treatment.UnpaybillsTable,
+			Columns: []string{treatment.UnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: bill.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := tuo.mutation.UnpaybillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.BillsTable,
-			Columns: []string{treatment.BillsColumn},
+			Table:   treatment.UnpaybillsTable,
+			Columns: []string{treatment.UnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: bill.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}

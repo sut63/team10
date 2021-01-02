@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/b6109868/app/ent/bill"
 	"github.com/b6109868/app/ent/doctorinfo"
 	"github.com/b6109868/app/ent/patientrecord"
 	"github.com/b6109868/app/ent/treatment"
 	"github.com/b6109868/app/ent/typetreatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
 )
@@ -93,19 +93,23 @@ func (tc *TreatmentCreate) SetDoctorinfo(d *Doctorinfo) *TreatmentCreate {
 	return tc.SetDoctorinfoID(d.ID)
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (tc *TreatmentCreate) AddBillIDs(ids ...int) *TreatmentCreate {
-	tc.mutation.AddBillIDs(ids...)
+// SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
+func (tc *TreatmentCreate) SetUnpaybillsID(id int) *TreatmentCreate {
+	tc.mutation.SetUnpaybillsID(id)
 	return tc
 }
 
-// AddBills adds the bills edges to Bill.
-func (tc *TreatmentCreate) AddBills(b ...*Bill) *TreatmentCreate {
-	ids := make([]int, len(b))
-	for i := range b {
-		ids[i] = b[i].ID
+// SetNillableUnpaybillsID sets the unpaybills edge to Unpaybill by id if the given value is not nil.
+func (tc *TreatmentCreate) SetNillableUnpaybillsID(id *int) *TreatmentCreate {
+	if id != nil {
+		tc = tc.SetUnpaybillsID(*id)
 	}
-	return tc.AddBillIDs(ids...)
+	return tc
+}
+
+// SetUnpaybills sets the unpaybills edge to Unpaybill.
+func (tc *TreatmentCreate) SetUnpaybills(u *Unpaybill) *TreatmentCreate {
+	return tc.SetUnpaybillsID(u.ID)
 }
 
 // Mutation returns the TreatmentMutation object of the builder.
@@ -259,17 +263,17 @@ func (tc *TreatmentCreate) createSpec() (*Treatment, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := tc.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := tc.mutation.UnpaybillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.BillsTable,
-			Columns: []string{treatment.BillsColumn},
+			Table:   treatment.UnpaybillsTable,
+			Columns: []string{treatment.UnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: bill.FieldID,
+					Column: unpaybill.FieldID,
 				},
 			},
 		}

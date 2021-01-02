@@ -12,7 +12,7 @@ import (
 	"github.com/b6109868/app/ent/financier"
 	"github.com/b6109868/app/ent/paytype"
 	"github.com/b6109868/app/ent/predicate"
-	"github.com/b6109868/app/ent/treatment"
+	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
@@ -29,7 +29,7 @@ type BillQuery struct {
 	// eager-loading edges.
 	withPaytype   *PaytypeQuery
 	withOfficer   *FinancierQuery
-	withTreatment *TreatmentQuery
+	withTreatment *UnpaybillQuery
 	withFKs       bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -97,16 +97,16 @@ func (bq *BillQuery) QueryOfficer() *FinancierQuery {
 }
 
 // QueryTreatment chains the current query on the treatment edge.
-func (bq *BillQuery) QueryTreatment() *TreatmentQuery {
-	query := &TreatmentQuery{config: bq.config}
+func (bq *BillQuery) QueryTreatment() *UnpaybillQuery {
+	query := &UnpaybillQuery{config: bq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := bq.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(bill.Table, bill.FieldID, bq.sqlQuery()),
-			sqlgraph.To(treatment.Table, treatment.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, bill.TreatmentTable, bill.TreatmentColumn),
+			sqlgraph.To(unpaybill.Table, unpaybill.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, bill.TreatmentTable, bill.TreatmentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(bq.driver.Dialect(), step)
 		return fromU, nil
@@ -317,8 +317,8 @@ func (bq *BillQuery) WithOfficer(opts ...func(*FinancierQuery)) *BillQuery {
 
 //  WithTreatment tells the query-builder to eager-loads the nodes that are connected to
 // the "treatment" edge. The optional arguments used to configure the query builder of the edge.
-func (bq *BillQuery) WithTreatment(opts ...func(*TreatmentQuery)) *BillQuery {
-	query := &TreatmentQuery{config: bq.config}
+func (bq *BillQuery) WithTreatment(opts ...func(*UnpaybillQuery)) *BillQuery {
+	query := &UnpaybillQuery{config: bq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
@@ -488,7 +488,7 @@ func (bq *BillQuery) sqlAll(ctx context.Context) ([]*Bill, error) {
 				nodeids[*fk] = append(nodeids[*fk], nodes[i])
 			}
 		}
-		query.Where(treatment.IDIn(ids...))
+		query.Where(unpaybill.IDIn(ids...))
 		neighbors, err := query.All(ctx)
 		if err != nil {
 			return nil, err

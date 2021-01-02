@@ -18,8 +18,8 @@ const (
 	EdgePatientrecord = "patientrecord"
 	// EdgeDoctorinfo holds the string denoting the doctorinfo edge name in mutations.
 	EdgeDoctorinfo = "doctorinfo"
-	// EdgeBills holds the string denoting the bills edge name in mutations.
-	EdgeBills = "bills"
+	// EdgeUnpaybills holds the string denoting the unpaybills edge name in mutations.
+	EdgeUnpaybills = "unpaybills"
 
 	// Table holds the table name of the treatment in the database.
 	Table = "treatments"
@@ -44,13 +44,13 @@ const (
 	DoctorinfoInverseTable = "doctorinfos"
 	// DoctorinfoColumn is the table column denoting the doctorinfo relation/edge.
 	DoctorinfoColumn = "doctorinfo_id"
-	// BillsTable is the table the holds the bills relation/edge.
-	BillsTable = "bills"
-	// BillsInverseTable is the table name for the Bill entity.
-	// It exists in this package in order to avoid circular dependency with the "bill" package.
-	BillsInverseTable = "bills"
-	// BillsColumn is the table column denoting the bills relation/edge.
-	BillsColumn = "treatment_id"
+	// UnpaybillsTable is the table the holds the unpaybills relation/edge.
+	UnpaybillsTable = "unpaybills"
+	// UnpaybillsInverseTable is the table name for the Unpaybill entity.
+	// It exists in this package in order to avoid circular dependency with the "unpaybill" package.
+	UnpaybillsInverseTable = "unpaybills"
+	// UnpaybillsColumn is the table column denoting the unpaybills relation/edge.
+	UnpaybillsColumn = "treatment_id"
 )
 
 // Columns holds all SQL columns for treatment fields.

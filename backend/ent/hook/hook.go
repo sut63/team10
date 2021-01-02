@@ -269,6 +269,19 @@ func (f TypetreatmentFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Valu
 	return f(ctx, mv)
 }
 
+// The UnpaybillFunc type is an adapter to allow the use of ordinary
+// function as Unpaybill mutator.
+type UnpaybillFunc func(context.Context, *ent.UnpaybillMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f UnpaybillFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.UnpaybillMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.UnpaybillMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The UserFunc type is an adapter to allow the use of ordinary
 // function as User mutator.
 type UserFunc func(context.Context, *ent.UserMutation) (ent.Value, error)
