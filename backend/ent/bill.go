@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/b6109868/app/ent/bill"
-	"github.com/b6109868/app/ent/financier"
-	"github.com/b6109868/app/ent/paytype"
-	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/bill"
+	"github.com/theuo/app/ent/financier"
+	"github.com/theuo/app/ent/paytype"
+	"github.com/theuo/app/ent/unpaybill"
 )
 
 // Bill is the model entity for the Bill schema.

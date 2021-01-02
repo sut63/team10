@@ -7,17 +7,17 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/b6109868/app/ent/gender"
-	"github.com/b6109868/app/ent/historytaking"
-	"github.com/b6109868/app/ent/medicalrecordstaff"
-	"github.com/b6109868/app/ent/patientrecord"
-	"github.com/b6109868/app/ent/patientrights"
-	"github.com/b6109868/app/ent/predicate"
-	"github.com/b6109868/app/ent/prename"
-	"github.com/b6109868/app/ent/treatment"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/gender"
+	"github.com/theuo/app/ent/historytaking"
+	"github.com/theuo/app/ent/medicalrecordstaff"
+	"github.com/theuo/app/ent/patientrecord"
+	"github.com/theuo/app/ent/patientrights"
+	"github.com/theuo/app/ent/predicate"
+	"github.com/theuo/app/ent/prename"
+	"github.com/theuo/app/ent/treatment"
 )
 
 // PatientrecordUpdate is the builder for updating Patientrecord entities.

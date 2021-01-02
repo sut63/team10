@@ -7,10 +7,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/b6109868/app/ent/doctorinfo"
-	"github.com/b6109868/app/ent/educationlevel"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/doctorinfo"
+	"github.com/theuo/app/ent/educationlevel"
 )
 
 // EducationlevelCreate is the builder for creating a Educationlevel entity.

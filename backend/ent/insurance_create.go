@@ -7,10 +7,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/b6109868/app/ent/insurance"
-	"github.com/b6109868/app/ent/patientrights"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/insurance"
+	"github.com/theuo/app/ent/patientrights"
 )
 
 // InsuranceCreate is the builder for creating a Insurance entity.

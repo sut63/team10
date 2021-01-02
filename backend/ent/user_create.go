@@ -7,14 +7,14 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/b6109868/app/ent/doctorinfo"
-	"github.com/b6109868/app/ent/financier"
-	"github.com/b6109868/app/ent/medicalrecordstaff"
-	"github.com/b6109868/app/ent/nurse"
-	"github.com/b6109868/app/ent/patientrights"
-	"github.com/b6109868/app/ent/user"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/doctorinfo"
+	"github.com/theuo/app/ent/financier"
+	"github.com/theuo/app/ent/medicalrecordstaff"
+	"github.com/theuo/app/ent/nurse"
+	"github.com/theuo/app/ent/patientrights"
+	"github.com/theuo/app/ent/user"
 )
 
 // UserCreate is the builder for creating a User entity.

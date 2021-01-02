@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/b6109868/app/ent/typetreatment"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/typetreatment"
 )
 
 // Typetreatment is the model entity for the Typetreatment schema.

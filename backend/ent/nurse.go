@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/b6109868/app/ent/nurse"
-	"github.com/b6109868/app/ent/user"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/nurse"
+	"github.com/theuo/app/ent/user"
 )
 
 // Nurse is the model entity for the Nurse schema.

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/b6109868/app/ent/prename"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/prename"
 )
 
 // Prename is the model entity for the Prename schema.

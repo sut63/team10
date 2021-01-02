@@ -6,13 +6,13 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/b6109868/app/ent/doctorinfo"
-	"github.com/b6109868/app/ent/patientrecord"
-	"github.com/b6109868/app/ent/predicate"
-	"github.com/b6109868/app/ent/prename"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/doctorinfo"
+	"github.com/theuo/app/ent/patientrecord"
+	"github.com/theuo/app/ent/predicate"
+	"github.com/theuo/app/ent/prename"
 )
 
 // PrenameUpdate is the builder for updating Prename entities.

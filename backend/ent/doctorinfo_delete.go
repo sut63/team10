@@ -6,11 +6,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/b6109868/app/ent/doctorinfo"
-	"github.com/b6109868/app/ent/predicate"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/doctorinfo"
+	"github.com/theuo/app/ent/predicate"
 )
 
 // DoctorinfoDelete is the builder for deleting a Doctorinfo entity.

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/b6109868/app/ent/officeroom"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/officeroom"
 )
 
 // Officeroom is the model entity for the Officeroom schema.

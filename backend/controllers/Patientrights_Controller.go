@@ -5,15 +5,15 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/b6109868/app/ent"
-	"github.com/b6109868/app/ent/medicalrecordstaff"
-	"github.com/b6109868/app/ent/patientrights"
+	"github.com/theuo/app/ent"
+	"github.com/theuo/app/ent/medicalrecordstaff"
+	"github.com/theuo/app/ent/patientrights"
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/b6109868/app/ent/insurance"
-	"github.com/b6109868/app/ent/patientrecord"
-	"github.com/b6109868/app/ent/patientrightstype"
+	"github.com/theuo/app/ent/insurance"
+	"github.com/theuo/app/ent/patientrecord"
+	"github.com/theuo/app/ent/patientrightstype"
 )
 
 // PatientrightsController defines the struct for the Patientrights controller

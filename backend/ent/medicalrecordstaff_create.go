@@ -7,12 +7,12 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/b6109868/app/ent/medicalrecordstaff"
-	"github.com/b6109868/app/ent/patientrecord"
-	"github.com/b6109868/app/ent/patientrights"
-	"github.com/b6109868/app/ent/user"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/medicalrecordstaff"
+	"github.com/theuo/app/ent/patientrecord"
+	"github.com/theuo/app/ent/patientrights"
+	"github.com/theuo/app/ent/user"
 )
 
 // MedicalrecordstaffCreate is the builder for creating a Medicalrecordstaff entity.

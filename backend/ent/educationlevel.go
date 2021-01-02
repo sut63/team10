@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/b6109868/app/ent/educationlevel"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/educationlevel"
 )
 
 // Educationlevel is the model entity for the Educationlevel schema.

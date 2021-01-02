@@ -3,9 +3,9 @@
 package unpaybill
 
 import (
-	"github.com/b6109868/app/ent/predicate"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
+	"github.com/theuo/app/ent/predicate"
 )
 
 // ID filters vertices based on their identifier.
