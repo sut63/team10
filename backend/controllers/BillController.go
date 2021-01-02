@@ -21,6 +21,7 @@ type BillController struct {
 	router gin.IRouter
 }
 
+// Bill defines the struct for the Bill entity
 type Bill struct {
 	Amount string
 	Date string
