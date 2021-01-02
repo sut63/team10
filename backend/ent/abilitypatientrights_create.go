@@ -7,10 +7,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/b6109868/app/ent/abilitypatientrights"
-	"github.com/b6109868/app/ent/patientrightstype"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/abilitypatientrights"
+	"github.com/theuo/app/ent/patientrightstype"
 )
 
 // AbilitypatientrightsCreate is the builder for creating a Abilitypatientrights entity.

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/b6109868/app/ent/gender"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/gender"
 )
 
 // Gender is the model entity for the Gender schema.

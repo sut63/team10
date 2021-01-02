@@ -6,12 +6,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/b6109868/app/ent/predicate"
-	"github.com/b6109868/app/ent/treatment"
-	"github.com/b6109868/app/ent/typetreatment"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/predicate"
+	"github.com/theuo/app/ent/treatment"
+	"github.com/theuo/app/ent/typetreatment"
 )
 
 // TypetreatmentUpdate is the builder for updating Typetreatment entities.

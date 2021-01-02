@@ -6,12 +6,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/b6109868/app/ent/gender"
-	"github.com/b6109868/app/ent/patientrecord"
-	"github.com/b6109868/app/ent/predicate"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/gender"
+	"github.com/theuo/app/ent/patientrecord"
+	"github.com/theuo/app/ent/predicate"
 )
 
 // GenderUpdate is the builder for updating Gender entities.

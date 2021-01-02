@@ -9,15 +9,15 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/b6109868/app/ent/doctorinfo"
-	"github.com/b6109868/app/ent/patientrecord"
-	"github.com/b6109868/app/ent/predicate"
-	"github.com/b6109868/app/ent/treatment"
-	"github.com/b6109868/app/ent/typetreatment"
-	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/doctorinfo"
+	"github.com/theuo/app/ent/patientrecord"
+	"github.com/theuo/app/ent/predicate"
+	"github.com/theuo/app/ent/treatment"
+	"github.com/theuo/app/ent/typetreatment"
+	"github.com/theuo/app/ent/unpaybill"
 )
 
 // TreatmentQuery is the builder for querying Treatment entities.

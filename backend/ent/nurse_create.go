@@ -7,11 +7,11 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/b6109868/app/ent/historytaking"
-	"github.com/b6109868/app/ent/nurse"
-	"github.com/b6109868/app/ent/user"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/historytaking"
+	"github.com/theuo/app/ent/nurse"
+	"github.com/theuo/app/ent/user"
 )
 
 // NurseCreate is the builder for creating a Nurse entity.

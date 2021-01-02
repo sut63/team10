@@ -4,8 +4,8 @@ import (
    "context"
    "fmt"
    "strconv"
-   "github.com/b6109868/app/ent"
-   "github.com/b6109868/app/ent/abilitypatientrights"
+   "github.com/theuo/app/ent"
+   "github.com/theuo/app/ent/abilitypatientrights"
    "github.com/gin-gonic/gin"
 )
  

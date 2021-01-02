@@ -7,10 +7,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/b6109868/app/ent/treatment"
-	"github.com/b6109868/app/ent/typetreatment"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/treatment"
+	"github.com/theuo/app/ent/typetreatment"
 )
 
 // TypetreatmentCreate is the builder for creating a Typetreatment entity.

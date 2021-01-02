@@ -6,11 +6,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/b6109868/app/ent/abilitypatientrights"
-	"github.com/b6109868/app/ent/predicate"
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/abilitypatientrights"
+	"github.com/theuo/app/ent/predicate"
 )
 
 // AbilitypatientrightsDelete is the builder for deleting a Abilitypatientrights entity.

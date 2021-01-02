@@ -8,12 +8,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/b6109868/app/ent/bill"
-	"github.com/b6109868/app/ent/financier"
-	"github.com/b6109868/app/ent/paytype"
-	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/bill"
+	"github.com/theuo/app/ent/financier"
+	"github.com/theuo/app/ent/paytype"
+	"github.com/theuo/app/ent/unpaybill"
 )
 
 // BillCreate is the builder for creating a Bill entity.

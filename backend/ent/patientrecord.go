@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/b6109868/app/ent/gender"
-	"github.com/b6109868/app/ent/medicalrecordstaff"
-	"github.com/b6109868/app/ent/patientrecord"
-	"github.com/b6109868/app/ent/prename"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/gender"
+	"github.com/theuo/app/ent/medicalrecordstaff"
+	"github.com/theuo/app/ent/patientrecord"
+	"github.com/theuo/app/ent/prename"
 )
 
 // Patientrecord is the model entity for the Patientrecord schema.

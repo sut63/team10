@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/b6109868/app/ent/symptomseverity"
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/theuo/app/ent/symptomseverity"
 )
 
 // Symptomseverity is the model entity for the Symptomseverity schema.

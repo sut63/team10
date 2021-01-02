@@ -7,11 +7,11 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/b6109868/app/ent/bill"
-	"github.com/b6109868/app/ent/treatment"
-	"github.com/b6109868/app/ent/unpaybill"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/theuo/app/ent/bill"
+	"github.com/theuo/app/ent/treatment"
+	"github.com/theuo/app/ent/unpaybill"
 )
 
 // UnpaybillCreate is the builder for creating a Unpaybill entity.
