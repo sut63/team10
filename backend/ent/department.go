@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/department"
+	"github.com/team10/app/ent/department"
 )
 
 // Department is the model entity for the Department schema.

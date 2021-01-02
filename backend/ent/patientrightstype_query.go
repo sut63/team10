@@ -12,10 +12,10 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/abilitypatientrights"
-	"github.com/theuo/app/ent/patientrights"
-	"github.com/theuo/app/ent/patientrightstype"
-	"github.com/theuo/app/ent/predicate"
+	"github.com/team10/app/ent/abilitypatientrights"
+	"github.com/team10/app/ent/patientrights"
+	"github.com/team10/app/ent/patientrightstype"
+	"github.com/team10/app/ent/predicate"
 )
 
 // PatientrightstypeQuery is the builder for querying Patientrightstype entities.

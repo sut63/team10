@@ -1,19 +1,21 @@
 package controllers
- 
+
 import (
-   "context"
-   "fmt"
-   "strconv"
-   "github.com/theuo/app/ent"
-   "github.com/theuo/app/ent/abilitypatientrights"
-   "github.com/gin-gonic/gin"
+	"context"
+	"fmt"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
+	"github.com/team10/app/ent"
+	"github.com/team10/app/ent/abilitypatientrights"
 )
- 
+
 // AbilitypatientrightsController defines the struct for the abilitypatientrights controller
 type AbilitypatientrightsController struct {
-   client *ent.Client
-   router gin.IRouter
+	client *ent.Client
+	router gin.IRouter
 }
+
 // CreateAbilitypatientrights handles POST requests for adding abilitypatientrights entities
 // @Summary Create abilitypatientrights
 // @Description Create abilitypatientrights
@@ -33,7 +35,7 @@ func (ctl *AbilitypatientrightsController) CreateAbilitypatientrights(c *gin.Con
 		})
 		return
 	}
-  
+
 	u, err := ctl.client.Abilitypatientrights.
 		Create().
 		SetOperative(obj.Operative).
@@ -46,10 +48,11 @@ func (ctl *AbilitypatientrightsController) CreateAbilitypatientrights(c *gin.Con
 		})
 		return
 	}
-  
+
 	c.JSON(200, u)
- }
- // GetAbilitypatientrights handles GET requests to retrieve a abilitypatientrights entity
+}
+
+// GetAbilitypatientrights handles GET requests to retrieve a abilitypatientrights entity
 // @Summary Get a abilitypatientrights entity by ID
 // @Description get abilitypatientrights by ID
 // @ID get-abilitypatientrights
@@ -68,7 +71,7 @@ func (ctl *AbilitypatientrightsController) GetAbilitypatientrights(c *gin.Contex
 		})
 		return
 	}
-  
+
 	u, err := ctl.client.Abilitypatientrights.
 		Query().
 		Where(abilitypatientrights.IDEQ(int(id))).
@@ -79,10 +82,11 @@ func (ctl *AbilitypatientrightsController) GetAbilitypatientrights(c *gin.Contex
 		})
 		return
 	}
-  
+
 	c.JSON(200, u)
- }
- // ListAbilitypatientrights handles request to get a list of abilitypatientrights entities
+}
+
+// ListAbilitypatientrights handles request to get a list of abilitypatientrights entities
 // @Summary List abilitypatientrights entities
 // @Description list abilitypatientrights entities
 // @ID list-abilitypatientrights
@@ -98,29 +102,34 @@ func (ctl *AbilitypatientrightsController) ListAbilitypatientrights(c *gin.Conte
 	limit := 10
 	if limitQuery != "" {
 		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
-		if err == nil {limit = int(limit64)}
+		if err == nil {
+			limit = int(limit64)
+		}
 	}
-  
+
 	offsetQuery := c.Query("offset")
 	offset := 0
 	if offsetQuery != "" {
 		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
-		if err == nil {offset = int(offset64)}
+		if err == nil {
+			offset = int(offset64)
+		}
 	}
-  
+
 	abilitypatientrightss, err := ctl.client.Abilitypatientrights.
 		Query().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())
-		if err != nil {
-		c.JSON(400, gin.H{"error": err.Error(),})
+	if err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-  
+
 	c.JSON(200, abilitypatientrightss)
- }
- // DeleteAbilitypatientrights handles DELETE requests to delete a abilitypatientrights entity
+}
+
+// DeleteAbilitypatientrights handles DELETE requests to delete a abilitypatientrights entity
 // @Summary Delete a abilitypatientrights entity by ID
 // @Description get abilitypatientrights by ID
 // @ID delete-abilitypatientrights
@@ -139,7 +148,7 @@ func (ctl *AbilitypatientrightsController) DeleteAbilitypatientrights(c *gin.Con
 		})
 		return
 	}
-  
+
 	err = ctl.client.Abilitypatientrights.
 		DeleteOneID(int(id)).
 		Exec(context.Background())
@@ -149,10 +158,10 @@ func (ctl *AbilitypatientrightsController) DeleteAbilitypatientrights(c *gin.Con
 		})
 		return
 	}
-  
+
 	c.JSON(200, gin.H{"result": fmt.Sprintf("ok deleted %v", id)})
- }
-  
+}
+
 // UpdateAbilitypatientrights handles PUT requests to update a abilitypatientrights entity
 // @Summary Update a abilitypatientrights entity by ID
 // @Description update abilitypatientrights by ID
@@ -173,7 +182,7 @@ func (ctl *AbilitypatientrightsController) UpdateAbilitypatientrights(c *gin.Con
 		})
 		return
 	}
-  
+
 	obj := ent.Abilitypatientrights{}
 	if err := c.ShouldBind(&obj); err != nil {
 		c.JSON(400, gin.H{
@@ -186,12 +195,13 @@ func (ctl *AbilitypatientrightsController) UpdateAbilitypatientrights(c *gin.Con
 		UpdateOne(&obj).
 		Save(context.Background())
 	if err != nil {
-		c.JSON(400, gin.H{"error": "update failed",})
+		c.JSON(400, gin.H{"error": "update failed"})
 		return
 	}
-  
+
 	c.JSON(200, u)
- }
+}
+
 // NewAbilitypatientrightsController creates and registers handles for the abilitypatientrights controller
 func NewAbilitypatientrightsController(router gin.IRouter, client *ent.Client) *AbilitypatientrightsController {
 	uc := &AbilitypatientrightsController{
@@ -200,18 +210,17 @@ func NewAbilitypatientrightsController(router gin.IRouter, client *ent.Client) *
 	}
 	uc.register()
 	return uc
- }
-  
- // InitAbilitypatientrightsController registers routes to the main engine
- func (ctl *AbilitypatientrightsController) register() {
+}
+
+// InitAbilitypatientrightsController registers routes to the main engine
+func (ctl *AbilitypatientrightsController) register() {
 	abilitypatientrightss := ctl.router.Group("/abilitypatientrightss")
-  
+
 	abilitypatientrightss.GET("", ctl.ListAbilitypatientrights)
-  
+
 	// CRUD
 	abilitypatientrightss.POST("", ctl.CreateAbilitypatientrights)
 	abilitypatientrightss.GET(":id", ctl.GetAbilitypatientrights)
 	abilitypatientrightss.PUT(":id", ctl.UpdateAbilitypatientrights)
 	abilitypatientrightss.DELETE(":id", ctl.DeleteAbilitypatientrights)
- }
-   
+}

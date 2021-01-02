@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/abilitypatientrights"
+	"github.com/team10/app/ent/abilitypatientrights"
 )
 
 // Abilitypatientrights is the model entity for the Abilitypatientrights schema.

@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/theuo/app/ent"
+	"github.com/team10/app/ent"
 )
 
 // PaytypeController defines the struct for the paytype controller

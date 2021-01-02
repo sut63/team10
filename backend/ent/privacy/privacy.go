@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/theuo/app/ent"
+	"github.com/team10/app/ent"
 )
 
 var (

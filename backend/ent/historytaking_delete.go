@@ -9,8 +9,8 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/historytaking"
-	"github.com/theuo/app/ent/predicate"
+	"github.com/team10/app/ent/historytaking"
+	"github.com/team10/app/ent/predicate"
 )
 
 // HistorytakingDelete is the builder for deleting a Historytaking entity.

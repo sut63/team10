@@ -12,9 +12,9 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/predicate"
-	"github.com/theuo/app/ent/treatment"
-	"github.com/theuo/app/ent/typetreatment"
+	"github.com/team10/app/ent/predicate"
+	"github.com/team10/app/ent/treatment"
+	"github.com/team10/app/ent/typetreatment"
 )
 
 // TypetreatmentQuery is the builder for querying Typetreatment entities.

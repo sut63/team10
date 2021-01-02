@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/theuo/app/ent"
-	"github.com/theuo/app/ent/user"
 	"github.com/gin-gonic/gin"
+	"github.com/team10/app/ent"
+	"github.com/team10/app/ent/user"
 )
 
 // UserController defines the struct for the user controller

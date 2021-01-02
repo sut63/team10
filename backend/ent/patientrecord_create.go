@@ -10,13 +10,13 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/gender"
-	"github.com/theuo/app/ent/historytaking"
-	"github.com/theuo/app/ent/medicalrecordstaff"
-	"github.com/theuo/app/ent/patientrecord"
-	"github.com/theuo/app/ent/patientrights"
-	"github.com/theuo/app/ent/prename"
-	"github.com/theuo/app/ent/treatment"
+	"github.com/team10/app/ent/gender"
+	"github.com/team10/app/ent/historytaking"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/patientrights"
+	"github.com/team10/app/ent/prename"
+	"github.com/team10/app/ent/treatment"
 )
 
 // PatientrecordCreate is the builder for creating a Patientrecord entity.

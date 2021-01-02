@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/theuo/app/ent"
+	"github.com/team10/app/ent"
 )
 
 // The AbilitypatientrightsFunc type is an adapter to allow the use of ordinary

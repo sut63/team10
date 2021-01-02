@@ -12,9 +12,9 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/gender"
-	"github.com/theuo/app/ent/patientrecord"
-	"github.com/theuo/app/ent/predicate"
+	"github.com/team10/app/ent/gender"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/predicate"
 )
 
 // GenderQuery is the builder for querying Gender entities.

@@ -1,4 +1,4 @@
-module github.com/theuo/app
+module github.com/team10/app
 
 go 1.14
 

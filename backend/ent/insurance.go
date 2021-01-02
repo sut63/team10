@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/insurance"
+	"github.com/team10/app/ent/insurance"
 )
 
 // Insurance is the model entity for the Insurance schema.

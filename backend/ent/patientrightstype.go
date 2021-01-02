@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/abilitypatientrights"
-	"github.com/theuo/app/ent/patientrightstype"
+	"github.com/team10/app/ent/abilitypatientrights"
+	"github.com/team10/app/ent/patientrightstype"
 )
 
 // Patientrightstype is the model entity for the Patientrightstype schema.
