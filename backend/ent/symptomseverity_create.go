@@ -9,8 +9,8 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/historytaking"
-	"github.com/theuo/app/ent/symptomseverity"
+	"github.com/team10/app/ent/historytaking"
+	"github.com/team10/app/ent/symptomseverity"
 )
 
 // SymptomseverityCreate is the builder for creating a Symptomseverity entity.

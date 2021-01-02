@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/financier"
-	"github.com/theuo/app/ent/user"
+	"github.com/team10/app/ent/financier"
+	"github.com/team10/app/ent/user"
 )
 
 // Financier is the model entity for the Financier schema.

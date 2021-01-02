@@ -12,9 +12,9 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/bill"
-	"github.com/theuo/app/ent/paytype"
-	"github.com/theuo/app/ent/predicate"
+	"github.com/team10/app/ent/bill"
+	"github.com/team10/app/ent/paytype"
+	"github.com/team10/app/ent/predicate"
 )
 
 // PaytypeQuery is the builder for querying Paytype entities.

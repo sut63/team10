@@ -5,7 +5,7 @@ package nurse
 import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
-	"github.com/theuo/app/ent/predicate"
+	"github.com/team10/app/ent/predicate"
 )
 
 // ID filters vertices based on their identifier.

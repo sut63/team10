@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/medicalrecordstaff"
-	"github.com/theuo/app/ent/user"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/user"
 )
 
 // Medicalrecordstaff is the model entity for the Medicalrecordstaff schema.

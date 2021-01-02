@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/officeroom"
+	"github.com/team10/app/ent/officeroom"
 )
 
 // Officeroom is the model entity for the Officeroom schema.

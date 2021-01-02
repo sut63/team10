@@ -7,11 +7,11 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/insurance"
-	"github.com/theuo/app/ent/medicalrecordstaff"
-	"github.com/theuo/app/ent/patientrecord"
-	"github.com/theuo/app/ent/patientrights"
-	"github.com/theuo/app/ent/patientrightstype"
+	"github.com/team10/app/ent/insurance"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/patientrights"
+	"github.com/team10/app/ent/patientrightstype"
 )
 
 // Patientrights is the model entity for the Patientrights schema.

@@ -9,9 +9,9 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/doctorinfo"
-	"github.com/theuo/app/ent/patientrecord"
-	"github.com/theuo/app/ent/prename"
+	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/prename"
 )
 
 // PrenameCreate is the builder for creating a Prename entity.

@@ -9,13 +9,13 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/department"
-	"github.com/theuo/app/ent/doctorinfo"
-	"github.com/theuo/app/ent/educationlevel"
-	"github.com/theuo/app/ent/officeroom"
-	"github.com/theuo/app/ent/prename"
-	"github.com/theuo/app/ent/treatment"
-	"github.com/theuo/app/ent/user"
+	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/educationlevel"
+	"github.com/team10/app/ent/officeroom"
+	"github.com/team10/app/ent/prename"
+	"github.com/team10/app/ent/treatment"
+	"github.com/team10/app/ent/user"
 )
 
 // DoctorinfoCreate is the builder for creating a Doctorinfo entity.

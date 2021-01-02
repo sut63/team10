@@ -9,8 +9,8 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/predicate"
-	"github.com/theuo/app/ent/unpaybill"
+	"github.com/team10/app/ent/predicate"
+	"github.com/team10/app/ent/unpaybill"
 )
 
 // UnpaybillDelete is the builder for deleting a Unpaybill entity.

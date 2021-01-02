@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/gender"
+	"github.com/team10/app/ent/gender"
 )
 
 // Gender is the model entity for the Gender schema.

@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/paytype"
+	"github.com/team10/app/ent/paytype"
 )
 
 // Paytype is the model entity for the Paytype schema.

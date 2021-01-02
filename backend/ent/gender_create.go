@@ -9,8 +9,8 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/gender"
-	"github.com/theuo/app/ent/patientrecord"
+	"github.com/team10/app/ent/gender"
+	"github.com/team10/app/ent/patientrecord"
 )
 
 // GenderCreate is the builder for creating a Gender entity.

@@ -2,18 +2,17 @@ package controllers
 
 import (
 	"context"
-	"strconv"
 	"fmt"
+	"strconv"
 	"time"
-	
-	"github.com/theuo/app/ent"
-	"github.com/theuo/app/ent/bill"
-	"github.com/theuo/app/ent/paytype"
-	"github.com/theuo/app/ent/financier"
-	"github.com/theuo/app/ent/unpaybill"
-	"github.com/gin-gonic/gin"
-)
 
+	"github.com/gin-gonic/gin"
+	"github.com/team10/app/ent"
+	"github.com/team10/app/ent/bill"
+	"github.com/team10/app/ent/financier"
+	"github.com/team10/app/ent/paytype"
+	"github.com/team10/app/ent/unpaybill"
+)
 
 // BillController defines the struct for the bill controller
 type BillController struct {
@@ -23,12 +22,13 @@ type BillController struct {
 
 // Bill defines the struct for the Bill entity
 type Bill struct {
-	Amount string
-	Date string
-	Paytype int
+	Amount    string
+	Date      string
+	Paytype   int
 	Financier int
 	Unpaybill int
 }
+
 // CreateBill handles POST requests for adding bill entities
 // @Summary Create bill
 // @Description Create bill

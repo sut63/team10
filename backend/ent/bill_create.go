@@ -10,10 +10,10 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/bill"
-	"github.com/theuo/app/ent/financier"
-	"github.com/theuo/app/ent/paytype"
-	"github.com/theuo/app/ent/unpaybill"
+	"github.com/team10/app/ent/bill"
+	"github.com/team10/app/ent/financier"
+	"github.com/team10/app/ent/paytype"
+	"github.com/team10/app/ent/unpaybill"
 )
 
 // BillCreate is the builder for creating a Bill entity.

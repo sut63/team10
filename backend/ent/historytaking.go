@@ -9,11 +9,11 @@ import (
 	"time"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/department"
-	"github.com/theuo/app/ent/historytaking"
-	"github.com/theuo/app/ent/nurse"
-	"github.com/theuo/app/ent/patientrecord"
-	"github.com/theuo/app/ent/symptomseverity"
+	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/historytaking"
+	"github.com/team10/app/ent/nurse"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/symptomseverity"
 )
 
 // Historytaking is the model entity for the Historytaking schema.

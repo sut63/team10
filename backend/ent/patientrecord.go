@@ -8,10 +8,10 @@ import (
 	"time"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/gender"
-	"github.com/theuo/app/ent/medicalrecordstaff"
-	"github.com/theuo/app/ent/patientrecord"
-	"github.com/theuo/app/ent/prename"
+	"github.com/team10/app/ent/gender"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/prename"
 )
 
 // Patientrecord is the model entity for the Patientrecord schema.

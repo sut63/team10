@@ -7,12 +7,12 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/theuo/app/ent/doctorinfo"
-	"github.com/theuo/app/ent/financier"
-	"github.com/theuo/app/ent/medicalrecordstaff"
-	"github.com/theuo/app/ent/nurse"
-	"github.com/theuo/app/ent/patientrights"
-	"github.com/theuo/app/ent/user"
+	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/financier"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/nurse"
+	"github.com/team10/app/ent/patientrights"
+	"github.com/team10/app/ent/user"
 )
 
 // User is the model entity for the User schema.

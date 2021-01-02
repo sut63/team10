@@ -9,11 +9,11 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/insurance"
-	"github.com/theuo/app/ent/medicalrecordstaff"
-	"github.com/theuo/app/ent/patientrecord"
-	"github.com/theuo/app/ent/patientrights"
-	"github.com/theuo/app/ent/patientrightstype"
+	"github.com/team10/app/ent/insurance"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/patientrights"
+	"github.com/team10/app/ent/patientrightstype"
 )
 
 // PatientrightsCreate is the builder for creating a Patientrights entity.

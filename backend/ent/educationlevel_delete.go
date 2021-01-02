@@ -9,8 +9,8 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/educationlevel"
-	"github.com/theuo/app/ent/predicate"
+	"github.com/team10/app/ent/educationlevel"
+	"github.com/team10/app/ent/predicate"
 )
 
 // EducationlevelDelete is the builder for deleting a Educationlevel entity.

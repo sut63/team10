@@ -9,10 +9,10 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/theuo/app/ent/department"
-	"github.com/theuo/app/ent/doctorinfo"
-	"github.com/theuo/app/ent/historytaking"
-	"github.com/theuo/app/ent/predicate"
+	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/historytaking"
+	"github.com/team10/app/ent/predicate"
 )
 
 // DepartmentUpdate is the builder for updating Department entities.
