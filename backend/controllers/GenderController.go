@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -14,40 +13,6 @@ import (
 type GenderController struct {
 	client *ent.Client
 	router gin.IRouter
-}
-
-// CreateGender handles POST requests for adding gender entities
-// @Summary Create gender
-// @Description Create gender
-// @ID create-gender
-// @Accept   json
-// @Produce  json
-// @Param gender body ent.Gender true "Gender entity"
-// @Success 200 {object} ent.Gender
-// @Failure 400 {object} gin.H
-// @Failure 500 {object} gin.H
-// @Router /gender [post]
-func (ctl *GenderController) CreateGender(c *gin.Context) {
-	obj := ent.Gender{}
-	if err := c.ShouldBind(&obj); err != nil {
-		c.JSON(400, gin.H{
-			"error": "gender binding failed",
-		})
-		return
-	}
-
-	g, err := ctl.client.Gender.
-		Create().
-		SetGenderstatus(obj.Genderstatus).
-		Save(context.Background())
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "saving failed",
-		})
-		return
-	}
-
-	c.JSON(200, g)
 }
 
 // GetGender handles GET requests to retrieve a gender entity
@@ -127,80 +92,6 @@ func (ctl *GenderController) ListGender(c *gin.Context) {
 	c.JSON(200, gender)
 }
 
-// DeleteGender handles DELETE requests to delete a gender entity
-// @Summary Delete a gender entity by ID
-// @Description get gender by ID
-// @ID delete-gender
-// @Produce  json
-// @Param id path int true "Gender ID"
-// @Success 200 {object} gin.H
-// @Failure 400 {object} gin.H
-// @Failure 404 {object} gin.H
-// @Failure 500 {object} gin.H
-// @Router /gender/{id} [delete]
-func (ctl *GenderController) DeleteGender(c *gin.Context) {
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
-	err = ctl.client.Gender.
-		DeleteOneID(int(id)).
-		Exec(context.Background())
-	if err != nil {
-		c.JSON(404, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
-	c.JSON(200, gin.H{"result": fmt.Sprintf("ok deleted %v", id)})
-}
-
-// UpdateGender handles PUT requests to update a gender entity
-// @Summary Update a gender entity by ID
-// @Description update gender by ID
-// @ID update-gender
-// @Accept   json
-// @Produce  json
-// @Param id path int true "Gender ID"
-// @Param gender body ent.Gender true "Gender entity"
-// @Success 200 {object} ent.Gender
-// @Failure 400 {object} gin.H
-// @Failure 500 {object} gin.H
-// @Router /gender/{id} [put]
-func (ctl *GenderController) UpdateGender(c *gin.Context) {
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
-	obj := ent.Gender{}
-	if err := c.ShouldBind(&obj); err != nil {
-		c.JSON(400, gin.H{
-			"error": "Gender binding failed",
-		})
-		return
-	}
-	obj.ID = int(id)
-	g, err := ctl.client.Gender.
-		UpdateOne(&obj).
-		SetGenderstatus(obj.Genderstatus).
-		Save(context.Background())
-	if err != nil {
-		c.JSON(400, gin.H{"error": "update failed"})
-		return
-	}
-
-	c.JSON(200, g)
-}
-
 // NewGenderController creates and registers handles for the gender controller
 func NewGenderController(router gin.IRouter, client *ent.Client) *GenderController {
 	gc := &GenderController{
@@ -218,8 +109,5 @@ func (ctl *GenderController) register() {
 	gender.GET("", ctl.ListGender)
 
 	// CRUD
-	gender.POST("", ctl.CreateGender)
 	gender.GET(":id", ctl.GetGender)
-	gender.PUT(":id", ctl.UpdateGender)
-	gender.DELETE(":id", ctl.DeleteGender)
 }
