@@ -31,7 +31,7 @@ type Patientrecord struct {
 	Bloodtype          string
 	Disease            string
 	Allergic           string
-	Phonenumber        string
+	Phonenumber        int
 	Email              string
 	Home               string
 	Date               string
