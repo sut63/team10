@@ -205,6 +205,12 @@ func main() {
 	}
 
 	v1 := router.Group("/api/v1")
+
+	// Controller By Team 10 System
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	controllers.NewUserController(v1, client)
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 	// Controller By Patientrights System
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	controllers.NewPatientrightsController(v1, client)
@@ -234,11 +240,21 @@ func main() {
 	controllers.NewNurseController(v1, client)
 	controllers.NewSymptomseverityController(v1, client)
 	controllers.NewDepartmentController(v1, client)
-	controllers.NewPatientrecordController(v1, client)
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	// Set Postman By Team10
 	//-------------------------------------------------------------------
+	// Set Postman By Team10 System
+	//*******************************************************************
+	User := []string{"Khatadet_khianchainat","nara_haru","morani_rode","faratell_yova","pulla_visan","omaha_yad",}
+	for _, r := range User {
+		client.User.
+		Create().
+		SetEmail(r+"@gmail.com").
+		SetPassword("123456").
+		Save(context.Background())
+	}
+	//*******************************************************************
 
 	// Set Postman By Patientrights System
 	//*******************************************************************
