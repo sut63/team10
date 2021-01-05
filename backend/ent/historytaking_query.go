@@ -363,7 +363,7 @@ func (hq *HistorytakingQuery) WithPatientrecord(opts ...func(*PatientrecordQuery
 // Example:
 //
 //	var v []struct {
-//		Hight []float64 `json:"hight,omitempty"`
+//		Hight float32 `json:"hight,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -389,7 +389,7 @@ func (hq *HistorytakingQuery) GroupBy(field string, fields ...string) *Historyta
 // Example:
 //
 //	var v []struct {
-//		Hight []float64 `json:"hight,omitempty"`
+//		Hight float32 `json:"hight,omitempty"`
 //	}
 //
 //	client.Historytaking.Query().

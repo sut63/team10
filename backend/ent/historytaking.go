@@ -3,7 +3,6 @@
 package ent
 
 import (
-	"encoding/json"
 	"fmt"
 	"strings"
 	"time"
@@ -22,11 +21,11 @@ type Historytaking struct {
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
 	// Hight holds the value of the "hight" field.
-	Hight []float64 `json:"hight,omitempty"`
+	Hight float32 `json:"hight,omitempty"`
 	// Weight holds the value of the "weight" field.
-	Weight []float64 `json:"weight,omitempty"`
+	Weight float32 `json:"weight,omitempty"`
 	// Temp holds the value of the "temp" field.
-	Temp []float64 `json:"temp,omitempty"`
+	Temp float32 `json:"temp,omitempty"`
 	// Pulse holds the value of the "pulse" field.
 	Pulse int `json:"pulse,omitempty"`
 	// Respiration holds the value of the "respiration" field.
@@ -122,16 +121,16 @@ func (e HistorytakingEdges) PatientrecordOrErr() (*Patientrecord, error) {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Historytaking) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{},  // id
-		&[]byte{},         // hight
-		&[]byte{},         // weight
-		&[]byte{},         // temp
-		&sql.NullInt64{},  // pulse
-		&sql.NullInt64{},  // respiration
-		&sql.NullInt64{},  // bp
-		&sql.NullString{}, // oxygen
-		&sql.NullString{}, // symptom
-		&sql.NullTime{},   // datetime
+		&sql.NullInt64{},   // id
+		&sql.NullFloat64{}, // hight
+		&sql.NullFloat64{}, // weight
+		&sql.NullFloat64{}, // temp
+		&sql.NullInt64{},   // pulse
+		&sql.NullInt64{},   // respiration
+		&sql.NullInt64{},   // bp
+		&sql.NullString{},  // oxygen
+		&sql.NullString{},  // symptom
+		&sql.NullTime{},    // datetime
 	}
 }
 
@@ -157,29 +156,20 @@ func (h *Historytaking) assignValues(values ...interface{}) error {
 	}
 	h.ID = int(value.Int64)
 	values = values[1:]
-
-	if value, ok := values[0].(*[]byte); !ok {
+	if value, ok := values[0].(*sql.NullFloat64); !ok {
 		return fmt.Errorf("unexpected type %T for field hight", values[0])
-	} else if value != nil && len(*value) > 0 {
-		if err := json.Unmarshal(*value, &h.Hight); err != nil {
-			return fmt.Errorf("unmarshal field hight: %v", err)
-		}
+	} else if value.Valid {
+		h.Hight = float32(value.Float64)
 	}
-
-	if value, ok := values[1].(*[]byte); !ok {
+	if value, ok := values[1].(*sql.NullFloat64); !ok {
 		return fmt.Errorf("unexpected type %T for field weight", values[1])
-	} else if value != nil && len(*value) > 0 {
-		if err := json.Unmarshal(*value, &h.Weight); err != nil {
-			return fmt.Errorf("unmarshal field weight: %v", err)
-		}
+	} else if value.Valid {
+		h.Weight = float32(value.Float64)
 	}
-
-	if value, ok := values[2].(*[]byte); !ok {
+	if value, ok := values[2].(*sql.NullFloat64); !ok {
 		return fmt.Errorf("unexpected type %T for field temp", values[2])
-	} else if value != nil && len(*value) > 0 {
-		if err := json.Unmarshal(*value, &h.Temp); err != nil {
-			return fmt.Errorf("unmarshal field temp: %v", err)
-		}
+	} else if value.Valid {
+		h.Temp = float32(value.Float64)
 	}
 	if value, ok := values[3].(*sql.NullInt64); !ok {
 		return fmt.Errorf("unexpected type %T for field pulse", values[3])

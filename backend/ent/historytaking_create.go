@@ -25,19 +25,19 @@ type HistorytakingCreate struct {
 }
 
 // SetHight sets the hight field.
-func (hc *HistorytakingCreate) SetHight(f []float64) *HistorytakingCreate {
+func (hc *HistorytakingCreate) SetHight(f float32) *HistorytakingCreate {
 	hc.mutation.SetHight(f)
 	return hc
 }
 
 // SetWeight sets the weight field.
-func (hc *HistorytakingCreate) SetWeight(f []float64) *HistorytakingCreate {
+func (hc *HistorytakingCreate) SetWeight(f float32) *HistorytakingCreate {
 	hc.mutation.SetWeight(f)
 	return hc
 }
 
 // SetTemp sets the temp field.
-func (hc *HistorytakingCreate) SetTemp(f []float64) *HistorytakingCreate {
+func (hc *HistorytakingCreate) SetTemp(f float32) *HistorytakingCreate {
 	hc.mutation.SetTemp(f)
 	return hc
 }
@@ -250,7 +250,7 @@ func (hc *HistorytakingCreate) createSpec() (*Historytaking, *sqlgraph.CreateSpe
 	)
 	if value, ok := hc.mutation.Hight(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldHight,
 		})
@@ -258,7 +258,7 @@ func (hc *HistorytakingCreate) createSpec() (*Historytaking, *sqlgraph.CreateSpe
 	}
 	if value, ok := hc.mutation.Weight(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldWeight,
 		})
@@ -266,7 +266,7 @@ func (hc *HistorytakingCreate) createSpec() (*Historytaking, *sqlgraph.CreateSpe
 	}
 	if value, ok := hc.mutation.Temp(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldTemp,
 		})
