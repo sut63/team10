@@ -4,7 +4,7 @@ import (
    "context"
    "fmt"
    "log"
-   "time"
+  
   
  
    "github.com/team10/app/controllers"
@@ -19,10 +19,7 @@ import (
    "github.com/team10/app/ent/abilitypatientrights"
 
 
-   "github.com/team10/app/ent/insurance"
-	"github.com/team10/app/ent/patientrecord"
-	"github.com/team10/app/ent/patientrightstype"
-	"github.com/team10/app/ent/medicalrecordstaff"
+  
 
 
 )
@@ -218,74 +215,7 @@ func main() {
 		SetPatientrightstypeAbilitypatientrights(a).
 		Save(context.Background())
 	}
-	//***********************************************************************************
-	// Set Patientrightstypes Data
-	patientrightss := Patientrightss{
-		Patientrights : []Patientrights{
-			Patientrights{1,1,1,1},
-			Patientrights{1,1,1,1},
-			Patientrights{1,1,1,1},
-			Patientrights{1,1,1,1},
-		},
-	}
-
-	for _, p := range patientrightss.Patientrights {
-
-		
-	Patientrightstype, err := client.Patientrightstype.
-		Query().
-		Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
-		Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		Insurance, err := client.Insurance.
-		Query().
-		Where(insurance.IDEQ(int(p.Insurance))).
-		Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-	Patientrecord, err := client.Patientrecord.
-		Query().
-		Where(patientrecord.IDEQ(int(p.Patientrecord))).
-		Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-	Medicalrecordstaff, err := client.Medicalrecordstaff.
-		Query().
-		Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
-		Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
 	
-	t := time.Now().Local()
-	client.Patientrights.
-		Create().
-		SetPermissionDate(t).
-		SetPatientrightsPatientrightstype(Patientrightstype).
-		SetPatientrightsPatientrecord(Patientrecord).
-		SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
-		SetPatientrightsInsurance(Insurance).
-		Save(context.Background())
-
-	
-	}
-    //***********************************************************************
    //-------------------------------------------------------------------
 
    router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
