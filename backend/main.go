@@ -172,7 +172,9 @@ func main() {
 
    // Set Postman By Team10
    //-------------------------------------------------------------------
-
+   
+   // Set Postman By Patientrights System
+   //*******************************************************************
    // Set medicalrecordstaff Data
    	Patientrecord := []string{"Khatadet khianchainat","nara haru","morani rode","faratell yova","pulla visan","omaha yad",}
 	for _, r := range Patientrecord {
@@ -250,6 +252,8 @@ func main() {
 		SetPatientrightstypeAbilitypatientrights(a).
 		Save(context.Background())
 	}
+	//*******************************************************************
+
 	//Set Financier data
 
 	financiers := Financiers{
