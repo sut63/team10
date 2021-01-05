@@ -8,12 +8,20 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/nurse"
+	"github.com/team10/app/ent/user"
 )
 
 // NurseController defines the struct for the nurse controller
 type NurseController struct {
 	client *ent.Client
 	router gin.IRouter
+}
+
+type Nurse struct {
+	Name			string
+	Nursinglicense	string
+	Position		string
+	User			int
 }
 
 // CreateNurse handles POST requests for adding nurse entities
@@ -28,7 +36,7 @@ type NurseController struct {
 // @Failure 500 {object} gin.H
 // @Router /nurse [post]
 func (ctl *NurseController) CreateNurse(c *gin.Context) {
-	obj := ent.Nurse{}
+	obj := Nurse{}
 	if err := c.ShouldBind(&obj); err != nil {
 		c.JSON(400, gin.H{
 			"error": "nurse binding failed",
@@ -36,8 +44,20 @@ func (ctl *NurseController) CreateNurse(c *gin.Context) {
 		return
 	}
 
-	u, err := ctl.client.Nurse.
+	u, err := ctl.client.User.
+		Query().
+		Where(user.IDEQ(int(obj.User))).
+		Only(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "saving failed",
+		})
+		return
+	}
+
+	n, err := ctl.client.Nurse.
 		Create().
+		SetUser(u).
 		SetName(obj.Name).
 		SetNursinglicense(obj.Nursinglicense).
 		SetPosition(obj.Position).
@@ -50,7 +70,7 @@ func (ctl *NurseController) CreateNurse(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, u)
+	c.JSON(200, n)
 }
 
 // GetNurse handles GET requests to retrieve a nurse entity
