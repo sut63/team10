@@ -33,20 +33,41 @@ func (hu *HistorytakingUpdate) Where(ps ...predicate.Historytaking) *Historytaki
 }
 
 // SetHight sets the hight field.
-func (hu *HistorytakingUpdate) SetHight(f []float64) *HistorytakingUpdate {
+func (hu *HistorytakingUpdate) SetHight(f float32) *HistorytakingUpdate {
+	hu.mutation.ResetHight()
 	hu.mutation.SetHight(f)
 	return hu
 }
 
+// AddHight adds f to hight.
+func (hu *HistorytakingUpdate) AddHight(f float32) *HistorytakingUpdate {
+	hu.mutation.AddHight(f)
+	return hu
+}
+
 // SetWeight sets the weight field.
-func (hu *HistorytakingUpdate) SetWeight(f []float64) *HistorytakingUpdate {
+func (hu *HistorytakingUpdate) SetWeight(f float32) *HistorytakingUpdate {
+	hu.mutation.ResetWeight()
 	hu.mutation.SetWeight(f)
 	return hu
 }
 
+// AddWeight adds f to weight.
+func (hu *HistorytakingUpdate) AddWeight(f float32) *HistorytakingUpdate {
+	hu.mutation.AddWeight(f)
+	return hu
+}
+
 // SetTemp sets the temp field.
-func (hu *HistorytakingUpdate) SetTemp(f []float64) *HistorytakingUpdate {
+func (hu *HistorytakingUpdate) SetTemp(f float32) *HistorytakingUpdate {
+	hu.mutation.ResetTemp()
 	hu.mutation.SetTemp(f)
+	return hu
+}
+
+// AddTemp adds f to temp.
+func (hu *HistorytakingUpdate) AddTemp(f float32) *HistorytakingUpdate {
+	hu.mutation.AddTemp(f)
 	return hu
 }
 
@@ -284,21 +305,42 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := hu.mutation.Hight(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: historytaking.FieldHight,
+		})
+	}
+	if value, ok := hu.mutation.AddedHight(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldHight,
 		})
 	}
 	if value, ok := hu.mutation.Weight(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: historytaking.FieldWeight,
+		})
+	}
+	if value, ok := hu.mutation.AddedWeight(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldWeight,
 		})
 	}
 	if value, ok := hu.mutation.Temp(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: historytaking.FieldTemp,
+		})
+	}
+	if value, ok := hu.mutation.AddedTemp(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldTemp,
 		})
@@ -525,20 +567,41 @@ type HistorytakingUpdateOne struct {
 }
 
 // SetHight sets the hight field.
-func (huo *HistorytakingUpdateOne) SetHight(f []float64) *HistorytakingUpdateOne {
+func (huo *HistorytakingUpdateOne) SetHight(f float32) *HistorytakingUpdateOne {
+	huo.mutation.ResetHight()
 	huo.mutation.SetHight(f)
 	return huo
 }
 
+// AddHight adds f to hight.
+func (huo *HistorytakingUpdateOne) AddHight(f float32) *HistorytakingUpdateOne {
+	huo.mutation.AddHight(f)
+	return huo
+}
+
 // SetWeight sets the weight field.
-func (huo *HistorytakingUpdateOne) SetWeight(f []float64) *HistorytakingUpdateOne {
+func (huo *HistorytakingUpdateOne) SetWeight(f float32) *HistorytakingUpdateOne {
+	huo.mutation.ResetWeight()
 	huo.mutation.SetWeight(f)
 	return huo
 }
 
+// AddWeight adds f to weight.
+func (huo *HistorytakingUpdateOne) AddWeight(f float32) *HistorytakingUpdateOne {
+	huo.mutation.AddWeight(f)
+	return huo
+}
+
 // SetTemp sets the temp field.
-func (huo *HistorytakingUpdateOne) SetTemp(f []float64) *HistorytakingUpdateOne {
+func (huo *HistorytakingUpdateOne) SetTemp(f float32) *HistorytakingUpdateOne {
+	huo.mutation.ResetTemp()
 	huo.mutation.SetTemp(f)
+	return huo
+}
+
+// AddTemp adds f to temp.
+func (huo *HistorytakingUpdateOne) AddTemp(f float32) *HistorytakingUpdateOne {
+	huo.mutation.AddTemp(f)
 	return huo
 }
 
@@ -774,21 +837,42 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 	_spec.Node.ID.Value = id
 	if value, ok := huo.mutation.Hight(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: historytaking.FieldHight,
+		})
+	}
+	if value, ok := huo.mutation.AddedHight(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldHight,
 		})
 	}
 	if value, ok := huo.mutation.Weight(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: historytaking.FieldWeight,
+		})
+	}
+	if value, ok := huo.mutation.AddedWeight(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldWeight,
 		})
 	}
 	if value, ok := huo.mutation.Temp(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeJSON,
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: historytaking.FieldTemp,
+		})
+	}
+	if value, ok := huo.mutation.AddedTemp(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: historytaking.FieldTemp,
 		})

@@ -176,9 +176,9 @@ var (
 	// HistorytakingsColumns holds the columns for the "historytakings" table.
 	HistorytakingsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "hight", Type: field.TypeJSON},
-		{Name: "weight", Type: field.TypeJSON},
-		{Name: "temp", Type: field.TypeJSON},
+		{Name: "hight", Type: field.TypeFloat32},
+		{Name: "weight", Type: field.TypeFloat32},
+		{Name: "temp", Type: field.TypeFloat32},
 		{Name: "pulse", Type: field.TypeInt},
 		{Name: "respiration", Type: field.TypeInt},
 		{Name: "bp", Type: field.TypeInt},

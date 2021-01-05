@@ -3511,9 +3511,12 @@ type HistorytakingMutation struct {
 	op                     Op
 	typ                    string
 	id                     *int
-	hight                  *[]float64
-	weight                 *[]float64
-	temp                   *[]float64
+	hight                  *float32
+	addhight               *float32
+	weight                 *float32
+	addweight              *float32
+	temp                   *float32
+	addtemp                *float32
 	pulse                  *int
 	addpulse               *int
 	respiration            *int
@@ -3616,12 +3619,13 @@ func (m *HistorytakingMutation) ID() (id int, exists bool) {
 }
 
 // SetHight sets the hight field.
-func (m *HistorytakingMutation) SetHight(f []float64) {
+func (m *HistorytakingMutation) SetHight(f float32) {
 	m.hight = &f
+	m.addhight = nil
 }
 
 // Hight returns the hight value in the mutation.
-func (m *HistorytakingMutation) Hight() (r []float64, exists bool) {
+func (m *HistorytakingMutation) Hight() (r float32, exists bool) {
 	v := m.hight
 	if v == nil {
 		return
@@ -3633,7 +3637,7 @@ func (m *HistorytakingMutation) Hight() (r []float64, exists bool) {
 // If the Historytaking object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *HistorytakingMutation) OldHight(ctx context.Context) (v []float64, err error) {
+func (m *HistorytakingMutation) OldHight(ctx context.Context) (v float32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldHight is allowed only on UpdateOne operations")
 	}
@@ -3647,18 +3651,38 @@ func (m *HistorytakingMutation) OldHight(ctx context.Context) (v []float64, err 
 	return oldValue.Hight, nil
 }
 
+// AddHight adds f to hight.
+func (m *HistorytakingMutation) AddHight(f float32) {
+	if m.addhight != nil {
+		*m.addhight += f
+	} else {
+		m.addhight = &f
+	}
+}
+
+// AddedHight returns the value that was added to the hight field in this mutation.
+func (m *HistorytakingMutation) AddedHight() (r float32, exists bool) {
+	v := m.addhight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetHight reset all changes of the "hight" field.
 func (m *HistorytakingMutation) ResetHight() {
 	m.hight = nil
+	m.addhight = nil
 }
 
 // SetWeight sets the weight field.
-func (m *HistorytakingMutation) SetWeight(f []float64) {
+func (m *HistorytakingMutation) SetWeight(f float32) {
 	m.weight = &f
+	m.addweight = nil
 }
 
 // Weight returns the weight value in the mutation.
-func (m *HistorytakingMutation) Weight() (r []float64, exists bool) {
+func (m *HistorytakingMutation) Weight() (r float32, exists bool) {
 	v := m.weight
 	if v == nil {
 		return
@@ -3670,7 +3694,7 @@ func (m *HistorytakingMutation) Weight() (r []float64, exists bool) {
 // If the Historytaking object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *HistorytakingMutation) OldWeight(ctx context.Context) (v []float64, err error) {
+func (m *HistorytakingMutation) OldWeight(ctx context.Context) (v float32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldWeight is allowed only on UpdateOne operations")
 	}
@@ -3684,18 +3708,38 @@ func (m *HistorytakingMutation) OldWeight(ctx context.Context) (v []float64, err
 	return oldValue.Weight, nil
 }
 
+// AddWeight adds f to weight.
+func (m *HistorytakingMutation) AddWeight(f float32) {
+	if m.addweight != nil {
+		*m.addweight += f
+	} else {
+		m.addweight = &f
+	}
+}
+
+// AddedWeight returns the value that was added to the weight field in this mutation.
+func (m *HistorytakingMutation) AddedWeight() (r float32, exists bool) {
+	v := m.addweight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetWeight reset all changes of the "weight" field.
 func (m *HistorytakingMutation) ResetWeight() {
 	m.weight = nil
+	m.addweight = nil
 }
 
 // SetTemp sets the temp field.
-func (m *HistorytakingMutation) SetTemp(f []float64) {
+func (m *HistorytakingMutation) SetTemp(f float32) {
 	m.temp = &f
+	m.addtemp = nil
 }
 
 // Temp returns the temp value in the mutation.
-func (m *HistorytakingMutation) Temp() (r []float64, exists bool) {
+func (m *HistorytakingMutation) Temp() (r float32, exists bool) {
 	v := m.temp
 	if v == nil {
 		return
@@ -3707,7 +3751,7 @@ func (m *HistorytakingMutation) Temp() (r []float64, exists bool) {
 // If the Historytaking object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *HistorytakingMutation) OldTemp(ctx context.Context) (v []float64, err error) {
+func (m *HistorytakingMutation) OldTemp(ctx context.Context) (v float32, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldTemp is allowed only on UpdateOne operations")
 	}
@@ -3721,9 +3765,28 @@ func (m *HistorytakingMutation) OldTemp(ctx context.Context) (v []float64, err e
 	return oldValue.Temp, nil
 }
 
+// AddTemp adds f to temp.
+func (m *HistorytakingMutation) AddTemp(f float32) {
+	if m.addtemp != nil {
+		*m.addtemp += f
+	} else {
+		m.addtemp = &f
+	}
+}
+
+// AddedTemp returns the value that was added to the temp field in this mutation.
+func (m *HistorytakingMutation) AddedTemp() (r float32, exists bool) {
+	v := m.addtemp
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetTemp reset all changes of the "temp" field.
 func (m *HistorytakingMutation) ResetTemp() {
 	m.temp = nil
+	m.addtemp = nil
 }
 
 // SetPulse sets the pulse field.
@@ -4269,21 +4332,21 @@ func (m *HistorytakingMutation) OldField(ctx context.Context, name string) (ent.
 func (m *HistorytakingMutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case historytaking.FieldHight:
-		v, ok := value.([]float64)
+		v, ok := value.(float32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetHight(v)
 		return nil
 	case historytaking.FieldWeight:
-		v, ok := value.([]float64)
+		v, ok := value.(float32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetWeight(v)
 		return nil
 	case historytaking.FieldTemp:
-		v, ok := value.([]float64)
+		v, ok := value.(float32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -4339,6 +4402,15 @@ func (m *HistorytakingMutation) SetField(name string, value ent.Value) error {
 // or decremented during this mutation.
 func (m *HistorytakingMutation) AddedFields() []string {
 	var fields []string
+	if m.addhight != nil {
+		fields = append(fields, historytaking.FieldHight)
+	}
+	if m.addweight != nil {
+		fields = append(fields, historytaking.FieldWeight)
+	}
+	if m.addtemp != nil {
+		fields = append(fields, historytaking.FieldTemp)
+	}
 	if m.addpulse != nil {
 		fields = append(fields, historytaking.FieldPulse)
 	}
@@ -4356,6 +4428,12 @@ func (m *HistorytakingMutation) AddedFields() []string {
 // that this field was not set, or was not define in the schema.
 func (m *HistorytakingMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case historytaking.FieldHight:
+		return m.AddedHight()
+	case historytaking.FieldWeight:
+		return m.AddedWeight()
+	case historytaking.FieldTemp:
+		return m.AddedTemp()
 	case historytaking.FieldPulse:
 		return m.AddedPulse()
 	case historytaking.FieldRespiration:
@@ -4371,6 +4449,27 @@ func (m *HistorytakingMutation) AddedField(name string) (ent.Value, bool) {
 // type mismatch the field type.
 func (m *HistorytakingMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case historytaking.FieldHight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddHight(v)
+		return nil
+	case historytaking.FieldWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddWeight(v)
+		return nil
+	case historytaking.FieldTemp:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTemp(v)
+		return nil
 	case historytaking.FieldPulse:
 		v, ok := value.(int)
 		if !ok {

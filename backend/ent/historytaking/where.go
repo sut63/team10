@@ -93,6 +93,27 @@ func IDLTE(id int) predicate.Historytaking {
 	})
 }
 
+// Hight applies equality check predicate on the "hight" field. It's identical to HightEQ.
+func Hight(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldHight), v))
+	})
+}
+
+// Weight applies equality check predicate on the "weight" field. It's identical to WeightEQ.
+func Weight(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldWeight), v))
+	})
+}
+
+// Temp applies equality check predicate on the "temp" field. It's identical to TempEQ.
+func Temp(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTemp), v))
+	})
+}
+
 // Pulse applies equality check predicate on the "pulse" field. It's identical to PulseEQ.
 func Pulse(v int) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
@@ -132,6 +153,234 @@ func Symptom(v string) predicate.Historytaking {
 func Datetime(v time.Time) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldDatetime), v))
+	})
+}
+
+// HightEQ applies the EQ predicate on the "hight" field.
+func HightEQ(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldHight), v))
+	})
+}
+
+// HightNEQ applies the NEQ predicate on the "hight" field.
+func HightNEQ(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldHight), v))
+	})
+}
+
+// HightIn applies the In predicate on the "hight" field.
+func HightIn(vs ...float32) predicate.Historytaking {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Historytaking(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldHight), v...))
+	})
+}
+
+// HightNotIn applies the NotIn predicate on the "hight" field.
+func HightNotIn(vs ...float32) predicate.Historytaking {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Historytaking(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldHight), v...))
+	})
+}
+
+// HightGT applies the GT predicate on the "hight" field.
+func HightGT(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldHight), v))
+	})
+}
+
+// HightGTE applies the GTE predicate on the "hight" field.
+func HightGTE(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldHight), v))
+	})
+}
+
+// HightLT applies the LT predicate on the "hight" field.
+func HightLT(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldHight), v))
+	})
+}
+
+// HightLTE applies the LTE predicate on the "hight" field.
+func HightLTE(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldHight), v))
+	})
+}
+
+// WeightEQ applies the EQ predicate on the "weight" field.
+func WeightEQ(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldWeight), v))
+	})
+}
+
+// WeightNEQ applies the NEQ predicate on the "weight" field.
+func WeightNEQ(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldWeight), v))
+	})
+}
+
+// WeightIn applies the In predicate on the "weight" field.
+func WeightIn(vs ...float32) predicate.Historytaking {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Historytaking(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldWeight), v...))
+	})
+}
+
+// WeightNotIn applies the NotIn predicate on the "weight" field.
+func WeightNotIn(vs ...float32) predicate.Historytaking {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Historytaking(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldWeight), v...))
+	})
+}
+
+// WeightGT applies the GT predicate on the "weight" field.
+func WeightGT(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldWeight), v))
+	})
+}
+
+// WeightGTE applies the GTE predicate on the "weight" field.
+func WeightGTE(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldWeight), v))
+	})
+}
+
+// WeightLT applies the LT predicate on the "weight" field.
+func WeightLT(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldWeight), v))
+	})
+}
+
+// WeightLTE applies the LTE predicate on the "weight" field.
+func WeightLTE(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldWeight), v))
+	})
+}
+
+// TempEQ applies the EQ predicate on the "temp" field.
+func TempEQ(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTemp), v))
+	})
+}
+
+// TempNEQ applies the NEQ predicate on the "temp" field.
+func TempNEQ(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTemp), v))
+	})
+}
+
+// TempIn applies the In predicate on the "temp" field.
+func TempIn(vs ...float32) predicate.Historytaking {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Historytaking(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTemp), v...))
+	})
+}
+
+// TempNotIn applies the NotIn predicate on the "temp" field.
+func TempNotIn(vs ...float32) predicate.Historytaking {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Historytaking(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTemp), v...))
+	})
+}
+
+// TempGT applies the GT predicate on the "temp" field.
+func TempGT(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTemp), v))
+	})
+}
+
+// TempGTE applies the GTE predicate on the "temp" field.
+func TempGTE(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTemp), v))
+	})
+}
+
+// TempLT applies the LT predicate on the "temp" field.
+func TempLT(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTemp), v))
+	})
+}
+
+// TempLTE applies the LTE predicate on the "temp" field.
+func TempLTE(v float32) predicate.Historytaking {
+	return predicate.Historytaking(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTemp), v))
 	})
 }
 
