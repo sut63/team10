@@ -116,6 +116,8 @@ type Patientrights struct {
 // @authorizationUrl https://example.com/oauth/authorize
 // @scope.admin Grants read and write access to administrative information
 func main() {
+
+	// Set router By Team10
    router := gin.Default()
    router.Use(cors.Default())
  
@@ -128,15 +130,20 @@ func main() {
    if err := client.Schema.Create(context.Background()); err != nil {
        log.Fatalf("failed creating schema resources: %v", err)
    }
- 
+
    v1 := router.Group("/api/v1")
+   // Controller By B6103866 
    controllers.NewPatientrightsController(v1, client)
    controllers.NewPatientrightstypeController(v1, client)
    controllers.NewAbilitypatientrightsController(v1, client)
-   controllers.NewMedicalrecordstaffController(v1, client)
    controllers.NewInsuranceController(v1, client)
+
+   // Controller By 
+   controllers.NewMedicalrecordstaffController(v1, client)
    controllers.NewPatientrecordController(v1, client)
 
+
+   // Set Postman By Team10
    //-------------------------------------------------------------------
 
    // Set medicalrecordstaff Data
