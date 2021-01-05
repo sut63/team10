@@ -84,7 +84,41 @@ type Financier struct {
 	name string
 }
 
+// Struct By Historytaking System
+//*******************************************************************
+// Nurse defines the struct for the Nurse
+type Nurses struct {
+	Nurse []Nurse
+}
 
+// Nurse defines the struct for the Nurse
+type Nurse struct {
+	Name             string
+    Nursinglicense   string
+	Position         string
+	User             int
+}
+
+// Symptomseverity defines the struct for the Symptomseverity
+type Symptomseveritys struct {
+	Symptomseverity []Symptomseverity
+}
+
+// Symptomseverity defines the struct for the Symptomseverity
+type Symptomseverity struct {
+	Symptomseverity  string
+}
+
+// Department defines the struct for the Department
+type Departments struct {
+	Department []Department
+}
+
+// Department defines the struct for the Department
+type Department struct {
+	Department  string
+}
+//*******************************************************************
 
 //-------------------------------------------------------------------
 
@@ -170,6 +204,15 @@ func main() {
 	controllers.NewUnpaybillController(v1, client)
    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+   //Controller By Historytaking System
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   controllers.NewHistorytakingController(v1, client)
+   controllers.NewNurseController(v1, client)
+   controllers.NewSymptomseverityController(v1, client)
+   controllers.NewDepartmentController(v1, client)
+   controllers.NewPatientrecordController(v1, client)
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
    // Set Postman By Team10
    //-------------------------------------------------------------------
 
@@ -187,7 +230,6 @@ func main() {
 	for i := 1; i < 5; i++ {
 		client.Medicalrecordstaff.
 			Create().
-			
 			Save(context.Background())
 	}
 
@@ -250,8 +292,8 @@ func main() {
 		SetPatientrightstypeAbilitypatientrights(a).
 		Save(context.Background())
 	}
+	
 	//Set Financier data
-
 	financiers := Financiers{
 		Financier: []Financier{
 			Financier{"Nutchaporn Klinrod"},
@@ -264,6 +306,7 @@ func main() {
 			SetName(f.name).
 			Save(context.Background())
 	}
+
 	//Set Paytype data
 	paytypes := Paytypes{
 		Paytype: []Paytype{
