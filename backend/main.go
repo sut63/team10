@@ -243,24 +243,7 @@ func main() {
 	// Set Postman By Patientrights System
 	//*******************************************************************
 
-	//*******************************************************************
-	// Set medicalrecordstaff Data
-	Patientrecord := []string{"Khatadet khianchainat", "nara haru", "morani rode", "faratell yova", "pulla visan", "omaha yad"}
-	for _, r := range Patientrecord {
-		client.Patientrecord.
-			Create().
-			SetName(r).
-			Save(context.Background())
-	}
-
-	// Set medicalrecordstaff Data
-
-	for i := 1; i < 5; i++ {
-		client.Medicalrecordstaff.
-			Create().
-			Save(context.Background())
-	}
-
+	
 	// Set insurance Data
 	Insurance := []string{"เมืองไทยประกันภัย", "ไทยสมุทรประกันชีวิต", "อื่น ๆ ", "กรมบัญชีกลาง", "AIA"}
 	for _, r := range Insurance {
@@ -318,7 +301,10 @@ func main() {
 			SetPatientrightstypeAbilitypatientrights(a).
 			Save(context.Background())
 	}
+	//*******************************************************************
 
+	
+	// Set Postman By Patientrecord System
 	//*******************************************************************
 
 	// Set Gender Data
@@ -350,7 +336,8 @@ func main() {
 			SetName(m.Name).
 			Save(context.Background())
 	}
-
+	//*******************************************************************
+	// Set Postman By Historytaking System
 	//*******************************************************************
 
 	//Set nurse data
@@ -395,7 +382,8 @@ func main() {
 			SetSymptomseverity(ss.Symptomseverity).
 			Save(context.Background())
 	}
-
+	//*******************************************************************
+	// Set Postman By Bill System
 	//*******************************************************************
 
 	//Set Financier data
