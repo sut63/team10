@@ -135,14 +135,18 @@ func main() {
 
    v1 := router.Group("/api/v1")
    // Controller By B6103866 
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    controllers.NewPatientrightsController(v1, client)
    controllers.NewPatientrightstypeController(v1, client)
    controllers.NewAbilitypatientrightsController(v1, client)
    controllers.NewInsuranceController(v1, client)
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
    // Controller By 
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    controllers.NewMedicalrecordstaffController(v1, client)
    controllers.NewPatientrecordController(v1, client)
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
    // Set Postman By Team10
@@ -166,8 +170,9 @@ func main() {
 			Save(context.Background())
 	}
 
+
     // Set insurance Data
-	Insurance := []string{"เมืองไทยประกันภัย", "ไทยสมุทรประกันชีวิต", "อื่นๆ", "กรมบัญชีกลาง", "AIA"}
+	Insurance := []string{"เมืองไทยประกันภัย", "ไทยสมุทรประกันชีวิต", "อื่น ๆ ", "กรมบัญชีกลาง", "AIA"}
 	for _, r := range Insurance {
 		client.Insurance.
 			Create().
