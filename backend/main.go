@@ -27,7 +27,7 @@ import (
 //-------------------------------------------------------------------
 
 
-// Struct By B6103866
+// Struct By Patientrights System
 //*******************************************************************
 
 // Patientrightstypes defines the struct for the Patientrightstypes
@@ -148,29 +148,28 @@ func main() {
    }
 
    v1 := router.Group("/api/v1")
-   // Controller By B6103866 
+   // Controller By Patientrights System
    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-   controllers.NewPatientrightsController(v1, client)
-   controllers.NewPatientrightstypeController(v1, client)
-   controllers.NewAbilitypatientrightsController(v1, client)
-   controllers.NewInsuranceController(v1, client)
+   	controllers.NewPatientrightsController(v1, client)
+   	controllers.NewPatientrightstypeController(v1, client)
+   	controllers.NewAbilitypatientrightsController(v1, client)
+   	controllers.NewInsuranceController(v1, client)
    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
    // Controller By 
    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-   controllers.NewMedicalrecordstaffController(v1, client)
-   controllers.NewPatientrecordController(v1, client)
-<<<<<<< HEAD
+   	controllers.NewMedicalrecordstaffController(v1, client)
+   	controllers.NewPatientrecordController(v1, client)
    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
-=======
    //Controller By Bill System
-   controllers.NewBillController(v1, client)
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   	controllers.NewBillController(v1, client)
 	controllers.NewFinancierController(v1, client)
 	controllers.NewPaytypeController(v1, client)
 	controllers.NewUnpaybillController(v1, client)
->>>>>>> 4cdc72865dccead9f8786a5d9d1a419934b8c1fe
+   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
    // Set Postman By Team10
    //-------------------------------------------------------------------
 
