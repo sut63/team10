@@ -318,6 +318,11 @@ export interface UpdateNurseRequest {
     nurse: EntNurse;
 }
 
+export interface UpdatePatientrightsRequest {
+    id: number;
+    patientrights: EntPatientrights;
+}
+
 export interface UpdatePatientrightstypeRequest {
     id: number;
     patientrightstype: EntPatientrightstype;
@@ -2260,6 +2265,45 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updateNurse(requestParameters: UpdateNurseRequest): Promise<EntNurse> {
         const response = await this.updateNurseRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * update patientrights by ID
+     * Update a patientrights entity by ID
+     */
+    async updatePatientrightsRaw(requestParameters: UpdatePatientrightsRequest): Promise<runtime.ApiResponse<EntPatientrights>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updatePatientrights.');
+        }
+
+        if (requestParameters.patientrights === null || requestParameters.patientrights === undefined) {
+            throw new runtime.RequiredError('patientrights','Required parameter requestParameters.patientrights was null or undefined when calling updatePatientrights.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/patientrightss/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: EntPatientrightsToJSON(requestParameters.patientrights),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntPatientrightsFromJSON(jsonValue));
+    }
+
+    /**
+     * update patientrights by ID
+     * Update a patientrights entity by ID
+     */
+    async updatePatientrights(requestParameters: UpdatePatientrightsRequest): Promise<EntPatientrights> {
+        const response = await this.updatePatientrightsRaw(requestParameters);
         return await response.value();
     }
 

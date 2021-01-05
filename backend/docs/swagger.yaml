@@ -62,8 +62,6 @@ definitions:
     type: object
   controllers.Patientrights:
     properties:
-      abilitypatientrights:
-        type: integer
       insurance:
         type: integer
       medicalrecordstaff:
@@ -71,9 +69,8 @@ definitions:
       patientrecord:
         type: integer
       patientrightstype:
+        description: Abilitypatientrights int
         type: integer
-      permissionDate:
-        type: string
     type: object
   ent.Abilitypatientrights:
     properties:
@@ -2014,6 +2011,39 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Get a Patientrights entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update patientrights by ID
+      operationId: update-patientrights
+      parameters:
+      - description: Patientrights ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Patientrights entity
+        in: body
+        name: patientrights
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Patientrights'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Patientrights'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a patientrights entity by ID
   /patientrightstypes:
     get:
       description: list patientrightstype entities

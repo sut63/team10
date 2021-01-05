@@ -4,11 +4,11 @@ import (
    "context"
    "fmt"
    "strconv"
-   "github.com/team10/app/ent"
-   "github.com/team10/app/ent/patientrightstype"
+   "github.com/PON/app/ent"
+   "github.com/PON/app/ent/patientrightstype"
    "github.com/gin-gonic/gin"
 
-   "github.com/team10/app/ent/abilitypatientrights"
+   "github.com/PON/app/ent/abilitypatientrights"
 )
  
 // PatientrightstypeController defines the struct for the patientrightstype controller

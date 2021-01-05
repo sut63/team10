@@ -179,7 +179,10 @@ const NewPatientright: FC<{}> = () => {
      <Header
        title={`ลงทะเบียน ${profile.givenName || 'to Backstage'}`}
        subtitle="Some quick intro and links."
-     ><Timer /></Header>
+     >
+       <Timer />
+       
+       </Header>
      <Content>
        <ContentHeader title="ข้อมูล">
          

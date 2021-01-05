@@ -1750,6 +1750,55 @@ var doc = `{
                     }
                 }
             },
+            "put": {
+                "description": "update patientrights by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update a patientrights entity by ID",
+                "operationId": "update-patientrights",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Patientrights ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Patientrights entity",
+                        "name": "patientrights",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ent.Patientrights"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ent.Patientrights"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            },
             "delete": {
                 "description": "get patientrights by ID",
                 "produces": [
@@ -2841,9 +2890,6 @@ var doc = `{
         "controllers.Patientrights": {
             "type": "object",
             "properties": {
-                "abilitypatientrights": {
-                    "type": "integer"
-                },
                 "insurance": {
                     "type": "integer"
                 },
@@ -2854,10 +2900,8 @@ var doc = `{
                     "type": "integer"
                 },
                 "patientrightstype": {
+                    "description": "Abilitypatientrights int",
                     "type": "integer"
-                },
-                "permissionDate": {
-                    "type": "string"
                 }
             }
         },
