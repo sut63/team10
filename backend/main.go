@@ -23,10 +23,12 @@ import (
 
 
 )
-
+// struct By team 10
 //-------------------------------------------------------------------
 
 
+// Struct By B6103866
+//*******************************************************************
 
 // Patientrightstypes defines the struct for the Patientrightstypes
 type Patientrightstypes struct {
@@ -66,7 +68,7 @@ type Patientrights struct {
 	Insurance            int
 	Medicalrecordstaff   int
 }
-
+//*******************************************************************
 
 
 
