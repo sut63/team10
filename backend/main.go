@@ -61,20 +61,47 @@ type Patientrights struct {
 	Medicalrecordstaff int
 }
 
+// Struct By Patientrecord System
+
 //*******************************************************************
 
-// Paytypes defines the struct for the Paytypes 
+// Genders defines the struct for the Genders
+type Genders struct {
+	Gender []Gender
+}
+
+// Gender defines the struct for the Gender
+type Gender struct {
+	Genderstatus string
+}
+
+// Medicalrecordstaffs defines the struct for the Medicalrecordstaffs
+type Medicalrecordstaffs struct {
+	Medicalrecordstaff []Medicalrecordstaff
+}
+
+// Medicalrecordstaff defines the struct for the Medicalrecordstaff
+type Medicalrecordstaff struct {
+	Name string
+}
+
+//*******************************************************************
+
+// Paytypes defines the struct for the Paytypes
 type Paytypes struct {
 	Paytype []Paytype
 }
+
 // Paytype defines the struct for the Paytype
 type Paytype struct {
 	paytype string
 }
+
 // Financiers defines the struct for the Financiers
 type Financiers struct {
 	Financier []Financier
 }
+
 // Financier defines the struct for the Financier
 type Financier struct {
 	name string
@@ -116,6 +143,7 @@ type Departments struct {
 type Department struct {
 	Department string
 }
+
 //*******************************************************************
 
 //-------------------------------------------------------------------
@@ -185,8 +213,9 @@ func main() {
 	controllers.NewInsuranceController(v1, client)
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	// Controller By
+	// Controller By Patientrecord System
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	controllers.NewGenderController(v1, client)
 	controllers.NewMedicalrecordstaffController(v1, client)
 	controllers.NewPatientrecordController(v1, client)
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -212,6 +241,8 @@ func main() {
 	//-------------------------------------------------------------------
 
 	// Set Postman By Patientrights System
+	//*******************************************************************
+
 	//*******************************************************************
 	// Set medicalrecordstaff Data
 	Patientrecord := []string{"Khatadet khianchainat", "nara haru", "morani rode", "faratell yova", "pulla visan", "omaha yad"}
@@ -290,6 +321,38 @@ func main() {
 
 	//*******************************************************************
 
+	// Set Gender Data
+	genders := Genders{
+		Gender: []Gender{
+			Gender{"ชาย"},
+			Gender{"หญิง"},
+		},
+	}
+
+	for _, g := range genders.Gender {
+		client.Gender.
+			Create().
+			SetGenderstatus(g.Genderstatus).
+			Save(context.Background())
+	}
+
+	// Set Medicalrecordstaff Data
+	medicalrecordstaffs := Medicalrecordstaffs{
+		Medicalrecordstaff: []Medicalrecordstaff{
+			Medicalrecordstaff{"Phonrawin Kudthalaeng"},
+			Medicalrecordstaff{"Shin Sura"},
+		},
+	}
+
+	for _, m := range medicalrecordstaffs.Medicalrecordstaff {
+		client.Medicalrecordstaff.
+			Create().
+			SetName(m.Name).
+			Save(context.Background())
+	}
+
+	//*******************************************************************
+
 	//Set nurse data
 	nurses := Nurses{
 		Nurse: []Nurse{
@@ -332,6 +395,8 @@ func main() {
 			SetSymptomseverity(ss.Symptomseverity).
 			Save(context.Background())
 	}
+
+	//*******************************************************************
 
 	//Set Financier data
 	financiers := Financiers{
