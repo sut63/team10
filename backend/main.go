@@ -70,6 +70,20 @@ type Patientrights struct {
 }
 //*******************************************************************
 
+type Paytypes struct {
+	Paytype []Paytype
+}
+type Paytype struct {
+	paytype string
+}
+
+type Financiers struct {
+	Financier []Financier
+}
+type Financier struct {
+	name string
+}
+
 
 
 //-------------------------------------------------------------------
@@ -146,9 +160,17 @@ func main() {
    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
    controllers.NewMedicalrecordstaffController(v1, client)
    controllers.NewPatientrecordController(v1, client)
+<<<<<<< HEAD
    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
+=======
+   //Controller By Bill System
+   controllers.NewBillController(v1, client)
+	controllers.NewFinancierController(v1, client)
+	controllers.NewPaytypeController(v1, client)
+	controllers.NewUnpaybillController(v1, client)
+>>>>>>> 4cdc72865dccead9f8786a5d9d1a419934b8c1fe
    // Set Postman By Team10
    //-------------------------------------------------------------------
 
@@ -229,7 +251,34 @@ func main() {
 		SetPatientrightstypeAbilitypatientrights(a).
 		Save(context.Background())
 	}
-	
+	//Set Financier data
+
+	financiers := Financiers{
+		Financier: []Financier{
+			Financier{"Nutchaporn Klinrod"},
+			Financier{"Name Surname"},
+		},
+	}
+	for _, f := range financiers.Financier {
+		client.Financier.
+			Create().
+			SetName(f.name).
+			Save(context.Background())
+	}
+	//Set Paytype data
+	paytypes := Paytypes{
+		Paytype: []Paytype{
+			Paytype{"Online Banking"},
+			Paytype{"Credit / Debit Card"},
+			Paytype{"Cash"},
+		},
+	}
+
+	for _, pt := range paytypes.Paytype {
+		client.Paytype.
+			Create().
+			SetPaytype(pt.paytype)
+	}
    //-------------------------------------------------------------------
 
    router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
