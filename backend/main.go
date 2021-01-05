@@ -157,8 +157,11 @@ func main() {
    // Controller By 
    controllers.NewMedicalrecordstaffController(v1, client)
    controllers.NewPatientrecordController(v1, client)
-
-
+   //Controller By Bill System
+   controllers.NewBillController(v1, client)
+	controllers.NewFinancierController(v1, client)
+	controllers.NewPaytypeController(v1, client)
+	controllers.NewUnpaybillController(v1, client)
    // Set Postman By Team10
    //-------------------------------------------------------------------
 
