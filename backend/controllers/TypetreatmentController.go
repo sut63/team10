@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"context"
-	"fmt"
+	_"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +12,8 @@ import (
 
 // TypetreatmentController defines the struct for the Typetreatment controller
 type TypetreatmentController struct {
-	typetreatment string
+	client *ent.Client
+	router gin.IRouter
 }
 
 // CreateTypetreatment handles POST requests for adding Typetreatment entities
@@ -71,7 +72,7 @@ func (ctl *TypetreatmentController) GetTypetreatment(c *gin.Context) {
 
 	ttm, err := ctl.client.Typetreatment.
 		Query().
-		Where(Typetreatment.IDEQ(int(id))).
+		Where(typetreatment.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
 		c.JSON(404, gin.H{
