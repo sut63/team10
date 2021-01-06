@@ -48,45 +48,45 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
-	pt, err := ctl.client.Paytype.
+	ttm, err := ctl.client.Paytype.
 		Query().
-		Where(paytype.IDEQ(int(obj.Paytype))).
+		Where(typetreatment.IDEQ(int(obj.Typetreatment))).
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Treatment not found",
+			"error": "Typetreatment not found",
 		})
 		return
 	}
-	f, err := ctl.client.Financier.
+	di, err := ctl.client.Doctorinfo.
 		Query().
-		Where(financier.IDEQ(int(obj.Financier))).
+		Where(doctorinfo.IDEQ(int(obj.Doctorinfo))).
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Treatment not found",
+			"error": "Doctorinfo not found",
 		})
 		return
 	}
-	ub, err := ctl.client.UnpayTreatment.
+	pr, err := ctl.client.Patientrecord.
 		Query().
-		Where(unpayTreatment.IDEQ(int(obj.UnpayTreatment))).
+		Where(patientrecord.IDEQ(int(obj.Patientrecord))).
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Treatment not found",
+			"error": "Patientrecord not found",
 		})
 		return
 	}
-	times, err := time.Parse(time.RFC3339, obj.Date)
+	times, err := time.Parse(time.RFC3339, obj.Datetreat)
 
-	u, err := ctl.client.Treatment.
+	tm, err := ctl.client.Treatment.
 		Create().
 		SetTreatment(obj.Treatment).
 		SetDatetreat(times).
 		SetTypetreatment(ttm).
 		SetDoctorinfo(di).
-		SetPatientrecord(ub).
+		SetPatientrecord(pr).
 		Save(context.Background())
 
 	if err != nil {
@@ -96,7 +96,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, u)
+	c.JSON(200, tm)
 }
 
 // GetTreatment handles GET requests to retrieve a Treatment entity
@@ -118,7 +118,7 @@ func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
 		})
 		return
 	}
-	u, err := ctl.client.Treatment.
+	tm, err := ctl.client.Treatment.
 		Query().
 		Where(Treatment.IDEQ(int(id))).
 		Only(context.Background())
@@ -130,7 +130,7 @@ func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, u)
+	c.JSON(200, tm)
 }
 
 // ListTreatment handles request to get a list of Treatment entities
@@ -163,7 +163,7 @@ func (ctl *TreatmentController) ListTreatment(c *gin.Context) {
 		}
 	}
 
-	Treatments, err := ctl.client.Treatment.
+	Treatment, err := ctl.client.Treatment.
 		Query().
 		Limit(limit).
 		Offset(offset).
@@ -176,7 +176,7 @@ func (ctl *TreatmentController) ListTreatment(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, Treatments)
+	c.JSON(200, Treatment)
 }
 
 // DeleteTreatment handles DELETE requests to delete a Treatment entity
