@@ -84,7 +84,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 	tm, err := ctl.client.Treatment.
 		Create().
 		SetTreatment(obj.Treatment).
-		SetDatetime(times).
+		SetDatetreat(times).
 		SetTypetreatment(ttm).
 		SetDoctorinfo(di).
 		SetPatientrecord(pr).
