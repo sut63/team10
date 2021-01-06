@@ -222,7 +222,7 @@ const handleChange = (
         <form noValidate autoComplete="off">
 
 
-      <Grid item xs={6}>   
+       
        <div className={classes.root}>
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
@@ -238,9 +238,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div>
-
-       <div className={classes.root}>
+      
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
@@ -255,7 +253,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div>
+       </div><br/>
 
        
        <div className={classes.root}>
@@ -273,9 +271,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div>
-
-       <div className={classes.root}>
+       
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
@@ -290,7 +286,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div>
+       </div><br/>
 
        <div className={classes.root}>
           <form noValidate autoComplete="off">
@@ -307,10 +303,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div>
-
        
-       <div className={classes.root}>
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
@@ -325,7 +318,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div>
+       </div><br/>
        
        <div className={classes.root}>
           <form noValidate autoComplete="off">
@@ -342,9 +335,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div>
-
-       <div className={classes.root}>
+       
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
@@ -359,8 +350,8 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div>
-       </Grid>
+       </div><br/>
+       
           <FormControl
                 className={classes.margin}
                 variant="outlined"
