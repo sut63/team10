@@ -927,6 +927,246 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Get a medicalrecordstaff entity by ID
+  /Treatments:
+    get:
+      description: list Treatment entities
+      operationId: list-Treatment
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Treatment'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List Treatment entities
+    post:
+      consumes:
+      - application/json
+      description: Create Treatment
+      operationId: create-Treatment
+      parameters:
+      - description: Treatment entity
+        in: body
+        name: Treatment
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Treatment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Treatment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create Treatment
+  /Treatments/{id}:
+    delete:
+      description: get Treatment by ID
+      operationId: delete-Treatment
+      parameters:
+      - description: Treatment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a Treatment entity by ID
+    get:
+      description: get Treatment by ID
+      operationId: get-Treatment
+      parameters:
+      - description: Treatment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Treatment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a Treatment entity by ID
+  /Typetreatments:
+    get:
+      description: list Typetreatment entities
+      operationId: list-Typetreatment
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Typetreatment'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List Typetreatment entities
+    post:
+      consumes:
+      - application/json
+      description: Create Typetreatment
+      operationId: create-Typetreatment
+      parameters:
+      - description: Typetreatment entity
+        in: body
+        name: Typetreatment
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Typetreatment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Typetreatment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create Typetreatment
+  /Typetreatments/{id}:
+    get:
+      description: get Typetreatment by ID
+      operationId: get-Typetreatment
+      parameters:
+      - description: Typetreatment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Typetreatment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a Typetreatment entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update Typetreatment by ID
+      operationId: update-Typetreatment
+      parameters:
+      - description: Typetreatment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Typetreatment entity
+        in: body
+        name: Typetreatment
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Typetreatment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Typetreatment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a Typetreatment entity by ID
   /abilitypatientrightss:
     get:
       description: list abilitypatientrights entities

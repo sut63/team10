@@ -107,8 +107,9 @@ type Financier struct {
 	name string
 }
 
-// Struct By Historytaking System
+//*******************************************************************
 
+// Struct By Historytaking System
 //*******************************************************************
 
 // Nurses defines the struct for the Nurses
@@ -144,9 +145,9 @@ type Department struct {
 	Department string
 }
 
-//*******************************************************************
+//^^^*******************************************************************^^^
 
-//-------------------------------------------------------------------
+//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
 
 // @title SUT SA Example API
 // @version 1.0
@@ -207,45 +208,45 @@ func main() {
 	v1 := router.Group("/api/v1")
 
 	// Controller By Team 10 System
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewUserController(v1, client)
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	// Controller By Patientrights System
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewPatientrightsController(v1, client)
 	controllers.NewPatientrightstypeController(v1, client)
 	controllers.NewAbilitypatientrightsController(v1, client)
 	controllers.NewInsuranceController(v1, client)
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	// Controller By Patientrecord System
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewGenderController(v1, client)
 	controllers.NewMedicalrecordstaffController(v1, client)
 	controllers.NewPatientrecordController(v1, client)
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	//Controller By Bill System
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewBillController(v1, client)
 	controllers.NewFinancierController(v1, client)
 	controllers.NewPaytypeController(v1, client)
 	controllers.NewUnpaybillController(v1, client)
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	//Controller By Historytaking System
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewHistorytakingController(v1, client)
 	controllers.NewNurseController(v1, client)
 	controllers.NewSymptomseverityController(v1, client)
 	controllers.NewDepartmentController(v1, client)
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	// Set Postman By Team10
-	//-------------------------------------------------------------------
+	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
-	//*******************************************************************
+	//vvv*******************************************************************vvv
 	User := []string{"Khatadet_khianchainat","nara_haru","morani_rode","faratell_yova","pulla_visan","omaha_yad",}
 	for _, r := range User {
 		client.User.
@@ -254,10 +255,10 @@ func main() {
 		SetPassword("123456").
 		Save(context.Background())
 	}
-	//*******************************************************************
+	//^^^*******************************************************************^^^
 
 	// Set Postman By Patientrights System
-	//*******************************************************************
+	//vvv*******************************************************************vvv
 
 	
 	// Set insurance Data
@@ -317,11 +318,11 @@ func main() {
 			SetPatientrightstypeAbilitypatientrights(a).
 			Save(context.Background())
 	}
-	//*******************************************************************
+	//^^^*******************************************************************^^^
 
 	
 	// Set Postman By Patientrecord System
-	//*******************************************************************
+	//vvv*******************************************************************vvv
 
 	// Set Gender Data
 	genders := Genders{
@@ -352,9 +353,9 @@ func main() {
 			SetName(m.Name).
 			Save(context.Background())
 	}
-	//*******************************************************************
+	//^^^*******************************************************************^^^
 	// Set Postman By Historytaking System
-	//*******************************************************************
+	//vvv*******************************************************************vvv
 
 	//Set nurse data
 	nurses := Nurses{
@@ -398,9 +399,9 @@ func main() {
 			SetSymptomseverity(ss.Symptomseverity).
 			Save(context.Background())
 	}
-	//*******************************************************************
+	//^^^*******************************************************************^^^
 	// Set Postman By Bill System
-	//*******************************************************************
+	//vvv*******************************************************************vvv
 
 	//Set Financier data
 	financiers := Financiers{
@@ -430,7 +431,8 @@ func main() {
 			Create().
 			SetPaytype(pt.paytype)
 	}
-	//-------------------------------------------------------------------
+	//^^^*******************************************************************^^^
+	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.Run()
