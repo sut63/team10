@@ -222,7 +222,12 @@ const handleChange = (
         <form noValidate autoComplete="off">
 
 
-          
+        <div>
+              <br/><p>json {JSON.stringify(Historytaking)} </p>
+              
+              
+          </div>
+
        <div className={classes.root}>
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
@@ -237,11 +242,7 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          </form>
-       </div><br/>
-
-       <div className={classes.root}>
-          <form noValidate autoComplete="off">
+        
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
                name="hight"
@@ -272,11 +273,7 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          </form>
-       </div><br/>
-
-       <div className={classes.root}>
-          <form noValidate autoComplete="off">
+         
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
                name="pulse"
@@ -306,12 +303,7 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          </form>
-       </div><br/>
-
-       
-       <div className={classes.root}>
-          <form noValidate autoComplete="off">
+          
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
                name="symptom"
@@ -341,11 +333,7 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          </form>
-       </div><br/>
-
-       <div className={classes.root}>
-          <form noValidate autoComplete="off">
+          
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
                name="weight"
@@ -360,7 +348,6 @@ const handleChange = (
           </FormControl>
           </form>
        </div><br/>
-
 
 
           <FormControl
