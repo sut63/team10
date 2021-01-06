@@ -48,82 +48,82 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Historytaking_Type {
   /**
    * 
-   * @type {number}
+   * @type {string}
    * @memberof ControllersHistorytaking
    */
-  bp?: number;// SS
+  bp?: string;
   /**
    * 
    * @type {string}
    * @memberof ControllersHistorytaking
    */
-  datetime?: string; // TIME SS
+  datetime?: string;
   /**
    * 
    * @type {number}
    * @memberof ControllersHistorytaking
    */
-  department?: number; //FK
-  /**
-   * 
-   * @type {number}
-   * @memberof ControllersHistorytaking
-   */
-  hight?: number; // SS
-  /**
-   * 
-   * @type {number}
-   * @memberof ControllersHistorytaking
-   */
-  nurse?: number; //FK
+  department?: number;
   /**
    * 
    * @type {string}
    * @memberof ControllersHistorytaking
    */
-  oxygen?: string;//SS
+  hight?: string;
   /**
    * 
    * @type {number}
    * @memberof ControllersHistorytaking
    */
-  patientrecord?: number; //FK
-  /**
-   * 
-   * @type {number}
-   * @memberof ControllersHistorytaking
-   */
-  pulse?: number; // SS
-  /**
-   * 
-   * @type {number}
-   * @memberof ControllersHistorytaking
-   */
-  respiration?: number; // SS
+  nurse?: number;
   /**
    * 
    * @type {string}
    * @memberof ControllersHistorytaking
    */
-  symptom?: string; // SS
+  oxygen?: string;
   /**
    * 
    * @type {number}
    * @memberof ControllersHistorytaking
    */
-  symptomseverity?: number; //FK
+  patientrecord?: number;
+  /**
+   * 
+   * @type {string}
+   * @memberof ControllersHistorytaking
+   */
+  pulse?: string;
+  /**
+   * 
+   * @type {string}
+   * @memberof ControllersHistorytaking
+   */
+  respiration?: string;
+  /**
+   * 
+   * @type {string}
+   * @memberof ControllersHistorytaking
+   */
+  symptom?: string;
   /**
    * 
    * @type {number}
    * @memberof ControllersHistorytaking
    */
-  temp?: number; // SS
+  symptomseverity?: number;
   /**
    * 
-   * @type {number}
+   * @type {string}
    * @memberof ControllersHistorytaking
    */
-  weight?: number;
+  temp?: string;
+  /**
+   * 
+   * @type {string}
+   * @memberof ControllersHistorytaking
+   */
+  weight?: string;
 }
 
 export default function CreateHistorytaking() {
@@ -212,22 +212,17 @@ const handleChange = (
   return (
     <Page theme={pageTheme.home}>
       <Header
-      title={`${profile.givenName || 'BILL SYSTEM'}`}
-      subtitle="BLUE MOON DORMITORY"
+      title={`${profile.givenName || 'Historytaking SYSTEM'}`}
+      subtitle="BLUE MOON HOSPITAL"
      ></Header>
       <Content>
-      <ContentHeader title="CREATE BILL TABLE">
+      <ContentHeader title="CREATE Historytaking TABLE">
       </ContentHeader>
         <div className={classes.root}>
         <form noValidate autoComplete="off">
 
 
-        <div>
-              <br/><p>json {JSON.stringify(Historytaking)} </p>
-              
-              
-          </div>
-
+      <Grid item xs={6}>   
        <div className={classes.root}>
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
@@ -242,7 +237,11 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-        
+          </form>
+       </div>
+
+       <div className={classes.root}>
+          <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
                name="hight"
@@ -256,7 +255,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div><br/>
+       </div>
 
        
        <div className={classes.root}>
@@ -273,7 +272,11 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-         
+          </form>
+       </div>
+
+       <div className={classes.root}>
+          <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
                name="pulse"
@@ -287,7 +290,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div><br/>
+       </div>
 
        <div className={classes.root}>
           <form noValidate autoComplete="off">
@@ -303,7 +306,12 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          
+          </form>
+       </div>
+
+       
+       <div className={classes.root}>
+          <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
                name="symptom"
@@ -317,7 +325,7 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div><br/>
+       </div>
        
        <div className={classes.root}>
           <form noValidate autoComplete="off">
@@ -333,7 +341,11 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          
+          </form>
+       </div>
+
+       <div className={classes.root}>
+          <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
           <TextField
                name="weight"
@@ -347,9 +359,8 @@ const handleChange = (
              />
           </FormControl>
           </form>
-       </div><br/>
-
-
+       </div>
+       </Grid>
           <FormControl
                 className={classes.margin}
                 variant="outlined"
@@ -363,7 +374,7 @@ const handleChange = (
                   name="nurse"
                   value={Historytaking.nurse}
                   onChange={handleChange}
-                  style={{ width: 400 }}
+                  style={{ width: 250 }}
                 >
                 {nurses.map((item: EntNurse) => (
                   <MenuItem value={item.id}>{item.id}</MenuItem>
@@ -386,7 +397,7 @@ const handleChange = (
                   name="symptomseverity"
                   value={Historytaking.symptomseverity}
                   onChange={handleChange}
-                  style={{ width: 400 }}
+                  style={{ width: 250 }}
                 >
                 {symptomseveritys.map((item: any) => (
                   <MenuItem value={item.id}>{item.id}</MenuItem>
@@ -409,7 +420,7 @@ const handleChange = (
                   name="department"
                   value={Historytaking.department}
                   onChange={handleChange}
-                  style={{ width: 400 }}
+                  style={{ width: 250 }}
                 >
                 {departments.map((item: any) => (
                   <MenuItem value={item.id}>{item.id}</MenuItem>
@@ -433,7 +444,7 @@ const handleChange = (
                   name="patientrecord"
                   value={Historytaking.patientrecord}
                   onChange={handleChange}
-                  style={{ width: 400 }}
+                  style={{ width: 250 }}
                 >
                 {patientrecords.map((item: any) => (
                   <MenuItem value={item.id}>{item.id}</MenuItem>
@@ -443,23 +454,6 @@ const handleChange = (
                 </Typography>
               </FormControl>
               <br/>
-              <Grid item xs={12}>
-              <Typography align = "center">
-                    <TextField
-                      className={classes.formControl}
-                      id="datetime"
-                      name="datetime"
-                      label="DD/MM/YYYY"
-                      type="datetime-local"
-                      value={Historytaking.datetime}
-                      onChange={handleChange}
-                      style={{ width: 400 }}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                    />
-              </Typography>
-              </Grid>
 
             <div className={classes.margin}>
             <Typography variant="h6" gutterBottom  align="center">
