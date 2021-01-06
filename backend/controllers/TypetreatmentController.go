@@ -38,7 +38,7 @@ func (ctl *TypetreatmentController) CreateTypetreatment(c *gin.Context) {
 
 	ttm, err := ctl.client.Typetreatment.
 		Create().
-		SetType(obj.Type).
+		SetTypetreatment(obj.Typetreatment).
 		Save(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{

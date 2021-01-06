@@ -147,6 +147,31 @@ type Department struct {
 	Department string
 }
 
+// Struct By Treatment System
+
+//*******************************************************************
+
+// Treatment defines the struct for the Treatments
+type Treatments struct {
+	Treatment []Treatment
+}
+
+// Treatment defines the struct for the Treatment
+type Treatment struct {
+	Treatment string
+	Datetreat string
+}
+
+// Typetreatment defines the struct for the Typetreatments
+type Typetreatments struct {
+	Typetreatment []Typetreatment
+}
+
+// Typetreatment defines the struct for the Typetreatment
+type Typetreatment struct {
+	Typetreatment string
+}
+
 //^^^*******************************************************************^^^
 
 //^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
@@ -243,6 +268,12 @@ func main() {
 	controllers.NewNurseController(v1, client)
 	controllers.NewSymptomseverityController(v1, client)
 	controllers.NewDepartmentController(v1, client)
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
+
+	//Controller By Treatment System
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
+	controllers.NewTreatmentController(v1, client)
+	controllers.NewTypetreatmentController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	// Set Postman By Team10
@@ -402,6 +433,7 @@ func main() {
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
+
 	// Set Postman By Bill System
 	//vvv*******************************************************************vvv
 
@@ -436,6 +468,73 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
+
+	// Set Postman By Treatment System
+	//vvv*******************************************************************vvv
+
+	//Set Typetreatment data
+	Typetreatments := Typetreatments{
+		Typetreatment: []Typetreatment{
+			Typetreatment{"ตรวจผ่าตัด"},
+			Typetreatment{"ตรวจรักษาทั่วไป"},
+			Typetreatment{"ตรวจวินิจฉัยรักษา"},
+		},
+	}
+	for _, ttm := range Typetreatments.Typetreatment {
+		client.Typetreatment.
+			Create().
+			SetTypetreatment(ttm.Typetreatment).
+			Save(context.Background())
+	}
+
+	//Set Treatment data
+	/*treatments := Treatments{
+		Treatment: []Treatment{
+			Treatment{" ", "Nurse123456", "พยาบาลวิชาชีพ", 2},
+			Treatment{" ", "Nurse001122", "พยาบาลวิชาชีพ", 3},
+		},
+	}
+
+	for _, tm := range treatments.Treatment {
+		ttm, err := client.Typetreatment.
+			Query().
+			Where(typetreatment.IDEQ(int(tm.Typetreatment))).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		di, err := client.Doctorinfo.
+			Query().
+			Where(doctorinfo.IDEQ(int(tm.Doctorinfo))).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		pr, err := client.Patientrecord.
+			Query().
+			Where(patientrecord.IDEQ(int(tm.Patientrecord))).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		client.Treatment.
+			Create().
+			SetTreatment(obj.Treatment).
+			SetDatetreat(times).
+			SetUser(u).
+			SetPatientrecord(tm.Patientrecord).
+			SetDoctorinfo(tm.Doctorinfo).
+			SetTypetreatment(tm.Typetreatment).
+			Save(context.Background())
+	}*/
+	//vvv*******************************************************************vvv
+
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.Run()
