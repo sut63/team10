@@ -12,6 +12,7 @@ import (
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/nurse"
 	"github.com/team10/app/ent/patientrights"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 )
 
@@ -42,9 +43,11 @@ type UserEdges struct {
 	Medicalrecordstaff *Medicalrecordstaff
 	// User2doctorinfo holds the value of the user2doctorinfo edge.
 	User2doctorinfo *Doctorinfo
+	// User2registrar holds the value of the user2registrar edge.
+	User2registrar *Registrar
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [5]bool
+	loadedTypes [6]bool
 }
 
 // FinancierOrErr returns the Financier value or an error if the edge
@@ -115,6 +118,20 @@ func (e UserEdges) User2doctorinfoOrErr() (*Doctorinfo, error) {
 		return e.User2doctorinfo, nil
 	}
 	return nil, &NotLoadedError{edge: "user2doctorinfo"}
+}
+
+// User2registrarOrErr returns the User2registrar value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e UserEdges) User2registrarOrErr() (*Registrar, error) {
+	if e.loadedTypes[5] {
+		if e.User2registrar == nil {
+			// The edge user2registrar was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: registrar.Label}
+		}
+		return e.User2registrar, nil
+	}
+	return nil, &NotLoadedError{edge: "user2registrar"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -190,6 +207,11 @@ func (u *User) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
 // QueryUser2doctorinfo queries the user2doctorinfo edge of the User.
 func (u *User) QueryUser2doctorinfo() *DoctorinfoQuery {
 	return (&UserClient{config: u.config}).QueryUser2doctorinfo(u)
+}
+
+// QueryUser2registrar queries the user2registrar edge of the User.
+func (u *User) QueryUser2registrar() *RegistrarQuery {
+	return (&UserClient{config: u.config}).QueryUser2registrar(u)
 }
 
 // Update returns a builder for updating this User.

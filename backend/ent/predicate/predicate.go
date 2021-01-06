@@ -57,6 +57,9 @@ type Paytype func(*sql.Selector)
 // Prename is the predicate function for prename builders.
 type Prename func(*sql.Selector)
 
+// Registrar is the predicate function for registrar builders.
+type Registrar func(*sql.Selector)
+
 // Symptomseverity is the predicate function for symptomseverity builders.
 type Symptomseverity func(*sql.Selector)
 

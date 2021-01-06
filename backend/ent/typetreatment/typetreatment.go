@@ -7,8 +7,8 @@ const (
 	Label = "typetreatment"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldType holds the string denoting the type field in the database.
-	FieldType = "type"
+	// FieldTypetreatment holds the string denoting the typetreatment field in the database.
+	FieldTypetreatment = "typetreatment"
 
 	// EdgeTreatment holds the string denoting the treatment edge name in mutations.
 	EdgeTreatment = "treatment"
@@ -27,10 +27,10 @@ const (
 // Columns holds all SQL columns for typetreatment fields.
 var Columns = []string{
 	FieldID,
-	FieldType,
+	FieldTypetreatment,
 }
 
 var (
-	// TypeValidator is a validator for the "type" field. It is called by the builders before save.
-	TypeValidator func(string) error
+	// TypetreatmentValidator is a validator for the "Typetreatment" field. It is called by the builders before save.
+	TypetreatmentValidator func(string) error
 )

@@ -91,29 +91,29 @@ func IDLTE(id int) predicate.Typetreatment {
 	})
 }
 
-// Type applies equality check predicate on the "type" field. It's identical to TypeEQ.
-func Type(v string) predicate.Typetreatment {
+// Typetreatment applies equality check predicate on the "Typetreatment" field. It's identical to TypetreatmentEQ.
+func Typetreatment(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldType), v))
+		s.Where(sql.EQ(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeEQ applies the EQ predicate on the "type" field.
-func TypeEQ(v string) predicate.Typetreatment {
+// TypetreatmentEQ applies the EQ predicate on the "Typetreatment" field.
+func TypetreatmentEQ(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldType), v))
+		s.Where(sql.EQ(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeNEQ applies the NEQ predicate on the "type" field.
-func TypeNEQ(v string) predicate.Typetreatment {
+// TypetreatmentNEQ applies the NEQ predicate on the "Typetreatment" field.
+func TypetreatmentNEQ(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldType), v))
+		s.Where(sql.NEQ(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeIn applies the In predicate on the "type" field.
-func TypeIn(vs ...string) predicate.Typetreatment {
+// TypetreatmentIn applies the In predicate on the "Typetreatment" field.
+func TypetreatmentIn(vs ...string) predicate.Typetreatment {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -125,12 +125,12 @@ func TypeIn(vs ...string) predicate.Typetreatment {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldType), v...))
+		s.Where(sql.In(s.C(FieldTypetreatment), v...))
 	})
 }
 
-// TypeNotIn applies the NotIn predicate on the "type" field.
-func TypeNotIn(vs ...string) predicate.Typetreatment {
+// TypetreatmentNotIn applies the NotIn predicate on the "Typetreatment" field.
+func TypetreatmentNotIn(vs ...string) predicate.Typetreatment {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -142,70 +142,70 @@ func TypeNotIn(vs ...string) predicate.Typetreatment {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldType), v...))
+		s.Where(sql.NotIn(s.C(FieldTypetreatment), v...))
 	})
 }
 
-// TypeGT applies the GT predicate on the "type" field.
-func TypeGT(v string) predicate.Typetreatment {
+// TypetreatmentGT applies the GT predicate on the "Typetreatment" field.
+func TypetreatmentGT(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldType), v))
+		s.Where(sql.GT(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeGTE applies the GTE predicate on the "type" field.
-func TypeGTE(v string) predicate.Typetreatment {
+// TypetreatmentGTE applies the GTE predicate on the "Typetreatment" field.
+func TypetreatmentGTE(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldType), v))
+		s.Where(sql.GTE(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeLT applies the LT predicate on the "type" field.
-func TypeLT(v string) predicate.Typetreatment {
+// TypetreatmentLT applies the LT predicate on the "Typetreatment" field.
+func TypetreatmentLT(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldType), v))
+		s.Where(sql.LT(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeLTE applies the LTE predicate on the "type" field.
-func TypeLTE(v string) predicate.Typetreatment {
+// TypetreatmentLTE applies the LTE predicate on the "Typetreatment" field.
+func TypetreatmentLTE(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldType), v))
+		s.Where(sql.LTE(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeContains applies the Contains predicate on the "type" field.
-func TypeContains(v string) predicate.Typetreatment {
+// TypetreatmentContains applies the Contains predicate on the "Typetreatment" field.
+func TypetreatmentContains(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldType), v))
+		s.Where(sql.Contains(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeHasPrefix applies the HasPrefix predicate on the "type" field.
-func TypeHasPrefix(v string) predicate.Typetreatment {
+// TypetreatmentHasPrefix applies the HasPrefix predicate on the "Typetreatment" field.
+func TypetreatmentHasPrefix(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldType), v))
+		s.Where(sql.HasPrefix(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeHasSuffix applies the HasSuffix predicate on the "type" field.
-func TypeHasSuffix(v string) predicate.Typetreatment {
+// TypetreatmentHasSuffix applies the HasSuffix predicate on the "Typetreatment" field.
+func TypetreatmentHasSuffix(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldType), v))
+		s.Where(sql.HasSuffix(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeEqualFold applies the EqualFold predicate on the "type" field.
-func TypeEqualFold(v string) predicate.Typetreatment {
+// TypetreatmentEqualFold applies the EqualFold predicate on the "Typetreatment" field.
+func TypetreatmentEqualFold(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldType), v))
+		s.Where(sql.EqualFold(s.C(FieldTypetreatment), v))
 	})
 }
 
-// TypeContainsFold applies the ContainsFold predicate on the "type" field.
-func TypeContainsFold(v string) predicate.Typetreatment {
+// TypetreatmentContainsFold applies the ContainsFold predicate on the "Typetreatment" field.
+func TypetreatmentContainsFold(v string) predicate.Typetreatment {
 	return predicate.Typetreatment(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldType), v))
+		s.Where(sql.ContainsFold(s.C(FieldTypetreatment), v))
 	})
 }
 

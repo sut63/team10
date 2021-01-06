@@ -618,6 +618,30 @@ func (f PrenameMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutatio
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.PrenameMutation", m)
 }
 
+// The RegistrarQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type RegistrarQueryRuleFunc func(context.Context, *ent.RegistrarQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f RegistrarQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.RegistrarQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.RegistrarQuery", q)
+}
+
+// The RegistrarMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type RegistrarMutationRuleFunc func(context.Context, *ent.RegistrarMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f RegistrarMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.RegistrarMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.RegistrarMutation", m)
+}
+
 // The SymptomseverityQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type SymptomseverityQueryRuleFunc func(context.Context, *ent.SymptomseverityQuery) error

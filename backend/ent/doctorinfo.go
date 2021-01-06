@@ -12,6 +12,7 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 )
 
@@ -30,12 +31,13 @@ type Doctorinfo struct {
 	Licensenumber string `json:"licensenumber,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the DoctorinfoQuery when eager-loading is set.
-	Edges      DoctorinfoEdges `json:"edges"`
-	department *int
-	level      *int
-	roomnumber *int
-	prefix     *int
-	user_id    *int
+	Edges        DoctorinfoEdges `json:"edges"`
+	department   *int
+	level        *int
+	roomnumber   *int
+	prefix       *int
+	registrar_id *int
+	user_id      *int
 }
 
 // DoctorinfoEdges holds the relations/edges for other nodes in the graph.
@@ -50,11 +52,13 @@ type DoctorinfoEdges struct {
 	Prename *Prename
 	// User holds the value of the user edge.
 	User *User
+	// Registrar holds the value of the registrar edge.
+	Registrar *Registrar
 	// Treatment holds the value of the treatment edge.
 	Treatment []*Treatment
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [6]bool
+	loadedTypes [7]bool
 }
 
 // DepartmentOrErr returns the Department value or an error if the edge
@@ -127,10 +131,24 @@ func (e DoctorinfoEdges) UserOrErr() (*User, error) {
 	return nil, &NotLoadedError{edge: "user"}
 }
 
+// RegistrarOrErr returns the Registrar value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e DoctorinfoEdges) RegistrarOrErr() (*Registrar, error) {
+	if e.loadedTypes[5] {
+		if e.Registrar == nil {
+			// The edge registrar was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: registrar.Label}
+		}
+		return e.Registrar, nil
+	}
+	return nil, &NotLoadedError{edge: "registrar"}
+}
+
 // TreatmentOrErr returns the Treatment value or an error if the edge
 // was not loaded in eager-loading.
 func (e DoctorinfoEdges) TreatmentOrErr() ([]*Treatment, error) {
-	if e.loadedTypes[5] {
+	if e.loadedTypes[6] {
 		return e.Treatment, nil
 	}
 	return nil, &NotLoadedError{edge: "treatment"}
@@ -154,6 +172,7 @@ func (*Doctorinfo) fkValues() []interface{} {
 		&sql.NullInt64{}, // level
 		&sql.NullInt64{}, // roomnumber
 		&sql.NullInt64{}, // prefix
+		&sql.NullInt64{}, // registrar_id
 		&sql.NullInt64{}, // user_id
 	}
 }
@@ -217,6 +236,12 @@ func (d *Doctorinfo) assignValues(values ...interface{}) error {
 			*d.prefix = int(value.Int64)
 		}
 		if value, ok := values[4].(*sql.NullInt64); !ok {
+			return fmt.Errorf("unexpected type %T for edge-field registrar_id", value)
+		} else if value.Valid {
+			d.registrar_id = new(int)
+			*d.registrar_id = int(value.Int64)
+		}
+		if value, ok := values[5].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field user_id", value)
 		} else if value.Valid {
 			d.user_id = new(int)
@@ -249,6 +274,11 @@ func (d *Doctorinfo) QueryPrename() *PrenameQuery {
 // QueryUser queries the user edge of the Doctorinfo.
 func (d *Doctorinfo) QueryUser() *UserQuery {
 	return (&DoctorinfoClient{config: d.config}).QueryUser(d)
+}
+
+// QueryRegistrar queries the registrar edge of the Doctorinfo.
+func (d *Doctorinfo) QueryRegistrar() *RegistrarQuery {
+	return (&DoctorinfoClient{config: d.config}).QueryRegistrar(d)
 }
 
 // QueryTreatment queries the treatment edge of the Doctorinfo.

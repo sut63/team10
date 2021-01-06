@@ -28,9 +28,9 @@ func (tu *TypetreatmentUpdate) Where(ps ...predicate.Typetreatment) *Typetreatme
 	return tu
 }
 
-// SetType sets the type field.
-func (tu *TypetreatmentUpdate) SetType(s string) *TypetreatmentUpdate {
-	tu.mutation.SetType(s)
+// SetTypetreatment sets the Typetreatment field.
+func (tu *TypetreatmentUpdate) SetTypetreatment(s string) *TypetreatmentUpdate {
+	tu.mutation.SetTypetreatment(s)
 	return tu
 }
 
@@ -71,9 +71,9 @@ func (tu *TypetreatmentUpdate) RemoveTreatment(t ...*Treatment) *TypetreatmentUp
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
 func (tu *TypetreatmentUpdate) Save(ctx context.Context) (int, error) {
-	if v, ok := tu.mutation.GetType(); ok {
-		if err := typetreatment.TypeValidator(v); err != nil {
-			return 0, &ValidationError{Name: "type", err: fmt.Errorf("ent: validator failed for field \"type\": %w", err)}
+	if v, ok := tu.mutation.Typetreatment(); ok {
+		if err := typetreatment.TypetreatmentValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Typetreatment", err: fmt.Errorf("ent: validator failed for field \"Typetreatment\": %w", err)}
 		}
 	}
 
@@ -144,11 +144,11 @@ func (tu *TypetreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := tu.mutation.GetType(); ok {
+	if value, ok := tu.mutation.Typetreatment(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: typetreatment.FieldType,
+			Column: typetreatment.FieldTypetreatment,
 		})
 	}
 	if nodes := tu.mutation.RemovedTreatmentIDs(); len(nodes) > 0 {
@@ -207,9 +207,9 @@ type TypetreatmentUpdateOne struct {
 	mutation *TypetreatmentMutation
 }
 
-// SetType sets the type field.
-func (tuo *TypetreatmentUpdateOne) SetType(s string) *TypetreatmentUpdateOne {
-	tuo.mutation.SetType(s)
+// SetTypetreatment sets the Typetreatment field.
+func (tuo *TypetreatmentUpdateOne) SetTypetreatment(s string) *TypetreatmentUpdateOne {
+	tuo.mutation.SetTypetreatment(s)
 	return tuo
 }
 
@@ -250,9 +250,9 @@ func (tuo *TypetreatmentUpdateOne) RemoveTreatment(t ...*Treatment) *Typetreatme
 
 // Save executes the query and returns the updated entity.
 func (tuo *TypetreatmentUpdateOne) Save(ctx context.Context) (*Typetreatment, error) {
-	if v, ok := tuo.mutation.GetType(); ok {
-		if err := typetreatment.TypeValidator(v); err != nil {
-			return nil, &ValidationError{Name: "type", err: fmt.Errorf("ent: validator failed for field \"type\": %w", err)}
+	if v, ok := tuo.mutation.Typetreatment(); ok {
+		if err := typetreatment.TypetreatmentValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Typetreatment", err: fmt.Errorf("ent: validator failed for field \"Typetreatment\": %w", err)}
 		}
 	}
 
@@ -321,11 +321,11 @@ func (tuo *TypetreatmentUpdateOne) sqlSave(ctx context.Context) (t *Typetreatmen
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Typetreatment.ID for update")}
 	}
 	_spec.Node.ID.Value = id
-	if value, ok := tuo.mutation.GetType(); ok {
+	if value, ok := tuo.mutation.Typetreatment(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: typetreatment.FieldType,
+			Column: typetreatment.FieldTypetreatment,
 		})
 	}
 	if nodes := tuo.mutation.RemovedTreatmentIDs(); len(nodes) > 0 {

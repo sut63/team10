@@ -26,6 +26,7 @@ import (
 	"github.com/team10/app/ent/patientrightstype"
 	"github.com/team10/app/ent/paytype"
 	"github.com/team10/app/ent/prename"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/symptomseverity"
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/typetreatment"
@@ -76,6 +77,8 @@ type Client struct {
 	Paytype *PaytypeClient
 	// Prename is the client for interacting with the Prename builders.
 	Prename *PrenameClient
+	// Registrar is the client for interacting with the Registrar builders.
+	Registrar *RegistrarClient
 	// Symptomseverity is the client for interacting with the Symptomseverity builders.
 	Symptomseverity *SymptomseverityClient
 	// Treatment is the client for interacting with the Treatment builders.
@@ -116,6 +119,7 @@ func (c *Client) init() {
 	c.Patientrightstype = NewPatientrightstypeClient(c.config)
 	c.Paytype = NewPaytypeClient(c.config)
 	c.Prename = NewPrenameClient(c.config)
+	c.Registrar = NewRegistrarClient(c.config)
 	c.Symptomseverity = NewSymptomseverityClient(c.config)
 	c.Treatment = NewTreatmentClient(c.config)
 	c.Typetreatment = NewTypetreatmentClient(c.config)
@@ -170,6 +174,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Patientrightstype:    NewPatientrightstypeClient(cfg),
 		Paytype:              NewPaytypeClient(cfg),
 		Prename:              NewPrenameClient(cfg),
+		Registrar:            NewRegistrarClient(cfg),
 		Symptomseverity:      NewSymptomseverityClient(cfg),
 		Treatment:            NewTreatmentClient(cfg),
 		Typetreatment:        NewTypetreatmentClient(cfg),
@@ -207,6 +212,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Patientrightstype:    NewPatientrightstypeClient(cfg),
 		Paytype:              NewPaytypeClient(cfg),
 		Prename:              NewPrenameClient(cfg),
+		Registrar:            NewRegistrarClient(cfg),
 		Symptomseverity:      NewSymptomseverityClient(cfg),
 		Treatment:            NewTreatmentClient(cfg),
 		Typetreatment:        NewTypetreatmentClient(cfg),
@@ -257,6 +263,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Patientrightstype.Use(hooks...)
 	c.Paytype.Use(hooks...)
 	c.Prename.Use(hooks...)
+	c.Registrar.Use(hooks...)
 	c.Symptomseverity.Use(hooks...)
 	c.Treatment.Use(hooks...)
 	c.Typetreatment.Use(hooks...)
@@ -760,6 +767,22 @@ func (c *DoctorinfoClient) QueryUser(d *Doctorinfo) *UserQuery {
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, id),
 			sqlgraph.To(user.Table, user.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, true, doctorinfo.UserTable, doctorinfo.UserColumn),
+		)
+		fromV = sqlgraph.Neighbors(d.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryRegistrar queries the registrar edge of a Doctorinfo.
+func (c *DoctorinfoClient) QueryRegistrar(d *Doctorinfo) *RegistrarQuery {
+	query := &RegistrarQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := d.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, id),
+			sqlgraph.To(registrar.Table, registrar.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.RegistrarTable, doctorinfo.RegistrarColumn),
 		)
 		fromV = sqlgraph.Neighbors(d.driver.Dialect(), step)
 		return fromV, nil
@@ -2347,6 +2370,121 @@ func (c *PrenameClient) Hooks() []Hook {
 	return c.hooks.Prename
 }
 
+// RegistrarClient is a client for the Registrar schema.
+type RegistrarClient struct {
+	config
+}
+
+// NewRegistrarClient returns a client for the Registrar from the given config.
+func NewRegistrarClient(c config) *RegistrarClient {
+	return &RegistrarClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `registrar.Hooks(f(g(h())))`.
+func (c *RegistrarClient) Use(hooks ...Hook) {
+	c.hooks.Registrar = append(c.hooks.Registrar, hooks...)
+}
+
+// Create returns a create builder for Registrar.
+func (c *RegistrarClient) Create() *RegistrarCreate {
+	mutation := newRegistrarMutation(c.config, OpCreate)
+	return &RegistrarCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Update returns an update builder for Registrar.
+func (c *RegistrarClient) Update() *RegistrarUpdate {
+	mutation := newRegistrarMutation(c.config, OpUpdate)
+	return &RegistrarUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *RegistrarClient) UpdateOne(r *Registrar) *RegistrarUpdateOne {
+	mutation := newRegistrarMutation(c.config, OpUpdateOne, withRegistrar(r))
+	return &RegistrarUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *RegistrarClient) UpdateOneID(id int) *RegistrarUpdateOne {
+	mutation := newRegistrarMutation(c.config, OpUpdateOne, withRegistrarID(id))
+	return &RegistrarUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Registrar.
+func (c *RegistrarClient) Delete() *RegistrarDelete {
+	mutation := newRegistrarMutation(c.config, OpDelete)
+	return &RegistrarDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *RegistrarClient) DeleteOne(r *Registrar) *RegistrarDeleteOne {
+	return c.DeleteOneID(r.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *RegistrarClient) DeleteOneID(id int) *RegistrarDeleteOne {
+	builder := c.Delete().Where(registrar.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &RegistrarDeleteOne{builder}
+}
+
+// Create returns a query builder for Registrar.
+func (c *RegistrarClient) Query() *RegistrarQuery {
+	return &RegistrarQuery{config: c.config}
+}
+
+// Get returns a Registrar entity by its id.
+func (c *RegistrarClient) Get(ctx context.Context, id int) (*Registrar, error) {
+	return c.Query().Where(registrar.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *RegistrarClient) GetX(ctx context.Context, id int) *Registrar {
+	r, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return r
+}
+
+// QueryRegistrar2doctorinfo queries the registrar2doctorinfo edge of a Registrar.
+func (c *RegistrarClient) QueryRegistrar2doctorinfo(r *Registrar) *DoctorinfoQuery {
+	query := &DoctorinfoQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := r.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(registrar.Table, registrar.FieldID, id),
+			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, registrar.Registrar2doctorinfoTable, registrar.Registrar2doctorinfoColumn),
+		)
+		fromV = sqlgraph.Neighbors(r.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryUser queries the user edge of a Registrar.
+func (c *RegistrarClient) QueryUser(r *Registrar) *UserQuery {
+	query := &UserQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := r.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(registrar.Table, registrar.FieldID, id),
+			sqlgraph.To(user.Table, user.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, registrar.UserTable, registrar.UserColumn),
+		)
+		fromV = sqlgraph.Neighbors(r.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *RegistrarClient) Hooks() []Hook {
+	return c.hooks.Registrar
+}
+
 // SymptomseverityClient is a client for the Symptomseverity schema.
 type SymptomseverityClient struct {
 	config
@@ -2958,6 +3096,22 @@ func (c *UserClient) QueryUser2doctorinfo(u *User) *DoctorinfoQuery {
 			sqlgraph.From(user.Table, user.FieldID, id),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, false, user.User2doctorinfoTable, user.User2doctorinfoColumn),
+		)
+		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryUser2registrar queries the user2registrar edge of a User.
+func (c *UserClient) QueryUser2registrar(u *User) *RegistrarQuery {
+	query := &RegistrarQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := u.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(user.Table, user.FieldID, id),
+			sqlgraph.To(registrar.Table, registrar.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, false, user.User2registrarTable, user.User2registrarColumn),
 		)
 		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
 		return fromV, nil

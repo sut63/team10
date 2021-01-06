@@ -270,12 +270,12 @@ func (tq *TypetreatmentQuery) WithTreatment(opts ...func(*TreatmentQuery)) *Type
 // Example:
 //
 //	var v []struct {
-//		Type string `json:"type,omitempty"`
+//		Typetreatment string `json:"Typetreatment,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Typetreatment.Query().
-//		GroupBy(typetreatment.FieldType).
+//		GroupBy(typetreatment.FieldTypetreatment).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -296,11 +296,11 @@ func (tq *TypetreatmentQuery) GroupBy(field string, fields ...string) *Typetreat
 // Example:
 //
 //	var v []struct {
-//		Type string `json:"type,omitempty"`
+//		Typetreatment string `json:"Typetreatment,omitempty"`
 //	}
 //
 //	client.Typetreatment.Query().
-//		Select(typetreatment.FieldType).
+//		Select(typetreatment.FieldTypetreatment).
 //		Scan(ctx, &v)
 //
 func (tq *TypetreatmentQuery) Select(field string, fields ...string) *TypetreatmentSelect {

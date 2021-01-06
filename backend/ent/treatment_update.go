@@ -32,15 +32,15 @@ func (tu *TreatmentUpdate) Where(ps ...predicate.Treatment) *TreatmentUpdate {
 	return tu
 }
 
-// SetTreatment sets the treatment field.
+// SetTreatment sets the Treatment field.
 func (tu *TreatmentUpdate) SetTreatment(s string) *TreatmentUpdate {
 	tu.mutation.SetTreatment(s)
 	return tu
 }
 
-// SetDatetime sets the datetime field.
-func (tu *TreatmentUpdate) SetDatetime(t time.Time) *TreatmentUpdate {
-	tu.mutation.SetDatetime(t)
+// SetDatetreat sets the Datetreat field.
+func (tu *TreatmentUpdate) SetDatetreat(t time.Time) *TreatmentUpdate {
+	tu.mutation.SetDatetreat(t)
 	return tu
 }
 
@@ -153,7 +153,7 @@ func (tu *TreatmentUpdate) ClearUnpaybills() *TreatmentUpdate {
 func (tu *TreatmentUpdate) Save(ctx context.Context) (int, error) {
 	if v, ok := tu.mutation.Treatment(); ok {
 		if err := treatment.TreatmentValidator(v); err != nil {
-			return 0, &ValidationError{Name: "treatment", err: fmt.Errorf("ent: validator failed for field \"treatment\": %w", err)}
+			return 0, &ValidationError{Name: "Treatment", err: fmt.Errorf("ent: validator failed for field \"Treatment\": %w", err)}
 		}
 	}
 
@@ -231,11 +231,11 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: treatment.FieldTreatment,
 		})
 	}
-	if value, ok := tu.mutation.Datetime(); ok {
+	if value, ok := tu.mutation.Datetreat(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeTime,
 			Value:  value,
-			Column: treatment.FieldDatetime,
+			Column: treatment.FieldDatetreat,
 		})
 	}
 	if tu.mutation.TypetreatmentCleared() {
@@ -396,15 +396,15 @@ type TreatmentUpdateOne struct {
 	mutation *TreatmentMutation
 }
 
-// SetTreatment sets the treatment field.
+// SetTreatment sets the Treatment field.
 func (tuo *TreatmentUpdateOne) SetTreatment(s string) *TreatmentUpdateOne {
 	tuo.mutation.SetTreatment(s)
 	return tuo
 }
 
-// SetDatetime sets the datetime field.
-func (tuo *TreatmentUpdateOne) SetDatetime(t time.Time) *TreatmentUpdateOne {
-	tuo.mutation.SetDatetime(t)
+// SetDatetreat sets the Datetreat field.
+func (tuo *TreatmentUpdateOne) SetDatetreat(t time.Time) *TreatmentUpdateOne {
+	tuo.mutation.SetDatetreat(t)
 	return tuo
 }
 
@@ -517,7 +517,7 @@ func (tuo *TreatmentUpdateOne) ClearUnpaybills() *TreatmentUpdateOne {
 func (tuo *TreatmentUpdateOne) Save(ctx context.Context) (*Treatment, error) {
 	if v, ok := tuo.mutation.Treatment(); ok {
 		if err := treatment.TreatmentValidator(v); err != nil {
-			return nil, &ValidationError{Name: "treatment", err: fmt.Errorf("ent: validator failed for field \"treatment\": %w", err)}
+			return nil, &ValidationError{Name: "Treatment", err: fmt.Errorf("ent: validator failed for field \"Treatment\": %w", err)}
 		}
 	}
 
@@ -593,11 +593,11 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 			Column: treatment.FieldTreatment,
 		})
 	}
-	if value, ok := tuo.mutation.Datetime(); ok {
+	if value, ok := tuo.mutation.Datetreat(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeTime,
 			Value:  value,
-			Column: treatment.FieldDatetime,
+			Column: treatment.FieldDatetreat,
 		})
 	}
 	if tuo.mutation.TypetreatmentCleared() {

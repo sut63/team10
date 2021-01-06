@@ -46,6 +46,8 @@ type Tx struct {
 	Paytype *PaytypeClient
 	// Prename is the client for interacting with the Prename builders.
 	Prename *PrenameClient
+	// Registrar is the client for interacting with the Registrar builders.
+	Registrar *RegistrarClient
 	// Symptomseverity is the client for interacting with the Symptomseverity builders.
 	Symptomseverity *SymptomseverityClient
 	// Treatment is the client for interacting with the Treatment builders.
@@ -208,6 +210,7 @@ func (tx *Tx) init() {
 	tx.Patientrightstype = NewPatientrightstypeClient(tx.config)
 	tx.Paytype = NewPaytypeClient(tx.config)
 	tx.Prename = NewPrenameClient(tx.config)
+	tx.Registrar = NewRegistrarClient(tx.config)
 	tx.Symptomseverity = NewSymptomseverityClient(tx.config)
 	tx.Treatment = NewTreatmentClient(tx.config)
 	tx.Typetreatment = NewTypetreatmentClient(tx.config)

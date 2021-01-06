@@ -24,15 +24,15 @@ type TreatmentCreate struct {
 	hooks    []Hook
 }
 
-// SetTreatment sets the treatment field.
+// SetTreatment sets the Treatment field.
 func (tc *TreatmentCreate) SetTreatment(s string) *TreatmentCreate {
 	tc.mutation.SetTreatment(s)
 	return tc
 }
 
-// SetDatetime sets the datetime field.
-func (tc *TreatmentCreate) SetDatetime(t time.Time) *TreatmentCreate {
-	tc.mutation.SetDatetime(t)
+// SetDatetreat sets the Datetreat field.
+func (tc *TreatmentCreate) SetDatetreat(t time.Time) *TreatmentCreate {
+	tc.mutation.SetDatetreat(t)
 	return tc
 }
 
@@ -120,15 +120,15 @@ func (tc *TreatmentCreate) Mutation() *TreatmentMutation {
 // Save creates the Treatment in the database.
 func (tc *TreatmentCreate) Save(ctx context.Context) (*Treatment, error) {
 	if _, ok := tc.mutation.Treatment(); !ok {
-		return nil, &ValidationError{Name: "treatment", err: errors.New("ent: missing required field \"treatment\"")}
+		return nil, &ValidationError{Name: "Treatment", err: errors.New("ent: missing required field \"Treatment\"")}
 	}
 	if v, ok := tc.mutation.Treatment(); ok {
 		if err := treatment.TreatmentValidator(v); err != nil {
-			return nil, &ValidationError{Name: "treatment", err: fmt.Errorf("ent: validator failed for field \"treatment\": %w", err)}
+			return nil, &ValidationError{Name: "Treatment", err: fmt.Errorf("ent: validator failed for field \"Treatment\": %w", err)}
 		}
 	}
-	if _, ok := tc.mutation.Datetime(); !ok {
-		return nil, &ValidationError{Name: "datetime", err: errors.New("ent: missing required field \"datetime\"")}
+	if _, ok := tc.mutation.Datetreat(); !ok {
+		return nil, &ValidationError{Name: "Datetreat", err: errors.New("ent: missing required field \"Datetreat\"")}
 	}
 	var (
 		err  error
@@ -198,13 +198,13 @@ func (tc *TreatmentCreate) createSpec() (*Treatment, *sqlgraph.CreateSpec) {
 		})
 		t.Treatment = value
 	}
-	if value, ok := tc.mutation.Datetime(); ok {
+	if value, ok := tc.mutation.Datetreat(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeTime,
 			Value:  value,
-			Column: treatment.FieldDatetime,
+			Column: treatment.FieldDatetreat,
 		})
-		t.Datetime = value
+		t.Datetreat = value
 	}
 	if nodes := tc.mutation.TypetreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

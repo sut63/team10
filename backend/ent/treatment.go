@@ -20,10 +20,10 @@ type Treatment struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// Treatment holds the value of the "treatment" field.
-	Treatment string `json:"treatment,omitempty"`
-	// Datetime holds the value of the "datetime" field.
-	Datetime time.Time `json:"datetime,omitempty"`
+	// Treatment holds the value of the "Treatment" field.
+	Treatment string `json:"Treatment,omitempty"`
+	// Datetreat holds the value of the "Datetreat" field.
+	Datetreat time.Time `json:"Datetreat,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the TreatmentQuery when eager-loading is set.
 	Edges            TreatmentEdges `json:"edges"`
@@ -107,8 +107,8 @@ func (e TreatmentEdges) UnpaybillsOrErr() (*Unpaybill, error) {
 func (*Treatment) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullString{}, // treatment
-		&sql.NullTime{},   // datetime
+		&sql.NullString{}, // Treatment
+		&sql.NullTime{},   // Datetreat
 	}
 }
 
@@ -134,14 +134,14 @@ func (t *Treatment) assignValues(values ...interface{}) error {
 	t.ID = int(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field treatment", values[0])
+		return fmt.Errorf("unexpected type %T for field Treatment", values[0])
 	} else if value.Valid {
 		t.Treatment = value.String
 	}
 	if value, ok := values[1].(*sql.NullTime); !ok {
-		return fmt.Errorf("unexpected type %T for field datetime", values[1])
+		return fmt.Errorf("unexpected type %T for field Datetreat", values[1])
 	} else if value.Valid {
-		t.Datetime = value.Time
+		t.Datetreat = value.Time
 	}
 	values = values[2:]
 	if len(values) == len(treatment.ForeignKeys) {
@@ -210,10 +210,10 @@ func (t *Treatment) String() string {
 	var builder strings.Builder
 	builder.WriteString("Treatment(")
 	builder.WriteString(fmt.Sprintf("id=%v", t.ID))
-	builder.WriteString(", treatment=")
+	builder.WriteString(", Treatment=")
 	builder.WriteString(t.Treatment)
-	builder.WriteString(", datetime=")
-	builder.WriteString(t.Datetime.Format(time.ANSIC))
+	builder.WriteString(", Datetreat=")
+	builder.WriteString(t.Datetreat.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }

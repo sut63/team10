@@ -41,6 +41,7 @@ type hooks struct {
 	Patientrightstype    []ent.Hook
 	Paytype              []ent.Hook
 	Prename              []ent.Hook
+	Registrar            []ent.Hook
 	Symptomseverity      []ent.Hook
 	Treatment            []ent.Hook
 	Typetreatment        []ent.Hook

@@ -364,7 +364,7 @@ func (tq *TreatmentQuery) WithUnpaybills(opts ...func(*UnpaybillQuery)) *Treatme
 // Example:
 //
 //	var v []struct {
-//		Treatment string `json:"treatment,omitempty"`
+//		Treatment string `json:"Treatment,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -390,7 +390,7 @@ func (tq *TreatmentQuery) GroupBy(field string, fields ...string) *TreatmentGrou
 // Example:
 //
 //	var v []struct {
-//		Treatment string `json:"treatment,omitempty"`
+//		Treatment string `json:"Treatment,omitempty"`
 //	}
 //
 //	client.Treatment.Query().

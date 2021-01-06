@@ -703,6 +703,34 @@ func HasUserWith(preds ...predicate.User) predicate.Doctorinfo {
 	})
 }
 
+// HasRegistrar applies the HasEdge predicate on the "registrar" edge.
+func HasRegistrar() predicate.Doctorinfo {
+	return predicate.Doctorinfo(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(RegistrarTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, RegistrarTable, RegistrarColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasRegistrarWith applies the HasEdge predicate on the "registrar" edge with a given conditions (other predicates).
+func HasRegistrarWith(preds ...predicate.Registrar) predicate.Doctorinfo {
+	return predicate.Doctorinfo(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(RegistrarInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, RegistrarTable, RegistrarColumn),
+		)
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
 // HasTreatment applies the HasEdge predicate on the "treatment" edge.
 func HasTreatment() predicate.Doctorinfo {
 	return predicate.Doctorinfo(func(s *sql.Selector) {

@@ -22,6 +22,8 @@ const (
 	EdgeMedicalrecordstaff = "medicalrecordstaff"
 	// EdgeUser2doctorinfo holds the string denoting the user2doctorinfo edge name in mutations.
 	EdgeUser2doctorinfo = "user2doctorinfo"
+	// EdgeUser2registrar holds the string denoting the user2registrar edge name in mutations.
+	EdgeUser2registrar = "user2registrar"
 
 	// Table holds the table name of the user in the database.
 	Table = "users"
@@ -60,6 +62,13 @@ const (
 	User2doctorinfoInverseTable = "doctorinfos"
 	// User2doctorinfoColumn is the table column denoting the user2doctorinfo relation/edge.
 	User2doctorinfoColumn = "user_id"
+	// User2registrarTable is the table the holds the user2registrar relation/edge.
+	User2registrarTable = "registrars"
+	// User2registrarInverseTable is the table name for the Registrar entity.
+	// It exists in this package in order to avoid circular dependency with the "registrar" package.
+	User2registrarInverseTable = "registrars"
+	// User2registrarColumn is the table column denoting the user2registrar relation/edge.
+	User2registrarColumn = "user_id"
 )
 
 // Columns holds all SQL columns for user fields.
