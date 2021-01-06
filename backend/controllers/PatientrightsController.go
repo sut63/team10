@@ -6,16 +6,16 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/PON/app/ent"
-	
-	"github.com/PON/app/ent/patientrights"
+	"github.com/team10/app/ent"
+
+	"github.com/team10/app/ent/patientrights"
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/PON/app/ent/insurance"
-	"github.com/PON/app/ent/patientrecord"
-	"github.com/PON/app/ent/patientrightstype"
-	"github.com/PON/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/insurance"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/patientrightstype"
 )
 
 // PatientrightsController defines the struct for the Patientrights controller
@@ -29,10 +29,10 @@ type Patientrights struct {
 	//PermissionDate string
 
 	//Abilitypatientrights int
-	Patientrightstype    int
-	Patientrecord        int
-	Insurance            int
-	Medicalrecordstaff   int
+	Patientrightstype  int
+	Patientrecord      int
+	Insurance          int
+	Medicalrecordstaff int
 }
 
 // CreatePatientrights handles POST requests for adding Patientrights entities
@@ -229,7 +229,6 @@ func (ctl *PatientrightsController) ListPatientrights(c *gin.Context) {
 		WithPatientrightsPatientrightstype().
 		WithPatientrightsPatientrecord().
 		WithPatientrightsMedicalrecordstaff().
-		
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())
@@ -240,7 +239,6 @@ func (ctl *PatientrightsController) ListPatientrights(c *gin.Context) {
 
 	c.JSON(200, patientrightss)
 }
-
 
 // UpdatePatientrights handles PUT requests to update a patientrights entity
 // @Summary Update a patientrights entity by ID
@@ -262,7 +260,7 @@ func (ctl *PatientrightsController) UpdatePatientrights(c *gin.Context) {
 		})
 		return
 	}
-  
+
 	obj := ent.Patientrights{}
 	if err := c.ShouldBind(&obj); err != nil {
 		c.JSON(400, gin.H{
@@ -275,14 +273,12 @@ func (ctl *PatientrightsController) UpdatePatientrights(c *gin.Context) {
 		UpdateOne(&obj).
 		Save(context.Background())
 	if err != nil {
-		c.JSON(400, gin.H{"error": "update failed",})
+		c.JSON(400, gin.H{"error": "update failed"})
 		return
 	}
-  
+
 	c.JSON(200, u)
- }
-
-
+}
 
 // NewPatientrightsController creates and registers handles for the patientrights controller
 func NewPatientrightsController(router gin.IRouter, client *ent.Client) *PatientrightsController {

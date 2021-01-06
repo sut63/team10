@@ -4,11 +4,11 @@ import (
    "context"
    "fmt"
    "strconv"
-   "github.com/PON/app/ent"
-   "github.com/PON/app/ent/patientrightstype"
+   "github.com/team10/app/ent"
+   "github.com/team10/app/ent/patientrightstype"
    "github.com/gin-gonic/gin"
 
-   "github.com/PON/app/ent/abilitypatientrights"
+   "github.com/team10/app/ent/abilitypatientrights"
 )
  
 // PatientrightstypeController defines the struct for the patientrightstype controller
@@ -23,9 +23,6 @@ type Patientrightstype struct {
 	PermissionArea		string
 	Responsible			string
 	Abilitypatientrights 	int
-	
-	
-	
 }
 
 // CreatePatientrightstype handles POST requests for adding patientrightstype entities
