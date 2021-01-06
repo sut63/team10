@@ -1,5 +1,18 @@
 basePath: /api/v1
 definitions:
+  controllers.Bill:
+    properties:
+      amount:
+        type: string
+      date:
+        type: string
+      financier:
+        type: integer
+      paytype:
+        type: integer
+      unpaybill:
+        type: integer
+    type: object
   controllers.Historytaking:
     properties:
       bp:
@@ -1360,7 +1373,7 @@ paths:
         name: bill
         required: true
         schema:
-          $ref: '#/definitions/ent.Bill'
+          $ref: '#/definitions/controllers.Bill'
       produces:
       - application/json
       responses:
@@ -1587,7 +1600,7 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a department entity by ID
-  /financier:
+  /financiers:
     get:
       description: list financier entities
       operationId: list-financier
@@ -1618,7 +1631,7 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: List financier entities
-  /financier/{id}:
+  /financiers/{id}:
     get:
       description: get financier by ID
       operationId: get-financier
@@ -2435,7 +2448,37 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a patientrightstype entity by ID
-  /paytype:
+  /paytype/{id}:
+    get:
+      description: get paytype by ID
+      operationId: get-paytype
+      parameters:
+      - description: Paytype ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Paytype'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a paytype entity by ID
+  /paytypes:
     get:
       description: list paytype entities
       operationId: list-paytype

@@ -816,7 +816,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ent.Bill"
+                            "$ref": "#/definitions/controllers.Bill"
                         }
                     }
                 ],
@@ -1156,7 +1156,7 @@ var doc = `{
                 }
             }
         },
-        "/financier": {
+        "/financiers": {
             "get": {
                 "description": "list financier entities",
                 "produces": [
@@ -1203,7 +1203,7 @@ var doc = `{
                 }
             }
         },
-        "/financier/{id}": {
+        "/financiers/{id}": {
             "get": {
                 "description": "get financier by ID",
                 "produces": [
@@ -2429,7 +2429,52 @@ var doc = `{
                 }
             }
         },
-        "/paytype": {
+        "/paytype/{id}": {
+            "get": {
+                "description": "get paytype by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get a paytype entity by ID",
+                "operationId": "get-paytype",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Paytype ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ent.Paytype"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
+        "/paytypes": {
             "get": {
                 "description": "list paytype entities",
                 "produces": [
@@ -3156,6 +3201,26 @@ var doc = `{
         }
     },
     "definitions": {
+        "controllers.Bill": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "financier": {
+                    "type": "integer"
+                },
+                "paytype": {
+                    "type": "integer"
+                },
+                "unpaybill": {
+                    "type": "integer"
+                }
+            }
+        },
         "controllers.Historytaking": {
             "type": "object",
             "properties": {

@@ -429,7 +429,8 @@ func main() {
 	for _, pt := range paytypes.Paytype {
 		client.Paytype.
 			Create().
-			SetPaytype(pt.paytype)
+			SetPaytype(pt.paytype).
+			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
 	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^

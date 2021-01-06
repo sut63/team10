@@ -35,7 +35,7 @@ type Bill struct {
 // @ID create-bill
 // @Accept   json
 // @Produce  json
-// @Param bill body ent.Bill true "Bill entity"
+// @Param bill body Bill true "Bill entity"
 // @Success 200 {object} ent.Bill
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -88,13 +88,13 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 		SetOfficer(f).
 		SetTreatment(ub).
 		Save(context.Background())
-
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "saving failed",
 		})
 		return
 	}
+
 
 	c.JSON(200, u)
 }

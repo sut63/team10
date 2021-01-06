@@ -25,7 +25,7 @@ type FinancierController struct {
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
-// @Router /financier/{id} [get]
+// @Router /financiers/{id} [get]
 func (ctl *FinancierController) GetFinancier(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
@@ -37,7 +37,6 @@ func (ctl *FinancierController) GetFinancier(c *gin.Context) {
 
 	u, err := ctl.client.Financier.
 		Query().
-		WithUser().
 		Where(financier.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -60,7 +59,7 @@ func (ctl *FinancierController) GetFinancier(c *gin.Context) {
 // @Success 200 {array} ent.Financier
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
-// @Router /financier [get]
+// @Router /financiers [get]
 func (ctl *FinancierController) ListFinancier(c *gin.Context) {
 	limitQuery := c.Query("limit")
 	limit := 10
@@ -82,7 +81,6 @@ func (ctl *FinancierController) ListFinancier(c *gin.Context) {
 
 	financiers, err := ctl.client.Financier.
 		Query().
-		WithUser().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())
