@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    ControllersBill,
+    ControllersBillFromJSON,
+    ControllersBillToJSON,
     ControllersHistorytaking,
     ControllersHistorytakingFromJSON,
     ControllersHistorytakingToJSON,
@@ -66,6 +69,12 @@ import {
     EntSymptomseverity,
     EntSymptomseverityFromJSON,
     EntSymptomseverityToJSON,
+    EntTreatment,
+    EntTreatmentFromJSON,
+    EntTreatmentToJSON,
+    EntTypetreatment,
+    EntTypetreatmentFromJSON,
+    EntTypetreatmentToJSON,
     EntUnpaybill,
     EntUnpaybillFromJSON,
     EntUnpaybillToJSON,
@@ -79,7 +88,7 @@ export interface CreateAbilitypatientrightsRequest {
 }
 
 export interface CreateBillRequest {
-    bill: EntBill;
+    bill: ControllersBill;
 }
 
 export interface CreateDepartmentRequest {
@@ -114,8 +123,12 @@ export interface CreateSymptomseverityRequest {
     symptomseverity: EntSymptomseverity;
 }
 
-export interface CreateUnpaybillRequest {
-    unpaybill: EntUnpaybill;
+export interface CreateTreatmentRequest {
+    treatment: EntTreatment;
+}
+
+export interface CreateTypetreatmentRequest {
+    typetreatment: EntTypetreatment;
 }
 
 export interface CreateUserRequest {
@@ -147,6 +160,10 @@ export interface DeletePatientrightstypeRequest {
 }
 
 export interface DeleteSymptomseverityRequest {
+    id: number;
+}
+
+export interface DeleteTreatmentRequest {
     id: number;
 }
 
@@ -206,7 +223,19 @@ export interface GetPatientrightstypeRequest {
     id: number;
 }
 
+export interface GetPaytypeRequest {
+    id: number;
+}
+
 export interface GetSymptomseverityRequest {
+    id: number;
+}
+
+export interface GetTreatmentRequest {
+    id: number;
+}
+
+export interface GetTypetreatmentRequest {
     id: number;
 }
 
@@ -288,6 +317,16 @@ export interface ListSymptomseverityRequest {
     offset?: number;
 }
 
+export interface ListTreatmentRequest {
+    limit?: number;
+    offset?: number;
+}
+
+export interface ListTypetreatmentRequest {
+    limit?: number;
+    offset?: number;
+}
+
 export interface ListUnpaybillRequest {
     limit?: number;
     offset?: number;
@@ -331,6 +370,11 @@ export interface UpdatePatientrightstypeRequest {
 export interface UpdateSymptomseverityRequest {
     id: number;
     symptomseverity: EntSymptomseverity;
+}
+
+export interface UpdateTypetreatmentRequest {
+    id: number;
+    typetreatment: EntTypetreatment;
 }
 
 export interface UpdateUnpaybillRequest {
@@ -403,7 +447,7 @@ export class DefaultApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: EntBillToJSON(requestParameters.bill),
+            body: ControllersBillToJSON(requestParameters.bill),
         });
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntBillFromJSON(jsonValue));
@@ -699,12 +743,12 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create unpaybill
-     * Create unpaybill
+     * Create Treatment
+     * Create Treatment
      */
-    async createUnpaybillRaw(requestParameters: CreateUnpaybillRequest): Promise<runtime.ApiResponse<EntUnpaybill>> {
-        if (requestParameters.unpaybill === null || requestParameters.unpaybill === undefined) {
-            throw new runtime.RequiredError('unpaybill','Required parameter requestParameters.unpaybill was null or undefined when calling createUnpaybill.');
+    async createTreatmentRaw(requestParameters: CreateTreatmentRequest): Promise<runtime.ApiResponse<EntTreatment>> {
+        if (requestParameters.treatment === null || requestParameters.treatment === undefined) {
+            throw new runtime.RequiredError('treatment','Required parameter requestParameters.treatment was null or undefined when calling createTreatment.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -714,22 +758,57 @@ export class DefaultApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/unpaybills`,
+            path: `/Treatments`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: EntUnpaybillToJSON(requestParameters.unpaybill),
+            body: EntTreatmentToJSON(requestParameters.treatment),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntUnpaybillFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntTreatmentFromJSON(jsonValue));
     }
 
     /**
-     * Create unpaybill
-     * Create unpaybill
+     * Create Treatment
+     * Create Treatment
      */
-    async createUnpaybill(requestParameters: CreateUnpaybillRequest): Promise<EntUnpaybill> {
-        const response = await this.createUnpaybillRaw(requestParameters);
+    async createTreatment(requestParameters: CreateTreatmentRequest): Promise<EntTreatment> {
+        const response = await this.createTreatmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * Create Typetreatment
+     * Create Typetreatment
+     */
+    async createTypetreatmentRaw(requestParameters: CreateTypetreatmentRequest): Promise<runtime.ApiResponse<EntTypetreatment>> {
+        if (requestParameters.typetreatment === null || requestParameters.typetreatment === undefined) {
+            throw new runtime.RequiredError('typetreatment','Required parameter requestParameters.typetreatment was null or undefined when calling createTypetreatment.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/Typetreatments`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: EntTypetreatmentToJSON(requestParameters.typetreatment),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntTypetreatmentFromJSON(jsonValue));
+    }
+
+    /**
+     * Create Typetreatment
+     * Create Typetreatment
+     */
+    async createTypetreatment(requestParameters: CreateTypetreatmentRequest): Promise<EntTypetreatment> {
+        const response = await this.createTypetreatmentRaw(requestParameters);
         return await response.value();
     }
 
@@ -993,6 +1072,38 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * get Treatment by ID
+     * Delete a Treatment entity by ID
+     */
+    async deleteTreatmentRaw(requestParameters: DeleteTreatmentRequest): Promise<runtime.ApiResponse<object>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteTreatment.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/Treatments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * get Treatment by ID
+     * Delete a Treatment entity by ID
+     */
+    async deleteTreatment(requestParameters: DeleteTreatmentRequest): Promise<object> {
+        const response = await this.deleteTreatmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
      * get unpaybill by ID
      * Delete a unpaybill entity by ID
      */
@@ -1166,7 +1277,7 @@ export class DefaultApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/financier/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/financiers/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1441,6 +1552,38 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * get paytype by ID
+     * Get a paytype entity by ID
+     */
+    async getPaytypeRaw(requestParameters: GetPaytypeRequest): Promise<runtime.ApiResponse<EntPaytype>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getPaytype.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/paytype/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntPaytypeFromJSON(jsonValue));
+    }
+
+    /**
+     * get paytype by ID
+     * Get a paytype entity by ID
+     */
+    async getPaytype(requestParameters: GetPaytypeRequest): Promise<EntPaytype> {
+        const response = await this.getPaytypeRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
      * get symptomseverity by ID
      * Get a symptomseverity entity by ID
      */
@@ -1469,6 +1612,70 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getSymptomseverity(requestParameters: GetSymptomseverityRequest): Promise<EntSymptomseverity> {
         const response = await this.getSymptomseverityRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * get Treatment by ID
+     * Get a Treatment entity by ID
+     */
+    async getTreatmentRaw(requestParameters: GetTreatmentRequest): Promise<runtime.ApiResponse<EntTreatment>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getTreatment.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/Treatments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntTreatmentFromJSON(jsonValue));
+    }
+
+    /**
+     * get Treatment by ID
+     * Get a Treatment entity by ID
+     */
+    async getTreatment(requestParameters: GetTreatmentRequest): Promise<EntTreatment> {
+        const response = await this.getTreatmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * get Typetreatment by ID
+     * Get a Typetreatment entity by ID
+     */
+    async getTypetreatmentRaw(requestParameters: GetTypetreatmentRequest): Promise<runtime.ApiResponse<EntTypetreatment>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getTypetreatment.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/Typetreatments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntTypetreatmentFromJSON(jsonValue));
+    }
+
+    /**
+     * get Typetreatment by ID
+     * Get a Typetreatment entity by ID
+     */
+    async getTypetreatment(requestParameters: GetTypetreatmentRequest): Promise<EntTypetreatment> {
+        const response = await this.getTypetreatmentRaw(requestParameters);
         return await response.value();
     }
 
@@ -1662,7 +1869,7 @@ export class DefaultApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/financier`,
+            path: `/financiers`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -1986,7 +2193,7 @@ export class DefaultApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/paytype`,
+            path: `/paytypes`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -2037,6 +2244,78 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async listSymptomseverity(requestParameters: ListSymptomseverityRequest): Promise<Array<EntSymptomseverity>> {
         const response = await this.listSymptomseverityRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * list Treatment entities
+     * List Treatment entities
+     */
+    async listTreatmentRaw(requestParameters: ListTreatmentRequest): Promise<runtime.ApiResponse<Array<EntTreatment>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/Treatments`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntTreatmentFromJSON));
+    }
+
+    /**
+     * list Treatment entities
+     * List Treatment entities
+     */
+    async listTreatment(requestParameters: ListTreatmentRequest): Promise<Array<EntTreatment>> {
+        const response = await this.listTreatmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * list Typetreatment entities
+     * List Typetreatment entities
+     */
+    async listTypetreatmentRaw(requestParameters: ListTypetreatmentRequest): Promise<runtime.ApiResponse<Array<EntTypetreatment>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/Typetreatments`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntTypetreatmentFromJSON));
+    }
+
+    /**
+     * list Typetreatment entities
+     * List Typetreatment entities
+     */
+    async listTypetreatment(requestParameters: ListTypetreatmentRequest): Promise<Array<EntTypetreatment>> {
+        const response = await this.listTypetreatmentRaw(requestParameters);
         return await response.value();
     }
 
@@ -2382,6 +2661,45 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updateSymptomseverity(requestParameters: UpdateSymptomseverityRequest): Promise<EntSymptomseverity> {
         const response = await this.updateSymptomseverityRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * update Typetreatment by ID
+     * Update a Typetreatment entity by ID
+     */
+    async updateTypetreatmentRaw(requestParameters: UpdateTypetreatmentRequest): Promise<runtime.ApiResponse<EntTypetreatment>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateTypetreatment.');
+        }
+
+        if (requestParameters.typetreatment === null || requestParameters.typetreatment === undefined) {
+            throw new runtime.RequiredError('typetreatment','Required parameter requestParameters.typetreatment was null or undefined when calling updateTypetreatment.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/Typetreatments/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: EntTypetreatmentToJSON(requestParameters.typetreatment),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntTypetreatmentFromJSON(jsonValue));
+    }
+
+    /**
+     * update Typetreatment by ID
+     * Update a Typetreatment entity by ID
+     */
+    async updateTypetreatment(requestParameters: UpdateTypetreatmentRequest): Promise<EntTypetreatment> {
+        const response = await this.updateTypetreatmentRaw(requestParameters);
         return await response.value();
     }
 
