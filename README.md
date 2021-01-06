@@ -13,9 +13,9 @@
 ```
 * https://github.com/sut63/
 ```
- B   
+ B6103866 นายคฑาเดช เขียนชัยนาจ   
 ```
-* https://github.com/sut63/team
+* https://github.com/sut63/team10/labels/B6103866
 ```
  B  
 ```
