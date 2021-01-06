@@ -70,6 +70,7 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 	}
 	ub, err := ctl.client.Unpaybill.
 		Query().
+		WithTreatment().
 		Where(unpaybill.IDEQ(int(obj.Unpaybill))).
 		Only(context.Background())
 	if err != nil {
@@ -120,6 +121,9 @@ func (ctl *BillController) GetBill(c *gin.Context) {
 	}
 	u, err := ctl.client.Bill.
 		Query().
+		WithTreatment().
+		WithPaytype().
+		WithOfficer().
 		Where(bill.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -165,6 +169,9 @@ func (ctl *BillController) ListBill(c *gin.Context) {
 
 	bills, err := ctl.client.Bill.
 		Query().
+		WithOfficer().
+		WithPaytype().
+		WithTreatment().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

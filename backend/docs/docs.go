@@ -2792,48 +2792,6 @@ var doc = `{
                         }
                     }
                 }
-            },
-            "post": {
-                "description": "Create unpaybill",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Create unpaybill",
-                "operationId": "create-unpaybill",
-                "parameters": [
-                    {
-                        "description": "Unpaybill entity",
-                        "name": "unpaybill",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/ent.Unpaybill"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/ent.Unpaybill"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
             }
         },
         "/unpaybills/{id}": {

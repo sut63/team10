@@ -37,6 +37,7 @@ func (ctl *FinancierController) GetFinancier(c *gin.Context) {
 
 	u, err := ctl.client.Financier.
 		Query().
+		WithUser().
 		Where(financier.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -81,6 +82,7 @@ func (ctl *FinancierController) ListFinancier(c *gin.Context) {
 
 	financiers, err := ctl.client.Financier.
 		Query().
+		WithUser().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

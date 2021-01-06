@@ -12,6 +12,7 @@ import (
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/typetreatment"
+	
 )
 
 // TreatmentController defines the struct for the Treatment controller
@@ -24,9 +25,9 @@ type TreatmentController struct {
 type Treatment struct {
 	Treatment     string
 	Datetreat     string
-	typetreatment int
-	doctorinfo    int
-	patientrecord int
+	Typetreatment int
+	Doctorinfo    int
+	Patientrecord int
 }
 
 // CreateTreatment handles POST requests for adding Treatment entities
@@ -48,7 +49,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
-	ttm, err := ctl.client.Paytype.
+	ttm, err := ctl.client.Typetreatment.
 		Query().
 		Where(typetreatment.IDEQ(int(obj.Typetreatment))).
 		Only(context.Background())
@@ -83,7 +84,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 	tm, err := ctl.client.Treatment.
 		Create().
 		SetTreatment(obj.Treatment).
-		SetDatetreat(times).
+		SetDatetime(times).
 		SetTypetreatment(ttm).
 		SetDoctorinfo(di).
 		SetPatientrecord(pr).
@@ -95,6 +96,12 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
+// Create Unpaybill
+	ctl.client.Unpaybill.
+		Create().
+		SetTreatment(tm).
+		SetStatus("Unpay").
+		Save(context.Background())
 
 	c.JSON(200, tm)
 }
@@ -120,7 +127,7 @@ func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
 	}
 	tm, err := ctl.client.Treatment.
 		Query().
-		Where(Treatment.IDEQ(int(id))).
+		Where(treatment.IDEQ(int(id))).
 		Only(context.Background())
 
 	if err != nil {
