@@ -2691,34 +2691,6 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: List unpaybill entities
-    post:
-      consumes:
-      - application/json
-      description: Create unpaybill
-      operationId: create-unpaybill
-      parameters:
-      - description: Unpaybill entity
-        in: body
-        name: unpaybill
-        required: true
-        schema:
-          $ref: '#/definitions/ent.Unpaybill'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Unpaybill'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Create unpaybill
   /unpaybills/{id}:
     delete:
       description: get unpaybill by ID

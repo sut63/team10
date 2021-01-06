@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/unpaybill"
-	"github.com/team10/app/ent/treatment"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,56 +14,6 @@ import (
 type UnpaybillController struct {
 	client *ent.Client
 	router gin.IRouter
-}
-
-// Unpaybill defines the struct for the Unpaybill entity
-type Unpaybill struct {
-	Status string
-	Treatment int
-}
-// CreateUnpaybill handles POST requests for adding unpaybill entities
-// @Summary Create unpaybill
-// @Description Create unpaybill
-// @ID create-unpaybill
-// @Accept   json
-// @Produce  json
-// @Param unpaybill body ent.Unpaybill true "Unpaybill entity"
-// @Success 200 {object} ent.Unpaybill
-// @Failure 400 {object} gin.H
-// @Failure 500 {object} gin.H
-// @Router /unpaybills [post]
-func (ctl *UnpaybillController) CreateUnpaybill(c *gin.Context) {
-	obj := Unpaybill{}
-	if err := c.ShouldBind(&obj); err != nil {
-		c.JSON(400, gin.H{
-			"error": "unpaybill binding failed",
-		})
-		return
-	}
-	t, err := ctl.client.Treatment.
-		Query().
-		Where(treatment.IDEQ(int(obj.Treatment))).
-		Only(context.Background())
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "bill not found",
-		})
-		return
-	}
-	u, err := ctl.client.Unpaybill.
-		Create().
-		SetStatus("Unpaid").
-		SetTreatment(t).
-		Save(context.Background())
-
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "saving failed",
-		})
-		return
-	}
-
-	c.JSON(200, u)
 }
 
 // GetUnpaybill handles GET requests to retrieve a unpaybill entity
@@ -88,6 +37,7 @@ func (ctl *UnpaybillController) GetUnpaybill(c *gin.Context) {
 	}
 	u, err := ctl.client.Unpaybill.
 		Query().
+		WithTreatment().
 		Where(unpaybill.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -133,6 +83,7 @@ func (ctl *UnpaybillController) ListUnpaybill(c *gin.Context) {
 
 	unpaybills, err := ctl.client.Unpaybill.
 		Query().
+		WithTreatment().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())
@@ -241,9 +192,6 @@ func (ctl *UnpaybillController) register() {
 	unpaybills := ctl.router.Group("/unpaybills")
 
 	unpaybills.GET("", ctl.ListUnpaybill)
-
-	// CRUD
-	unpaybills.POST("", ctl.CreateUnpaybill)
 	unpaybills.GET(":id", ctl.GetUnpaybill)
 	unpaybills.PUT(":id", ctl.UpdateUnpaybill)
 	unpaybills.DELETE(":id", ctl.DeleteUnpaybill)

@@ -85,6 +85,8 @@ type Medicalrecordstaff struct {
 	Name string
 }
 
+
+// Struct By Bill System
 //*******************************************************************
 
 // Paytypes defines the struct for the Paytypes
