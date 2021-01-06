@@ -19,7 +19,7 @@
 ```
  B6107505 นายวัชระพงศ์ ทาระมล  
 ```
-* https://github.com/sut63/team0/labels/B6107505
+* https://github.com/sut63/team10/labels/B6107505
 ```
  B6        
 ```
