@@ -344,7 +344,7 @@ var (
 	// PatientrightsColumns holds the columns for the "patientrights" table.
 	PatientrightsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "permission_date", Type: field.TypeString},
+		{Name: "permission_date", Type: field.TypeTime},
 		{Name: "Insurance_id", Type: field.TypeInt, Nullable: true},
 		{Name: "medicalrecordstaff_id", Type: field.TypeInt, Nullable: true},
 		{Name: "patientrecord_id", Type: field.TypeInt, Nullable: true},

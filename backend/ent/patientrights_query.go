@@ -363,7 +363,7 @@ func (pq *PatientrightsQuery) WithPatientrightsMedicalrecordstaff(opts ...func(*
 // Example:
 //
 //	var v []struct {
-//		PermissionDate string `json:"PermissionDate,omitempty"`
+//		PermissionDate time.Time `json:"PermissionDate,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -389,7 +389,7 @@ func (pq *PatientrightsQuery) GroupBy(field string, fields ...string) *Patientri
 // Example:
 //
 //	var v []struct {
-//		PermissionDate string `json:"PermissionDate,omitempty"`
+//		PermissionDate time.Time `json:"PermissionDate,omitempty"`
 //	}
 //
 //	client.Patientrights.Query().

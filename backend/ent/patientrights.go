@@ -5,6 +5,7 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/team10/app/ent/insurance"
@@ -20,7 +21,7 @@ type Patientrights struct {
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
 	// PermissionDate holds the value of the "PermissionDate" field.
-	PermissionDate string `json:"PermissionDate,omitempty"`
+	PermissionDate time.Time `json:"PermissionDate,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the PatientrightsQuery when eager-loading is set.
 	Edges                 PatientrightsEdges `json:"edges"`
@@ -104,8 +105,8 @@ func (e PatientrightsEdges) PatientrightsMedicalrecordstaffOrErr() (*Medicalreco
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Patientrights) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{},  // id
-		&sql.NullString{}, // PermissionDate
+		&sql.NullInt64{}, // id
+		&sql.NullTime{},  // PermissionDate
 	}
 }
 
@@ -131,10 +132,10 @@ func (pa *Patientrights) assignValues(values ...interface{}) error {
 	}
 	pa.ID = int(value.Int64)
 	values = values[1:]
-	if value, ok := values[0].(*sql.NullString); !ok {
+	if value, ok := values[0].(*sql.NullTime); !ok {
 		return fmt.Errorf("unexpected type %T for field PermissionDate", values[0])
 	} else if value.Valid {
-		pa.PermissionDate = value.String
+		pa.PermissionDate = value.Time
 	}
 	values = values[1:]
 	if len(values) == len(patientrights.ForeignKeys) {
@@ -210,7 +211,7 @@ func (pa *Patientrights) String() string {
 	builder.WriteString("Patientrights(")
 	builder.WriteString(fmt.Sprintf("id=%v", pa.ID))
 	builder.WriteString(", PermissionDate=")
-	builder.WriteString(pa.PermissionDate)
+	builder.WriteString(pa.PermissionDate.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }

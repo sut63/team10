@@ -15,7 +15,7 @@ type Patientrights struct {
 // Fields of the Patientrights.
 func (Patientrights) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("PermissionDate"),//เวลาที่สร้างสิทธิ์
+		field.Time("PermissionDate"),//เวลาที่สร้างสิทธิ์
 		
 			
     }
