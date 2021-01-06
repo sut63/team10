@@ -6,11 +6,13 @@ import SignIn from './components/SignIn'
 //createHistorytaking
 import  create_Patientrights from './components/create_patientrights';
 import  createHistorytaking from './components/createHistorytaking';
+import CreateBill from './components/createBill'
 
 export const plugin = createPlugin({
   id: 'welcome',
   register({ router }) {
     router.registerRoute('/', WelcomePage);
+    router.registerRoute('/createBill', CreateBill);
     router.registerRoute('/watch_video', WatchVideo);
     router.registerRoute('/signin', SignIn);
     router.registerRoute('/create_Patientrights', create_Patientrights);
