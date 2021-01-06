@@ -1,0 +1,235 @@
+package controllers
+
+import (
+	"context"
+	"fmt"
+	"strconv"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/team10/app/ent"
+	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/treatment"
+	"github.com/team10/app/ent/typetreatment"
+)
+
+// TreatmentController defines the struct for the Treatment controller
+type TreatmentController struct {
+	client *ent.Client
+	router gin.IRouter
+}
+
+// Treatment defines the struct for the Treatment entity
+type Treatment struct {
+	Treatment     string
+	Datetreat     string
+	typetreatment int
+	doctorinfo    int
+	patientrecord int
+}
+
+// CreateTreatment handles POST requests for adding Treatment entities
+// @Summary Create Treatment
+// @Description Create Treatment
+// @ID create-Treatment
+// @Accept   json
+// @Produce  json
+// @Param Treatment body ent.Treatment true "Treatment entity"
+// @Success 200 {object} ent.Treatment
+// @Failure 400 {object} gin.H
+// @Failure 500 {object} gin.H
+// @Router /Treatments [post]
+func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
+	obj := Treatment{}
+	if err := c.ShouldBind(&obj); err != nil {
+		c.JSON(400, gin.H{
+			"error": "Treatment binding failed",
+		})
+		return
+	}
+	pt, err := ctl.client.Paytype.
+		Query().
+		Where(paytype.IDEQ(int(obj.Paytype))).
+		Only(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "Treatment not found",
+		})
+		return
+	}
+	f, err := ctl.client.Financier.
+		Query().
+		Where(financier.IDEQ(int(obj.Financier))).
+		Only(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "Treatment not found",
+		})
+		return
+	}
+	ub, err := ctl.client.UnpayTreatment.
+		Query().
+		Where(unpayTreatment.IDEQ(int(obj.UnpayTreatment))).
+		Only(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "Treatment not found",
+		})
+		return
+	}
+	times, err := time.Parse(time.RFC3339, obj.Date)
+
+	u, err := ctl.client.Treatment.
+		Create().
+		SetTreatment(obj.Treatment).
+		SetDatetreat(times).
+		SetTypetreatment(ttm).
+		SetDoctorinfo(di).
+		SetPatientrecord(ub).
+		Save(context.Background())
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "saving failed",
+		})
+		return
+	}
+
+	c.JSON(200, u)
+}
+
+// GetTreatment handles GET requests to retrieve a Treatment entity
+// @Summary Get a Treatment entity by ID
+// @Description get Treatment by ID
+// @ID get-Treatment
+// @Produce  json
+// @Param id path int true "Treatment ID"
+// @Success 200 {object} ent.Treatment
+// @Failure 400 {object} gin.H
+// @Failure 404 {object} gin.H
+// @Failure 500 {object} gin.H
+// @Router /Treatments/{id} [get]
+func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	u, err := ctl.client.Treatment.
+		Query().
+		Where(Treatment.IDEQ(int(id))).
+		Only(context.Background())
+
+	if err != nil {
+		c.JSON(404, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, u)
+}
+
+// ListTreatment handles request to get a list of Treatment entities
+// @Summary List Treatment entities
+// @Description list Treatment entities
+// @ID list-Treatment
+// @Produce json
+// @Param limit  query int false "Limit"
+// @Param offset query int false "Offset"
+// @Success 200 {array} ent.Treatment
+// @Failure 400 {object} gin.H
+// @Failure 500 {object} gin.H
+// @Router /Treatments [get]
+func (ctl *TreatmentController) ListTreatment(c *gin.Context) {
+	limitQuery := c.Query("limit")
+	limit := 10
+	if limitQuery != "" {
+		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
+		if err == nil {
+			limit = int(limit64)
+		}
+	}
+
+	offsetQuery := c.Query("offset")
+	offset := 0
+	if offsetQuery != "" {
+		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
+		if err == nil {
+			offset = int(offset64)
+		}
+	}
+
+	Treatments, err := ctl.client.Treatment.
+		Query().
+		Limit(limit).
+		Offset(offset).
+		All(context.Background())
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, Treatments)
+}
+
+// DeleteTreatment handles DELETE requests to delete a Treatment entity
+// @Summary Delete a Treatment entity by ID
+// @Description get Treatment by ID
+// @ID delete-Treatment
+// @Produce  json
+// @Param id path int true "Treatment ID"
+// @Success 200 {object} gin.H
+// @Failure 400 {object} gin.H
+// @Failure 404 {object} gin.H
+// @Failure 500 {object} gin.H
+// @Router /Treatments/{id} [delete]
+func (ctl *TreatmentController) DeleteTreatment(c *gin.Context) {
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	err = ctl.client.Treatment.
+		DeleteOneID(int(id)).
+		Exec(context.Background())
+	if err != nil {
+		c.JSON(404, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(200, gin.H{"result": fmt.Sprintf("ok deleted %v", id)})
+}
+
+// NewTreatmentController creates and registers handles for the Treatment controller
+func NewTreatmentController(router gin.IRouter, client *ent.Client) *TreatmentController {
+	uc := &TreatmentController{
+		client: client,
+		router: router,
+	}
+
+	uc.register()
+
+	return uc
+
+}
+
+func (ctl *TreatmentController) register() {
+	Treatments := ctl.router.Group("/Treatments")
+
+	Treatments.GET("", ctl.ListTreatment)
+	Treatments.POST("", ctl.CreateTreatment)
+	Treatments.GET(":id", ctl.GetTreatment)
+	Treatments.DELETE(":id", ctl.DeleteTreatment)
+}
