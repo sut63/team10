@@ -362,6 +362,9 @@ func main() {
 =======
 	controllers.NewTreatmentController(v1, client)
 	controllers.NewTypetreatmentController(v1, client)
+<<<<<<< HEAD
+>>>>>>> a695a66176984bf0fa4fb76947f6895ffafba2ac
+=======
 >>>>>>> a695a66176984bf0fa4fb76947f6895ffafba2ac
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 

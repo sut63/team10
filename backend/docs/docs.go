@@ -274,7 +274,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ent.Treatment"
+                            "$ref": "#/definitions/controllers.Treatment"
                         }
                     }
                 ],
@@ -4629,6 +4629,26 @@ var doc = `{
                 },
                 "patientrightstype": {
                     "description": "Abilitypatientrights int",
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.Treatment": {
+            "type": "object",
+            "properties": {
+                "datetreat": {
+                    "type": "string"
+                },
+                "doctorinfo": {
+                    "type": "integer"
+                },
+                "patientrecord": {
+                    "type": "integer"
+                },
+                "treatment": {
+                    "type": "string"
+                },
+                "typetreatment": {
                     "type": "integer"
                 }
             }

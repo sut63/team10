@@ -104,6 +104,19 @@ definitions:
         description: Abilitypatientrights int
         type: integer
     type: object
+  controllers.Treatment:
+    properties:
+      datetreat:
+        type: string
+      doctorinfo:
+        type: integer
+      patientrecord:
+        type: integer
+      treatment:
+        type: string
+      typetreatment:
+        type: integer
+    type: object
   ent.Abilitypatientrights:
     properties:
       Examine:
@@ -1075,7 +1088,7 @@ paths:
         name: Treatment
         required: true
         schema:
-          $ref: '#/definitions/ent.Treatment'
+          $ref: '#/definitions/controllers.Treatment'
       produces:
       - application/json
       responses:
