@@ -64,6 +64,10 @@ func init() {
 	financierDescName := financierFields[0].Descriptor()
 	// financier.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	financier.NameValidator = financierDescName.Validators[0].(func(string) error)
+	// financierDescEmail is the schema descriptor for email field.
+	financierDescEmail := financierFields[1].Descriptor()
+	// financier.EmailValidator is a validator for the "email" field. It is called by the builders before save.
+	financier.EmailValidator = financierDescEmail.Validators[0].(func(string) error)
 	officeroomFields := schema.Officeroom{}.Fields()
 	_ = officeroomFields
 	// officeroomDescRoomnumber is the schema descriptor for roomnumber field.

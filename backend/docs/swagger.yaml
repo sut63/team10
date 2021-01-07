@@ -16,13 +16,13 @@ definitions:
   controllers.Historytaking:
     properties:
       bp:
-        type: integer
+        type: string
       datetime:
         type: string
       department:
         type: integer
       hight:
-        type: number
+        type: string
       nurse:
         type: integer
       oxygen:
@@ -30,22 +30,22 @@ definitions:
       patientrecord:
         type: integer
       pulse:
-        type: integer
+        type: string
       respiration:
-        type: integer
+        type: string
       symptom:
         type: string
       symptomseverity:
         type: integer
       temp:
-        type: number
+        type: string
       weight:
-        type: number
+        type: string
     type: object
   controllers.Patientrecord:
     properties:
       age:
-        type: integer
+        type: string
       allergic:
         type: string
       birthday:
@@ -63,13 +63,13 @@ definitions:
       home:
         type: string
       idcardnumber:
-        type: integer
+        type: string
       medicalrecordstaff:
         type: integer
       name:
         type: string
       phonenumber:
-        type: integer
+        type: string
       prename:
         type: integer
     type: object
@@ -89,13 +89,13 @@ definitions:
     properties:
       Examine:
         description: Examine holds the value of the "Examine" field.
-        type: string
+        type: integer
       MedicalSupplies:
         description: MedicalSupplies holds the value of the "MedicalSupplies" field.
-        type: string
+        type: integer
       Operative:
         description: Operative holds the value of the "Operative" field.
-        type: string
+        type: integer
       edges:
         $ref: '#/definitions/ent.AbilitypatientrightsEdges'
         description: |-
@@ -219,6 +219,10 @@ definitions:
         $ref: '#/definitions/ent.Prename'
         description: Prename holds the value of the prename edge.
         type: object
+      registrar:
+        $ref: '#/definitions/ent.Registrar'
+        description: Registrar holds the value of the registrar edge.
+        type: object
       treatment:
         description: Treatment holds the value of the treatment edge.
         items:
@@ -261,6 +265,9 @@ definitions:
           Edges holds the relations/edges for other nodes in the graph.
           The values are being populated by the FinancierQuery when eager-loading is set.
         type: object
+      email:
+        description: Email holds the value of the "email" field.
+        type: string
       id:
         description: ID of the ent.
         type: integer
@@ -464,7 +471,7 @@ definitions:
         type: integer
       roomnumber:
         description: Roomnumber holds the value of the "roomnumber" field.
-        type: integer
+        type: string
     type: object
   ent.OfficeroomEdges:
     properties:
@@ -683,6 +690,34 @@ definitions:
           $ref: '#/definitions/ent.Doctorinfo'
         type: array
     type: object
+  ent.Registrar:
+    properties:
+      Name:
+        description: Name holds the value of the "Name" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.RegistrarEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the RegistrarQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.RegistrarEdges:
+    properties:
+      registrar2doctorinfo:
+        description: Registrar2doctorinfo holds the value of the registrar2doctorinfo
+          edge.
+        items:
+          $ref: '#/definitions/ent.Doctorinfo'
+        type: array
+      user:
+        $ref: '#/definitions/ent.User'
+        description: User holds the value of the user edge.
+        type: object
+    type: object
   ent.Symptomseverity:
     properties:
       edges:
@@ -708,8 +743,11 @@ definitions:
     type: object
   ent.Treatment:
     properties:
-      datetime:
-        description: Datetime holds the value of the "datetime" field.
+      Datetreat:
+        description: Datetreat holds the value of the "Datetreat" field.
+        type: string
+      Treatment:
+        description: Treatment holds the value of the "Treatment" field.
         type: string
       edges:
         $ref: '#/definitions/ent.TreatmentEdges'
@@ -720,9 +758,6 @@ definitions:
       id:
         description: ID of the ent.
         type: integer
-      treatment:
-        description: Treatment holds the value of the "treatment" field.
-        type: string
     type: object
   ent.TreatmentEdges:
     properties:
@@ -745,6 +780,9 @@ definitions:
     type: object
   ent.Typetreatment:
     properties:
+      Typetreatment:
+        description: Typetreatment holds the value of the "Typetreatment" field.
+        type: string
       edges:
         $ref: '#/definitions/ent.TypetreatmentEdges'
         description: |-
@@ -754,9 +792,6 @@ definitions:
       id:
         description: ID of the ent.
         type: integer
-      type:
-        description: Type holds the value of the "type" field.
-        type: string
     type: object
   ent.TypetreatmentEdges:
     properties:
@@ -829,10 +864,41 @@ definitions:
         $ref: '#/definitions/ent.Doctorinfo'
         description: User2doctorinfo holds the value of the user2doctorinfo edge.
         type: object
+      user2registrar:
+        $ref: '#/definitions/ent.Registrar'
+        description: User2registrar holds the value of the user2registrar edge.
+        type: object
       userPatientrights:
         $ref: '#/definitions/ent.Patientrights'
         description: UserPatientrights holds the value of the UserPatientrights edge.
         type: object
+      userstatus:
+        $ref: '#/definitions/ent.Userstatus'
+        description: Userstatus holds the value of the userstatus edge.
+        type: object
+    type: object
+  ent.Userstatus:
+    properties:
+      Userstatus:
+        description: Userstatus holds the value of the "Userstatus" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.UserstatusEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the UserstatusQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.UserstatusEdges:
+    properties:
+      user:
+        description: User holds the value of the user edge.
+        items:
+          $ref: '#/definitions/ent.User'
+        type: array
     type: object
   gin.H:
     additionalProperties: true
@@ -940,6 +1006,35 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Get a medicalrecordstaff entity by ID
+  /Prenames:
+    post:
+      consumes:
+      - application/json
+      description: Create prename
+      operationId: create-prename
+      parameters:
+      - description: Prename entity
+        in: body
+        name: prename
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Prename'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Prename'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create prename
   /Treatments:
     get:
       description: list Treatment entities
@@ -1600,6 +1695,308 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a department entity by ID
+  /doctorinfos:
+    get:
+      description: list doctorinfo entities
+      operationId: list-doctorinfo
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Doctorinfo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List doctorinfo entities
+    post:
+      consumes:
+      - application/json
+      description: Create doctorinfo
+      operationId: create-doctorinfo
+      parameters:
+      - description: Doctorinfo entity
+        in: body
+        name: doctorinfo
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Doctorinfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Doctorinfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create doctorinfo
+  /doctorinfos/{id}:
+    delete:
+      description: get doctorinfo by ID
+      operationId: delete-doctorinfo
+      parameters:
+      - description: Doctorinfo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a doctorinfo entity by ID
+    get:
+      description: get doctorinfo by ID
+      operationId: get-doctorinfo
+      parameters:
+      - description: Doctorinfo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Doctorinfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a doctorinfo entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update doctorinfo by ID
+      operationId: update-doctorinfo
+      parameters:
+      - description: Doctorinfo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Doctorinfo entity
+        in: body
+        name: doctorinfo
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Doctorinfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Doctorinfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a doctorinfo entity by ID
+  /educationlevels:
+    get:
+      description: list educationlevel entities
+      operationId: list-educationlevel
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Educationlevel'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List educationlevel entities
+    post:
+      consumes:
+      - application/json
+      description: Create educationlevel
+      operationId: create-educationlevel
+      parameters:
+      - description: Educationlevel entity
+        in: body
+        name: educationlevel
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Educationlevel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Educationlevel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create educationlevel
+  /educationlevels/{id}:
+    delete:
+      description: get educationlevel by ID
+      operationId: delete-educationlevel
+      parameters:
+      - description: Educationlevel ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a educationlevel entity by ID
+    get:
+      description: get educationlevel by ID
+      operationId: get-educationlevel
+      parameters:
+      - description: Educationlevel ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Educationlevel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a educationlevel entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update educationlevel by ID
+      operationId: update-educationlevel
+      parameters:
+      - description: Educationlevel ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Educationlevel entity
+        in: body
+        name: educationlevel
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Educationlevel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Educationlevel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a educationlevel entity by ID
   /financiers:
     get:
       description: list financier entities
@@ -2057,6 +2454,157 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a nurse entity by ID
+  /officerooms:
+    get:
+      description: list officeroom entities
+      operationId: list-officeroom
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Officeroom'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List officeroom entities
+    post:
+      consumes:
+      - application/json
+      description: Create officeroom
+      operationId: create-officeroom
+      parameters:
+      - description: Officeroom entity
+        in: body
+        name: officeroom
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Officeroom'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Officeroom'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create officeroom
+  /officerooms/{id}:
+    delete:
+      description: get officeroom by ID
+      operationId: delete-officeroom
+      parameters:
+      - description: Officeroom ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a officeroom entity by ID
+    get:
+      description: get officeroom by ID
+      operationId: get-officeroom
+      parameters:
+      - description: Officeroom ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Officeroom'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a officeroom entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update officeroom by ID
+      operationId: update-officeroom
+      parameters:
+      - description: Officeroom ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Officeroom entity
+        in: body
+        name: officeroom
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Officeroom'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Officeroom'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a officeroom entity by ID
   /patientrecord:
     get:
       description: list patientrecord entities
@@ -2448,7 +2996,29 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a patientrightstype entity by ID
-  /paytype/{id}:
+  /paytypes:
+    get:
+      description: list paytype entities
+      operationId: list-paytype
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Paytype'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List paytype entities
+  /paytypes/{id}:
     get:
       description: get paytype by ID
       operationId: get-paytype
@@ -2478,10 +3048,10 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Get a paytype entity by ID
-  /paytypes:
+  /prenames:
     get:
-      description: list paytype entities
-      operationId: list-paytype
+      description: list prename entities
+      operationId: list-prename
       parameters:
       - description: Limit
         in: query
@@ -2498,7 +3068,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/ent.Paytype'
+              $ref: '#/definitions/ent.Prename'
             type: array
         "400":
           description: Bad Request
@@ -2508,7 +3078,250 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: List paytype entities
+      summary: List prename entities
+  /prenames/{id}:
+    delete:
+      description: get prename by ID
+      operationId: delete-prename
+      parameters:
+      - description: Prename ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a prename entity by ID
+    get:
+      description: get prename by ID
+      operationId: get-prename
+      parameters:
+      - description: prename ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Prename'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a prename entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update prename by ID
+      operationId: update-prename
+      parameters:
+      - description: Prename ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Prename entity
+        in: body
+        name: prename
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Prename'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Prename'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a prename entity by ID
+  /registrars:
+    get:
+      description: list registrar entities
+      operationId: list-registrar
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Registrar'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List registrar entities
+    post:
+      consumes:
+      - application/json
+      description: Create registrar
+      operationId: create-registrar
+      parameters:
+      - description: Registrar entity
+        in: body
+        name: registrar
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Registrar'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Registrar'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create registrar
+  /registrars/{id}:
+    delete:
+      description: get registrar by ID
+      operationId: delete-registrar
+      parameters:
+      - description: Registrar ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a registrar entity by ID
+    get:
+      description: get registrar by ID
+      operationId: get-registrar
+      parameters:
+      - description: Registrar ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Registrar'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a registrar entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update registrar by ID
+      operationId: update-registrar
+      parameters:
+      - description: Registrar ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Registrar entity
+        in: body
+        name: registrar
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Registrar'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Registrar'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a registrar entity by ID
   /symptomseverity:
     get:
       description: list symptomseverity entities
@@ -2934,6 +3747,157 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a user entity by ID
+  /userstatus:
+    get:
+      description: list userstatus entities
+      operationId: list-userstatus
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Userstatus'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List userstatus entities
+    post:
+      consumes:
+      - application/json
+      description: Create userstatus
+      operationId: create-userstatus
+      parameters:
+      - description: Userstatus entity
+        in: body
+        name: userstatus
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Userstatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Userstatus'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create userstatus
+  /userstatus/{id}:
+    delete:
+      description: get userstatus by ID
+      operationId: delete-userstatus
+      parameters:
+      - description: Userstatus ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a userstatus entity by ID
+    get:
+      description: get userstatus by ID
+      operationId: get-userstatus
+      parameters:
+      - description: Userstatus ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Userstatus'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a userstatus entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update userstatus by ID
+      operationId: update-userstatus
+      parameters:
+      - description: Userstatus ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Userstatus entity
+        in: body
+        name: userstatus
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Userstatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Userstatus'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a userstatus entity by ID
 securityDefinitions:
   ApiKeyAuth:
     in: header

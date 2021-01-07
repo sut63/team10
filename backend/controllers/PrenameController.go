@@ -56,7 +56,7 @@ func (ctl *PrenameController) CreatePrename(c *gin.Context) {
 // @ID get-prename
 // @Produce  json
 // @Param id path int true "prename ID"
-// @Success 200 {object} ent.prename
+// @Success 200 {object} ent.Prename
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H

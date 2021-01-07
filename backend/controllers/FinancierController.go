@@ -62,29 +62,8 @@ func (ctl *FinancierController) GetFinancier(c *gin.Context) {
 // @Failure 500 {object} gin.H
 // @Router /financiers [get]
 func (ctl *FinancierController) ListFinancier(c *gin.Context) {
-	limitQuery := c.Query("limit")
-	limit := 10
-	if limitQuery != "" {
-		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
-		if err == nil {
-			limit = int(limit64)
-		}
-	}
-
-	offsetQuery := c.Query("offset")
-	offset := 0
-	if offsetQuery != "" {
-		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
-		if err == nil {
-			offset = int(offset64)
-		}
-	}
-
 	financiers, err := ctl.client.Financier.
 		Query().
-		WithUser().
-		Limit(limit).
-		Offset(offset).
 		All(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
