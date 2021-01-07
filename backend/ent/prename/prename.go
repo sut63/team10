@@ -30,7 +30,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "patientrecord" package.
 	PatientrecordInverseTable = "patientrecords"
 	// PatientrecordColumn is the table column denoting the patientrecord relation/edge.
-	PatientrecordColumn = "prefix"
+	PatientrecordColumn = "prefix_id"
 )
 
 // Columns holds all SQL columns for prename fields.

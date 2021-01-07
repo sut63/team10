@@ -65,7 +65,7 @@ const (
 	// It exists in this package in order to avoid circular dependency with the "prename" package.
 	PrenameInverseTable = "prenames"
 	// PrenameColumn is the table column denoting the prename relation/edge.
-	PrenameColumn = "prefix"
+	PrenameColumn = "prefix_id"
 	// HistorytakingTable is the table the holds the historytaking relation/edge.
 	HistorytakingTable = "historytakings"
 	// HistorytakingInverseTable is the table name for the Historytaking entity.
@@ -109,5 +109,5 @@ var Columns = []string{
 var ForeignKeys = []string{
 	"gender_id",
 	"medicalrecordstaff_id",
-	"prefix",
+	"prefix_id",
 }
