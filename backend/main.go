@@ -20,7 +20,7 @@ import (
 // struct By team 10
 //-------------------------------------------------------------------
 // Struct By Doctorinformation System
-//*******************************************************************
+//vvv*******************************************************************vvv
 
 // Officerooms defines the struct for the Officerooms
 type Officerooms struct {
@@ -29,8 +29,10 @@ type Officerooms struct {
 
 // Officeroom defines the struct for the Officeroom
 type Officeroom struct {
-	Roomnumber           int
+	Roomnumber int
 }
+
+//^^^*******************************************************************^^^
 
 // Struct By Patientrights System
 //*******************************************************************
@@ -259,20 +261,19 @@ func main() {
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
-	User := []string{"Khatadet_khianchainat","nara_haru","morani_rode","faratell_yova","pulla_visan","omaha_yad",}
+	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
 	for _, r := range User {
 		client.User.
-		Create().
-		SetEmail(r+"@gmail.com").
-		SetPassword("123456").
-		Save(context.Background())
+			Create().
+			SetEmail(r + "@gmail.com").
+			SetPassword("123456").
+			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
 
 	// Set Postman By Patientrights System
 	//vvv*******************************************************************vvv
 
-	
 	// Set insurance Data
 	Insurance := []string{"เมืองไทยประกันภัย", "ไทยสมุทรประกันชีวิต", "อื่น ๆ ", "กรมบัญชีกลาง", "AIA"}
 	for _, r := range Insurance {
@@ -332,7 +333,6 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 
-	
 	// Set Postman By Patientrecord System
 	//vvv*******************************************************************vvv
 
