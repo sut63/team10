@@ -241,7 +241,7 @@ type Treatment struct {
 }
 
 // Typetreatments defines the struct for the  Typetreatments
-type Symptomseveritys struct {
+type Typetreatments struct {
 	Typetreatment [] Typetreatment
 }
 
@@ -354,6 +354,13 @@ func main() {
 	controllers.NewPrenameController(v1, client)
 	controllers.NewRegistrarController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
+
+	//Controller By Doctorinformation System No.6
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
+	controllers.NewTreatmentController(v1, client)
+	controllers.NewTypetreatmentController(v1, client)
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
+
 
 	// Set Postman By Team10
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
@@ -780,7 +787,7 @@ func main() {
 			Typetreatment{"ตรวจวินิจฉัย"},
 		},
 	}
-	for _, tm := range typetreatment.Typetreatment {
+	for _, tm := range typetreatments.Typetreatment {
 		client.Typetreatment.
 			Create().
 			SetTypetreatment(tm.Typetreatment).
