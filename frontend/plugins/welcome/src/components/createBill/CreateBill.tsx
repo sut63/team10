@@ -75,7 +75,7 @@ const CreateBill: FC<{}> = () => {
             setUnpaybills(res);
           };
         const getFinancier = async () => {
-            const res = await http.listFinancier({ limit: 100, offset: 0 });
+            const res = await http.listFinancier();
             setLoading(false);
             setFinanciers(res);
         };
