@@ -210,9 +210,6 @@ const handleChange = (
                 </Typography>
                 </Typography><br/>
 
-                <div>
-              <br/><p>json {JSON.stringify(Doctorinfo)} </p> 
-      </div>
                 
                         <div className={classes.root}>
                             <form noValidate autoComplete="off">
