@@ -20,6 +20,6 @@ export const plugin = createPlugin({
     router.registerRoute('/create_Patientrights', create_Patientrights);
     router.registerRoute('/createHistorytaking', createHistorytaking);
     router.registerRoute('/createTreatment', createTreatment);
-    router.registerRoute('/createPatientrecord', createPatientrecord);
+    router.registerRoute('/create_Patientrecord', createPatientrecord);
   },
 });
