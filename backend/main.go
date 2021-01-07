@@ -362,12 +362,6 @@ func main() {
 	controllers.NewTypetreatmentController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
-	//Controller By Doctorinformation System No.6
-	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
-	controllers.NewTreatmentController(v1, client)
-	controllers.NewTypetreatmentController(v1, client)
-	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
-
 
 	// Set Postman By Team10
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv

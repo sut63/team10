@@ -33,12 +33,6 @@ export interface EntFinancier {
      */
     edges?: EntFinancierEdges;
     /**
-     * Email holds the value of the "email" field.
-     * @type {string}
-     * @memberof EntFinancier
-     */
-    email?: string;
-    /**
      * ID of the ent.
      * @type {number}
      * @memberof EntFinancier
@@ -63,7 +57,6 @@ export function EntFinancierFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'edges': !exists(json, 'edges') ? undefined : EntFinancierEdgesFromJSON(json['edges']),
-        'email': !exists(json, 'email') ? undefined : json['email'],
         'id': !exists(json, 'id') ? undefined : json['id'],
         'name': !exists(json, 'name') ? undefined : json['name'],
     };
@@ -79,7 +72,6 @@ export function EntFinancierToJSON(value?: EntFinancier | null): any {
     return {
         
         'edges': EntFinancierEdgesToJSON(value.edges),
-        'email': value.email,
         'id': value.id,
         'name': value.name,
     };

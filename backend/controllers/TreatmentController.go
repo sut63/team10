@@ -36,7 +36,7 @@ type Treatment struct {
 // @ID create-Treatment
 // @Accept   json
 // @Produce  json
-// @Param Treatment body ent.Treatment true "Treatment entity"
+// @Param Treatment body Treatment true "Treatment entity"
 // @Success 200 {object} ent.Treatment
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -172,6 +172,9 @@ func (ctl *TreatmentController) ListTreatment(c *gin.Context) {
 
 	Treatment, err := ctl.client.Treatment.
 		Query().
+		WithDoctorinfo().
+		WithTypetreatment().
+		WithPatientrecord().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())
