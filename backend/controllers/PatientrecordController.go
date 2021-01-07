@@ -25,13 +25,13 @@ type Patientrecord struct {
 	Medicalrecordstaff int
 	Prename            int
 	Name               string
-	Idcardnumber       int
-	Age                int
+	Idcardnumber       string
+	Age                string
 	Birthday           string
 	Bloodtype          string
 	Disease            string
 	Allergic           string
-	Phonenumber        int
+	Phonenumber        string
 	Email              string
 	Home               string
 	Date               string
@@ -93,19 +93,23 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 	times, err := time.Parse(time.RFC3339, obj.Birthday)
 	timess, err := time.Parse(time.RFC3339, obj.Date)
 
+	id, err := strconv.Atoi(obj.Idcardnumber)
+	a, err := strconv.Atoi(obj.Age)
+	phn, err := strconv.Atoi(obj.Phonenumber)
+
 	pr, err := ctl.client.Patientrecord.
 		Create().
 		SetGender(g).
 		SetMedicalrecordstaff(m).
 		SetPrename(p).
 		SetName(obj.Name).
-		SetIdcardnumber(obj.Idcardnumber).
-		SetAge(obj.Age).
+		SetIdcardnumber(id).
+		SetAge(a).
 		SetBirthday(times).
 		SetBloodtype(obj.Bloodtype).
 		SetDisease(obj.Disease).
 		SetAllergic(obj.Allergic).
-		SetPhonenumber(obj.Phonenumber).
+		SetPhonenumber(phn).
 		SetEmail(obj.Email).
 		SetHome(obj.Home).
 		SetDate(timess).
