@@ -255,8 +255,8 @@ export  default  function Create() {
             /> &emsp; 
             
             <TextField 
-            name="bloodtype"
             label="กรุ๊ปเลือด" 
+            name="bloodtype"
             variant="outlined" 
             value={bloodtype}
             onChange={BloodtypehandleChange}
