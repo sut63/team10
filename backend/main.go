@@ -241,7 +241,7 @@ type Treatment struct {
 }
 
 // Typetreatments defines the struct for the  Typetreatments
-type Symptomseveritys struct {
+type Typetreatments struct {
 	Typetreatment [] Typetreatment
 }
 
