@@ -13,6 +13,29 @@ definitions:
       unpaybill:
         type: integer
     type: object
+  controllers.Doctorinfo:
+    properties:
+      department:
+        type: integer
+      doctorname:
+        type: string
+      doctorsurname:
+        type: string
+      educationlevel:
+        type: integer
+      licensenumber:
+        type: string
+      officeroom:
+        type: integer
+      prename:
+        type: integer
+      registrar:
+        type: integer
+      telephonenumber:
+        type: string
+      user:
+        type: integer
+    type: object
   controllers.Historytaking:
     properties:
       bp:
@@ -1734,7 +1757,7 @@ paths:
         name: doctorinfo
         required: true
         schema:
-          $ref: '#/definitions/ent.Doctorinfo'
+          $ref: '#/definitions/controllers.Doctorinfo'
       produces:
       - application/json
       responses:
@@ -1998,15 +2021,6 @@ paths:
     get:
       description: list financier entities
       operationId: list-financier
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
       produces:
       - application/json
       responses:

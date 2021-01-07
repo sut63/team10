@@ -271,9 +271,9 @@ export  default  function Create() {
             onChange={DiseasehandleChange}
             /> &emsp;
             
-            <TextField 
+            <TextField
+            label="แพ้ยา"  
             name="allergic"
-            label="แพ้ยา" 
             variant="outlined" 
             value={allergic}
             onChange={AllergichandleChange}

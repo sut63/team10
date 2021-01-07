@@ -18,6 +18,7 @@ import { DefaultApi } from'../../api/apis';
 import { EntTypetreatment } from '../../api/models/EntTypetreatment';
 import { EntDoctorinfo } from '../../api/models/EntDoctorinfo';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
+import { EntTreatment } from '../../api/models/EntTreatment';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -52,8 +53,9 @@ const createTreatment: FC<{}> = () => {
     const [typetreatments, setTypetreatments] = React.useState<EntTypetreatment[]>([]);
     const [doctorinfos, setDoctorinfos] = React.useState<EntDoctorinfo[]>([]);
     const [patientrecords, setPatientrecords] = React.useState<EntPatientrecord[]>([]);
+    const [treatments, setTreatments] = React.useState<EntTreatment[]>([]);
 
-    const [treatments, settreatment] = React.useState(String);
+    const [treatmentes, settreatment] = React.useState(String);
     const [datetreat, setdatetreat] = React.useState(String);
     const [doctorinfoid, setdoctorinfoId] = React.useState(Number);
     const [patientrecordid, setpatientrecordId] = React.useState(Number);
@@ -90,21 +92,21 @@ const createTreatment: FC<{}> = () => {
         settreatment(event.target.value as string);
       };
     const PatientrecordhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setpatientrecordId(event.target.value as string);
+        setpatientrecordId(event.target.value as number);
       };
     const handleDatetimeChange = (event: any) => {
         setdatetreat(event.target.value as string);
       };
       const createTreatment = async () => {
           const tm = {
-            treatment: treatments,
+            treatment: treatmentes,
             date: datetreat + ":00+07:00",
             typetreatment: typetreatmentid,
             doctorinfo: doctorinfoid,
             patientrecord: patientrecordid,
           };
           console.log(tm);
-          const res: any = await http.createBill({ treatment : tm });
+          const res: any = await http.createTreatment({ treatment : tm });
           setStatus(true);
           if (res.id != '') {
             setAlert(true);
@@ -165,7 +167,7 @@ const createTreatment: FC<{}> = () => {
                      <br/>รายละเอียดการรักษา<br/>
                 <TextField 
                     className={classes.formControl}
-                    value={treatments}
+                    value={treatmentes}
                     onChange={TreatmenthandleChange}/>
                 </Typography>
                 <FormControl className={classes.formControl}>
@@ -254,11 +256,11 @@ const createTreatment: FC<{}> = () => {
          <TableBody>
                  {treatments.map(item =>(
                 <TableRow key={item.id}>
-                    <TableCell align="center">{item.edges?.treatment?.id}</TableCell>
-                    <TableCell align="center">{item.edges?.treatment?.edges?.patientrecord?.name}</TableCell>
-                    <TableCell align="center">{item.edges?.treatment?.edges?.doctorinfo?.name}</TableCell>
-                    <TableCell align="center">{item.edges?.treatment?.edges?.typetreatment?.typetreatment}</TableCell> 
-                    <TableCell align="center">{item.edges?.treatment?.Datetreat}</TableCell> 
+                    <TableCell align="center">{item.id}</TableCell>
+                    <TableCell align="center">{item.edges?.doctorinfo?.doctorname}</TableCell>
+                    <TableCell align="center">{item.edges?.patientrecord?.name}</TableCell>
+                    <TableCell align="center">{item.edges?.typetreatment?.typetreatment}</TableCell> 
+                    <TableCell align="center">{item.datetreat}</TableCell> 
                       </TableRow>
             ))}
          </TableBody>

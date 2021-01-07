@@ -170,6 +170,7 @@ type Financiers struct {
 // Financier defines the struct for the Financier
 type Financier struct {
 	name string
+	user int
 }
 
 //*******************************************************************
@@ -223,6 +224,30 @@ type Doctorinfo struct {
 	Prename         int
 	User            int
 	Registrar       int
+}
+
+// Struct By Treatment System
+//*******************************************************************
+
+// Treatments defines the struct for the Treatments
+type Treatments struct {
+	Treatment []Treatment
+}
+
+// Treatment defines the struct for the Treatment
+type Treatment struct {
+	Treatment string
+	Datetreat string
+}
+
+// Typetreatments defines the struct for the  Typetreatments
+type Typetreatments struct {
+	Typetreatment [] Typetreatment
+}
+
+//  Typetreatment defines the struct for the  Typetreatment
+type  Typetreatment struct {
+	Typetreatment string
 }
 
 //^^^::::::::::::::::::::::::::::::::::::::::::::::::^^^
@@ -329,6 +354,20 @@ func main() {
 	controllers.NewPrenameController(v1, client)
 	controllers.NewRegistrarController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
+	
+	
+	//Controller By Treatment System No.4
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
+	controllers.NewTreatmentController(v1, client)
+	controllers.NewTypetreatmentController(v1, client)
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
+
+	//Controller By Doctorinformation System No.6
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
+	controllers.NewTreatmentController(v1, client)
+	controllers.NewTypetreatmentController(v1, client)
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
+
 
 	// Set Postman By Team10
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
@@ -547,16 +586,26 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod"},
-			Financier{"Name Surname"},
+			Financier{"Nutchaporn Klinrod",4},
+			Financier{"Name Surname",5},
 		},
 	}
 	for _, f := range financiers.Financier {
+		u, err := client.User.
+			Query().
+			Where(user.IDEQ(f.user)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		client.Financier.
 			Create().
 			SetName(f.name).
+			SetUser(u).
 			Save(context.Background())
 	}
+
 
 	//Set Paytype data
 	paytypes := Paytypes{
@@ -733,6 +782,24 @@ func main() {
 	}
 	*/
 	//^^^...................................................................^^^
+	
+	// Set Postman By Treatment System
+	//vvv*******************************************************************vvv
+
+	//Set Typetreatment data
+	typetreatments := Typetreatments{
+		Typetreatment: []Typetreatment{
+			Typetreatment{"ตรวจผ่าตัด"},
+			Typetreatment{"ตรวจทั่วไป"},
+			Typetreatment{"ตรวจวินิจฉัย"},
+		},
+	}
+	for _, tm := range typetreatments.Typetreatment {
+		client.Typetreatment.
+			Create().
+			SetTypetreatment(tm.Typetreatment).
+			Save(context.Background())
+	}
 
 	//^^^*******************************************************************^^^
 

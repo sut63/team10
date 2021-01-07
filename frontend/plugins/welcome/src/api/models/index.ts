@@ -1,4 +1,5 @@
 export * from './ControllersBill';
+export * from './ControllersDoctorinfo';
 export * from './ControllersHistorytaking';
 export * from './ControllersPatientrecord';
 export * from './ControllersPatientrights';

@@ -1263,7 +1263,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ent.Doctorinfo"
+                            "$ref": "#/definitions/controllers.Doctorinfo"
                         }
                     }
                 ],
@@ -1660,20 +1660,6 @@ var doc = `{
                 ],
                 "summary": "List financier entities",
                 "operationId": "list-financier",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4505,6 +4491,41 @@ var doc = `{
                     "type": "integer"
                 },
                 "unpaybill": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.Doctorinfo": {
+            "type": "object",
+            "properties": {
+                "department": {
+                    "type": "integer"
+                },
+                "doctorname": {
+                    "type": "string"
+                },
+                "doctorsurname": {
+                    "type": "string"
+                },
+                "educationlevel": {
+                    "type": "integer"
+                },
+                "licensenumber": {
+                    "type": "string"
+                },
+                "officeroom": {
+                    "type": "integer"
+                },
+                "prename": {
+                    "type": "integer"
+                },
+                "registrar": {
+                    "type": "integer"
+                },
+                "telephonenumber": {
+                    "type": "string"
+                },
+                "user": {
                     "type": "integer"
                 }
             }
