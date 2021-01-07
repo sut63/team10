@@ -18,6 +18,7 @@ import (
 	"github.com/team10/app/ent/nurse"
 	"github.com/team10/app/ent/patientrights"
 	"github.com/team10/app/ent/predicate"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 )
 
@@ -35,6 +36,7 @@ type UserQuery struct {
 	withUserPatientrights  *PatientrightsQuery
 	withMedicalrecordstaff *MedicalrecordstaffQuery
 	withUser2doctorinfo    *DoctorinfoQuery
+	withUser2registrar     *RegistrarQuery
 	withFKs                bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -148,6 +150,24 @@ func (uq *UserQuery) QueryUser2doctorinfo() *DoctorinfoQuery {
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, false, user.User2doctorinfoTable, user.User2doctorinfoColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryUser2registrar chains the current query on the user2registrar edge.
+func (uq *UserQuery) QueryUser2registrar() *RegistrarQuery {
+	query := &RegistrarQuery{config: uq.config}
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := uq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
+			sqlgraph.To(registrar.Table, registrar.FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, false, user.User2registrarTable, user.User2registrarColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -389,6 +409,17 @@ func (uq *UserQuery) WithUser2doctorinfo(opts ...func(*DoctorinfoQuery)) *UserQu
 	return uq
 }
 
+//  WithUser2registrar tells the query-builder to eager-loads the nodes that are connected to
+// the "user2registrar" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserQuery) WithUser2registrar(opts ...func(*RegistrarQuery)) *UserQuery {
+	query := &RegistrarQuery{config: uq.config}
+	for _, opt := range opts {
+		opt(query)
+	}
+	uq.withUser2registrar = query
+	return uq
+}
+
 // GroupBy used to group vertices by one or more fields/columns.
 // It is often used with aggregate functions, like: count, max, mean, min, sum.
 //
@@ -456,12 +487,13 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		nodes       = []*User{}
 		withFKs     = uq.withFKs
 		_spec       = uq.querySpec()
-		loadedTypes = [5]bool{
+		loadedTypes = [6]bool{
 			uq.withFinancier != nil,
 			uq.withHistorytaking != nil,
 			uq.withUserPatientrights != nil,
 			uq.withMedicalrecordstaff != nil,
 			uq.withUser2doctorinfo != nil,
+			uq.withUser2registrar != nil,
 		}
 	)
 	if uq.withUserPatientrights != nil {
@@ -628,6 +660,34 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
 			}
 			node.Edges.User2doctorinfo = n
+		}
+	}
+
+	if query := uq.withUser2registrar; query != nil {
+		fks := make([]driver.Value, 0, len(nodes))
+		nodeids := make(map[int]*User)
+		for i := range nodes {
+			fks = append(fks, nodes[i].ID)
+			nodeids[nodes[i].ID] = nodes[i]
+		}
+		query.withFKs = true
+		query.Where(predicate.Registrar(func(s *sql.Selector) {
+			s.Where(sql.InValues(user.User2registrarColumn, fks...))
+		}))
+		neighbors, err := query.All(ctx)
+		if err != nil {
+			return nil, err
+		}
+		for _, n := range neighbors {
+			fk := n.user_id
+			if fk == nil {
+				return nil, fmt.Errorf(`foreign-key "user_id" is nil for node %v`, n.ID)
+			}
+			node, ok := nodeids[*fk]
+			if !ok {
+				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
+			}
+			node.Edges.User2registrar = n
 		}
 	}
 

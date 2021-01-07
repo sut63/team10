@@ -18,6 +18,7 @@ import (
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/prename"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/user"
 )
@@ -36,6 +37,7 @@ type DoctorinfoQuery struct {
 	withOfficeroom     *OfficeroomQuery
 	withPrename        *PrenameQuery
 	withUser           *UserQuery
+	withRegistrar      *RegistrarQuery
 	withTreatment      *TreatmentQuery
 	withFKs            bool
 	// intermediate query (i.e. traversal path).
@@ -150,6 +152,24 @@ func (dq *DoctorinfoQuery) QueryUser() *UserQuery {
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
 			sqlgraph.To(user.Table, user.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, true, doctorinfo.UserTable, doctorinfo.UserColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryRegistrar chains the current query on the registrar edge.
+func (dq *DoctorinfoQuery) QueryRegistrar() *RegistrarQuery {
+	query := &RegistrarQuery{config: dq.config}
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := dq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
+			sqlgraph.To(registrar.Table, registrar.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.RegistrarTable, doctorinfo.RegistrarColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -409,6 +429,17 @@ func (dq *DoctorinfoQuery) WithUser(opts ...func(*UserQuery)) *DoctorinfoQuery {
 	return dq
 }
 
+//  WithRegistrar tells the query-builder to eager-loads the nodes that are connected to
+// the "registrar" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorinfoQuery) WithRegistrar(opts ...func(*RegistrarQuery)) *DoctorinfoQuery {
+	query := &RegistrarQuery{config: dq.config}
+	for _, opt := range opts {
+		opt(query)
+	}
+	dq.withRegistrar = query
+	return dq
+}
+
 //  WithTreatment tells the query-builder to eager-loads the nodes that are connected to
 // the "treatment" edge. The optional arguments used to configure the query builder of the edge.
 func (dq *DoctorinfoQuery) WithTreatment(opts ...func(*TreatmentQuery)) *DoctorinfoQuery {
@@ -487,16 +518,17 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 		nodes       = []*Doctorinfo{}
 		withFKs     = dq.withFKs
 		_spec       = dq.querySpec()
-		loadedTypes = [6]bool{
+		loadedTypes = [7]bool{
 			dq.withDepartment != nil,
 			dq.withEducationlevel != nil,
 			dq.withOfficeroom != nil,
 			dq.withPrename != nil,
 			dq.withUser != nil,
+			dq.withRegistrar != nil,
 			dq.withTreatment != nil,
 		}
 	)
-	if dq.withDepartment != nil || dq.withEducationlevel != nil || dq.withOfficeroom != nil || dq.withPrename != nil || dq.withUser != nil {
+	if dq.withDepartment != nil || dq.withEducationlevel != nil || dq.withOfficeroom != nil || dq.withPrename != nil || dq.withUser != nil || dq.withRegistrar != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -647,6 +679,31 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 			}
 			for i := range nodes {
 				nodes[i].Edges.User = n
+			}
+		}
+	}
+
+	if query := dq.withRegistrar; query != nil {
+		ids := make([]int, 0, len(nodes))
+		nodeids := make(map[int][]*Doctorinfo)
+		for i := range nodes {
+			if fk := nodes[i].registrar_id; fk != nil {
+				ids = append(ids, *fk)
+				nodeids[*fk] = append(nodeids[*fk], nodes[i])
+			}
+		}
+		query.Where(registrar.IDIn(ids...))
+		neighbors, err := query.All(ctx)
+		if err != nil {
+			return nil, err
+		}
+		for _, n := range neighbors {
+			nodes, ok := nodeids[n.ID]
+			if !ok {
+				return nil, fmt.Errorf(`unexpected foreign-key "registrar_id" returned %v`, n.ID)
+			}
+			for i := range nodes {
+				nodes[i].Edges.Registrar = n
 			}
 		}
 	}

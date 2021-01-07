@@ -25,6 +25,7 @@ import (
 	"github.com/team10/app/ent/patientrightstype"
 	"github.com/team10/app/ent/paytype"
 	"github.com/team10/app/ent/prename"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/symptomseverity"
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/typetreatment"
@@ -60,6 +61,7 @@ const (
 	TypePatientrightstype    = "Patientrightstype"
 	TypePaytype              = "Paytype"
 	TypePrename              = "Prename"
+	TypeRegistrar            = "Registrar"
 	TypeSymptomseverity      = "Symptomseverity"
 	TypeTreatment            = "Treatment"
 	TypeTypetreatment        = "Typetreatment"
@@ -1535,6 +1537,8 @@ type DoctorinfoMutation struct {
 	clearedprename        bool
 	user                  *int
 	cleareduser           bool
+	registrar             *int
+	clearedregistrar      bool
 	treatment             map[int]struct{}
 	removedtreatment      map[int]struct{}
 	done                  bool
@@ -1963,6 +1967,45 @@ func (m *DoctorinfoMutation) ResetUser() {
 	m.cleareduser = false
 }
 
+// SetRegistrarID sets the registrar edge to Registrar by id.
+func (m *DoctorinfoMutation) SetRegistrarID(id int) {
+	m.registrar = &id
+}
+
+// ClearRegistrar clears the registrar edge to Registrar.
+func (m *DoctorinfoMutation) ClearRegistrar() {
+	m.clearedregistrar = true
+}
+
+// RegistrarCleared returns if the edge registrar was cleared.
+func (m *DoctorinfoMutation) RegistrarCleared() bool {
+	return m.clearedregistrar
+}
+
+// RegistrarID returns the registrar id in the mutation.
+func (m *DoctorinfoMutation) RegistrarID() (id int, exists bool) {
+	if m.registrar != nil {
+		return *m.registrar, true
+	}
+	return
+}
+
+// RegistrarIDs returns the registrar ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// RegistrarID instead. It exists only for internal usage by the builders.
+func (m *DoctorinfoMutation) RegistrarIDs() (ids []int) {
+	if id := m.registrar; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetRegistrar reset all changes of the "registrar" edge.
+func (m *DoctorinfoMutation) ResetRegistrar() {
+	m.registrar = nil
+	m.clearedregistrar = false
+}
+
 // AddTreatmentIDs adds the treatment edge to Treatment by ids.
 func (m *DoctorinfoMutation) AddTreatmentIDs(ids ...int) {
 	if m.treatment == nil {
@@ -2171,7 +2214,7 @@ func (m *DoctorinfoMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this
 // mutation.
 func (m *DoctorinfoMutation) AddedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.department != nil {
 		edges = append(edges, doctorinfo.EdgeDepartment)
 	}
@@ -2186,6 +2229,9 @@ func (m *DoctorinfoMutation) AddedEdges() []string {
 	}
 	if m.user != nil {
 		edges = append(edges, doctorinfo.EdgeUser)
+	}
+	if m.registrar != nil {
+		edges = append(edges, doctorinfo.EdgeRegistrar)
 	}
 	if m.treatment != nil {
 		edges = append(edges, doctorinfo.EdgeTreatment)
@@ -2217,6 +2263,10 @@ func (m *DoctorinfoMutation) AddedIDs(name string) []ent.Value {
 		if id := m.user; id != nil {
 			return []ent.Value{*id}
 		}
+	case doctorinfo.EdgeRegistrar:
+		if id := m.registrar; id != nil {
+			return []ent.Value{*id}
+		}
 	case doctorinfo.EdgeTreatment:
 		ids := make([]ent.Value, 0, len(m.treatment))
 		for id := range m.treatment {
@@ -2230,7 +2280,7 @@ func (m *DoctorinfoMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this
 // mutation.
 func (m *DoctorinfoMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.removedtreatment != nil {
 		edges = append(edges, doctorinfo.EdgeTreatment)
 	}
@@ -2254,7 +2304,7 @@ func (m *DoctorinfoMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this
 // mutation.
 func (m *DoctorinfoMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.cleareddepartment {
 		edges = append(edges, doctorinfo.EdgeDepartment)
 	}
@@ -2269,6 +2319,9 @@ func (m *DoctorinfoMutation) ClearedEdges() []string {
 	}
 	if m.cleareduser {
 		edges = append(edges, doctorinfo.EdgeUser)
+	}
+	if m.clearedregistrar {
+		edges = append(edges, doctorinfo.EdgeRegistrar)
 	}
 	return edges
 }
@@ -2287,6 +2340,8 @@ func (m *DoctorinfoMutation) EdgeCleared(name string) bool {
 		return m.clearedprename
 	case doctorinfo.EdgeUser:
 		return m.cleareduser
+	case doctorinfo.EdgeRegistrar:
+		return m.clearedregistrar
 	}
 	return false
 }
@@ -2309,6 +2364,9 @@ func (m *DoctorinfoMutation) ClearEdge(name string) error {
 		return nil
 	case doctorinfo.EdgeUser:
 		m.ClearUser()
+		return nil
+	case doctorinfo.EdgeRegistrar:
+		m.ClearRegistrar()
 		return nil
 	}
 	return fmt.Errorf("unknown Doctorinfo unique edge %s", name)
@@ -2333,6 +2391,9 @@ func (m *DoctorinfoMutation) ResetEdge(name string) error {
 		return nil
 	case doctorinfo.EdgeUser:
 		m.ResetUser()
+		return nil
+	case doctorinfo.EdgeRegistrar:
+		m.ResetRegistrar()
 		return nil
 	case doctorinfo.EdgeTreatment:
 		m.ResetTreatment()
@@ -9689,6 +9750,433 @@ func (m *PrenameMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Prename edge %s", name)
 }
 
+// RegistrarMutation represents an operation that mutate the Registrars
+// nodes in the graph.
+type RegistrarMutation struct {
+	config
+	op                          Op
+	typ                         string
+	id                          *int
+	_Name                       *string
+	clearedFields               map[string]struct{}
+	registrar2doctorinfo        map[int]struct{}
+	removedregistrar2doctorinfo map[int]struct{}
+	user                        *int
+	cleareduser                 bool
+	done                        bool
+	oldValue                    func(context.Context) (*Registrar, error)
+}
+
+var _ ent.Mutation = (*RegistrarMutation)(nil)
+
+// registrarOption allows to manage the mutation configuration using functional options.
+type registrarOption func(*RegistrarMutation)
+
+// newRegistrarMutation creates new mutation for $n.Name.
+func newRegistrarMutation(c config, op Op, opts ...registrarOption) *RegistrarMutation {
+	m := &RegistrarMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeRegistrar,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withRegistrarID sets the id field of the mutation.
+func withRegistrarID(id int) registrarOption {
+	return func(m *RegistrarMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Registrar
+		)
+		m.oldValue = func(ctx context.Context) (*Registrar, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Registrar.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withRegistrar sets the old Registrar of the mutation.
+func withRegistrar(node *Registrar) registrarOption {
+	return func(m *RegistrarMutation) {
+		m.oldValue = func(context.Context) (*Registrar, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m RegistrarMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m RegistrarMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *RegistrarMutation) ID() (id int, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the Name field.
+func (m *RegistrarMutation) SetName(s string) {
+	m._Name = &s
+}
+
+// Name returns the Name value in the mutation.
+func (m *RegistrarMutation) Name() (r string, exists bool) {
+	v := m._Name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old Name value of the Registrar.
+// If the Registrar object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RegistrarMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "Name" field.
+func (m *RegistrarMutation) ResetName() {
+	m._Name = nil
+}
+
+// AddRegistrar2doctorinfoIDs adds the registrar2doctorinfo edge to Doctorinfo by ids.
+func (m *RegistrarMutation) AddRegistrar2doctorinfoIDs(ids ...int) {
+	if m.registrar2doctorinfo == nil {
+		m.registrar2doctorinfo = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.registrar2doctorinfo[ids[i]] = struct{}{}
+	}
+}
+
+// RemoveRegistrar2doctorinfoIDs removes the registrar2doctorinfo edge to Doctorinfo by ids.
+func (m *RegistrarMutation) RemoveRegistrar2doctorinfoIDs(ids ...int) {
+	if m.removedregistrar2doctorinfo == nil {
+		m.removedregistrar2doctorinfo = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.removedregistrar2doctorinfo[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedRegistrar2doctorinfo returns the removed ids of registrar2doctorinfo.
+func (m *RegistrarMutation) RemovedRegistrar2doctorinfoIDs() (ids []int) {
+	for id := range m.removedregistrar2doctorinfo {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// Registrar2doctorinfoIDs returns the registrar2doctorinfo ids in the mutation.
+func (m *RegistrarMutation) Registrar2doctorinfoIDs() (ids []int) {
+	for id := range m.registrar2doctorinfo {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetRegistrar2doctorinfo reset all changes of the "registrar2doctorinfo" edge.
+func (m *RegistrarMutation) ResetRegistrar2doctorinfo() {
+	m.registrar2doctorinfo = nil
+	m.removedregistrar2doctorinfo = nil
+}
+
+// SetUserID sets the user edge to User by id.
+func (m *RegistrarMutation) SetUserID(id int) {
+	m.user = &id
+}
+
+// ClearUser clears the user edge to User.
+func (m *RegistrarMutation) ClearUser() {
+	m.cleareduser = true
+}
+
+// UserCleared returns if the edge user was cleared.
+func (m *RegistrarMutation) UserCleared() bool {
+	return m.cleareduser
+}
+
+// UserID returns the user id in the mutation.
+func (m *RegistrarMutation) UserID() (id int, exists bool) {
+	if m.user != nil {
+		return *m.user, true
+	}
+	return
+}
+
+// UserIDs returns the user ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// UserID instead. It exists only for internal usage by the builders.
+func (m *RegistrarMutation) UserIDs() (ids []int) {
+	if id := m.user; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetUser reset all changes of the "user" edge.
+func (m *RegistrarMutation) ResetUser() {
+	m.user = nil
+	m.cleareduser = false
+}
+
+// Op returns the operation name.
+func (m *RegistrarMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Registrar).
+func (m *RegistrarMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *RegistrarMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m._Name != nil {
+		fields = append(fields, registrar.FieldName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *RegistrarMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case registrar.FieldName:
+		return m.Name()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *RegistrarMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case registrar.FieldName:
+		return m.OldName(ctx)
+	}
+	return nil, fmt.Errorf("unknown Registrar field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *RegistrarMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case registrar.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Registrar field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *RegistrarMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *RegistrarMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *RegistrarMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown Registrar numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *RegistrarMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *RegistrarMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *RegistrarMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown Registrar nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *RegistrarMutation) ResetField(name string) error {
+	switch name {
+	case registrar.FieldName:
+		m.ResetName()
+		return nil
+	}
+	return fmt.Errorf("unknown Registrar field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *RegistrarMutation) AddedEdges() []string {
+	edges := make([]string, 0, 2)
+	if m.registrar2doctorinfo != nil {
+		edges = append(edges, registrar.EdgeRegistrar2doctorinfo)
+	}
+	if m.user != nil {
+		edges = append(edges, registrar.EdgeUser)
+	}
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *RegistrarMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case registrar.EdgeRegistrar2doctorinfo:
+		ids := make([]ent.Value, 0, len(m.registrar2doctorinfo))
+		for id := range m.registrar2doctorinfo {
+			ids = append(ids, id)
+		}
+		return ids
+	case registrar.EdgeUser:
+		if id := m.user; id != nil {
+			return []ent.Value{*id}
+		}
+	}
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *RegistrarMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 2)
+	if m.removedregistrar2doctorinfo != nil {
+		edges = append(edges, registrar.EdgeRegistrar2doctorinfo)
+	}
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *RegistrarMutation) RemovedIDs(name string) []ent.Value {
+	switch name {
+	case registrar.EdgeRegistrar2doctorinfo:
+		ids := make([]ent.Value, 0, len(m.removedregistrar2doctorinfo))
+		for id := range m.removedregistrar2doctorinfo {
+			ids = append(ids, id)
+		}
+		return ids
+	}
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *RegistrarMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 2)
+	if m.cleareduser {
+		edges = append(edges, registrar.EdgeUser)
+	}
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *RegistrarMutation) EdgeCleared(name string) bool {
+	switch name {
+	case registrar.EdgeUser:
+		return m.cleareduser
+	}
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *RegistrarMutation) ClearEdge(name string) error {
+	switch name {
+	case registrar.EdgeUser:
+		m.ClearUser()
+		return nil
+	}
+	return fmt.Errorf("unknown Registrar unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *RegistrarMutation) ResetEdge(name string) error {
+	switch name {
+	case registrar.EdgeRegistrar2doctorinfo:
+		m.ResetRegistrar2doctorinfo()
+		return nil
+	case registrar.EdgeUser:
+		m.ResetUser()
+		return nil
+	}
+	return fmt.Errorf("unknown Registrar edge %s", name)
+}
+
 // SymptomseverityMutation represents an operation that mutate the Symptomseverities
 // nodes in the graph.
 type SymptomseverityMutation struct {
@@ -10064,8 +10552,8 @@ type TreatmentMutation struct {
 	op                   Op
 	typ                  string
 	id                   *int
-	treatment            *string
-	datetime             *time.Time
+	_Treatment           *string
+	_Datetreat           *time.Time
 	clearedFields        map[string]struct{}
 	typetreatment        *int
 	clearedtypetreatment bool
@@ -10158,21 +10646,21 @@ func (m *TreatmentMutation) ID() (id int, exists bool) {
 	return *m.id, true
 }
 
-// SetTreatment sets the treatment field.
+// SetTreatment sets the Treatment field.
 func (m *TreatmentMutation) SetTreatment(s string) {
-	m.treatment = &s
+	m._Treatment = &s
 }
 
-// Treatment returns the treatment value in the mutation.
+// Treatment returns the Treatment value in the mutation.
 func (m *TreatmentMutation) Treatment() (r string, exists bool) {
-	v := m.treatment
+	v := m._Treatment
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldTreatment returns the old treatment value of the Treatment.
+// OldTreatment returns the old Treatment value of the Treatment.
 // If the Treatment object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
@@ -10190,46 +10678,46 @@ func (m *TreatmentMutation) OldTreatment(ctx context.Context) (v string, err err
 	return oldValue.Treatment, nil
 }
 
-// ResetTreatment reset all changes of the "treatment" field.
+// ResetTreatment reset all changes of the "Treatment" field.
 func (m *TreatmentMutation) ResetTreatment() {
-	m.treatment = nil
+	m._Treatment = nil
 }
 
-// SetDatetime sets the datetime field.
-func (m *TreatmentMutation) SetDatetime(t time.Time) {
-	m.datetime = &t
+// SetDatetreat sets the Datetreat field.
+func (m *TreatmentMutation) SetDatetreat(t time.Time) {
+	m._Datetreat = &t
 }
 
-// Datetime returns the datetime value in the mutation.
-func (m *TreatmentMutation) Datetime() (r time.Time, exists bool) {
-	v := m.datetime
+// Datetreat returns the Datetreat value in the mutation.
+func (m *TreatmentMutation) Datetreat() (r time.Time, exists bool) {
+	v := m._Datetreat
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldDatetime returns the old datetime value of the Treatment.
+// OldDatetreat returns the old Datetreat value of the Treatment.
 // If the Treatment object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *TreatmentMutation) OldDatetime(ctx context.Context) (v time.Time, err error) {
+func (m *TreatmentMutation) OldDatetreat(ctx context.Context) (v time.Time, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldDatetime is allowed only on UpdateOne operations")
+		return v, fmt.Errorf("OldDatetreat is allowed only on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldDatetime requires an ID field in the mutation")
+		return v, fmt.Errorf("OldDatetreat requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldDatetime: %w", err)
+		return v, fmt.Errorf("querying old value for OldDatetreat: %w", err)
 	}
-	return oldValue.Datetime, nil
+	return oldValue.Datetreat, nil
 }
 
-// ResetDatetime reset all changes of the "datetime" field.
-func (m *TreatmentMutation) ResetDatetime() {
-	m.datetime = nil
+// ResetDatetreat reset all changes of the "Datetreat" field.
+func (m *TreatmentMutation) ResetDatetreat() {
+	m._Datetreat = nil
 }
 
 // SetTypetreatmentID sets the typetreatment edge to Typetreatment by id.
@@ -10403,11 +10891,11 @@ func (m *TreatmentMutation) Type() string {
 // fields that were in/decremented, call AddedFields().
 func (m *TreatmentMutation) Fields() []string {
 	fields := make([]string, 0, 2)
-	if m.treatment != nil {
+	if m._Treatment != nil {
 		fields = append(fields, treatment.FieldTreatment)
 	}
-	if m.datetime != nil {
-		fields = append(fields, treatment.FieldDatetime)
+	if m._Datetreat != nil {
+		fields = append(fields, treatment.FieldDatetreat)
 	}
 	return fields
 }
@@ -10419,8 +10907,8 @@ func (m *TreatmentMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case treatment.FieldTreatment:
 		return m.Treatment()
-	case treatment.FieldDatetime:
-		return m.Datetime()
+	case treatment.FieldDatetreat:
+		return m.Datetreat()
 	}
 	return nil, false
 }
@@ -10432,8 +10920,8 @@ func (m *TreatmentMutation) OldField(ctx context.Context, name string) (ent.Valu
 	switch name {
 	case treatment.FieldTreatment:
 		return m.OldTreatment(ctx)
-	case treatment.FieldDatetime:
-		return m.OldDatetime(ctx)
+	case treatment.FieldDatetreat:
+		return m.OldDatetreat(ctx)
 	}
 	return nil, fmt.Errorf("unknown Treatment field %s", name)
 }
@@ -10450,12 +10938,12 @@ func (m *TreatmentMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetTreatment(v)
 		return nil
-	case treatment.FieldDatetime:
+	case treatment.FieldDatetreat:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetDatetime(v)
+		m.SetDatetreat(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Treatment field %s", name)
@@ -10510,8 +10998,8 @@ func (m *TreatmentMutation) ResetField(name string) error {
 	case treatment.FieldTreatment:
 		m.ResetTreatment()
 		return nil
-	case treatment.FieldDatetime:
-		m.ResetDatetime()
+	case treatment.FieldDatetreat:
+		m.ResetDatetreat()
 		return nil
 	}
 	return fmt.Errorf("unknown Treatment field %s", name)
@@ -10658,7 +11146,7 @@ type TypetreatmentMutation struct {
 	op               Op
 	typ              string
 	id               *int
-	_type            *string
+	_Typetreatment   *string
 	clearedFields    map[string]struct{}
 	treatment        map[int]struct{}
 	removedtreatment map[int]struct{}
@@ -10745,41 +11233,41 @@ func (m *TypetreatmentMutation) ID() (id int, exists bool) {
 	return *m.id, true
 }
 
-// SetType sets the type field.
-func (m *TypetreatmentMutation) SetType(s string) {
-	m._type = &s
+// SetTypetreatment sets the Typetreatment field.
+func (m *TypetreatmentMutation) SetTypetreatment(s string) {
+	m._Typetreatment = &s
 }
 
-// GetType returns the type value in the mutation.
-func (m *TypetreatmentMutation) GetType() (r string, exists bool) {
-	v := m._type
+// Typetreatment returns the Typetreatment value in the mutation.
+func (m *TypetreatmentMutation) Typetreatment() (r string, exists bool) {
+	v := m._Typetreatment
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldType returns the old type value of the Typetreatment.
+// OldTypetreatment returns the old Typetreatment value of the Typetreatment.
 // If the Typetreatment object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *TypetreatmentMutation) OldType(ctx context.Context) (v string, err error) {
+func (m *TypetreatmentMutation) OldTypetreatment(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldType is allowed only on UpdateOne operations")
+		return v, fmt.Errorf("OldTypetreatment is allowed only on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldType requires an ID field in the mutation")
+		return v, fmt.Errorf("OldTypetreatment requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldType: %w", err)
+		return v, fmt.Errorf("querying old value for OldTypetreatment: %w", err)
 	}
-	return oldValue.Type, nil
+	return oldValue.Typetreatment, nil
 }
 
-// ResetType reset all changes of the "type" field.
-func (m *TypetreatmentMutation) ResetType() {
-	m._type = nil
+// ResetTypetreatment reset all changes of the "Typetreatment" field.
+func (m *TypetreatmentMutation) ResetTypetreatment() {
+	m._Typetreatment = nil
 }
 
 // AddTreatmentIDs adds the treatment edge to Treatment by ids.
@@ -10839,8 +11327,8 @@ func (m *TypetreatmentMutation) Type() string {
 // fields that were in/decremented, call AddedFields().
 func (m *TypetreatmentMutation) Fields() []string {
 	fields := make([]string, 0, 1)
-	if m._type != nil {
-		fields = append(fields, typetreatment.FieldType)
+	if m._Typetreatment != nil {
+		fields = append(fields, typetreatment.FieldTypetreatment)
 	}
 	return fields
 }
@@ -10850,8 +11338,8 @@ func (m *TypetreatmentMutation) Fields() []string {
 // not set, or was not define in the schema.
 func (m *TypetreatmentMutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case typetreatment.FieldType:
-		return m.GetType()
+	case typetreatment.FieldTypetreatment:
+		return m.Typetreatment()
 	}
 	return nil, false
 }
@@ -10861,8 +11349,8 @@ func (m *TypetreatmentMutation) Field(name string) (ent.Value, bool) {
 // or the query to the database was failed.
 func (m *TypetreatmentMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
-	case typetreatment.FieldType:
-		return m.OldType(ctx)
+	case typetreatment.FieldTypetreatment:
+		return m.OldTypetreatment(ctx)
 	}
 	return nil, fmt.Errorf("unknown Typetreatment field %s", name)
 }
@@ -10872,12 +11360,12 @@ func (m *TypetreatmentMutation) OldField(ctx context.Context, name string) (ent.
 // type mismatch the field type.
 func (m *TypetreatmentMutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case typetreatment.FieldType:
+	case typetreatment.FieldTypetreatment:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetType(v)
+		m.SetTypetreatment(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Typetreatment field %s", name)
@@ -10929,8 +11417,8 @@ func (m *TypetreatmentMutation) ClearField(name string) error {
 // defined in the schema.
 func (m *TypetreatmentMutation) ResetField(name string) error {
 	switch name {
-	case typetreatment.FieldType:
-		m.ResetType()
+	case typetreatment.FieldTypetreatment:
+		m.ResetTypetreatment()
 		return nil
 	}
 	return fmt.Errorf("unknown Typetreatment field %s", name)
@@ -11460,6 +11948,8 @@ type UserMutation struct {
 	clearedmedicalrecordstaff bool
 	user2doctorinfo           *int
 	cleareduser2doctorinfo    bool
+	user2registrar            *int
+	cleareduser2registrar     bool
 	done                      bool
 	oldValue                  func(context.Context) (*User, error)
 }
@@ -11812,6 +12302,45 @@ func (m *UserMutation) ResetUser2doctorinfo() {
 	m.cleareduser2doctorinfo = false
 }
 
+// SetUser2registrarID sets the user2registrar edge to Registrar by id.
+func (m *UserMutation) SetUser2registrarID(id int) {
+	m.user2registrar = &id
+}
+
+// ClearUser2registrar clears the user2registrar edge to Registrar.
+func (m *UserMutation) ClearUser2registrar() {
+	m.cleareduser2registrar = true
+}
+
+// User2registrarCleared returns if the edge user2registrar was cleared.
+func (m *UserMutation) User2registrarCleared() bool {
+	return m.cleareduser2registrar
+}
+
+// User2registrarID returns the user2registrar id in the mutation.
+func (m *UserMutation) User2registrarID() (id int, exists bool) {
+	if m.user2registrar != nil {
+		return *m.user2registrar, true
+	}
+	return
+}
+
+// User2registrarIDs returns the user2registrar ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// User2registrarID instead. It exists only for internal usage by the builders.
+func (m *UserMutation) User2registrarIDs() (ids []int) {
+	if id := m.user2registrar; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetUser2registrar reset all changes of the "user2registrar" edge.
+func (m *UserMutation) ResetUser2registrar() {
+	m.user2registrar = nil
+	m.cleareduser2registrar = false
+}
+
 // Op returns the operation name.
 func (m *UserMutation) Op() Op {
 	return m.op
@@ -11944,7 +12473,7 @@ func (m *UserMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this
 // mutation.
 func (m *UserMutation) AddedEdges() []string {
-	edges := make([]string, 0, 5)
+	edges := make([]string, 0, 6)
 	if m.financier != nil {
 		edges = append(edges, user.EdgeFinancier)
 	}
@@ -11959,6 +12488,9 @@ func (m *UserMutation) AddedEdges() []string {
 	}
 	if m.user2doctorinfo != nil {
 		edges = append(edges, user.EdgeUser2doctorinfo)
+	}
+	if m.user2registrar != nil {
+		edges = append(edges, user.EdgeUser2registrar)
 	}
 	return edges
 }
@@ -11987,6 +12519,10 @@ func (m *UserMutation) AddedIDs(name string) []ent.Value {
 		if id := m.user2doctorinfo; id != nil {
 			return []ent.Value{*id}
 		}
+	case user.EdgeUser2registrar:
+		if id := m.user2registrar; id != nil {
+			return []ent.Value{*id}
+		}
 	}
 	return nil
 }
@@ -11994,7 +12530,7 @@ func (m *UserMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this
 // mutation.
 func (m *UserMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 5)
+	edges := make([]string, 0, 6)
 	return edges
 }
 
@@ -12009,7 +12545,7 @@ func (m *UserMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this
 // mutation.
 func (m *UserMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 5)
+	edges := make([]string, 0, 6)
 	if m.clearedfinancier {
 		edges = append(edges, user.EdgeFinancier)
 	}
@@ -12024,6 +12560,9 @@ func (m *UserMutation) ClearedEdges() []string {
 	}
 	if m.cleareduser2doctorinfo {
 		edges = append(edges, user.EdgeUser2doctorinfo)
+	}
+	if m.cleareduser2registrar {
+		edges = append(edges, user.EdgeUser2registrar)
 	}
 	return edges
 }
@@ -12042,6 +12581,8 @@ func (m *UserMutation) EdgeCleared(name string) bool {
 		return m.clearedmedicalrecordstaff
 	case user.EdgeUser2doctorinfo:
 		return m.cleareduser2doctorinfo
+	case user.EdgeUser2registrar:
+		return m.cleareduser2registrar
 	}
 	return false
 }
@@ -12064,6 +12605,9 @@ func (m *UserMutation) ClearEdge(name string) error {
 		return nil
 	case user.EdgeUser2doctorinfo:
 		m.ClearUser2doctorinfo()
+		return nil
+	case user.EdgeUser2registrar:
+		m.ClearUser2registrar()
 		return nil
 	}
 	return fmt.Errorf("unknown User unique edge %s", name)
@@ -12088,6 +12632,9 @@ func (m *UserMutation) ResetEdge(name string) error {
 		return nil
 	case user.EdgeUser2doctorinfo:
 		m.ResetUser2doctorinfo()
+		return nil
+	case user.EdgeUser2registrar:
+		m.ResetUser2registrar()
 		return nil
 	}
 	return fmt.Errorf("unknown User edge %s", name)

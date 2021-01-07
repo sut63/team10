@@ -93,35 +93,35 @@ func IDLTE(id int) predicate.Treatment {
 	})
 }
 
-// Treatment applies equality check predicate on the "treatment" field. It's identical to TreatmentEQ.
+// Treatment applies equality check predicate on the "Treatment" field. It's identical to TreatmentEQ.
 func Treatment(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTreatment), v))
 	})
 }
 
-// Datetime applies equality check predicate on the "datetime" field. It's identical to DatetimeEQ.
-func Datetime(v time.Time) predicate.Treatment {
+// Datetreat applies equality check predicate on the "Datetreat" field. It's identical to DatetreatEQ.
+func Datetreat(v time.Time) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDatetime), v))
+		s.Where(sql.EQ(s.C(FieldDatetreat), v))
 	})
 }
 
-// TreatmentEQ applies the EQ predicate on the "treatment" field.
+// TreatmentEQ applies the EQ predicate on the "Treatment" field.
 func TreatmentEQ(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentNEQ applies the NEQ predicate on the "treatment" field.
+// TreatmentNEQ applies the NEQ predicate on the "Treatment" field.
 func TreatmentNEQ(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentIn applies the In predicate on the "treatment" field.
+// TreatmentIn applies the In predicate on the "Treatment" field.
 func TreatmentIn(vs ...string) predicate.Treatment {
 	v := make([]interface{}, len(vs))
 	for i := range v {
@@ -138,7 +138,7 @@ func TreatmentIn(vs ...string) predicate.Treatment {
 	})
 }
 
-// TreatmentNotIn applies the NotIn predicate on the "treatment" field.
+// TreatmentNotIn applies the NotIn predicate on the "Treatment" field.
 func TreatmentNotIn(vs ...string) predicate.Treatment {
 	v := make([]interface{}, len(vs))
 	for i := range v {
@@ -155,85 +155,85 @@ func TreatmentNotIn(vs ...string) predicate.Treatment {
 	})
 }
 
-// TreatmentGT applies the GT predicate on the "treatment" field.
+// TreatmentGT applies the GT predicate on the "Treatment" field.
 func TreatmentGT(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentGTE applies the GTE predicate on the "treatment" field.
+// TreatmentGTE applies the GTE predicate on the "Treatment" field.
 func TreatmentGTE(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentLT applies the LT predicate on the "treatment" field.
+// TreatmentLT applies the LT predicate on the "Treatment" field.
 func TreatmentLT(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentLTE applies the LTE predicate on the "treatment" field.
+// TreatmentLTE applies the LTE predicate on the "Treatment" field.
 func TreatmentLTE(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentContains applies the Contains predicate on the "treatment" field.
+// TreatmentContains applies the Contains predicate on the "Treatment" field.
 func TreatmentContains(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.Contains(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentHasPrefix applies the HasPrefix predicate on the "treatment" field.
+// TreatmentHasPrefix applies the HasPrefix predicate on the "Treatment" field.
 func TreatmentHasPrefix(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.HasPrefix(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentHasSuffix applies the HasSuffix predicate on the "treatment" field.
+// TreatmentHasSuffix applies the HasSuffix predicate on the "Treatment" field.
 func TreatmentHasSuffix(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentEqualFold applies the EqualFold predicate on the "treatment" field.
+// TreatmentEqualFold applies the EqualFold predicate on the "Treatment" field.
 func TreatmentEqualFold(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.EqualFold(s.C(FieldTreatment), v))
 	})
 }
 
-// TreatmentContainsFold applies the ContainsFold predicate on the "treatment" field.
+// TreatmentContainsFold applies the ContainsFold predicate on the "Treatment" field.
 func TreatmentContainsFold(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTreatment), v))
 	})
 }
 
-// DatetimeEQ applies the EQ predicate on the "datetime" field.
-func DatetimeEQ(v time.Time) predicate.Treatment {
+// DatetreatEQ applies the EQ predicate on the "Datetreat" field.
+func DatetreatEQ(v time.Time) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDatetime), v))
+		s.Where(sql.EQ(s.C(FieldDatetreat), v))
 	})
 }
 
-// DatetimeNEQ applies the NEQ predicate on the "datetime" field.
-func DatetimeNEQ(v time.Time) predicate.Treatment {
+// DatetreatNEQ applies the NEQ predicate on the "Datetreat" field.
+func DatetreatNEQ(v time.Time) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldDatetime), v))
+		s.Where(sql.NEQ(s.C(FieldDatetreat), v))
 	})
 }
 
-// DatetimeIn applies the In predicate on the "datetime" field.
-func DatetimeIn(vs ...time.Time) predicate.Treatment {
+// DatetreatIn applies the In predicate on the "Datetreat" field.
+func DatetreatIn(vs ...time.Time) predicate.Treatment {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -245,12 +245,12 @@ func DatetimeIn(vs ...time.Time) predicate.Treatment {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldDatetime), v...))
+		s.Where(sql.In(s.C(FieldDatetreat), v...))
 	})
 }
 
-// DatetimeNotIn applies the NotIn predicate on the "datetime" field.
-func DatetimeNotIn(vs ...time.Time) predicate.Treatment {
+// DatetreatNotIn applies the NotIn predicate on the "Datetreat" field.
+func DatetreatNotIn(vs ...time.Time) predicate.Treatment {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -262,35 +262,35 @@ func DatetimeNotIn(vs ...time.Time) predicate.Treatment {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldDatetime), v...))
+		s.Where(sql.NotIn(s.C(FieldDatetreat), v...))
 	})
 }
 
-// DatetimeGT applies the GT predicate on the "datetime" field.
-func DatetimeGT(v time.Time) predicate.Treatment {
+// DatetreatGT applies the GT predicate on the "Datetreat" field.
+func DatetreatGT(v time.Time) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldDatetime), v))
+		s.Where(sql.GT(s.C(FieldDatetreat), v))
 	})
 }
 
-// DatetimeGTE applies the GTE predicate on the "datetime" field.
-func DatetimeGTE(v time.Time) predicate.Treatment {
+// DatetreatGTE applies the GTE predicate on the "Datetreat" field.
+func DatetreatGTE(v time.Time) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldDatetime), v))
+		s.Where(sql.GTE(s.C(FieldDatetreat), v))
 	})
 }
 
-// DatetimeLT applies the LT predicate on the "datetime" field.
-func DatetimeLT(v time.Time) predicate.Treatment {
+// DatetreatLT applies the LT predicate on the "Datetreat" field.
+func DatetreatLT(v time.Time) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldDatetime), v))
+		s.Where(sql.LT(s.C(FieldDatetreat), v))
 	})
 }
 
-// DatetimeLTE applies the LTE predicate on the "datetime" field.
-func DatetimeLTE(v time.Time) predicate.Treatment {
+// DatetreatLTE applies the LTE predicate on the "Datetreat" field.
+func DatetreatLTE(v time.Time) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldDatetime), v))
+		s.Where(sql.LTE(s.C(FieldDatetreat), v))
 	})
 }
 

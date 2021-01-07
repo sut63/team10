@@ -9,8 +9,8 @@ const (
 	FieldID = "id"
 	// FieldTreatment holds the string denoting the treatment field in the database.
 	FieldTreatment = "treatment"
-	// FieldDatetime holds the string denoting the datetime field in the database.
-	FieldDatetime = "datetime"
+	// FieldDatetreat holds the string denoting the datetreat field in the database.
+	FieldDatetreat = "datetreat"
 
 	// EdgeTypetreatment holds the string denoting the typetreatment edge name in mutations.
 	EdgeTypetreatment = "typetreatment"
@@ -57,7 +57,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldTreatment,
-	FieldDatetime,
+	FieldDatetreat,
 }
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the Treatment type.
@@ -68,6 +68,6 @@ var ForeignKeys = []string{
 }
 
 var (
-	// TreatmentValidator is a validator for the "treatment" field. It is called by the builders before save.
+	// TreatmentValidator is a validator for the "Treatment" field. It is called by the builders before save.
 	TreatmentValidator func(string) error
 )

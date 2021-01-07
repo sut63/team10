@@ -14,7 +14,7 @@ type Officeroom struct {
 // Fields of the Officeroom.
 func (Officeroom) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int("roomnumber").Positive(),
+		field.String("roomnumber").NotEmpty(),
 	}
 }
 

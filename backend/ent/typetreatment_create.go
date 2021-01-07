@@ -20,9 +20,9 @@ type TypetreatmentCreate struct {
 	hooks    []Hook
 }
 
-// SetType sets the type field.
-func (tc *TypetreatmentCreate) SetType(s string) *TypetreatmentCreate {
-	tc.mutation.SetType(s)
+// SetTypetreatment sets the Typetreatment field.
+func (tc *TypetreatmentCreate) SetTypetreatment(s string) *TypetreatmentCreate {
+	tc.mutation.SetTypetreatment(s)
 	return tc
 }
 
@@ -48,12 +48,12 @@ func (tc *TypetreatmentCreate) Mutation() *TypetreatmentMutation {
 
 // Save creates the Typetreatment in the database.
 func (tc *TypetreatmentCreate) Save(ctx context.Context) (*Typetreatment, error) {
-	if _, ok := tc.mutation.GetType(); !ok {
-		return nil, &ValidationError{Name: "type", err: errors.New("ent: missing required field \"type\"")}
+	if _, ok := tc.mutation.Typetreatment(); !ok {
+		return nil, &ValidationError{Name: "Typetreatment", err: errors.New("ent: missing required field \"Typetreatment\"")}
 	}
-	if v, ok := tc.mutation.GetType(); ok {
-		if err := typetreatment.TypeValidator(v); err != nil {
-			return nil, &ValidationError{Name: "type", err: fmt.Errorf("ent: validator failed for field \"type\": %w", err)}
+	if v, ok := tc.mutation.Typetreatment(); ok {
+		if err := typetreatment.TypetreatmentValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Typetreatment", err: fmt.Errorf("ent: validator failed for field \"Typetreatment\": %w", err)}
 		}
 	}
 	var (
@@ -116,13 +116,13 @@ func (tc *TypetreatmentCreate) createSpec() (*Typetreatment, *sqlgraph.CreateSpe
 			},
 		}
 	)
-	if value, ok := tc.mutation.GetType(); ok {
+	if value, ok := tc.mutation.Typetreatment(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: typetreatment.FieldType,
+			Column: typetreatment.FieldTypetreatment,
 		})
-		t.Type = value
+		t.Typetreatment = value
 	}
 	if nodes := tc.mutation.TreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

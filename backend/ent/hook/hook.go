@@ -230,6 +230,19 @@ func (f PrenameFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, err
 	return f(ctx, mv)
 }
 
+// The RegistrarFunc type is an adapter to allow the use of ordinary
+// function as Registrar mutator.
+type RegistrarFunc func(context.Context, *ent.RegistrarMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f RegistrarFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.RegistrarMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RegistrarMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The SymptomseverityFunc type is an adapter to allow the use of ordinary
 // function as Symptomseverity mutator.
 type SymptomseverityFunc func(context.Context, *ent.SymptomseverityMutation) (ent.Value, error)

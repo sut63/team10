@@ -14,6 +14,7 @@ import (
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/nurse"
 	"github.com/team10/app/ent/patientrights"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 )
 
@@ -129,6 +130,25 @@ func (uc *UserCreate) SetNillableUser2doctorinfoID(id *int) *UserCreate {
 // SetUser2doctorinfo sets the user2doctorinfo edge to Doctorinfo.
 func (uc *UserCreate) SetUser2doctorinfo(d *Doctorinfo) *UserCreate {
 	return uc.SetUser2doctorinfoID(d.ID)
+}
+
+// SetUser2registrarID sets the user2registrar edge to Registrar by id.
+func (uc *UserCreate) SetUser2registrarID(id int) *UserCreate {
+	uc.mutation.SetUser2registrarID(id)
+	return uc
+}
+
+// SetNillableUser2registrarID sets the user2registrar edge to Registrar by id if the given value is not nil.
+func (uc *UserCreate) SetNillableUser2registrarID(id *int) *UserCreate {
+	if id != nil {
+		uc = uc.SetUser2registrarID(*id)
+	}
+	return uc
+}
+
+// SetUser2registrar sets the user2registrar edge to Registrar.
+func (uc *UserCreate) SetUser2registrar(r *Registrar) *UserCreate {
+	return uc.SetUser2registrarID(r.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -317,6 +337,25 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: doctorinfo.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := uc.mutation.User2registrarIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.User2registrarTable,
+			Columns: []string{user.User2registrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
 				},
 			},
 		}

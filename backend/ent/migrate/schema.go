@@ -83,6 +83,7 @@ var (
 		{Name: "level", Type: field.TypeInt, Nullable: true},
 		{Name: "roomnumber", Type: field.TypeInt, Nullable: true},
 		{Name: "prefix", Type: field.TypeInt, Nullable: true},
+		{Name: "registrar_id", Type: field.TypeInt, Nullable: true},
 		{Name: "user_id", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
 	// DoctorinfosTable holds the schema information for the "doctorinfos" table.
@@ -120,8 +121,15 @@ var (
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "doctorinfos_users_user2doctorinfo",
+				Symbol:  "doctorinfos_registrars_registrar2doctorinfo",
 				Columns: []*schema.Column{DoctorinfosColumns[9]},
+
+				RefColumns: []*schema.Column{RegistrarsColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:  "doctorinfos_users_user2doctorinfo",
+				Columns: []*schema.Column{DoctorinfosColumns[10]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
 				OnDelete:   schema.SetNull,
@@ -433,6 +441,27 @@ var (
 		PrimaryKey:  []*schema.Column{PrenamesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// RegistrarsColumns holds the columns for the "registrars" table.
+	RegistrarsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "user_id", Type: field.TypeInt, Unique: true, Nullable: true},
+	}
+	// RegistrarsTable holds the schema information for the "registrars" table.
+	RegistrarsTable = &schema.Table{
+		Name:       "registrars",
+		Columns:    RegistrarsColumns,
+		PrimaryKey: []*schema.Column{RegistrarsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:  "registrars_users_user2registrar",
+				Columns: []*schema.Column{RegistrarsColumns[2]},
+
+				RefColumns: []*schema.Column{UsersColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
 	// SymptomseveritiesColumns holds the columns for the "symptomseverities" table.
 	SymptomseveritiesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -449,7 +478,7 @@ var (
 	TreatmentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "treatment", Type: field.TypeString},
-		{Name: "datetime", Type: field.TypeTime},
+		{Name: "datetreat", Type: field.TypeTime},
 		{Name: "doctorinfo_id", Type: field.TypeInt, Nullable: true},
 		{Name: "patientrecord_id", Type: field.TypeInt, Nullable: true},
 		{Name: "typetreatment_id", Type: field.TypeInt, Nullable: true},
@@ -486,7 +515,7 @@ var (
 	// TypetreatmentsColumns holds the columns for the "typetreatments" table.
 	TypetreatmentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "type", Type: field.TypeString},
+		{Name: "typetreatment", Type: field.TypeString},
 	}
 	// TypetreatmentsTable holds the schema information for the "typetreatments" table.
 	TypetreatmentsTable = &schema.Table{
@@ -557,6 +586,7 @@ var (
 		PatientrightstypesTable,
 		PaytypesTable,
 		PrenamesTable,
+		RegistrarsTable,
 		SymptomseveritiesTable,
 		TreatmentsTable,
 		TypetreatmentsTable,
@@ -573,7 +603,8 @@ func init() {
 	DoctorinfosTable.ForeignKeys[1].RefTable = EducationlevelsTable
 	DoctorinfosTable.ForeignKeys[2].RefTable = OfficeroomsTable
 	DoctorinfosTable.ForeignKeys[3].RefTable = PrenamesTable
-	DoctorinfosTable.ForeignKeys[4].RefTable = UsersTable
+	DoctorinfosTable.ForeignKeys[4].RefTable = RegistrarsTable
+	DoctorinfosTable.ForeignKeys[5].RefTable = UsersTable
 	FinanciersTable.ForeignKeys[0].RefTable = UsersTable
 	HistorytakingsTable.ForeignKeys[0].RefTable = DepartmentsTable
 	HistorytakingsTable.ForeignKeys[1].RefTable = NursesTable
@@ -589,6 +620,7 @@ func init() {
 	PatientrightsTable.ForeignKeys[2].RefTable = PatientrecordsTable
 	PatientrightsTable.ForeignKeys[3].RefTable = PatientrightstypesTable
 	PatientrightstypesTable.ForeignKeys[0].RefTable = AbilitypatientrightsTable
+	RegistrarsTable.ForeignKeys[0].RefTable = UsersTable
 	TreatmentsTable.ForeignKeys[0].RefTable = DoctorinfosTable
 	TreatmentsTable.ForeignKeys[1].RefTable = PatientrecordsTable
 	TreatmentsTable.ForeignKeys[2].RefTable = TypetreatmentsTable

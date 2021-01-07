@@ -15,6 +15,7 @@ import (
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/prename"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/user"
 )
@@ -152,6 +153,25 @@ func (du *DoctorinfoUpdate) SetUser(u *User) *DoctorinfoUpdate {
 	return du.SetUserID(u.ID)
 }
 
+// SetRegistrarID sets the registrar edge to Registrar by id.
+func (du *DoctorinfoUpdate) SetRegistrarID(id int) *DoctorinfoUpdate {
+	du.mutation.SetRegistrarID(id)
+	return du
+}
+
+// SetNillableRegistrarID sets the registrar edge to Registrar by id if the given value is not nil.
+func (du *DoctorinfoUpdate) SetNillableRegistrarID(id *int) *DoctorinfoUpdate {
+	if id != nil {
+		du = du.SetRegistrarID(*id)
+	}
+	return du
+}
+
+// SetRegistrar sets the registrar edge to Registrar.
+func (du *DoctorinfoUpdate) SetRegistrar(r *Registrar) *DoctorinfoUpdate {
+	return du.SetRegistrarID(r.ID)
+}
+
 // AddTreatmentIDs adds the treatment edge to Treatment by ids.
 func (du *DoctorinfoUpdate) AddTreatmentIDs(ids ...int) *DoctorinfoUpdate {
 	du.mutation.AddTreatmentIDs(ids...)
@@ -199,6 +219,12 @@ func (du *DoctorinfoUpdate) ClearPrename() *DoctorinfoUpdate {
 // ClearUser clears the user edge to User.
 func (du *DoctorinfoUpdate) ClearUser() *DoctorinfoUpdate {
 	du.mutation.ClearUser()
+	return du
+}
+
+// ClearRegistrar clears the registrar edge to Registrar.
+func (du *DoctorinfoUpdate) ClearRegistrar() *DoctorinfoUpdate {
+	du.mutation.ClearRegistrar()
 	return du
 }
 
@@ -510,6 +536,41 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	if du.mutation.RegistrarCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   doctorinfo.RegistrarTable,
+			Columns: []string{doctorinfo.RegistrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := du.mutation.RegistrarIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   doctorinfo.RegistrarTable,
+			Columns: []string{doctorinfo.RegistrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
 	if nodes := du.mutation.RemovedTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
@@ -685,6 +746,25 @@ func (duo *DoctorinfoUpdateOne) SetUser(u *User) *DoctorinfoUpdateOne {
 	return duo.SetUserID(u.ID)
 }
 
+// SetRegistrarID sets the registrar edge to Registrar by id.
+func (duo *DoctorinfoUpdateOne) SetRegistrarID(id int) *DoctorinfoUpdateOne {
+	duo.mutation.SetRegistrarID(id)
+	return duo
+}
+
+// SetNillableRegistrarID sets the registrar edge to Registrar by id if the given value is not nil.
+func (duo *DoctorinfoUpdateOne) SetNillableRegistrarID(id *int) *DoctorinfoUpdateOne {
+	if id != nil {
+		duo = duo.SetRegistrarID(*id)
+	}
+	return duo
+}
+
+// SetRegistrar sets the registrar edge to Registrar.
+func (duo *DoctorinfoUpdateOne) SetRegistrar(r *Registrar) *DoctorinfoUpdateOne {
+	return duo.SetRegistrarID(r.ID)
+}
+
 // AddTreatmentIDs adds the treatment edge to Treatment by ids.
 func (duo *DoctorinfoUpdateOne) AddTreatmentIDs(ids ...int) *DoctorinfoUpdateOne {
 	duo.mutation.AddTreatmentIDs(ids...)
@@ -732,6 +812,12 @@ func (duo *DoctorinfoUpdateOne) ClearPrename() *DoctorinfoUpdateOne {
 // ClearUser clears the user edge to User.
 func (duo *DoctorinfoUpdateOne) ClearUser() *DoctorinfoUpdateOne {
 	duo.mutation.ClearUser()
+	return duo
+}
+
+// ClearRegistrar clears the registrar edge to Registrar.
+func (duo *DoctorinfoUpdateOne) ClearRegistrar() *DoctorinfoUpdateOne {
+	duo.mutation.ClearRegistrar()
 	return duo
 }
 
@@ -1033,6 +1119,41 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: user.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if duo.mutation.RegistrarCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   doctorinfo.RegistrarTable,
+			Columns: []string{doctorinfo.RegistrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := duo.mutation.RegistrarIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   doctorinfo.RegistrarTable,
+			Columns: []string{doctorinfo.RegistrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
 				},
 			},
 		}

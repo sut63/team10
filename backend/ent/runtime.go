@@ -84,16 +84,16 @@ func init() {
 	prename.PrefixValidator = prenameDescPrefix.Validators[0].(func(string) error)
 	treatmentFields := schema.Treatment{}.Fields()
 	_ = treatmentFields
-	// treatmentDescTreatment is the schema descriptor for treatment field.
+	// treatmentDescTreatment is the schema descriptor for Treatment field.
 	treatmentDescTreatment := treatmentFields[0].Descriptor()
-	// treatment.TreatmentValidator is a validator for the "treatment" field. It is called by the builders before save.
+	// treatment.TreatmentValidator is a validator for the "Treatment" field. It is called by the builders before save.
 	treatment.TreatmentValidator = treatmentDescTreatment.Validators[0].(func(string) error)
 	typetreatmentFields := schema.Typetreatment{}.Fields()
 	_ = typetreatmentFields
-	// typetreatmentDescType is the schema descriptor for type field.
-	typetreatmentDescType := typetreatmentFields[0].Descriptor()
-	// typetreatment.TypeValidator is a validator for the "type" field. It is called by the builders before save.
-	typetreatment.TypeValidator = typetreatmentDescType.Validators[0].(func(string) error)
+	// typetreatmentDescTypetreatment is the schema descriptor for Typetreatment field.
+	typetreatmentDescTypetreatment := typetreatmentFields[0].Descriptor()
+	// typetreatment.TypetreatmentValidator is a validator for the "Typetreatment" field. It is called by the builders before save.
+	typetreatment.TypetreatmentValidator = typetreatmentDescTypetreatment.Validators[0].(func(string) error)
 	unpaybillFields := schema.Unpaybill{}.Fields()
 	_ = unpaybillFields
 	// unpaybillDescStatus is the schema descriptor for Status field.

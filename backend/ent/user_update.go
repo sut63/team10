@@ -15,6 +15,7 @@ import (
 	"github.com/team10/app/ent/nurse"
 	"github.com/team10/app/ent/patientrights"
 	"github.com/team10/app/ent/predicate"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 )
 
@@ -139,6 +140,25 @@ func (uu *UserUpdate) SetUser2doctorinfo(d *Doctorinfo) *UserUpdate {
 	return uu.SetUser2doctorinfoID(d.ID)
 }
 
+// SetUser2registrarID sets the user2registrar edge to Registrar by id.
+func (uu *UserUpdate) SetUser2registrarID(id int) *UserUpdate {
+	uu.mutation.SetUser2registrarID(id)
+	return uu
+}
+
+// SetNillableUser2registrarID sets the user2registrar edge to Registrar by id if the given value is not nil.
+func (uu *UserUpdate) SetNillableUser2registrarID(id *int) *UserUpdate {
+	if id != nil {
+		uu = uu.SetUser2registrarID(*id)
+	}
+	return uu
+}
+
+// SetUser2registrar sets the user2registrar edge to Registrar.
+func (uu *UserUpdate) SetUser2registrar(r *Registrar) *UserUpdate {
+	return uu.SetUser2registrarID(r.ID)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uu *UserUpdate) Mutation() *UserMutation {
 	return uu.mutation
@@ -171,6 +191,12 @@ func (uu *UserUpdate) ClearMedicalrecordstaff() *UserUpdate {
 // ClearUser2doctorinfo clears the user2doctorinfo edge to Doctorinfo.
 func (uu *UserUpdate) ClearUser2doctorinfo() *UserUpdate {
 	uu.mutation.ClearUser2doctorinfo()
+	return uu
+}
+
+// ClearUser2registrar clears the user2registrar edge to Registrar.
+func (uu *UserUpdate) ClearUser2registrar() *UserUpdate {
+	uu.mutation.ClearUser2registrar()
 	return uu
 }
 
@@ -443,6 +469,41 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	if uu.mutation.User2registrarCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.User2registrarTable,
+			Columns: []string{user.User2registrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.User2registrarIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.User2registrarTable,
+			Columns: []string{user.User2registrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
@@ -568,6 +629,25 @@ func (uuo *UserUpdateOne) SetUser2doctorinfo(d *Doctorinfo) *UserUpdateOne {
 	return uuo.SetUser2doctorinfoID(d.ID)
 }
 
+// SetUser2registrarID sets the user2registrar edge to Registrar by id.
+func (uuo *UserUpdateOne) SetUser2registrarID(id int) *UserUpdateOne {
+	uuo.mutation.SetUser2registrarID(id)
+	return uuo
+}
+
+// SetNillableUser2registrarID sets the user2registrar edge to Registrar by id if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableUser2registrarID(id *int) *UserUpdateOne {
+	if id != nil {
+		uuo = uuo.SetUser2registrarID(*id)
+	}
+	return uuo
+}
+
+// SetUser2registrar sets the user2registrar edge to Registrar.
+func (uuo *UserUpdateOne) SetUser2registrar(r *Registrar) *UserUpdateOne {
+	return uuo.SetUser2registrarID(r.ID)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uuo *UserUpdateOne) Mutation() *UserMutation {
 	return uuo.mutation
@@ -600,6 +680,12 @@ func (uuo *UserUpdateOne) ClearMedicalrecordstaff() *UserUpdateOne {
 // ClearUser2doctorinfo clears the user2doctorinfo edge to Doctorinfo.
 func (uuo *UserUpdateOne) ClearUser2doctorinfo() *UserUpdateOne {
 	uuo.mutation.ClearUser2doctorinfo()
+	return uuo
+}
+
+// ClearUser2registrar clears the user2registrar edge to Registrar.
+func (uuo *UserUpdateOne) ClearUser2registrar() *UserUpdateOne {
+	uuo.mutation.ClearUser2registrar()
 	return uuo
 }
 
@@ -862,6 +948,41 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (u *User, err error) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: doctorinfo.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if uuo.mutation.User2registrarCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.User2registrarTable,
+			Columns: []string{user.User2registrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.User2registrarIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.User2registrarTable,
+			Columns: []string{user.User2registrarColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: registrar.FieldID,
 				},
 			},
 		}

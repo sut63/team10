@@ -15,8 +15,8 @@ type Typetreatment struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// Type holds the value of the "type" field.
-	Type string `json:"type,omitempty"`
+	// Typetreatment holds the value of the "Typetreatment" field.
+	Typetreatment string `json:"Typetreatment,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the TypetreatmentQuery when eager-loading is set.
 	Edges TypetreatmentEdges `json:"edges"`
@@ -44,7 +44,7 @@ func (e TypetreatmentEdges) TreatmentOrErr() ([]*Treatment, error) {
 func (*Typetreatment) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullString{}, // type
+		&sql.NullString{}, // Typetreatment
 	}
 }
 
@@ -61,9 +61,9 @@ func (t *Typetreatment) assignValues(values ...interface{}) error {
 	t.ID = int(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field type", values[0])
+		return fmt.Errorf("unexpected type %T for field Typetreatment", values[0])
 	} else if value.Valid {
-		t.Type = value.String
+		t.Typetreatment = value.String
 	}
 	return nil
 }
@@ -96,8 +96,8 @@ func (t *Typetreatment) String() string {
 	var builder strings.Builder
 	builder.WriteString("Typetreatment(")
 	builder.WriteString(fmt.Sprintf("id=%v", t.ID))
-	builder.WriteString(", type=")
-	builder.WriteString(t.Type)
+	builder.WriteString(", Typetreatment=")
+	builder.WriteString(t.Typetreatment)
 	builder.WriteByte(')')
 	return builder.String()
 }

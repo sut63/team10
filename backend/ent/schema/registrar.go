@@ -21,7 +21,7 @@ func (Registrar) Fields() []ent.Field {
 // Edges of the Registrar.
 func (Registrar) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("registrar2doctorinfo", Registrar.Type).StorageKey(edge.Column("registrar_id")),
+		edge.To("registrar2doctorinfo", Doctorinfo.Type).StorageKey(edge.Column("registrar_id")),
 		edge.From("user", User.Type).Ref("user2registrar").Unique(),
 	}
 }
