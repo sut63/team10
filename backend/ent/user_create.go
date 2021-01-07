@@ -9,7 +9,6 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/nurse"
@@ -112,25 +111,6 @@ func (uc *UserCreate) SetNillableMedicalrecordstaffID(id *int) *UserCreate {
 // SetMedicalrecordstaff sets the medicalrecordstaff edge to Medicalrecordstaff.
 func (uc *UserCreate) SetMedicalrecordstaff(m *Medicalrecordstaff) *UserCreate {
 	return uc.SetMedicalrecordstaffID(m.ID)
-}
-
-// SetUser2doctorinfoID sets the user2doctorinfo edge to Doctorinfo by id.
-func (uc *UserCreate) SetUser2doctorinfoID(id int) *UserCreate {
-	uc.mutation.SetUser2doctorinfoID(id)
-	return uc
-}
-
-// SetNillableUser2doctorinfoID sets the user2doctorinfo edge to Doctorinfo by id if the given value is not nil.
-func (uc *UserCreate) SetNillableUser2doctorinfoID(id *int) *UserCreate {
-	if id != nil {
-		uc = uc.SetUser2doctorinfoID(*id)
-	}
-	return uc
-}
-
-// SetUser2doctorinfo sets the user2doctorinfo edge to Doctorinfo.
-func (uc *UserCreate) SetUser2doctorinfo(d *Doctorinfo) *UserCreate {
-	return uc.SetUser2doctorinfoID(d.ID)
 }
 
 // SetUser2registrarID sets the user2registrar edge to Registrar by id.
@@ -338,25 +318,6 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: medicalrecordstaff.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges = append(_spec.Edges, edge)
-	}
-	if nodes := uc.mutation.User2doctorinfoIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
-			Inverse: false,
-			Table:   user.User2doctorinfoTable,
-			Columns: []string{user.User2doctorinfoColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
 				},
 			},
 		}

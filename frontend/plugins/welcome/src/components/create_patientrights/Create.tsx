@@ -201,11 +201,9 @@ const NewPatientright: FC<{}> = () => {
          ) : null}
        </ContentHeader>
 
-       <div>
-              <br/><p>json {JSON.stringify(Patientrights)} </p>
-              
-              
-          </div>
+      <div>
+              <br/><p>json {JSON.stringify(Patientrights)} </p> 
+      </div>
 
             
        <div className={classes.root}>

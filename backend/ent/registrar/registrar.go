@@ -10,20 +10,11 @@ const (
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 
-	// EdgeRegistrar2doctorinfo holds the string denoting the registrar2doctorinfo edge name in mutations.
-	EdgeRegistrar2doctorinfo = "registrar2doctorinfo"
 	// EdgeUser holds the string denoting the user edge name in mutations.
 	EdgeUser = "user"
 
 	// Table holds the table name of the registrar in the database.
 	Table = "registrars"
-	// Registrar2doctorinfoTable is the table the holds the registrar2doctorinfo relation/edge.
-	Registrar2doctorinfoTable = "doctorinfos"
-	// Registrar2doctorinfoInverseTable is the table name for the Doctorinfo entity.
-	// It exists in this package in order to avoid circular dependency with the "doctorinfo" package.
-	Registrar2doctorinfoInverseTable = "doctorinfos"
-	// Registrar2doctorinfoColumn is the table column denoting the registrar2doctorinfo relation/edge.
-	Registrar2doctorinfoColumn = "registrar_id"
 	// UserTable is the table the holds the user relation/edge.
 	UserTable = "registrars"
 	// UserInverseTable is the table name for the User entity.

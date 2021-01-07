@@ -26,28 +26,17 @@ type Registrar struct {
 
 // RegistrarEdges holds the relations/edges for other nodes in the graph.
 type RegistrarEdges struct {
-	// Registrar2doctorinfo holds the value of the registrar2doctorinfo edge.
-	Registrar2doctorinfo []*Doctorinfo
 	// User holds the value of the user edge.
 	User *User
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [2]bool
-}
-
-// Registrar2doctorinfoOrErr returns the Registrar2doctorinfo value or an error if the edge
-// was not loaded in eager-loading.
-func (e RegistrarEdges) Registrar2doctorinfoOrErr() ([]*Doctorinfo, error) {
-	if e.loadedTypes[0] {
-		return e.Registrar2doctorinfo, nil
-	}
-	return nil, &NotLoadedError{edge: "registrar2doctorinfo"}
+	loadedTypes [1]bool
 }
 
 // UserOrErr returns the User value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e RegistrarEdges) UserOrErr() (*User, error) {
-	if e.loadedTypes[1] {
+	if e.loadedTypes[0] {
 		if e.User == nil {
 			// The edge user was loaded in eager-loading,
 			// but was not found.
@@ -100,11 +89,6 @@ func (r *Registrar) assignValues(values ...interface{}) error {
 		}
 	}
 	return nil
-}
-
-// QueryRegistrar2doctorinfo queries the registrar2doctorinfo edge of the Registrar.
-func (r *Registrar) QueryRegistrar2doctorinfo() *DoctorinfoQuery {
-	return (&RegistrarClient{config: r.config}).QueryRegistrar2doctorinfo(r)
 }
 
 // QueryUser queries the user edge of the Registrar.

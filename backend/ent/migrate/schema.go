@@ -83,8 +83,6 @@ var (
 		{Name: "level", Type: field.TypeInt, Nullable: true},
 		{Name: "roomnumber", Type: field.TypeInt, Nullable: true},
 		{Name: "prefix", Type: field.TypeInt, Nullable: true},
-		{Name: "registrar_id", Type: field.TypeInt, Nullable: true},
-		{Name: "user_id", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
 	// DoctorinfosTable holds the schema information for the "doctorinfos" table.
 	DoctorinfosTable = &schema.Table{
@@ -118,20 +116,6 @@ var (
 				Columns: []*schema.Column{DoctorinfosColumns[8]},
 
 				RefColumns: []*schema.Column{PrenamesColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
-				Symbol:  "doctorinfos_registrars_registrar2doctorinfo",
-				Columns: []*schema.Column{DoctorinfosColumns[9]},
-
-				RefColumns: []*schema.Column{RegistrarsColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
-			{
-				Symbol:  "doctorinfos_users_user2doctorinfo",
-				Columns: []*schema.Column{DoctorinfosColumns[10]},
-
-				RefColumns: []*schema.Column{UsersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 		},
@@ -624,8 +608,6 @@ func init() {
 	DoctorinfosTable.ForeignKeys[1].RefTable = EducationlevelsTable
 	DoctorinfosTable.ForeignKeys[2].RefTable = OfficeroomsTable
 	DoctorinfosTable.ForeignKeys[3].RefTable = PrenamesTable
-	DoctorinfosTable.ForeignKeys[4].RefTable = RegistrarsTable
-	DoctorinfosTable.ForeignKeys[5].RefTable = UsersTable
 	FinanciersTable.ForeignKeys[0].RefTable = UsersTable
 	HistorytakingsTable.ForeignKeys[0].RefTable = DepartmentsTable
 	HistorytakingsTable.ForeignKeys[1].RefTable = NursesTable

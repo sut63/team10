@@ -12,8 +12,7 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
-	"github.com/team10/app/ent/registrar"
-	"github.com/team10/app/ent/user"
+	
 )
 
 // DoctorinfoController defines the struct for the doctorinfo controller
@@ -32,8 +31,7 @@ type Doctorinfo struct {
 	Educationlevel  int
 	Officeroom      int
 	Prename         int
-	User            int
-	Registrar       int
+	
 }
 
 // CreateDoctorinfo handles POST requests for adding doctorinfo entities
@@ -102,30 +100,7 @@ func (ctl *DoctorinfoController) CreateDoctorinfo(c *gin.Context) {
 		})
 		return
 	}
-	us, err := ctl.client.User.
-		Query().
-		Where(user.IDEQ(int(obj.User))).
-		Only(context.Background())
-
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "user not found",
-		})
-		return
-	}
-
-	rg, err := ctl.client.Registrar.
-		Query().
-		Where(registrar.IDEQ(int(obj.Registrar))).
-		Only(context.Background())
-
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "registrar not found",
-		})
-		return
-	}
-
+	
 	u, err := ctl.client.Doctorinfo.
 		Create().
 		SetDoctorname(obj.Doctorname).
@@ -136,8 +111,6 @@ func (ctl *DoctorinfoController) CreateDoctorinfo(c *gin.Context) {
 		SetEducationlevel(el).
 		SetOfficeroom(or).
 		SetPrename(pn).
-		SetUser(us).
-		SetRegistrar(rg).
 		Save(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{

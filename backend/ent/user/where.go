@@ -439,34 +439,6 @@ func HasMedicalrecordstaffWith(preds ...predicate.Medicalrecordstaff) predicate.
 	})
 }
 
-// HasUser2doctorinfo applies the HasEdge predicate on the "user2doctorinfo" edge.
-func HasUser2doctorinfo() predicate.User {
-	return predicate.User(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(User2doctorinfoTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, User2doctorinfoTable, User2doctorinfoColumn),
-		)
-		sqlgraph.HasNeighbors(s, step)
-	})
-}
-
-// HasUser2doctorinfoWith applies the HasEdge predicate on the "user2doctorinfo" edge with a given conditions (other predicates).
-func HasUser2doctorinfoWith(preds ...predicate.Doctorinfo) predicate.User {
-	return predicate.User(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(User2doctorinfoInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, User2doctorinfoTable, User2doctorinfoColumn),
-		)
-		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
-			for _, p := range preds {
-				p(s)
-			}
-		})
-	})
-}
-
 // HasUser2registrar applies the HasEdge predicate on the "user2registrar" edge.
 func HasUser2registrar() predicate.User {
 	return predicate.User(func(s *sql.Selector) {

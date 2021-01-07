@@ -24,10 +24,6 @@ const (
 	EdgeOfficeroom = "officeroom"
 	// EdgePrename holds the string denoting the prename edge name in mutations.
 	EdgePrename = "prename"
-	// EdgeUser holds the string denoting the user edge name in mutations.
-	EdgeUser = "user"
-	// EdgeRegistrar holds the string denoting the registrar edge name in mutations.
-	EdgeRegistrar = "registrar"
 	// EdgeTreatment holds the string denoting the treatment edge name in mutations.
 	EdgeTreatment = "treatment"
 
@@ -61,20 +57,6 @@ const (
 	PrenameInverseTable = "prenames"
 	// PrenameColumn is the table column denoting the prename relation/edge.
 	PrenameColumn = "prefix"
-	// UserTable is the table the holds the user relation/edge.
-	UserTable = "doctorinfos"
-	// UserInverseTable is the table name for the User entity.
-	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
-	// UserColumn is the table column denoting the user relation/edge.
-	UserColumn = "user_id"
-	// RegistrarTable is the table the holds the registrar relation/edge.
-	RegistrarTable = "doctorinfos"
-	// RegistrarInverseTable is the table name for the Registrar entity.
-	// It exists in this package in order to avoid circular dependency with the "registrar" package.
-	RegistrarInverseTable = "registrars"
-	// RegistrarColumn is the table column denoting the registrar relation/edge.
-	RegistrarColumn = "registrar_id"
 	// TreatmentTable is the table the holds the treatment relation/edge.
 	TreatmentTable = "treatments"
 	// TreatmentInverseTable is the table name for the Treatment entity.
@@ -99,8 +81,6 @@ var ForeignKeys = []string{
 	"level",
 	"roomnumber",
 	"prefix",
-	"registrar_id",
-	"user_id",
 }
 
 var (
