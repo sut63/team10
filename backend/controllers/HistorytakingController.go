@@ -133,7 +133,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		SetPulse(pulses).
 		SetRespiration(respirations).
 		SetBp(bps).
-		SetOxygen(obj.Oxygen).
+		SetOxygen(obj.Oxygen+"%").
 		SetSymptom(obj.Symptom).
 		SetDatetime(times).
 		Save(context.Background())
