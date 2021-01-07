@@ -148,6 +148,7 @@ type Medicalrecordstaff struct {
 }
 
 //*******************************************************************
+// Users defines the struct for the Users
 
 // Paytypes defines the struct for the Paytypes
 type Paytypes struct {
@@ -167,7 +168,6 @@ type Financiers struct {
 // Financier defines the struct for the Financier
 type Financier struct {
 	name string
-	email string
 }
 
 //*******************************************************************
@@ -332,7 +332,7 @@ func main() {
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
-	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
+	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad",}
 	for _, r := range User {
 		client.User.
 			Create().
@@ -545,15 +545,14 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod","B6102845@g.sut.ac.th"},
-			Financier{"Name Surname","Email@domain.com"},
+			Financier{"Nutchaporn Klinrod"},
+			Financier{"Name Surname"},
 		},
 	}
 	for _, f := range financiers.Financier {
 		client.Financier.
 			Create().
 			SetName(f.name).
-			SetEmail(f.email).
 			Save(context.Background())
 	}
 

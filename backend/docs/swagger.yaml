@@ -265,9 +265,6 @@ definitions:
           Edges holds the relations/edges for other nodes in the graph.
           The values are being populated by the FinancierQuery when eager-loading is set.
         type: object
-      email:
-        description: Email holds the value of the "email" field.
-        type: string
       id:
         description: ID of the ent.
         type: integer
