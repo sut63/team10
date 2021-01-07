@@ -504,6 +504,22 @@ func main() {
 			SetSymptomseverity(ss.Symptomseverity).
 			Save(context.Background())
 	}
+	//Set Department data
+	departments := Departments{
+		Department: []Department{
+			Department{"ตาคอหู"},
+			Department{"กระดูก"},
+			Department{"อายุรกรรม"},
+		},
+	}
+
+	for _, d := range departments.Department {
+		client.Department.
+			Create().
+			SetDepartment(d.Department).
+			Save(context.Background())
+	}
+	
 	//^^^*******************************************************************^^^
 
 	// Set Postman By Bill System
