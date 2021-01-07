@@ -12,6 +12,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Avatar from '@material-ui/core/Avatar';
 
 const HeaderCustom = {
   minHeight: '50px',
@@ -27,9 +28,10 @@ export type ProfileProps = {
   name: string; 
   id: string;
   system: string;
+  imgsut: string;
 };
 
-export function CardTeam({ name, id, system }: ProfileProps) {
+export function CardTeam({ name, id, system ,imgsut}: ProfileProps) {
   const classes = useStyles();
   return (
     <Grid item xs={12} md={3}>
@@ -39,7 +41,7 @@ export function CardTeam({ name, id, system }: ProfileProps) {
             component="img"
             alt="นาย สมชาย ใจดี"
             height="140"
-            image="../../image/account.jpg"
+            image={imgsut}
             title="นาย สมชาย ใจดี"
           />
           <CardContent>
@@ -63,12 +65,13 @@ const WelcomePage: FC<{}> = () => {
       <Content>
         <ContentHeader title="สมาชิกในกลุ่ม"></ContentHeader>
         <Grid container>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."}></CardTeam>
+          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
+          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
+          <CardTeam name={"นาย คฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
+          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
+          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
+          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
+          <Avatar alt="Remy Sharp" src="Cat03.jpg" />
         </Grid>
       </Content>
     </Page>
