@@ -59,6 +59,13 @@ const CreateBill: FC<{}> = () => {
     const [financierid, setfinancierId] = React.useState(Number);
     const [unpayid, setunpayId] = React.useState(Number);
 
+    const refreshPage = ()=>{
+      window.location.reload();
+    }
+    const [flag, setFlag] = React.useState(true);
+    const handleClick = () => {
+    setFlag(!flag);
+    };
     useEffect(() => {
         const getPaytype = async () => {
             const res = await http.listPaytype({ limit: 100, offset: 0 });
@@ -66,7 +73,7 @@ const CreateBill: FC<{}> = () => {
             setPaytypes(res);
           };
           const getUnpaybill = async () => {
-            const res = await http.listUnpaybill({ limit: 2, offset: 0 });
+            const res = await http.listUnpaybill({ limit: 100, offset: 0 });
             setLoading(false);
             setUnpaybills(res);
           };
@@ -144,6 +151,12 @@ const CreateBill: FC<{}> = () => {
                     <Typography align = "center" variant = "h3">
                       <br/>----  Create Bill  ----
                     </Typography>
+                    <Typography align = "center" variant = "h6">
+                        <br/>เลขที่การรักษา
+                        </Typography>
+                        <Typography align = "center" variant = "subtitle2">
+                        <br/>เลขที่การรักษาที่เลือกชำระ {unpayid}
+                        </Typography>
                   <FormControl className={classes.formControl}>
                         <Typography align = "center" variant = "h6">
                         <br/>รูปแบบการชำระ
@@ -206,6 +219,7 @@ const CreateBill: FC<{}> = () => {
                 <Button
                          onClick={() => {
                             CreatePayment();
+                            refreshPage();
                           }}
                           
                           variant="contained"
@@ -233,7 +247,7 @@ const CreateBill: FC<{}> = () => {
          </TableRow>
          </TableHead>
          <TableBody>
-                 {unpaybills.map(item =>(
+                 {unpaybills.filter(b=>b.status === "Unpay").map(item =>(
                 <TableRow key={item.id}>
                     <TableCell align="center">{item.edges?.treatment?.id}</TableCell>
                     <TableCell align="center">{item.edges?.treatment?.edges?.patientrecord?.name}</TableCell>
@@ -241,10 +255,10 @@ const CreateBill: FC<{}> = () => {
                     <TableCell align="center">
                         <Button
                          onClick={() => {
-                            setunpayId(item.id as number)
+                            setunpayId(item.id as number);
                           }}
                           variant="contained"
-                          color="primary"
+                          color= "primary"
                         >
                             ชำระเงิน
                         </Button>
