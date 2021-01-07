@@ -31,7 +31,7 @@ import (
 // struct By team 10
 //-------------------------------------------------------------------
 // Struct By Doctorinformation System
-//*******************************************************************
+//vvv*******************************************************************vvv
 
 // Officerooms defines the struct for the Officerooms
 type Officerooms struct {
@@ -40,8 +40,40 @@ type Officerooms struct {
 
 // Officeroom defines the struct for the Officeroom
 type Officeroom struct {
-	Roomnumber           int
+	Roomnumber int
 }
+
+// Educationlevels defines the struct for the Educationlevels
+type Educationlevels struct {
+	Educationlevel []Educationlevel
+}
+
+// Educationlevel defines the struct for the Educationlevel
+type Educationlevel struct {
+	Level string
+}
+
+// Prenames defines the struct for the Prenames
+type Prenames struct {
+	Prename []Prename
+}
+
+// Prename defines the struct for the Prename
+type Prename struct {
+	Prefix string
+}
+
+// Departments defines the struct for the Departments
+type Departments struct {
+	Department []Department
+}
+
+// Department defines the struct for the Department
+type Department struct {
+	Department string
+}
+
+//^^^*******************************************************************^^^
 
 // Struct By Patientrights System
 //*******************************************************************
@@ -67,8 +99,8 @@ type Abilitypatientrightss struct {
 // Abilitypatientrights defines the struct for the Abilitypatientrights
 type Abilitypatientrights struct {
 	Operative       int
-    MedicalSupplies int
-    Examine         int
+	MedicalSupplies int
+	Examine         int
 }
 
 // Patientrightss defines the struct for the Patientrightss
@@ -108,8 +140,6 @@ type Medicalrecordstaff struct {
 	Name string
 }
 
-
-// Struct By Bill System
 //*******************************************************************
 
 // Paytypes defines the struct for the Paytypes
@@ -158,41 +188,6 @@ type Symptomseveritys struct {
 // Symptomseverity defines the struct for the Symptomseverity
 type Symptomseverity struct {
 	Symptomseverity string
-}
-
-// Departments defines the struct for the Departments
-type Departments struct {
-	Department []Department
-}
-
-// Department defines the struct for the Department
-type Department struct {
-	Department string
-}
-
-// Struct By Treatment System
-
-//*******************************************************************
-
-// Treatment defines the struct for the Treatments
-type Treatments struct {
-	Treatment []Treatment
-}
-
-// Treatment defines the struct for the Treatment
-type Treatment struct {
-	Treatment string
-	Datetreat string
-}
-
-// Typetreatment defines the struct for the Typetreatments
-type Typetreatments struct {
-	Typetreatment []Typetreatment
-}
-
-// Typetreatment defines the struct for the Typetreatment
-type Typetreatment struct {
-	Typetreatment string
 }
 
 //^^^*******************************************************************^^^
@@ -293,30 +288,55 @@ func main() {
 	controllers.NewDepartmentController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
-	//Controller By Treatment System
+	//Controller By Doctorinformation System
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
-	controllers.NewTreatmentController(v1, client)
-	controllers.NewTypetreatmentController(v1, client)
+	controllers.NewEducationlevelController(v1, client)
+	controllers.NewDoctorinfoController(v1, client)
+	controllers.NewOfficeroomController(v1, client)
+	controllers.NewPrenameController(v1, client)
+	controllers.NewRegistrarController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	// Set Postman By Team10
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
-	User := []string{"Khatadet_khianchainat","nara_haru","morani_rode","faratell_yova","pulla_visan","omaha_yad",}
+	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
 	for _, r := range User {
 		client.User.
-		Create().
-		SetEmail(r+"@gmail.com").
-		SetPassword("123456").
-		Save(context.Background())
+			Create().
+			SetEmail(r + "@gmail.com").
+			SetPassword("123456").
+			Save(context.Background())
 	}
+	//^^^*******************************************************************^^^
+
+	// Set Postman By Doctorinfomation System
+	//vvv*******************************************************************vvv
+	// Set Educationlevel Data
+	Educationlevel := []string{"Bachelor's degree", "Master's degree", "Doctoral Degree"}
+
+	for _, el := range Educationlevel {
+		client.Educationlevel.
+			Create().
+			SetLevel(el).
+			Save(context.Background())
+	}
+	// Set Officeroom Data
+	Officeroom := []string{"B10", "B11", "B12", "B13", "B14"}
+
+	for _, or := range Officeroom {
+		client.Officeroom.
+			Create().
+			SetRoomnumber(or).
+			Save(context.Background())
+	}
+
 	//^^^*******************************************************************^^^
 
 	// Set Postman By Patientrights System
 	//vvv*******************************************************************vvv
 
-	
 	// Set insurance Data
 	Insurance := []string{"เมืองไทยประกันภัย", "ไทยสมุทรประกันชีวิต", "อื่น ๆ ", "กรมบัญชีกลาง", "AIA"}
 	for _, r := range Insurance {
@@ -326,13 +346,12 @@ func main() {
 			Save(context.Background())
 	}
 
-	
-    // Set Abilitypatientrights Data
+	// Set Abilitypatientrights Data
 	Abilitypatientrights := Abilitypatientrightss{
 		Abilitypatientrights: []Abilitypatientrights{
-			Abilitypatientrights{100, 100,100},
-			Abilitypatientrights{50, 100,100},
-			Abilitypatientrights{50, 100,50},
+			Abilitypatientrights{100, 100, 100},
+			Abilitypatientrights{50, 100, 100},
+			Abilitypatientrights{50, 100, 50},
 		},
 	}
 
@@ -340,11 +359,10 @@ func main() {
 		client.Abilitypatientrights.
 			Create().
 			SetOperative(a.Operative).
-		    SetMedicalSupplies(a.MedicalSupplies).
-		    SetExamine(a.Examine).
+			SetMedicalSupplies(a.MedicalSupplies).
+			SetExamine(a.Examine).
 			Save(context.Background())
-    }
-    
+	}
 
 	// Set Patientrightstypes Data
 	patientrightstypes := Patientrightstypes{
@@ -378,7 +396,6 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 
-	
 	// Set Postman By Patientrecord System
 	//vvv*******************************************************************vvv
 
@@ -457,8 +474,23 @@ func main() {
 			SetSymptomseverity(ss.Symptomseverity).
 			Save(context.Background())
 	}
-	//^^^*******************************************************************^^^
+	//Set Department data
+	departments := Departments{
+		Department: []Department{
+			Department{"ตาคอหู"},
+			Department{"กระดูก"},
+			Department{"อายุรกรรม"},
+		},
+	}
 
+	for _, d := range departments.Department {
+		client.Department.
+			Create().
+			SetDepartment(d.Department).
+			Save(context.Background())
+	}
+
+	//^^^*******************************************************************^^^
 	// Set Postman By Bill System
 	//vvv*******************************************************************vvv
 
