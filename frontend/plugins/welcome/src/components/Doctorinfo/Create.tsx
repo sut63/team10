@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+//import { Link as RouterLink } from 'react-router-dom';
 import {
   Content,
   Page,
-  BootErrorPageProps,
+  //BootErrorPageProps,
   Header,
   pageTheme,
-  ContentHeader,
+  //ContentHeader,
 } from '@backstage/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -22,7 +22,10 @@ import { EntPrename } from '../../api/models/EntPrename';
 import { EntEducationlevel } from '../../api/models/EntEducationlevel';
 import { EntDepartment} from '../../api/models/EntDepartment';
 import { EntOfficeroom } from '../../api/models/EntOfficeroom';
-import { Grid, Paper, TextField } from '@material-ui/core';
+import { Grid, 
+  //Paper,
+   TextField 
+  } from '@material-ui/core';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -208,75 +211,44 @@ const handleChange = (
                     name="prename"
                     value={Doctorinfo.prename}
                     onChange={handleChange}
-                    style={{ width: 500 }}
+                    style={{ width: 250 }}
                 >
-                {patientrecords.map((item: any) => (
+                {prenames.map((item: any) => (
                   <MenuItem value={item.id}>{item.name}</MenuItem>
                 ))}
                 </Select>
                 </Typography>
                 </Typography><br/>
-
-
+                
                         <div className={classes.root}>
                             <form noValidate autoComplete="off">
                             <FormControl variant="filled" className={classes.formControl}>
                                 <TextField
-                                    name="hight"
-                                    label="Hight(cm)"
+                                    name="doctorname"
+                                    label="ชื่อ"
                                     variant="outlined"
-                                    type="number"
+                                    type="string"
                                     size="medium"
                                         
-                                    value={Historytaking.hight}
+                                    value={Doctorinfo.doctorname}
                                     onChange={handleChange}
                                 />
                             </FormControl>
                             </form>
-      
+                        </div><br/>
+                        
+                        <div className={classes.root}>
                             <form noValidate autoComplete="off">
                             <FormControl variant="filled" className={classes.formControl}>
                                 <TextField
-                                    name="weight"
-                                    label="Weight(kg)"
+                                    name="doctorsurname"
+                                    label="นามสกุล"
                                     variant="outlined"
-                                    type="number"
+                                    type="string"
                                     size="medium"
-                                    
-                                    value={Historytaking.weight}
+                                        
+                                    value={Doctorinfo.doctorsurname}
                                     onChange={handleChange}
-                                    />
-                            </FormControl>
-                            </form>
-                        </div><br/>
-                        
-                        <div className={classes.root}>
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                    name="temp"
-                                    label="Temperature(Celcius)"
-                                    variant="outlined"
-                                    type="number"
-                                    size="medium"
-                                    
-                                    value={Historytaking.temp}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="pulse"
-                                label="Pulse(Times/minute)"
-                                variant="outlined"
-                                type="number"
-                                size="medium"
-                                
-                                value={Historytaking.pulse}
-                                onChange={handleChange}
                                 />
                             </FormControl>
                             </form>
@@ -285,30 +257,15 @@ const handleChange = (
                         <div className={classes.root}>
                             <form noValidate autoComplete="off">
                             <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="respiration"
-                                label="Respiration(Times/minute)"
-                                variant="outlined"
-                                type="number"
-                                size="medium"
-                                
-                                value={Historytaking.respiration}
-                                onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-                        
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="bp"
-                                label="Blood pressure(mm/Hg)"
-                                variant="outlined"
-                                type="string"
-                                size="medium"
-                                
-                                value={Historytaking.bp}
-                                onChange={handleChange}
+                                <TextField
+                                    name="telephonenumber"
+                                    label="เบอร์ติดต่อ"
+                                    variant="outlined"
+                                    type="string"
+                                    size="medium"
+                                        
+                                    value={Doctorinfo.telephonenumber}
+                                    onChange={handleChange}
                                 />
                             </FormControl>
                             </form>
@@ -317,30 +274,15 @@ const handleChange = (
                         <div className={classes.root}>
                             <form noValidate autoComplete="off">
                             <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="oxygen"
-                                label="Oxygen(%)"
-                                variant="outlined"
-                                type="string"
-                                size="medium"
-                                
-                                value={Historytaking.oxygen}
-                                onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-                        
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="symptom"
-                                label="Symptomseverity"
-                                variant="outlined"
-                                type="string"
-                                size="medium"
-                                
-                                value={Historytaking.symptom}
-                                onChange={handleChange}
+                                <TextField
+                                    name="licensenumber"
+                                    label="หมายเลขใบประกอบวิชาชีพ"
+                                    variant="outlined"
+                                    type="string"
+                                    size="medium"
+                                        
+                                    value={Doctorinfo.licensenumber}
+                                    onChange={handleChange}
                                 />
                             </FormControl>
                             </form>
@@ -348,49 +290,33 @@ const handleChange = (
                 </Typography>
 
                 <Typography variant="h6" gutterBottom  align="center">
-                    Nurses ID : 
+                    เลือกระดับการศึกษา
                 <Typography variant="body1" gutterBottom> 
                 <Select
-                    labelId="nurses"
-                    id="nurses"
-                    name="nurse"
-                    value={Historytaking.nurse}
+                    labelId="educationlevels"
+                    id="educationlevels"
+                    name="educationlevel"
+                    value={Doctorinfo.educationlevel}
                     onChange={handleChange}
-                    style={{ width: 500 }}
+                    style={{ width: 250 }}
                 >
-                {nurses.map((item: EntNurse) => (
-                  <MenuItem value={item.id}>{item.name}</MenuItem>
+                {educationlevels.map((item: EntEducationlevel) => (
+                  <MenuItem value={item.id}>{item.level}</MenuItem>
                 ))}
                 </Select>
                 </Typography>
                 </Typography><br/>
+
                 <Typography variant="h6" gutterBottom  align="center">
-                    Symptomseverity ID : 
-                <Typography variant="body1" gutterBottom> 
-                <Select
-                    labelId="symptomseveritys"
-                    id="symptomseveritys"
-                    name="symptomseverity"
-                    value={Historytaking.symptomseverity}
-                    onChange={handleChange}
-                    style={{ width: 500 }}
-                >
-                {symptomseveritys.map((item: any) => (
-                  <MenuItem value={item.id}>{item.symptomseverity}</MenuItem>
-                ))}
-                </Select>
-                </Typography>
-                </Typography><br/>
-                <Typography variant="h6" gutterBottom  align="center">
-                    Department ID : 
+                    เลือกเเผนกของคุณ
                 <Typography variant="body1" gutterBottom> 
                 <Select
                     labelId="departments"
                     id="departments"
                     name="department"
-                    value={Historytaking.department}
+                    value={Doctorinfo.department}
                     onChange={handleChange}
-                    style={{ width: 500 }}
+                    style={{ width: 250 }}
                 >
                 {departments.map((item: any) => (
                     <MenuItem value={item.id}>{item.department}</MenuItem>
@@ -398,19 +324,20 @@ const handleChange = (
                 </Select>
                 </Typography>
                 </Typography><br/>
+
                 <Typography variant="h6" gutterBottom  align="center">
-                    Patientrecord ID : 
+                    เลือกห้องพักของคุณ 
                 <Typography variant="body1" gutterBottom> 
                 <Select
-                    labelId="patientrecords"
-                    id="patientrecords"
-                    name="patientrecord"
-                    value={Historytaking.patientrecord}
+                    labelId="officerooms"
+                    id="officerooms"
+                    name="officeroom"
+                    value={Doctorinfo.officeroom}
                     onChange={handleChange}
-                    style={{ width: 500 }}
+                    style={{ width: 250 }}
                 >
-                {patientrecords.map((item: any) => (
-                  <MenuItem value={item.id}>{item.name}</MenuItem>
+                {officerooms.map((item: any) => (
+                  <MenuItem value={item.id}>{item.roomnumber}</MenuItem>
                 ))}
                 </Select>
                 </Typography>
@@ -435,20 +362,12 @@ const handleChange = (
                 <Typography variant="h6" gutterBottom  align="center">
                 <Button
                     onClick={() => {
-                    CreateHistorytaking();
+                    CreateDoctorinfo();
                     }}
                     variant="contained"
                     color="primary"
                 >
                     Submit
-                </Button>
-                <Button
-                    style={{ marginLeft: 40 }}
-                    component={RouterLink}
-                    to="/bill"
-                    variant="contained"
-                >
-                    Back
                 </Button>
                 </Typography> <br/>
                 </div>
