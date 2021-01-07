@@ -34,6 +34,14 @@ import {
     EntPatientrightsFromJSON,
     EntPatientrightsFromJSONTyped,
     EntPatientrightsToJSON,
+    EntRegistrar,
+    EntRegistrarFromJSON,
+    EntRegistrarFromJSONTyped,
+    EntRegistrarToJSON,
+    EntUserstatus,
+    EntUserstatusFromJSON,
+    EntUserstatusFromJSONTyped,
+    EntUserstatusToJSON,
 } from './';
 
 /**
@@ -68,10 +76,22 @@ export interface EntUserEdges {
     user2doctorinfo?: EntDoctorinfo;
     /**
      * 
+     * @type {EntRegistrar}
+     * @memberof EntUserEdges
+     */
+    user2registrar?: EntRegistrar;
+    /**
+     * 
      * @type {EntPatientrights}
      * @memberof EntUserEdges
      */
     userPatientrights?: EntPatientrights;
+    /**
+     * 
+     * @type {EntUserstatus}
+     * @memberof EntUserEdges
+     */
+    userstatus?: EntUserstatus;
 }
 
 export function EntUserEdgesFromJSON(json: any): EntUserEdges {
@@ -88,7 +108,9 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'historytaking': !exists(json, 'historytaking') ? undefined : EntNurseFromJSON(json['historytaking']),
         'medicalrecordstaff': !exists(json, 'medicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['medicalrecordstaff']),
         'user2doctorinfo': !exists(json, 'user2doctorinfo') ? undefined : EntDoctorinfoFromJSON(json['user2doctorinfo']),
+        'user2registrar': !exists(json, 'user2registrar') ? undefined : EntRegistrarFromJSON(json['user2registrar']),
         'userPatientrights': !exists(json, 'userPatientrights') ? undefined : EntPatientrightsFromJSON(json['userPatientrights']),
+        'userstatus': !exists(json, 'userstatus') ? undefined : EntUserstatusFromJSON(json['userstatus']),
     };
 }
 
@@ -105,7 +127,9 @@ export function EntUserEdgesToJSON(value?: EntUserEdges | null): any {
         'historytaking': EntNurseToJSON(value.historytaking),
         'medicalrecordstaff': EntMedicalrecordstaffToJSON(value.medicalrecordstaff),
         'user2doctorinfo': EntDoctorinfoToJSON(value.user2doctorinfo),
+        'user2registrar': EntRegistrarToJSON(value.user2registrar),
         'userPatientrights': EntPatientrightsToJSON(value.userPatientrights),
+        'userstatus': EntUserstatusToJSON(value.userstatus),
     };
 }
 

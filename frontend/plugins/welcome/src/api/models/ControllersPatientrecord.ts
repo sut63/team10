@@ -21,10 +21,10 @@ import { exists, mapValues } from '../runtime';
 export interface ControllersPatientrecord {
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ControllersPatientrecord
      */
-    age?: number;
+    age?: string;
     /**
      * 
      * @type {string}
@@ -75,10 +75,10 @@ export interface ControllersPatientrecord {
     home?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ControllersPatientrecord
      */
-    idcardnumber?: number;
+    idcardnumber?: string;
     /**
      * 
      * @type {number}
@@ -93,10 +93,10 @@ export interface ControllersPatientrecord {
     name?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ControllersPatientrecord
      */
-    phonenumber?: number;
+    phonenumber?: string;
     /**
      * 
      * @type {number}

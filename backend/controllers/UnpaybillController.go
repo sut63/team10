@@ -56,8 +56,6 @@ func (ctl *UnpaybillController) GetUnpaybill(c *gin.Context) {
 // @Description list unpaybill entities
 // @ID list-unpaybill
 // @Produce json
-// @Param limit  query int false "Limit"
-// @Param offset query int false "Offset"
 // @Success 200 {array} ent.Unpaybill
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H

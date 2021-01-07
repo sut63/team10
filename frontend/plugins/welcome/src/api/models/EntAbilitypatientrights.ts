@@ -28,22 +28,22 @@ import {
 export interface EntAbilitypatientrights {
     /**
      * Examine holds the value of the "Examine" field.
-     * @type {string}
+     * @type {number}
      * @memberof EntAbilitypatientrights
      */
-    examine?: string;
+    examine?: number;
     /**
      * MedicalSupplies holds the value of the "MedicalSupplies" field.
-     * @type {string}
+     * @type {number}
      * @memberof EntAbilitypatientrights
      */
-    medicalSupplies?: string;
+    medicalSupplies?: number;
     /**
      * Operative holds the value of the "Operative" field.
-     * @type {string}
+     * @type {number}
      * @memberof EntAbilitypatientrights
      */
-    operative?: string;
+    operative?: number;
     /**
      * 
      * @type {EntAbilitypatientrightsEdges}
