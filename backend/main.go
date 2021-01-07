@@ -15,6 +15,7 @@ import (
 	_ "github.com/team10/app/docs"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
+	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 
 	//import by patientrights
@@ -217,6 +218,8 @@ type Doctorinfo struct {
 	Educationlevel  int
 	Officeroom      int
 	Prename         int
+	User            int
+	Registrar       int
 }
 
 //^^^::::::::::::::::::::::::::::::::::::::::::::::::^^^
@@ -334,6 +337,14 @@ func main() {
 			Create().
 			SetEmail(r + "@gmail.com").
 			SetPassword("123456").
+			Save(context.Background())
+	}
+	//ssssssssssssssssssssssssssssssssssss
+	Registrar := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
+	for _, reg := range Registrar {
+		client.Registrar.
+			Create().
+			SetName(reg).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
@@ -636,8 +647,8 @@ func main() {
 	//vvv...................................................................vvv
 	Doctorinfos := Doctorinfos{
 		Doctorinfo: []Doctorinfo{
-			Doctorinfo{"Thanawat", "S"},
-			Doctorinfo{"Name Surname"},
+			Doctorinfo{"Thanawat", "Srikaewsiew", "0800740864", "BEN10UT100", 1, 1, 1, 1, 1, 1},
+			Doctorinfo{"Paonrat", "Tangtong", "0810740864", "BEN20UT100", 1, 1, 1, 1, 1, 1},
 		},
 	}
 	for _, doc := range Doctorinfos.Doctorinfo {
@@ -691,7 +702,16 @@ func main() {
 			return
 		}
 
-		u, err := client.Doctorinfo.
+		rg, err := client.Registrar.
+			Query().
+			Where(registrar.IDEQ(int(doc.Registrar))).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		client.Doctorinfo.
 			Create().
 			SetDoctorname(doc.Doctorname).
 			SetDoctorsurname(doc.Doctorsurname).
@@ -701,6 +721,8 @@ func main() {
 			SetEducationlevel(el).
 			SetOfficeroom(or).
 			SetPrename(pn).
+			SetUser(us).
+			SetRegistrar(rg).
 			Save(context.Background())
 	}
 
