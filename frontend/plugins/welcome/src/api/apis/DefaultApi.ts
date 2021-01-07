@@ -117,7 +117,11 @@ export interface CreateDepartmentRequest {
 }
 
 export interface CreateDoctorinfoRequest {
+<<<<<<< HEAD
     doctorinfo: ControllersDoctorinfo;
+=======
+    doctorinfo: EntDoctorinfo;
+>>>>>>> fc71bbb3c40102978ceffb63e23de968273ce2b2
 }
 
 export interface CreateEducationlevelRequest {
@@ -361,11 +365,14 @@ export interface ListDoctorinfoRequest {
 }
 
 export interface ListEducationlevelRequest {
+<<<<<<< HEAD
     limit?: number;
     offset?: number;
 }
 
 export interface ListFinancierRequest {
+=======
+>>>>>>> fc71bbb3c40102978ceffb63e23de968273ce2b2
     limit?: number;
     offset?: number;
 }
@@ -440,12 +447,12 @@ export interface ListTypetreatmentRequest {
     offset?: number;
 }
 
-export interface ListUnpaybillRequest {
+export interface ListUserRequest {
     limit?: number;
     offset?: number;
 }
 
-export interface ListUserRequest {
+export interface ListUserstatusRequest {
     limit?: number;
     offset?: number;
 }
@@ -665,7 +672,11 @@ export class DefaultApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+<<<<<<< HEAD
             body: ControllersDoctorinfoToJSON(requestParameters.doctorinfo),
+=======
+            body: EntDoctorinfoToJSON(requestParameters.doctorinfo),
+>>>>>>> fc71bbb3c40102978ceffb63e23de968273ce2b2
         });
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntDoctorinfoFromJSON(jsonValue));
@@ -1391,6 +1402,7 @@ export class DefaultApi extends runtime.BaseAPI {
     /**
      * get nurse by ID
      * Delete a nurse entity by ID
+<<<<<<< HEAD
      */
     async deleteNurse(requestParameters: DeleteNurseRequest): Promise<object> {
         const response = await this.deleteNurseRaw(requestParameters);
@@ -1487,6 +1499,106 @@ export class DefaultApi extends runtime.BaseAPI {
     /**
      * get patientrightstype by ID
      * Delete a patientrightstype entity by ID
+=======
+>>>>>>> fc71bbb3c40102978ceffb63e23de968273ce2b2
+     */
+    async deleteNurse(requestParameters: DeleteNurseRequest): Promise<object> {
+        const response = await this.deleteNurseRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+<<<<<<< HEAD
+=======
+     * get officeroom by ID
+     * Delete a officeroom entity by ID
+     */
+    async deleteOfficeroomRaw(requestParameters: DeleteOfficeroomRequest): Promise<runtime.ApiResponse<object>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteOfficeroom.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/officerooms/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * get officeroom by ID
+     * Delete a officeroom entity by ID
+     */
+    async deleteOfficeroom(requestParameters: DeleteOfficeroomRequest): Promise<object> {
+        const response = await this.deleteOfficeroomRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * get patientrights by ID
+     * Delete a patientrights entity by ID
+     */
+    async deletePatientrightsRaw(requestParameters: DeletePatientrightsRequest): Promise<runtime.ApiResponse<object>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deletePatientrights.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/patientrightss/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * get patientrights by ID
+     * Delete a patientrights entity by ID
+     */
+    async deletePatientrights(requestParameters: DeletePatientrightsRequest): Promise<object> {
+        const response = await this.deletePatientrightsRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * get patientrightstype by ID
+     * Delete a patientrightstype entity by ID
+     */
+    async deletePatientrightstypeRaw(requestParameters: DeletePatientrightstypeRequest): Promise<runtime.ApiResponse<object>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deletePatientrightstype.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/patientrightstypes/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * get patientrightstype by ID
+     * Delete a patientrightstype entity by ID
      */
     async deletePatientrightstype(requestParameters: DeletePatientrightstypeRequest): Promise<object> {
         const response = await this.deletePatientrightstypeRaw(requestParameters);
@@ -1494,6 +1606,7 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+>>>>>>> fc71bbb3c40102978ceffb63e23de968273ce2b2
      * get prename by ID
      * Delete a prename entity by ID
      */
@@ -2596,6 +2709,81 @@ export class DefaultApi extends runtime.BaseAPI {
     /**
      * list doctorinfo entities
      * List doctorinfo entities
+<<<<<<< HEAD
+     */
+    async listDoctorinfoRaw(requestParameters: ListDoctorinfoRequest): Promise<runtime.ApiResponse<Array<EntDoctorinfo>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/doctorinfos`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntDoctorinfoFromJSON));
+    }
+
+    /**
+     * list doctorinfo entities
+     * List doctorinfo entities
+     */
+    async listDoctorinfo(requestParameters: ListDoctorinfoRequest): Promise<Array<EntDoctorinfo>> {
+        const response = await this.listDoctorinfoRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * list educationlevel entities
+     * List educationlevel entities
+     */
+    async listEducationlevelRaw(requestParameters: ListEducationlevelRequest): Promise<runtime.ApiResponse<Array<EntEducationlevel>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/educationlevels`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntEducationlevelFromJSON));
+    }
+
+    /**
+     * list educationlevel entities
+     * List educationlevel entities
+     */
+    async listEducationlevel(requestParameters: ListEducationlevelRequest): Promise<Array<EntEducationlevel>> {
+        const response = await this.listEducationlevelRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * list financier entities
+     * List financier entities
+=======
+>>>>>>> fc71bbb3c40102978ceffb63e23de968273ce2b2
      */
     async listDoctorinfoRaw(requestParameters: ListDoctorinfoRequest): Promise<runtime.ApiResponse<Array<EntDoctorinfo>>> {
         const queryParameters: runtime.HTTPQuery = {};
@@ -2669,16 +2857,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list financier entities
      * List financier entities
      */
-    async listFinancierRaw(requestParameters: ListFinancierRequest): Promise<runtime.ApiResponse<Array<EntFinancier>>> {
+    async listFinancierRaw(): Promise<runtime.ApiResponse<Array<EntFinancier>>> {
         const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -2696,8 +2876,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list financier entities
      * List financier entities
      */
-    async listFinancier(requestParameters: ListFinancierRequest): Promise<Array<EntFinancier>> {
-        const response = await this.listFinancierRaw(requestParameters);
+    async listFinancier(): Promise<Array<EntFinancier>> {
+        const response = await this.listFinancierRaw();
         return await response.value();
     }
 
@@ -2882,6 +3062,45 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * list nurse entities
+     * List nurse entities
+     */
+    async listNurseRaw(requestParameters: ListNurseRequest): Promise<runtime.ApiResponse<Array<EntNurse>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/nurse`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntNurseFromJSON));
+    }
+
+    /**
+     * list nurse entities
+     * List nurse entities
+     */
+    async listNurse(requestParameters: ListNurseRequest): Promise<Array<EntNurse>> {
+        const response = await this.listNurseRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+>>>>>>> fc71bbb3c40102978ceffb63e23de968273ce2b2
      * list officeroom entities
      * List officeroom entities
      */
@@ -3237,16 +3456,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list unpaybill entities
      * List unpaybill entities
      */
-    async listUnpaybillRaw(requestParameters: ListUnpaybillRequest): Promise<runtime.ApiResponse<Array<EntUnpaybill>>> {
+    async listUnpaybillRaw(): Promise<runtime.ApiResponse<Array<EntUnpaybill>>> {
         const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -3264,8 +3475,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list unpaybill entities
      * List unpaybill entities
      */
-    async listUnpaybill(requestParameters: ListUnpaybillRequest): Promise<Array<EntUnpaybill>> {
-        const response = await this.listUnpaybillRaw(requestParameters);
+    async listUnpaybill(): Promise<Array<EntUnpaybill>> {
+        const response = await this.listUnpaybillRaw();
         return await response.value();
     }
 

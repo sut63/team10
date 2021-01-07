@@ -18,8 +18,6 @@ type Financier struct {
 	ID int `json:"id,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
-	// Email holds the value of the "email" field.
-	Email string `json:"email,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the FinancierQuery when eager-loading is set.
 	Edges   FinancierEdges `json:"edges"`
@@ -65,7 +63,6 @@ func (*Financier) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
 		&sql.NullString{}, // name
-		&sql.NullString{}, // email
 	}
 }
 
@@ -93,12 +90,7 @@ func (f *Financier) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		f.Name = value.String
 	}
-	if value, ok := values[1].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field email", values[1])
-	} else if value.Valid {
-		f.Email = value.String
-	}
-	values = values[2:]
+	values = values[1:]
 	if len(values) == len(financier.ForeignKeys) {
 		if value, ok := values[0].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field user_id", value)
@@ -145,8 +137,6 @@ func (f *Financier) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", f.ID))
 	builder.WriteString(", name=")
 	builder.WriteString(f.Name)
-	builder.WriteString(", email=")
-	builder.WriteString(f.Email)
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -62,23 +62,20 @@ const CreateBill: FC<{}> = () => {
     const refreshPage = ()=>{
       window.location.reload();
     }
-    const [flag, setFlag] = React.useState(true);
-    const handleClick = () => {
-    setFlag(!flag);
-    };
+
     useEffect(() => {
         const getPaytype = async () => {
-            const res = await http.listPaytype({ limit: 100, offset: 0 });
+            const res = await http.listPaytype();
             setLoading(false);
             setPaytypes(res);
           };
           const getUnpaybill = async () => {
-            const res = await http.listUnpaybill({ limit: 100, offset: 0 });
+            const res = await http.listUnpaybill();
             setLoading(false);
             setUnpaybills(res);
           };
         const getFinancier = async () => {
-            const res = await http.listFinancier({ limit: 2, offset: 0 });
+            const res = await http.listFinancier();
             setLoading(false);
             setFinanciers(res);
         };
@@ -251,13 +248,13 @@ const CreateBill: FC<{}> = () => {
                 <TableRow key={item.id}>
                     <TableCell align="center">{item.edges?.treatment?.id}</TableCell>
                     <TableCell align="center">{item.edges?.treatment?.edges?.patientrecord?.name}</TableCell>
-                    <TableCell align="center">{item.edges?.treatment?.edges?.typetreatment?.type}</TableCell> 
+                    <TableCell align="center">{item.edges?.treatment?.edges?.typetreatment?.typetreatment}</TableCell> 
                     <TableCell align="center">
                         <Button
                          onClick={() => {
                             setunpayId(item.id as number);
                           }}
-                          variant="contained"
+                          variant="outlined"
                           color= "primary"
                         >
                             ชำระเงิน

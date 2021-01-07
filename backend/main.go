@@ -18,7 +18,7 @@ import (
 	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 
-	//import by patientrights
+	//import by patientrights No.3
 	//vvv...............................vvv
 	/*
 	"time"
@@ -28,7 +28,7 @@ import (
 	"github.com/team10/app/ent/patientrightstype"
 	*/
 	//^^^...............................^^^
-	//import by doctorinformation
+	//import by doctorinformation No.6
 	//vvv...............................vvv
 	"github.com/team10/app/ent/department"
 	"github.com/team10/app/ent/educationlevel"
@@ -39,7 +39,7 @@ import (
 
 // struct By team 10
 //-------------------------------------------------------------------
-// Struct By Doctorinformation System
+// Struct By Doctorinformation System No.6
 //vvv*******************************************************************vvv
 
 // Officerooms defines the struct for the Officerooms
@@ -84,7 +84,7 @@ type Department struct {
 
 //^^^*******************************************************************^^^
 
-// Struct By Patientrights System
+// Struct By Patientrights System No.3
 //*******************************************************************
 
 // Patientrightstypes defines the struct for the Patientrightstypes
@@ -125,7 +125,7 @@ type Patientrights struct {
 	Medicalrecordstaff int
 }
 
-// Struct By Patientrecord System
+// Struct By Patientrecord System  No.2
 
 //*******************************************************************
 
@@ -150,6 +150,7 @@ type Medicalrecordstaff struct {
 }
 
 //*******************************************************************
+// Users defines the struct for the Users
 
 // Paytypes defines the struct for the Paytypes
 type Paytypes struct {
@@ -169,12 +170,12 @@ type Financiers struct {
 // Financier defines the struct for the Financier
 type Financier struct {
 	name string
-	email string
+	user int
 }
 
 //*******************************************************************
 
-// Struct By Historytaking System
+// Struct By Historytaking System  No.5
 //*******************************************************************
 
 // Nurses defines the struct for the Nurses
@@ -290,7 +291,7 @@ func main() {
 	controllers.NewUserController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
-	// Controller By Patientrights System
+	// Controller By Patientrights System  No.3
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewPatientrightsController(v1, client)
 	controllers.NewPatientrightstypeController(v1, client)
@@ -298,14 +299,14 @@ func main() {
 	controllers.NewInsuranceController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
-	// Controller By Patientrecord System
+	// Controller By Patientrecord System No.2
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewGenderController(v1, client)
 	controllers.NewMedicalrecordstaffController(v1, client)
 	controllers.NewPatientrecordController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
-	//Controller By Bill System
+	//Controller By Bill System No.1
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewBillController(v1, client)
 	controllers.NewFinancierController(v1, client)
@@ -313,7 +314,7 @@ func main() {
 	controllers.NewUnpaybillController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
-	//Controller By Historytaking System
+	//Controller By Historytaking System No.5
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewHistorytakingController(v1, client)
 	controllers.NewNurseController(v1, client)
@@ -321,7 +322,7 @@ func main() {
 	controllers.NewDepartmentController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
-	//Controller By Doctorinformation System
+	//Controller By Doctorinformation System No.6
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewEducationlevelController(v1, client)
 	controllers.NewDoctorinfoController(v1, client)
@@ -334,7 +335,7 @@ func main() {
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
-	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
+	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad",}
 	for _, r := range User {
 		client.User.
 			Create().
@@ -342,7 +343,7 @@ func main() {
 			SetPassword("123456").
 			Save(context.Background())
 	}
-	//ssssssssssssssssssssssssssssssssssss
+	//##############################################################################################
 	Registrar := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
 	for _, reg := range Registrar {
 		client.Registrar.
@@ -352,7 +353,7 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 
-	// Set Postman By Doctorinfomation System
+	// Set Postman By Doctorinfomation System No.6
 	//vvv*******************************************************************vvv
 	// Set Educationlevel Data
 	Educationlevel := []string{"Bachelor's degree", "Master's degree", "Doctoral Degree"}
@@ -384,7 +385,7 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 
-	// Set Postman By Patientrights System
+	// Set Postman By Patientrights System No.3
 	//vvv*******************************************************************vvv
 
 	// Set insurance Data
@@ -446,7 +447,7 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 
-	// Set Postman By Patientrecord System
+	// Set Postman By Patientrecord System No.2
 	//vvv*******************************************************************vvv
 
 	// Set Gender Data
@@ -479,7 +480,7 @@ func main() {
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
-	// Set Postman By Historytaking System
+	// Set Postman By Historytaking System No.5
 	//vvv*******************************************************************vvv
 
 	//Set nurse data
@@ -541,23 +542,32 @@ func main() {
 	}
 
 	//^^^*******************************************************************^^^
-	// Set Postman By Bill System
+	// Set Postman By Bill System No.1
 	//vvv*******************************************************************vvv
 
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod","B6102845@g.sut.ac.th"},
-			Financier{"Name Surname","Email@domain.com"},
+			Financier{"Nutchaporn Klinrod",4},
+			Financier{"Name Surname",5},
 		},
 	}
 	for _, f := range financiers.Financier {
+		u, err := client.User.
+			Query().
+			Where(user.IDEQ(f.user)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		client.Financier.
 			Create().
 			SetName(f.name).
-			SetEmail(f.email).
+			SetUser(u).
 			Save(context.Background())
 	}
+
 
 	//Set Paytype data
 	paytypes := Paytypes{
@@ -582,7 +592,7 @@ func main() {
 
 	
 
-	// Set Doctorinformation output
+	// Set Doctorinformation output No.6
 	//vvv...................................................................vvv
 	Doctorinfos := Doctorinfos{
 		Doctorinfo: []Doctorinfo{
@@ -667,7 +677,7 @@ func main() {
 
 	//^^^...................................................................^^^
 
-	// Set Patientrightstypes output
+	// Set Patientrightstypes output No.3
 	//vvv...................................................................vvv
 /*
 	patientrightss := Patientrightss{

@@ -27,12 +27,6 @@ func (fc *FinancierCreate) SetName(s string) *FinancierCreate {
 	return fc
 }
 
-// SetEmail sets the email field.
-func (fc *FinancierCreate) SetEmail(s string) *FinancierCreate {
-	fc.mutation.SetEmail(s)
-	return fc
-}
-
 // AddBillIDs adds the bills edge to Bill by ids.
 func (fc *FinancierCreate) AddBillIDs(ids ...int) *FinancierCreate {
 	fc.mutation.AddBillIDs(ids...)
@@ -80,14 +74,6 @@ func (fc *FinancierCreate) Save(ctx context.Context) (*Financier, error) {
 	if v, ok := fc.mutation.Name(); ok {
 		if err := financier.NameValidator(v); err != nil {
 			return nil, &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
-		}
-	}
-	if _, ok := fc.mutation.Email(); !ok {
-		return nil, &ValidationError{Name: "email", err: errors.New("ent: missing required field \"email\"")}
-	}
-	if v, ok := fc.mutation.Email(); ok {
-		if err := financier.EmailValidator(v); err != nil {
-			return nil, &ValidationError{Name: "email", err: fmt.Errorf("ent: validator failed for field \"email\": %w", err)}
 		}
 	}
 	var (
@@ -157,14 +143,6 @@ func (fc *FinancierCreate) createSpec() (*Financier, *sqlgraph.CreateSpec) {
 			Column: financier.FieldName,
 		})
 		f.Name = value
-	}
-	if value, ok := fc.mutation.Email(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: financier.FieldEmail,
-		})
-		f.Email = value
 	}
 	if nodes := fc.mutation.BillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

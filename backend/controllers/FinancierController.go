@@ -55,8 +55,6 @@ func (ctl *FinancierController) GetFinancier(c *gin.Context) {
 // @Description list financier entities
 // @ID list-financier
 // @Produce json
-// @Param limit  query int false "Limit"
-// @Param offset query int false "Offset"
 // @Success 200 {array} ent.Financier
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -69,7 +67,6 @@ func (ctl *FinancierController) ListFinancier(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-
 	c.JSON(200, financiers)
 }
 // NewFinancierController creates and registers handles for the financier controller

@@ -1660,20 +1660,6 @@ var doc = `{
                 ],
                 "summary": "List financier entities",
                 "operationId": "list-financier",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3873,20 +3859,6 @@ var doc = `{
                 ],
                 "summary": "List unpaybill entities",
                 "operationId": "list-unpaybill",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -4893,10 +4865,6 @@ var doc = `{
                     "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the FinancierQuery when eager-loading is set.",
                     "type": "object",
                     "$ref": "#/definitions/ent.FinancierEdges"
-                },
-                "email": {
-                    "description": "Email holds the value of the \"email\" field.",
-                    "type": "string"
                 },
                 "id": {
                     "description": "ID of the ent.",
