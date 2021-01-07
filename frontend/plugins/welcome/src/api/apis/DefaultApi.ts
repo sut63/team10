@@ -362,11 +362,6 @@ export interface ListEducationlevelRequest {
     offset?: number;
 }
 
-export interface ListFinancierRequest {
-    limit?: number;
-    offset?: number;
-}
-
 export interface ListGenderRequest {
     limit?: number;
     offset?: number;
@@ -2661,16 +2656,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list financier entities
      * List financier entities
      */
-    async listFinancierRaw(requestParameters: ListFinancierRequest): Promise<runtime.ApiResponse<Array<EntFinancier>>> {
+    async listFinancierRaw(): Promise<runtime.ApiResponse<Array<EntFinancier>>> {
         const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -2688,8 +2675,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list financier entities
      * List financier entities
      */
-    async listFinancier(requestParameters: ListFinancierRequest): Promise<Array<EntFinancier>> {
-        const response = await this.listFinancierRaw(requestParameters);
+    async listFinancier(): Promise<Array<EntFinancier>> {
+        const response = await this.listFinancierRaw();
         return await response.value();
     }
 
