@@ -226,6 +226,30 @@ type Doctorinfo struct {
 	Registrar       int
 }
 
+// Struct By Treatment System
+//*******************************************************************
+
+// Treatments defines the struct for the Treatments
+type Treatments struct {
+	Treatment []Treatment
+}
+
+// Treatment defines the struct for the Treatment
+type Treatment struct {
+	Treatment string
+	Datetreat string
+}
+
+// Typetreatments defines the struct for the  Typetreatments
+type Symptomseveritys struct {
+	Typetreatment [] Typetreatment
+}
+
+//  Typetreatment defines the struct for the  Typetreatment
+type  Typetreatment struct {
+	Typetreatment string
+}
+
 //^^^::::::::::::::::::::::::::::::::::::::::::::::::^^^
 
 // @title SUT SA Example API
@@ -744,6 +768,24 @@ func main() {
 	}
 	*/
 	//^^^...................................................................^^^
+	
+	// Set Postman By Treatment System
+	//vvv*******************************************************************vvv
+
+	//Set Typetreatment data
+	typetreatments := Typetreatments{
+		Typetreatment: []Typetreatment{
+			Typetreatment{"ตรวจผ่าตัด"},
+			Typetreatment{"ตรวจทั่วไป"},
+			Typetreatment{"ตรวจวินิจฉัย"},
+		},
+	}
+	for _, tm := range typetreatment.Typetreatment {
+		client.Typetreatment.
+			Create().
+			SetTypetreatment(tm.Typetreatment).
+			Save(context.Background())
+	}
 
 	//^^^*******************************************************************^^^
 
