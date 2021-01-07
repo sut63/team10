@@ -43,9 +43,9 @@ type Abilitypatientrightss struct {
 
 // Abilitypatientrights defines the struct for the Abilitypatientrights
 type Abilitypatientrights struct {
-	Operative       string
-	MedicalSupplies string
-	Examine         string
+	Operative       int
+    MedicalSupplies int
+    Examine         int
 }
 
 // Patientrightss defines the struct for the Patientrightss
@@ -303,12 +303,13 @@ func main() {
 			Save(context.Background())
 	}
 
-	// Set Abilitypatientrights Data
+	
+    // Set Abilitypatientrights Data
 	Abilitypatientrights := Abilitypatientrightss{
 		Abilitypatientrights: []Abilitypatientrights{
-			Abilitypatientrights{"100", "100", "100"},
-			Abilitypatientrights{"50", "100", "100"},
-			Abilitypatientrights{"50", "100", "50"},
+			Abilitypatientrights{100, 100,100},
+			Abilitypatientrights{50, 100,100},
+			Abilitypatientrights{50, 100,50},
 		},
 	}
 
@@ -316,10 +317,11 @@ func main() {
 		client.Abilitypatientrights.
 			Create().
 			SetOperative(a.Operative).
-			SetMedicalSupplies(a.MedicalSupplies).
-			SetExamine(a.Examine).
+		    SetMedicalSupplies(a.MedicalSupplies).
+		    SetExamine(a.Examine).
 			Save(context.Background())
-	}
+    }
+    
 
 	// Set Patientrightstypes Data
 	patientrightstypes := Patientrightstypes{

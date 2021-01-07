@@ -270,7 +270,7 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          </form>
+          </form><p>     </p>
        
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
@@ -302,7 +302,7 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          </form>
+          </form><p>     </p>
        
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
@@ -334,7 +334,7 @@ const handleChange = (
                onChange={handleChange}
              />
           </FormControl>
-          </form>
+          </form><p>     </p>
        
           <form noValidate autoComplete="off">
           <FormControl variant="filled" className={classes.formControl}>
