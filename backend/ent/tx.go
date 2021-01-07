@@ -58,6 +58,8 @@ type Tx struct {
 	Unpaybill *UnpaybillClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
+	// Userstatus is the client for interacting with the Userstatus builders.
+	Userstatus *UserstatusClient
 
 	// lazily loaded.
 	client     *Client
@@ -216,6 +218,7 @@ func (tx *Tx) init() {
 	tx.Typetreatment = NewTypetreatmentClient(tx.config)
 	tx.Unpaybill = NewUnpaybillClient(tx.config)
 	tx.User = NewUserClient(tx.config)
+	tx.Userstatus = NewUserstatusClient(tx.config)
 }
 
 // txDriver wraps the given dialect.Tx with a nop dialect.Driver implementation.

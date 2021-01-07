@@ -29,15 +29,8 @@ func (ou *OfficeroomUpdate) Where(ps ...predicate.Officeroom) *OfficeroomUpdate 
 }
 
 // SetRoomnumber sets the roomnumber field.
-func (ou *OfficeroomUpdate) SetRoomnumber(i int) *OfficeroomUpdate {
-	ou.mutation.ResetRoomnumber()
-	ou.mutation.SetRoomnumber(i)
-	return ou
-}
-
-// AddRoomnumber adds i to roomnumber.
-func (ou *OfficeroomUpdate) AddRoomnumber(i int) *OfficeroomUpdate {
-	ou.mutation.AddRoomnumber(i)
+func (ou *OfficeroomUpdate) SetRoomnumber(s string) *OfficeroomUpdate {
+	ou.mutation.SetRoomnumber(s)
 	return ou
 }
 
@@ -153,14 +146,7 @@ func (ou *OfficeroomUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := ou.mutation.Roomnumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: officeroom.FieldRoomnumber,
-		})
-	}
-	if value, ok := ou.mutation.AddedRoomnumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: officeroom.FieldRoomnumber,
 		})
@@ -222,15 +208,8 @@ type OfficeroomUpdateOne struct {
 }
 
 // SetRoomnumber sets the roomnumber field.
-func (ouo *OfficeroomUpdateOne) SetRoomnumber(i int) *OfficeroomUpdateOne {
-	ouo.mutation.ResetRoomnumber()
-	ouo.mutation.SetRoomnumber(i)
-	return ouo
-}
-
-// AddRoomnumber adds i to roomnumber.
-func (ouo *OfficeroomUpdateOne) AddRoomnumber(i int) *OfficeroomUpdateOne {
-	ouo.mutation.AddRoomnumber(i)
+func (ouo *OfficeroomUpdateOne) SetRoomnumber(s string) *OfficeroomUpdateOne {
+	ouo.mutation.SetRoomnumber(s)
 	return ouo
 }
 
@@ -344,14 +323,7 @@ func (ouo *OfficeroomUpdateOne) sqlSave(ctx context.Context) (o *Officeroom, err
 	_spec.Node.ID.Value = id
 	if value, ok := ouo.mutation.Roomnumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: officeroom.FieldRoomnumber,
-		})
-	}
-	if value, ok := ouo.mutation.AddedRoomnumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: officeroom.FieldRoomnumber,
 		})

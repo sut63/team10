@@ -16,7 +16,7 @@ type Officeroom struct {
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
 	// Roomnumber holds the value of the "roomnumber" field.
-	Roomnumber int `json:"roomnumber,omitempty"`
+	Roomnumber string `json:"roomnumber,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the OfficeroomQuery when eager-loading is set.
 	Edges OfficeroomEdges `json:"edges"`
@@ -43,8 +43,8 @@ func (e OfficeroomEdges) Officeroom2doctorinfoOrErr() ([]*Doctorinfo, error) {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Officeroom) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{}, // id
-		&sql.NullInt64{}, // roomnumber
+		&sql.NullInt64{},  // id
+		&sql.NullString{}, // roomnumber
 	}
 }
 
@@ -60,10 +60,10 @@ func (o *Officeroom) assignValues(values ...interface{}) error {
 	}
 	o.ID = int(value.Int64)
 	values = values[1:]
-	if value, ok := values[0].(*sql.NullInt64); !ok {
+	if value, ok := values[0].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field roomnumber", values[0])
 	} else if value.Valid {
-		o.Roomnumber = int(value.Int64)
+		o.Roomnumber = value.String
 	}
 	return nil
 }
@@ -97,7 +97,7 @@ func (o *Officeroom) String() string {
 	builder.WriteString("Officeroom(")
 	builder.WriteString(fmt.Sprintf("id=%v", o.ID))
 	builder.WriteString(", roomnumber=")
-	builder.WriteString(fmt.Sprintf("%v", o.Roomnumber))
+	builder.WriteString(o.Roomnumber)
 	builder.WriteByte(')')
 	return builder.String()
 }

@@ -21,8 +21,8 @@ type OfficeroomCreate struct {
 }
 
 // SetRoomnumber sets the roomnumber field.
-func (oc *OfficeroomCreate) SetRoomnumber(i int) *OfficeroomCreate {
-	oc.mutation.SetRoomnumber(i)
+func (oc *OfficeroomCreate) SetRoomnumber(s string) *OfficeroomCreate {
+	oc.mutation.SetRoomnumber(s)
 	return oc
 }
 
@@ -118,7 +118,7 @@ func (oc *OfficeroomCreate) createSpec() (*Officeroom, *sqlgraph.CreateSpec) {
 	)
 	if value, ok := oc.mutation.Roomnumber(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: officeroom.FieldRoomnumber,
 		})

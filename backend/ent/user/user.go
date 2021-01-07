@@ -24,6 +24,8 @@ const (
 	EdgeUser2doctorinfo = "user2doctorinfo"
 	// EdgeUser2registrar holds the string denoting the user2registrar edge name in mutations.
 	EdgeUser2registrar = "user2registrar"
+	// EdgeUserstatus holds the string denoting the userstatus edge name in mutations.
+	EdgeUserstatus = "userstatus"
 
 	// Table holds the table name of the user in the database.
 	Table = "users"
@@ -69,6 +71,13 @@ const (
 	User2registrarInverseTable = "registrars"
 	// User2registrarColumn is the table column denoting the user2registrar relation/edge.
 	User2registrarColumn = "user_id"
+	// UserstatusTable is the table the holds the userstatus relation/edge.
+	UserstatusTable = "users"
+	// UserstatusInverseTable is the table name for the Userstatus entity.
+	// It exists in this package in order to avoid circular dependency with the "userstatus" package.
+	UserstatusInverseTable = "userstatuses"
+	// UserstatusColumn is the table column denoting the userstatus relation/edge.
+	UserstatusColumn = "userstatus_id"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -81,6 +90,7 @@ var Columns = []string{
 // ForeignKeys holds the SQL foreign-keys that are owned by the User type.
 var ForeignKeys = []string{
 	"user_id",
+	"userstatus_id",
 }
 
 var (

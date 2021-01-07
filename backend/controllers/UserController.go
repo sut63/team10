@@ -8,12 +8,18 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/user"
+	"github.com/team10/app/ent/userstatus"
 )
 
 // UserController defines the struct for the user controller
 type UserController struct {
 	client *ent.Client
 	router gin.IRouter
+}
+type User struct {
+	Userstatus int
+	Email      string
+	Password   string
 }
 
 // CreateUser handles POST requests for adding user entities
@@ -28,16 +34,27 @@ type UserController struct {
 // @Failure 500 {object} gin.H
 // @Router /users [post]
 func (ctl *UserController) CreateUser(c *gin.Context) {
-	obj := ent.User{}
+	obj := User{}
 	if err := c.ShouldBind(&obj); err != nil {
 		c.JSON(400, gin.H{
 			"error": "user binding failed",
 		})
 		return
 	}
+	us, err := ctl.client.Userstatus.
+		Query().
+		Where(userstatus.IDEQ(int(obj.Userstatus))).
+		Only(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "saving failed",
+		})
+		return
+	}
 
 	u, err := ctl.client.User.
 		Create().
+		SetUserstatus(us).
 		SetEmail(obj.Email).
 		SetPassword(obj.Password).
 		Save(context.Background())

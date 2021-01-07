@@ -74,3 +74,6 @@ type Unpaybill func(*sql.Selector)
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)
+
+// Userstatus is the predicate function for userstatus builders.
+type Userstatus func(*sql.Selector)

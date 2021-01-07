@@ -431,13 +431,13 @@ func (pq *PrenameQuery) sqlAll(ctx context.Context) ([]*Prename, error) {
 			return nil, err
 		}
 		for _, n := range neighbors {
-			fk := n.prefix
+			fk := n.prefix_id
 			if fk == nil {
-				return nil, fmt.Errorf(`foreign-key "prefix" is nil for node %v`, n.ID)
+				return nil, fmt.Errorf(`foreign-key "prefix_id" is nil for node %v`, n.ID)
 			}
 			node, ok := nodeids[*fk]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "prefix" returned %v for node %v`, *fk, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "prefix_id" returned %v for node %v`, *fk, n.ID)
 			}
 			node.Edges.Patientrecord = append(node.Edges.Patientrecord, n)
 		}

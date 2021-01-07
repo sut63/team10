@@ -32,5 +32,5 @@ var Columns = []string{
 
 var (
 	// RoomnumberValidator is a validator for the "roomnumber" field. It is called by the builders before save.
-	RoomnumberValidator func(int) error
+	RoomnumberValidator func(string) error
 )
