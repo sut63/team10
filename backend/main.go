@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"time"
+	
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -20,11 +20,13 @@ import (
 
 	//import by patientrights
 	//vvv...............................vvv
+	/*
+	"time"
 	"github.com/team10/app/ent/insurance"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrightstype"
-
+	*/
 	//^^^...............................^^^
 	//import by doctorinformation
 	//vvv...............................vvv
@@ -576,72 +578,7 @@ func main() {
 	//Set Postman Output
 	//vvv*******************************************************************vvv
 
-	// Set Patientrightstypes output
-	//vvv...................................................................vvv
-
-	patientrightss := Patientrightss{
-		Patientrights: []Patientrights{
-			Patientrights{1, 1, 1, 1},
-			Patientrights{1, 1, 1, 1},
-			Patientrights{1, 1, 1, 1},
-			Patientrights{1, 1, 1, 1},
-		},
-	}
-
-	for _, p := range patientrightss.Patientrights {
-
-		Patientrightstype, err := client.Patientrightstype.
-			Query().
-			Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		Insurance, err := client.Insurance.
-			Query().
-			Where(insurance.IDEQ(int(p.Insurance))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		Patientrecord, err := client.Patientrecord.
-			Query().
-			Where(patientrecord.IDEQ(int(p.Patientrecord))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		Medicalrecordstaff, err := client.Medicalrecordstaff.
-			Query().
-			Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		t := time.Now().Local()
-		client.Patientrights.
-			Create().
-			SetPermissionDate(t).
-			SetPatientrightsPatientrightstype(Patientrightstype).
-			SetPatientrightsPatientrecord(Patientrecord).
-			SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
-			SetPatientrightsInsurance(Insurance).
-			Save(context.Background())
-
-	}
-	//^^^...................................................................^^^
+	
 
 	// Set Doctorinformation output
 	//vvv...................................................................vvv
@@ -726,6 +663,74 @@ func main() {
 			Save(context.Background())
 	}
 
+	//^^^...................................................................^^^
+
+	// Set Patientrightstypes output
+	//vvv...................................................................vvv
+/*
+	patientrightss := Patientrightss{
+		Patientrights: []Patientrights{
+			Patientrights{1, 1, 1, 1},
+			Patientrights{1, 1, 1, 1},
+			Patientrights{1, 1, 1, 1},
+			Patientrights{1, 1, 1, 1},
+		},
+	}
+
+	for _, p := range patientrightss.Patientrights {
+
+		Patientrightstype, err := client.Patientrightstype.
+			Query().
+			Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		Insurance, err := client.Insurance.
+			Query().
+			Where(insurance.IDEQ(int(p.Insurance))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		Patientrecord, err := client.Patientrecord.
+			Query().
+			Where(patientrecord.IDEQ(int(p.Patientrecord))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		Medicalrecordstaff, err := client.Medicalrecordstaff.
+			Query().
+			Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		t := time.Now().Local()
+		client.Patientrights.
+			Create().
+			SetPermissionDate(t).
+			SetPatientrightsPatientrightstype(Patientrightstype).
+			SetPatientrightsPatientrecord(Patientrecord).
+			SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
+			SetPatientrightsInsurance(Insurance).
+			Save(context.Background())
+
+	}
+	*/
 	//^^^...................................................................^^^
 
 	//^^^*******************************************************************^^^
