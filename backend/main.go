@@ -787,7 +787,7 @@ func main() {
 			Typetreatment{"ตรวจวินิจฉัย"},
 		},
 	}
-	for _, tm := range typetreatment.Typetreatment {
+	for _, tm := range typetreatments.Typetreatment {
 		client.Typetreatment.
 			Create().
 			SetTypetreatment(tm.Typetreatment).
