@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -16,12 +17,20 @@ import (
 	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/user"
 
-	//
+	//import by patientrights
 	//vvv...............................vvv
-	"github.com/PON/app/ent/insurance"
-	"github.com/PON/app/ent/patientrecord"
-	"github.com/PON/app/ent/patientrightstype"
-	"github.com/PON/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/insurance"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/patientrecord"
+	"github.com/team10/app/ent/patientrightstype"
+
+	//^^^...............................^^^
+	//import by doctorinformation
+	//vvv...............................vvv
+	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/educationlevel"
+	"github.com/team10/app/ent/officeroom"
+	"github.com/team10/app/ent/prename"
 	//^^^...............................^^^
 )
 
@@ -95,9 +104,9 @@ type Abilitypatientrightss struct {
 
 // Abilitypatientrights defines the struct for the Abilitypatientrights
 type Abilitypatientrights struct {
-	Operative       string
-	MedicalSupplies string
-	Examine         string
+	Operative       int
+	MedicalSupplies int
+	Examine         int
 }
 
 // Patientrightss defines the struct for the Patientrightss
@@ -190,6 +199,27 @@ type Symptomseverity struct {
 //^^^*******************************************************************^^^
 
 //^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
+
+//vvv::::::::::::::::::::::::::::::::::::::::::::::::vvv
+
+// Doctorinfos defines the struct for the Doctorinfos
+type Doctorinfos struct {
+	Doctorinfo []Doctorinfo
+}
+
+// Doctorinfo defines the struct for the Doctorinfo
+type Doctorinfo struct {
+	Doctorname      string
+	Doctorsurname   string
+	Telephonenumber string
+	Licensenumber   string
+	Department      int
+	Educationlevel  int
+	Officeroom      int
+	Prename         int
+}
+
+//^^^::::::::::::::::::::::::::::::::::::::::::::::::^^^
 
 // @title SUT SA Example API
 // @version 1.0
@@ -355,9 +385,9 @@ func main() {
 	// Set Abilitypatientrights Data
 	Abilitypatientrights := Abilitypatientrightss{
 		Abilitypatientrights: []Abilitypatientrights{
-			Abilitypatientrights{"100", "100", "100"},
-			Abilitypatientrights{"50", "100", "100"},
-			Abilitypatientrights{"50", "100", "50"},
+			Abilitypatientrights{100, 100, 100},
+			Abilitypatientrights{50, 100, 100},
+			Abilitypatientrights{50, 100, 50},
 		},
 	}
 
@@ -531,29 +561,28 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
-	
+
 	//Set Postman Output
 	//vvv*******************************************************************vvv
-	
-	// Set Patientrightstypes Data
+
+	// Set Patientrightstypes output
 	//vvv...................................................................vvv
-	
+
 	patientrightss := Patientrightss{
-		Patientrights : []Patientrights{
-			Patientrights{1,1,1,1},
-			Patientrights{1,1,1,1},
-			Patientrights{1,1,1,1},
-			Patientrights{1,1,1,1},
+		Patientrights: []Patientrights{
+			Patientrights{1, 1, 1, 1},
+			Patientrights{1, 1, 1, 1},
+			Patientrights{1, 1, 1, 1},
+			Patientrights{1, 1, 1, 1},
 		},
 	}
 
 	for _, p := range patientrightss.Patientrights {
 
-		
-	Patientrightstype, err := client.Patientrightstype.
-		Query().
-		Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
-		Only(context.Background())
+		Patientrightstype, err := client.Patientrightstype.
+			Query().
+			Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
+			Only(context.Background())
 
 		if err != nil {
 			fmt.Println(err.Error())
@@ -561,49 +590,122 @@ func main() {
 		}
 
 		Insurance, err := client.Insurance.
-		Query().
-		Where(insurance.IDEQ(int(p.Insurance))).
-		Only(context.Background())
+			Query().
+			Where(insurance.IDEQ(int(p.Insurance))).
+			Only(context.Background())
 
 		if err != nil {
 			fmt.Println(err.Error())
 			return
 		}
 
-	Patientrecord, err := client.Patientrecord.
-		Query().
-		Where(patientrecord.IDEQ(int(p.Patientrecord))).
-		Only(context.Background())
+		Patientrecord, err := client.Patientrecord.
+			Query().
+			Where(patientrecord.IDEQ(int(p.Patientrecord))).
+			Only(context.Background())
 
 		if err != nil {
 			fmt.Println(err.Error())
 			return
 		}
 
-	Medicalrecordstaff, err := client.Medicalrecordstaff.
-		Query().
-		Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
-		Only(context.Background())
+		Medicalrecordstaff, err := client.Medicalrecordstaff.
+			Query().
+			Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
+			Only(context.Background())
 
 		if err != nil {
 			fmt.Println(err.Error())
 			return
 		}
 
-	
-	t := time.Now().Local()
-	client.Patientrights.
-		Create().
-		SetPermissionDate(t).
-		SetPatientrightsPatientrightstype(Patientrightstype).
-		SetPatientrightsPatientrecord(Patientrecord).
-		SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
-		SetPatientrightsInsurance(Insurance).
-		Save(context.Background())
+		t := time.Now().Local()
+		client.Patientrights.
+			Create().
+			SetPermissionDate(t).
+			SetPatientrightsPatientrightstype(Patientrightstype).
+			SetPatientrightsPatientrecord(Patientrecord).
+			SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
+			SetPatientrightsInsurance(Insurance).
+			Save(context.Background())
 
-	
 	}
-    //^^^...................................................................^^^
+	//^^^...................................................................^^^
+
+	// Set Doctorinformation output
+	//vvv...................................................................vvv
+	Doctorinfos := Doctorinfos{
+		Doctorinfo: []Doctorinfo{
+			Doctorinfo{"Thanawat", "S"},
+			Doctorinfo{"Name Surname"},
+		},
+	}
+	for _, doc := range Doctorinfos.Doctorinfo {
+
+		dp, err := client.Department.
+			Query().
+			Where(department.IDEQ(int(doc.Department))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		el, err := client.Educationlevel.
+			Query().
+			Where(educationlevel.IDEQ(int(doc.Educationlevel))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		or, err := client.Officeroom.
+			Query().
+			Where(officeroom.IDEQ(int(doc.Officeroom))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		pn, err := client.Prename.
+			Query().
+			Where(prename.IDEQ(int(doc.Prename))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		us, err := client.User.
+			Query().
+			Where(user.IDEQ(int(doc.User))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		u, err := client.Doctorinfo.
+			Create().
+			SetDoctorname(doc.Doctorname).
+			SetDoctorsurname(doc.Doctorsurname).
+			SetTelephonenumber(doc.Telephonenumber).
+			SetLicensenumber(doc.Licensenumber).
+			SetDepartment(dp).
+			SetEducationlevel(el).
+			SetOfficeroom(or).
+			SetPrename(pn).
+			Save(context.Background())
+	}
+
+	//^^^...................................................................^^^
+
 	//^^^*******************************************************************^^^
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
