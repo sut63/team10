@@ -35,12 +35,6 @@ func (fu *FinancierUpdate) SetName(s string) *FinancierUpdate {
 	return fu
 }
 
-// SetEmail sets the email field.
-func (fu *FinancierUpdate) SetEmail(s string) *FinancierUpdate {
-	fu.mutation.SetEmail(s)
-	return fu
-}
-
 // AddBillIDs adds the bills edge to Bill by ids.
 func (fu *FinancierUpdate) AddBillIDs(ids ...int) *FinancierUpdate {
 	fu.mutation.AddBillIDs(ids...)
@@ -106,11 +100,6 @@ func (fu *FinancierUpdate) Save(ctx context.Context) (int, error) {
 	if v, ok := fu.mutation.Name(); ok {
 		if err := financier.NameValidator(v); err != nil {
 			return 0, &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
-		}
-	}
-	if v, ok := fu.mutation.Email(); ok {
-		if err := financier.EmailValidator(v); err != nil {
-			return 0, &ValidationError{Name: "email", err: fmt.Errorf("ent: validator failed for field \"email\": %w", err)}
 		}
 	}
 
@@ -186,13 +175,6 @@ func (fu *FinancierUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: financier.FieldName,
-		})
-	}
-	if value, ok := fu.mutation.Email(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: financier.FieldEmail,
 		})
 	}
 	if nodes := fu.mutation.RemovedBillsIDs(); len(nodes) > 0 {
@@ -292,12 +274,6 @@ func (fuo *FinancierUpdateOne) SetName(s string) *FinancierUpdateOne {
 	return fuo
 }
 
-// SetEmail sets the email field.
-func (fuo *FinancierUpdateOne) SetEmail(s string) *FinancierUpdateOne {
-	fuo.mutation.SetEmail(s)
-	return fuo
-}
-
 // AddBillIDs adds the bills edge to Bill by ids.
 func (fuo *FinancierUpdateOne) AddBillIDs(ids ...int) *FinancierUpdateOne {
 	fuo.mutation.AddBillIDs(ids...)
@@ -363,11 +339,6 @@ func (fuo *FinancierUpdateOne) Save(ctx context.Context) (*Financier, error) {
 	if v, ok := fuo.mutation.Name(); ok {
 		if err := financier.NameValidator(v); err != nil {
 			return nil, &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
-		}
-	}
-	if v, ok := fuo.mutation.Email(); ok {
-		if err := financier.EmailValidator(v); err != nil {
-			return nil, &ValidationError{Name: "email", err: fmt.Errorf("ent: validator failed for field \"email\": %w", err)}
 		}
 	}
 
@@ -441,13 +412,6 @@ func (fuo *FinancierUpdateOne) sqlSave(ctx context.Context) (f *Financier, err e
 			Type:   field.TypeString,
 			Value:  value,
 			Column: financier.FieldName,
-		})
-	}
-	if value, ok := fuo.mutation.Email(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: financier.FieldEmail,
 		})
 	}
 	if nodes := fuo.mutation.RemovedBillsIDs(); len(nodes) > 0 {
