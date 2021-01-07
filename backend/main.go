@@ -354,6 +354,13 @@ func main() {
 	controllers.NewPrenameController(v1, client)
 	controllers.NewRegistrarController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
+	
+	
+	//Controller By Treatment System No.4
+	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
+	controllers.NewTreatmentController(v1, client)
+	controllers.NewTypetreatmentController(v1, client)
+	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	//Controller By Doctorinformation System No.6
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
