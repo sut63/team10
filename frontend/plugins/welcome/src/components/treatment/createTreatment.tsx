@@ -143,7 +143,7 @@ const createTreatment: FC<{}> = () => {
                   <Paper >
                 <Typography align ="center">
                     <Typography align = "center" variant = "h3">
-                      <br/>----  Create Bill  ----
+                      <br/>----  Create Traetment  ----
                     </Typography>
                   <FormControl className={classes.formControl}>
                         <Typography align = "center" variant = "h6">
@@ -157,7 +157,7 @@ const createTreatment: FC<{}> = () => {
                         {typetreatments.map(item => {
                         return (
                         <MenuItem value={item.id}>
-                         {item.id}
+                         {item.typetreatment}
                         </MenuItem>
                         );
                         })}
@@ -182,7 +182,7 @@ const createTreatment: FC<{}> = () => {
                         {doctorinfos.map(item => {
                         return (
                         <MenuItem value={item.id}>
-                         {item.id}
+                         {item.doctorname}
                         </MenuItem>
                         );
                         })}
@@ -201,7 +201,7 @@ const createTreatment: FC<{}> = () => {
                         {patientrecords.map(item => {
                         return (
                         <MenuItem value={item.id}>
-                         {item.id}
+                         {item.name}
                         </MenuItem>
                         );
                         })}
@@ -231,7 +231,7 @@ const createTreatment: FC<{}> = () => {
                           variant="contained"
                           color="primary"
                         >
-                         Save   
+                         บันทึกการรักษา   
                 </Button>
                 </Typography> 
             </Typography>

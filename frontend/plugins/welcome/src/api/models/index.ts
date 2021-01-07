@@ -3,6 +3,7 @@ export * from './ControllersDoctorinfo';
 export * from './ControllersHistorytaking';
 export * from './ControllersPatientrecord';
 export * from './ControllersPatientrights';
+export * from './ControllersTreatment';
 export * from './EntAbilitypatientrights';
 export * from './EntAbilitypatientrightsEdges';
 export * from './EntBill';
