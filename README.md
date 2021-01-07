@@ -9,9 +9,9 @@
 ```
 * https://github.com/sut63/
 ```
- B    
+ B6103217 นางสาวพรรวินท์ กุดแถลง    
 ```
-* https://github.com/sut63/
+* https://github.com/sut63/team10/labels/B6103217
 ```
  B6103866 นายคฑาเดช เขียนชัยนาจ   
 ```
