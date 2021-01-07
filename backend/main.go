@@ -169,6 +169,7 @@ type Financiers struct {
 // Financier defines the struct for the Financier
 type Financier struct {
 	name string
+	email string
 }
 
 //*******************************************************************
@@ -546,14 +547,15 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod"},
-			Financier{"Name Surname"},
+			Financier{"Nutchaporn Klinrod","B6102845@g.sut.ac.th"},
+			Financier{"Name Surname","Email@domain.com"},
 		},
 	}
 	for _, f := range financiers.Financier {
 		client.Financier.
 			Create().
 			SetName(f.name).
+			SetEmail(f.email).
 			Save(context.Background())
 	}
 
