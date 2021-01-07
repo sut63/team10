@@ -270,7 +270,7 @@ func (oq *OfficeroomQuery) WithOfficeroom2doctorinfo(opts ...func(*DoctorinfoQue
 // Example:
 //
 //	var v []struct {
-//		Roomnumber int `json:"roomnumber,omitempty"`
+//		Roomnumber string `json:"roomnumber,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -296,7 +296,7 @@ func (oq *OfficeroomQuery) GroupBy(field string, fields ...string) *OfficeroomGr
 // Example:
 //
 //	var v []struct {
-//		Roomnumber int `json:"roomnumber,omitempty"`
+//		Roomnumber string `json:"roomnumber,omitempty"`
 //	}
 //
 //	client.Officeroom.Query().

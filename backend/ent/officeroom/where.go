@@ -92,28 +92,28 @@ func IDLTE(id int) predicate.Officeroom {
 }
 
 // Roomnumber applies equality check predicate on the "roomnumber" field. It's identical to RoomnumberEQ.
-func Roomnumber(v int) predicate.Officeroom {
+func Roomnumber(v string) predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldRoomnumber), v))
 	})
 }
 
 // RoomnumberEQ applies the EQ predicate on the "roomnumber" field.
-func RoomnumberEQ(v int) predicate.Officeroom {
+func RoomnumberEQ(v string) predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldRoomnumber), v))
 	})
 }
 
 // RoomnumberNEQ applies the NEQ predicate on the "roomnumber" field.
-func RoomnumberNEQ(v int) predicate.Officeroom {
+func RoomnumberNEQ(v string) predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldRoomnumber), v))
 	})
 }
 
 // RoomnumberIn applies the In predicate on the "roomnumber" field.
-func RoomnumberIn(vs ...int) predicate.Officeroom {
+func RoomnumberIn(vs ...string) predicate.Officeroom {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -130,7 +130,7 @@ func RoomnumberIn(vs ...int) predicate.Officeroom {
 }
 
 // RoomnumberNotIn applies the NotIn predicate on the "roomnumber" field.
-func RoomnumberNotIn(vs ...int) predicate.Officeroom {
+func RoomnumberNotIn(vs ...string) predicate.Officeroom {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -147,30 +147,65 @@ func RoomnumberNotIn(vs ...int) predicate.Officeroom {
 }
 
 // RoomnumberGT applies the GT predicate on the "roomnumber" field.
-func RoomnumberGT(v int) predicate.Officeroom {
+func RoomnumberGT(v string) predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldRoomnumber), v))
 	})
 }
 
 // RoomnumberGTE applies the GTE predicate on the "roomnumber" field.
-func RoomnumberGTE(v int) predicate.Officeroom {
+func RoomnumberGTE(v string) predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldRoomnumber), v))
 	})
 }
 
 // RoomnumberLT applies the LT predicate on the "roomnumber" field.
-func RoomnumberLT(v int) predicate.Officeroom {
+func RoomnumberLT(v string) predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldRoomnumber), v))
 	})
 }
 
 // RoomnumberLTE applies the LTE predicate on the "roomnumber" field.
-func RoomnumberLTE(v int) predicate.Officeroom {
+func RoomnumberLTE(v string) predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldRoomnumber), v))
+	})
+}
+
+// RoomnumberContains applies the Contains predicate on the "roomnumber" field.
+func RoomnumberContains(v string) predicate.Officeroom {
+	return predicate.Officeroom(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldRoomnumber), v))
+	})
+}
+
+// RoomnumberHasPrefix applies the HasPrefix predicate on the "roomnumber" field.
+func RoomnumberHasPrefix(v string) predicate.Officeroom {
+	return predicate.Officeroom(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldRoomnumber), v))
+	})
+}
+
+// RoomnumberHasSuffix applies the HasSuffix predicate on the "roomnumber" field.
+func RoomnumberHasSuffix(v string) predicate.Officeroom {
+	return predicate.Officeroom(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldRoomnumber), v))
+	})
+}
+
+// RoomnumberEqualFold applies the EqualFold predicate on the "roomnumber" field.
+func RoomnumberEqualFold(v string) predicate.Officeroom {
+	return predicate.Officeroom(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldRoomnumber), v))
+	})
+}
+
+// RoomnumberContainsFold applies the ContainsFold predicate on the "roomnumber" field.
+func RoomnumberContainsFold(v string) predicate.Officeroom {
+	return predicate.Officeroom(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldRoomnumber), v))
 	})
 }
 

@@ -69,7 +69,7 @@ func init() {
 	// officeroomDescRoomnumber is the schema descriptor for roomnumber field.
 	officeroomDescRoomnumber := officeroomFields[0].Descriptor()
 	// officeroom.RoomnumberValidator is a validator for the "roomnumber" field. It is called by the builders before save.
-	officeroom.RoomnumberValidator = officeroomDescRoomnumber.Validators[0].(func(int) error)
+	officeroom.RoomnumberValidator = officeroomDescRoomnumber.Validators[0].(func(string) error)
 	paytypeFields := schema.Paytype{}.Fields()
 	_ = paytypeFields
 	// paytypeDescPaytype is the schema descriptor for paytype field.

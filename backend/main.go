@@ -15,6 +15,7 @@ import (
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/user"
+	"github.com/team10/app/ent/userstatus"
 )
 
 // struct By team 10
@@ -125,6 +126,29 @@ type Financier struct {
 
 // Struct By Historytaking System
 //*******************************************************************
+
+// Users defines the struct for the Users
+type Users struct {
+	User []User
+}
+
+// User defines the struct for the User
+type User struct {
+	Email           string
+	Password 		string
+	Userstatus      int
+}
+
+// Userstatuss defines the struct for the Userstatuss
+type Userstatuss struct {
+	Userstatus []Userstatus
+}
+
+// User defines the struct for the User
+type Userstatus struct {	
+	Userstatus      string
+}
+
 
 // Nurses defines the struct for the Nurses
 type Nurses struct {
@@ -249,6 +273,7 @@ func main() {
 	// Controller By Team 10 System
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewUserController(v1, client)
+	controllers.NewUserstatusController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	// Controller By Patientrights System
@@ -292,13 +317,46 @@ func main() {
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
-	User := []string{"Khatadet_khianchainat","nara_haru","morani_rode","faratell_yova","pulla_visan","omaha_yad",}
-	for _, r := range User {
+	//Set User data
+	users := Users{
+		User: []User{
+			User{"example@gmail.com","123456",1},
+			User{"b61098@gmail.com", "123456",2 },
+		},
+	}
+
+	for _, user := range users.User {
+		us, err := client.Userstatus.
+			Query().
+			Where(userstatus.IDEQ(int(user.Userstatus))).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
 		client.User.
-		Create().
-		SetEmail(r+"@gmail.com").
-		SetPassword("123456").
-		Save(context.Background())
+			Create().
+			SetUserstatus(us).
+			SetEmail(user.Email).
+			SetPassword(user.Password).
+			Save(context.Background())
+	}
+
+	//Set Userstatus data
+	userstatuss := Userstatuss{
+		Userstatus: []Userstatus{
+			Userstatus{"แพทย์"},
+			Userstatus{"พยาบาล"},
+			Userstatus{"เวชระเบียน"},
+		},
+	}
+
+	for _, ust := range userstatuss.Userstatus {
+		client.Userstatus.
+			Create().
+			SetUserstatus(ust.Userstatus).
+			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
 

@@ -14,6 +14,7 @@ import (
 	"github.com/team10/app/ent/patientrights"
 	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
+	"github.com/team10/app/ent/userstatus"
 )
 
 // User is the model entity for the User schema.
@@ -27,8 +28,9 @@ type User struct {
 	Password string `json:"password,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
-	Edges   UserEdges `json:"edges"`
-	user_id *int
+	Edges         UserEdges `json:"edges"`
+	user_id       *int
+	userstatus_id *int
 }
 
 // UserEdges holds the relations/edges for other nodes in the graph.
@@ -45,9 +47,11 @@ type UserEdges struct {
 	User2doctorinfo *Doctorinfo
 	// User2registrar holds the value of the user2registrar edge.
 	User2registrar *Registrar
+	// Userstatus holds the value of the userstatus edge.
+	Userstatus *Userstatus
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [6]bool
+	loadedTypes [7]bool
 }
 
 // FinancierOrErr returns the Financier value or an error if the edge
@@ -134,6 +138,20 @@ func (e UserEdges) User2registrarOrErr() (*Registrar, error) {
 	return nil, &NotLoadedError{edge: "user2registrar"}
 }
 
+// UserstatusOrErr returns the Userstatus value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e UserEdges) UserstatusOrErr() (*Userstatus, error) {
+	if e.loadedTypes[6] {
+		if e.Userstatus == nil {
+			// The edge userstatus was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: userstatus.Label}
+		}
+		return e.Userstatus, nil
+	}
+	return nil, &NotLoadedError{edge: "userstatus"}
+}
+
 // scanValues returns the types for scanning values from sql.Rows.
 func (*User) scanValues() []interface{} {
 	return []interface{}{
@@ -147,6 +165,7 @@ func (*User) scanValues() []interface{} {
 func (*User) fkValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{}, // user_id
+		&sql.NullInt64{}, // userstatus_id
 	}
 }
 
@@ -180,6 +199,12 @@ func (u *User) assignValues(values ...interface{}) error {
 			u.user_id = new(int)
 			*u.user_id = int(value.Int64)
 		}
+		if value, ok := values[1].(*sql.NullInt64); !ok {
+			return fmt.Errorf("unexpected type %T for edge-field userstatus_id", value)
+		} else if value.Valid {
+			u.userstatus_id = new(int)
+			*u.userstatus_id = int(value.Int64)
+		}
 	}
 	return nil
 }
@@ -212,6 +237,11 @@ func (u *User) QueryUser2doctorinfo() *DoctorinfoQuery {
 // QueryUser2registrar queries the user2registrar edge of the User.
 func (u *User) QueryUser2registrar() *RegistrarQuery {
 	return (&UserClient{config: u.config}).QueryUser2registrar(u)
+}
+
+// QueryUserstatus queries the userstatus edge of the User.
+func (u *User) QueryUserstatus() *UserstatusQuery {
+	return (&UserClient{config: u.config}).QueryUserstatus(u)
 }
 
 // Update returns a builder for updating this User.

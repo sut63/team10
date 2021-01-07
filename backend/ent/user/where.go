@@ -495,6 +495,34 @@ func HasUser2registrarWith(preds ...predicate.Registrar) predicate.User {
 	})
 }
 
+// HasUserstatus applies the HasEdge predicate on the "userstatus" edge.
+func HasUserstatus() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(UserstatusTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, UserstatusTable, UserstatusColumn),
+		)
+		sqlgraph.HasNeighbors(s, step)
+	})
+}
+
+// HasUserstatusWith applies the HasEdge predicate on the "userstatus" edge with a given conditions (other predicates).
+func HasUserstatusWith(preds ...predicate.Userstatus) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		step := sqlgraph.NewStep(
+			sqlgraph.From(Table, FieldID),
+			sqlgraph.To(UserstatusInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, UserstatusTable, UserstatusColumn),
+		)
+		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
+			for _, p := range preds {
+				p(s)
+			}
+		})
+	})
+}
+
 // And groups list of predicates with the AND operator between them.
 func And(predicates ...predicate.User) predicate.User {
 	return predicate.User(func(s *sql.Selector) {

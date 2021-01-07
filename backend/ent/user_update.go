@@ -17,6 +17,7 @@ import (
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
+	"github.com/team10/app/ent/userstatus"
 )
 
 // UserUpdate is the builder for updating User entities.
@@ -159,6 +160,25 @@ func (uu *UserUpdate) SetUser2registrar(r *Registrar) *UserUpdate {
 	return uu.SetUser2registrarID(r.ID)
 }
 
+// SetUserstatusID sets the userstatus edge to Userstatus by id.
+func (uu *UserUpdate) SetUserstatusID(id int) *UserUpdate {
+	uu.mutation.SetUserstatusID(id)
+	return uu
+}
+
+// SetNillableUserstatusID sets the userstatus edge to Userstatus by id if the given value is not nil.
+func (uu *UserUpdate) SetNillableUserstatusID(id *int) *UserUpdate {
+	if id != nil {
+		uu = uu.SetUserstatusID(*id)
+	}
+	return uu
+}
+
+// SetUserstatus sets the userstatus edge to Userstatus.
+func (uu *UserUpdate) SetUserstatus(u *Userstatus) *UserUpdate {
+	return uu.SetUserstatusID(u.ID)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uu *UserUpdate) Mutation() *UserMutation {
 	return uu.mutation
@@ -197,6 +217,12 @@ func (uu *UserUpdate) ClearUser2doctorinfo() *UserUpdate {
 // ClearUser2registrar clears the user2registrar edge to Registrar.
 func (uu *UserUpdate) ClearUser2registrar() *UserUpdate {
 	uu.mutation.ClearUser2registrar()
+	return uu
+}
+
+// ClearUserstatus clears the userstatus edge to Userstatus.
+func (uu *UserUpdate) ClearUserstatus() *UserUpdate {
+	uu.mutation.ClearUserstatus()
 	return uu
 }
 
@@ -504,6 +530,41 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	if uu.mutation.UserstatusCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   user.UserstatusTable,
+			Columns: []string{user.UserstatusColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: userstatus.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.UserstatusIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   user.UserstatusTable,
+			Columns: []string{user.UserstatusColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: userstatus.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
@@ -648,6 +709,25 @@ func (uuo *UserUpdateOne) SetUser2registrar(r *Registrar) *UserUpdateOne {
 	return uuo.SetUser2registrarID(r.ID)
 }
 
+// SetUserstatusID sets the userstatus edge to Userstatus by id.
+func (uuo *UserUpdateOne) SetUserstatusID(id int) *UserUpdateOne {
+	uuo.mutation.SetUserstatusID(id)
+	return uuo
+}
+
+// SetNillableUserstatusID sets the userstatus edge to Userstatus by id if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableUserstatusID(id *int) *UserUpdateOne {
+	if id != nil {
+		uuo = uuo.SetUserstatusID(*id)
+	}
+	return uuo
+}
+
+// SetUserstatus sets the userstatus edge to Userstatus.
+func (uuo *UserUpdateOne) SetUserstatus(u *Userstatus) *UserUpdateOne {
+	return uuo.SetUserstatusID(u.ID)
+}
+
 // Mutation returns the UserMutation object of the builder.
 func (uuo *UserUpdateOne) Mutation() *UserMutation {
 	return uuo.mutation
@@ -686,6 +766,12 @@ func (uuo *UserUpdateOne) ClearUser2doctorinfo() *UserUpdateOne {
 // ClearUser2registrar clears the user2registrar edge to Registrar.
 func (uuo *UserUpdateOne) ClearUser2registrar() *UserUpdateOne {
 	uuo.mutation.ClearUser2registrar()
+	return uuo
+}
+
+// ClearUserstatus clears the userstatus edge to Userstatus.
+func (uuo *UserUpdateOne) ClearUserstatus() *UserUpdateOne {
+	uuo.mutation.ClearUserstatus()
 	return uuo
 }
 
@@ -983,6 +1069,41 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (u *User, err error) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: registrar.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if uuo.mutation.UserstatusCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   user.UserstatusTable,
+			Columns: []string{user.UserstatusColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: userstatus.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.UserstatusIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   user.UserstatusTable,
+			Columns: []string{user.UserstatusColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: userstatus.FieldID,
 				},
 			},
 		}
