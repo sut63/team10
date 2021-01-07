@@ -71,7 +71,7 @@ const WelcomePage: FC<{}> = () => {
           <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
           <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
           <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
-          <Avatar alt="Remy Sharp" src="Cat03.jpg" />
+          <Avatar alt="Remy Sharp" src="./Cat03.jpg" />
         </Grid>
       </Content>
     </Page>
