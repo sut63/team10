@@ -152,6 +152,7 @@ var (
 	FinanciersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
+		{Name: "email", Type: field.TypeString, Unique: true},
 		{Name: "user_id", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
 	// FinanciersTable holds the schema information for the "financiers" table.
@@ -162,7 +163,7 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:  "financiers_users_financier",
-				Columns: []*schema.Column{FinanciersColumns[2]},
+				Columns: []*schema.Column{FinanciersColumns[3]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
 				OnDelete:   schema.SetNull,
@@ -420,7 +421,7 @@ var (
 	// PaytypesColumns holds the columns for the "paytypes" table.
 	PaytypesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "paytype", Type: field.TypeString},
+		{Name: "paytype", Type: field.TypeString, Unique: true},
 	}
 	// PaytypesTable holds the schema information for the "paytypes" table.
 	PaytypesTable = &schema.Table{

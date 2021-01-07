@@ -9,6 +9,8 @@ const (
 	FieldID = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
+	// FieldEmail holds the string denoting the email field in the database.
+	FieldEmail = "email"
 
 	// EdgeBills holds the string denoting the bills edge name in mutations.
 	EdgeBills = "bills"
@@ -37,6 +39,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldName,
+	FieldEmail,
 }
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the Financier type.
@@ -47,4 +50,6 @@ var ForeignKeys = []string{
 var (
 	// NameValidator is a validator for the "name" field. It is called by the builders before save.
 	NameValidator func(string) error
+	// EmailValidator is a validator for the "email" field. It is called by the builders before save.
+	EmailValidator func(string) error
 )

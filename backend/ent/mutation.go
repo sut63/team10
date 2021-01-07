@@ -2882,6 +2882,7 @@ type FinancierMutation struct {
 	typ           string
 	id            *int
 	name          *string
+	email         *string
 	clearedFields map[string]struct{}
 	bills         map[int]struct{}
 	removedbills  map[int]struct{}
@@ -3007,6 +3008,43 @@ func (m *FinancierMutation) ResetName() {
 	m.name = nil
 }
 
+// SetEmail sets the email field.
+func (m *FinancierMutation) SetEmail(s string) {
+	m.email = &s
+}
+
+// Email returns the email value in the mutation.
+func (m *FinancierMutation) Email() (r string, exists bool) {
+	v := m.email
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEmail returns the old email value of the Financier.
+// If the Financier object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FinancierMutation) OldEmail(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEmail is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEmail requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEmail: %w", err)
+	}
+	return oldValue.Email, nil
+}
+
+// ResetEmail reset all changes of the "email" field.
+func (m *FinancierMutation) ResetEmail() {
+	m.email = nil
+}
+
 // AddBillIDs adds the bills edge to Bill by ids.
 func (m *FinancierMutation) AddBillIDs(ids ...int) {
 	if m.bills == nil {
@@ -3102,9 +3140,12 @@ func (m *FinancierMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *FinancierMutation) Fields() []string {
-	fields := make([]string, 0, 1)
+	fields := make([]string, 0, 2)
 	if m.name != nil {
 		fields = append(fields, financier.FieldName)
+	}
+	if m.email != nil {
+		fields = append(fields, financier.FieldEmail)
 	}
 	return fields
 }
@@ -3116,6 +3157,8 @@ func (m *FinancierMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case financier.FieldName:
 		return m.Name()
+	case financier.FieldEmail:
+		return m.Email()
 	}
 	return nil, false
 }
@@ -3127,6 +3170,8 @@ func (m *FinancierMutation) OldField(ctx context.Context, name string) (ent.Valu
 	switch name {
 	case financier.FieldName:
 		return m.OldName(ctx)
+	case financier.FieldEmail:
+		return m.OldEmail(ctx)
 	}
 	return nil, fmt.Errorf("unknown Financier field %s", name)
 }
@@ -3142,6 +3187,13 @@ func (m *FinancierMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetName(v)
+		return nil
+	case financier.FieldEmail:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEmail(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Financier field %s", name)
@@ -3195,6 +3247,9 @@ func (m *FinancierMutation) ResetField(name string) error {
 	switch name {
 	case financier.FieldName:
 		m.ResetName()
+		return nil
+	case financier.FieldEmail:
+		m.ResetEmail()
 		return nil
 	}
 	return fmt.Errorf("unknown Financier field %s", name)

@@ -63,29 +63,10 @@ func (ctl *UnpaybillController) GetUnpaybill(c *gin.Context) {
 // @Failure 500 {object} gin.H
 // @Router /unpaybills [get]
 func (ctl *UnpaybillController) ListUnpaybill(c *gin.Context) {
-	limitQuery := c.Query("limit")
-	limit := 10
-	if limitQuery != "" {
-		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
-		if err == nil {
-			limit = int(limit64)
-		}
-	}
-
-	offsetQuery := c.Query("offset")
-	offset := 0
-	if offsetQuery != "" {
-		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
-		if err == nil {
-			offset = int(offset64)
-		}
-	}
-
 	unpaybills, err := ctl.client.Unpaybill.
 		Query().
+		Where(unpaybill.StatusEQ("Unpay")).
 		WithTreatment().
-		Limit(limit).
-		Offset(offset).
 		All(context.Background())
 
 	if err != nil {
