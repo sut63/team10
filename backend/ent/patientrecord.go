@@ -46,7 +46,7 @@ type Patientrecord struct {
 	Edges                 PatientrecordEdges `json:"edges"`
 	gender_id             *int
 	medicalrecordstaff_id *int
-	prefix                *int
+	prefix_id             *int
 }
 
 // PatientrecordEdges holds the relations/edges for other nodes in the graph.
@@ -160,7 +160,7 @@ func (*Patientrecord) fkValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{}, // gender_id
 		&sql.NullInt64{}, // medicalrecordstaff_id
-		&sql.NullInt64{}, // prefix
+		&sql.NullInt64{}, // prefix_id
 	}
 }
 
@@ -246,10 +246,10 @@ func (pa *Patientrecord) assignValues(values ...interface{}) error {
 			*pa.medicalrecordstaff_id = int(value.Int64)
 		}
 		if value, ok := values[2].(*sql.NullInt64); !ok {
-			return fmt.Errorf("unexpected type %T for edge-field prefix", value)
+			return fmt.Errorf("unexpected type %T for edge-field prefix_id", value)
 		} else if value.Valid {
-			pa.prefix = new(int)
-			*pa.prefix = int(value.Int64)
+			pa.prefix_id = new(int)
+			*pa.prefix_id = int(value.Int64)
 		}
 	}
 	return nil

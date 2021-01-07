@@ -318,7 +318,7 @@ var (
 		{Name: "date", Type: field.TypeTime},
 		{Name: "gender_id", Type: field.TypeInt, Nullable: true},
 		{Name: "medicalrecordstaff_id", Type: field.TypeInt, Nullable: true},
-		{Name: "prefix", Type: field.TypeInt, Nullable: true},
+		{Name: "prefix_id", Type: field.TypeInt, Nullable: true},
 	}
 	// PatientrecordsTable holds the schema information for the "patientrecords" table.
 	PatientrecordsTable = &schema.Table{
