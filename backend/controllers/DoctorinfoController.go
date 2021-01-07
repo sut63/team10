@@ -42,7 +42,7 @@ type Doctorinfo struct {
 // @ID create-doctorinfo
 // @Accept   json
 // @Produce  json
-// @Param doctorinfo body ent.Doctorinfo true "Doctorinfo entity"
+// @Param doctorinfo body Doctorinfo true "Doctorinfo entity"
 // @Success 200 {object} ent.Doctorinfo
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H

@@ -30,6 +30,10 @@ import {
     EntPrenameFromJSON,
     EntPrenameFromJSONTyped,
     EntPrenameToJSON,
+    EntRegistrar,
+    EntRegistrarFromJSON,
+    EntRegistrarFromJSONTyped,
+    EntRegistrarToJSON,
     EntTreatment,
     EntTreatmentFromJSON,
     EntTreatmentFromJSONTyped,
@@ -71,6 +75,12 @@ export interface EntDoctorinfoEdges {
      */
     prename?: EntPrename;
     /**
+     * 
+     * @type {EntRegistrar}
+     * @memberof EntDoctorinfoEdges
+     */
+    registrar?: EntRegistrar;
+    /**
      * Treatment holds the value of the treatment edge.
      * @type {Array<EntTreatment>}
      * @memberof EntDoctorinfoEdges
@@ -98,6 +108,7 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
         'educationlevel': !exists(json, 'educationlevel') ? undefined : EntEducationlevelFromJSON(json['educationlevel']),
         'officeroom': !exists(json, 'officeroom') ? undefined : EntOfficeroomFromJSON(json['officeroom']),
         'prename': !exists(json, 'prename') ? undefined : EntPrenameFromJSON(json['prename']),
+        'registrar': !exists(json, 'registrar') ? undefined : EntRegistrarFromJSON(json['registrar']),
         'treatment': !exists(json, 'treatment') ? undefined : ((json['treatment'] as Array<any>).map(EntTreatmentFromJSON)),
         'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
     };
@@ -116,6 +127,7 @@ export function EntDoctorinfoEdgesToJSON(value?: EntDoctorinfoEdges | null): any
         'educationlevel': EntEducationlevelToJSON(value.educationlevel),
         'officeroom': EntOfficeroomToJSON(value.officeroom),
         'prename': EntPrenameToJSON(value.prename),
+        'registrar': EntRegistrarToJSON(value.registrar),
         'treatment': value.treatment === undefined ? undefined : ((value.treatment as Array<any>).map(EntTreatmentToJSON)),
         'user': EntUserToJSON(value.user),
     };

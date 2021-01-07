@@ -1263,7 +1263,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ent.Doctorinfo"
+                            "$ref": "#/definitions/controllers.Doctorinfo"
                         }
                     }
                 ],
@@ -4519,6 +4519,41 @@ var doc = `{
                     "type": "integer"
                 },
                 "unpaybill": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.Doctorinfo": {
+            "type": "object",
+            "properties": {
+                "department": {
+                    "type": "integer"
+                },
+                "doctorname": {
+                    "type": "string"
+                },
+                "doctorsurname": {
+                    "type": "string"
+                },
+                "educationlevel": {
+                    "type": "integer"
+                },
+                "licensenumber": {
+                    "type": "string"
+                },
+                "officeroom": {
+                    "type": "integer"
+                },
+                "prename": {
+                    "type": "integer"
+                },
+                "registrar": {
+                    "type": "integer"
+                },
+                "telephonenumber": {
+                    "type": "string"
+                },
+                "user": {
                     "type": "integer"
                 }
             }
