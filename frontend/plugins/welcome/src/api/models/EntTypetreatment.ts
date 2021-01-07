@@ -27,6 +27,12 @@ import {
  */
 export interface EntTypetreatment {
     /**
+     * Typetreatment holds the value of the "Typetreatment" field.
+     * @type {string}
+     * @memberof EntTypetreatment
+     */
+    typetreatment?: string;
+    /**
      * 
      * @type {EntTypetreatmentEdges}
      * @memberof EntTypetreatment
@@ -38,12 +44,6 @@ export interface EntTypetreatment {
      * @memberof EntTypetreatment
      */
     id?: number;
-    /**
-     * Type holds the value of the "type" field.
-     * @type {string}
-     * @memberof EntTypetreatment
-     */
-    type?: string;
 }
 
 export function EntTypetreatmentFromJSON(json: any): EntTypetreatment {
@@ -56,9 +56,9 @@ export function EntTypetreatmentFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         
+        'typetreatment': !exists(json, 'Typetreatment') ? undefined : json['Typetreatment'],
         'edges': !exists(json, 'edges') ? undefined : EntTypetreatmentEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
     };
 }
 
@@ -71,9 +71,9 @@ export function EntTypetreatmentToJSON(value?: EntTypetreatment | null): any {
     }
     return {
         
+        'Typetreatment': value.typetreatment,
         'edges': EntTypetreatmentEdgesToJSON(value.edges),
         'id': value.id,
-        'type': value.type,
     };
 }
 

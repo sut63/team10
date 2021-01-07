@@ -40,10 +40,10 @@ export interface EntOfficeroom {
     id?: number;
     /**
      * Roomnumber holds the value of the "roomnumber" field.
-     * @type {number}
+     * @type {string}
      * @memberof EntOfficeroom
      */
-    roomnumber?: number;
+    roomnumber?: string;
 }
 
 export function EntOfficeroomFromJSON(json: any): EntOfficeroom {

@@ -3474,15 +3474,6 @@ paths:
     get:
       description: list unpaybill entities
       operationId: list-unpaybill
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
       produces:
       - application/json
       responses:
