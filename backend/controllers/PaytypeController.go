@@ -25,7 +25,7 @@ type PaytypeController struct {
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
-// @Router /paytype/{id} [get]
+// @Router /paytypes/{id} [get]
 func (ctl *PaytypeController) GetPaytype(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
