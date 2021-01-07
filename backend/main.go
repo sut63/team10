@@ -356,8 +356,13 @@ func main() {
 	
 	//Controller By Treatment System No.4
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
+<<<<<<< HEAD
 	//controllers.NewTreatmentController(v1, client)
 	//controllers.NewTypetreatmentController(v1, client)
+=======
+	controllers.NewTreatmentController(v1, client)
+	controllers.NewTypetreatmentController(v1, client)
+>>>>>>> a695a66176984bf0fa4fb76947f6895ffafba2ac
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 
