@@ -25,6 +25,6 @@
 ```
 * https://github.com/sut63/team
 ```
- B6           
+ B6115586 นายธนวรรต สีเเก้วสิ่ว          
 ```
-* https://github.com/sut63/team
+* https://github.com/sut63/team10/labels/B6115586
