@@ -14,10 +14,6 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    EntDoctorinfo,
-    EntDoctorinfoFromJSON,
-    EntDoctorinfoFromJSONTyped,
-    EntDoctorinfoToJSON,
     EntFinancier,
     EntFinancierFromJSON,
     EntFinancierFromJSONTyped,
@@ -70,12 +66,6 @@ export interface EntUserEdges {
     medicalrecordstaff?: EntMedicalrecordstaff;
     /**
      * 
-     * @type {EntDoctorinfo}
-     * @memberof EntUserEdges
-     */
-    user2doctorinfo?: EntDoctorinfo;
-    /**
-     * 
      * @type {EntRegistrar}
      * @memberof EntUserEdges
      */
@@ -107,7 +97,6 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'financier': !exists(json, 'financier') ? undefined : EntFinancierFromJSON(json['financier']),
         'historytaking': !exists(json, 'historytaking') ? undefined : EntNurseFromJSON(json['historytaking']),
         'medicalrecordstaff': !exists(json, 'medicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['medicalrecordstaff']),
-        'user2doctorinfo': !exists(json, 'user2doctorinfo') ? undefined : EntDoctorinfoFromJSON(json['user2doctorinfo']),
         'user2registrar': !exists(json, 'user2registrar') ? undefined : EntRegistrarFromJSON(json['user2registrar']),
         'userPatientrights': !exists(json, 'userPatientrights') ? undefined : EntPatientrightsFromJSON(json['userPatientrights']),
         'userstatus': !exists(json, 'userstatus') ? undefined : EntUserstatusFromJSON(json['userstatus']),
@@ -126,7 +115,6 @@ export function EntUserEdgesToJSON(value?: EntUserEdges | null): any {
         'financier': EntFinancierToJSON(value.financier),
         'historytaking': EntNurseToJSON(value.historytaking),
         'medicalrecordstaff': EntMedicalrecordstaffToJSON(value.medicalrecordstaff),
-        'user2doctorinfo': EntDoctorinfoToJSON(value.user2doctorinfo),
         'user2registrar': EntRegistrarToJSON(value.user2registrar),
         'userPatientrights': EntPatientrightsToJSON(value.userPatientrights),
         'userstatus': EntUserstatusToJSON(value.userstatus),

@@ -12,7 +12,6 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/nurse"
@@ -36,7 +35,6 @@ type UserQuery struct {
 	withHistorytaking      *NurseQuery
 	withUserPatientrights  *PatientrightsQuery
 	withMedicalrecordstaff *MedicalrecordstaffQuery
-	withUser2doctorinfo    *DoctorinfoQuery
 	withUser2registrar     *RegistrarQuery
 	withUserstatus         *UserstatusQuery
 	withFKs                bool
@@ -134,24 +132,6 @@ func (uq *UserQuery) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(medicalrecordstaff.Table, medicalrecordstaff.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, false, user.MedicalrecordstaffTable, user.MedicalrecordstaffColumn),
-		)
-		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
-		return fromU, nil
-	}
-	return query
-}
-
-// QueryUser2doctorinfo chains the current query on the user2doctorinfo edge.
-func (uq *UserQuery) QueryUser2doctorinfo() *DoctorinfoQuery {
-	query := &DoctorinfoQuery{config: uq.config}
-	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := uq.prepareQuery(ctx); err != nil {
-			return nil, err
-		}
-		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
-			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, user.User2doctorinfoTable, user.User2doctorinfoColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -418,17 +398,6 @@ func (uq *UserQuery) WithMedicalrecordstaff(opts ...func(*MedicalrecordstaffQuer
 	return uq
 }
 
-//  WithUser2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
-// the "user2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserQuery) WithUser2doctorinfo(opts ...func(*DoctorinfoQuery)) *UserQuery {
-	query := &DoctorinfoQuery{config: uq.config}
-	for _, opt := range opts {
-		opt(query)
-	}
-	uq.withUser2doctorinfo = query
-	return uq
-}
-
 //  WithUser2registrar tells the query-builder to eager-loads the nodes that are connected to
 // the "user2registrar" edge. The optional arguments used to configure the query builder of the edge.
 func (uq *UserQuery) WithUser2registrar(opts ...func(*RegistrarQuery)) *UserQuery {
@@ -518,12 +487,11 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		nodes       = []*User{}
 		withFKs     = uq.withFKs
 		_spec       = uq.querySpec()
-		loadedTypes = [7]bool{
+		loadedTypes = [6]bool{
 			uq.withFinancier != nil,
 			uq.withHistorytaking != nil,
 			uq.withUserPatientrights != nil,
 			uq.withMedicalrecordstaff != nil,
-			uq.withUser2doctorinfo != nil,
 			uq.withUser2registrar != nil,
 			uq.withUserstatus != nil,
 		}
@@ -664,34 +632,6 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
 			}
 			node.Edges.Medicalrecordstaff = n
-		}
-	}
-
-	if query := uq.withUser2doctorinfo; query != nil {
-		fks := make([]driver.Value, 0, len(nodes))
-		nodeids := make(map[int]*User)
-		for i := range nodes {
-			fks = append(fks, nodes[i].ID)
-			nodeids[nodes[i].ID] = nodes[i]
-		}
-		query.withFKs = true
-		query.Where(predicate.Doctorinfo(func(s *sql.Selector) {
-			s.Where(sql.InValues(user.User2doctorinfoColumn, fks...))
-		}))
-		neighbors, err := query.All(ctx)
-		if err != nil {
-			return nil, err
-		}
-		for _, n := range neighbors {
-			fk := n.user_id
-			if fk == nil {
-				return nil, fmt.Errorf(`foreign-key "user_id" is nil for node %v`, n.ID)
-			}
-			node, ok := nodeids[*fk]
-			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
-			}
-			node.Edges.User2doctorinfo = n
 		}
 	}
 

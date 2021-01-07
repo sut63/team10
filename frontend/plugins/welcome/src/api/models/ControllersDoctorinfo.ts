@@ -63,22 +63,10 @@ export interface ControllersDoctorinfo {
     prename?: number;
     /**
      * 
-     * @type {number}
-     * @memberof ControllersDoctorinfo
-     */
-    registrar?: number;
-    /**
-     * 
      * @type {string}
      * @memberof ControllersDoctorinfo
      */
     telephonenumber?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ControllersDoctorinfo
-     */
-    user?: number;
 }
 
 export function ControllersDoctorinfoFromJSON(json: any): ControllersDoctorinfo {
@@ -98,9 +86,7 @@ export function ControllersDoctorinfoFromJSONTyped(json: any, ignoreDiscriminato
         'licensenumber': !exists(json, 'licensenumber') ? undefined : json['licensenumber'],
         'officeroom': !exists(json, 'officeroom') ? undefined : json['officeroom'],
         'prename': !exists(json, 'prename') ? undefined : json['prename'],
-        'registrar': !exists(json, 'registrar') ? undefined : json['registrar'],
         'telephonenumber': !exists(json, 'telephonenumber') ? undefined : json['telephonenumber'],
-        'user': !exists(json, 'user') ? undefined : json['user'],
     };
 }
 
@@ -120,9 +106,7 @@ export function ControllersDoctorinfoToJSON(value?: ControllersDoctorinfo | null
         'licensenumber': value.licensenumber,
         'officeroom': value.officeroom,
         'prename': value.prename,
-        'registrar': value.registrar,
         'telephonenumber': value.telephonenumber,
-        'user': value.user,
     };
 }
 

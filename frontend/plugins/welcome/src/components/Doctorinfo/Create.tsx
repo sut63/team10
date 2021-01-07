@@ -96,19 +96,8 @@ interface Doctorinfo_Type {
    * @type {number}
    * @memberof ControllersDoctorinfo
    */
-  registrar?: number;
-  /**
-   * 
-   * @type {string}
-   * @memberof ControllersDoctorinfo
-   */
+  
   telephonenumber?: string;
-  /**
-   * 
-   * @type {number}
-   * @memberof ControllersDoctorinfo
-   */
-  user?: number;
 }
 
 export default function CreateDoctorinfo() {
@@ -169,7 +158,8 @@ const handleChange = (
   setDoctorinfo({ ...Doctorinfo, [name]: value });
 };
 
-  const CreateDoctorinfo = async () => {
+  const Create_Doctorinfo = async () => {
+   
     const res: any = await api.createDoctorinfo({ 
       doctorinfo:Doctorinfo
     
@@ -214,11 +204,12 @@ const handleChange = (
                     style={{ width: 250 }}
                 >
                 {prenames.map((item: any) => (
-                  <MenuItem value={item.id}>{item.name}</MenuItem>
+                  <MenuItem value={item.id}>{item.prefix}</MenuItem>
                 ))}
                 </Select>
                 </Typography>
                 </Typography><br/>
+
                 
                         <div className={classes.root}>
                             <form noValidate autoComplete="off">
@@ -362,7 +353,7 @@ const handleChange = (
                 <Typography variant="h6" gutterBottom  align="center">
                 <Button
                     onClick={() => {
-                    CreateDoctorinfo();
+                    Create_Doctorinfo();
                     }}
                     variant="contained"
                     color="primary"

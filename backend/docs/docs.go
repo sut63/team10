@@ -274,7 +274,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ent.Treatment"
+                            "$ref": "#/definitions/controllers.Treatment"
                         }
                     }
                 ],
@@ -4519,14 +4519,8 @@ var doc = `{
                 "prename": {
                     "type": "integer"
                 },
-                "registrar": {
-                    "type": "integer"
-                },
                 "telephonenumber": {
                     "type": "string"
-                },
-                "user": {
-                    "type": "integer"
                 }
             }
         },
@@ -4635,6 +4629,26 @@ var doc = `{
                 },
                 "patientrightstype": {
                     "description": "Abilitypatientrights int",
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.Treatment": {
+            "type": "object",
+            "properties": {
+                "datetreat": {
+                    "type": "string"
+                },
+                "doctorinfo": {
+                    "type": "integer"
+                },
+                "patientrecord": {
+                    "type": "integer"
+                },
+                "treatment": {
+                    "type": "string"
+                },
+                "typetreatment": {
                     "type": "integer"
                 }
             }
@@ -4809,22 +4823,12 @@ var doc = `{
                     "type": "object",
                     "$ref": "#/definitions/ent.Prename"
                 },
-                "registrar": {
-                    "description": "Registrar holds the value of the registrar edge.",
-                    "type": "object",
-                    "$ref": "#/definitions/ent.Registrar"
-                },
                 "treatment": {
                     "description": "Treatment holds the value of the treatment edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Treatment"
                     }
-                },
-                "user": {
-                    "description": "User holds the value of the user edge.",
-                    "type": "object",
-                    "$ref": "#/definitions/ent.User"
                 }
             }
         },
@@ -5425,13 +5429,6 @@ var doc = `{
         "ent.RegistrarEdges": {
             "type": "object",
             "properties": {
-                "registrar2doctorinfo": {
-                    "description": "Registrar2doctorinfo holds the value of the registrar2doctorinfo edge.",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ent.Doctorinfo"
-                    }
-                },
                 "user": {
                     "description": "User holds the value of the user edge.",
                     "type": "object",
@@ -5618,11 +5615,6 @@ var doc = `{
                     "description": "Medicalrecordstaff holds the value of the medicalrecordstaff edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Medicalrecordstaff"
-                },
-                "user2doctorinfo": {
-                    "description": "User2doctorinfo holds the value of the user2doctorinfo edge.",
-                    "type": "object",
-                    "$ref": "#/definitions/ent.Doctorinfo"
                 },
                 "user2registrar": {
                     "description": "User2registrar holds the value of the user2registrar edge.",

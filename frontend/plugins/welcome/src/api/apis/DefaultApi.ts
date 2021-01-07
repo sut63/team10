@@ -30,6 +30,9 @@ import {
     ControllersPatientrights,
     ControllersPatientrightsFromJSON,
     ControllersPatientrightsToJSON,
+    ControllersTreatment,
+    ControllersTreatmentFromJSON,
+    ControllersTreatmentToJSON,
     EntAbilitypatientrights,
     EntAbilitypatientrightsFromJSON,
     EntAbilitypatientrightsToJSON,
@@ -165,7 +168,7 @@ export interface CreateSymptomseverityRequest {
 }
 
 export interface CreateTreatmentRequest {
-    treatment: EntTreatment;
+    treatment: ControllersTreatment;
 }
 
 export interface CreateTypetreatmentRequest {
@@ -1075,7 +1078,7 @@ export class DefaultApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: EntTreatmentToJSON(requestParameters.treatment),
+            body: ControllersTreatmentToJSON(requestParameters.treatment),
         });
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntTreatmentFromJSON(jsonValue));

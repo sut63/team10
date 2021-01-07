@@ -9,9 +9,9 @@ import  createHistorytaking from './components/createHistorytaking';
 import CreateBill from './components/createBill'
 import createTreatment from './components/treatment';
 import CreateDoctorinfo from './components/Doctorinfo';
-
+import createPatientrecord from './components/createPatientrecord';
 export const plugin = createPlugin({
-  id: 'welcome',
+  id:'welcome',
   register({ router }) {
     router.registerRoute('/', WelcomePage);
     router.registerRoute('/createBill', CreateBill);
@@ -20,6 +20,7 @@ export const plugin = createPlugin({
     router.registerRoute('/create_Patientrights', create_Patientrights);
     router.registerRoute('/createHistorytaking', createHistorytaking);
     router.registerRoute('/createTreatment', createTreatment);
+    router.registerRoute('/createPatientrecord', createPatientrecord);
     router.registerRoute('/Doctorinfo', CreateDoctorinfo);
   },
 });

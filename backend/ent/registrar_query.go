@@ -4,7 +4,6 @@ package ent
 
 import (
 	"context"
-	"database/sql/driver"
 	"errors"
 	"fmt"
 	"math"
@@ -12,7 +11,6 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
@@ -27,9 +25,8 @@ type RegistrarQuery struct {
 	unique     []string
 	predicates []predicate.Registrar
 	// eager-loading edges.
-	withRegistrar2doctorinfo *DoctorinfoQuery
-	withUser                 *UserQuery
-	withFKs                  bool
+	withUser *UserQuery
+	withFKs  bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -57,24 +54,6 @@ func (rq *RegistrarQuery) Offset(offset int) *RegistrarQuery {
 func (rq *RegistrarQuery) Order(o ...OrderFunc) *RegistrarQuery {
 	rq.order = append(rq.order, o...)
 	return rq
-}
-
-// QueryRegistrar2doctorinfo chains the current query on the registrar2doctorinfo edge.
-func (rq *RegistrarQuery) QueryRegistrar2doctorinfo() *DoctorinfoQuery {
-	query := &DoctorinfoQuery{config: rq.config}
-	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
-		if err := rq.prepareQuery(ctx); err != nil {
-			return nil, err
-		}
-		step := sqlgraph.NewStep(
-			sqlgraph.From(registrar.Table, registrar.FieldID, rq.sqlQuery()),
-			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, registrar.Registrar2doctorinfoTable, registrar.Registrar2doctorinfoColumn),
-		)
-		fromU = sqlgraph.SetNeighbors(rq.driver.Dialect(), step)
-		return fromU, nil
-	}
-	return query
 }
 
 // QueryUser chains the current query on the user edge.
@@ -274,17 +253,6 @@ func (rq *RegistrarQuery) Clone() *RegistrarQuery {
 	}
 }
 
-//  WithRegistrar2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
-// the "registrar2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
-func (rq *RegistrarQuery) WithRegistrar2doctorinfo(opts ...func(*DoctorinfoQuery)) *RegistrarQuery {
-	query := &DoctorinfoQuery{config: rq.config}
-	for _, opt := range opts {
-		opt(query)
-	}
-	rq.withRegistrar2doctorinfo = query
-	return rq
-}
-
 //  WithUser tells the query-builder to eager-loads the nodes that are connected to
 // the "user" edge. The optional arguments used to configure the query builder of the edge.
 func (rq *RegistrarQuery) WithUser(opts ...func(*UserQuery)) *RegistrarQuery {
@@ -363,8 +331,7 @@ func (rq *RegistrarQuery) sqlAll(ctx context.Context) ([]*Registrar, error) {
 		nodes       = []*Registrar{}
 		withFKs     = rq.withFKs
 		_spec       = rq.querySpec()
-		loadedTypes = [2]bool{
-			rq.withRegistrar2doctorinfo != nil,
+		loadedTypes = [1]bool{
 			rq.withUser != nil,
 		}
 	)
@@ -396,34 +363,6 @@ func (rq *RegistrarQuery) sqlAll(ctx context.Context) ([]*Registrar, error) {
 	}
 	if len(nodes) == 0 {
 		return nodes, nil
-	}
-
-	if query := rq.withRegistrar2doctorinfo; query != nil {
-		fks := make([]driver.Value, 0, len(nodes))
-		nodeids := make(map[int]*Registrar)
-		for i := range nodes {
-			fks = append(fks, nodes[i].ID)
-			nodeids[nodes[i].ID] = nodes[i]
-		}
-		query.withFKs = true
-		query.Where(predicate.Doctorinfo(func(s *sql.Selector) {
-			s.Where(sql.InValues(registrar.Registrar2doctorinfoColumn, fks...))
-		}))
-		neighbors, err := query.All(ctx)
-		if err != nil {
-			return nil, err
-		}
-		for _, n := range neighbors {
-			fk := n.registrar_id
-			if fk == nil {
-				return nil, fmt.Errorf(`foreign-key "registrar_id" is nil for node %v`, n.ID)
-			}
-			node, ok := nodeids[*fk]
-			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "registrar_id" returned %v for node %v`, *fk, n.ID)
-			}
-			node.Edges.Registrar2doctorinfo = append(node.Edges.Registrar2doctorinfo, n)
-		}
 	}
 
 	if query := rq.withUser; query != nil {

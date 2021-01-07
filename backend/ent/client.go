@@ -765,38 +765,6 @@ func (c *DoctorinfoClient) QueryPrename(d *Doctorinfo) *PrenameQuery {
 	return query
 }
 
-// QueryUser queries the user edge of a Doctorinfo.
-func (c *DoctorinfoClient) QueryUser(d *Doctorinfo) *UserQuery {
-	query := &UserQuery{config: c.config}
-	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
-		id := d.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, id),
-			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, doctorinfo.UserTable, doctorinfo.UserColumn),
-		)
-		fromV = sqlgraph.Neighbors(d.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// QueryRegistrar queries the registrar edge of a Doctorinfo.
-func (c *DoctorinfoClient) QueryRegistrar(d *Doctorinfo) *RegistrarQuery {
-	query := &RegistrarQuery{config: c.config}
-	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
-		id := d.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, id),
-			sqlgraph.To(registrar.Table, registrar.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.RegistrarTable, doctorinfo.RegistrarColumn),
-		)
-		fromV = sqlgraph.Neighbors(d.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
 // QueryTreatment queries the treatment edge of a Doctorinfo.
 func (c *DoctorinfoClient) QueryTreatment(d *Doctorinfo) *TreatmentQuery {
 	query := &TreatmentQuery{config: c.config}
@@ -2455,22 +2423,6 @@ func (c *RegistrarClient) GetX(ctx context.Context, id int) *Registrar {
 	return r
 }
 
-// QueryRegistrar2doctorinfo queries the registrar2doctorinfo edge of a Registrar.
-func (c *RegistrarClient) QueryRegistrar2doctorinfo(r *Registrar) *DoctorinfoQuery {
-	query := &DoctorinfoQuery{config: c.config}
-	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
-		id := r.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(registrar.Table, registrar.FieldID, id),
-			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, registrar.Registrar2doctorinfoTable, registrar.Registrar2doctorinfoColumn),
-		)
-		fromV = sqlgraph.Neighbors(r.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
 // QueryUser queries the user edge of a Registrar.
 func (c *RegistrarClient) QueryUser(r *Registrar) *UserQuery {
 	query := &UserQuery{config: c.config}
@@ -3087,22 +3039,6 @@ func (c *UserClient) QueryMedicalrecordstaff(u *User) *MedicalrecordstaffQuery {
 			sqlgraph.From(user.Table, user.FieldID, id),
 			sqlgraph.To(medicalrecordstaff.Table, medicalrecordstaff.FieldID),
 			sqlgraph.Edge(sqlgraph.O2O, false, user.MedicalrecordstaffTable, user.MedicalrecordstaffColumn),
-		)
-		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// QueryUser2doctorinfo queries the user2doctorinfo edge of a User.
-func (c *UserClient) QueryUser2doctorinfo(u *User) *DoctorinfoQuery {
-	query := &DoctorinfoQuery{config: c.config}
-	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
-		id := u.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, id),
-			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, user.User2doctorinfoTable, user.User2doctorinfoColumn),
 		)
 		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
 		return fromV, nil

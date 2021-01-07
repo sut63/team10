@@ -74,10 +74,10 @@ export function EntTreatmentEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'doctorinfo': !exists(json, 'Doctorinfo') ? undefined : EntDoctorinfoFromJSON(json['Doctorinfo']),
-        'patientrecord': !exists(json, 'Patientrecord') ? undefined : EntPatientrecordFromJSON(json['Patientrecord']),
-        'typetreatment': !exists(json, 'Typetreatment') ? undefined : EntTypetreatmentFromJSON(json['Typetreatment']),
-        'unpaybills': !exists(json, 'Unpaybills') ? undefined : EntUnpaybillFromJSON(json['Unpaybills']),
+        'doctorinfo': !exists(json, 'doctorinfo') ? undefined : EntDoctorinfoFromJSON(json['doctorinfo']),
+        'patientrecord': !exists(json, 'patientrecord') ? undefined : EntPatientrecordFromJSON(json['patientrecord']),
+        'typetreatment': !exists(json, 'typetreatment') ? undefined : EntTypetreatmentFromJSON(json['typetreatment']),
+        'unpaybills': !exists(json, 'unpaybills') ? undefined : EntUnpaybillFromJSON(json['unpaybills']),
     };
 }
 
