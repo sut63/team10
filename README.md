@@ -21,7 +21,7 @@
 ```
 * https://github.com/sut63/team10/labels/B6107505
 ```
- B6109868        
+ B6109868 นางสาวปอรรัชม์ ปานใจนาม      
 ```
 * https://github.com/sut63/team10/labels/B6109868
 ```
