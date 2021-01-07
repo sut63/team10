@@ -15,9 +15,9 @@ import TableRow from '@material-ui/core/TableRow';
 
 
 import { DefaultApi } from'../../api/apis';
-import { EntPaytype } from '../../api/models/EntPaytype';
-import { EntUnpaybill } from '../../api/models/EntUnpaybill';
-import { EntFinancier } from '../../api/models/EntFinancier';
+import { EntTypetreatment } from '../../api/models/EntTypetreatment';
+import { EntDoctorinfo } from '../../api/models/EntDoctorinfo';
+import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
           },
     }),
   );
-const CreateBill: FC<{}> = () => {
+const createTreatment: FC<{}> = () => {
     const classes = useStyles();
     const http = new DefaultApi();
 
@@ -49,70 +49,62 @@ const CreateBill: FC<{}> = () => {
     const [alert, setAlert] = React.useState(true);
     const [loading, setLoading] = React.useState(true);
 
-    const [paytypes, setPaytypes] = React.useState<EntPaytype[]>([]);
-    const [financiers, setFinanciers] = React.useState<EntFinancier[]>([]);
-    const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
+    const [typetreatments, setTypetreatments] = React.useState<EntTypetreatment[]>([]);
+    const [doctorinfos, setDoctorinfos] = React.useState<EntDoctorinfo[]>([]);
+    const [patientrecords, setPatientrecords] = React.useState<EntPatientrecord[]>([]);
 
-    const [amounts, setamount] = React.useState(String);
-    const [datetime, setDatetime] = React.useState(String);
-    const [paytypeid, setpaytypeId] = React.useState(Number);
-    const [financierid, setfinancierId] = React.useState(Number);
-    const [unpayid, setunpayId] = React.useState(Number);
+    const [treatments, settreatment] = React.useState(String);
+    const [datetreat, setdatetreat] = React.useState(String);
+    const [doctorinfoid, setdoctorinfoId] = React.useState(Number);
+    const [patientrecordid, setpatientrecordId] = React.useState(Number);
+    const [typetreatmentid, settypetreatmentId] = React.useState(Number);
 
-    const refreshPage = ()=>{
-      window.location.reload();
-    }
-    const [flag, setFlag] = React.useState(true);
-    const handleClick = () => {
-    setFlag(!flag);
-    };
     useEffect(() => {
-        const getPaytype = async () => {
-            const res = await http.listPaytype({ limit: 100, offset: 0 });
+        const getDocdorinfo = async () => {
+            const res = await http.listDoctorinfo({ limit: 100, offset: 0 });
             setLoading(false);
-            setPaytypes(res);
+            setDoctorinfos(res);
           };
-          const getUnpaybill = async () => {
-            const res = await http.listUnpaybill({ limit: 100, offset: 0 });
+          const getTypetreatment = async () => {
+            const res = await http.listTypetreatment({ limit: 3, offset: 0 });
             setLoading(false);
-            setUnpaybills(res);
+            setTypetreatments(res);
           };
-        const getFinancier = async () => {
-            const res = await http.listFinancier({ limit: 2, offset: 0 });
+        const getPatientrecord = async () => {
+            const res = await http.listPatientrecord({ limit: 2, offset: 0 });
             setLoading(false);
-            setFinanciers(res);
+            setPatientrecords(res);
         };
-        getFinancier();
-        getUnpaybill();
-        getPaytype();
+        getPatientrecord();
+        getTypetreatment();
+        getDocdorinfo();
     }, [loading]);
 
-    const PaytypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setpaytypeId(event.target.value as number);
+    const TypetreatmenthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        settypetreatmentId(event.target.value as number);
       };
-    const FinancierhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setfinancierId(event.target.value as number);
+    const DoctorinfohandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        setdoctorinfoId(event.target.value as number);
       };
-    const AmounthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setamount(event.target.value as string);
+    const TreatmenthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        settreatment(event.target.value as string);
+      };
+    const PatientrecordhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        setpatientrecordId(event.target.value as string);
       };
     const handleDatetimeChange = (event: any) => {
-        setDatetime(event.target.value as string);
+        setdatetreat(event.target.value as string);
       };
-      const CreatePayment = async () => {
-          const b = {
-            amount: amounts,
-            date: datetime + ":00+07:00",
-            financier: financierid,
-            paytype: paytypeid,
-            unpaybill: unpayid,
+      const createTreatment = async () => {
+          const tm = {
+            treatment: treatments,
+            date: datetreat + ":00+07:00",
+            typetreatment: typetreatmentid,
+            doctorinfo: doctorinfoid,
+            patientrecord: patientrecordid,
           };
-          const upb = {
-              id: unpayid,
-          }
-          console.log(b);
-          await http.updateUnpaybill({id:unpayid,unpaybill:upb});
-          const res: any = await http.createBill({ bill : b });
+          console.log(tm);
+          const res: any = await http.createBill({ treatment : tm });
           setStatus(true);
           if (res.id != '') {
             setAlert(true);
@@ -129,7 +121,7 @@ const CreateBill: FC<{}> = () => {
        <div>
        {alert ? (
          <Alert severity="success">
-           บันทึกการชำระสำเร็จ
+           บันทึกการรักษาสำเร็จ
          </Alert>
        ) : (
            <Alert severity="warning" style={{ marginTop: 20 }}>
@@ -141,7 +133,7 @@ const CreateBill: FC<{}> = () => {
 
 
     <Page theme={pageTheme.home}>
-        <Header title={`Financial Department`}></Header>
+        <Header title={`Treatment Department`}></Header>
       <Content>
         <Grid container spacing = {3} >
           <Grid container item xs = {12} sm = {12}  >
@@ -151,50 +143,63 @@ const CreateBill: FC<{}> = () => {
                     <Typography align = "center" variant = "h3">
                       <br/>----  Create Bill  ----
                     </Typography>
-                    <Typography align = "center" variant = "h6">
-                        <br/>เลขที่การรักษา
-                        </Typography>
-                        <Typography align = "center" variant = "subtitle2">
-                        <br/>เลขที่การรักษาที่เลือกชำระ {unpayid}
-                        </Typography>
                   <FormControl className={classes.formControl}>
                         <Typography align = "center" variant = "h6">
-                        <br/>รูปแบบการชำระ
+                        <br/>รูปแบบการรักษา
                         </Typography>
                         <Select
-                        name="paytype"
-                        value={paytypeid}
-                        onChange={PaytypehandleChange}
+                        name="typetreatment"
+                        value={typetreatmentid}
+                        onChange={TypetreatmenthandleChange}
                         >
-                        {paytypes.map(item => {
+                        {typetreatments.map(item => {
                         return (
                         <MenuItem value={item.id}>
-                         {item.paytype}
+                         {item.id}
                         </MenuItem>
                         );
                         })}
                         </Select>
                 </FormControl>
                 <Typography align = "center" variant = "h6">
-                     <br/>ค่ารักษา<br/>
+                     <br/>รายละเอียดการรักษา<br/>
                 <TextField 
                     className={classes.formControl}
-                    value={amounts}
-                    onChange={AmounthandleChange}/>
+                    value={treatments}
+                    onChange={TreatmenthandleChange}/>
                 </Typography>
                 <FormControl className={classes.formControl}>
                         <Typography align = "center"variant = "h6">
-                        <br/>พนักงานการเงิน
+                        <br/>แพทย์
                         </Typography>
                         <Select
-                        name="financier"
-                        value={financierid}
-                        onChange={FinancierhandleChange}
+                        name="doctorinfo"
+                        value={doctorinfoid}
+                        onChange={DoctorinfohandleChange}
                         >
-                        {financiers.map(item => {
+                        {doctorinfos.map(item => {
                         return (
                         <MenuItem value={item.id}>
-                         {item.name}
+                         {item.id}
+                        </MenuItem>
+                        );
+                        })}
+                        </Select>
+                </FormControl>
+                <br/>
+                <FormControl className={classes.formControl}>
+                        <Typography align = "center"variant = "h6">
+                        <br/>ผู้ป่วย
+                        </Typography>
+                        <Select
+                        name="patientrecord"
+                        value={patientrecordid}
+                        onChange={PatientrecordhandleChange}
+                        >
+                        {patientrecords.map(item => {
+                        return (
+                        <MenuItem value={item.id}>
+                         {item.id}
                         </MenuItem>
                         );
                         })}
@@ -202,13 +207,13 @@ const CreateBill: FC<{}> = () => {
                 </FormControl>
                 <br/>
                 <Typography align = "center"variant = "h6">
-                        <br/>วันเวลาที่ชำระ
+                        <br/>วันเวลาที่รักษา
                         </Typography>
                 <TextField
                     className={classes.formControl}
                     id="datetime"
                     type="datetime-local"
-                    value={datetime}
+                    value={datetreat}
                     onChange={handleDatetimeChange}
                     InputLabelProps={{
                      shrink: true,
@@ -218,8 +223,7 @@ const CreateBill: FC<{}> = () => {
                 <br/>
                 <Button
                          onClick={() => {
-                            CreatePayment();
-                            refreshPage();
+                            createTreatment();
                           }}
                           
                           variant="contained"
@@ -242,28 +246,20 @@ const CreateBill: FC<{}> = () => {
          <TableRow>
          <TableCell align="center" >เลขที่การรักษา</TableCell>
          <TableCell align="center">ผู้รับการรักษา</TableCell>
+         <TableCell align="center">แพทย์</TableCell>
          <TableCell align="center">รูปแบบการรักษา</TableCell>
-         <TableCell align="center">เรียกชำระเงิน</TableCell>
+         <TableCell align="center">วันเวลาที่รักษา</TableCell>
          </TableRow>
          </TableHead>
          <TableBody>
-                 {unpaybills.filter(b=>b.status === "Unpay").map(item =>(
+                 {treatments.map(item =>(
                 <TableRow key={item.id}>
                     <TableCell align="center">{item.edges?.treatment?.id}</TableCell>
                     <TableCell align="center">{item.edges?.treatment?.edges?.patientrecord?.name}</TableCell>
-                    <TableCell align="center">{item.edges?.treatment?.edges?.typetreatment?.type}</TableCell> 
-                    <TableCell align="center">
-                        <Button
-                         onClick={() => {
-                            setunpayId(item.id as number);
-                          }}
-                          variant="contained"
-                          color= "primary"
-                        >
-                            ชำระเงิน
-                        </Button>
-                    </TableCell>
-                </TableRow>
+                    <TableCell align="center">{item.edges?.treatment?.edges?.doctorinfo?.name}</TableCell>
+                    <TableCell align="center">{item.edges?.treatment?.edges?.typetreatment?.typetreatment}</TableCell> 
+                    <TableCell align="center">{item.edges?.treatment?.Datetreat}</TableCell> 
+                      </TableRow>
             ))}
          </TableBody>
          </Table>
@@ -278,4 +274,4 @@ const CreateBill: FC<{}> = () => {
   );
 };
 
-export default CreateBill;
+export default createTreatment;

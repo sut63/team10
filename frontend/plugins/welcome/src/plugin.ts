@@ -7,6 +7,7 @@ import SignIn from './components/SignIn'
 import  create_Patientrights from './components/create_patientrights';
 import  createHistorytaking from './components/createHistorytaking';
 import CreateBill from './components/createBill'
+import createTreatment from './components/treatment';
 
 export const plugin = createPlugin({
   id: 'welcome',
@@ -17,5 +18,6 @@ export const plugin = createPlugin({
     router.registerRoute('/signin', SignIn);
     router.registerRoute('/create_Patientrights', create_Patientrights);
     router.registerRoute('/createHistorytaking', createHistorytaking);
+    router.registerRoute('/createTreatment', createTreatment);
   },
 });
