@@ -144,6 +144,11 @@ func (ctl *DoctorinfoController) GetDoctorinfo(c *gin.Context) {
 
 	u, err := ctl.client.Doctorinfo.
 		Query().
+		WithDepartment().
+		WithEducationlevel().
+		WithOfficeroom().
+		WithPrename().
+		WithTreatment().
 		Where(doctorinfo.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -188,6 +193,11 @@ func (ctl *DoctorinfoController) ListDoctorinfo(c *gin.Context) {
 
 	doctorinfos, err := ctl.client.Doctorinfo.
 		Query().
+		WithDepartment().
+		WithEducationlevel().
+		WithOfficeroom().
+		WithPrename().
+		WithTreatment().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())
