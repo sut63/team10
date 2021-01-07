@@ -170,6 +170,7 @@ type Financiers struct {
 // Financier defines the struct for the Financier
 type Financier struct {
 	name string
+	user int
 }
 
 //*******************************************************************
@@ -547,16 +548,26 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod"},
-			Financier{"Name Surname"},
+			Financier{"Nutchaporn Klinrod",4},
+			Financier{"Name Surname",5},
 		},
 	}
 	for _, f := range financiers.Financier {
+		u, err := client.User.
+			Query().
+			Where(user.IDEQ(f.user)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		client.Financier.
 			Create().
 			SetName(f.name).
+			SetUser(u).
 			Save(context.Background())
 	}
+
 
 	//Set Paytype data
 	paytypes := Paytypes{

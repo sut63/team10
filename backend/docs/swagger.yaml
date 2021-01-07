@@ -1998,15 +1998,6 @@ paths:
     get:
       description: list financier entities
       operationId: list-financier
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
       produces:
       - application/json
       responses:
