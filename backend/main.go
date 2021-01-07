@@ -19,6 +19,18 @@ import (
 
 // struct By team 10
 //-------------------------------------------------------------------
+// Struct By Doctorinformation System
+//*******************************************************************
+
+// Officerooms defines the struct for the Officerooms
+type Officerooms struct {
+	Officeroom []Officeroom
+}
+
+// Officeroom defines the struct for the Officeroom
+type Officeroom struct {
+	Roomnumber           int
+}
 
 // Struct By Patientrights System
 //*******************************************************************
