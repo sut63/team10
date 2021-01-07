@@ -171,6 +171,7 @@ func (ctl *DoctorinfoController) GetDoctorinfo(c *gin.Context) {
 
 	u, err := ctl.client.Doctorinfo.
 		Query().
+		Withdepartment2doctorinfo().
 		Where(doctorinfo.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
