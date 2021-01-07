@@ -15,6 +15,14 @@ import (
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/user"
+
+	//
+	//vvv...............................vvv
+	"github.com/PON/app/ent/insurance"
+	"github.com/PON/app/ent/patientrecord"
+	"github.com/PON/app/ent/patientrightstype"
+	"github.com/PON/app/ent/medicalrecordstaff"
+	//^^^...............................^^^
 )
 
 // struct By team 10
@@ -523,6 +531,80 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
+	
+	//Set Postman Output
+	//vvv*******************************************************************vvv
+	
+	// Set Patientrightstypes Data
+	//vvv...................................................................vvv
+	
+	patientrightss := Patientrightss{
+		Patientrights : []Patientrights{
+			Patientrights{1,1,1,1},
+			Patientrights{1,1,1,1},
+			Patientrights{1,1,1,1},
+			Patientrights{1,1,1,1},
+		},
+	}
+
+	for _, p := range patientrightss.Patientrights {
+
+		
+	Patientrightstype, err := client.Patientrightstype.
+		Query().
+		Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
+		Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		Insurance, err := client.Insurance.
+		Query().
+		Where(insurance.IDEQ(int(p.Insurance))).
+		Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+	Patientrecord, err := client.Patientrecord.
+		Query().
+		Where(patientrecord.IDEQ(int(p.Patientrecord))).
+		Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+	Medicalrecordstaff, err := client.Medicalrecordstaff.
+		Query().
+		Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
+		Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+	
+	t := time.Now().Local()
+	client.Patientrights.
+		Create().
+		SetPermissionDate(t).
+		SetPatientrightsPatientrightstype(Patientrightstype).
+		SetPatientrightsPatientrecord(Patientrecord).
+		SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
+		SetPatientrightsInsurance(Insurance).
+		Save(context.Background())
+
+	
+	}
+    //^^^...................................................................^^^
+	//^^^*******************************************************************^^^
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.Run()
