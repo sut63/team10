@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log"
-	
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -15,17 +14,17 @@ import (
 	_ "github.com/team10/app/docs"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
-	_"github.com/team10/app/ent/registrar"
+	_ "github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 
 	//import by patientrights No.3
 	//vvv...............................vvv
 	/*
-	"time"
-	"github.com/team10/app/ent/insurance"
-	"github.com/team10/app/ent/medicalrecordstaff"
-	"github.com/team10/app/ent/patientrecord"
-	"github.com/team10/app/ent/patientrightstype"
+		"time"
+		"github.com/team10/app/ent/insurance"
+		"github.com/team10/app/ent/medicalrecordstaff"
+		"github.com/team10/app/ent/patientrecord"
+		"github.com/team10/app/ent/patientrightstype"
 	*/
 	//^^^...............................^^^
 	//import by doctorinformation No.6
@@ -147,6 +146,7 @@ type Medicalrecordstaffs struct {
 // Medicalrecordstaff defines the struct for the Medicalrecordstaff
 type Medicalrecordstaff struct {
 	Name string
+	User int
 }
 
 //*******************************************************************
@@ -222,7 +222,6 @@ type Doctorinfo struct {
 	Educationlevel  int
 	Officeroom      int
 	Prename         int
-	
 }
 
 // Struct By Treatment System
@@ -241,11 +240,11 @@ type Treatment struct {
 
 // Typetreatments defines the struct for the  Typetreatments
 type Typetreatments struct {
-	Typetreatment [] Typetreatment
+	Typetreatment []Typetreatment
 }
 
 //  Typetreatment defines the struct for the  Typetreatment
-type  Typetreatment struct {
+type Typetreatment struct {
 	Typetreatment string
 }
 
@@ -352,8 +351,7 @@ func main() {
 	controllers.NewOfficeroomController(v1, client)
 	controllers.NewPrenameController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
-	
-	
+
 	//Controller By Treatment System No.4
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 
@@ -361,12 +359,11 @@ func main() {
 	controllers.NewTypetreatmentController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
-
 	// Set Postman By Team10
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
-	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad",}
+	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
 	for _, r := range User {
 		client.User.
 			Create().
@@ -579,8 +576,8 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod",4},
-			Financier{"Name Surname",5},
+			Financier{"Nutchaporn Klinrod", 4},
+			Financier{"Name Surname", 5},
 		},
 	}
 	for _, f := range financiers.Financier {
@@ -598,7 +595,6 @@ func main() {
 			SetUser(u).
 			Save(context.Background())
 	}
-
 
 	//Set Paytype data
 	paytypes := Paytypes{
@@ -620,8 +616,6 @@ func main() {
 
 	//Set Postman Output
 	//vvv*******************************************************************vvv
-
-	
 
 	// Set Doctorinformation output No.6
 	//vvv...................................................................vvv
@@ -672,9 +666,6 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
-		
-
-		
 
 		client.Doctorinfo.
 			Create().
@@ -686,7 +677,6 @@ func main() {
 			SetEducationlevel(el).
 			SetOfficeroom(or).
 			SetPrename(pn).
-			
 			Save(context.Background())
 	}
 
@@ -694,72 +684,72 @@ func main() {
 
 	// Set Patientrightstypes output No.3
 	//vvv...................................................................vvv
-/*
-	patientrightss := Patientrightss{
-		Patientrights: []Patientrights{
-			Patientrights{1, 1, 1, 1},
-			Patientrights{1, 1, 1, 1},
-			Patientrights{1, 1, 1, 1},
-			Patientrights{1, 1, 1, 1},
-		},
-	}
-
-	for _, p := range patientrightss.Patientrights {
-
-		Patientrightstype, err := client.Patientrightstype.
-			Query().
-			Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
+	/*
+		patientrightss := Patientrightss{
+			Patientrights: []Patientrights{
+				Patientrights{1, 1, 1, 1},
+				Patientrights{1, 1, 1, 1},
+				Patientrights{1, 1, 1, 1},
+				Patientrights{1, 1, 1, 1},
+			},
 		}
 
-		Insurance, err := client.Insurance.
-			Query().
-			Where(insurance.IDEQ(int(p.Insurance))).
-			Only(context.Background())
+		for _, p := range patientrightss.Patientrights {
 
-		if err != nil {
-			fmt.Println(err.Error())
-			return
+			Patientrightstype, err := client.Patientrightstype.
+				Query().
+				Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
+				Only(context.Background())
+
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+
+			Insurance, err := client.Insurance.
+				Query().
+				Where(insurance.IDEQ(int(p.Insurance))).
+				Only(context.Background())
+
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+
+			Patientrecord, err := client.Patientrecord.
+				Query().
+				Where(patientrecord.IDEQ(int(p.Patientrecord))).
+				Only(context.Background())
+
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+
+			Medicalrecordstaff, err := client.Medicalrecordstaff.
+				Query().
+				Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
+				Only(context.Background())
+
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
+
+			t := time.Now().Local()
+			client.Patientrights.
+				Create().
+				SetPermissionDate(t).
+				SetPatientrightsPatientrightstype(Patientrightstype).
+				SetPatientrightsPatientrecord(Patientrecord).
+				SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
+				SetPatientrightsInsurance(Insurance).
+				Save(context.Background())
+
 		}
-
-		Patientrecord, err := client.Patientrecord.
-			Query().
-			Where(patientrecord.IDEQ(int(p.Patientrecord))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		Medicalrecordstaff, err := client.Medicalrecordstaff.
-			Query().
-			Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		t := time.Now().Local()
-		client.Patientrights.
-			Create().
-			SetPermissionDate(t).
-			SetPatientrightsPatientrightstype(Patientrightstype).
-			SetPatientrightsPatientrecord(Patientrecord).
-			SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
-			SetPatientrightsInsurance(Insurance).
-			Save(context.Background())
-
-	}
 	*/
 	//^^^...................................................................^^^
-	
+
 	// Set Postman By Treatment System
 	//vvv*******************************************************************vvv
 
