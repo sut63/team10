@@ -190,10 +190,6 @@ export  default  function Create() {
                 value={prenameid}
                 onChange={PrenamehandleChange}
               >
-/*              {prename.filter((p) => {return p.id > 2 } ).map(item => (
-              <MenuItem value={item.id}>{item.prefix}</MenuItem> 
-              ))}  
-*/              
               {prename.map(item => {
                 return (
                   <MenuItem value={item.id}>
@@ -249,7 +245,7 @@ export  default  function Create() {
             <TextField
             name="birthday"
             label="วันเกิด"
-            type="date"
+            type="datetime-local"
             className={classes.textField}
             value={birthday}
             onChange={BirthdayhandleChange}
