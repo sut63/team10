@@ -75,7 +75,7 @@ export  default  function Create() {
 
   useEffect(() => {
     const getPrename = async () => {
-        const res = await api.listPrename({ limit: 6, offset: 0 });
+        const res = await api.listPrename({ limit: 5, offset: 2 });
         setLoading(false);
         setPrename(res);
     };
