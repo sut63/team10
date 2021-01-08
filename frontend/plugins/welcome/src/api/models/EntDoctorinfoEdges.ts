@@ -88,13 +88,7 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
         'educationlevel': !exists(json, 'educationlevel') ? undefined : EntEducationlevelFromJSON(json['educationlevel']),
         'officeroom': !exists(json, 'officeroom') ? undefined : EntOfficeroomFromJSON(json['officeroom']),
         'prename': !exists(json, 'prename') ? undefined : EntPrenameFromJSON(json['prename']),
-<<<<<<< HEAD
-        'registrar': !exists(json, 'registrar') ? undefined : EntRegistrarFromJSON(json['registrar']),
-        'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
-        'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
-=======
         'treatment': !exists(json, 'treatment') ? undefined : ((json['treatment'] as Array<any>).map(EntTreatmentFromJSON)),
->>>>>>> ef93791b6b0f7cc0a95c682350d70a26bb39d839
     };
 }
 

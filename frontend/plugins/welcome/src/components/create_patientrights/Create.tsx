@@ -9,7 +9,7 @@ import {
   InputLabel,
   MenuItem,
   TextField,
- 
+
   Link,
   Button,
 } from '@material-ui/core';
@@ -69,25 +69,25 @@ interface Patientrights_Type {
      * @type {number}
      * @memberof ControllersPatientrights
      */
-    insurance?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ControllersPatientrights
-     */
-    medicalrecordstaff?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof ControllersPatientrights
-     */
-    patientrecord?: number;
-    /**
-     * Abilitypatientrights int
-     * @type {number}
-     * @memberof ControllersPatientrights
-     */
-    patientrightstype?: number;
+  insurance?: number;
+  /**
+   * 
+   * @type {number}
+   * @memberof ControllersPatientrights
+   */
+  medicalrecordstaff?: number;
+  /**
+   * 
+   * @type {number}
+   * @memberof ControllersPatientrights
+   */
+  patientrecord?: number;
+  /**
+   * Abilitypatientrights int
+   * @type {number}
+   * @memberof ControllersPatientrights
+   */
+  patientrightstype?: number;
 }
 
 const NewPatientright: FC<{}> = () => {
@@ -95,15 +95,15 @@ const NewPatientright: FC<{}> = () => {
   const profile = { givenName: 'สิทธ์' };
   const http = new DefaultApi();
 
-  const [Patientrights, setPatientrights] =            React.useState<Partial<Patientrights_Type>>({});
+  const [Patientrights, setPatientrights] = React.useState<Partial<Patientrights_Type>>({});
 
-  const [Patientrightstype, setPatientrightstype] =     React.useState<EntPatientrightstype[]>([]);
-  const [Patientrecord, setPatientrecord] =     React.useState<EntPatientrecord[]>([]);
- 
- const [Insurance, setInsurance] =  React.useState<EntInsurance[]>([]);
- const [Medicalrecordstaff, setMedicalrecordstaff] =            React.useState<EntMedicalrecordstaff[]>([]);
- const [status, setStatus] = React.useState(false);
- const [alert, setAlert] = React.useState(true);
+  const [Patientrightstype, setPatientrightstype] = React.useState<EntPatientrightstype[]>([]);
+  const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
+
+  const [Insurance, setInsurance] = React.useState<EntInsurance[]>([]);
+  const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<EntMedicalrecordstaff[]>([]);
+  const [status, setStatus] = React.useState(false);
+  const [alert, setAlert] = React.useState(true);
 
 
   const getMedicalrecordstaffs = async () => {
@@ -145,21 +145,21 @@ const NewPatientright: FC<{}> = () => {
   };
 
 
- 
+
 
 
   const CreatePatientright = async () => {
-   
-    const res: any = await http.createPatientrights({ 
-      patientrights:Patientrights
-    
-    
+
+    const res: any = await http.createPatientrights({
+      patientrights: Patientrights
+
+
     });
     console.log(Patientrights);
     setStatus(true);
-  
-    
-    if (res.id != ''){
+
+
+    if (res.id != '') {
       setAlert(true);
     } else {
       setAlert(false);
@@ -168,118 +168,115 @@ const NewPatientright: FC<{}> = () => {
     const timer = setTimeout(() => {
       setStatus(false);
     }, 1000);
- 
-  
+
+
   };
-  
-
-
- return (
-   <Page theme={pageTheme.home}>
-     <Header
-       title={`ลงทะเบียน ${profile.givenName || 'to Backstage'}`}
-       subtitle="Some quick intro and links."
-     >
-       <Timer />
-       
-       </Header>
-     <Content>
-       <ContentHeader title="ข้อมูล">
-         
-         {status ? (
-           <div>
-             {alert ? (
-               <Alert severity="success">
-                 บันทึกสำเร็จ
-               </Alert>
-             ) : (
-               <Alert severity="warning" style={{ marginTop: 20 }}>
-                 This is a warning alert — check it out!
-               </Alert>
-             )}
-           </div>
-         ) : null}
-       </ContentHeader>
-
-      <div>
-              <br/><p>json {JSON.stringify(Patientrights)} </p> 
-      </div>
-
-            
-       <div className={classes.root}>
-
-         
-         <form noValidate autoComplete="off">
-
-         
-         
-          <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel>Patientrecord</InputLabel>
-                <Select
-                  name="patientrecord"
-                  value={Patientrights.patientrecord}
-                  onChange={handleChange}
-                >
-                  {Patientrecord.map((item:any) => {
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-
-
-        </form>
-       </div>
-                
-       <div className={classes.root}>
-         <form noValidate autoComplete="off">
-
-         <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel>Insurance</InputLabel>
-                <Select
-                  name="insurance"
-                  value={Patientrights.insurance}
-                  onChange={handleChange}
-                >
-                  {Insurance.map(item => {
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.insurancecompany}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-         
- 
- 
-        
-              <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel>Patientrightstype</InputLabel>
-                <Select
-                  name="patientrightstype"
-                  value={Patientrights.patientrightstype}
-                  onChange={handleChange}
-                >
-                  {Patientrightstype.map(item => {
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.permission}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-                
-
-           </form>
-       </div>
 
 
 
+  return (
+    <Page theme={pageTheme.home}>
+      <Header
+        title={`ลงทะเบียน ${profile.givenName || 'to Backstage'}`}
+        subtitle="Some quick intro and links."
+      >
+        <Timer />
+
+      </Header>
+      <Content>
+        <ContentHeader title="ข้อมูล">
+
+          {status ? (
+            <div>
+              {alert ? (
+                <Alert severity="success">
+                  บันทึกสำเร็จ
+                </Alert>
+              ) : (
+                  <Alert severity="warning" style={{ marginTop: 20 }}>
+                    This is a warning alert — check it out!
+                  </Alert>
+                )}
+            </div>
+          ) : null}
+        </ContentHeader>
+
+        <div>
+          <br /><p>json {JSON.stringify(Patientrights)} </p>
+        </div>
+
+
+        <div className={classes.root}>
+
+
+          <form noValidate autoComplete="off">
+
+
+
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel>Patientrecord</InputLabel>
+              <Select
+                name="patientrecord"
+                value={Patientrights.patientrecord}
+                onChange={handleChange}
+              >
+                {Patientrecord.map((item: any) => {
+                  return (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
+
+          </form>
+        </div>
+
+        <div className={classes.root}>
+          <form noValidate autoComplete="off">
+
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel>Insurance</InputLabel>
+              <Select
+                name="insurance"
+                value={Patientrights.insurance}
+                onChange={handleChange}
+              >
+                {Insurance.map(item => {
+                  return (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.insurancecompany}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
+
+
+
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel>Patientrightstype</InputLabel>
+              <Select
+                name="patientrightstype"
+                value={Patientrights.patientrightstype}
+                onChange={handleChange}
+              >
+                {Patientrightstype.map(item => {
+                  return (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.permission}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
+
+          </form>
+        </div>
 
 
 
@@ -288,43 +285,44 @@ const NewPatientright: FC<{}> = () => {
 
 
 
-        <ContentHeader title="พนักงาน"/>
-         
+
+
+
+        <ContentHeader title="พนักงาน" />
+
 
 
 
 
         <div className={classes.root}>
-         <form noValidate autoComplete="off">
+          <form noValidate autoComplete="off">
 
-         <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel>เลือกพนักงาน Medicalrecordstaff</InputLabel>
-                <Select
-                 name="medicalrecordstaff"
-                  value={Patientrights.medicalrecordstaff}
-                  onChange={handleChange}
-                >
-                  {Medicalrecordstaff.map(item => {
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.id}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-        
-         
-         
-
-        
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel>เลือกพนักงาน Medicalrecordstaff</InputLabel>
+              <Select
+                name="medicalrecordstaff"
+                value={Patientrights.medicalrecordstaff}
+                onChange={handleChange}
+              >
+                {Medicalrecordstaff.map(item => {
+                  return (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.id}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
 
 
-        </form>
-        
-       </div>
 
 
+
+
+
+          </form>
+
+        </div>
 
 
 
@@ -334,33 +332,35 @@ const NewPatientright: FC<{}> = () => {
 
 
 
-       <div className={classes.root}>
-         <form noValidate autoComplete="off">
-           
-         
-           <div className={classes.margin}>
-             <Button
-               onClick={() => {
-                CreatePatientright();
-               }}
-               variant="contained"
-               color="primary"
-             >
-               Submit
+
+
+        <div className={classes.root}>
+          <form noValidate autoComplete="off">
+
+
+            <div className={classes.margin}>
+              <Button
+                onClick={() => {
+                  CreatePatientright();
+                }}
+                variant="contained"
+                color="primary"
+              >
+                Submit
              </Button>
-              
-         <Link component={RouterLink} to="/">
-           <Button variant="contained" color="primary">
-           กลับสู่หน้าหลัก
-           </Button>
-         </Link>
 
-           </div>
-         </form>
-       </div>
-  
-     </Content>
-   </Page>
- );
+              <Link component={RouterLink} to="/">
+                <Button variant="contained" color="primary">
+                  กลับสู่หน้าหลัก
+           </Button>
+              </Link>
+
+            </div>
+          </form>
+        </div>
+
+      </Content>
+    </Page>
+  );
 };
 export default NewPatientright;

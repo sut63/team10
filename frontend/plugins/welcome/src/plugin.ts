@@ -4,14 +4,14 @@ import WatchVideo from './components/WatchVideo'
 import SignIn from './components/SignIn'
 
 //createHistorytaking
-import  create_Patientrights from './components/create_patientrights';
-import  createHistorytaking from './components/createHistorytaking';
+import create_Patientrights from './components/create_patientrights';
+import createHistorytaking from './components/createHistorytaking';
 import CreateBill from './components/createBill'
 import createTreatment from './components/treatment';
 import CreateDoctorinfo from './components/Doctorinfo';
 import createPatientrecord from './components/createPatientrecord';
 export const plugin = createPlugin({
-  id:'welcome',
+  id: 'welcome',
   register({ router }) {
     router.registerRoute('/', WelcomePage);
     router.registerRoute('/createBill', CreateBill);
