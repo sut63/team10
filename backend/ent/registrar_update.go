@@ -9,7 +9,6 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
@@ -35,21 +34,6 @@ func (ru *RegistrarUpdate) SetName(s string) *RegistrarUpdate {
 	return ru
 }
 
-// AddRegistrar2doctorinfoIDs adds the registrar2doctorinfo edge to Doctorinfo by ids.
-func (ru *RegistrarUpdate) AddRegistrar2doctorinfoIDs(ids ...int) *RegistrarUpdate {
-	ru.mutation.AddRegistrar2doctorinfoIDs(ids...)
-	return ru
-}
-
-// AddRegistrar2doctorinfo adds the registrar2doctorinfo edges to Doctorinfo.
-func (ru *RegistrarUpdate) AddRegistrar2doctorinfo(d ...*Doctorinfo) *RegistrarUpdate {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
-	}
-	return ru.AddRegistrar2doctorinfoIDs(ids...)
-}
-
 // SetUserID sets the user edge to User by id.
 func (ru *RegistrarUpdate) SetUserID(id int) *RegistrarUpdate {
 	ru.mutation.SetUserID(id)
@@ -72,21 +56,6 @@ func (ru *RegistrarUpdate) SetUser(u *User) *RegistrarUpdate {
 // Mutation returns the RegistrarMutation object of the builder.
 func (ru *RegistrarUpdate) Mutation() *RegistrarMutation {
 	return ru.mutation
-}
-
-// RemoveRegistrar2doctorinfoIDs removes the registrar2doctorinfo edge to Doctorinfo by ids.
-func (ru *RegistrarUpdate) RemoveRegistrar2doctorinfoIDs(ids ...int) *RegistrarUpdate {
-	ru.mutation.RemoveRegistrar2doctorinfoIDs(ids...)
-	return ru
-}
-
-// RemoveRegistrar2doctorinfo removes registrar2doctorinfo edges to Doctorinfo.
-func (ru *RegistrarUpdate) RemoveRegistrar2doctorinfo(d ...*Doctorinfo) *RegistrarUpdate {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
-	}
-	return ru.RemoveRegistrar2doctorinfoIDs(ids...)
 }
 
 // ClearUser clears the user edge to User.
@@ -172,44 +141,6 @@ func (ru *RegistrarUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: registrar.FieldName,
 		})
 	}
-	if nodes := ru.mutation.RemovedRegistrar2doctorinfoIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
-			Inverse: false,
-			Table:   registrar.Registrar2doctorinfoTable,
-			Columns: []string{registrar.Registrar2doctorinfoColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := ru.mutation.Registrar2doctorinfoIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
-			Inverse: false,
-			Table:   registrar.Registrar2doctorinfoTable,
-			Columns: []string{registrar.Registrar2doctorinfoColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
-	}
 	if ru.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
@@ -269,21 +200,6 @@ func (ruo *RegistrarUpdateOne) SetName(s string) *RegistrarUpdateOne {
 	return ruo
 }
 
-// AddRegistrar2doctorinfoIDs adds the registrar2doctorinfo edge to Doctorinfo by ids.
-func (ruo *RegistrarUpdateOne) AddRegistrar2doctorinfoIDs(ids ...int) *RegistrarUpdateOne {
-	ruo.mutation.AddRegistrar2doctorinfoIDs(ids...)
-	return ruo
-}
-
-// AddRegistrar2doctorinfo adds the registrar2doctorinfo edges to Doctorinfo.
-func (ruo *RegistrarUpdateOne) AddRegistrar2doctorinfo(d ...*Doctorinfo) *RegistrarUpdateOne {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
-	}
-	return ruo.AddRegistrar2doctorinfoIDs(ids...)
-}
-
 // SetUserID sets the user edge to User by id.
 func (ruo *RegistrarUpdateOne) SetUserID(id int) *RegistrarUpdateOne {
 	ruo.mutation.SetUserID(id)
@@ -306,21 +222,6 @@ func (ruo *RegistrarUpdateOne) SetUser(u *User) *RegistrarUpdateOne {
 // Mutation returns the RegistrarMutation object of the builder.
 func (ruo *RegistrarUpdateOne) Mutation() *RegistrarMutation {
 	return ruo.mutation
-}
-
-// RemoveRegistrar2doctorinfoIDs removes the registrar2doctorinfo edge to Doctorinfo by ids.
-func (ruo *RegistrarUpdateOne) RemoveRegistrar2doctorinfoIDs(ids ...int) *RegistrarUpdateOne {
-	ruo.mutation.RemoveRegistrar2doctorinfoIDs(ids...)
-	return ruo
-}
-
-// RemoveRegistrar2doctorinfo removes registrar2doctorinfo edges to Doctorinfo.
-func (ruo *RegistrarUpdateOne) RemoveRegistrar2doctorinfo(d ...*Doctorinfo) *RegistrarUpdateOne {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
-	}
-	return ruo.RemoveRegistrar2doctorinfoIDs(ids...)
 }
 
 // ClearUser clears the user edge to User.
@@ -403,44 +304,6 @@ func (ruo *RegistrarUpdateOne) sqlSave(ctx context.Context) (r *Registrar, err e
 			Value:  value,
 			Column: registrar.FieldName,
 		})
-	}
-	if nodes := ruo.mutation.RemovedRegistrar2doctorinfoIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
-			Inverse: false,
-			Table:   registrar.Registrar2doctorinfoTable,
-			Columns: []string{registrar.Registrar2doctorinfoColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := ruo.mutation.Registrar2doctorinfoIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
-			Inverse: false,
-			Table:   registrar.Registrar2doctorinfoTable,
-			Columns: []string{registrar.Registrar2doctorinfoColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
 	if ruo.mutation.UserCleared() {
 		edge := &sqlgraph.EdgeSpec{

@@ -675,62 +675,6 @@ func HasPrenameWith(preds ...predicate.Prename) predicate.Doctorinfo {
 	})
 }
 
-// HasUser applies the HasEdge predicate on the "user" edge.
-func HasUser() predicate.Doctorinfo {
-	return predicate.Doctorinfo(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UserTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, UserTable, UserColumn),
-		)
-		sqlgraph.HasNeighbors(s, step)
-	})
-}
-
-// HasUserWith applies the HasEdge predicate on the "user" edge with a given conditions (other predicates).
-func HasUserWith(preds ...predicate.User) predicate.Doctorinfo {
-	return predicate.Doctorinfo(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UserInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, UserTable, UserColumn),
-		)
-		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
-			for _, p := range preds {
-				p(s)
-			}
-		})
-	})
-}
-
-// HasRegistrar applies the HasEdge predicate on the "registrar" edge.
-func HasRegistrar() predicate.Doctorinfo {
-	return predicate.Doctorinfo(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(RegistrarTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, RegistrarTable, RegistrarColumn),
-		)
-		sqlgraph.HasNeighbors(s, step)
-	})
-}
-
-// HasRegistrarWith applies the HasEdge predicate on the "registrar" edge with a given conditions (other predicates).
-func HasRegistrarWith(preds ...predicate.Registrar) predicate.Doctorinfo {
-	return predicate.Doctorinfo(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(RegistrarInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, RegistrarTable, RegistrarColumn),
-		)
-		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
-			for _, p := range preds {
-				p(s)
-			}
-		})
-	})
-}
-
 // HasTreatment applies the HasEdge predicate on the "treatment" edge.
 func HasTreatment() predicate.Doctorinfo {
 	return predicate.Doctorinfo(func(s *sql.Selector) {

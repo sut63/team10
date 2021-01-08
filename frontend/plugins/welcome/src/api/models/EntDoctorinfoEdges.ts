@@ -30,18 +30,10 @@ import {
     EntPrenameFromJSON,
     EntPrenameFromJSONTyped,
     EntPrenameToJSON,
-    EntRegistrar,
-    EntRegistrarFromJSON,
-    EntRegistrarFromJSONTyped,
-    EntRegistrarToJSON,
     EntTreatment,
     EntTreatmentFromJSON,
     EntTreatmentFromJSONTyped,
     EntTreatmentToJSON,
-    EntUser,
-    EntUserFromJSON,
-    EntUserFromJSONTyped,
-    EntUserToJSON,
 } from './';
 
 /**
@@ -75,23 +67,11 @@ export interface EntDoctorinfoEdges {
      */
     prename?: EntPrename;
     /**
-     * 
-     * @type {EntRegistrar}
-     * @memberof EntDoctorinfoEdges
-     */
-    registrar?: EntRegistrar;
-    /**
      * Treatment holds the value of the treatment edge.
      * @type {Array<EntTreatment>}
      * @memberof EntDoctorinfoEdges
      */
     treatment?: Array<EntTreatment>;
-    /**
-     * 
-     * @type {EntUser}
-     * @memberof EntDoctorinfoEdges
-     */
-    user?: EntUser;
 }
 
 export function EntDoctorinfoEdgesFromJSON(json: any): EntDoctorinfoEdges {
@@ -108,9 +88,13 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
         'educationlevel': !exists(json, 'educationlevel') ? undefined : EntEducationlevelFromJSON(json['educationlevel']),
         'officeroom': !exists(json, 'officeroom') ? undefined : EntOfficeroomFromJSON(json['officeroom']),
         'prename': !exists(json, 'prename') ? undefined : EntPrenameFromJSON(json['prename']),
+<<<<<<< HEAD
         'registrar': !exists(json, 'registrar') ? undefined : EntRegistrarFromJSON(json['registrar']),
         'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
         'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
+=======
+        'treatment': !exists(json, 'treatment') ? undefined : ((json['treatment'] as Array<any>).map(EntTreatmentFromJSON)),
+>>>>>>> ef93791b6b0f7cc0a95c682350d70a26bb39d839
     };
 }
 
@@ -127,9 +111,7 @@ export function EntDoctorinfoEdgesToJSON(value?: EntDoctorinfoEdges | null): any
         'educationlevel': EntEducationlevelToJSON(value.educationlevel),
         'officeroom': EntOfficeroomToJSON(value.officeroom),
         'prename': EntPrenameToJSON(value.prename),
-        'registrar': EntRegistrarToJSON(value.registrar),
         'treatment': value.treatment === undefined ? undefined : ((value.treatment as Array<any>).map(EntTreatmentToJSON)),
-        'user': EntUserToJSON(value.user),
     };
 }
 

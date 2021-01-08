@@ -15,7 +15,7 @@ import (
 	_ "github.com/team10/app/docs"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
-	"github.com/team10/app/ent/registrar"
+	_"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 
 	//import by patientrights No.3
@@ -222,8 +222,7 @@ type Doctorinfo struct {
 	Educationlevel  int
 	Officeroom      int
 	Prename         int
-	User            int
-	Registrar       int
+	
 }
 
 // Struct By Treatment System
@@ -352,12 +351,12 @@ func main() {
 	controllers.NewDoctorinfoController(v1, client)
 	controllers.NewOfficeroomController(v1, client)
 	controllers.NewPrenameController(v1, client)
-	controllers.NewRegistrarController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 	
 	
 	//Controller By Treatment System No.4
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
+
 	controllers.NewTreatmentController(v1, client)
 	controllers.NewTypetreatmentController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
@@ -628,8 +627,8 @@ func main() {
 	//vvv...................................................................vvv
 	Doctorinfos := Doctorinfos{
 		Doctorinfo: []Doctorinfo{
-			Doctorinfo{"Thanawat", "Srikaewsiew", "0800740864", "BEN10UT100", 1, 1, 1, 1, 1, 1},
-			Doctorinfo{"Paonrat", "Tangtong", "0810740864", "BEN20UT100", 1, 1, 1, 1, 1, 1},
+			Doctorinfo{"Thanawat", "Srikaewsiew", "0800740864", "BEN10UT100", 1, 1, 1, 1},
+			Doctorinfo{"Paonrat", "Tangtong", "0810740864", "BEN20UT100", 1, 1, 1, 1},
 		},
 	}
 	for _, doc := range Doctorinfos.Doctorinfo {
@@ -673,24 +672,9 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
-		us, err := client.User.
-			Query().
-			Where(user.IDEQ(int(doc.User))).
-			Only(context.Background())
+		
 
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		rg, err := client.Registrar.
-			Query().
-			Where(registrar.IDEQ(int(doc.Registrar))).
-			Only(context.Background())
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
+		
 
 		client.Doctorinfo.
 			Create().
@@ -702,8 +686,7 @@ func main() {
 			SetEducationlevel(el).
 			SetOfficeroom(or).
 			SetPrename(pn).
-			SetUser(us).
-			SetRegistrar(rg).
+			
 			Save(context.Background())
 	}
 

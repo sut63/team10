@@ -9,7 +9,6 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
 )
@@ -25,21 +24,6 @@ type RegistrarCreate struct {
 func (rc *RegistrarCreate) SetName(s string) *RegistrarCreate {
 	rc.mutation.SetName(s)
 	return rc
-}
-
-// AddRegistrar2doctorinfoIDs adds the registrar2doctorinfo edge to Doctorinfo by ids.
-func (rc *RegistrarCreate) AddRegistrar2doctorinfoIDs(ids ...int) *RegistrarCreate {
-	rc.mutation.AddRegistrar2doctorinfoIDs(ids...)
-	return rc
-}
-
-// AddRegistrar2doctorinfo adds the registrar2doctorinfo edges to Doctorinfo.
-func (rc *RegistrarCreate) AddRegistrar2doctorinfo(d ...*Doctorinfo) *RegistrarCreate {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
-	}
-	return rc.AddRegistrar2doctorinfoIDs(ids...)
 }
 
 // SetUserID sets the user edge to User by id.
@@ -138,25 +122,6 @@ func (rc *RegistrarCreate) createSpec() (*Registrar, *sqlgraph.CreateSpec) {
 			Column: registrar.FieldName,
 		})
 		r.Name = value
-	}
-	if nodes := rc.mutation.Registrar2doctorinfoIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
-			Inverse: false,
-			Table:   registrar.Registrar2doctorinfoTable,
-			Columns: []string{registrar.Registrar2doctorinfoColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges = append(_spec.Edges, edge)
 	}
 	if nodes := rc.mutation.UserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

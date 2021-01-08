@@ -14,9 +14,7 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
-	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/treatment"
-	"github.com/team10/app/ent/user"
 )
 
 // DoctorinfoCreate is the builder for creating a Doctorinfo entity.
@@ -124,44 +122,6 @@ func (dc *DoctorinfoCreate) SetNillablePrenameID(id *int) *DoctorinfoCreate {
 // SetPrename sets the prename edge to Prename.
 func (dc *DoctorinfoCreate) SetPrename(p *Prename) *DoctorinfoCreate {
 	return dc.SetPrenameID(p.ID)
-}
-
-// SetUserID sets the user edge to User by id.
-func (dc *DoctorinfoCreate) SetUserID(id int) *DoctorinfoCreate {
-	dc.mutation.SetUserID(id)
-	return dc
-}
-
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (dc *DoctorinfoCreate) SetNillableUserID(id *int) *DoctorinfoCreate {
-	if id != nil {
-		dc = dc.SetUserID(*id)
-	}
-	return dc
-}
-
-// SetUser sets the user edge to User.
-func (dc *DoctorinfoCreate) SetUser(u *User) *DoctorinfoCreate {
-	return dc.SetUserID(u.ID)
-}
-
-// SetRegistrarID sets the registrar edge to Registrar by id.
-func (dc *DoctorinfoCreate) SetRegistrarID(id int) *DoctorinfoCreate {
-	dc.mutation.SetRegistrarID(id)
-	return dc
-}
-
-// SetNillableRegistrarID sets the registrar edge to Registrar by id if the given value is not nil.
-func (dc *DoctorinfoCreate) SetNillableRegistrarID(id *int) *DoctorinfoCreate {
-	if id != nil {
-		dc = dc.SetRegistrarID(*id)
-	}
-	return dc
-}
-
-// SetRegistrar sets the registrar edge to Registrar.
-func (dc *DoctorinfoCreate) SetRegistrar(r *Registrar) *DoctorinfoCreate {
-	return dc.SetRegistrarID(r.ID)
 }
 
 // AddTreatmentIDs adds the treatment edge to Treatment by ids.
@@ -378,44 +338,6 @@ func (dc *DoctorinfoCreate) createSpec() (*Doctorinfo, *sqlgraph.CreateSpec) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: prename.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges = append(_spec.Edges, edge)
-	}
-	if nodes := dc.mutation.UserIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2O,
-			Inverse: true,
-			Table:   doctorinfo.UserTable,
-			Columns: []string{doctorinfo.UserColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: user.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges = append(_spec.Edges, edge)
-	}
-	if nodes := dc.mutation.RegistrarIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: true,
-			Table:   doctorinfo.RegistrarTable,
-			Columns: []string{doctorinfo.RegistrarColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: registrar.FieldID,
 				},
 			},
 		}

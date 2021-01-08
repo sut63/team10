@@ -209,34 +209,6 @@ func NameContainsFold(v string) predicate.Registrar {
 	})
 }
 
-// HasRegistrar2doctorinfo applies the HasEdge predicate on the "registrar2doctorinfo" edge.
-func HasRegistrar2doctorinfo() predicate.Registrar {
-	return predicate.Registrar(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(Registrar2doctorinfoTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, Registrar2doctorinfoTable, Registrar2doctorinfoColumn),
-		)
-		sqlgraph.HasNeighbors(s, step)
-	})
-}
-
-// HasRegistrar2doctorinfoWith applies the HasEdge predicate on the "registrar2doctorinfo" edge with a given conditions (other predicates).
-func HasRegistrar2doctorinfoWith(preds ...predicate.Doctorinfo) predicate.Registrar {
-	return predicate.Registrar(func(s *sql.Selector) {
-		step := sqlgraph.NewStep(
-			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(Registrar2doctorinfoInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, Registrar2doctorinfoTable, Registrar2doctorinfoColumn),
-		)
-		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
-			for _, p := range preds {
-				p(s)
-			}
-		})
-	})
-}
-
 // HasUser applies the HasEdge predicate on the "user" edge.
 func HasUser() predicate.Registrar {
 	return predicate.Registrar(func(s *sql.Selector) {

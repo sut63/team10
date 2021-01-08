@@ -14,10 +14,6 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    EntDoctorinfo,
-    EntDoctorinfoFromJSON,
-    EntDoctorinfoFromJSONTyped,
-    EntDoctorinfoToJSON,
     EntUser,
     EntUserFromJSON,
     EntUserFromJSONTyped,
@@ -30,12 +26,6 @@ import {
  * @interface EntRegistrarEdges
  */
 export interface EntRegistrarEdges {
-    /**
-     * Registrar2doctorinfo holds the value of the registrar2doctorinfo edge.
-     * @type {Array<EntDoctorinfo>}
-     * @memberof EntRegistrarEdges
-     */
-    registrar2doctorinfo?: Array<EntDoctorinfo>;
     /**
      * 
      * @type {EntUser}
@@ -54,7 +44,6 @@ export function EntRegistrarEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'registrar2doctorinfo': !exists(json, 'registrar2doctorinfo') ? undefined : ((json['registrar2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
         'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
     };
 }
@@ -68,7 +57,6 @@ export function EntRegistrarEdgesToJSON(value?: EntRegistrarEdges | null): any {
     }
     return {
         
-        'registrar2doctorinfo': value.registrar2doctorinfo === undefined ? undefined : ((value.registrar2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
         'user': EntUserToJSON(value.user),
     };
 }

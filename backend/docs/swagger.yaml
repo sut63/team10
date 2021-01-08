@@ -29,12 +29,8 @@ definitions:
         type: integer
       prename:
         type: integer
-      registrar:
-        type: integer
       telephonenumber:
         type: string
-      user:
-        type: integer
     type: object
   controllers.Historytaking:
     properties:
@@ -255,19 +251,11 @@ definitions:
         $ref: '#/definitions/ent.Prename'
         description: Prename holds the value of the prename edge.
         type: object
-      registrar:
-        $ref: '#/definitions/ent.Registrar'
-        description: Registrar holds the value of the registrar edge.
-        type: object
       treatment:
         description: Treatment holds the value of the treatment edge.
         items:
           $ref: '#/definitions/ent.Treatment'
         type: array
-      user:
-        $ref: '#/definitions/ent.User'
-        description: User holds the value of the user edge.
-        type: object
     type: object
   ent.Educationlevel:
     properties:
@@ -740,12 +728,6 @@ definitions:
     type: object
   ent.RegistrarEdges:
     properties:
-      registrar2doctorinfo:
-        description: Registrar2doctorinfo holds the value of the registrar2doctorinfo
-          edge.
-        items:
-          $ref: '#/definitions/ent.Doctorinfo'
-        type: array
       user:
         $ref: '#/definitions/ent.User'
         description: User holds the value of the user edge.
@@ -892,10 +874,6 @@ definitions:
         $ref: '#/definitions/ent.Medicalrecordstaff'
         description: Medicalrecordstaff holds the value of the medicalrecordstaff
           edge.
-        type: object
-      user2doctorinfo:
-        $ref: '#/definitions/ent.Doctorinfo'
-        description: User2doctorinfo holds the value of the user2doctorinfo edge.
         type: object
       user2registrar:
         $ref: '#/definitions/ent.Registrar'

@@ -1639,10 +1639,6 @@ type DoctorinfoMutation struct {
 	clearedofficeroom     bool
 	prename               *int
 	clearedprename        bool
-	user                  *int
-	cleareduser           bool
-	registrar             *int
-	clearedregistrar      bool
 	treatment             map[int]struct{}
 	removedtreatment      map[int]struct{}
 	done                  bool
@@ -2032,84 +2028,6 @@ func (m *DoctorinfoMutation) ResetPrename() {
 	m.clearedprename = false
 }
 
-// SetUserID sets the user edge to User by id.
-func (m *DoctorinfoMutation) SetUserID(id int) {
-	m.user = &id
-}
-
-// ClearUser clears the user edge to User.
-func (m *DoctorinfoMutation) ClearUser() {
-	m.cleareduser = true
-}
-
-// UserCleared returns if the edge user was cleared.
-func (m *DoctorinfoMutation) UserCleared() bool {
-	return m.cleareduser
-}
-
-// UserID returns the user id in the mutation.
-func (m *DoctorinfoMutation) UserID() (id int, exists bool) {
-	if m.user != nil {
-		return *m.user, true
-	}
-	return
-}
-
-// UserIDs returns the user ids in the mutation.
-// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
-// UserID instead. It exists only for internal usage by the builders.
-func (m *DoctorinfoMutation) UserIDs() (ids []int) {
-	if id := m.user; id != nil {
-		ids = append(ids, *id)
-	}
-	return
-}
-
-// ResetUser reset all changes of the "user" edge.
-func (m *DoctorinfoMutation) ResetUser() {
-	m.user = nil
-	m.cleareduser = false
-}
-
-// SetRegistrarID sets the registrar edge to Registrar by id.
-func (m *DoctorinfoMutation) SetRegistrarID(id int) {
-	m.registrar = &id
-}
-
-// ClearRegistrar clears the registrar edge to Registrar.
-func (m *DoctorinfoMutation) ClearRegistrar() {
-	m.clearedregistrar = true
-}
-
-// RegistrarCleared returns if the edge registrar was cleared.
-func (m *DoctorinfoMutation) RegistrarCleared() bool {
-	return m.clearedregistrar
-}
-
-// RegistrarID returns the registrar id in the mutation.
-func (m *DoctorinfoMutation) RegistrarID() (id int, exists bool) {
-	if m.registrar != nil {
-		return *m.registrar, true
-	}
-	return
-}
-
-// RegistrarIDs returns the registrar ids in the mutation.
-// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
-// RegistrarID instead. It exists only for internal usage by the builders.
-func (m *DoctorinfoMutation) RegistrarIDs() (ids []int) {
-	if id := m.registrar; id != nil {
-		ids = append(ids, *id)
-	}
-	return
-}
-
-// ResetRegistrar reset all changes of the "registrar" edge.
-func (m *DoctorinfoMutation) ResetRegistrar() {
-	m.registrar = nil
-	m.clearedregistrar = false
-}
-
 // AddTreatmentIDs adds the treatment edge to Treatment by ids.
 func (m *DoctorinfoMutation) AddTreatmentIDs(ids ...int) {
 	if m.treatment == nil {
@@ -2318,7 +2236,7 @@ func (m *DoctorinfoMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this
 // mutation.
 func (m *DoctorinfoMutation) AddedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 5)
 	if m.department != nil {
 		edges = append(edges, doctorinfo.EdgeDepartment)
 	}
@@ -2330,12 +2248,6 @@ func (m *DoctorinfoMutation) AddedEdges() []string {
 	}
 	if m.prename != nil {
 		edges = append(edges, doctorinfo.EdgePrename)
-	}
-	if m.user != nil {
-		edges = append(edges, doctorinfo.EdgeUser)
-	}
-	if m.registrar != nil {
-		edges = append(edges, doctorinfo.EdgeRegistrar)
 	}
 	if m.treatment != nil {
 		edges = append(edges, doctorinfo.EdgeTreatment)
@@ -2363,14 +2275,6 @@ func (m *DoctorinfoMutation) AddedIDs(name string) []ent.Value {
 		if id := m.prename; id != nil {
 			return []ent.Value{*id}
 		}
-	case doctorinfo.EdgeUser:
-		if id := m.user; id != nil {
-			return []ent.Value{*id}
-		}
-	case doctorinfo.EdgeRegistrar:
-		if id := m.registrar; id != nil {
-			return []ent.Value{*id}
-		}
 	case doctorinfo.EdgeTreatment:
 		ids := make([]ent.Value, 0, len(m.treatment))
 		for id := range m.treatment {
@@ -2384,7 +2288,7 @@ func (m *DoctorinfoMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this
 // mutation.
 func (m *DoctorinfoMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 5)
 	if m.removedtreatment != nil {
 		edges = append(edges, doctorinfo.EdgeTreatment)
 	}
@@ -2408,7 +2312,7 @@ func (m *DoctorinfoMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this
 // mutation.
 func (m *DoctorinfoMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 5)
 	if m.cleareddepartment {
 		edges = append(edges, doctorinfo.EdgeDepartment)
 	}
@@ -2420,12 +2324,6 @@ func (m *DoctorinfoMutation) ClearedEdges() []string {
 	}
 	if m.clearedprename {
 		edges = append(edges, doctorinfo.EdgePrename)
-	}
-	if m.cleareduser {
-		edges = append(edges, doctorinfo.EdgeUser)
-	}
-	if m.clearedregistrar {
-		edges = append(edges, doctorinfo.EdgeRegistrar)
 	}
 	return edges
 }
@@ -2442,10 +2340,6 @@ func (m *DoctorinfoMutation) EdgeCleared(name string) bool {
 		return m.clearedofficeroom
 	case doctorinfo.EdgePrename:
 		return m.clearedprename
-	case doctorinfo.EdgeUser:
-		return m.cleareduser
-	case doctorinfo.EdgeRegistrar:
-		return m.clearedregistrar
 	}
 	return false
 }
@@ -2465,12 +2359,6 @@ func (m *DoctorinfoMutation) ClearEdge(name string) error {
 		return nil
 	case doctorinfo.EdgePrename:
 		m.ClearPrename()
-		return nil
-	case doctorinfo.EdgeUser:
-		m.ClearUser()
-		return nil
-	case doctorinfo.EdgeRegistrar:
-		m.ClearRegistrar()
 		return nil
 	}
 	return fmt.Errorf("unknown Doctorinfo unique edge %s", name)
@@ -2492,12 +2380,6 @@ func (m *DoctorinfoMutation) ResetEdge(name string) error {
 		return nil
 	case doctorinfo.EdgePrename:
 		m.ResetPrename()
-		return nil
-	case doctorinfo.EdgeUser:
-		m.ResetUser()
-		return nil
-	case doctorinfo.EdgeRegistrar:
-		m.ResetRegistrar()
 		return nil
 	case doctorinfo.EdgeTreatment:
 		m.ResetTreatment()
@@ -9822,17 +9704,15 @@ func (m *PrenameMutation) ResetEdge(name string) error {
 // nodes in the graph.
 type RegistrarMutation struct {
 	config
-	op                          Op
-	typ                         string
-	id                          *int
-	_Name                       *string
-	clearedFields               map[string]struct{}
-	registrar2doctorinfo        map[int]struct{}
-	removedregistrar2doctorinfo map[int]struct{}
-	user                        *int
-	cleareduser                 bool
-	done                        bool
-	oldValue                    func(context.Context) (*Registrar, error)
+	op            Op
+	typ           string
+	id            *int
+	_Name         *string
+	clearedFields map[string]struct{}
+	user          *int
+	cleareduser   bool
+	done          bool
+	oldValue      func(context.Context) (*Registrar, error)
 }
 
 var _ ent.Mutation = (*RegistrarMutation)(nil)
@@ -9949,48 +9829,6 @@ func (m *RegistrarMutation) OldName(ctx context.Context) (v string, err error) {
 // ResetName reset all changes of the "Name" field.
 func (m *RegistrarMutation) ResetName() {
 	m._Name = nil
-}
-
-// AddRegistrar2doctorinfoIDs adds the registrar2doctorinfo edge to Doctorinfo by ids.
-func (m *RegistrarMutation) AddRegistrar2doctorinfoIDs(ids ...int) {
-	if m.registrar2doctorinfo == nil {
-		m.registrar2doctorinfo = make(map[int]struct{})
-	}
-	for i := range ids {
-		m.registrar2doctorinfo[ids[i]] = struct{}{}
-	}
-}
-
-// RemoveRegistrar2doctorinfoIDs removes the registrar2doctorinfo edge to Doctorinfo by ids.
-func (m *RegistrarMutation) RemoveRegistrar2doctorinfoIDs(ids ...int) {
-	if m.removedregistrar2doctorinfo == nil {
-		m.removedregistrar2doctorinfo = make(map[int]struct{})
-	}
-	for i := range ids {
-		m.removedregistrar2doctorinfo[ids[i]] = struct{}{}
-	}
-}
-
-// RemovedRegistrar2doctorinfo returns the removed ids of registrar2doctorinfo.
-func (m *RegistrarMutation) RemovedRegistrar2doctorinfoIDs() (ids []int) {
-	for id := range m.removedregistrar2doctorinfo {
-		ids = append(ids, id)
-	}
-	return
-}
-
-// Registrar2doctorinfoIDs returns the registrar2doctorinfo ids in the mutation.
-func (m *RegistrarMutation) Registrar2doctorinfoIDs() (ids []int) {
-	for id := range m.registrar2doctorinfo {
-		ids = append(ids, id)
-	}
-	return
-}
-
-// ResetRegistrar2doctorinfo reset all changes of the "registrar2doctorinfo" edge.
-func (m *RegistrarMutation) ResetRegistrar2doctorinfo() {
-	m.registrar2doctorinfo = nil
-	m.removedregistrar2doctorinfo = nil
 }
 
 // SetUserID sets the user edge to User by id.
@@ -10147,10 +9985,7 @@ func (m *RegistrarMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this
 // mutation.
 func (m *RegistrarMutation) AddedEdges() []string {
-	edges := make([]string, 0, 2)
-	if m.registrar2doctorinfo != nil {
-		edges = append(edges, registrar.EdgeRegistrar2doctorinfo)
-	}
+	edges := make([]string, 0, 1)
 	if m.user != nil {
 		edges = append(edges, registrar.EdgeUser)
 	}
@@ -10161,12 +9996,6 @@ func (m *RegistrarMutation) AddedEdges() []string {
 // the given edge name.
 func (m *RegistrarMutation) AddedIDs(name string) []ent.Value {
 	switch name {
-	case registrar.EdgeRegistrar2doctorinfo:
-		ids := make([]ent.Value, 0, len(m.registrar2doctorinfo))
-		for id := range m.registrar2doctorinfo {
-			ids = append(ids, id)
-		}
-		return ids
 	case registrar.EdgeUser:
 		if id := m.user; id != nil {
 			return []ent.Value{*id}
@@ -10178,10 +10007,7 @@ func (m *RegistrarMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this
 // mutation.
 func (m *RegistrarMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 2)
-	if m.removedregistrar2doctorinfo != nil {
-		edges = append(edges, registrar.EdgeRegistrar2doctorinfo)
-	}
+	edges := make([]string, 0, 1)
 	return edges
 }
 
@@ -10189,12 +10015,6 @@ func (m *RegistrarMutation) RemovedEdges() []string {
 // the given edge name.
 func (m *RegistrarMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
-	case registrar.EdgeRegistrar2doctorinfo:
-		ids := make([]ent.Value, 0, len(m.removedregistrar2doctorinfo))
-		for id := range m.removedregistrar2doctorinfo {
-			ids = append(ids, id)
-		}
-		return ids
 	}
 	return nil
 }
@@ -10202,7 +10022,7 @@ func (m *RegistrarMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this
 // mutation.
 func (m *RegistrarMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 2)
+	edges := make([]string, 0, 1)
 	if m.cleareduser {
 		edges = append(edges, registrar.EdgeUser)
 	}
@@ -10235,9 +10055,6 @@ func (m *RegistrarMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *RegistrarMutation) ResetEdge(name string) error {
 	switch name {
-	case registrar.EdgeRegistrar2doctorinfo:
-		m.ResetRegistrar2doctorinfo()
-		return nil
 	case registrar.EdgeUser:
 		m.ResetUser()
 		return nil
@@ -12014,8 +11831,6 @@ type UserMutation struct {
 	cleared_UserPatientrights bool
 	medicalrecordstaff        *int
 	clearedmedicalrecordstaff bool
-	user2doctorinfo           *int
-	cleareduser2doctorinfo    bool
 	user2registrar            *int
 	cleareduser2registrar     bool
 	userstatus                *int
@@ -12333,45 +12148,6 @@ func (m *UserMutation) ResetMedicalrecordstaff() {
 	m.clearedmedicalrecordstaff = false
 }
 
-// SetUser2doctorinfoID sets the user2doctorinfo edge to Doctorinfo by id.
-func (m *UserMutation) SetUser2doctorinfoID(id int) {
-	m.user2doctorinfo = &id
-}
-
-// ClearUser2doctorinfo clears the user2doctorinfo edge to Doctorinfo.
-func (m *UserMutation) ClearUser2doctorinfo() {
-	m.cleareduser2doctorinfo = true
-}
-
-// User2doctorinfoCleared returns if the edge user2doctorinfo was cleared.
-func (m *UserMutation) User2doctorinfoCleared() bool {
-	return m.cleareduser2doctorinfo
-}
-
-// User2doctorinfoID returns the user2doctorinfo id in the mutation.
-func (m *UserMutation) User2doctorinfoID() (id int, exists bool) {
-	if m.user2doctorinfo != nil {
-		return *m.user2doctorinfo, true
-	}
-	return
-}
-
-// User2doctorinfoIDs returns the user2doctorinfo ids in the mutation.
-// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
-// User2doctorinfoID instead. It exists only for internal usage by the builders.
-func (m *UserMutation) User2doctorinfoIDs() (ids []int) {
-	if id := m.user2doctorinfo; id != nil {
-		ids = append(ids, *id)
-	}
-	return
-}
-
-// ResetUser2doctorinfo reset all changes of the "user2doctorinfo" edge.
-func (m *UserMutation) ResetUser2doctorinfo() {
-	m.user2doctorinfo = nil
-	m.cleareduser2doctorinfo = false
-}
-
 // SetUser2registrarID sets the user2registrar edge to Registrar by id.
 func (m *UserMutation) SetUser2registrarID(id int) {
 	m.user2registrar = &id
@@ -12582,7 +12358,7 @@ func (m *UserMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this
 // mutation.
 func (m *UserMutation) AddedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 6)
 	if m.financier != nil {
 		edges = append(edges, user.EdgeFinancier)
 	}
@@ -12594,9 +12370,6 @@ func (m *UserMutation) AddedEdges() []string {
 	}
 	if m.medicalrecordstaff != nil {
 		edges = append(edges, user.EdgeMedicalrecordstaff)
-	}
-	if m.user2doctorinfo != nil {
-		edges = append(edges, user.EdgeUser2doctorinfo)
 	}
 	if m.user2registrar != nil {
 		edges = append(edges, user.EdgeUser2registrar)
@@ -12627,10 +12400,6 @@ func (m *UserMutation) AddedIDs(name string) []ent.Value {
 		if id := m.medicalrecordstaff; id != nil {
 			return []ent.Value{*id}
 		}
-	case user.EdgeUser2doctorinfo:
-		if id := m.user2doctorinfo; id != nil {
-			return []ent.Value{*id}
-		}
 	case user.EdgeUser2registrar:
 		if id := m.user2registrar; id != nil {
 			return []ent.Value{*id}
@@ -12646,7 +12415,7 @@ func (m *UserMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this
 // mutation.
 func (m *UserMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 6)
 	return edges
 }
 
@@ -12661,7 +12430,7 @@ func (m *UserMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this
 // mutation.
 func (m *UserMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 7)
+	edges := make([]string, 0, 6)
 	if m.clearedfinancier {
 		edges = append(edges, user.EdgeFinancier)
 	}
@@ -12673,9 +12442,6 @@ func (m *UserMutation) ClearedEdges() []string {
 	}
 	if m.clearedmedicalrecordstaff {
 		edges = append(edges, user.EdgeMedicalrecordstaff)
-	}
-	if m.cleareduser2doctorinfo {
-		edges = append(edges, user.EdgeUser2doctorinfo)
 	}
 	if m.cleareduser2registrar {
 		edges = append(edges, user.EdgeUser2registrar)
@@ -12698,8 +12464,6 @@ func (m *UserMutation) EdgeCleared(name string) bool {
 		return m.cleared_UserPatientrights
 	case user.EdgeMedicalrecordstaff:
 		return m.clearedmedicalrecordstaff
-	case user.EdgeUser2doctorinfo:
-		return m.cleareduser2doctorinfo
 	case user.EdgeUser2registrar:
 		return m.cleareduser2registrar
 	case user.EdgeUserstatus:
@@ -12723,9 +12487,6 @@ func (m *UserMutation) ClearEdge(name string) error {
 		return nil
 	case user.EdgeMedicalrecordstaff:
 		m.ClearMedicalrecordstaff()
-		return nil
-	case user.EdgeUser2doctorinfo:
-		m.ClearUser2doctorinfo()
 		return nil
 	case user.EdgeUser2registrar:
 		m.ClearUser2registrar()
@@ -12753,9 +12514,6 @@ func (m *UserMutation) ResetEdge(name string) error {
 		return nil
 	case user.EdgeMedicalrecordstaff:
 		m.ResetMedicalrecordstaff()
-		return nil
-	case user.EdgeUser2doctorinfo:
-		m.ResetUser2doctorinfo()
 		return nil
 	case user.EdgeUser2registrar:
 		m.ResetUser2registrar()

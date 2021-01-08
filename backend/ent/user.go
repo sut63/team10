@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/nurse"
@@ -43,15 +42,13 @@ type UserEdges struct {
 	UserPatientrights *Patientrights
 	// Medicalrecordstaff holds the value of the medicalrecordstaff edge.
 	Medicalrecordstaff *Medicalrecordstaff
-	// User2doctorinfo holds the value of the user2doctorinfo edge.
-	User2doctorinfo *Doctorinfo
 	// User2registrar holds the value of the user2registrar edge.
 	User2registrar *Registrar
 	// Userstatus holds the value of the userstatus edge.
 	Userstatus *Userstatus
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [7]bool
+	loadedTypes [6]bool
 }
 
 // FinancierOrErr returns the Financier value or an error if the edge
@@ -110,24 +107,10 @@ func (e UserEdges) MedicalrecordstaffOrErr() (*Medicalrecordstaff, error) {
 	return nil, &NotLoadedError{edge: "medicalrecordstaff"}
 }
 
-// User2doctorinfoOrErr returns the User2doctorinfo value or an error if the edge
-// was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) User2doctorinfoOrErr() (*Doctorinfo, error) {
-	if e.loadedTypes[4] {
-		if e.User2doctorinfo == nil {
-			// The edge user2doctorinfo was loaded in eager-loading,
-			// but was not found.
-			return nil, &NotFoundError{label: doctorinfo.Label}
-		}
-		return e.User2doctorinfo, nil
-	}
-	return nil, &NotLoadedError{edge: "user2doctorinfo"}
-}
-
 // User2registrarOrErr returns the User2registrar value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e UserEdges) User2registrarOrErr() (*Registrar, error) {
-	if e.loadedTypes[5] {
+	if e.loadedTypes[4] {
 		if e.User2registrar == nil {
 			// The edge user2registrar was loaded in eager-loading,
 			// but was not found.
@@ -141,7 +124,7 @@ func (e UserEdges) User2registrarOrErr() (*Registrar, error) {
 // UserstatusOrErr returns the Userstatus value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e UserEdges) UserstatusOrErr() (*Userstatus, error) {
-	if e.loadedTypes[6] {
+	if e.loadedTypes[5] {
 		if e.Userstatus == nil {
 			// The edge userstatus was loaded in eager-loading,
 			// but was not found.
@@ -227,11 +210,6 @@ func (u *User) QueryUserPatientrights() *PatientrightsQuery {
 // QueryMedicalrecordstaff queries the medicalrecordstaff edge of the User.
 func (u *User) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
 	return (&UserClient{config: u.config}).QueryMedicalrecordstaff(u)
-}
-
-// QueryUser2doctorinfo queries the user2doctorinfo edge of the User.
-func (u *User) QueryUser2doctorinfo() *DoctorinfoQuery {
-	return (&UserClient{config: u.config}).QueryUser2doctorinfo(u)
 }
 
 // QueryUser2registrar queries the user2registrar edge of the User.
