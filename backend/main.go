@@ -496,8 +496,8 @@ func main() {
 	// Set Medicalrecordstaff Data
 	medicalrecordstaffs := Medicalrecordstaffs{
 		Medicalrecordstaff: []Medicalrecordstaff{
-			Medicalrecordstaff{"Phonrawin Kudthalaeng"},
-			Medicalrecordstaff{"Shin Sura"},
+			Medicalrecordstaff{"Phonrawin Kudthalaeng", 6},
+			Medicalrecordstaff{"Shin Sura", 7},
 		},
 	}
 
