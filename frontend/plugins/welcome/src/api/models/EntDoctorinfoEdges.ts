@@ -109,7 +109,7 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
         'officeroom': !exists(json, 'officeroom') ? undefined : EntOfficeroomFromJSON(json['officeroom']),
         'prename': !exists(json, 'prename') ? undefined : EntPrenameFromJSON(json['prename']),
         'registrar': !exists(json, 'registrar') ? undefined : EntRegistrarFromJSON(json['registrar']),
-        'treatment': !exists(json, 'treatment') ? undefined : ((json['treatment'] as Array<any>).map(EntTreatmentFromJSON)),
+        'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
         'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
     };
 }
