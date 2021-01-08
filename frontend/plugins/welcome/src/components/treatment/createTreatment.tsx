@@ -56,7 +56,7 @@ const createTreatment: FC<{}> = () => {
     const [treatments, setTreatments] = React.useState<EntTreatment[]>([]);
 
     const [treatmentes, settreatment] = React.useState(String);
-    const [datetreat, setdatetreat] = React.useState(String);
+    const [datetreat, setDatetreat] = React.useState(String);
     const [doctorinfoid, setdoctorinfoId] = React.useState(Number);
     const [patientrecordid, setpatientrecordId] = React.useState(Number);
     const [typetreatmentid, settypetreatmentId] = React.useState(Number);
@@ -77,8 +77,14 @@ const createTreatment: FC<{}> = () => {
             setLoading(false);
             setPatientrecords(res);
         };
+        const getTreatment = async () => {
+          const res = await http.listTreatment({ limit: 100, offset: 0 });
+          setLoading(false);
+          setTreatments(res);
+      };
         getPatientrecord();
         getTypetreatment();
+        getTreatment();
         getDocdorinfo();
     }, [loading]);
 
@@ -95,12 +101,12 @@ const createTreatment: FC<{}> = () => {
         setpatientrecordId(event.target.value as number);
       };
     const handleDatetimeChange = (event: any) => {
-        setdatetreat(event.target.value as string);
+        setDatetreat(event.target.value as string);
       };
       const createTreatment = async () => {
           const tm = {
             treatment: treatmentes,
-            date: datetreat + ":00+07:00",
+            datetreat: datetreat + ":00+07:00",
             typetreatment: typetreatmentid,
             doctorinfo: doctorinfoid,
             patientrecord: patientrecordid,
@@ -247,8 +253,8 @@ const createTreatment: FC<{}> = () => {
        <TableHead>
          <TableRow>
          <TableCell align="center" >เลขที่การรักษา</TableCell>
-         <TableCell align="center">ผู้รับการรักษา</TableCell>
          <TableCell align="center">แพทย์</TableCell>
+         <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
          <TableCell align="center">รูปแบบการรักษา</TableCell>
          <TableCell align="center">วันเวลาที่รักษา</TableCell>
          </TableRow>

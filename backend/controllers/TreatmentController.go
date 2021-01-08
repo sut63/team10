@@ -127,6 +127,9 @@ func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
 	}
 	tm, err := ctl.client.Treatment.
 		Query().
+		WithDoctorinfo().
+		WithTypetreatment().
+		WithPatientrecord().
 		Where(treatment.IDEQ(int(id))).
 		Only(context.Background())
 
