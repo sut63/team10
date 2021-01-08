@@ -190,13 +190,16 @@ export  default  function Create() {
                 value={prenameid}
                 onChange={PrenamehandleChange}
               >
-              {prename.map(item => {
+              {prename.filter((p) => {return p.id > 2 } ).map(item => (
+              <MenuItem value={item.id}>{item.prefix}</MenuItem> 
+              ))}                
+              /* {prename.map(item => {
                 return (
                   <MenuItem value={item.id}>
                   {item.prefix}
                   </MenuItem>
                   );
-                })}
+                })} */
               </Select>
               </FormControl> &emsp;
 
