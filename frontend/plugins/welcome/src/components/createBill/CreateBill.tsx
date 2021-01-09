@@ -2,6 +2,7 @@ import React, { useEffect ,FC } from 'react';
 import { Content, Header, Page, pageTheme, } from '@backstage/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {Grid,MenuItem,Button,TextField,FormControl,Select, Typography} from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
 
 import { Alert } from '@material-ui/lab';
 import Paper from '@material-ui/core/Paper';
@@ -56,7 +57,7 @@ const CreateBill: FC<{}> = () => {
     const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
     const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
     const [amounts, setamount] = React.useState(String);
-    const [datetime, setDatetime] = React.useState(String);
+    
     const [paytypeid, setpaytypeId] = React.useState(Number);
     const [financierid, setfinancierId] = React.useState(Number);
     const [unpayid, setunpayId] = React.useState(Number);
@@ -102,13 +103,10 @@ const CreateBill: FC<{}> = () => {
     const AmounthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setamount(event.target.value as string);
       };
-    const handleDatetimeChange = (event: any) => {
-        setDatetime(event.target.value as string);
-      };
+   
       const CreatePayment = async () => {
           const b = {
             amount: amounts,
-            date: datetime + ":00+07:00",
             financier: financierid,
             paytype: paytypeid,
             unpaybill: unpayid,
@@ -117,11 +115,12 @@ const CreateBill: FC<{}> = () => {
               id: unpayid,
           }
           console.log(b);
-          await http.updateUnpaybill({id:unpayid,unpaybill:upb});
           const res: any = await http.createBill({ bill : b });
           setStatus(true);
           if (res.id != '') {
             setAlert(true);
+            await http.updateUnpaybill({id:unpayid,unpaybill:upb});
+
           } else {
             setAlert(false);
           }
@@ -207,19 +206,6 @@ const CreateBill: FC<{}> = () => {
                         </Select>
                 </FormControl>
                 <br/>
-                <Typography align = "center"variant = "h6">
-                        <br/>วันเวลาที่ชำระ
-                        </Typography>
-                <TextField
-                    className={classes.formControl}
-                    id="datetime"
-                    type="datetime-local"
-                    value={datetime}
-                    onChange={handleDatetimeChange}
-                    InputLabelProps={{
-                     shrink: true,
-                     }}
-                 />
                 <Typography align ="center">
                 <br/>
                 <Button
@@ -227,11 +213,11 @@ const CreateBill: FC<{}> = () => {
                             CreatePayment();
                             refreshPage();
                           }}
-                          
+                          startIcon={<SaveIcon />}
                           variant="contained"
                           color="primary"
                         >
-                         Save   
+                         บันทึกใบเสร็จ   
                 </Button>
                 </Typography> 
             </Typography>
