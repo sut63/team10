@@ -90,12 +90,12 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		return
 	}
 
+	timess := time.Now().Local()
 	times, err := time.Parse(time.RFC3339, obj.Birthday)
-	timess, err := time.Parse(time.RFC3339, obj.Date)
+	t := time.Date(times.Year(), times.Month(), times.Day(), 0, 0, 0, 00000000, time.UTC)
 
 	id, err := strconv.Atoi(obj.Idcardnumber)
 	a, err := strconv.Atoi(obj.Age)
-	phn, err := strconv.Atoi(obj.Phonenumber)
 
 	pr, err := ctl.client.Patientrecord.
 		Create().
@@ -105,11 +105,11 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		SetName(obj.Name).
 		SetIdcardnumber(id).
 		SetAge(a).
-		SetBirthday(times).
+		SetBirthday(t).
 		SetBloodtype(obj.Bloodtype).
 		SetDisease(obj.Disease).
 		SetAllergic(obj.Allergic).
-		SetPhonenumber(phn).
+		SetPhonenumber(obj.Phonenumber).
 		SetEmail(obj.Email).
 		SetHome(obj.Home).
 		SetDate(timess).

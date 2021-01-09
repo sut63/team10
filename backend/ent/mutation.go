@@ -6512,8 +6512,7 @@ type PatientrecordMutation struct {
 	_Bloodtype                         *string
 	_Disease                           *string
 	_Allergic                          *string
-	_Phonenumber                       *int
-	add_Phonenumber                    *int
+	_Phonenumber                       *string
 	_Email                             *string
 	_Home                              *string
 	_Date                              *time.Time
@@ -6913,13 +6912,12 @@ func (m *PatientrecordMutation) ResetAllergic() {
 }
 
 // SetPhonenumber sets the Phonenumber field.
-func (m *PatientrecordMutation) SetPhonenumber(i int) {
-	m._Phonenumber = &i
-	m.add_Phonenumber = nil
+func (m *PatientrecordMutation) SetPhonenumber(s string) {
+	m._Phonenumber = &s
 }
 
 // Phonenumber returns the Phonenumber value in the mutation.
-func (m *PatientrecordMutation) Phonenumber() (r int, exists bool) {
+func (m *PatientrecordMutation) Phonenumber() (r string, exists bool) {
 	v := m._Phonenumber
 	if v == nil {
 		return
@@ -6931,7 +6929,7 @@ func (m *PatientrecordMutation) Phonenumber() (r int, exists bool) {
 // If the Patientrecord object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *PatientrecordMutation) OldPhonenumber(ctx context.Context) (v int, err error) {
+func (m *PatientrecordMutation) OldPhonenumber(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldPhonenumber is allowed only on UpdateOne operations")
 	}
@@ -6945,28 +6943,9 @@ func (m *PatientrecordMutation) OldPhonenumber(ctx context.Context) (v int, err 
 	return oldValue.Phonenumber, nil
 }
 
-// AddPhonenumber adds i to Phonenumber.
-func (m *PatientrecordMutation) AddPhonenumber(i int) {
-	if m.add_Phonenumber != nil {
-		*m.add_Phonenumber += i
-	} else {
-		m.add_Phonenumber = &i
-	}
-}
-
-// AddedPhonenumber returns the value that was added to the Phonenumber field in this mutation.
-func (m *PatientrecordMutation) AddedPhonenumber() (r int, exists bool) {
-	v := m.add_Phonenumber
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
 // ResetPhonenumber reset all changes of the "Phonenumber" field.
 func (m *PatientrecordMutation) ResetPhonenumber() {
 	m._Phonenumber = nil
-	m.add_Phonenumber = nil
 }
 
 // SetEmail sets the Email field.
@@ -7491,7 +7470,7 @@ func (m *PatientrecordMutation) SetField(name string, value ent.Value) error {
 		m.SetAllergic(v)
 		return nil
 	case patientrecord.FieldPhonenumber:
-		v, ok := value.(int)
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -7532,9 +7511,6 @@ func (m *PatientrecordMutation) AddedFields() []string {
 	if m.add_Age != nil {
 		fields = append(fields, patientrecord.FieldAge)
 	}
-	if m.add_Phonenumber != nil {
-		fields = append(fields, patientrecord.FieldPhonenumber)
-	}
 	return fields
 }
 
@@ -7547,8 +7523,6 @@ func (m *PatientrecordMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedIdcardnumber()
 	case patientrecord.FieldAge:
 		return m.AddedAge()
-	case patientrecord.FieldPhonenumber:
-		return m.AddedPhonenumber()
 	}
 	return nil, false
 }
@@ -7571,13 +7545,6 @@ func (m *PatientrecordMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddAge(v)
-		return nil
-	case patientrecord.FieldPhonenumber:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddPhonenumber(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Patientrecord numeric field %s", name)
