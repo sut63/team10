@@ -535,7 +535,7 @@ definitions:
         type: string
       Phonenumber:
         description: Phonenumber holds the value of the "Phonenumber" field.
-        type: string
+        type: integer
       edges:
         $ref: '#/definitions/ent.PatientrecordEdges'
         description: |-

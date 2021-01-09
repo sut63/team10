@@ -5189,7 +5189,7 @@ var doc = `{
                 },
                 "Phonenumber": {
                     "description": "Phonenumber holds the value of the \"Phonenumber\" field.",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "edges": {
                     "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the PatientrecordQuery when eager-loading is set.",

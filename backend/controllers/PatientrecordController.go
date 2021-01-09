@@ -96,6 +96,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 
 	id, err := strconv.Atoi(obj.Idcardnumber)
 	a, err := strconv.Atoi(obj.Age)
+	phn, err := strconv.Atoi(obj.Phonenumber)
 
 	pr, err := ctl.client.Patientrecord.
 		Create().
@@ -109,7 +110,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		SetBloodtype(obj.Bloodtype).
 		SetDisease(obj.Disease).
 		SetAllergic(obj.Allergic).
-		SetPhonenumber(obj.Phonenumber).
+		SetPhonenumber(phn).
 		SetEmail(obj.Email).
 		SetHome(obj.Home).
 		SetDate(timess).

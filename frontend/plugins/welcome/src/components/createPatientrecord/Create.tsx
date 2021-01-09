@@ -140,9 +140,6 @@ export  default  function Create() {
       const HomehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         sethome(event.target.value as string);
       };
-      const DatehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setdate(event.target.value as string);
-      };
     
       const CreatePatientrecord = async () => {
         const patientrecord = {
