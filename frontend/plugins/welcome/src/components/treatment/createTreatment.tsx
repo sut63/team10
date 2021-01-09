@@ -106,7 +106,7 @@ const createTreatment: FC<{}> = () => {
       const createTreatment = async () => {
           const tm = {
             treatment: treatmentes,
-            datetreat: datetreat + ":00+07:00",
+            datetreat: datetreat,
             typetreatment: typetreatmentid,
             doctorinfo: doctorinfoid,
             patientrecord: patientrecordid,
@@ -214,19 +214,7 @@ const createTreatment: FC<{}> = () => {
                         </Select>
                 </FormControl>
                 <br/>
-                <Typography align = "center"variant = "h6">
-                        <br/>วันเวลาที่รักษา
-                        </Typography>
-                <TextField
-                    className={classes.formControl}
-                    id="datetime"
-                    type="datetime-local"
-                    value={datetreat}
-                    onChange={handleDatetimeChange}
-                    InputLabelProps={{
-                     shrink: true,
-                     }}
-                 />
+              
                 <Typography align ="center">
                 <br/>
                 <Button

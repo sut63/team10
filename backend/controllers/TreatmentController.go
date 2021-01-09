@@ -79,12 +79,12 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
-	times, err := time.Parse(time.RFC3339, obj.Datetreat)
+	t := time.Now().Local()
 
 	tm, err := ctl.client.Treatment.
 		Create().
 		SetTreatment(obj.Treatment).
-		SetDatetreat(times).
+		SetDatetreat(t).
 		SetTypetreatment(ttm).
 		SetDoctorinfo(di).
 		SetPatientrecord(pr).

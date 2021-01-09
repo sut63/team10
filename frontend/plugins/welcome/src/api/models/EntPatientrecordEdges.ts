@@ -99,7 +99,7 @@ export function EntPatientrecordEdgesFromJSONTyped(json: any, ignoreDiscriminato
         'medicalrecordstaff': !exists(json, 'medicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['medicalrecordstaff']),
         'patientrecordPatientrights': !exists(json, 'patientrecordPatientrights') ? undefined : ((json['patientrecordPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
         'prename': !exists(json, 'prename') ? undefined : EntPrenameFromJSON(json['prename']),
-        'treatment': !exists(json, 'treatment') ? undefined : ((json['treatment'] as Array<any>).map(EntTreatmentFromJSON)),
+        'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
     };
 }
 

@@ -88,7 +88,7 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
         'educationlevel': !exists(json, 'educationlevel') ? undefined : EntEducationlevelFromJSON(json['educationlevel']),
         'officeroom': !exists(json, 'officeroom') ? undefined : EntOfficeroomFromJSON(json['officeroom']),
         'prename': !exists(json, 'prename') ? undefined : EntPrenameFromJSON(json['prename']),
-        'treatment': !exists(json, 'treatment') ? undefined : ((json['treatment'] as Array<any>).map(EntTreatmentFromJSON)),
+        'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
     };
 }
 

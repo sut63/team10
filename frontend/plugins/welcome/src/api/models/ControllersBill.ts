@@ -27,12 +27,6 @@ export interface ControllersBill {
     amount?: string;
     /**
      * 
-     * @type {string}
-     * @memberof ControllersBill
-     */
-    date?: string;
-    /**
-     * 
      * @type {number}
      * @memberof ControllersBill
      */
@@ -62,7 +56,6 @@ export function ControllersBillFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'amount': !exists(json, 'amount') ? undefined : json['amount'],
-        'date': !exists(json, 'date') ? undefined : json['date'],
         'financier': !exists(json, 'financier') ? undefined : json['financier'],
         'paytype': !exists(json, 'paytype') ? undefined : json['paytype'],
         'unpaybill': !exists(json, 'unpaybill') ? undefined : json['unpaybill'],
@@ -79,7 +72,6 @@ export function ControllersBillToJSON(value?: ControllersBill | null): any {
     return {
         
         'amount': value.amount,
-        'date': value.date,
         'financier': value.financier,
         'paytype': value.paytype,
         'unpaybill': value.unpaybill,
