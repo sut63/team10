@@ -88,10 +88,10 @@ export interface EntPatientrecord {
     name?: string;
     /**
      * Phonenumber holds the value of the "Phonenumber" field.
-     * @type {number}
+     * @type {string}
      * @memberof EntPatientrecord
      */
-    phonenumber?: number;
+    phonenumber?: string;
     /**
      * 
      * @type {EntPatientrecordEdges}

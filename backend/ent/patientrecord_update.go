@@ -91,15 +91,8 @@ func (pu *PatientrecordUpdate) SetAllergic(s string) *PatientrecordUpdate {
 }
 
 // SetPhonenumber sets the Phonenumber field.
-func (pu *PatientrecordUpdate) SetPhonenumber(i int) *PatientrecordUpdate {
-	pu.mutation.ResetPhonenumber()
-	pu.mutation.SetPhonenumber(i)
-	return pu
-}
-
-// AddPhonenumber adds i to Phonenumber.
-func (pu *PatientrecordUpdate) AddPhonenumber(i int) *PatientrecordUpdate {
-	pu.mutation.AddPhonenumber(i)
+func (pu *PatientrecordUpdate) SetPhonenumber(s string) *PatientrecordUpdate {
+	pu.mutation.SetPhonenumber(s)
 	return pu
 }
 
@@ -426,14 +419,7 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := pu.mutation.Phonenumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: patientrecord.FieldPhonenumber,
-		})
-	}
-	if value, ok := pu.mutation.AddedPhonenumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldPhonenumber,
 		})
@@ -753,15 +739,8 @@ func (puo *PatientrecordUpdateOne) SetAllergic(s string) *PatientrecordUpdateOne
 }
 
 // SetPhonenumber sets the Phonenumber field.
-func (puo *PatientrecordUpdateOne) SetPhonenumber(i int) *PatientrecordUpdateOne {
-	puo.mutation.ResetPhonenumber()
-	puo.mutation.SetPhonenumber(i)
-	return puo
-}
-
-// AddPhonenumber adds i to Phonenumber.
-func (puo *PatientrecordUpdateOne) AddPhonenumber(i int) *PatientrecordUpdateOne {
-	puo.mutation.AddPhonenumber(i)
+func (puo *PatientrecordUpdateOne) SetPhonenumber(s string) *PatientrecordUpdateOne {
+	puo.mutation.SetPhonenumber(s)
 	return puo
 }
 
@@ -1086,14 +1065,7 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 	}
 	if value, ok := puo.mutation.Phonenumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: patientrecord.FieldPhonenumber,
-		})
-	}
-	if value, ok := puo.mutation.AddedPhonenumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldPhonenumber,
 		})

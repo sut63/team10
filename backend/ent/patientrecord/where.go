@@ -143,7 +143,7 @@ func Allergic(v string) predicate.Patientrecord {
 }
 
 // Phonenumber applies equality check predicate on the "Phonenumber" field. It's identical to PhonenumberEQ.
-func Phonenumber(v int) predicate.Patientrecord {
+func Phonenumber(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldPhonenumber), v))
 	})
@@ -843,21 +843,21 @@ func AllergicContainsFold(v string) predicate.Patientrecord {
 }
 
 // PhonenumberEQ applies the EQ predicate on the "Phonenumber" field.
-func PhonenumberEQ(v int) predicate.Patientrecord {
+func PhonenumberEQ(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldPhonenumber), v))
 	})
 }
 
 // PhonenumberNEQ applies the NEQ predicate on the "Phonenumber" field.
-func PhonenumberNEQ(v int) predicate.Patientrecord {
+func PhonenumberNEQ(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldPhonenumber), v))
 	})
 }
 
 // PhonenumberIn applies the In predicate on the "Phonenumber" field.
-func PhonenumberIn(vs ...int) predicate.Patientrecord {
+func PhonenumberIn(vs ...string) predicate.Patientrecord {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -874,7 +874,7 @@ func PhonenumberIn(vs ...int) predicate.Patientrecord {
 }
 
 // PhonenumberNotIn applies the NotIn predicate on the "Phonenumber" field.
-func PhonenumberNotIn(vs ...int) predicate.Patientrecord {
+func PhonenumberNotIn(vs ...string) predicate.Patientrecord {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -891,30 +891,65 @@ func PhonenumberNotIn(vs ...int) predicate.Patientrecord {
 }
 
 // PhonenumberGT applies the GT predicate on the "Phonenumber" field.
-func PhonenumberGT(v int) predicate.Patientrecord {
+func PhonenumberGT(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldPhonenumber), v))
 	})
 }
 
 // PhonenumberGTE applies the GTE predicate on the "Phonenumber" field.
-func PhonenumberGTE(v int) predicate.Patientrecord {
+func PhonenumberGTE(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldPhonenumber), v))
 	})
 }
 
 // PhonenumberLT applies the LT predicate on the "Phonenumber" field.
-func PhonenumberLT(v int) predicate.Patientrecord {
+func PhonenumberLT(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldPhonenumber), v))
 	})
 }
 
 // PhonenumberLTE applies the LTE predicate on the "Phonenumber" field.
-func PhonenumberLTE(v int) predicate.Patientrecord {
+func PhonenumberLTE(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldPhonenumber), v))
+	})
+}
+
+// PhonenumberContains applies the Contains predicate on the "Phonenumber" field.
+func PhonenumberContains(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldPhonenumber), v))
+	})
+}
+
+// PhonenumberHasPrefix applies the HasPrefix predicate on the "Phonenumber" field.
+func PhonenumberHasPrefix(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldPhonenumber), v))
+	})
+}
+
+// PhonenumberHasSuffix applies the HasSuffix predicate on the "Phonenumber" field.
+func PhonenumberHasSuffix(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldPhonenumber), v))
+	})
+}
+
+// PhonenumberEqualFold applies the EqualFold predicate on the "Phonenumber" field.
+func PhonenumberEqualFold(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldPhonenumber), v))
+	})
+}
+
+// PhonenumberContainsFold applies the ContainsFold predicate on the "Phonenumber" field.
+func PhonenumberContainsFold(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldPhonenumber), v))
 	})
 }
 

@@ -69,8 +69,8 @@ func (pc *PatientrecordCreate) SetAllergic(s string) *PatientrecordCreate {
 }
 
 // SetPhonenumber sets the Phonenumber field.
-func (pc *PatientrecordCreate) SetPhonenumber(i int) *PatientrecordCreate {
-	pc.mutation.SetPhonenumber(i)
+func (pc *PatientrecordCreate) SetPhonenumber(s string) *PatientrecordCreate {
+	pc.mutation.SetPhonenumber(s)
 	return pc
 }
 
@@ -352,7 +352,7 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 	}
 	if value, ok := pc.mutation.Phonenumber(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldPhonenumber,
 		})

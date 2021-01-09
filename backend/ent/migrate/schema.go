@@ -296,7 +296,7 @@ var (
 		{Name: "bloodtype", Type: field.TypeString},
 		{Name: "disease", Type: field.TypeString},
 		{Name: "allergic", Type: field.TypeString},
-		{Name: "phonenumber", Type: field.TypeInt},
+		{Name: "phonenumber", Type: field.TypeString},
 		{Name: "email", Type: field.TypeString},
 		{Name: "home", Type: field.TypeString},
 		{Name: "date", Type: field.TypeTime},

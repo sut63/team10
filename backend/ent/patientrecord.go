@@ -34,7 +34,7 @@ type Patientrecord struct {
 	// Allergic holds the value of the "Allergic" field.
 	Allergic string `json:"Allergic,omitempty"`
 	// Phonenumber holds the value of the "Phonenumber" field.
-	Phonenumber int `json:"Phonenumber,omitempty"`
+	Phonenumber string `json:"Phonenumber,omitempty"`
 	// Email holds the value of the "Email" field.
 	Email string `json:"Email,omitempty"`
 	// Home holds the value of the "Home" field.
@@ -148,7 +148,7 @@ func (*Patientrecord) scanValues() []interface{} {
 		&sql.NullString{}, // Bloodtype
 		&sql.NullString{}, // Disease
 		&sql.NullString{}, // Allergic
-		&sql.NullInt64{},  // Phonenumber
+		&sql.NullString{}, // Phonenumber
 		&sql.NullString{}, // Email
 		&sql.NullString{}, // Home
 		&sql.NullTime{},   // Date
@@ -211,10 +211,10 @@ func (pa *Patientrecord) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		pa.Allergic = value.String
 	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
+	if value, ok := values[7].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field Phonenumber", values[7])
 	} else if value.Valid {
-		pa.Phonenumber = int(value.Int64)
+		pa.Phonenumber = value.String
 	}
 	if value, ok := values[8].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field Email", values[8])
@@ -323,7 +323,7 @@ func (pa *Patientrecord) String() string {
 	builder.WriteString(", Allergic=")
 	builder.WriteString(pa.Allergic)
 	builder.WriteString(", Phonenumber=")
-	builder.WriteString(fmt.Sprintf("%v", pa.Phonenumber))
+	builder.WriteString(pa.Phonenumber)
 	builder.WriteString(", Email=")
 	builder.WriteString(pa.Email)
 	builder.WriteString(", Home=")

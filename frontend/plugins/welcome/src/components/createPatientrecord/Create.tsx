@@ -93,11 +93,13 @@ export  default  function Create() {
         console.log(res);
     };
     getMedicalrecordstaff();
-    }, [loading]);
     const getPatientrecord = async () => {
-        const res = await api.listPatientrecord({ limit: 10, offset: 0 });
-        setPatientrecord(res);
-      };
+      const res = await api.listPatientrecord({ limit: 10, offset: 0 });
+      setPatientrecord(res);
+    };
+    getPatientrecord();
+    }, [loading]);
+    
     //handle
     const PrenamehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setprenameId(event.target.value as number);
@@ -308,18 +310,6 @@ export  default  function Create() {
             />
             
             <div className={classes.paper}></div>
-            <TextField
-            className={classes.formControl}
-            name="date"
-            label="วันเวลาที่ลงทะเบียนผู้ป่วยนอก"
-            type="datetime-local"
-            value={date}
-            onChange={DatehandleChange}
-            InputLabelProps={{
-             shrink: true,
-             }}
-            />&emsp;
-
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel>พนักงานเวชระเบียน</InputLabel>
               <Select
