@@ -23,7 +23,6 @@ type BillController struct {
 // Bill defines the struct for the Bill entity
 type Bill struct {
 	Amount    string
-	Date      string
 	Paytype   int
 	Financier int
 	Unpaybill int
@@ -79,12 +78,12 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 		})
 		return
 	}
-	times, err := time.Parse(time.RFC3339, obj.Date)
+	t := time.Now().Local()
 
 	u, err := ctl.client.Bill.
 		Create().
 		SetAmount(obj.Amount).
-		SetDate(times).
+		SetDate(t).
 		SetPaytype(pt).
 		SetOfficer(f).
 		SetTreatment(ub).

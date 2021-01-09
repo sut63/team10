@@ -4481,9 +4481,6 @@ var doc = `{
                 "amount": {
                     "type": "string"
                 },
-                "date": {
-                    "type": "string"
-                },
                 "financier": {
                     "type": "integer"
                 },
