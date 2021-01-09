@@ -7,6 +7,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { Alert } from '@material-ui/lab';
 import Paper from '@material-ui/core/Paper';
 
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -49,23 +50,21 @@ const CreateBill: FC<{}> = () => {
     const http = new DefaultApi();
 
     const [status, setStatus] = React.useState(false);
-    const [alert, setAlert] = React.useState(true);
+    const [alert, setAlert] = React.useState(Boolean);
     const [loading, setLoading] = React.useState(true);
 
     const [paytypes, setPaytypes] = React.useState<EntPaytype[]>([]);
     const [financiers, setFinanciers] = React.useState<EntFinancier[]>([]);
     const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
     const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
+
+   
     const [amounts, setamount] = React.useState(String);
-    
     const [paytypeid, setpaytypeId] = React.useState(Number);
     const [financierid, setfinancierId] = React.useState(Number);
     const [unpayid, setunpayId] = React.useState(Number);
+    const [patientname, setPatient] = React.useState(String);
 
-
-    const refreshPage = ()=>{
-      window.location.reload();
-    }
 
     useEffect(() => {
         const getPaytype = async () => {
@@ -73,7 +72,7 @@ const CreateBill: FC<{}> = () => {
             setLoading(false);
             setPaytypes(res);
           };
-          const getUnpaybill = async () => {
+        const getUnpaybill = async () => {
             const res = await http.listUnpaybill();
             setLoading(false);
             setUnpaybills(res);
@@ -83,17 +82,22 @@ const CreateBill: FC<{}> = () => {
             setLoading(false);
             setFinanciers(res);
         };
+        const getTreatment = async () => {
+          const res = await http.listTreatment({ limit: 100, offset: 0 });
+          setLoading(false);
+          setTreatment(res);
+        };
         getFinancier();
         getUnpaybill();
         getPaytype();
         getTreatment();
     }, [loading]);
-    
-    const getTreatment = async () => {
-            const res = await http.listTreatment({ limit: 100, offset: 0 });
-            setLoading(false);
-            setTreatment(res);
-          };
+
+
+    const refreshPage = ()=>{
+      window.location.reload();
+    }
+
     const PaytypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setpaytypeId(event.target.value as number);
       };
@@ -104,7 +108,7 @@ const CreateBill: FC<{}> = () => {
         setamount(event.target.value as string);
       };
    
-      const CreatePayment = async () => {
+    const CreatePayment = async () => {
           const b = {
             amount: amounts,
             financier: financierid,
@@ -116,18 +120,21 @@ const CreateBill: FC<{}> = () => {
           }
           console.log(b);
           const res: any = await http.createBill({ bill : b });
+          
           setStatus(true);
           if (res.id != '') {
             setAlert(true);
             await http.updateUnpaybill({id:unpayid,unpaybill:upb});
-
+            refreshPage();
           } else {
             setAlert(false);
+            refreshPage();
           }
           setTimeout(() => {
             setStatus(false);
           }, 1000);
       };
+  
   return (
     <div>
     {status ? (
@@ -137,7 +144,7 @@ const CreateBill: FC<{}> = () => {
            บันทึกการชำระสำเร็จ
          </Alert>
        ) : (
-           <Alert severity="warning" style={{ marginTop: 20 }}>
+           <Alert severity="warning" >
              มีข้อผิดพลาด โปรดลองอีกครั้ง
            </Alert>
          )}
@@ -154,13 +161,11 @@ const CreateBill: FC<{}> = () => {
                   <Paper >
                 <Typography align ="center">
                     <Typography align = "center" variant = "h3">
-                      <br/>----  Create Bill  ----
+                      <br/> ใบเสร็จรับเงิน
                     </Typography>
                     <Typography align = "center" variant = "h6">
-                        <br/>เลขที่การรักษา
-                        </Typography>
-                        <Typography align = "center" variant = "subtitle2">
-                        <br/>เลขที่การรักษาที่เลือกชำระ {unpayid}
+                        <br/>เลขที่การรักษา : {unpayid}
+                        <br/>ผู้รับการรักษา : {patientname}
                         </Typography>
                   <FormControl className={classes.formControl}>
                         <Typography align = "center" variant = "h6">
@@ -211,7 +216,6 @@ const CreateBill: FC<{}> = () => {
                 <Button
                          onClick={() => {
                             CreatePayment();
-                            refreshPage();
                           }}
                           startIcon={<SaveIcon />}
                           variant="contained"
@@ -248,6 +252,7 @@ const CreateBill: FC<{}> = () => {
                         <Button
                          onClick={() => {
                             setunpayId(item.id as number);
+                            setPatient(item2.edges?.patientrecord?.name as string);
                           }}
                           variant="outlined"
                           color= "primary"
