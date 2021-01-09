@@ -4,8 +4,6 @@ definitions:
     properties:
       amount:
         type: string
-      date:
-        type: string
       financier:
         type: integer
       paytype:
