@@ -18,6 +18,7 @@ import { DefaultApi } from'../../api/apis';
 import { EntPaytype } from '../../api/models/EntPaytype';
 import { EntUnpaybill } from '../../api/models/EntUnpaybill';
 import { EntFinancier } from '../../api/models/EntFinancier';
+import { EntTreatment } from '../../api';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -53,12 +54,13 @@ const CreateBill: FC<{}> = () => {
     const [paytypes, setPaytypes] = React.useState<EntPaytype[]>([]);
     const [financiers, setFinanciers] = React.useState<EntFinancier[]>([]);
     const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
-
+    const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
     const [amounts, setamount] = React.useState(String);
     const [datetime, setDatetime] = React.useState(String);
     const [paytypeid, setpaytypeId] = React.useState(Number);
     const [financierid, setfinancierId] = React.useState(Number);
     const [unpayid, setunpayId] = React.useState(Number);
+
 
     const refreshPage = ()=>{
       window.location.reload();
@@ -83,8 +85,14 @@ const CreateBill: FC<{}> = () => {
         getFinancier();
         getUnpaybill();
         getPaytype();
+        getTreatment();
     }, [loading]);
-
+    
+    const getTreatment = async () => {
+            const res = await http.listTreatment({ limit: 100, offset: 0 });
+            setLoading(false);
+            setTreatment(res);
+          };
     const PaytypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setpaytypeId(event.target.value as number);
       };
@@ -240,16 +248,16 @@ const CreateBill: FC<{}> = () => {
          <TableRow>
          <TableCell align="center" >เลขที่การรักษา</TableCell>
          <TableCell align="center">ผู้รับการรักษา</TableCell>
-         <TableCell align="center">รูปแบบการรักษา</TableCell>
+         <TableCell align="center">ประเภทการรักษา</TableCell>
          <TableCell align="center">เรียกชำระเงิน</TableCell>
          </TableRow>
          </TableHead>
          <TableBody>
-                 {unpaybills.filter(b=>b.status === "Unpay").map(item =>(
+                 {unpaybills.map(item =>(treatments.filter(t=>t.id === item.edges?.treatment?.id).map(item2=>(
                 <TableRow key={item.id}>
-                    <TableCell align="center">{item.edges?.treatment?.id}</TableCell>
-                    <TableCell align="center">{item.edges?.treatment?.edges?.patientrecord?.name}</TableCell>
-                    <TableCell align="center">{item.edges?.treatment?.edges?.typetreatment?.typetreatment}</TableCell> 
+                    <TableCell align="center">{item2.id}</TableCell>
+                    <TableCell align="center">{item2.edges?.patientrecord?.name}</TableCell>
+                    <TableCell align="center">{item2.edges?.typetreatment?.typetreatment}</TableCell>
                     <TableCell align="center">
                         <Button
                          onClick={() => {
@@ -262,7 +270,7 @@ const CreateBill: FC<{}> = () => {
                         </Button>
                     </TableCell>
                 </TableRow>
-            ))}
+                 ))))}
          </TableBody>
          </Table>
         </TableContainer>
