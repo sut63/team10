@@ -26,18 +26,19 @@ const useStyles = makeStyles((theme: Theme) =>
         marginTop: theme.spacing(2),
       },
       formControl: {
-          width: 400,
+          width: 250,
         },
         selectEmpty: {
           marginTop: theme.spacing(1),
         },
         paper: {
+          minWidth: 400,
             padding: theme.spacing(2),
             textAlign: 'center',
             color: theme.palette.text.secondary,
           },
         table: {
-            minWidth: 650,
+            minWidth: 550,
           },
     }),
   );

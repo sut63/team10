@@ -6,8 +6,9 @@ import {
   Page,
   pageTheme,
   ContentHeader,
+  Button,
 } from '@backstage/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,Theme ,createStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -18,20 +19,35 @@ const HeaderCustom = {
   minHeight: '50px',
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) =>
+createStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 325,
   },
-});
-
+  button: {
+    display: 'block',
+    marginTop: theme.spacing(2),
+  },
+  
+}),
+);
+const styles = 
+{
+media: {
+  height: 0,
+  paddingTop: '20%', // 16:9,
+  marginTop:'30'
+}
+  };
 export type ProfileProps = {
   name: string; 
   id: string;
   system: string;
   imgsut: string;
+  linkto: string;
 };
 
-export function CardTeam({ name, id, system ,imgsut}: ProfileProps) {
+export function CardTeam({ name, id, system ,imgsut,linkto}: ProfileProps) {
   const classes = useStyles();
   return (
     <Grid item xs={12} md={3}>
@@ -39,17 +55,19 @@ export function CardTeam({ name, id, system ,imgsut}: ProfileProps) {
         <CardActionArea>
           <CardMedia
             component="img"
-            alt="นาย สมชาย ใจดี"
             height="140"
             image={imgsut}
-            title="นาย สมชาย ใจดี"
+            style = {styles.media}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="subtitle1" component="h2">
+            <Button
+            to = {linkto}
+            variant = "outlined"
+            >
               {system}
-            </Typography>
-            <Typography gutterBottom variant="h5" component="h2">
-              {id} {name}
+            </Button>
+              <br/>{id} {name}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -61,17 +79,17 @@ export function CardTeam({ name, id, system ,imgsut}: ProfileProps) {
 const WelcomePage: FC<{}> = () => {
   return (
     <Page theme={pageTheme.home}>
-      <Header style={HeaderCustom} title={`ระบบ...`}></Header>
+      <Header style={HeaderCustom} title={`ระบบผู้ป่อยนอก`}></Header>
       <Content>
         <ContentHeader title="สมาชิกในกลุ่ม"></ContentHeader>
         <Grid container>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
-          <CardTeam name={"นาย คฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
-          <CardTeam name={"นาย สมชาย ใจดี"} id={"B5012345"} system={"ระบบย่อย..."} imgsut = {"../../image/account.jpg"}></CardTeam>
-          <Avatar alt="Remy Sharp" src="./Cat03.jpg" />
+          <CardTeam name={"นางสาวณัชพร กลิ่นรอด"} id={"B6102845"} system={"ระบบการเงิน"} imgsut = {require("../../image/account.jpg")} linkto = "/createbill"></CardTeam>
+          <CardTeam name={"นางสาวพรรวินท์ กุดแถลง"} id={"B6103217"} system={"ระบบลงทะเบียนผู้ป่วยนอก"} imgsut = {"../../image/account.jpg"}linkto = "/createPatientrecord"></CardTeam>
+          <CardTeam name={"นายคฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบสิทธิ์ผู้ป่วย"} imgsut = {"../../image/account.jpg"}linkto = "/create_Patientrights"></CardTeam>
+          <CardTeam name={"นายวัชรพงษ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut = {"../../image/account.jpg"}linkto = "/createTreatment"></CardTeam>
+          <CardTeam name={"นางสาวปอรรัชม์ ปานใจนาม"} id={"B6109868"} system={"ระบบซักประวัติ"} imgsut = {"../../image/account.jpg"}linkto = "/createHistorytaking"></CardTeam>
+          <CardTeam name={"นายธนวรรต สีแก้วสิ่ว"} id={"B6115586"} system={"ระบบข้อมูลแพทย์"} imgsut = {"../../image/account.jpg"}linkto = "/Doctorinfo"></CardTeam>
+         
         </Grid>
       </Content>
     </Page>
