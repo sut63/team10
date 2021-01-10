@@ -7,7 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import { DefaultApi } from '../../api/apis';
 
 import { EntHistorytaking } from '../../api/models/EntHistorytaking';
@@ -33,11 +32,6 @@ export default function ComponentsTable() {
    };
    getHistorytakings();
  }, [loading]);
-
-const deleteHistorytakings = async (id: number) => {
- const res = await api.deleteHistorytaking({ id: id });
- setLoading(true);
-};
  
  return (
    <TableContainer component={Paper}>
@@ -58,7 +52,6 @@ const deleteHistorytakings = async (id: number) => {
            <TableCell align="center">Department</TableCell>
            <TableCell align="center">Patient</TableCell>
            <TableCell align="center">Datetime</TableCell>
-           <TableCell align="center">Manage</TableCell> 
          </TableRow>
        </TableHead>
        <TableBody>
@@ -78,18 +71,6 @@ const deleteHistorytakings = async (id: number) => {
              <TableCell align="center">{item.edges?.department?.department}</TableCell>
              <TableCell align="center">{item.edges?.patientrecord?.name}</TableCell>
              <TableCell align="center">{item.datetime}</TableCell>
-             <TableCell align="center">
-               <Button
-                 onClick={() => {
-                  deleteHistorytakings(item.id);
-                 }}
-                 style={{ marginLeft: 10 }}
-                 variant="contained"
-                 color="secondary"
-               >
-                 DELETE
-               </Button>
-             </TableCell>
            </TableRow>
          ))}
        </TableBody>

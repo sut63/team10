@@ -45,6 +45,8 @@ export const plugin = createPlugin({
       }
       if (Status == 'Nur') {
         router.registerRoute('/Historytaking', Historytaking);
+        router.registerRoute('/tableHistorytaking', tableHistorytaking);
+        router.registerRoute('/createHistorytaking', createHistorytaking);
       }
       if (Status == 'Doc') {
         router.registerRoute('/createTreatment', createTreatment);
