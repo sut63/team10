@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(1),
             width: 200,
         },
+        table: {
+          minWidth: 650,
+        },
     }),
   );
 
@@ -70,7 +73,6 @@ export  default  function Create() {
   const [phonenumber, setphonenumber] = React.useState(String);
   const [email, setemail] = React.useState(String);
   const [home, sethome] = React.useState(String);
-  const [date, setdate] = React.useState(String);
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
@@ -156,7 +158,6 @@ export  default  function Create() {
           phonenumber : phonenumber,
           email : email,
           home : home,
-          date : date + ":00+07:00",
         };
         console.log(patientrecord);
         const res: any = await api.createPatientrecord({ patientrecord : patientrecord });
@@ -351,12 +352,6 @@ export  default  function Create() {
                 )}
                 </div>
               ) : null}
-              <br />
-              <Link component={RouterLink} to="/Room">
-              <Button variant="contained" color="primary" style={{backgroundColor: "#26c6da"}} size="large" startIcon={<UndoIcon />}>
-                ย้อนกลับ
-              </Button>
-              </Link>
               </FormControl>
             </Typography>
           </Content>
