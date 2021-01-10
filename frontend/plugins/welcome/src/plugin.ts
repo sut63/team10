@@ -20,6 +20,7 @@ import React, { useEffect, FC } from 'react';
 
 const cookies = new Cookies();
 const Status = cookies.get('Status');
+const Log = cookies.get('Log');
 
 
 
@@ -27,29 +28,40 @@ const Status = cookies.get('Status');
 export const plugin = createPlugin({
   id: 'welcome',
   register({ router }) {
-    router.registerRoute('/WelcomePage', WelcomePage);
-    router.registerRoute('/signin', SignIn);
-    router.registerRoute('/', Login);
-    //if (Status == 'Root') {
-    router.registerRoute('/reg', reg);
-    //}
-    if (Status == 'Fin') {
-      router.registerRoute('/createBill', CreateBill);
+    if (Log == undefined) {
+      router.registerRoute('/', Login);
+
+    } else {
+
+      if (Status == 'Root') {
+        router.registerRoute('/reg', reg);
+      }
+      if (Status == 'Fin') {
+        router.registerRoute('/createBill', CreateBill);
+      }
+      if (Status == 'Med') {
+        router.registerRoute('/create_Patientrights', create_Patientrights);
+      }
+      if (Status == 'Nur') {
+        router.registerRoute('/createHistorytaking', createHistorytaking);
+      }
+      if (Status == 'Doc') {
+        router.registerRoute('/createTreatment', createTreatment);
+      }
+      if (Status == 'Med') {
+        router.registerRoute('/createPatientrecord', createPatientrecord);
+      }
+      if (Status == 'Reg') {
+        router.registerRoute('/Doctorinfo', CreateDoctorinfo);
+      }
+
+    
+      router.registerRoute('/', WelcomePage);
     }
-    if (Status == 'Med') {
-      router.registerRoute('/create_Patientrights', create_Patientrights);
-    }
-    if (Status =='Nur') {
-      router.registerRoute('/createHistorytaking', createHistorytaking);
-    }
-    if (Status =='Doc') {
-      router.registerRoute('/createTreatment', createTreatment);
-    }
-    if (Status =='Med') {
-      router.registerRoute('/createPatientrecord', createPatientrecord);
-    }
-    if (Status =='Reg') {
-      router.registerRoute('/Doctorinfo', CreateDoctorinfo);
-    }
+
+
+
+
+
   },
 });
