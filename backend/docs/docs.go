@@ -4084,7 +4084,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ent.User"
+                            "$ref": "#/definitions/controllers.User"
                         }
                     }
                 ],
@@ -4646,6 +4646,20 @@ var doc = `{
                     "type": "string"
                 },
                 "typetreatment": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.User": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "userstatus": {
                     "type": "integer"
                 }
             }

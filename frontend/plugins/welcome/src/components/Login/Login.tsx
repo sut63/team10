@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { DefaultApi } from '../../api/apis';
 
+
 import { useCookies } from 'react-cookie/cjs';//cookie
 
 import { EntUser } from '../../api/models/EntUser';
@@ -57,6 +58,7 @@ const Login: FC<{}> = () => {
   const http = new DefaultApi();
   const classes = useStyles();
   const [cookies, setCookie, removeCookie] = useCookies(['cookiename']);
+  const [Status, setStatus] = React.useState(String);
   const [Name, setName] = React.useState(String);
   const [Password, setPassword] = React.useState(String);
   const [users, setUsers] = React.useState<EntUser[]>([]);
@@ -81,7 +83,11 @@ const Login: FC<{}> = () => {
 
     setCookie('Name', Name, { path: '/' })
     setCookie('Password', Password, { path: '/' })
-    setCookie('Log', true, { httpOnly: null })
+    setCookie('Log', "true",{ path: '/' })
+
+    setCookie('Status', Status, { path: '/' })
+
+
 
 
   }
@@ -89,16 +95,28 @@ const Login: FC<{}> = () => {
 
     removeCookie('Name', { path: '/' })
     removeCookie('Password', { path: '/' })
-    removeCookie('Log', { httpOnly: null })
-
+    removeCookie('Log', { path: '/' })
+    removeCookie('Status', { path: '/' })
+   
 
   }
+
+
+  const Login = async () => {
+   
+    
+   
+  }
+
 
   const NameChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setName(event.target.value as string);
   };
   const PasswordChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setPassword(event.target.value as string);
+  };
+  const StatusChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setStatus(event.target.value as string);
   };
 
   return (
@@ -139,25 +157,38 @@ const Login: FC<{}> = () => {
               value={Password}
               onChange={PasswordChange}
             />
+
+  <TextField
+            
+            name="Status"
+            label="Status"
+            variant="outlined"
+            type="Status"
+            size="medium"
+
+            value={Status}
+            onChange={StatusChange}
+          />
           </FormControl>
         </form>
 
         <form className={classes.form} noValidate>
 
-          <Link component={RouterLink} to="/reg">
+         
             <FormControl variant="outlined" className={classes.formControl}>
               <Button
                 onClick={() => {
-                  CreateCookies();
+                  
+                  Login();
                 }}
                 variant="contained"
                 color="primary"
               >
-                CreateCookies
+                 Login
              </Button>
             </FormControl>
-          </Link> &emsp;
-             <Link component={RouterLink} to="/Log">
+           &emsp;
+             <Link component={RouterLink} to="/">
             <FormControl variant="outlined" className={classes.formControl}>
               <Button
                 onClick={() => {
@@ -170,6 +201,18 @@ const Login: FC<{}> = () => {
              </Button>
             </FormControl>
           </Link>
+
+          <FormControl variant="outlined" className={classes.formControl}>
+              <Button
+                onClick={() => {
+                  CreateCookies();
+                }}
+                variant="contained"
+                color="primary"
+              >
+                CreateCookies
+             </Button>
+            </FormControl>
 
 
         </form>

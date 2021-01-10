@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { useEffect, FC } from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import {
   Content,
@@ -14,6 +14,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
+
+import {  Cookies  } from 'react-cookie/cjs';//cookie
 
 import { Image1Base64Function } from '../../image/Image1';
 import { Image2Base64Function } from '../../image/Image2';
@@ -54,7 +56,9 @@ export type ProfileProps = {
   linkto: string;
 };
 
+
 export function CardTeam({ name, id, system ,imgsut,linkto}: ProfileProps) {
+  
   const classes = useStyles();
   return (
     <Grid item xs={12} md={3}>
@@ -90,7 +94,9 @@ const WelcomePage: FC<{}> = () => {
       <Content>
         <ContentHeader title="สมาชิกในกลุ่ม"></ContentHeader>
         <Grid container>
+        
           <CardTeam name={"นางสาวณัชพร กลิ่นรอด"} id={"B6102845"} system={"ระบบการเงิน"} imgsut = {Image1Base64Function} linkto = "/createbill"></CardTeam>
+
           <CardTeam name={"นางสาวพรรวินท์ กุดแถลง"} id={"B6103217"} system={"ระบบลงทะเบียนผู้ป่วยนอก"} imgsut = {Image2Base64Function}linkto = "/createPatientrecord"></CardTeam>
           <CardTeam name={"นายคฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบสิทธิ์ผู้ป่วย"} imgsut = {Image3Base64Function}linkto = "/create_Patientrights"></CardTeam>
           <CardTeam name={"นายวัชรพงษ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut = {Image4Base64Function}linkto = "/createTreatment"></CardTeam>
