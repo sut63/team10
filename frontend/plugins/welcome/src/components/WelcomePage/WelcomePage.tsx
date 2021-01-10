@@ -15,6 +15,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 
+import { Image1Base64Function } from '../../image/Image1';
+import { Image2Base64Function } from '../../image/Image2';
+import { Image3Base64Function } from '../../image/Image3';
+import { Image4Base64Function } from '../../image/Image4';
+import { Image5Base64Function } from '../../image/Image5';
+import { Image6Base64Function } from '../../image/Image6';
+
 const HeaderCustom = {
   minHeight: '50px',
 };
@@ -57,7 +64,7 @@ export function CardTeam({ name, id, system ,imgsut,linkto}: ProfileProps) {
             component="img"
             height="140"
             image={imgsut}
-            style = {styles.media}
+            
           />
           <CardContent>
             <Typography gutterBottom variant="subtitle1" component="h2">
@@ -83,12 +90,12 @@ const WelcomePage: FC<{}> = () => {
       <Content>
         <ContentHeader title="สมาชิกในกลุ่ม"></ContentHeader>
         <Grid container>
-          <CardTeam name={"นางสาวณัชพร กลิ่นรอด"} id={"B6102845"} system={"ระบบการเงิน"} imgsut = {require("../../image/account.jpg")} linkto = "/createbill"></CardTeam>
-          <CardTeam name={"นางสาวพรรวินท์ กุดแถลง"} id={"B6103217"} system={"ระบบลงทะเบียนผู้ป่วยนอก"} imgsut = {"../../image/account.jpg"}linkto = "/createPatientrecord"></CardTeam>
-          <CardTeam name={"นายคฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบสิทธิ์ผู้ป่วย"} imgsut = {"../../image/account.jpg"}linkto = "/create_Patientrights"></CardTeam>
-          <CardTeam name={"นายวัชรพงษ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut = {"../../image/account.jpg"}linkto = "/createTreatment"></CardTeam>
-          <CardTeam name={"นางสาวปอรรัชม์ ปานใจนาม"} id={"B6109868"} system={"ระบบซักประวัติ"} imgsut = {"../../image/account.jpg"}linkto = "/createHistorytaking"></CardTeam>
-          <CardTeam name={"นายธนวรรต สีแก้วสิ่ว"} id={"B6115586"} system={"ระบบข้อมูลแพทย์"} imgsut = {"../../image/account.jpg"}linkto = "/Doctorinfo"></CardTeam>
+          <CardTeam name={"นางสาวณัชพร กลิ่นรอด"} id={"B6102845"} system={"ระบบการเงิน"} imgsut = {Image1Base64Function} linkto = "/createbill"></CardTeam>
+          <CardTeam name={"นางสาวพรรวินท์ กุดแถลง"} id={"B6103217"} system={"ระบบลงทะเบียนผู้ป่วยนอก"} imgsut = {Image2Base64Function}linkto = "/createPatientrecord"></CardTeam>
+          <CardTeam name={"นายคฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบสิทธิ์ผู้ป่วย"} imgsut = {Image3Base64Function}linkto = "/create_Patientrights"></CardTeam>
+          <CardTeam name={"นายวัชรพงษ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut = {Image4Base64Function}linkto = "/createTreatment"></CardTeam>
+          <CardTeam name={"นางสาวปอรรัชม์ ปานใจนาม"} id={"B6109868"} system={"ระบบซักประวัติ"} imgsut = {Image5Base64Function}linkto = "/createHistorytaking"></CardTeam>
+          <CardTeam name={"นายธนวรรต สีแก้วสิ่ว"} id={"B6115586"} system={"ระบบข้อมูลแพทย์"} imgsut = {Image6Base64Function}linkto = "/Doctorinfo"></CardTeam>
          
         </Grid>
       </Content>
