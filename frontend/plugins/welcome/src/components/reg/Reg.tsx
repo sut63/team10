@@ -20,7 +20,7 @@ import { DefaultApi } from '../../api/apis'; // Api Gennerate From Command
 import { Alert } from '@material-ui/lab';
 
 
-import { withCookies, Cookies  } from 'react-cookie/cjs';//cookie
+import {  Cookies  } from 'react-cookie/cjs';//cookie
 
 import { Link as RouterLink } from 'react-router-dom';
 

@@ -115,6 +115,15 @@ definitions:
       typetreatment:
         type: integer
     type: object
+  controllers.User:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      userstatus:
+        type: integer
+    type: object
   ent.Abilitypatientrights:
     properties:
       Examine:
@@ -3629,7 +3638,7 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/ent.User'
+          $ref: '#/definitions/controllers.User'
       produces:
       - application/json
       responses:
