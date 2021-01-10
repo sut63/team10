@@ -66,7 +66,6 @@ export  default  function Create() {
   const [name, setname] = React.useState(String);
   const [idcardnumber, setidcardnumber] = React.useState(String);
   const [age, setage] = React.useState(String);
-  const [birthday, setbirthday] = React.useState(String);
   const [bloodtype, setbloodtype] = React.useState(String);
   const [disease, setdisease] = React.useState(String);
   const [allergic, setallergic] = React.useState(String);
@@ -121,9 +120,6 @@ export  default  function Create() {
       const AgehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setage(event.target.value as string);
       };
-      const BirthdayhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setbirthday(event.target.value as string);
-      };
       const BloodtypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setbloodtype(event.target.value as string);
       };
@@ -151,7 +147,6 @@ export  default  function Create() {
           name : name,
           idcardnumber : idcardnumber,
           age : age,
-          birthday : birthday + ":00+07:00",
           bloodtype : bloodtype,
           disease : disease,
           allergic : allergic,
@@ -241,18 +236,6 @@ export  default  function Create() {
             value={age}
             onChange={AgehandleChange}
             /> &emsp;
-
-            <TextField
-            name="birthday"
-            label="วันเกิด"
-            type="datetime-local"
-            className={classes.textField}
-            value={birthday}
-            onChange={BirthdayhandleChange}
-            InputLabelProps={{
-                shrink: true,
-            }}
-            /> &emsp; 
             
             <TextField 
             label="กรุ๊ปเลือด" 
