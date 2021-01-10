@@ -1,21 +1,29 @@
 import React, { useEffect, FC } from 'react';
-import { Typography, Grid } from '@material-ui/core';
+import {
+  Button,
+  Link,
+  FormControl,
+  Typography,
+  Grid
+} from '@material-ui/core';
 import {
   Content,
   Header,
   Page,
   pageTheme,
   ContentHeader,
-  Button,
+  
+
 } from '@backstage/core';
-import { makeStyles,Theme ,createStyles} from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
+import { Link as RouterLink } from 'react-router-dom';
 
-import {  Cookies  } from 'react-cookie/cjs';//cookie
+
 
 import { Image1Base64Function } from '../../image/Image1';
 import { Image2Base64Function } from '../../image/Image2';
@@ -29,27 +37,43 @@ const HeaderCustom = {
 };
 
 const useStyles = makeStyles((theme: Theme) =>
-createStyles({
-  root: {
-    maxWidth: 325,
-  },
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
-  
-}),
+  createStyles({
+    root: {
+      maxWidth: 325,
+    },
+    formControl: {
+      margin: theme.spacing(3),
+      width: 320,
+    },
+    button: {
+      display: 'block',
+      marginTop: theme.spacing(2),
+    },
+
+  }),
 );
-const styles = 
+const styles =
 {
-media: {
-  height: 0,
-  paddingTop: '20%', // 16:9,
-  marginTop:'30'
+  media: {
+    height: 0,
+    paddingTop: '20%', // 16:9,
+    marginTop: '30'
+  }
+};
+
+import { useCookies } from 'react-cookie/cjs';//cookie
+const [cookies, setCookie, removeCookie] = useCookies(['cookiename']);
+const Logout = async () => {
+
+  removeCookie('Name', { path: '/' })
+  removeCookie('Password', { path: '/' })
+  removeCookie('Log', { path: '/' })
+  removeCookie('Status', { path: '/' })
+
 }
-  };
+
 export type ProfileProps = {
-  name: string; 
+  name: string;
   id: string;
   system: string;
   imgsut: string;
@@ -57,8 +81,9 @@ export type ProfileProps = {
 };
 
 
-export function CardTeam({ name, id, system ,imgsut,linkto}: ProfileProps) {
-  
+
+export function CardTeam({ name, id, system, imgsut, linkto }: ProfileProps) {
+
   const classes = useStyles();
   return (
     <Grid item xs={12} md={3}>
@@ -68,17 +93,17 @@ export function CardTeam({ name, id, system ,imgsut,linkto}: ProfileProps) {
             component="img"
             height="140"
             image={imgsut}
-            
+
           />
           <CardContent>
             <Typography gutterBottom variant="subtitle1" component="h2">
-            <Button
-            to = {linkto}
-            variant = "outlined"
-            >
-              {system}
-            </Button>
-              <br/>{id} {name}
+              <Button
+                to={linkto}
+                variant="outlined"
+              >
+                {system}
+              </Button>
+              <br />{id} {name}
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -90,19 +115,36 @@ export function CardTeam({ name, id, system ,imgsut,linkto}: ProfileProps) {
 const WelcomePage: FC<{}> = () => {
   return (
     <Page theme={pageTheme.home}>
-      <Header style={HeaderCustom} title={`ระบบผู้ป่อยนอก`}></Header>
+      <Header style={HeaderCustom} title={`ระบบผู้ป่อยนอก`}>
+
+        <Link component={RouterLink} to="/">
+          <FormControl variant="outlined" className={classes.formControl}>
+            <Button
+              onClick={() => {
+                Logout();
+              }}
+              variant="contained"
+              color="primary"
+            >
+              Logout
+             </Button>
+          </FormControl>
+        </Link>
+
+
+      </Header>
       <Content>
         <ContentHeader title="สมาชิกในกลุ่ม"></ContentHeader>
         <Grid container>
-        
-          <CardTeam name={"นางสาวณัชพร กลิ่นรอด"} id={"B6102845"} system={"ระบบการเงิน"} imgsut = {Image1Base64Function} linkto = "/createbill"></CardTeam>
 
-          <CardTeam name={"นางสาวพรรวินท์ กุดแถลง"} id={"B6103217"} system={"ระบบลงทะเบียนผู้ป่วยนอก"} imgsut = {Image2Base64Function}linkto = "/createPatientrecord"></CardTeam>
-          <CardTeam name={"นายคฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบสิทธิ์ผู้ป่วย"} imgsut = {Image3Base64Function}linkto = "/create_Patientrights"></CardTeam>
-          <CardTeam name={"นายวัชรพงษ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut = {Image4Base64Function}linkto = "/createTreatment"></CardTeam>
-          <CardTeam name={"นางสาวปอรรัชม์ ปานใจนาม"} id={"B6109868"} system={"ระบบซักประวัติ"} imgsut = {Image5Base64Function}linkto = "/createHistorytaking"></CardTeam>
-          <CardTeam name={"นายธนวรรต สีแก้วสิ่ว"} id={"B6115586"} system={"ระบบข้อมูลแพทย์"} imgsut = {Image6Base64Function}linkto = "/Doctorinfo"></CardTeam>
-         
+          <CardTeam name={"นางสาวณัชพร กลิ่นรอด"} id={"B6102845"} system={"ระบบการเงิน"} imgsut={Image1Base64Function} linkto="/createbill"></CardTeam>
+
+          <CardTeam name={"นางสาวพรรวินท์ กุดแถลง"} id={"B6103217"} system={"ระบบลงทะเบียนผู้ป่วยนอก"} imgsut={Image2Base64Function} linkto="/createPatientrecord"></CardTeam>
+          <CardTeam name={"นายคฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบสิทธิ์ผู้ป่วย"} imgsut={Image3Base64Function} linkto="/create_Patientrights"></CardTeam>
+          <CardTeam name={"นายวัชรพงษ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut={Image4Base64Function} linkto="/createTreatment"></CardTeam>
+          <CardTeam name={"นางสาวปอรรัชม์ ปานใจนาม"} id={"B6109868"} system={"ระบบซักประวัติ"} imgsut={Image5Base64Function} linkto="/createHistorytaking"></CardTeam>
+          <CardTeam name={"นายธนวรรต สีแก้วสิ่ว"} id={"B6115586"} system={"ระบบข้อมูลแพทย์"} imgsut={Image6Base64Function} linkto="/Doctorinfo"></CardTeam>
+
         </Grid>
       </Content>
     </Page>

@@ -62,18 +62,19 @@ const Login: FC<{}> = () => {
   const [Name, setName] = React.useState(String);
   const [Password, setPassword] = React.useState(String);
   const [users, setUsers] = React.useState<EntUser[]>([]);
+  const arr = React.useState([]);
   let Useusereamil;
-  /*
+  
   const getUsers = async () => {
-    const res = await http.listUser({ limit: 10, offset: 0 });
+    const res = await http.listUser({ limit: 20, offset: 0 });
     setUsers(res);
   };
-  console.log(users);
-  */
+  //console.log(users);
+  
 
 
   useEffect(() => {
-    //getUsers();
+    getUsers();
   }, []);
 
   // set data to object Patientright
@@ -84,33 +85,40 @@ const Login: FC<{}> = () => {
     setCookie('Name', Name, { path: '/' })
     setCookie('Password', Password, { path: '/' })
     setCookie('Log', "true",{ path: '/' })
-
+    
     setCookie('Status', Status, { path: '/' })
 
 
 
 
   }
-  const RemoveCookies = async () => {
+  const Logout = async () => {
 
     removeCookie('Name', { path: '/' })
     removeCookie('Password', { path: '/' })
     removeCookie('Log', { path: '/' })
     removeCookie('Status', { path: '/' })
-   
 
   }
 
 
   const Login = async () => {
-   
-    
-   
+
+    users.map((item) => {
+      if(item.email === Name && item.password === Password){
+      
+      setCookie('Name', Name, { path: '/' })
+      setCookie('Log', "true",{ path: '/' })
+      setCookie('Status', item.edges?.userstatus?.userstatus , { path: '/' })
+      window.location.reload(false)                
+    }
+  });
   }
 
 
   const NameChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setName(event.target.value as string);
+    console.log(Name);
   };
   const PasswordChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setPassword(event.target.value as string);
@@ -122,7 +130,9 @@ const Login: FC<{}> = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      
       <div className={classes.paper}>
+        
         <form className={classes.form} noValidate>
           <FormControl variant="outlined" className={classes.formControl}>
             <Avatar className={classes.avatar}>
@@ -158,17 +168,7 @@ const Login: FC<{}> = () => {
               onChange={PasswordChange}
             />
 
-  <TextField
-            
-            name="Status"
-            label="Status"
-            variant="outlined"
-            type="Status"
-            size="medium"
-
-            value={Status}
-            onChange={StatusChange}
-          />
+ 
           </FormControl>
         </form>
 
@@ -192,27 +192,15 @@ const Login: FC<{}> = () => {
             <FormControl variant="outlined" className={classes.formControl}>
               <Button
                 onClick={() => {
-                  RemoveCookies();
+                  Logout();
                 }}
                 variant="contained"
                 color="primary"
               >
-                RemoveCookies
+                Logout
              </Button>
             </FormControl>
           </Link>
-
-          <FormControl variant="outlined" className={classes.formControl}>
-              <Button
-                onClick={() => {
-                  CreateCookies();
-                }}
-                variant="contained"
-                color="primary"
-              >
-                CreateCookies
-             </Button>
-            </FormControl>
 
 
         </form>

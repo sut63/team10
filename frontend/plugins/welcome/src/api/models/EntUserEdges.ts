@@ -99,7 +99,7 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'medicalrecordstaff': !exists(json, 'medicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['medicalrecordstaff']),
         'user2registrar': !exists(json, 'user2registrar') ? undefined : EntRegistrarFromJSON(json['user2registrar']),
         'userPatientrights': !exists(json, 'userPatientrights') ? undefined : EntPatientrightsFromJSON(json['userPatientrights']),
-        'userstatus': !exists(json, 'userstatus') ? undefined : EntUserstatusFromJSON(json['userstatus']),
+        'userstatus': !exists(json, 'Userstatus') ? undefined : EntUserstatusFromJSON(json['Userstatus']),
     };
 }
 
