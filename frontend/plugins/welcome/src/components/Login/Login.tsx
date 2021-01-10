@@ -188,7 +188,7 @@ const Login: FC<{}> = () => {
              </Button>
             </FormControl>
            &emsp;
-             <Link component={RouterLink} to="/">
+             
             <FormControl variant="outlined" className={classes.formControl}>
               <Button
                 onClick={() => {
@@ -200,7 +200,7 @@ const Login: FC<{}> = () => {
                 Logout
              </Button>
             </FormControl>
-          </Link>
+          
 
 
         </form>

@@ -11,6 +11,7 @@ import createTreatment from './components/treatment';
 import CreateDoctorinfo from './components/Doctorinfo';
 import createPatientrecord from './components/createPatientrecord';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import reg from './components/reg';
 
 import { Cookies } from 'react-cookie/cjs';//cookie
@@ -33,28 +34,28 @@ export const plugin = createPlugin({
       router.registerRoute('/', Login);
 
     } else {
+      router.registerRoute('/sign_out', Logout);
 
       if (Status == 'Root') {
         router.registerRoute('/reg', reg);
       }
-      if (Status == 'Fin') {
+      if (Status == 'Fin' || Status == 'Root' ) {
         router.registerRoute('/createBill', CreateBill);
       }
-      if (Status == 'Med') {
+      if (Status == 'Med' || Status == 'Root' ) {
         router.registerRoute('/create_Patientrights', create_Patientrights);
+        router.registerRoute('/createPatientrecord', createPatientrecord);
       }
-      if (Status == 'Nur') {
+      if (Status == 'Nur' || Status == 'Root' ) {
         router.registerRoute('/Historytaking', Historytaking);
         router.registerRoute('/tableHistorytaking', tableHistorytaking);
         router.registerRoute('/createHistorytaking', createHistorytaking);
       }
-      if (Status == 'Doc') {
+      if (Status == 'Doc' || Status == 'Root' ) {
         router.registerRoute('/createTreatment', createTreatment);
       }
-      if (Status == 'Med') {
-        router.registerRoute('/createPatientrecord', createPatientrecord);
-      }
-      if (Status == 'Reg') {
+      
+      if (Status == 'Reg' || Status == 'Root' ) {
         router.registerRoute('/Doctorinfo', CreateDoctorinfo);
       }
 

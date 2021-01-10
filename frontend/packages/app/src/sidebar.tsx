@@ -25,9 +25,47 @@ export const AppSidebar = () => (
     {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
     <SidebarItem icon={CreateComponentIcon} to="welcome" text="Welcome" /> */}
     
+    <SidebarItem
+            icon={CreateComponentIcon}
+      to="Doctorinfo"
+      text="ข้อมูลแพทย์"
+    />
+    <SidebarItem
+      icon={CreateComponentIcon}
+      to="createPatientrecord"
+      text="ลงทะเบียนผู้ป่วย"
+    />
+    <SidebarItem
+      icon={CreateComponentIcon}
+      to="create_Patientrights"
+      text="สิทธิผู้ป่วย"
+    />
+    <SidebarItem
+            icon={CreateComponentIcon}
+      to="createHistorytaking"
+      text="ซักประวัติ"
+    />
+    <SidebarItem
+            icon={CreateComponentIcon}
+      to="createTreatment"
+      text="บันทึกการรักษา"
+    />
+    <SidebarItem
+            icon={CreateComponentIcon}
+      to="createbill"
+      text="ส่วนการเงิน"
+    />
+
     <SidebarPinButton />
 
-  
+  <SidebarDivider />
+    <SidebarSpace />
+    <SidebarDivider />
+    <SidebarItem
+      icon={SignOut}
+      to="sign_out"
+      text="Sign Out"
+    />
 
    
   </Sidebar>
