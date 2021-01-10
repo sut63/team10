@@ -2,8 +2,9 @@ import { createPlugin } from '@backstage/core';
 import WelcomePage from './components/WelcomePage';
 import SignIn from './components/SignIn'
 
-//createHistorytaking
 import create_Patientrights from './components/create_patientrights';
+import Historytaking from './components/Historytaking';
+import tableHistorytaking from './components/tableHistorytaking';
 import createHistorytaking from './components/createHistorytaking';
 import CreateBill from './components/createBill'
 import createTreatment from './components/treatment';
@@ -43,7 +44,7 @@ export const plugin = createPlugin({
         router.registerRoute('/create_Patientrights', create_Patientrights);
       }
       if (Status == 'Nur') {
-        router.registerRoute('/createHistorytaking', createHistorytaking);
+        router.registerRoute('/Historytaking', Historytaking);
       }
       if (Status == 'Doc') {
         router.registerRoute('/createTreatment', createTreatment);
