@@ -21,7 +21,7 @@ import { Image1Base64Function } from '../../image/Image1';
 import { Image2Base64Function } from '../../image/Image2';
 import { Image3Base64Function } from '../../image/Image3';
 import { Image4Base64Function } from '../../image/Image4';
-import { Image5Base64Function } from '../../image/Image5';
+import { Image5Base64Function } from '../../image/image5_home';
 import { Image6Base64Function } from '../../image/Image6';
 
 const HeaderCustom = {

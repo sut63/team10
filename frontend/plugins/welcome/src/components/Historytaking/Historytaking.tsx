@@ -2,8 +2,12 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import ComponanceTable from '../tableHistorytaking';
 import Button from '@material-ui/core/Button';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Avatar } from '@material-ui/core';
  
+import { Cookies } from 'react-cookie/cjs';//cookie
+
+import { Image5Base64Function } from '../../image/Image5';
+
 import {
  Content,
  Header,
@@ -13,15 +17,23 @@ import {
  Link,
 } from '@backstage/core';
  
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
+
 export default function HistorytakingTable() {
 const profile = { givenName: '' };
  
  return (
    <Page theme={pageTheme.home}>
-     <Header
-      title={`${profile.givenName || 'HISTORYTAKING DEPARTMENT'}`}
-      subtitle=""
-     ></Header>
+     <Header style={HeaderCustom} title={`HISTORYTAKING DEPARTMENT`}>
+        <Avatar alt="Remy Sharp" src={Image5Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
      <Content>
        <ContentHeader title="">
        <Grid item  xs={12} md={12}>
