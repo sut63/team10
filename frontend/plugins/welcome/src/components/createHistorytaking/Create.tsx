@@ -140,7 +140,7 @@ export default function CreateHistorytaking() {
   const [departments, setDepartments] = useState<EntDepartment[]>([]);
   const [patientrecords, setPatientrecords] = useState<EntPatientrecord[]>([]);
 
-  const [Historytaking, setHistorytaking] =            React.useState<Partial<Historytaking_Type>>({});
+  const [Historytaking, setHistorytaking] = React.useState<Partial<Historytaking_Type>>({});
 
   const [loading, setLoading] = useState(true);
 /*
@@ -181,7 +181,7 @@ export default function CreateHistorytaking() {
     getPatientrecords();
 
   }, [loading]);
-// set data to object Patientright
+
 const handleChange = (
 
   event: React.ChangeEvent<{ name?: string; value: unknown }>,
@@ -451,7 +451,7 @@ const handleChange = (
                 <Button
                     style={{ marginLeft: 40 }}
                     component={RouterLink}
-                    to="/bill"
+                    to="/Historytaking"
                     variant="contained"
                 >
                     Back

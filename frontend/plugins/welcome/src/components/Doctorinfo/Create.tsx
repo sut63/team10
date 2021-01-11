@@ -119,14 +119,14 @@ export default function CreateDoctorinfo() {
 
   useEffect(() => {
     const getPrenames = async () => {
-      const res = await api.listPrename({ limit: 3, offset: 0 });
+      const res = await api.listPrename({ limit: 7, offset: 0 });
       setLoading(false);
       setPrenames(res);
     };
     getPrenames();
 
     const getEducationlevels = async () => {
-      const res = await api.listEducationlevel({ limit: 2, offset: 0 });
+      const res = await api.listEducationlevel({ limit: 3, offset: 0 });
       setLoading(false);
       setEducationlevels(res);
       console.log(res);
@@ -141,7 +141,7 @@ export default function CreateDoctorinfo() {
     getDepartments();
 
     const getOfficerooms = async () => {
-      const res = await api.listOfficeroom({ limit: 3, offset: 0 });
+      const res = await api.listOfficeroom({ limit: 5, offset: 0 });
       setLoading(false);
       setOfficerooms(res);
     };

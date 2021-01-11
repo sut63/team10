@@ -551,15 +551,24 @@ func main() {
 	// Set Medicalrecordstaff Data
 	medicalrecordstaffs := Medicalrecordstaffs{
 		Medicalrecordstaff: []Medicalrecordstaff{
-			Medicalrecordstaff{"Phonrawin Kudthalaeng", 6},
-			Medicalrecordstaff{"Shin Sura", 7},
+			Medicalrecordstaff{"Phonrawin Kudthalaeng", 3},
+			Medicalrecordstaff{"Shin Sura", 4},
 		},
 	}
 
 	for _, m := range medicalrecordstaffs.Medicalrecordstaff {
+		u, err := client.User.
+		Query().
+		Where(user.IDEQ(m.User)).
+		Only(context.Background())
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 		client.Medicalrecordstaff.
 			Create().
 			SetName(m.Name).
+			SetUser(u).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
@@ -631,8 +640,8 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod", 4},
-			Financier{"Name Surname", 5},
+			Financier{"Nutchaporn Klinrod", 2},
+			Financier{"Name Surname", 8},
 		},
 	}
 	for _, f := range financiers.Financier {
