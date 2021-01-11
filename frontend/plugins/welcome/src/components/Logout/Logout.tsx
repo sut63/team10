@@ -60,9 +60,15 @@ const Logout: FC<{}> = () => {
   const Logout = async () => {
 
     removeCookie('Name', { path: '/' })
+    removeCookie('ID', { path: '/' })
     removeCookie('Password', { path: '/' })
     removeCookie('Log', { path: '/' })
     removeCookie('Status', { path: '/' })
+
+    removeCookie('Fin', { path: '/' })
+    removeCookie('Med', { path: '/' })
+    removeCookie('Nur', { path: '/' })
+
     window.location.reload(false)
 
   }
