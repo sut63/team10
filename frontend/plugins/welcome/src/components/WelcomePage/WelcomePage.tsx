@@ -113,7 +113,7 @@ const WelcomePage: FC<{}> = () => {
           <CardTeam name={"นางสาวพรรวินท์ กุดแถลง"} id={"B6103217"} system={"ระบบลงทะเบียนผู้ป่วยนอก"} imgsut = {Image2Base64Function}linkto = "/createPatientrecord"></CardTeam>
           <CardTeam name={"นายคฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบสิทธิ์ผู้ป่วย"} imgsut = {Image3Base64Function}linkto = "/create_Patientrights"></CardTeam>
           <CardTeam name={"นายวัชรพงษ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut = {Image4Base64Function}linkto = "/createTreatment"></CardTeam>
-          <CardTeam name={"นางสาวปอรรัชม์ ปานใจนาม"} id={"B6109868"} system={"ระบบซักประวัติ"} imgsut = {Image5Base64Function}linkto = "/createHistorytaking"></CardTeam>
+          <CardTeam name={"นางสาวปอรรัชม์ ปานใจนาม"} id={"B6109868"} system={"ระบบซักประวัติ"} imgsut = {Image5Base64Function}linkto = "/Historytaking"></CardTeam>
           <CardTeam name={"นายธนวรรต สีแก้วสิ่ว"} id={"B6115586"} system={"ระบบข้อมูลแพทย์"} imgsut = {Image6Base64Function}linkto = "/Doctorinfo"></CardTeam>
          
         </Grid>

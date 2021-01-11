@@ -42,7 +42,7 @@ export const AppSidebar = () => (
     />
     <SidebarItem
             icon={CreateComponentIcon}
-      to="createHistorytaking"
+      to="Historytaking"
       text="ซักประวัติ"
     />
     <SidebarItem
