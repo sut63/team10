@@ -292,11 +292,10 @@ var (
 		{Name: "name", Type: field.TypeString},
 		{Name: "idcardnumber", Type: field.TypeInt},
 		{Name: "age", Type: field.TypeInt},
-		{Name: "birthday", Type: field.TypeTime},
 		{Name: "bloodtype", Type: field.TypeString},
 		{Name: "disease", Type: field.TypeString},
 		{Name: "allergic", Type: field.TypeString},
-		{Name: "phonenumber", Type: field.TypeInt},
+		{Name: "phonenumber", Type: field.TypeString},
 		{Name: "email", Type: field.TypeString},
 		{Name: "home", Type: field.TypeString},
 		{Name: "date", Type: field.TypeTime},
@@ -312,21 +311,21 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:  "patientrecords_genders_patientrecord",
-				Columns: []*schema.Column{PatientrecordsColumns[12]},
+				Columns: []*schema.Column{PatientrecordsColumns[11]},
 
 				RefColumns: []*schema.Column{GendersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "patientrecords_medicalrecordstaffs_patientrecord",
-				Columns: []*schema.Column{PatientrecordsColumns[13]},
+				Columns: []*schema.Column{PatientrecordsColumns[12]},
 
 				RefColumns: []*schema.Column{MedicalrecordstaffsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "patientrecords_prenames_patientrecord",
-				Columns: []*schema.Column{PatientrecordsColumns[14]},
+				Columns: []*schema.Column{PatientrecordsColumns[13]},
 
 				RefColumns: []*schema.Column{PrenamesColumns[0]},
 				OnDelete:   schema.SetNull,
@@ -532,7 +531,7 @@ var (
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "email", Type: field.TypeString},
+		{Name: "email", Type: field.TypeString, Unique: true},
 		{Name: "password", Type: field.TypeString},
 		{Name: "user_id", Type: field.TypeInt, Nullable: true},
 		{Name: "userstatus_id", Type: field.TypeInt, Nullable: true},

@@ -28,7 +28,7 @@ type User struct {
 // @ID create-user
 // @Accept   json
 // @Produce  json
-// @Param user body ent.User true "User entity"
+// @Param user body User true "User entity"
 // @Success 200 {object} ent.User
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -90,6 +90,12 @@ func (ctl *UserController) GetUser(c *gin.Context) {
 	}
 	u, err := ctl.client.User.
 		Query().
+		WithFinancier().
+		WithHistorytaking().
+		WithMedicalrecordstaff().
+		WithUser2registrar().
+		WithUserPatientrights().
+		WithUserstatus().
 		Where(user.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -135,6 +141,12 @@ func (ctl *UserController) ListUser(c *gin.Context) {
 
 	users, err := ctl.client.User.
 		Query().
+		WithFinancier().
+		WithHistorytaking().
+		WithMedicalrecordstaff().
+		WithUser2registrar().
+		WithUserPatientrights().
+		WithUserstatus().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

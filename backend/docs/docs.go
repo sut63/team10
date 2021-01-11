@@ -4084,7 +4084,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ent.User"
+                            "$ref": "#/definitions/controllers.User"
                         }
                     }
                 ],
@@ -4574,9 +4574,6 @@ var doc = `{
                 "allergic": {
                     "type": "string"
                 },
-                "birthday": {
-                    "type": "string"
-                },
                 "bloodtype": {
                     "type": "string"
                 },
@@ -4646,6 +4643,20 @@ var doc = `{
                     "type": "string"
                 },
                 "typetreatment": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controllers.User": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "userstatus": {
                     "type": "integer"
                 }
             }
@@ -5155,10 +5166,6 @@ var doc = `{
                     "description": "Allergic holds the value of the \"Allergic\" field.",
                     "type": "string"
                 },
-                "Birthday": {
-                    "description": "Birthday holds the value of the \"Birthday\" field.",
-                    "type": "string"
-                },
                 "Bloodtype": {
                     "description": "Bloodtype holds the value of the \"Bloodtype\" field.",
                     "type": "string"
@@ -5189,7 +5196,7 @@ var doc = `{
                 },
                 "Phonenumber": {
                     "description": "Phonenumber holds the value of the \"Phonenumber\" field.",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "edges": {
                     "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the PatientrecordQuery when eager-loading is set.",

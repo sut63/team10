@@ -66,12 +66,6 @@ func (pu *PatientrecordUpdate) AddAge(i int) *PatientrecordUpdate {
 	return pu
 }
 
-// SetBirthday sets the Birthday field.
-func (pu *PatientrecordUpdate) SetBirthday(t time.Time) *PatientrecordUpdate {
-	pu.mutation.SetBirthday(t)
-	return pu
-}
-
 // SetBloodtype sets the Bloodtype field.
 func (pu *PatientrecordUpdate) SetBloodtype(s string) *PatientrecordUpdate {
 	pu.mutation.SetBloodtype(s)
@@ -91,15 +85,8 @@ func (pu *PatientrecordUpdate) SetAllergic(s string) *PatientrecordUpdate {
 }
 
 // SetPhonenumber sets the Phonenumber field.
-func (pu *PatientrecordUpdate) SetPhonenumber(i int) *PatientrecordUpdate {
-	pu.mutation.ResetPhonenumber()
-	pu.mutation.SetPhonenumber(i)
-	return pu
-}
-
-// AddPhonenumber adds i to Phonenumber.
-func (pu *PatientrecordUpdate) AddPhonenumber(i int) *PatientrecordUpdate {
-	pu.mutation.AddPhonenumber(i)
+func (pu *PatientrecordUpdate) SetPhonenumber(s string) *PatientrecordUpdate {
+	pu.mutation.SetPhonenumber(s)
 	return pu
 }
 
@@ -396,13 +383,6 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: patientrecord.FieldAge,
 		})
 	}
-	if value, ok := pu.mutation.Birthday(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeTime,
-			Value:  value,
-			Column: patientrecord.FieldBirthday,
-		})
-	}
 	if value, ok := pu.mutation.Bloodtype(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -426,14 +406,7 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := pu.mutation.Phonenumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: patientrecord.FieldPhonenumber,
-		})
-	}
-	if value, ok := pu.mutation.AddedPhonenumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldPhonenumber,
 		})
@@ -728,12 +701,6 @@ func (puo *PatientrecordUpdateOne) AddAge(i int) *PatientrecordUpdateOne {
 	return puo
 }
 
-// SetBirthday sets the Birthday field.
-func (puo *PatientrecordUpdateOne) SetBirthday(t time.Time) *PatientrecordUpdateOne {
-	puo.mutation.SetBirthday(t)
-	return puo
-}
-
 // SetBloodtype sets the Bloodtype field.
 func (puo *PatientrecordUpdateOne) SetBloodtype(s string) *PatientrecordUpdateOne {
 	puo.mutation.SetBloodtype(s)
@@ -753,15 +720,8 @@ func (puo *PatientrecordUpdateOne) SetAllergic(s string) *PatientrecordUpdateOne
 }
 
 // SetPhonenumber sets the Phonenumber field.
-func (puo *PatientrecordUpdateOne) SetPhonenumber(i int) *PatientrecordUpdateOne {
-	puo.mutation.ResetPhonenumber()
-	puo.mutation.SetPhonenumber(i)
-	return puo
-}
-
-// AddPhonenumber adds i to Phonenumber.
-func (puo *PatientrecordUpdateOne) AddPhonenumber(i int) *PatientrecordUpdateOne {
-	puo.mutation.AddPhonenumber(i)
+func (puo *PatientrecordUpdateOne) SetPhonenumber(s string) *PatientrecordUpdateOne {
+	puo.mutation.SetPhonenumber(s)
 	return puo
 }
 
@@ -1056,13 +1016,6 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 			Column: patientrecord.FieldAge,
 		})
 	}
-	if value, ok := puo.mutation.Birthday(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeTime,
-			Value:  value,
-			Column: patientrecord.FieldBirthday,
-		})
-	}
 	if value, ok := puo.mutation.Bloodtype(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -1086,14 +1039,7 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 	}
 	if value, ok := puo.mutation.Phonenumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: patientrecord.FieldPhonenumber,
-		})
-	}
-	if value, ok := puo.mutation.AddedPhonenumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldPhonenumber,
 		})

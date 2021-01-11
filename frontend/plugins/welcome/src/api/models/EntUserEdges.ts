@@ -94,12 +94,12 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'financier': !exists(json, 'financier') ? undefined : EntFinancierFromJSON(json['financier']),
-        'historytaking': !exists(json, 'historytaking') ? undefined : EntNurseFromJSON(json['historytaking']),
-        'medicalrecordstaff': !exists(json, 'medicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['medicalrecordstaff']),
-        'user2registrar': !exists(json, 'user2registrar') ? undefined : EntRegistrarFromJSON(json['user2registrar']),
-        'userPatientrights': !exists(json, 'userPatientrights') ? undefined : EntPatientrightsFromJSON(json['userPatientrights']),
-        'userstatus': !exists(json, 'userstatus') ? undefined : EntUserstatusFromJSON(json['userstatus']),
+        'financier': !exists(json, 'Financier') ? undefined : EntFinancierFromJSON(json['Financier']),
+        'historytaking': !exists(json, 'Historytaking') ? undefined : EntNurseFromJSON(json['Historytaking']),
+        'medicalrecordstaff': !exists(json, 'Medicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['Medicalrecordstaff']),
+        'user2registrar': !exists(json, 'User2registrar') ? undefined : EntRegistrarFromJSON(json['User2registrar']),
+        'userPatientrights': !exists(json, 'UserPatientrights') ? undefined : EntPatientrightsFromJSON(json['UserPatientrights']),
+        'userstatus': !exists(json, 'Userstatus') ? undefined : EntUserstatusFromJSON(json['Userstatus']),
     };
 }
 

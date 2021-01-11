@@ -65,8 +65,6 @@ definitions:
         type: string
       allergic:
         type: string
-      birthday:
-        type: string
       bloodtype:
         type: string
       date:
@@ -113,6 +111,15 @@ definitions:
       treatment:
         type: string
       typetreatment:
+        type: integer
+    type: object
+  controllers.User:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      userstatus:
         type: integer
     type: object
   ent.Abilitypatientrights:
@@ -509,9 +516,6 @@ definitions:
       Allergic:
         description: Allergic holds the value of the "Allergic" field.
         type: string
-      Birthday:
-        description: Birthday holds the value of the "Birthday" field.
-        type: string
       Bloodtype:
         description: Bloodtype holds the value of the "Bloodtype" field.
         type: string
@@ -535,7 +539,7 @@ definitions:
         type: string
       Phonenumber:
         description: Phonenumber holds the value of the "Phonenumber" field.
-        type: integer
+        type: string
       edges:
         $ref: '#/definitions/ent.PatientrecordEdges'
         description: |-
@@ -3629,7 +3633,7 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/ent.User'
+          $ref: '#/definitions/controllers.User'
       produces:
       - application/json
       responses:

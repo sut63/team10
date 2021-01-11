@@ -46,7 +46,6 @@ func (ctl *FinancierController) GetFinancier(c *gin.Context) {
 		})
 		return
 	}
-
 	c.JSON(200, u)
 }
 
@@ -62,6 +61,7 @@ func (ctl *FinancierController) GetFinancier(c *gin.Context) {
 func (ctl *FinancierController) ListFinancier(c *gin.Context) {
 	financiers, err := ctl.client.Financier.
 		Query().
+		WithUser().
 		All(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})

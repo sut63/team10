@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import YouTube from '@material-ui/icons/YouTube';
@@ -15,6 +15,8 @@ import {
   SidebarPinButton,
 } from '@backstage/core';
 
+
+
 export const AppSidebar = () => (
   <Sidebar>
     <SidebarDivider />
@@ -22,6 +24,7 @@ export const AppSidebar = () => (
     <SidebarItem icon={HomeIcon} to="" text="Home" />
     {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
     <SidebarItem icon={CreateComponentIcon} to="welcome" text="Welcome" /> */}
+    
     <SidebarItem
             icon={CreateComponentIcon}
       to="Doctorinfo"
@@ -52,7 +55,18 @@ export const AppSidebar = () => (
       to="createbill"
       text="ส่วนการเงิน"
     />
-  
+
     <SidebarPinButton />
+
+  <SidebarDivider />
+    <SidebarSpace />
+    <SidebarDivider />
+    <SidebarItem
+      icon={SignOut}
+      to="sign_out"
+      text="Sign Out"
+    />
+
+   
   </Sidebar>
 );

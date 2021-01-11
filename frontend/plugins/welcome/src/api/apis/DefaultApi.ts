@@ -33,6 +33,9 @@ import {
     ControllersTreatment,
     ControllersTreatmentFromJSON,
     ControllersTreatmentToJSON,
+    ControllersUser,
+    ControllersUserFromJSON,
+    ControllersUserToJSON,
     EntAbilitypatientrights,
     EntAbilitypatientrightsFromJSON,
     EntAbilitypatientrightsToJSON,
@@ -176,7 +179,7 @@ export interface CreateTypetreatmentRequest {
 }
 
 export interface CreateUserRequest {
-    user: EntUser;
+    user: ControllersUser;
 }
 
 export interface CreateUserstatusRequest {
@@ -1148,7 +1151,7 @@ export class DefaultApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: EntUserToJSON(requestParameters.user),
+            body: ControllersUserToJSON(requestParameters.user),
         });
 
         return new runtime.JSONApiResponse(response, (jsonValue) => EntUserFromJSON(jsonValue));

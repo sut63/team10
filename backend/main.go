@@ -15,6 +15,7 @@ import (
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
 	_ "github.com/team10/app/ent/registrar"
+	"github.com/team10/app/ent/userstatus"
 	"github.com/team10/app/ent/user"
 
 	//import by patientrights No.3
@@ -38,6 +39,25 @@ import (
 
 // struct By team 10
 //-------------------------------------------------------------------
+
+
+// Struct By team10 System
+//vvv*******************************************************************vvv
+// Users defines the struct for the Users
+type Users struct {
+	User []User
+}
+// Users defines the struct for the Users
+type User struct {
+	Userstatus int
+	Email      string
+	Password   string
+}
+
+
+//^^^*******************************************************************^^^
+
+
 // Struct By Doctorinformation System No.6
 //vvv*******************************************************************vvv
 
@@ -363,15 +383,50 @@ func main() {
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
-	User := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
-	for _, r := range User {
-		client.User.
+	// Set Userstatus Data
+	Userstatus := []string{"Root", "Fin", "Med",  "Doc", "Nur", "Reg"}
+	for _, reg := range Userstatus {
+		client.Userstatus.
 			Create().
-			SetEmail(r + "@gmail.com").
-			SetPassword("123456").
+			SetUserstatus(reg).
 			Save(context.Background())
 	}
 	//##############################################################################################
+	// Set User Data
+	User := Users{
+		User: []User{
+			User{1,"omaha_yad", "1234"},
+			User{2,"B1", "1234"},
+			User{3,"B2", "1234"},
+			User{3,"B3", "1234"},
+			User{4,"B4", "1234"},
+			User{5,"B5", "1234"},
+			User{6,"B6", "1234"},
+			User{2,"nara_haru", "1234"},
+			User{3,"morani_rode", "1234"},
+			User{3,"faratell_yova","1234"},
+			User{3,"pulla_visan", "1234"},
+		},
+	}
+	
+	for _, r := range User.User{
+		us, err := client.Userstatus.
+		Query().
+		Where(userstatus.IDEQ(int(r.Userstatus))).
+		Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		client.User.
+			Create().
+			SetUserstatus(us).
+			SetEmail(r.Email + "@gmail.com").
+			SetPassword(r.Password).
+			Save(context.Background())
+	}
+	//##############################################################################################
+	// Set Registrar Data
 	Registrar := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
 	for _, reg := range Registrar {
 		client.Registrar.
@@ -502,9 +557,18 @@ func main() {
 	}
 
 	for _, m := range medicalrecordstaffs.Medicalrecordstaff {
+		u, err := client.User.
+		Query().
+		Where(user.IDEQ(m.User)).
+		Only(context.Background())
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 		client.Medicalrecordstaff.
 			Create().
 			SetName(m.Name).
+			SetUser(u).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^

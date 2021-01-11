@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(1),
             width: 200,
         },
+        table: {
+          minWidth: 650,
+        },
     }),
   );
 
@@ -63,14 +66,12 @@ export  default  function Create() {
   const [name, setname] = React.useState(String);
   const [idcardnumber, setidcardnumber] = React.useState(String);
   const [age, setage] = React.useState(String);
-  const [birthday, setbirthday] = React.useState(String);
   const [bloodtype, setbloodtype] = React.useState(String);
   const [disease, setdisease] = React.useState(String);
   const [allergic, setallergic] = React.useState(String);
   const [phonenumber, setphonenumber] = React.useState(String);
   const [email, setemail] = React.useState(String);
   const [home, sethome] = React.useState(String);
-  const [date, setdate] = React.useState(String);
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
@@ -93,11 +94,13 @@ export  default  function Create() {
         console.log(res);
     };
     getMedicalrecordstaff();
-    }, [loading]);
     const getPatientrecord = async () => {
-        const res = await api.listPatientrecord({ limit: 10, offset: 0 });
-        setPatientrecord(res);
-      };
+      const res = await api.listPatientrecord({ limit: 10, offset: 0 });
+      setPatientrecord(res);
+    };
+    getPatientrecord();
+    }, [loading]);
+    
     //handle
     const PrenamehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setprenameId(event.target.value as number);
@@ -117,9 +120,6 @@ export  default  function Create() {
       const AgehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setage(event.target.value as string);
       };
-      const BirthdayhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setbirthday(event.target.value as string);
-      };
       const BloodtypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setbloodtype(event.target.value as string);
       };
@@ -138,9 +138,6 @@ export  default  function Create() {
       const HomehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         sethome(event.target.value as string);
       };
-      const DatehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setdate(event.target.value as string);
-      };
     
       const CreatePatientrecord = async () => {
         const patientrecord = {
@@ -150,14 +147,12 @@ export  default  function Create() {
           name : name,
           idcardnumber : idcardnumber,
           age : age,
-          birthday : birthday + ":00+07:00",
           bloodtype : bloodtype,
           disease : disease,
           allergic : allergic,
           phonenumber : phonenumber,
           email : email,
           home : home,
-          date : date + ":00+07:00",
         };
         console.log(patientrecord);
         const res: any = await api.createPatientrecord({ patientrecord : patientrecord });
@@ -223,35 +218,23 @@ export  default  function Create() {
                       );
                     })}
                   </Select>
-              </FormControl> &emsp;
+              </FormControl>
 
+            <div className={classes.paper}></div>
             <TextField 
             name="idcardnumber"
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
             value={idcardnumber}
             onChange={IdcardnumberhandleChange}
-            />
+            /> &emsp;
 
-            <div className={classes.paper}></div>
             <TextField 
             name="age"
             label="อายุ" 
             variant="outlined" 
             value={age}
             onChange={AgehandleChange}
-            /> &emsp;
-
-            <TextField
-            name="birthday"
-            label="วันเกิด"
-            type="datetime-local"
-            className={classes.textField}
-            value={birthday}
-            onChange={BirthdayhandleChange}
-            InputLabelProps={{
-                shrink: true,
-            }}
             /> &emsp; 
             
             <TextField 
@@ -308,18 +291,6 @@ export  default  function Create() {
             />
             
             <div className={classes.paper}></div>
-            <TextField
-            className={classes.formControl}
-            name="date"
-            label="วันเวลาที่ลงทะเบียนผู้ป่วยนอก"
-            type="datetime-local"
-            value={date}
-            onChange={DatehandleChange}
-            InputLabelProps={{
-             shrink: true,
-             }}
-            />&emsp;
-
               <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel>พนักงานเวชระเบียน</InputLabel>
               <Select
@@ -364,12 +335,6 @@ export  default  function Create() {
                 )}
                 </div>
               ) : null}
-              <br />
-              <Link component={RouterLink} to="/Room">
-              <Button variant="contained" color="primary" style={{backgroundColor: "#26c6da"}} size="large" startIcon={<UndoIcon />}>
-                ย้อนกลับ
-              </Button>
-              </Link>
               </FormControl>
             </Typography>
           </Content>

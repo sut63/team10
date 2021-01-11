@@ -27,7 +27,6 @@ type Patientrecord struct {
 	Name               string
 	Idcardnumber       string
 	Age                string
-	Birthday           string
 	Bloodtype          string
 	Disease            string
 	Allergic           string
@@ -90,12 +89,28 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		return
 	}
 
-	times, err := time.Parse(time.RFC3339, obj.Birthday)
-	timess, err := time.Parse(time.RFC3339, obj.Date)
+	timess := time.Now().Local()
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "saving failed",
+		})
+		return
+	}
 
 	id, err := strconv.Atoi(obj.Idcardnumber)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "saving failed",
+		})
+		return
+	}
 	a, err := strconv.Atoi(obj.Age)
-	phn, err := strconv.Atoi(obj.Phonenumber)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "saving failed",
+		})
+		return
+	}
 
 	pr, err := ctl.client.Patientrecord.
 		Create().
@@ -105,11 +120,10 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		SetName(obj.Name).
 		SetIdcardnumber(id).
 		SetAge(a).
-		SetBirthday(times).
 		SetBloodtype(obj.Bloodtype).
 		SetDisease(obj.Disease).
 		SetAllergic(obj.Allergic).
-		SetPhonenumber(phn).
+		SetPhonenumber(obj.Phonenumber).
 		SetEmail(obj.Email).
 		SetHome(obj.Home).
 		SetDate(timess).
