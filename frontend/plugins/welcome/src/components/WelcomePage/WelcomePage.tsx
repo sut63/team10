@@ -17,7 +17,7 @@ import {  Cookies  } from 'react-cookie/cjs';//cookie
 import { useCookies } from 'react-cookie/cjs';//cookie
 
 
-import { Image1Base64Function } from '../../image/Image1';
+import { Image1Base64Function } from '../../image/Image1_home';
 import { Image2Base64Function } from '../../image/Image2';
 import { Image3Base64Function } from '../../image/Image3';
 import { Image4Base64Function } from '../../image/Image4';

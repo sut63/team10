@@ -8,7 +8,7 @@ import {
   Select,
   InputLabel,
   MenuItem,
-  TextField,
+  Avatar,
 
   Link,
   Button,
@@ -26,6 +26,16 @@ import { EntUser } from '../../api/models/EntUser';
 
 
 import { Link as RouterLink } from 'react-router-dom';
+
+import { Image3Base64Function } from '../../image/Image3';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
 
 // css style 
 const useStyles = makeStyles(theme => ({
@@ -198,12 +208,9 @@ const NewPatientright: FC<{}> = () => {
 
   return (
     <Page theme={pageTheme.home}>
-      <Header
-        title={`ลงทะเบียน ${profile.givenName || 'to Backstage'}`}
-        subtitle="Some quick intro and links."
-      >
-        <Timer />
-
+      <Header style={HeaderCustom} title={`ลงทะเบียนสิทธิ์`}>
+        <Avatar alt="Remy Sharp" src={Image3Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
         <ContentHeader title="ข้อมูล">

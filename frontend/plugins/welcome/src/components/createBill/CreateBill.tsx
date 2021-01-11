@@ -14,6 +14,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Avatar } from '@material-ui/core';
 
 
 import { DefaultApi } from '../../api/apis';
@@ -47,10 +48,17 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
 import { Cookies } from 'react-cookie/cjs';//cookie
+import { Image1Base64Function } from '../../image/Image1';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
 
 const cookies = new Cookies();
-const Status = cookies.get('Name');
+const Name = cookies.get('Name');
 
 const CreateBill: FC<{}> = () => {
   const classes = useStyles();
@@ -161,7 +169,10 @@ const CreateBill: FC<{}> = () => {
 
 
       <Page theme={pageTheme.home}>
-        <Header title={`Financial Department`}></Header>
+      <Header style={HeaderCustom} title={`Financial Department`}>
+        <Avatar alt="Remy Sharp" src={Image1Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
         <Content>
           <Grid container spacing={3} >
             <Grid container item xs={12} sm={12}  >
