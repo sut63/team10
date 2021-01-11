@@ -25,8 +25,8 @@ import (
 
 	//import by patientrights No.3
 	//vvv...............................vvv
-	/*	"time"
-
+		"time"
+/*
 		"github.com/team10/app/ent/insurance"
 		"github.com/team10/app/ent/medicalrecordstaff"
 		"github.com/team10/app/ent/patientrecord"
@@ -568,7 +568,7 @@ func main() {
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
-
+	
 	// Set Postman By Patientrecord System No.2
 	//vvv*******************************************************************vvv
 
@@ -610,11 +610,13 @@ func main() {
 			SetUser(u).
 			Save(context.Background())
 	}
-
+	
 	// Set Patientrecord Data
 	Patientrecords := Patientrecords{
 		Patientrecord: []Patientrecord{
 			Patientrecord{3, "วิลาฬ ชาญชัย", 1, 1300101198176, 21, "A", "-", "-", "0957212978", "api@gmail.com", "บ้านเลขที่ 35/6 ถ.สายไหม อ.เมือง ต.ในเมือง จ.นครราชสีมา 30000", 1},
+			Patientrecord{3, "วิชัย ชาญชัย", 1, 1300101198176, 21, "A", "-", "-", "0957212978", "api@gmail.com", "บ้านเลขที่ 35/6 ถ.สายไหม อ.เมือง ต.ในเมือง จ.นครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลินา ชาญชัย", 1, 1300101198176, 21, "A", "-", "-", "0957212978", "api@gmail.com", "บ้านเลขที่ 35/6 ถ.สายไหม อ.เมือง ต.ในเมือง จ.นครราชสีมา 30000", 1},
 		},
 	}
 	for _, pr := range Patientrecords.Patientrecord {
@@ -647,6 +649,7 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
+		
 		client.Patientrecord.
 			Create().
 			SetPrename(p).
@@ -659,11 +662,12 @@ func main() {
 			SetAllergic(pr.Allergic).
 			SetPhonenumber(pr.Phonenumber).
 			SetEmail(pr.Email).
-			SetHome(pr.Home).
+			SetHome(pr.Home).		
 			SetMedicalrecordstaff(m).
+			SetDate(time.Now().Local()).
 			Save(context.Background())
 	}
-
+	
 	//^^^*******************************************************************^^^
 	// Set Postman By Historytaking System No.5
 	//vvv*******************************************************************vvv
@@ -672,7 +676,7 @@ func main() {
 	nurses := Nurses{
 		Nurse: []Nurse{
 			Nurse{"Paonrat Panjainam", "Nurse123456", "พยาบาลวิชาชีพ", 6},
-			Nurse{"Name Surname", "Nurse001122", "พยาบาลวิชาชีพ", 6},
+			Nurse{"Name Surname", "Nurse001122", "พยาบาลวิชาชีพ", 1},
 		},
 	}
 
@@ -727,98 +731,27 @@ func main() {
 	}
 
 	//^^^*******************************************************************^^^
-	// Set Postman By Bill System No.1
+
+	// Set Postman By Treatment System No.4 Part1
 	//vvv*******************************************************************vvv
 
-	//Set Financier data
-	financiers := Financiers{
-		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod", 2},
-			Financier{"Name Surname", 8},
+	//Set Typetreatment data
+	typetreatments := Typetreatments{
+		Typetreatment: []Typetreatment{
+			Typetreatment{"ตรวจผ่าตัด"},
+			Typetreatment{"ตรวจทั่วไป"},
+			Typetreatment{"ตรวจวินิจฉัย"},
 		},
 	}
-	for _, f := range financiers.Financier {
-		u, err := client.User.
-			Query().
-			Where(user.IDEQ(f.user)).
-			Only(context.Background())
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-		client.Financier.
+	for _, tm := range typetreatments.Typetreatment {
+		client.Typetreatment.
 			Create().
-			SetName(f.name).
-			SetUser(u).
-			Save(context.Background())
-	}
-
-	//Set Paytype data
-	paytypes := Paytypes{
-		Paytype: []Paytype{
-			Paytype{"Online Banking"},
-			Paytype{"Credit / Debit Card"},
-			Paytype{"Cash"},
-		},
-	}
-	for _, pt := range paytypes.Paytype {
-		client.Paytype.
-			Create().
-			SetPaytype(pt.paytype).
-			Save(context.Background())
-	}
-
-	//Set Treatment data
-
-	treatments := Treatments{
-		Treatment: []Treatment{
-			Treatment{"ตรวจขั้นพื้นฐาน", 1, 1, 1},
-			Treatment{"ตรวจโควิด19", 3, 2, 1},
-		},
-	}
-	for _, t := range treatments.Treatment {
-		tt, err := client.Typetreatment.
-			Query().
-			Where(typetreatment.IDEQ(int(t.Typetreatment))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-		d, err := client.Doctor.
-			Query().
-			Where(doctor.IDEQ(int(t.Doctor))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-		m, err := client.Patientrecord.
-			Query().
-			Where(patientrecord.IDEQ(int(t.Patientrecord))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-		client.Treatment.
-			Create().
-			SetTreatment(t.Treatment).
-			SetTypetreatment(tt).
-			SetDoctor(d).
-			SetPatientrecord(m).
+			SetTypetreatment(tm.Typetreatment).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
-	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
-
-	//Set Postman Output
-	//vvv*******************************************************************vvv
-
-	// Set Doctorinformation output No.6
+	
+		// Set Doctorinformation output No.6
 	//vvv...................................................................vvv
 	Doctorinfos := Doctorinfos{
 		Doctorinfo: []Doctorinfo{
@@ -883,97 +816,15 @@ func main() {
 
 	//^^^...................................................................^^^
 
-	// Set Patientrightstypes output No.3
-	//vvv...................................................................vvv
-	/*
-		patientrightss := Patientrightss{
-			Patientrights: []Patientrights{
-				Patientrights{1, 1, 1, 1},
-				Patientrights{1, 1, 1, 1},
-				Patientrights{1, 1, 1, 1},
-				Patientrights{1, 1, 1, 1},
-			},
-		}
-
-		for _, p := range patientrightss.Patientrights {
-
-			Patientrightstype, err := client.Patientrightstype.
-				Query().
-				Where(patientrightstype.IDEQ(int(p.Patientrightstype))).
-				Only(context.Background())
-
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
-
-			Insurance, err := client.Insurance.
-				Query().
-				Where(insurance.IDEQ(int(p.Insurance))).
-				Only(context.Background())
-
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
-
-			Patientrecord, err := client.Patientrecord.
-				Query().
-				Where(patientrecord.IDEQ(int(p.Patientrecord))).
-				Only(context.Background())
-
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
-
-			Medicalrecordstaff, err := client.Medicalrecordstaff.
-				Query().
-				Where(medicalrecordstaff.IDEQ(int(p.Medicalrecordstaff))).
-				Only(context.Background())
-
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
-
-			t := time.Now().Local()
-			client.Patientrights.
-				Create().
-				SetPermissionDate(t).
-				SetPatientrightsPatientrightstype(Patientrightstype).
-				SetPatientrightsPatientrecord(Patientrecord).
-				SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
-				SetPatientrightsInsurance(Insurance).
-				Save(context.Background())
-
-		}
-	*/
-	//^^^...................................................................^^^
-
-	// Set Postman By Treatment System
+	// Set Postman By Treatment System No.4 Part2
 	//vvv*******************************************************************vvv
 
-	//Set Typetreatment data
-	typetreatments := Typetreatments{
-		Typetreatment: []Typetreatment{
-			Typetreatment{"ตรวจผ่าตัด"},
-			Typetreatment{"ตรวจทั่วไป"},
-			Typetreatment{"ตรวจวินิจฉัย"},
-		},
-	}
-	for _, tm := range typetreatments.Typetreatment {
-		client.Typetreatment.
-			Create().
-			SetTypetreatment(tm.Typetreatment).
-			Save(context.Background())
-	}
-
+	
 	//Set Doctor data
 	Doctors := Doctors{
 		Doctor: []Doctor{
-			Doctor{1, 5},
-			Doctor{2, 5},
+			Doctor{1, 4},
+			Doctor{2, 1},
 		},
 	}
 	for _, d := range Doctors.Doctor {
@@ -987,13 +838,119 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
+		u, err := client.User.
+			Query().
+			Where(user.IDEQ(int(d.User))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		client.Doctor.
 			Create().
 			SetDoctorinfo(di).
+			SetUser(u).
 			Save(context.Background())
 	}
 
 	//^^^*******************************************************************^^^
+
+
+	
+	// Set Postman By Bill System No.1
+	//vvv*******************************************************************vvv
+
+	//Set Financier data
+	financiers := Financiers{
+		Financier: []Financier{
+			Financier{"Nutchaporn Klinrod", 2},
+			Financier{"Name Surname", 1},
+		},
+	}
+	for _, f := range financiers.Financier {
+		u, err := client.User.
+			Query().
+			Where(user.IDEQ(f.user)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		client.Financier.
+			Create().
+			SetName(f.name).
+			SetUser(u).
+			Save(context.Background())
+	}
+
+	//Set Paytype data
+	paytypes := Paytypes{
+		Paytype: []Paytype{
+			Paytype{"Online Banking"},
+			Paytype{"Credit / Debit Card"},
+			Paytype{"Cash"},
+		},
+	}
+	for _, pt := range paytypes.Paytype {
+		client.Paytype.
+			Create().
+			SetPaytype(pt.paytype).
+			Save(context.Background())
+	}
+	
+	//Set Treatment data
+
+	treatments := Treatments{
+		Treatment: []Treatment{
+			Treatment{"ตรวจขั้นพื้นฐาน", 1, 1, 1},
+			Treatment{"ตรวจโควิด19", 3, 2, 1},
+		},
+	}
+	for _, t := range treatments.Treatment {
+		tt, err := client.Typetreatment.
+			Query().
+			Where(typetreatment.IDEQ(int(t.Typetreatment))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		
+		d, err := client.Doctor.
+			Query().
+			Where(doctor.IDEQ(int(t.Doctor))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		
+		m, err := client.Patientrecord.
+			Query().
+			Where(patientrecord.IDEQ(int(t.Patientrecord))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		
+		client.Treatment.
+			Create().
+			SetTreatment(t.Treatment).
+			SetTypetreatment(tt).
+			SetDoctor(d).
+			SetPatientrecord(m).
+			Save(context.Background())
+	}
+	//^^^*******************************************************************^^^
+
+
+	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
+
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.Run()

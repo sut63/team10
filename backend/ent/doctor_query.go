@@ -71,7 +71,7 @@ func (dq *DoctorQuery) QueryDoctorinfo() *DoctorinfoQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctor.Table, doctor.FieldID, dq.sqlQuery()),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, doctor.DoctorinfoTable, doctor.DoctorinfoColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, doctor.DoctorinfoTable, doctor.DoctorinfoColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil

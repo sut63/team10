@@ -14,7 +14,7 @@ type Prename struct {
 // Fields of the Prename.
 func (Prename) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("prefix").NotEmpty(),
+		field.String("prefix").NotEmpty().Unique(),
 	}
 }
 

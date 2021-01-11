@@ -14,7 +14,7 @@ type Patientrecord struct {
 // Fields of the Patientrecord.
 func (Patientrecord) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Name"),
+		field.String("Name").Unique(),
 		field.Int("Idcardnumber"),
 		field.Int("Age"),
 		field.String("Bloodtype"),

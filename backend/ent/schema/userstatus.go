@@ -14,7 +14,7 @@ type Userstatus struct {
 // Fields of the Userstatus.
 func (Userstatus) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Userstatus"),
+		field.String("Userstatus").Unique(),
 	}
 }
 

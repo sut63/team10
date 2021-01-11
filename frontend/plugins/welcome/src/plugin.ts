@@ -7,7 +7,8 @@ import Historytaking from './components/Historytaking';
 import tableHistorytaking from './components/tableHistorytaking';
 import createHistorytaking from './components/createHistorytaking';
 import CreateBill from './components/createBill'
-import createTreatment from './components/treatment';
+import createTreatment from './components/createTreatment';
+import Treatment from './components/Treatment';
 import CreateDoctorinfo from './components/Doctorinfo';
 import createPatientrecord from './components/createPatientrecord';
 import Patientrecord from './components/Patientrecord';
@@ -57,6 +58,7 @@ export const plugin = createPlugin({
         router.registerRoute('/createHistorytaking', createHistorytaking);
       }
       if (Status == 'Doc' || Status == 'Root' ) {
+        router.registerRoute('/Treatment', Treatment);
         router.registerRoute('/createTreatment', createTreatment);
       }
       

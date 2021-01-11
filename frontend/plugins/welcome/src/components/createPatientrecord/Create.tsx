@@ -51,9 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
             marginRight: theme.spacing(1),
             width: 200,
         },
-        table: {
-          minWidth: 650,
-        },
     }),
   );
 
@@ -85,19 +82,19 @@ export  default  function Create() {
 
   useEffect(() => {
     const getPrename = async () => {
-        const res = await api.listPrename({ limit: 50, offset: 2 });
+        const res = await api.listPrename({ limit: 5, offset: 2 });
         setLoading(false);
         setPrename(res);
     };
     getPrename();
     const getGender = async () => {
-        const res = await api.listGender({ limit: 20, offset: 0 });
+        const res = await api.listGender({ limit: 2, offset: 0 });
         setLoading(false);
         setGender(res);
     };
     getGender();
     const getMedicalrecordstaff = async () => {
-        const res = await api.listMedicalrecordstaff({ limit: 10, offset: 0 });
+        const res = await api.listMedicalrecordstaff({ limit: 2, offset: 0 });
         setLoading(false);
         setMedicalrecordstaff(res);
         console.log(res);
@@ -226,7 +223,6 @@ export  default  function Create() {
 
             <div className={classes.paper}></div>
             <TextField 
-            name="idcardnumber"
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
             value={idcardnumber}
@@ -234,12 +230,15 @@ export  default  function Create() {
             /> &emsp;
 
             <TextField 
-            name="age"
             label="อายุ" 
             variant="outlined" 
             value={age}
             onChange={AgehandleChange}
+<<<<<<< HEAD
             /> &emsp; 
+=======
+            /> &emsp;
+>>>>>>> 60f87ddcab0f873ab235c985c2adb16416ad4fb2
             
             <TextField 
             label="กรุ๊ปเลือด" 
@@ -254,6 +253,7 @@ export  default  function Create() {
             name="disease"
             label="โรคประจำตัว" 
             variant="outlined" 
+            style={{ width: "25ch"}}
             value={disease}
             onChange={DiseasehandleChange}
             /> &emsp;
@@ -262,43 +262,45 @@ export  default  function Create() {
             label="แพ้ยา"  
             name="allergic"
             variant="outlined" 
+            style={{ width: "25ch"}}
             value={allergic}
             onChange={AllergichandleChange}
             /> 
             
             <div className={classes.paper}></div>
             <TextField 
-            name="phonenumber"
             label="เบอร์โทรที่ติดต่อได้" 
-            variant="outlined" 
+            variant="outlined"
+            style={{ width: "25ch"}} 
             value={phonenumber}
             onChange={PhonenumberhandleChange}
             /> &emsp;
             
             <TextField 
-            name="email"
             label="อีเมล์" 
-            variant="outlined" 
+            variant="outlined"
+            style={{ width: "25ch"}} 
             value={email}
             onChange={EmailhandleChange}
             /> 
 
             <div className={classes.paper}></div>
             <TextField
-            name="home"
             label="ที่อยู่"
             multiline
             variant="outlined"
-            style={{ width: "74ch"}}
+            style={{ width: "67ch"}}
+            rows={3}
             value={home}
             onChange={HomehandleChange}
             />
             
             <div className={classes.paper}></div>
-              <FormControl variant="outlined" className={classes.formControl}>
+              <FormControl variant="outlined">
                 <InputLabel>พนักงานเวชระเบียน</InputLabel>
               <Select
                 label="พนักงานเวชระเบียน"
+                style={{ width: "35ch"}}
                 value={medicalrecordstaffid}
                 onChange={MedicalrecordstaffhandleChange}
               >

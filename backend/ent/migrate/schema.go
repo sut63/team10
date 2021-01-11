@@ -75,7 +75,7 @@ var (
 	// DoctorsColumns holds the columns for the "doctors" table.
 	DoctorsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "doctorinfo_id", Type: field.TypeInt, Nullable: true},
+		{Name: "doctorinfo_id", Type: field.TypeInt, Unique: true, Nullable: true},
 		{Name: "user_id", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
 	// DoctorsTable holds the schema information for the "doctors" table.
@@ -184,7 +184,7 @@ var (
 	// GendersColumns holds the columns for the "genders" table.
 	GendersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "genderstatus", Type: field.TypeString},
+		{Name: "genderstatus", Type: field.TypeString, Unique: true},
 	}
 	// GendersTable holds the schema information for the "genders" table.
 	GendersTable = &schema.Table{
@@ -317,7 +317,7 @@ var (
 	// PatientrecordsColumns holds the columns for the "patientrecords" table.
 	PatientrecordsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString},
+		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "idcardnumber", Type: field.TypeInt},
 		{Name: "age", Type: field.TypeInt},
 		{Name: "bloodtype", Type: field.TypeString},
@@ -408,7 +408,7 @@ var (
 	// PatientrightstypesColumns holds the columns for the "patientrightstypes" table.
 	PatientrightstypesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "permission", Type: field.TypeString},
+		{Name: "permission", Type: field.TypeString, Unique: true},
 		{Name: "permission_area", Type: field.TypeString},
 		{Name: "responsible", Type: field.TypeString},
 		{Name: "Abilitypatientrights_id", Type: field.TypeInt, Nullable: true},
@@ -443,7 +443,7 @@ var (
 	// PrenamesColumns holds the columns for the "prenames" table.
 	PrenamesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "prefix", Type: field.TypeString},
+		{Name: "prefix", Type: field.TypeString, Unique: true},
 	}
 	// PrenamesTable holds the schema information for the "prenames" table.
 	PrenamesTable = &schema.Table{
@@ -455,7 +455,7 @@ var (
 	// RegistrarsColumns holds the columns for the "registrars" table.
 	RegistrarsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString},
+		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "user_id", Type: field.TypeInt, Unique: true, Nullable: true},
 	}
 	// RegistrarsTable holds the schema information for the "registrars" table.
@@ -589,7 +589,7 @@ var (
 	// UserstatusesColumns holds the columns for the "userstatuses" table.
 	UserstatusesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "userstatus", Type: field.TypeString},
+		{Name: "userstatus", Type: field.TypeString, Unique: true},
 	}
 	// UserstatusesTable holds the schema information for the "userstatuses" table.
 	UserstatusesTable = &schema.Table{

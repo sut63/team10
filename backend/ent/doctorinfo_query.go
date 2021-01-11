@@ -147,7 +147,7 @@ func (dq *DoctorinfoQuery) QueryDoctor() *DoctorQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
 			sqlgraph.To(doctor.Table, doctor.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, doctorinfo.DoctorTable, doctorinfo.DoctorColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, doctorinfo.DoctorTable, doctorinfo.DoctorColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -618,7 +618,7 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "doctorinfo_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Doctor = append(node.Edges.Doctor, n)
+			node.Edges.Doctor = n
 		}
 	}
 
