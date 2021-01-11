@@ -55,7 +55,9 @@ export default function ComponentsTable() {
          </TableRow>
        </TableHead>
        <TableBody>
-         {Historytakings.map((item:any) => (
+       {Historytakings === undefined 
+          ? null
+          : Historytakings.map((item :any)=> (
            <TableRow key={item.id}>
              <TableCell align="center">{item.id}</TableCell>
              <TableCell align="center">{item.hight}</TableCell>
