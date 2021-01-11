@@ -676,7 +676,7 @@ func main() {
 	nurses := Nurses{
 		Nurse: []Nurse{
 			Nurse{"Paonrat Panjainam", "Nurse123456", "พยาบาลวิชาชีพ", 6},
-			Nurse{"Name Surname", "Nurse001122", "พยาบาลวิชาชีพ", 6},
+			Nurse{"Name Surname", "Nurse001122", "พยาบาลวิชาชีพ", 1},
 		},
 	}
 
