@@ -676,7 +676,7 @@ func main() {
 	nurses := Nurses{
 		Nurse: []Nurse{
 			Nurse{"Paonrat Panjainam", "Nurse123456", "พยาบาลวิชาชีพ", 6},
-			Nurse{"Name Surname", "Nurse001122", "พยาบาลวิชาชีพ", 6},
+			Nurse{"Name Surname", "Nurse001122", "พยาบาลวิชาชีพ", 1},
 		},
 	}
 
@@ -865,7 +865,7 @@ func main() {
 	financiers := Financiers{
 		Financier: []Financier{
 			Financier{"Nutchaporn Klinrod", 2},
-			Financier{"Name Surname", 8},
+			Financier{"Name Surname", 1},
 		},
 	}
 	for _, f := range financiers.Financier {
