@@ -1,7 +1,7 @@
 import { createPlugin } from '@backstage/core';
 import WelcomePage from './components/WelcomePage';
-import SignIn from './components/SignIn'
 
+import Table_patientrights from './components/Table_patientrights'
 import create_Patientrights from './components/create_patientrights';
 import Historytaking from './components/Historytaking';
 import tableHistorytaking from './components/tableHistorytaking';
@@ -45,6 +45,7 @@ export const plugin = createPlugin({
         router.registerRoute('/createBill', CreateBill);
       }
       if (Status == 'Med' || Status == 'Root' ) {
+        router.registerRoute('/Table_patientrights',Table_patientrights);
         router.registerRoute('/create_Patientrights', create_Patientrights);
         router.registerRoute('/createPatientrecord', createPatientrecord);
         router.registerRoute('/Patientrecord', Patientrecord);
