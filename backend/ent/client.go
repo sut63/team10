@@ -716,7 +716,7 @@ func (c *DoctorClient) QueryDoctorinfo(d *Doctor) *DoctorinfoQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctor.Table, doctor.FieldID, id),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, doctor.DoctorinfoTable, doctor.DoctorinfoColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, doctor.DoctorinfoTable, doctor.DoctorinfoColumn),
 		)
 		fromV = sqlgraph.Neighbors(d.driver.Dialect(), step)
 		return fromV, nil
@@ -911,7 +911,7 @@ func (c *DoctorinfoClient) QueryDoctor(d *Doctorinfo) *DoctorQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, id),
 			sqlgraph.To(doctor.Table, doctor.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, doctorinfo.DoctorTable, doctorinfo.DoctorColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, doctorinfo.DoctorTable, doctorinfo.DoctorColumn),
 		)
 		fromV = sqlgraph.Neighbors(d.driver.Dialect(), step)
 		return fromV, nil

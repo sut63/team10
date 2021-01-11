@@ -2064,8 +2064,8 @@ type DoctorinfoMutation struct {
 	clearedofficeroom     bool
 	prename               *int
 	clearedprename        bool
-	doctor                map[int]struct{}
-	removeddoctor         map[int]struct{}
+	doctor                *int
+	cleareddoctor         bool
 	done                  bool
 	oldValue              func(context.Context) (*Doctorinfo, error)
 }
@@ -2453,38 +2453,35 @@ func (m *DoctorinfoMutation) ResetPrename() {
 	m.clearedprename = false
 }
 
-// AddDoctorIDs adds the doctor edge to Doctor by ids.
-func (m *DoctorinfoMutation) AddDoctorIDs(ids ...int) {
-	if m.doctor == nil {
-		m.doctor = make(map[int]struct{})
-	}
-	for i := range ids {
-		m.doctor[ids[i]] = struct{}{}
-	}
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (m *DoctorinfoMutation) SetDoctorID(id int) {
+	m.doctor = &id
 }
 
-// RemoveDoctorIDs removes the doctor edge to Doctor by ids.
-func (m *DoctorinfoMutation) RemoveDoctorIDs(ids ...int) {
-	if m.removeddoctor == nil {
-		m.removeddoctor = make(map[int]struct{})
-	}
-	for i := range ids {
-		m.removeddoctor[ids[i]] = struct{}{}
-	}
+// ClearDoctor clears the doctor edge to Doctor.
+func (m *DoctorinfoMutation) ClearDoctor() {
+	m.cleareddoctor = true
 }
 
-// RemovedDoctor returns the removed ids of doctor.
-func (m *DoctorinfoMutation) RemovedDoctorIDs() (ids []int) {
-	for id := range m.removeddoctor {
-		ids = append(ids, id)
+// DoctorCleared returns if the edge doctor was cleared.
+func (m *DoctorinfoMutation) DoctorCleared() bool {
+	return m.cleareddoctor
+}
+
+// DoctorID returns the doctor id in the mutation.
+func (m *DoctorinfoMutation) DoctorID() (id int, exists bool) {
+	if m.doctor != nil {
+		return *m.doctor, true
 	}
 	return
 }
 
 // DoctorIDs returns the doctor ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// DoctorID instead. It exists only for internal usage by the builders.
 func (m *DoctorinfoMutation) DoctorIDs() (ids []int) {
-	for id := range m.doctor {
-		ids = append(ids, id)
+	if id := m.doctor; id != nil {
+		ids = append(ids, *id)
 	}
 	return
 }
@@ -2492,7 +2489,7 @@ func (m *DoctorinfoMutation) DoctorIDs() (ids []int) {
 // ResetDoctor reset all changes of the "doctor" edge.
 func (m *DoctorinfoMutation) ResetDoctor() {
 	m.doctor = nil
-	m.removeddoctor = nil
+	m.cleareddoctor = false
 }
 
 // Op returns the operation name.
@@ -2701,11 +2698,9 @@ func (m *DoctorinfoMutation) AddedIDs(name string) []ent.Value {
 			return []ent.Value{*id}
 		}
 	case doctorinfo.EdgeDoctor:
-		ids := make([]ent.Value, 0, len(m.doctor))
-		for id := range m.doctor {
-			ids = append(ids, id)
+		if id := m.doctor; id != nil {
+			return []ent.Value{*id}
 		}
-		return ids
 	}
 	return nil
 }
@@ -2714,9 +2709,6 @@ func (m *DoctorinfoMutation) AddedIDs(name string) []ent.Value {
 // mutation.
 func (m *DoctorinfoMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 5)
-	if m.removeddoctor != nil {
-		edges = append(edges, doctorinfo.EdgeDoctor)
-	}
 	return edges
 }
 
@@ -2724,12 +2716,6 @@ func (m *DoctorinfoMutation) RemovedEdges() []string {
 // the given edge name.
 func (m *DoctorinfoMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
-	case doctorinfo.EdgeDoctor:
-		ids := make([]ent.Value, 0, len(m.removeddoctor))
-		for id := range m.removeddoctor {
-			ids = append(ids, id)
-		}
-		return ids
 	}
 	return nil
 }
@@ -2750,6 +2736,9 @@ func (m *DoctorinfoMutation) ClearedEdges() []string {
 	if m.clearedprename {
 		edges = append(edges, doctorinfo.EdgePrename)
 	}
+	if m.cleareddoctor {
+		edges = append(edges, doctorinfo.EdgeDoctor)
+	}
 	return edges
 }
 
@@ -2765,6 +2754,8 @@ func (m *DoctorinfoMutation) EdgeCleared(name string) bool {
 		return m.clearedofficeroom
 	case doctorinfo.EdgePrename:
 		return m.clearedprename
+	case doctorinfo.EdgeDoctor:
+		return m.cleareddoctor
 	}
 	return false
 }
@@ -2784,6 +2775,9 @@ func (m *DoctorinfoMutation) ClearEdge(name string) error {
 		return nil
 	case doctorinfo.EdgePrename:
 		m.ClearPrename()
+		return nil
+	case doctorinfo.EdgeDoctor:
+		m.ClearDoctor()
 		return nil
 	}
 	return fmt.Errorf("unknown Doctorinfo unique edge %s", name)

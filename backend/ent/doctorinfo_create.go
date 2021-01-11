@@ -124,19 +124,23 @@ func (dc *DoctorinfoCreate) SetPrename(p *Prename) *DoctorinfoCreate {
 	return dc.SetPrenameID(p.ID)
 }
 
-// AddDoctorIDs adds the doctor edge to Doctor by ids.
-func (dc *DoctorinfoCreate) AddDoctorIDs(ids ...int) *DoctorinfoCreate {
-	dc.mutation.AddDoctorIDs(ids...)
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (dc *DoctorinfoCreate) SetDoctorID(id int) *DoctorinfoCreate {
+	dc.mutation.SetDoctorID(id)
 	return dc
 }
 
-// AddDoctor adds the doctor edges to Doctor.
-func (dc *DoctorinfoCreate) AddDoctor(d ...*Doctor) *DoctorinfoCreate {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (dc *DoctorinfoCreate) SetNillableDoctorID(id *int) *DoctorinfoCreate {
+	if id != nil {
+		dc = dc.SetDoctorID(*id)
 	}
-	return dc.AddDoctorIDs(ids...)
+	return dc
+}
+
+// SetDoctor sets the doctor edge to Doctor.
+func (dc *DoctorinfoCreate) SetDoctor(d *Doctor) *DoctorinfoCreate {
+	return dc.SetDoctorID(d.ID)
 }
 
 // Mutation returns the DoctorinfoMutation object of the builder.
@@ -348,7 +352,7 @@ func (dc *DoctorinfoCreate) createSpec() (*Doctorinfo, *sqlgraph.CreateSpec) {
 	}
 	if nodes := dc.mutation.DoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
 			Table:   doctorinfo.DoctorTable,
 			Columns: []string{doctorinfo.DoctorColumn},

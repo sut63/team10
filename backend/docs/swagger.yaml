@@ -278,10 +278,9 @@ definitions:
         description: Department holds the value of the department edge.
         type: object
       doctor:
+        $ref: '#/definitions/ent.Doctor'
         description: Doctor holds the value of the doctor edge.
-        items:
-          $ref: '#/definitions/ent.Doctor'
-        type: array
+        type: object
       educationlevel:
         $ref: '#/definitions/ent.Educationlevel'
         description: Educationlevel holds the value of the educationlevel edge.

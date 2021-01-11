@@ -187,7 +187,7 @@ func (du *DoctorUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if du.mutation.DoctorinfoCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   doctor.DoctorinfoTable,
 			Columns: []string{doctor.DoctorinfoColumn},
@@ -203,7 +203,7 @@ func (du *DoctorUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if nodes := du.mutation.DoctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   doctor.DoctorinfoTable,
 			Columns: []string{doctor.DoctorinfoColumn},
@@ -466,7 +466,7 @@ func (duo *DoctorUpdateOne) sqlSave(ctx context.Context) (d *Doctor, err error) 
 	_spec.Node.ID.Value = id
 	if duo.mutation.DoctorinfoCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   doctor.DoctorinfoTable,
 			Columns: []string{doctor.DoctorinfoColumn},
@@ -482,7 +482,7 @@ func (duo *DoctorUpdateOne) sqlSave(ctx context.Context) (d *Doctor, err error) 
 	}
 	if nodes := duo.mutation.DoctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
+			Rel:     sqlgraph.O2O,
 			Inverse: true,
 			Table:   doctor.DoctorinfoTable,
 			Columns: []string{doctor.DoctorinfoColumn},
