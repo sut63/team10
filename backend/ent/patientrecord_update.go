@@ -66,12 +66,6 @@ func (pu *PatientrecordUpdate) AddAge(i int) *PatientrecordUpdate {
 	return pu
 }
 
-// SetBirthday sets the Birthday field.
-func (pu *PatientrecordUpdate) SetBirthday(t time.Time) *PatientrecordUpdate {
-	pu.mutation.SetBirthday(t)
-	return pu
-}
-
 // SetBloodtype sets the Bloodtype field.
 func (pu *PatientrecordUpdate) SetBloodtype(s string) *PatientrecordUpdate {
 	pu.mutation.SetBloodtype(s)
@@ -387,13 +381,6 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: patientrecord.FieldAge,
-		})
-	}
-	if value, ok := pu.mutation.Birthday(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeTime,
-			Value:  value,
-			Column: patientrecord.FieldBirthday,
 		})
 	}
 	if value, ok := pu.mutation.Bloodtype(); ok {
@@ -714,12 +701,6 @@ func (puo *PatientrecordUpdateOne) AddAge(i int) *PatientrecordUpdateOne {
 	return puo
 }
 
-// SetBirthday sets the Birthday field.
-func (puo *PatientrecordUpdateOne) SetBirthday(t time.Time) *PatientrecordUpdateOne {
-	puo.mutation.SetBirthday(t)
-	return puo
-}
-
 // SetBloodtype sets the Bloodtype field.
 func (puo *PatientrecordUpdateOne) SetBloodtype(s string) *PatientrecordUpdateOne {
 	puo.mutation.SetBloodtype(s)
@@ -1033,13 +1014,6 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: patientrecord.FieldAge,
-		})
-	}
-	if value, ok := puo.mutation.Birthday(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeTime,
-			Value:  value,
-			Column: patientrecord.FieldBirthday,
 		})
 	}
 	if value, ok := puo.mutation.Bloodtype(); ok {

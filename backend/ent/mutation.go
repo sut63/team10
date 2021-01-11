@@ -6508,7 +6508,6 @@ type PatientrecordMutation struct {
 	add_Idcardnumber                   *int
 	_Age                               *int
 	add_Age                            *int
-	_Birthday                          *time.Time
 	_Bloodtype                         *string
 	_Disease                           *string
 	_Allergic                          *string
@@ -6761,43 +6760,6 @@ func (m *PatientrecordMutation) AddedAge() (r int, exists bool) {
 func (m *PatientrecordMutation) ResetAge() {
 	m._Age = nil
 	m.add_Age = nil
-}
-
-// SetBirthday sets the Birthday field.
-func (m *PatientrecordMutation) SetBirthday(t time.Time) {
-	m._Birthday = &t
-}
-
-// Birthday returns the Birthday value in the mutation.
-func (m *PatientrecordMutation) Birthday() (r time.Time, exists bool) {
-	v := m._Birthday
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldBirthday returns the old Birthday value of the Patientrecord.
-// If the Patientrecord object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *PatientrecordMutation) OldBirthday(ctx context.Context) (v time.Time, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldBirthday is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldBirthday requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldBirthday: %w", err)
-	}
-	return oldValue.Birthday, nil
-}
-
-// ResetBirthday reset all changes of the "Birthday" field.
-func (m *PatientrecordMutation) ResetBirthday() {
-	m._Birthday = nil
 }
 
 // SetBloodtype sets the Bloodtype field.
@@ -7316,7 +7278,7 @@ func (m *PatientrecordMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *PatientrecordMutation) Fields() []string {
-	fields := make([]string, 0, 11)
+	fields := make([]string, 0, 10)
 	if m._Name != nil {
 		fields = append(fields, patientrecord.FieldName)
 	}
@@ -7325,9 +7287,6 @@ func (m *PatientrecordMutation) Fields() []string {
 	}
 	if m._Age != nil {
 		fields = append(fields, patientrecord.FieldAge)
-	}
-	if m._Birthday != nil {
-		fields = append(fields, patientrecord.FieldBirthday)
 	}
 	if m._Bloodtype != nil {
 		fields = append(fields, patientrecord.FieldBloodtype)
@@ -7364,8 +7323,6 @@ func (m *PatientrecordMutation) Field(name string) (ent.Value, bool) {
 		return m.Idcardnumber()
 	case patientrecord.FieldAge:
 		return m.Age()
-	case patientrecord.FieldBirthday:
-		return m.Birthday()
 	case patientrecord.FieldBloodtype:
 		return m.Bloodtype()
 	case patientrecord.FieldDisease:
@@ -7395,8 +7352,6 @@ func (m *PatientrecordMutation) OldField(ctx context.Context, name string) (ent.
 		return m.OldIdcardnumber(ctx)
 	case patientrecord.FieldAge:
 		return m.OldAge(ctx)
-	case patientrecord.FieldBirthday:
-		return m.OldBirthday(ctx)
 	case patientrecord.FieldBloodtype:
 		return m.OldBloodtype(ctx)
 	case patientrecord.FieldDisease:
@@ -7440,13 +7395,6 @@ func (m *PatientrecordMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAge(v)
-		return nil
-	case patientrecord.FieldBirthday:
-		v, ok := value.(time.Time)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetBirthday(v)
 		return nil
 	case patientrecord.FieldBloodtype:
 		v, ok := value.(string)
@@ -7582,9 +7530,6 @@ func (m *PatientrecordMutation) ResetField(name string) error {
 		return nil
 	case patientrecord.FieldAge:
 		m.ResetAge()
-		return nil
-	case patientrecord.FieldBirthday:
-		m.ResetBirthday()
 		return nil
 	case patientrecord.FieldBloodtype:
 		m.ResetBloodtype()

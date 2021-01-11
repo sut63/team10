@@ -4574,9 +4574,6 @@ var doc = `{
                 "allergic": {
                     "type": "string"
                 },
-                "birthday": {
-                    "type": "string"
-                },
                 "bloodtype": {
                     "type": "string"
                 },
@@ -5167,10 +5164,6 @@ var doc = `{
                 },
                 "Allergic": {
                     "description": "Allergic holds the value of the \"Allergic\" field.",
-                    "type": "string"
-                },
-                "Birthday": {
-                    "description": "Birthday holds the value of the \"Birthday\" field.",
                     "type": "string"
                 },
                 "Bloodtype": {

@@ -36,12 +36,6 @@ export interface ControllersPatientrecord {
      * @type {string}
      * @memberof ControllersPatientrecord
      */
-    birthday?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     bloodtype?: string;
     /**
      * 
@@ -117,7 +111,6 @@ export function ControllersPatientrecordFromJSONTyped(json: any, ignoreDiscrimin
         
         'age': !exists(json, 'age') ? undefined : json['age'],
         'allergic': !exists(json, 'allergic') ? undefined : json['allergic'],
-        'birthday': !exists(json, 'birthday') ? undefined : json['birthday'],
         'bloodtype': !exists(json, 'bloodtype') ? undefined : json['bloodtype'],
         'date': !exists(json, 'date') ? undefined : json['date'],
         'disease': !exists(json, 'disease') ? undefined : json['disease'],
@@ -143,7 +136,6 @@ export function ControllersPatientrecordToJSON(value?: ControllersPatientrecord 
         
         'age': value.age,
         'allergic': value.allergic,
-        'birthday': value.birthday,
         'bloodtype': value.bloodtype,
         'date': value.date,
         'disease': value.disease,
