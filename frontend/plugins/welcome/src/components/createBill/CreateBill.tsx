@@ -1,7 +1,7 @@
 import React, { useEffect, FC } from 'react';
 import { Content, Header, Page, pageTheme, } from '@backstage/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Grid, MenuItem, Button, TextField, FormControl, Select, Typography } from '@material-ui/core';
+import { Grid, MenuItem, Button, TextField, Select, Typography } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import { Alert } from '@material-ui/lab';
@@ -22,7 +22,12 @@ import { EntPaytype } from '../../api/models/EntPaytype';
 import { EntUnpaybill } from '../../api/models/EntUnpaybill';
 import { EntFinancier } from '../../api/models/EntFinancier';
 import { EntTreatment } from '../../api';
-import { EntUser } from '../../api/models/EntUser';
+
+import { Cookies } from 'react-cookie/cjs';//cookie
+
+  const cookies = new Cookies();
+  const FINID = cookies.get('Fin'); 
+  const Name = cookies.get('Name');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,17 +53,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-import { Cookies } from 'react-cookie/cjs';//cookie
 import { Image1Base64Function } from '../../image/Image1';
 
 // header css
 const HeaderCustom = {
   minHeight: '50px',
 };
-
-const cookies = new Cookies();
-const Name = cookies.get('Name');
 
 const CreateBill: FC<{}> = () => {
   const classes = useStyles();
@@ -67,23 +67,22 @@ const CreateBill: FC<{}> = () => {
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(Boolean);
   const [loading, setLoading] = React.useState(true);
-
+  
   const [paytypes, setPaytypes] = React.useState<EntPaytype[]>([]);
-  const [financiers, setFinanciers] = React.useState<EntFinancier[]>([]);
-  const [users, setUsers] = React.useState<EntUser[]>([]);
+  const [financiers, setFinanciers] = React.useState<Partial<EntFinancier>>();
 
   const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
   const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
 
-
+  
   const [amounts, setamount] = React.useState(String);
   const [paytypeid, setpaytypeId] = React.useState(Number);
-  const [financierid, setfinancierId] = React.useState(Number);
   const [unpayid, setunpayId] = React.useState(Number);
   const [patientname, setPatient] = React.useState(String);
-
+  const [treatmentid, setTreatmentID] = React.useState(Number);
 
   useEffect(() => {
+
     const getPaytype = async () => {
       const res = await http.listPaytype();
       setLoading(false);
@@ -95,7 +94,7 @@ const CreateBill: FC<{}> = () => {
       setUnpaybills(res);
     };
     const getFinancier = async () => {
-      const res = await http.listFinancier();
+      const res = await http.getFinancier({ id: Number(FINID) });
       setLoading(false);
       setFinanciers(res);
     };
@@ -117,9 +116,6 @@ const CreateBill: FC<{}> = () => {
   const PaytypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setpaytypeId(event.target.value as number);
   };
-  const FinancierhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setfinancierId(event.target.value as number);
-  };
   const AmounthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setamount(event.target.value as string);
   };
@@ -127,7 +123,7 @@ const CreateBill: FC<{}> = () => {
   const CreatePayment = async () => {
     const b = {
       amount: amounts,
-      financier: financierid,
+      financier: financiers?.id,
       paytype: paytypeid,
       unpaybill: unpayid,
     };
@@ -166,8 +162,6 @@ const CreateBill: FC<{}> = () => {
             )}
         </div>
       ) : null}
-
-
       <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`Financial Department`}>
         <Avatar alt="Remy Sharp" src={Image1Base64Function} />
@@ -177,77 +171,62 @@ const CreateBill: FC<{}> = () => {
           <Grid container spacing={3} >
             <Grid container item xs={12} sm={12}  >
               <Grid item xs={4}>
+{/* ********************************* Create Bill Detail ***************************************** */}
                 <Paper >
                   <Typography align="center">
-                    <Typography align="center" variant="h3">
-                      <br /> ใบเสร็จรับเงิน
-                    </Typography>
-                    <Typography align="center" variant="h6">
-                      <br />เลขที่การรักษา : {unpayid}
-                      <br />ผู้รับการรักษา : {patientname}
-                    </Typography>
-                    <FormControl className={classes.formControl}>
-                      <Typography align="center" variant="h6">
-                        <br />รูปแบบการชำระ
+                      <Typography align="center" variant="h3">
+                        <br /> ใบเสร็จรับเงิน
+                      </Typography>
+                        <Typography align="center" variant="subtitle1">
+                          <br />เลขที่การรักษา : {treatmentid}
+                          <br />ผู้ป่วย<br />
+                        <TextField
+                          disabled
+                          label={patientname}
+                          size="small"
+                          />
                         </Typography>
-                      <Select
-                        name="paytype"
-                        value={paytypeid}
-                        onChange={PaytypehandleChange}
-                      >
-                        {paytypes.map(item => {
-                          return (
-                            <MenuItem value={item.id}>
-                              {item.paytype}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <Typography align="center" variant="h6">
-                      <br />ค่ารักษา<br />
-                      <TextField
-                        className={classes.formControl}
-                        value={amounts}
-                        onChange={AmounthandleChange} />
-                    </Typography>
-                    <FormControl className={classes.formControl}>
-                      <Typography align="center" variant="h6">
-                        <br />พนักงานการเงิน
+
+                        <Typography align="center" variant="subtitle1">
+                          <br/>รูปแบบการชำระ<br /> 
+                            <Select
+                            name="paytype"
+                            value={paytypeid}
+                            className={classes.formControl}
+                            onChange={PaytypehandleChange}
+                            >
+                              {paytypes.map(item => {
+                            return (
+                                <MenuItem value={item.id}>{item.paytype}</MenuItem>
+                             );
+                              })}
+                            </Select>
+                            <br/>
+                          <br/>ค่ารักษา<br />
+                            <TextField
+                            className={classes.formControl}
+                            value={amounts}
+                            size = "small"
+                            onChange={AmounthandleChange} />
+                          <br/>
+                          <br/> พนักงานการเงิน : {financiers?.name}
+                          <br/>
+                          <br/>
+                          <Button
+                            onClick={() => {
+                            CreatePayment();
+                            }}
+                            startIcon={<SaveIcon />}
+                            variant="contained"
+                            color="primary"
+                          >
+                             บันทึกใบเสร็จ
+                          </Button>
                         </Typography>
-                      <Select
-                        name="financier"
-                        value={financierid}
-                        onChange={FinancierhandleChange}
-                      >
-                        {financiers.map(item => {
-                          return (
-                            <MenuItem value={item.id}>
-                              {item.name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <br />
-                    <Typography align="center">
-                      <br />
-                      <Button
-                        onClick={() => {
-                          CreatePayment();
-                        }}
-                        startIcon={<SaveIcon />}
-                        variant="contained"
-                        color="primary"
-                      >
-                        บันทึกใบเสร็จ
-                </Button>
-                    </Typography>
                   </Typography>
                   <br />
                 </Paper>
-                <Paper>
-                </Paper>
+{/* ************************** Table Show Unpaybil and Treatment Detial **************************  */}
               </Grid>
               <Grid item xs={8}>
                 <Paper>
@@ -272,12 +251,13 @@ const CreateBill: FC<{}> = () => {
                                 onClick={() => {
                                   setunpayId(item.id as number);
                                   setPatient(item2.edges?.patientrecord?.name as string);
+                                  setTreatmentID(item2.id as number);
                                 }}
                                 variant="outlined"
                                 color="primary"
                               >
                                 ชำระเงิน
-                        </Button>
+                              </Button>
                             </TableCell>
                           </TableRow>
                         ))))}
