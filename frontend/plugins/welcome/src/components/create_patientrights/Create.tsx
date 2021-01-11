@@ -21,7 +21,7 @@ import { EntPatientrightstype } from '../../api/models/EntPatientrightstype';
 import { EntInsurance } from '../../api/models/EntInsurance';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
 import { Alert } from '@material-ui/lab';
-
+import { Cookies } from 'react-cookie/cjs';//cookie
 
 
 
@@ -94,6 +94,7 @@ const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
   const profile = { givenName: 'สิทธ์' };
   const http = new DefaultApi();
+  const cookies = new Cookies();
 
   const [Patientrights, setPatientrights] = React.useState<Partial<Patientrights_Type>>({});
 
@@ -104,11 +105,24 @@ const NewPatientright: FC<{}> = () => {
   const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<EntMedicalrecordstaff[]>([]);
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(true);
+  const UserId = cookies.get('ID');
+
 
 
   const getMedicalrecordstaffs = async () => {
     const res = await http.listMedicalrecordstaff({ limit: 10, offset: 0 });
     setMedicalrecordstaff(res);
+  };
+
+  //console.log(typeof <number><any>"1", typeof Number("1"))
+  
+  const getMedicalrecordstaffsUser = async () => {
+    Medicalrecordstaff.map((item) => {
+      if (item.edges?.user?.id ===  Number(UserId)) {
+        Patientrights.medicalrecordstaff = item.id
+
+      };
+    });
   };
 
   const getPatientrightstype = async () => {
@@ -132,6 +146,7 @@ const NewPatientright: FC<{}> = () => {
     getPatientrightstype();
     getPatientrecord();
     getInsurance();
+    getMedicalrecordstaffsUser();
   }, []);
 
   // set data to object Patientright
