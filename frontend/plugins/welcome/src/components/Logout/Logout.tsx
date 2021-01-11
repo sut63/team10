@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import {
+  Link,
   FormControl,
   Button
 } from '@material-ui/core';
@@ -88,7 +89,7 @@ const Logout: FC<{}> = () => {
 
          
            &emsp;
-             
+            <Link href ="/">
             <FormControl variant="outlined" className={classes.formControl}>
               <Button
                 onClick={() => {
@@ -100,7 +101,7 @@ const Logout: FC<{}> = () => {
                 Logout
              </Button>
             </FormControl>
-         
+            </Link>
 
 
         </form>

@@ -21,6 +21,7 @@ import { EntPaytype } from '../../api/models/EntPaytype';
 import { EntUnpaybill } from '../../api/models/EntUnpaybill';
 import { EntFinancier } from '../../api/models/EntFinancier';
 import { EntTreatment } from '../../api';
+import { EntUser } from '../../api/models/EntUser';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+import { Cookies } from 'react-cookie/cjs';//cookie
+
+const cookies = new Cookies();
+const Status = cookies.get('Name');
+
 const CreateBill: FC<{}> = () => {
   const classes = useStyles();
   const http = new DefaultApi();
@@ -55,6 +62,8 @@ const CreateBill: FC<{}> = () => {
 
   const [paytypes, setPaytypes] = React.useState<EntPaytype[]>([]);
   const [financiers, setFinanciers] = React.useState<EntFinancier[]>([]);
+  const [users, setUsers] = React.useState<EntUser[]>([]);
+
   const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
   const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
 
@@ -92,7 +101,6 @@ const CreateBill: FC<{}> = () => {
     getPaytype();
     getTreatment();
   }, [loading]);
-
 
   const refreshPage = () => {
     window.location.reload();

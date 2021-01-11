@@ -1,5 +1,5 @@
 import React, { useEffect, FC } from 'react';
-import { FormControl,Button,Typography, Grid, Link } from '@material-ui/core';
+import { Button,Typography, Grid, Link } from '@material-ui/core';
 import {
   Content,
   Header,
@@ -13,7 +13,6 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
-
 import {  Cookies  } from 'react-cookie/cjs';//cookie
 import { useCookies } from 'react-cookie/cjs';//cookie
 
@@ -93,17 +92,18 @@ const WelcomePage: FC<{}> = () => {
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`ระบบผู้ป่อยนอก`}>
+      {/*
       <Link href = "/">
       <Button
                 onClick={() => {
                   Logout();
                 }}
                 variant="contained"
-                color="primary"
               >
                  Logout
              </Button>
              </Link>
+             */}
       </Header>
       <Content>
         <ContentHeader title="สมาชิกในกลุ่ม"></ContentHeader>

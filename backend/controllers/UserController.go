@@ -90,6 +90,11 @@ func (ctl *UserController) GetUser(c *gin.Context) {
 	}
 	u, err := ctl.client.User.
 		Query().
+		WithFinancier().
+		WithHistorytaking().
+		WithMedicalrecordstaff().
+		WithUser2registrar().
+		WithUserPatientrights().
 		WithUserstatus().
 		Where(user.IDEQ(int(id))).
 		Only(context.Background())
@@ -136,6 +141,11 @@ func (ctl *UserController) ListUser(c *gin.Context) {
 
 	users, err := ctl.client.User.
 		Query().
+		WithFinancier().
+		WithHistorytaking().
+		WithMedicalrecordstaff().
+		WithUser2registrar().
+		WithUserPatientrights().
 		WithUserstatus().
 		Limit(limit).
 		Offset(offset).

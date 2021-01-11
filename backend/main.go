@@ -557,9 +557,18 @@ func main() {
 	}
 
 	for _, m := range medicalrecordstaffs.Medicalrecordstaff {
+		u, err := client.User.
+		Query().
+		Where(user.IDEQ(m.User)).
+		Only(context.Background())
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 		client.Medicalrecordstaff.
 			Create().
 			SetName(m.Name).
+			SetUser(u).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
