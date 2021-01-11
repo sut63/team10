@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-	
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
@@ -14,14 +14,19 @@ import (
 	_ "github.com/team10/app/docs"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
+	"github.com/team10/app/ent/doctor"
+	"github.com/team10/app/ent/gender"
+	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/patientrecord"
 	_ "github.com/team10/app/ent/registrar"
-	"github.com/team10/app/ent/userstatus"
+	"github.com/team10/app/ent/typetreatment"
 	"github.com/team10/app/ent/user"
+	"github.com/team10/app/ent/userstatus"
 
 	//import by patientrights No.3
 	//vvv...............................vvv
 	/*	"time"
-		
+
 		"github.com/team10/app/ent/insurance"
 		"github.com/team10/app/ent/medicalrecordstaff"
 		"github.com/team10/app/ent/patientrecord"
@@ -31,16 +36,15 @@ import (
 	//import by doctorinformation No.6
 	//vvv...............................vvv
 	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
-	"github.com/team10/app/ent/doctorinfo"
 	//^^^...............................^^^
 )
 
 // struct By team 10
 //-------------------------------------------------------------------
-
 
 // Struct By team10 System
 //vvv*******************************************************************vvv
@@ -48,6 +52,7 @@ import (
 type Users struct {
 	User []User
 }
+
 // Users defines the struct for the Users
 type User struct {
 	Userstatus int
@@ -55,9 +60,7 @@ type User struct {
 	Password   string
 }
 
-
 //^^^*******************************************************************^^^
-
 
 // Struct By Doctorinformation System No.6
 //vvv*******************************************************************vvv
@@ -170,6 +173,27 @@ type Medicalrecordstaff struct {
 	User int
 }
 
+// Patientrecords defines the struct for the Patientrecords
+type Patientrecords struct {
+	Patientrecord []Patientrecord
+}
+
+// Patientrecord defines the struct for the Patientrecord
+type Patientrecord struct {
+	Prename            int
+	Name               string
+	Gender             int
+	Idcardnumber       int
+	Age                int
+	Bloodtype          string
+	Disease            string
+	Allergic           string
+	Phonenumber        string
+	Email              string
+	Home               string
+	Medicalrecordstaff int
+}
+
 //*******************************************************************
 // Users defines the struct for the Users
 
@@ -255,11 +279,10 @@ type Treatments struct {
 
 // Treatment defines the struct for the Treatment
 type Treatment struct {
-	Treatment string
+	Treatment     string
 	Typetreatment int
-	Doctor int
+	Doctor        int
 	Patientrecord int
-	
 }
 
 // Typetreatments defines the struct for the  Typetreatments
@@ -279,8 +302,8 @@ type Doctors struct {
 
 // Doctor defines the struct for the Doctor
 type Doctor struct {
-	Doctorinfo	int
-	User int
+	Doctorinfo int
+	User       int
 }
 
 //^^^::::::::::::::::::::::::::::::::::::::::::::::::^^^
@@ -400,7 +423,7 @@ func main() {
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
 	// Set Userstatus Data
-	Userstatus := []string{"Root", "Fin", "Med",  "Doc", "Nur", "Reg"}
+	Userstatus := []string{"Root", "Fin", "Med", "Doc", "Nur", "Reg"}
 	for _, reg := range Userstatus {
 		client.Userstatus.
 			Create().
@@ -411,25 +434,25 @@ func main() {
 	// Set User Data
 	User := Users{
 		User: []User{
-			User{1,"omaha_yad", "1234"},
-			User{2,"B1", "1234"},
-			User{3,"B2", "1234"},
-			User{3,"B3", "1234"},
-			User{4,"B4", "1234"},
-			User{5,"B5", "1234"},
-			User{6,"B6", "1234"},
-			User{2,"nara_haru", "1234"},
-			User{3,"morani_rode", "1234"},
-			User{3,"faratell_yova","1234"},
-			User{3,"pulla_visan", "1234"},
+			User{1, "omaha_yad", "1234"},
+			User{2, "B1", "1234"},
+			User{3, "B2", "1234"},
+			User{3, "B3", "1234"},
+			User{4, "B4", "1234"},
+			User{5, "B5", "1234"},
+			User{6, "B6", "1234"},
+			User{2, "nara_haru", "1234"},
+			User{3, "morani_rode", "1234"},
+			User{3, "faratell_yova", "1234"},
+			User{3, "pulla_visan", "1234"},
 		},
 	}
-	
-	for _, r := range User.User{
+
+	for _, r := range User.User {
 		us, err := client.Userstatus.
-		Query().
-		Where(userstatus.IDEQ(int(r.Userstatus))).
-		Only(context.Background())
+			Query().
+			Where(userstatus.IDEQ(int(r.Userstatus))).
+			Only(context.Background())
 		if err != nil {
 			fmt.Println(err.Error())
 			return
@@ -574,19 +597,73 @@ func main() {
 
 	for _, m := range medicalrecordstaffs.Medicalrecordstaff {
 		u, err := client.User.
-		Query().
-		Where(user.IDEQ(m.User)).
-		Only(context.Background())
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
+			Query().
+			Where(user.IDEQ(int(m.User))).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		client.Medicalrecordstaff.
 			Create().
 			SetName(m.Name).
 			SetUser(u).
 			Save(context.Background())
 	}
+
+	// Set Patientrecord Data
+	Patientrecords := Patientrecords{
+		Patientrecord: []Patientrecord{
+			Patientrecord{3, "วิลาฬ ชาญชัย", 1, 1300101198176, 21, "A", "-", "-", "0957212978", "api@gmail.com", "บ้านเลขที่ 35/6 ถ.สายไหม อ.เมือง ต.ในเมือง จ.นครราชสีมา 30000", 1},
+		},
+	}
+	for _, pr := range Patientrecords.Patientrecord {
+		p, err := client.Prename.
+			Query().
+			Where(prename.IDEQ(int(pr.Prename))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		g, err := client.Gender.
+			Query().
+			Where(gender.IDEQ(int(pr.Gender))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		m, err := client.Medicalrecordstaff.
+			Query().
+			Where(medicalrecordstaff.IDEQ(int(pr.Medicalrecordstaff))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		client.Patientrecord.
+			Create().
+			SetPrename(p).
+			SetName(pr.Name).
+			SetGender(g).
+			SetIdcardnumber(pr.Idcardnumber).
+			SetAge(pr.Age).
+			SetBloodtype(pr.Bloodtype).
+			SetDisease(pr.Disease).
+			SetAllergic(pr.Allergic).
+			SetPhonenumber(pr.Phonenumber).
+			SetEmail(pr.Email).
+			SetHome(pr.Home).
+			SetMedicalrecordstaff(m).
+			Save(context.Background())
+	}
+
 	//^^^*******************************************************************^^^
 	// Set Postman By Historytaking System No.5
 	//vvv*******************************************************************vvv
@@ -594,8 +671,8 @@ func main() {
 	//Set nurse data
 	nurses := Nurses{
 		Nurse: []Nurse{
-			Nurse{"Paonrat Panjainam", "Nurse123456", "พยาบาลวิชาชีพ", 2},
-			Nurse{"Name Surname", "Nurse001122", "พยาบาลวิชาชีพ", 3},
+			Nurse{"Paonrat Panjainam", "Nurse123456", "พยาบาลวิชาชีพ", 6},
+			Nurse{"Name Surname", "Nurse001122", "พยาบาลวิชาชีพ", 6},
 		},
 	}
 
@@ -692,19 +769,47 @@ func main() {
 	}
 
 	//Set Treatment data
-	
+
 	treatments := Treatments{
 		Treatment: []Treatment{
-			Treatment{"ตรวจขั้นพื้นฐาน",1,1,1},
-			Treatment{"ตรวจโควิด19",3,2,1},
+			Treatment{"ตรวจขั้นพื้นฐาน", 1, 1, 1},
+			Treatment{"ตรวจโควิด19", 3, 2, 1},
 		},
 	}
 	for _, t := range treatments.Treatment {
+		tt, err := client.Typetreatment.
+			Query().
+			Where(typetreatment.IDEQ(int(t.Typetreatment))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		d, err := client.Doctor.
+			Query().
+			Where(doctor.IDEQ(int(t.Doctor))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		m, err := client.Patientrecord.
+			Query().
+			Where(patientrecord.IDEQ(int(t.Patientrecord))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 		client.Treatment.
 			Create().
 			SetTreatment(t.Treatment).
-			SetDoctorID(t.Doctor).
-			SetPatientrecord(t.Patientrecord).
+			SetTypetreatment(tt).
+			SetDoctor(d).
+			SetPatientrecord(m).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
@@ -867,8 +972,8 @@ func main() {
 	//Set Doctor data
 	Doctors := Doctors{
 		Doctor: []Doctor{
-			Doctor{1,5},
-			Doctor{2,5},
+			Doctor{1, 5},
+			Doctor{2, 5},
 		},
 	}
 	for _, d := range Doctors.Doctor {
@@ -883,9 +988,9 @@ func main() {
 			return
 		}
 		client.Doctor.
-		Create().
-		SetDoctorinfo(di).
-		Save(context.Background())
+			Create().
+			SetDoctorinfo(di).
+			Save(context.Background())
 	}
 
 	//^^^*******************************************************************^^^

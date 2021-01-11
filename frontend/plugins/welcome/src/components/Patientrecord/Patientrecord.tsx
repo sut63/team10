@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import ComponanceTable from '../tablePatientrecord';
 import Button from '@material-ui/core/Button';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Avatar } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
  
 import {
@@ -13,15 +13,27 @@ import {
  ContentHeader,
  Link,
 } from '@backstage/core';
- 
+
+import { Cookies } from 'react-cookie/cjs';//cookie
+import { Image2Base64Function } from '../../image/Image2';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
+
 export default function Tables() {
 const profile = { givenName: '' };
  
  return (
    <Page theme={pageTheme.home}>
-     <Header
-      title={`${profile.givenName || 'Patientrecord'}`}
-     ></Header>
+     <Header style={HeaderCustom} title={`Patientrecord`}>
+        <Avatar alt="Remy Sharp" src={Image2Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
      <Content>
        <ContentHeader title="ข้อมูลผู้ป่วยนอก">
        </ContentHeader>

@@ -8,11 +8,13 @@ import {
   pageTheme,
   //ContentHeader,
 } from '@backstage/core';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import { Alert } from '@material-ui/lab';
 import { DefaultApi } from '../../api/apis';
+import { Cookies } from 'react-cookie/cjs';//cookie
+import { Image6Base64Function } from '../../image/Image6';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -22,10 +24,16 @@ import { EntPrename } from '../../api/models/EntPrename';
 import { EntEducationlevel } from '../../api/models/EntEducationlevel';
 import { EntDepartment} from '../../api/models/EntDepartment';
 import { EntOfficeroom } from '../../api/models/EntOfficeroom';
-import { Grid, 
-  //Paper,
-   TextField 
-  } from '@material-ui/core';
+import { Grid,TextField, Avatar } from '@material-ui/core';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -180,10 +188,10 @@ const handleChange = (
   const profile = { givenName: '' };
   return (
     <Page theme={pageTheme.home}>
-      <Header
-      title={`${profile.givenName || 'DOCTOR INFORMATION DEPARTMENT'}`}
-      subtitle=""
-     ></Header>
+      <Header style={HeaderCustom} title={`DOCTOR INFORMATION DEPARTMENT`}>
+        <Avatar alt="Remy Sharp" src={Image6Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
       <Content>
         <Grid container spacing = {5} >
           <Grid container item xs = {12} sm = {12}  >

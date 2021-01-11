@@ -1,7 +1,7 @@
 import React, { useEffect, FC } from 'react';
 import { Content, Header, Page, pageTheme, } from '@backstage/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Grid, MenuItem, Button, TextField, FormControl, Select, Typography } from '@material-ui/core';
+import { Grid, MenuItem, Button, TextField, Select, Typography } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import { Alert } from '@material-ui/lab';
@@ -14,6 +14,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Avatar } from '@material-ui/core';
 
 
 import { DefaultApi } from '../../api/apis';
@@ -25,7 +26,8 @@ import { EntTreatment } from '../../api';
 import { Cookies } from 'react-cookie/cjs';//cookie
 
   const cookies = new Cookies();
-  const FINID = cookies.get('Fin');
+  const FINID = cookies.get('Fin'); 
+  const Name = cookies.get('Name');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,6 +53,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+import { Image1Base64Function } from '../../image/Image1';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
 
 const CreateBill: FC<{}> = () => {
   const classes = useStyles();
@@ -66,7 +74,7 @@ const CreateBill: FC<{}> = () => {
   const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
   const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
 
-  const [financierid, setfinancierId] = React.useState(Number);
+  
   const [amounts, setamount] = React.useState(String);
   const [paytypeid, setpaytypeId] = React.useState(Number);
   const [unpayid, setunpayId] = React.useState(Number);
@@ -155,7 +163,10 @@ const CreateBill: FC<{}> = () => {
         </div>
       ) : null}
       <Page theme={pageTheme.home}>
-        <Header title={`Financial Department`}></Header>
+      <Header style={HeaderCustom} title={`Financial Department`}>
+        <Avatar alt="Remy Sharp" src={Image1Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
         <Content>
           <Grid container spacing={3} >
             <Grid container item xs={12} sm={12}  >
