@@ -865,7 +865,7 @@ func main() {
 	financiers := Financiers{
 		Financier: []Financier{
 			Financier{"Nutchaporn Klinrod", 2},
-			Financier{"Name Surname", 8},
+			Financier{"Name Surname", 1},
 		},
 	}
 	for _, f := range financiers.Financier {
