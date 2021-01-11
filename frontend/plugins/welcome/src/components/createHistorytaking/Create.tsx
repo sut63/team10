@@ -3,10 +3,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import {
   Content,
   Page,
-  BootErrorPageProps,
   Header,
   pageTheme,
-  ContentHeader,
 } from '@backstage/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -22,7 +20,7 @@ import { EntNurse } from '../../api/models/EntNurse';
 import { EntSymptomseverity } from '../../api/models/EntSymptomseverity';
 import { EntDepartment} from '../../api/models/EntDepartment';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
-import { Grid, Paper, TextField, Avatar } from '@material-ui/core';
+import { Grid, TextField, Avatar } from '@material-ui/core';
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { Image5Base64Function } from '../../image/Image5';
 

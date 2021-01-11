@@ -12,6 +12,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Avatar } from '@material-ui/core';
+import { Cookies } from 'react-cookie/cjs';//cookie
+import { Image4Base64Function } from '../../image/Image4';
 
 
 import { DefaultApi } from'../../api/apis';
@@ -19,6 +22,14 @@ import { EntTypetreatment } from '../../api/models/EntTypetreatment';
 import { EntDoctor } from '../../api/models/EntDoctor';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntTreatment } from '../../api/models/EntTreatment';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -141,7 +152,10 @@ const createTreatment: FC<{}> = () => {
 
 
     <Page theme={pageTheme.home}>
-        <Header title={`Treatment Department`}></Header>
+    <Header style={HeaderCustom} title={`Treatment Department`}>
+        <Avatar alt="Remy Sharp" src={Image4Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
       <Content>
         <Grid container spacing = {3} >
           <Grid container item xs = {12} sm = {12}  >

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { DefaultApi } from'../../api/apis';
-import { Typography,Link } from '@material-ui/core'
+import { Typography,Link, Avatar } from '@material-ui/core'
 import { Content, Header, Page, pageTheme } from '@backstage/core';
 import SaveIcon from '@material-ui/icons/Save';
 import UndoIcon from '@material-ui/icons/Undo';
@@ -17,6 +17,17 @@ import TextField from '@material-ui/core/TextField';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
 import { EntGender } from '../../api/models/EntGender';
 import { EntPrename } from '../../api/models/EntPrename';
+
+import { Cookies } from 'react-cookie/cjs';//cookie
+import { Image2Base64Function } from '../../image/Image2';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -162,9 +173,10 @@ export  default  function Create() {
 
     return(
         <Page theme={pageTheme.home}>
-            <Header 
-            title={`ลงทะเบียนผู้ป่วยนอก`}>
-            </Header>
+          <Header style={HeaderCustom} title={`ลงทะเบียนผู้ป่วยนอก`}>
+            <Avatar alt="Remy Sharp" src={Image2Base64Function} />
+            <div style={{ marginLeft: 10 }}>{Name}</div>
+          </Header>
             <Content>
             <br />
             <br />
