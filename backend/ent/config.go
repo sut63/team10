@@ -27,6 +27,7 @@ type hooks struct {
 	Abilitypatientrights []ent.Hook
 	Bill                 []ent.Hook
 	Department           []ent.Hook
+	Doctor               []ent.Hook
 	Doctorinfo           []ent.Hook
 	Educationlevel       []ent.Hook
 	Financier            []ent.Hook

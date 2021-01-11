@@ -1,4 +1,5 @@
 export * from './ControllersBill';
+export * from './ControllersDoctor';
 export * from './ControllersDoctorinfo';
 export * from './ControllersHistorytaking';
 export * from './ControllersPatientrecord';
@@ -11,6 +12,8 @@ export * from './EntBill';
 export * from './EntBillEdges';
 export * from './EntDepartment';
 export * from './EntDepartmentEdges';
+export * from './EntDoctor';
+export * from './EntDoctorEdges';
 export * from './EntDoctorinfo';
 export * from './EntDoctorinfoEdges';
 export * from './EntEducationlevel';

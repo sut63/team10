@@ -10,7 +10,7 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/typetreatment"
@@ -74,23 +74,23 @@ func (tc *TreatmentCreate) SetPatientrecord(p *Patientrecord) *TreatmentCreate {
 	return tc.SetPatientrecordID(p.ID)
 }
 
-// SetDoctorinfoID sets the doctorinfo edge to Doctorinfo by id.
-func (tc *TreatmentCreate) SetDoctorinfoID(id int) *TreatmentCreate {
-	tc.mutation.SetDoctorinfoID(id)
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (tc *TreatmentCreate) SetDoctorID(id int) *TreatmentCreate {
+	tc.mutation.SetDoctorID(id)
 	return tc
 }
 
-// SetNillableDoctorinfoID sets the doctorinfo edge to Doctorinfo by id if the given value is not nil.
-func (tc *TreatmentCreate) SetNillableDoctorinfoID(id *int) *TreatmentCreate {
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (tc *TreatmentCreate) SetNillableDoctorID(id *int) *TreatmentCreate {
 	if id != nil {
-		tc = tc.SetDoctorinfoID(*id)
+		tc = tc.SetDoctorID(*id)
 	}
 	return tc
 }
 
-// SetDoctorinfo sets the doctorinfo edge to Doctorinfo.
-func (tc *TreatmentCreate) SetDoctorinfo(d *Doctorinfo) *TreatmentCreate {
-	return tc.SetDoctorinfoID(d.ID)
+// SetDoctor sets the doctor edge to Doctor.
+func (tc *TreatmentCreate) SetDoctor(d *Doctor) *TreatmentCreate {
+	return tc.SetDoctorID(d.ID)
 }
 
 // SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
@@ -244,17 +244,17 @@ func (tc *TreatmentCreate) createSpec() (*Treatment, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := tc.mutation.DoctorinfoIDs(); len(nodes) > 0 {
+	if nodes := tc.mutation.DoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorinfoTable,
-			Columns: []string{treatment.DoctorinfoColumn},
+			Table:   treatment.DoctorTable,
+			Columns: []string{treatment.DoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
+					Column: doctor.FieldID,
 				},
 			},
 		}

@@ -15,6 +15,9 @@ type Bill func(*sql.Selector)
 // Department is the predicate function for department builders.
 type Department func(*sql.Selector)
 
+// Doctor is the predicate function for doctor builders.
+type Doctor func(*sql.Selector)
+
 // Doctorinfo is the predicate function for doctorinfo builders.
 type Doctorinfo func(*sql.Selector)
 

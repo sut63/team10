@@ -10,11 +10,11 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
 	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
-	"github.com/team10/app/ent/treatment"
 )
 
 // DoctorinfoCreate is the builder for creating a Doctorinfo entity.
@@ -124,19 +124,19 @@ func (dc *DoctorinfoCreate) SetPrename(p *Prename) *DoctorinfoCreate {
 	return dc.SetPrenameID(p.ID)
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (dc *DoctorinfoCreate) AddTreatmentIDs(ids ...int) *DoctorinfoCreate {
-	dc.mutation.AddTreatmentIDs(ids...)
+// AddDoctorIDs adds the doctor edge to Doctor by ids.
+func (dc *DoctorinfoCreate) AddDoctorIDs(ids ...int) *DoctorinfoCreate {
+	dc.mutation.AddDoctorIDs(ids...)
 	return dc
 }
 
-// AddTreatment adds the treatment edges to Treatment.
-func (dc *DoctorinfoCreate) AddTreatment(t ...*Treatment) *DoctorinfoCreate {
-	ids := make([]int, len(t))
-	for i := range t {
-		ids[i] = t[i].ID
+// AddDoctor adds the doctor edges to Doctor.
+func (dc *DoctorinfoCreate) AddDoctor(d ...*Doctor) *DoctorinfoCreate {
+	ids := make([]int, len(d))
+	for i := range d {
+		ids[i] = d[i].ID
 	}
-	return dc.AddTreatmentIDs(ids...)
+	return dc.AddDoctorIDs(ids...)
 }
 
 // Mutation returns the DoctorinfoMutation object of the builder.
@@ -346,17 +346,17 @@ func (dc *DoctorinfoCreate) createSpec() (*Doctorinfo, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.DoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   doctorinfo.TreatmentTable,
-			Columns: []string{doctorinfo.TreatmentColumn},
+			Table:   doctorinfo.DoctorTable,
+			Columns: []string{doctorinfo.DoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: treatment.FieldID,
+					Column: doctor.FieldID,
 				},
 			},
 		}

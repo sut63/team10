@@ -64,9 +64,9 @@ export function EntBillEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'officer': !exists(json, 'officer') ? undefined : EntFinancierFromJSON(json['officer']),
-        'paytype': !exists(json, 'paytype') ? undefined : EntPaytypeFromJSON(json['paytype']),
-        'treatment': !exists(json, 'treatment') ? undefined : EntUnpaybillFromJSON(json['treatment']),
+        'officer': !exists(json, 'Officer') ? undefined : EntFinancierFromJSON(json['Officer']),
+        'paytype': !exists(json, 'Paytype') ? undefined : EntPaytypeFromJSON(json['Paytype']),
+        'treatment': !exists(json, 'Treatment') ? undefined : EntUnpaybillFromJSON(json['Treatment']),
     };
 }
 

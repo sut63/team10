@@ -30,7 +30,7 @@ export interface ControllersTreatment {
      * @type {number}
      * @memberof ControllersTreatment
      */
-    doctorinfo?: number;
+    doctor?: number;
     /**
      * 
      * @type {number}
@@ -62,7 +62,7 @@ export function ControllersTreatmentFromJSONTyped(json: any, ignoreDiscriminator
     return {
         
         'datetreat': !exists(json, 'datetreat') ? undefined : json['datetreat'],
-        'doctorinfo': !exists(json, 'doctorinfo') ? undefined : json['doctorinfo'],
+        'doctor': !exists(json, 'doctor') ? undefined : json['doctor'],
         'patientrecord': !exists(json, 'patientrecord') ? undefined : json['patientrecord'],
         'treatment': !exists(json, 'treatment') ? undefined : json['treatment'],
         'typetreatment': !exists(json, 'typetreatment') ? undefined : json['typetreatment'],
@@ -79,7 +79,7 @@ export function ControllersTreatmentToJSON(value?: ControllersTreatment | null):
     return {
         
         'datetreat': value.datetreat,
-        'doctorinfo': value.doctorinfo,
+        'doctor': value.doctor,
         'patientrecord': value.patientrecord,
         'treatment': value.treatment,
         'typetreatment': value.typetreatment,

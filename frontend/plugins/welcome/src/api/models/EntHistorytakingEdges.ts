@@ -74,10 +74,10 @@ export function EntHistorytakingEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'department': !exists(json, 'department') ? undefined : EntDepartmentFromJSON(json['department']),
-        'nurse': !exists(json, 'nurse') ? undefined : EntNurseFromJSON(json['nurse']),
-        'patientrecord': !exists(json, 'patientrecord') ? undefined : EntPatientrecordFromJSON(json['patientrecord']),
-        'symptomseverity': !exists(json, 'symptomseverity') ? undefined : EntSymptomseverityFromJSON(json['symptomseverity']),
+        'department': !exists(json, 'Department') ? undefined : EntDepartmentFromJSON(json['Department']),
+        'nurse': !exists(json, 'Nurse') ? undefined : EntNurseFromJSON(json['Nurse']),
+        'patientrecord': !exists(json, 'Patientrecord') ? undefined : EntPatientrecordFromJSON(json['Patientrecord']),
+        'symptomseverity': !exists(json, 'Symptomseverity') ? undefined : EntSymptomseverityFromJSON(json['Symptomseverity']),
     };
 }
 

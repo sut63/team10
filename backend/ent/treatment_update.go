@@ -10,7 +10,7 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/treatment"
@@ -82,23 +82,23 @@ func (tu *TreatmentUpdate) SetPatientrecord(p *Patientrecord) *TreatmentUpdate {
 	return tu.SetPatientrecordID(p.ID)
 }
 
-// SetDoctorinfoID sets the doctorinfo edge to Doctorinfo by id.
-func (tu *TreatmentUpdate) SetDoctorinfoID(id int) *TreatmentUpdate {
-	tu.mutation.SetDoctorinfoID(id)
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (tu *TreatmentUpdate) SetDoctorID(id int) *TreatmentUpdate {
+	tu.mutation.SetDoctorID(id)
 	return tu
 }
 
-// SetNillableDoctorinfoID sets the doctorinfo edge to Doctorinfo by id if the given value is not nil.
-func (tu *TreatmentUpdate) SetNillableDoctorinfoID(id *int) *TreatmentUpdate {
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (tu *TreatmentUpdate) SetNillableDoctorID(id *int) *TreatmentUpdate {
 	if id != nil {
-		tu = tu.SetDoctorinfoID(*id)
+		tu = tu.SetDoctorID(*id)
 	}
 	return tu
 }
 
-// SetDoctorinfo sets the doctorinfo edge to Doctorinfo.
-func (tu *TreatmentUpdate) SetDoctorinfo(d *Doctorinfo) *TreatmentUpdate {
-	return tu.SetDoctorinfoID(d.ID)
+// SetDoctor sets the doctor edge to Doctor.
+func (tu *TreatmentUpdate) SetDoctor(d *Doctor) *TreatmentUpdate {
+	return tu.SetDoctorID(d.ID)
 }
 
 // SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
@@ -137,9 +137,9 @@ func (tu *TreatmentUpdate) ClearPatientrecord() *TreatmentUpdate {
 	return tu
 }
 
-// ClearDoctorinfo clears the doctorinfo edge to Doctorinfo.
-func (tu *TreatmentUpdate) ClearDoctorinfo() *TreatmentUpdate {
-	tu.mutation.ClearDoctorinfo()
+// ClearDoctor clears the doctor edge to Doctor.
+func (tu *TreatmentUpdate) ClearDoctor() *TreatmentUpdate {
+	tu.mutation.ClearDoctor()
 	return tu
 }
 
@@ -308,33 +308,33 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tu.mutation.DoctorinfoCleared() {
+	if tu.mutation.DoctorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorinfoTable,
-			Columns: []string{treatment.DoctorinfoColumn},
+			Table:   treatment.DoctorTable,
+			Columns: []string{treatment.DoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
+					Column: doctor.FieldID,
 				},
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.DoctorinfoIDs(); len(nodes) > 0 {
+	if nodes := tu.mutation.DoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorinfoTable,
-			Columns: []string{treatment.DoctorinfoColumn},
+			Table:   treatment.DoctorTable,
+			Columns: []string{treatment.DoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
+					Column: doctor.FieldID,
 				},
 			},
 		}
@@ -446,23 +446,23 @@ func (tuo *TreatmentUpdateOne) SetPatientrecord(p *Patientrecord) *TreatmentUpda
 	return tuo.SetPatientrecordID(p.ID)
 }
 
-// SetDoctorinfoID sets the doctorinfo edge to Doctorinfo by id.
-func (tuo *TreatmentUpdateOne) SetDoctorinfoID(id int) *TreatmentUpdateOne {
-	tuo.mutation.SetDoctorinfoID(id)
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (tuo *TreatmentUpdateOne) SetDoctorID(id int) *TreatmentUpdateOne {
+	tuo.mutation.SetDoctorID(id)
 	return tuo
 }
 
-// SetNillableDoctorinfoID sets the doctorinfo edge to Doctorinfo by id if the given value is not nil.
-func (tuo *TreatmentUpdateOne) SetNillableDoctorinfoID(id *int) *TreatmentUpdateOne {
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (tuo *TreatmentUpdateOne) SetNillableDoctorID(id *int) *TreatmentUpdateOne {
 	if id != nil {
-		tuo = tuo.SetDoctorinfoID(*id)
+		tuo = tuo.SetDoctorID(*id)
 	}
 	return tuo
 }
 
-// SetDoctorinfo sets the doctorinfo edge to Doctorinfo.
-func (tuo *TreatmentUpdateOne) SetDoctorinfo(d *Doctorinfo) *TreatmentUpdateOne {
-	return tuo.SetDoctorinfoID(d.ID)
+// SetDoctor sets the doctor edge to Doctor.
+func (tuo *TreatmentUpdateOne) SetDoctor(d *Doctor) *TreatmentUpdateOne {
+	return tuo.SetDoctorID(d.ID)
 }
 
 // SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
@@ -501,9 +501,9 @@ func (tuo *TreatmentUpdateOne) ClearPatientrecord() *TreatmentUpdateOne {
 	return tuo
 }
 
-// ClearDoctorinfo clears the doctorinfo edge to Doctorinfo.
-func (tuo *TreatmentUpdateOne) ClearDoctorinfo() *TreatmentUpdateOne {
-	tuo.mutation.ClearDoctorinfo()
+// ClearDoctor clears the doctor edge to Doctor.
+func (tuo *TreatmentUpdateOne) ClearDoctor() *TreatmentUpdateOne {
+	tuo.mutation.ClearDoctor()
 	return tuo
 }
 
@@ -670,33 +670,33 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tuo.mutation.DoctorinfoCleared() {
+	if tuo.mutation.DoctorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorinfoTable,
-			Columns: []string{treatment.DoctorinfoColumn},
+			Table:   treatment.DoctorTable,
+			Columns: []string{treatment.DoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
+					Column: doctor.FieldID,
 				},
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.DoctorinfoIDs(); len(nodes) > 0 {
+	if nodes := tuo.mutation.DoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorinfoTable,
-			Columns: []string{treatment.DoctorinfoColumn},
+			Table:   treatment.DoctorTable,
+			Columns: []string{treatment.DoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: doctorinfo.FieldID,
+					Column: doctor.FieldID,
 				},
 			},
 		}

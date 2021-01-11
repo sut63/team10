@@ -44,7 +44,7 @@ export function EntPaytypeEdgesFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'bills': !exists(json, 'bills') ? undefined : ((json['bills'] as Array<any>).map(EntBillFromJSON)),
+        'bills': !exists(json, 'Bills') ? undefined : ((json['Bills'] as Array<any>).map(EntBillFromJSON)),
     };
 }
 

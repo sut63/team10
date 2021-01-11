@@ -54,8 +54,8 @@ export function EntFinancierEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'bills': !exists(json, 'bills') ? undefined : ((json['bills'] as Array<any>).map(EntBillFromJSON)),
-        'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
+        'bills': !exists(json, 'Bills') ? undefined : ((json['Bills'] as Array<any>).map(EntBillFromJSON)),
+        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
     };
 }
 
