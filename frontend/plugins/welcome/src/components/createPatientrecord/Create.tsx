@@ -17,7 +17,6 @@ import TextField from '@material-ui/core/TextField';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
 import { EntGender } from '../../api/models/EntGender';
 import { EntPrename } from '../../api/models/EntPrename';
-import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,7 +54,6 @@ export  default  function Create() {
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(true);
 
-  const [patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
   const [prename, setPrename] = React.useState<EntPrename[]>([]);
   const [gender, setGender] = React.useState<EntGender[]>([]);
   const [medicalrecordstaff, setMedicalrecordstaff] = React.useState<EntMedicalrecordstaff[]>([]);
@@ -94,11 +92,6 @@ export  default  function Create() {
         console.log(res);
     };
     getMedicalrecordstaff();
-    const getPatientrecord = async () => {
-      const res = await api.listPatientrecord({ limit: 10, offset: 0 });
-      setPatientrecord(res);
-    };
-    getPatientrecord();
     }, [loading]);
     
     //handle
@@ -162,11 +155,10 @@ export  default  function Create() {
         } else {
           setAlert(false);
         }
+        setTimeout(() => {
+          setStatus(false);
+        }, 3000);
       };
-      const timer = setTimeout(() => {
-        setStatus(false);
-      }, 1000);
-    
 
     return(
         <Page theme={pageTheme.home}>
@@ -309,7 +301,7 @@ export  default  function Create() {
               </FormControl>
               <br />
               <br />
-              <FormControl>
+              <Typography variant="h6" gutterBottom  align="center">
               <Button
                 onClick={() => {
                   CreatePatientrecord();
@@ -321,7 +313,19 @@ export  default  function Create() {
                 startIcon={<SaveIcon />}
                 >
                 บันทึก
-              </Button>
+              </Button> &emsp;
+              <Button
+                    color="primary" 
+                    style={{backgroundColor: "#26c6da"}} 
+                    size="large" 
+                    startIcon={<UndoIcon />}
+                    component={RouterLink}
+                    to="/Patientrecord"
+                    variant="contained"
+                >
+                  ย้อนกลับ
+                </Button>
+              </Typography>
               {status ? (
                 <div>
                 {alert ? (
@@ -335,7 +339,6 @@ export  default  function Create() {
                 )}
                 </div>
               ) : null}
-              </FormControl>
             </Typography>
           </Content>
       </Page>
