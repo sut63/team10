@@ -10,6 +10,8 @@ import CreateBill from './components/createBill'
 import createTreatment from './components/treatment';
 import CreateDoctorinfo from './components/Doctorinfo';
 import createPatientrecord from './components/createPatientrecord';
+import Patientrecord from './components/Patientrecord';
+import tablePatientrecord from './components/tablePatientrecord';
 import Login from './components/Login';
 import Logout from './components/Logout';
 import reg from './components/reg';
@@ -45,6 +47,8 @@ export const plugin = createPlugin({
       if (Status == 'Med' || Status == 'Root' ) {
         router.registerRoute('/create_Patientrights', create_Patientrights);
         router.registerRoute('/createPatientrecord', createPatientrecord);
+        router.registerRoute('/Patientrecord', Patientrecord);
+        router.registerRoute('/tablePatientrecord', tablePatientrecord);
       }
       if (Status == 'Nur' || Status == 'Root' ) {
         router.registerRoute('/Historytaking', Historytaking);
