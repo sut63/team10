@@ -8,6 +8,7 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
@@ -47,7 +48,7 @@ type DoctorinfoEdges struct {
 	// Prename holds the value of the prename edge.
 	Prename *Prename
 	// Doctor holds the value of the doctor edge.
-	Doctor []*Doctor
+	Doctor *Doctor
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [5]bool
@@ -110,9 +111,14 @@ func (e DoctorinfoEdges) PrenameOrErr() (*Prename, error) {
 }
 
 // DoctorOrErr returns the Doctor value or an error if the edge
-// was not loaded in eager-loading.
-func (e DoctorinfoEdges) DoctorOrErr() ([]*Doctor, error) {
+// was not loaded in eager-loading, or loaded but was not found.
+func (e DoctorinfoEdges) DoctorOrErr() (*Doctor, error) {
 	if e.loadedTypes[4] {
+		if e.Doctor == nil {
+			// The edge doctor was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: doctor.Label}
+		}
 		return e.Doctor, nil
 	}
 	return nil, &NotLoadedError{edge: "doctor"}

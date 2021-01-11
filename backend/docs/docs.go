@@ -5088,10 +5088,8 @@ var doc = `{
                 },
                 "doctor": {
                     "description": "Doctor holds the value of the doctor edge.",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ent.Doctor"
-                    }
+                    "type": "object",
+                    "$ref": "#/definitions/ent.Doctor"
                 },
                 "educationlevel": {
                     "description": "Educationlevel holds the value of the educationlevel edge.",

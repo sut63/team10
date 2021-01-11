@@ -132,19 +132,23 @@ func (du *DoctorinfoUpdate) SetPrename(p *Prename) *DoctorinfoUpdate {
 	return du.SetPrenameID(p.ID)
 }
 
-// AddDoctorIDs adds the doctor edge to Doctor by ids.
-func (du *DoctorinfoUpdate) AddDoctorIDs(ids ...int) *DoctorinfoUpdate {
-	du.mutation.AddDoctorIDs(ids...)
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (du *DoctorinfoUpdate) SetDoctorID(id int) *DoctorinfoUpdate {
+	du.mutation.SetDoctorID(id)
 	return du
 }
 
-// AddDoctor adds the doctor edges to Doctor.
-func (du *DoctorinfoUpdate) AddDoctor(d ...*Doctor) *DoctorinfoUpdate {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (du *DoctorinfoUpdate) SetNillableDoctorID(id *int) *DoctorinfoUpdate {
+	if id != nil {
+		du = du.SetDoctorID(*id)
 	}
-	return du.AddDoctorIDs(ids...)
+	return du
+}
+
+// SetDoctor sets the doctor edge to Doctor.
+func (du *DoctorinfoUpdate) SetDoctor(d *Doctor) *DoctorinfoUpdate {
+	return du.SetDoctorID(d.ID)
 }
 
 // Mutation returns the DoctorinfoMutation object of the builder.
@@ -176,19 +180,10 @@ func (du *DoctorinfoUpdate) ClearPrename() *DoctorinfoUpdate {
 	return du
 }
 
-// RemoveDoctorIDs removes the doctor edge to Doctor by ids.
-func (du *DoctorinfoUpdate) RemoveDoctorIDs(ids ...int) *DoctorinfoUpdate {
-	du.mutation.RemoveDoctorIDs(ids...)
+// ClearDoctor clears the doctor edge to Doctor.
+func (du *DoctorinfoUpdate) ClearDoctor() *DoctorinfoUpdate {
+	du.mutation.ClearDoctor()
 	return du
-}
-
-// RemoveDoctor removes doctor edges to Doctor.
-func (du *DoctorinfoUpdate) RemoveDoctor(d ...*Doctor) *DoctorinfoUpdate {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
-	}
-	return du.RemoveDoctorIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -449,9 +444,9 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := du.mutation.RemovedDoctorIDs(); len(nodes) > 0 {
+	if du.mutation.DoctorCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
 			Table:   doctorinfo.DoctorTable,
 			Columns: []string{doctorinfo.DoctorColumn},
@@ -463,14 +458,11 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				},
 			},
 		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
 	if nodes := du.mutation.DoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
 			Table:   doctorinfo.DoctorTable,
 			Columns: []string{doctorinfo.DoctorColumn},
@@ -605,19 +597,23 @@ func (duo *DoctorinfoUpdateOne) SetPrename(p *Prename) *DoctorinfoUpdateOne {
 	return duo.SetPrenameID(p.ID)
 }
 
-// AddDoctorIDs adds the doctor edge to Doctor by ids.
-func (duo *DoctorinfoUpdateOne) AddDoctorIDs(ids ...int) *DoctorinfoUpdateOne {
-	duo.mutation.AddDoctorIDs(ids...)
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (duo *DoctorinfoUpdateOne) SetDoctorID(id int) *DoctorinfoUpdateOne {
+	duo.mutation.SetDoctorID(id)
 	return duo
 }
 
-// AddDoctor adds the doctor edges to Doctor.
-func (duo *DoctorinfoUpdateOne) AddDoctor(d ...*Doctor) *DoctorinfoUpdateOne {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (duo *DoctorinfoUpdateOne) SetNillableDoctorID(id *int) *DoctorinfoUpdateOne {
+	if id != nil {
+		duo = duo.SetDoctorID(*id)
 	}
-	return duo.AddDoctorIDs(ids...)
+	return duo
+}
+
+// SetDoctor sets the doctor edge to Doctor.
+func (duo *DoctorinfoUpdateOne) SetDoctor(d *Doctor) *DoctorinfoUpdateOne {
+	return duo.SetDoctorID(d.ID)
 }
 
 // Mutation returns the DoctorinfoMutation object of the builder.
@@ -649,19 +645,10 @@ func (duo *DoctorinfoUpdateOne) ClearPrename() *DoctorinfoUpdateOne {
 	return duo
 }
 
-// RemoveDoctorIDs removes the doctor edge to Doctor by ids.
-func (duo *DoctorinfoUpdateOne) RemoveDoctorIDs(ids ...int) *DoctorinfoUpdateOne {
-	duo.mutation.RemoveDoctorIDs(ids...)
+// ClearDoctor clears the doctor edge to Doctor.
+func (duo *DoctorinfoUpdateOne) ClearDoctor() *DoctorinfoUpdateOne {
+	duo.mutation.ClearDoctor()
 	return duo
-}
-
-// RemoveDoctor removes doctor edges to Doctor.
-func (duo *DoctorinfoUpdateOne) RemoveDoctor(d ...*Doctor) *DoctorinfoUpdateOne {
-	ids := make([]int, len(d))
-	for i := range d {
-		ids[i] = d[i].ID
-	}
-	return duo.RemoveDoctorIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -920,9 +907,9 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := duo.mutation.RemovedDoctorIDs(); len(nodes) > 0 {
+	if duo.mutation.DoctorCleared() {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
 			Table:   doctorinfo.DoctorTable,
 			Columns: []string{doctorinfo.DoctorColumn},
@@ -934,14 +921,11 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 				},
 			},
 		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
 	if nodes := duo.mutation.DoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.O2M,
+			Rel:     sqlgraph.O2O,
 			Inverse: false,
 			Table:   doctorinfo.DoctorTable,
 			Columns: []string{doctorinfo.DoctorColumn},

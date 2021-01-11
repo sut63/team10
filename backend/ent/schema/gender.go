@@ -14,7 +14,7 @@ type Gender struct {
 // Fields of the Gender.
 func (Gender) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Genderstatus"),
+		field.String("Genderstatus").Unique(),
 	}
 }
 

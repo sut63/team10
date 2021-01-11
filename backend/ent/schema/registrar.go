@@ -14,7 +14,7 @@ type Registrar struct {
 // Fields of the Registrar.
 func (Registrar) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Name"),
+		field.String("Name").Unique(),
 	}
 }
 

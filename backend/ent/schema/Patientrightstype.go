@@ -14,7 +14,7 @@ type Patientrightstype struct {
 // Fields of the Patientrightstype.
 func (Patientrightstype) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Permission"),//
+		field.String("Permission").Unique(),//
 		field.String("PermissionArea"),//พื้นที่ หรือเขต หรือโรงพยาบาล ที่สามารถใช้สิทได้
 		field.String("Responsible"),//
 	}
