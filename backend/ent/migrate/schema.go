@@ -72,6 +72,34 @@ var (
 		PrimaryKey:  []*schema.Column{DepartmentsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// DoctorsColumns holds the columns for the "doctors" table.
+	DoctorsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "doctorinfo_id", Type: field.TypeInt, Nullable: true},
+		{Name: "user_id", Type: field.TypeInt, Unique: true, Nullable: true},
+	}
+	// DoctorsTable holds the schema information for the "doctors" table.
+	DoctorsTable = &schema.Table{
+		Name:       "doctors",
+		Columns:    DoctorsColumns,
+		PrimaryKey: []*schema.Column{DoctorsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:  "doctors_doctorinfos_doctor",
+				Columns: []*schema.Column{DoctorsColumns[1]},
+
+				RefColumns: []*schema.Column{DoctorinfosColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+			{
+				Symbol:  "doctors_users_doctor",
+				Columns: []*schema.Column{DoctorsColumns[2]},
+
+				RefColumns: []*schema.Column{UsersColumns[0]},
+				OnDelete:   schema.SetNull,
+			},
+		},
+	}
 	// DoctorinfosColumns holds the columns for the "doctorinfos" table.
 	DoctorinfosColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -266,7 +294,7 @@ var (
 		PrimaryKey: []*schema.Column{NursesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "nurses_users_historytaking",
+				Symbol:  "nurses_users_Nurse",
 				Columns: []*schema.Column{NursesColumns[4]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
@@ -292,7 +320,6 @@ var (
 		{Name: "name", Type: field.TypeString},
 		{Name: "idcardnumber", Type: field.TypeInt},
 		{Name: "age", Type: field.TypeInt},
-		{Name: "birthday", Type: field.TypeTime},
 		{Name: "bloodtype", Type: field.TypeString},
 		{Name: "disease", Type: field.TypeString},
 		{Name: "allergic", Type: field.TypeString},
@@ -312,21 +339,21 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:  "patientrecords_genders_patientrecord",
-				Columns: []*schema.Column{PatientrecordsColumns[12]},
+				Columns: []*schema.Column{PatientrecordsColumns[11]},
 
 				RefColumns: []*schema.Column{GendersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "patientrecords_medicalrecordstaffs_patientrecord",
-				Columns: []*schema.Column{PatientrecordsColumns[13]},
+				Columns: []*schema.Column{PatientrecordsColumns[12]},
 
 				RefColumns: []*schema.Column{MedicalrecordstaffsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "patientrecords_prenames_patientrecord",
-				Columns: []*schema.Column{PatientrecordsColumns[14]},
+				Columns: []*schema.Column{PatientrecordsColumns[13]},
 
 				RefColumns: []*schema.Column{PrenamesColumns[0]},
 				OnDelete:   schema.SetNull,
@@ -463,7 +490,7 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "treatment", Type: field.TypeString},
 		{Name: "datetreat", Type: field.TypeTime},
-		{Name: "doctorinfo_id", Type: field.TypeInt, Nullable: true},
+		{Name: "doctor_id", Type: field.TypeInt, Nullable: true},
 		{Name: "patientrecord_id", Type: field.TypeInt, Nullable: true},
 		{Name: "typetreatment_id", Type: field.TypeInt, Nullable: true},
 	}
@@ -474,10 +501,10 @@ var (
 		PrimaryKey: []*schema.Column{TreatmentsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "treatments_doctorinfos_treatment",
+				Symbol:  "treatments_doctors_treatment",
 				Columns: []*schema.Column{TreatmentsColumns[3]},
 
-				RefColumns: []*schema.Column{DoctorinfosColumns[0]},
+				RefColumns: []*schema.Column{DoctorsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
@@ -576,6 +603,7 @@ var (
 		AbilitypatientrightsTable,
 		BillsTable,
 		DepartmentsTable,
+		DoctorsTable,
 		DoctorinfosTable,
 		EducationlevelsTable,
 		FinanciersTable,
@@ -604,6 +632,8 @@ func init() {
 	BillsTable.ForeignKeys[0].RefTable = FinanciersTable
 	BillsTable.ForeignKeys[1].RefTable = PaytypesTable
 	BillsTable.ForeignKeys[2].RefTable = UnpaybillsTable
+	DoctorsTable.ForeignKeys[0].RefTable = DoctorinfosTable
+	DoctorsTable.ForeignKeys[1].RefTable = UsersTable
 	DoctorinfosTable.ForeignKeys[0].RefTable = DepartmentsTable
 	DoctorinfosTable.ForeignKeys[1].RefTable = EducationlevelsTable
 	DoctorinfosTable.ForeignKeys[2].RefTable = OfficeroomsTable
@@ -624,7 +654,7 @@ func init() {
 	PatientrightsTable.ForeignKeys[3].RefTable = PatientrightstypesTable
 	PatientrightstypesTable.ForeignKeys[0].RefTable = AbilitypatientrightsTable
 	RegistrarsTable.ForeignKeys[0].RefTable = UsersTable
-	TreatmentsTable.ForeignKeys[0].RefTable = DoctorinfosTable
+	TreatmentsTable.ForeignKeys[0].RefTable = DoctorsTable
 	TreatmentsTable.ForeignKeys[1].RefTable = PatientrecordsTable
 	TreatmentsTable.ForeignKeys[2].RefTable = TypetreatmentsTable
 	UnpaybillsTable.ForeignKeys[0].RefTable = TreatmentsTable

@@ -1411,6 +1411,232 @@
                 }
             }
         },
+        "/doctors": {
+            "get": {
+                "description": "list doctor entities",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "List doctor entities",
+                "operationId": "list-doctor",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Doctor"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create doctor",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create doctor",
+                "operationId": "create-doctor",
+                "parameters": [
+                    {
+                        "description": "Doctor entity",
+                        "name": "doctor",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.Doctor"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ent.Doctor"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
+        "/doctors/{id}": {
+            "get": {
+                "description": "get doctor by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get a doctor entity by ID",
+                "operationId": "get-doctor",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Doctor ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ent.Doctor"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "update doctor by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update a doctor entity by ID",
+                "operationId": "update-doctor",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Doctor ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Doctor entity",
+                        "name": "doctor",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ent.Doctor"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ent.Doctor"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "get doctor by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete a doctor entity by ID",
+                "operationId": "delete-doctor",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Doctor ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
         "/educationlevels": {
             "get": {
                 "description": "list educationlevel entities",
@@ -4477,6 +4703,14 @@
                 }
             }
         },
+        "controllers.Doctor": {
+            "type": "object",
+            "properties": {
+                "doctorinfo": {
+                    "type": "integer"
+                }
+            }
+        },
         "controllers.Doctorinfo": {
             "type": "object",
             "properties": {
@@ -4559,9 +4793,6 @@
                 "allergic": {
                     "type": "string"
                 },
-                "birthday": {
-                    "type": "string"
-                },
                 "bloodtype": {
                     "type": "string"
                 },
@@ -4621,7 +4852,7 @@
                 "datetreat": {
                     "type": "string"
                 },
-                "doctorinfo": {
+                "doctor": {
                     "type": "integer"
                 },
                 "patientrecord": {
@@ -4766,6 +4997,42 @@
                 }
             }
         },
+        "ent.Doctor": {
+            "type": "object",
+            "properties": {
+                "edges": {
+                    "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the DoctorQuery when eager-loading is set.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.DoctorEdges"
+                },
+                "id": {
+                    "description": "ID of the ent.",
+                    "type": "integer"
+                }
+            }
+        },
+        "ent.DoctorEdges": {
+            "type": "object",
+            "properties": {
+                "doctorinfo": {
+                    "description": "Doctorinfo holds the value of the doctorinfo edge.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.Doctorinfo"
+                },
+                "treatment": {
+                    "description": "Treatment holds the value of the treatment edge.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ent.Treatment"
+                    }
+                },
+                "user": {
+                    "description": "User holds the value of the user edge.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.User"
+                }
+            }
+        },
         "ent.Doctorinfo": {
             "type": "object",
             "properties": {
@@ -4804,6 +5071,13 @@
                     "type": "object",
                     "$ref": "#/definitions/ent.Department"
                 },
+                "doctor": {
+                    "description": "Doctor holds the value of the doctor edge.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ent.Doctor"
+                    }
+                },
                 "educationlevel": {
                     "description": "Educationlevel holds the value of the educationlevel edge.",
                     "type": "object",
@@ -4818,13 +5092,6 @@
                     "description": "Prename holds the value of the prename edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Prename"
-                },
-                "treatment": {
-                    "description": "Treatment holds the value of the treatment edge.",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ent.Treatment"
-                    }
                 }
             }
         },
@@ -5152,10 +5419,6 @@
                 },
                 "Allergic": {
                     "description": "Allergic holds the value of the \"Allergic\" field.",
-                    "type": "string"
-                },
-                "Birthday": {
-                    "description": "Birthday holds the value of the \"Birthday\" field.",
                     "type": "string"
                 },
                 "Bloodtype": {
@@ -5487,10 +5750,10 @@
         "ent.TreatmentEdges": {
             "type": "object",
             "properties": {
-                "doctorinfo": {
-                    "description": "Doctorinfo holds the value of the doctorinfo edge.",
+                "doctor": {
+                    "description": "Doctor holds the value of the doctor edge.",
                     "type": "object",
-                    "$ref": "#/definitions/ent.Doctorinfo"
+                    "$ref": "#/definitions/ent.Doctor"
                 },
                 "patientrecord": {
                     "description": "Patientrecord holds the value of the patientrecord edge.",
@@ -5597,20 +5860,25 @@
         "ent.UserEdges": {
             "type": "object",
             "properties": {
+                "doctor": {
+                    "description": "Doctor holds the value of the doctor edge.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.Doctor"
+                },
                 "financier": {
                     "description": "Financier holds the value of the financier edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Financier"
                 },
-                "historytaking": {
-                    "description": "Historytaking holds the value of the historytaking edge.",
-                    "type": "object",
-                    "$ref": "#/definitions/ent.Nurse"
-                },
                 "medicalrecordstaff": {
                     "description": "Medicalrecordstaff holds the value of the medicalrecordstaff edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Medicalrecordstaff"
+                },
+                "nurse": {
+                    "description": "Nurse holds the value of the Nurse edge.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.Nurse"
                 },
                 "user2registrar": {
                     "description": "User2registrar holds the value of the user2registrar edge.",

@@ -44,12 +44,6 @@ func (pc *PatientrecordCreate) SetAge(i int) *PatientrecordCreate {
 	return pc
 }
 
-// SetBirthday sets the Birthday field.
-func (pc *PatientrecordCreate) SetBirthday(t time.Time) *PatientrecordCreate {
-	pc.mutation.SetBirthday(t)
-	return pc
-}
-
 // SetBloodtype sets the Bloodtype field.
 func (pc *PatientrecordCreate) SetBloodtype(s string) *PatientrecordCreate {
 	pc.mutation.SetBloodtype(s)
@@ -210,9 +204,6 @@ func (pc *PatientrecordCreate) Save(ctx context.Context) (*Patientrecord, error)
 	if _, ok := pc.mutation.Age(); !ok {
 		return nil, &ValidationError{Name: "Age", err: errors.New("ent: missing required field \"Age\"")}
 	}
-	if _, ok := pc.mutation.Birthday(); !ok {
-		return nil, &ValidationError{Name: "Birthday", err: errors.New("ent: missing required field \"Birthday\"")}
-	}
 	if _, ok := pc.mutation.Bloodtype(); !ok {
 		return nil, &ValidationError{Name: "Bloodtype", err: errors.New("ent: missing required field \"Bloodtype\"")}
 	}
@@ -317,14 +308,6 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 			Column: patientrecord.FieldAge,
 		})
 		pa.Age = value
-	}
-	if value, ok := pc.mutation.Birthday(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeTime,
-			Value:  value,
-			Column: patientrecord.FieldBirthday,
-		})
-		pa.Birthday = value
 	}
 	if value, ok := pc.mutation.Bloodtype(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

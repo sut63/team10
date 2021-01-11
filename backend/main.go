@@ -34,6 +34,7 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
+	"github.com/team10/app/ent/doctorinfo"
 	//^^^...............................^^^
 )
 
@@ -268,6 +269,17 @@ type Typetreatment struct {
 	Typetreatment string
 }
 
+// Doctors defines the struct for the Doctors
+type Doctors struct {
+	Doctor []Doctor
+}
+
+// Doctor defines the struct for the Doctor
+type Doctor struct {
+	Doctorinfo	int
+	User int
+}
+
 //^^^::::::::::::::::::::::::::::::::::::::::::::::::^^^
 
 // @title SUT SA Example API
@@ -377,6 +389,7 @@ func main() {
 
 	controllers.NewTreatmentController(v1, client)
 	controllers.NewTypetreatmentController(v1, client)
+	controllers.NewDoctorController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	// Set Postman By Team10
@@ -551,15 +564,24 @@ func main() {
 	// Set Medicalrecordstaff Data
 	medicalrecordstaffs := Medicalrecordstaffs{
 		Medicalrecordstaff: []Medicalrecordstaff{
-			Medicalrecordstaff{"Phonrawin Kudthalaeng", 6},
-			Medicalrecordstaff{"Shin Sura", 7},
+			Medicalrecordstaff{"Phonrawin Kudthalaeng", 3},
+			Medicalrecordstaff{"Shin Sura", 4},
 		},
 	}
 
 	for _, m := range medicalrecordstaffs.Medicalrecordstaff {
+		u, err := client.User.
+		Query().
+		Where(user.IDEQ(m.User)).
+		Only(context.Background())
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 		client.Medicalrecordstaff.
 			Create().
 			SetName(m.Name).
+			SetUser(u).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
@@ -631,8 +653,8 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod", 4},
-			Financier{"Name Surname", 5},
+			Financier{"Nutchaporn Klinrod", 2},
+			Financier{"Name Surname", 8},
 		},
 	}
 	for _, f := range financiers.Financier {
@@ -821,6 +843,30 @@ func main() {
 			Create().
 			SetTypetreatment(tm.Typetreatment).
 			Save(context.Background())
+	}
+
+	//Set Doctor data
+	Doctors := Doctors{
+		Doctor: []Doctor{
+			Doctor{1,5},
+			Doctor{2,5},
+		},
+	}
+	for _, d := range Doctors.Doctor {
+
+		di, err := client.Doctorinfo.
+			Query().
+			Where(doctorinfo.IDEQ(int(d.Doctorinfo))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		client.Doctor.
+		Create().
+		SetDoctorinfo(di).
+		Save(context.Background())
 	}
 
 	//^^^*******************************************************************^^^

@@ -13,12 +13,12 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
 	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/prename"
-	"github.com/team10/app/ent/treatment"
 )
 
 // DoctorinfoQuery is the builder for querying Doctorinfo entities.
@@ -34,7 +34,7 @@ type DoctorinfoQuery struct {
 	withEducationlevel *EducationlevelQuery
 	withOfficeroom     *OfficeroomQuery
 	withPrename        *PrenameQuery
-	withTreatment      *TreatmentQuery
+	withDoctor         *DoctorQuery
 	withFKs            bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -137,17 +137,17 @@ func (dq *DoctorinfoQuery) QueryPrename() *PrenameQuery {
 	return query
 }
 
-// QueryTreatment chains the current query on the treatment edge.
-func (dq *DoctorinfoQuery) QueryTreatment() *TreatmentQuery {
-	query := &TreatmentQuery{config: dq.config}
+// QueryDoctor chains the current query on the doctor edge.
+func (dq *DoctorinfoQuery) QueryDoctor() *DoctorQuery {
+	query := &DoctorQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
-			sqlgraph.To(treatment.Table, treatment.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, doctorinfo.TreatmentTable, doctorinfo.TreatmentColumn),
+			sqlgraph.To(doctor.Table, doctor.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, doctorinfo.DoctorTable, doctorinfo.DoctorColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -378,14 +378,14 @@ func (dq *DoctorinfoQuery) WithPrename(opts ...func(*PrenameQuery)) *DoctorinfoQ
 	return dq
 }
 
-//  WithTreatment tells the query-builder to eager-loads the nodes that are connected to
-// the "treatment" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorinfoQuery) WithTreatment(opts ...func(*TreatmentQuery)) *DoctorinfoQuery {
-	query := &TreatmentQuery{config: dq.config}
+//  WithDoctor tells the query-builder to eager-loads the nodes that are connected to
+// the "doctor" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorinfoQuery) WithDoctor(opts ...func(*DoctorQuery)) *DoctorinfoQuery {
+	query := &DoctorQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withTreatment = query
+	dq.withDoctor = query
 	return dq
 }
 
@@ -461,7 +461,7 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 			dq.withEducationlevel != nil,
 			dq.withOfficeroom != nil,
 			dq.withPrename != nil,
-			dq.withTreatment != nil,
+			dq.withDoctor != nil,
 		}
 	)
 	if dq.withDepartment != nil || dq.withEducationlevel != nil || dq.withOfficeroom != nil || dq.withPrename != nil {
@@ -594,7 +594,7 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 		}
 	}
 
-	if query := dq.withTreatment; query != nil {
+	if query := dq.withDoctor; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Doctorinfo)
 		for i := range nodes {
@@ -602,8 +602,8 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 			nodeids[nodes[i].ID] = nodes[i]
 		}
 		query.withFKs = true
-		query.Where(predicate.Treatment(func(s *sql.Selector) {
-			s.Where(sql.InValues(doctorinfo.TreatmentColumn, fks...))
+		query.Where(predicate.Doctor(func(s *sql.Selector) {
+			s.Where(sql.InValues(doctorinfo.DoctorColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -618,7 +618,7 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "doctorinfo_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Treatment = append(node.Edges.Treatment, n)
+			node.Edges.Doctor = append(node.Edges.Doctor, n)
 		}
 	}
 

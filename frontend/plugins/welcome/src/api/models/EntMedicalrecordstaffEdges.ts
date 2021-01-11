@@ -64,9 +64,9 @@ export function EntMedicalrecordstaffEdgesFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'medicalrecordstaffPatientrights': !exists(json, 'medicalrecordstaffPatientrights') ? undefined : ((json['medicalrecordstaffPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
-        'patientrecord': !exists(json, 'patientrecord') ? undefined : ((json['patientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
-        'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
+        'medicalrecordstaffPatientrights': !exists(json, 'MedicalrecordstaffPatientrights') ? undefined : ((json['MedicalrecordstaffPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
+        'patientrecord': !exists(json, 'Patientrecord') ? undefined : ((json['Patientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
+        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
     };
 }
 

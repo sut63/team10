@@ -24,8 +24,8 @@ const (
 	EdgeOfficeroom = "officeroom"
 	// EdgePrename holds the string denoting the prename edge name in mutations.
 	EdgePrename = "prename"
-	// EdgeTreatment holds the string denoting the treatment edge name in mutations.
-	EdgeTreatment = "treatment"
+	// EdgeDoctor holds the string denoting the doctor edge name in mutations.
+	EdgeDoctor = "doctor"
 
 	// Table holds the table name of the doctorinfo in the database.
 	Table = "doctorinfos"
@@ -57,13 +57,13 @@ const (
 	PrenameInverseTable = "prenames"
 	// PrenameColumn is the table column denoting the prename relation/edge.
 	PrenameColumn = "prefix"
-	// TreatmentTable is the table the holds the treatment relation/edge.
-	TreatmentTable = "treatments"
-	// TreatmentInverseTable is the table name for the Treatment entity.
-	// It exists in this package in order to avoid circular dependency with the "treatment" package.
-	TreatmentInverseTable = "treatments"
-	// TreatmentColumn is the table column denoting the treatment relation/edge.
-	TreatmentColumn = "doctorinfo_id"
+	// DoctorTable is the table the holds the doctor relation/edge.
+	DoctorTable = "doctors"
+	// DoctorInverseTable is the table name for the Doctor entity.
+	// It exists in this package in order to avoid circular dependency with the "doctor" package.
+	DoctorInverseTable = "doctors"
+	// DoctorColumn is the table column denoting the doctor relation/edge.
+	DoctorColumn = "doctorinfo_id"
 )
 
 // Columns holds all SQL columns for doctorinfo fields.

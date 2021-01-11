@@ -80,28 +80,6 @@ const Login: FC<{}> = () => {
   // set data to object Patientright
 
 
-  const CreateCookies = async () => {
-
-    setCookie('Name', Name, { path: '/' })
-    setCookie('Password', Password, { path: '/' })
-    setCookie('Log', "true",{ path: '/' })
-    
-    setCookie('Status', Status, { path: '/' })
-
-
-
-
-  }
-  const Logout = async () => {
-
-    removeCookie('Name', { path: '/' })
-    removeCookie('Password', { path: '/' })
-    removeCookie('Log', { path: '/' })
-    removeCookie('Status', { path: '/' })
-
-  }
-
-
   const Login = async () => {
 
     users.map((item) => {
@@ -110,6 +88,12 @@ const Login: FC<{}> = () => {
       setCookie('Name', Name, { path: '/' })
       setCookie('Log', "true",{ path: '/' })
       setCookie('Status', item.edges?.userstatus?.userstatus , { path: '/' })
+
+      setCookie('Fin', item.edges?.financier?.id , { path: '/' })
+      setCookie('Med', item.edges?.medicalrecordstaff?.id , { path: '/' })
+      setCookie('Nur', item.edges?.historytaking?.id , { path: '/' })
+      //setCookie('Doc', item.edges?.userPatientrights?.id , { path: '/' })
+      //setCookie('Reg', item.edges?.user2registrar?.id , { path: '/' })
       window.location.reload(false)                
     }
   });
@@ -188,20 +172,7 @@ const Login: FC<{}> = () => {
              </Button>
             </FormControl>
            &emsp;
-             <Link component={RouterLink} to="/">
-            <FormControl variant="outlined" className={classes.formControl}>
-              <Button
-                onClick={() => {
-                  Logout();
-                }}
-                variant="contained"
-                color="primary"
-              >
-                Logout
-             </Button>
-            </FormControl>
-          </Link>
-
+             
 
         </form>
       </div>

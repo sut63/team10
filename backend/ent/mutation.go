@@ -11,6 +11,7 @@ import (
 	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/bill"
 	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/financier"
@@ -48,6 +49,7 @@ const (
 	TypeAbilitypatientrights = "Abilitypatientrights"
 	TypeBill                 = "Bill"
 	TypeDepartment           = "Department"
+	TypeDoctor               = "Doctor"
 	TypeDoctorinfo           = "Doctorinfo"
 	TypeEducationlevel       = "Educationlevel"
 	TypeFinancier            = "Financier"
@@ -1619,6 +1621,429 @@ func (m *DepartmentMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Department edge %s", name)
 }
 
+// DoctorMutation represents an operation that mutate the Doctors
+// nodes in the graph.
+type DoctorMutation struct {
+	config
+	op                Op
+	typ               string
+	id                *int
+	clearedFields     map[string]struct{}
+	doctorinfo        *int
+	cleareddoctorinfo bool
+	user              *int
+	cleareduser       bool
+	treatment         map[int]struct{}
+	removedtreatment  map[int]struct{}
+	done              bool
+	oldValue          func(context.Context) (*Doctor, error)
+}
+
+var _ ent.Mutation = (*DoctorMutation)(nil)
+
+// doctorOption allows to manage the mutation configuration using functional options.
+type doctorOption func(*DoctorMutation)
+
+// newDoctorMutation creates new mutation for $n.Name.
+func newDoctorMutation(c config, op Op, opts ...doctorOption) *DoctorMutation {
+	m := &DoctorMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeDoctor,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withDoctorID sets the id field of the mutation.
+func withDoctorID(id int) doctorOption {
+	return func(m *DoctorMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Doctor
+		)
+		m.oldValue = func(ctx context.Context) (*Doctor, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Doctor.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withDoctor sets the old Doctor of the mutation.
+func withDoctor(node *Doctor) doctorOption {
+	return func(m *DoctorMutation) {
+		m.oldValue = func(context.Context) (*Doctor, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m DoctorMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m DoctorMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *DoctorMutation) ID() (id int, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetDoctorinfoID sets the doctorinfo edge to Doctorinfo by id.
+func (m *DoctorMutation) SetDoctorinfoID(id int) {
+	m.doctorinfo = &id
+}
+
+// ClearDoctorinfo clears the doctorinfo edge to Doctorinfo.
+func (m *DoctorMutation) ClearDoctorinfo() {
+	m.cleareddoctorinfo = true
+}
+
+// DoctorinfoCleared returns if the edge doctorinfo was cleared.
+func (m *DoctorMutation) DoctorinfoCleared() bool {
+	return m.cleareddoctorinfo
+}
+
+// DoctorinfoID returns the doctorinfo id in the mutation.
+func (m *DoctorMutation) DoctorinfoID() (id int, exists bool) {
+	if m.doctorinfo != nil {
+		return *m.doctorinfo, true
+	}
+	return
+}
+
+// DoctorinfoIDs returns the doctorinfo ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// DoctorinfoID instead. It exists only for internal usage by the builders.
+func (m *DoctorMutation) DoctorinfoIDs() (ids []int) {
+	if id := m.doctorinfo; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetDoctorinfo reset all changes of the "doctorinfo" edge.
+func (m *DoctorMutation) ResetDoctorinfo() {
+	m.doctorinfo = nil
+	m.cleareddoctorinfo = false
+}
+
+// SetUserID sets the user edge to User by id.
+func (m *DoctorMutation) SetUserID(id int) {
+	m.user = &id
+}
+
+// ClearUser clears the user edge to User.
+func (m *DoctorMutation) ClearUser() {
+	m.cleareduser = true
+}
+
+// UserCleared returns if the edge user was cleared.
+func (m *DoctorMutation) UserCleared() bool {
+	return m.cleareduser
+}
+
+// UserID returns the user id in the mutation.
+func (m *DoctorMutation) UserID() (id int, exists bool) {
+	if m.user != nil {
+		return *m.user, true
+	}
+	return
+}
+
+// UserIDs returns the user ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// UserID instead. It exists only for internal usage by the builders.
+func (m *DoctorMutation) UserIDs() (ids []int) {
+	if id := m.user; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetUser reset all changes of the "user" edge.
+func (m *DoctorMutation) ResetUser() {
+	m.user = nil
+	m.cleareduser = false
+}
+
+// AddTreatmentIDs adds the treatment edge to Treatment by ids.
+func (m *DoctorMutation) AddTreatmentIDs(ids ...int) {
+	if m.treatment == nil {
+		m.treatment = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.treatment[ids[i]] = struct{}{}
+	}
+}
+
+// RemoveTreatmentIDs removes the treatment edge to Treatment by ids.
+func (m *DoctorMutation) RemoveTreatmentIDs(ids ...int) {
+	if m.removedtreatment == nil {
+		m.removedtreatment = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.removedtreatment[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedTreatment returns the removed ids of treatment.
+func (m *DoctorMutation) RemovedTreatmentIDs() (ids []int) {
+	for id := range m.removedtreatment {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// TreatmentIDs returns the treatment ids in the mutation.
+func (m *DoctorMutation) TreatmentIDs() (ids []int) {
+	for id := range m.treatment {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetTreatment reset all changes of the "treatment" edge.
+func (m *DoctorMutation) ResetTreatment() {
+	m.treatment = nil
+	m.removedtreatment = nil
+}
+
+// Op returns the operation name.
+func (m *DoctorMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Doctor).
+func (m *DoctorMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *DoctorMutation) Fields() []string {
+	fields := make([]string, 0, 0)
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *DoctorMutation) Field(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *DoctorMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	return nil, fmt.Errorf("unknown Doctor field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *DoctorMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown Doctor field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *DoctorMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *DoctorMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *DoctorMutation) AddField(name string, value ent.Value) error {
+	return fmt.Errorf("unknown Doctor numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *DoctorMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *DoctorMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *DoctorMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown Doctor nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *DoctorMutation) ResetField(name string) error {
+	return fmt.Errorf("unknown Doctor field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *DoctorMutation) AddedEdges() []string {
+	edges := make([]string, 0, 3)
+	if m.doctorinfo != nil {
+		edges = append(edges, doctor.EdgeDoctorinfo)
+	}
+	if m.user != nil {
+		edges = append(edges, doctor.EdgeUser)
+	}
+	if m.treatment != nil {
+		edges = append(edges, doctor.EdgeTreatment)
+	}
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *DoctorMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case doctor.EdgeDoctorinfo:
+		if id := m.doctorinfo; id != nil {
+			return []ent.Value{*id}
+		}
+	case doctor.EdgeUser:
+		if id := m.user; id != nil {
+			return []ent.Value{*id}
+		}
+	case doctor.EdgeTreatment:
+		ids := make([]ent.Value, 0, len(m.treatment))
+		for id := range m.treatment {
+			ids = append(ids, id)
+		}
+		return ids
+	}
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *DoctorMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 3)
+	if m.removedtreatment != nil {
+		edges = append(edges, doctor.EdgeTreatment)
+	}
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *DoctorMutation) RemovedIDs(name string) []ent.Value {
+	switch name {
+	case doctor.EdgeTreatment:
+		ids := make([]ent.Value, 0, len(m.removedtreatment))
+		for id := range m.removedtreatment {
+			ids = append(ids, id)
+		}
+		return ids
+	}
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *DoctorMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 3)
+	if m.cleareddoctorinfo {
+		edges = append(edges, doctor.EdgeDoctorinfo)
+	}
+	if m.cleareduser {
+		edges = append(edges, doctor.EdgeUser)
+	}
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *DoctorMutation) EdgeCleared(name string) bool {
+	switch name {
+	case doctor.EdgeDoctorinfo:
+		return m.cleareddoctorinfo
+	case doctor.EdgeUser:
+		return m.cleareduser
+	}
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *DoctorMutation) ClearEdge(name string) error {
+	switch name {
+	case doctor.EdgeDoctorinfo:
+		m.ClearDoctorinfo()
+		return nil
+	case doctor.EdgeUser:
+		m.ClearUser()
+		return nil
+	}
+	return fmt.Errorf("unknown Doctor unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *DoctorMutation) ResetEdge(name string) error {
+	switch name {
+	case doctor.EdgeDoctorinfo:
+		m.ResetDoctorinfo()
+		return nil
+	case doctor.EdgeUser:
+		m.ResetUser()
+		return nil
+	case doctor.EdgeTreatment:
+		m.ResetTreatment()
+		return nil
+	}
+	return fmt.Errorf("unknown Doctor edge %s", name)
+}
+
 // DoctorinfoMutation represents an operation that mutate the Doctorinfos
 // nodes in the graph.
 type DoctorinfoMutation struct {
@@ -1639,8 +2064,8 @@ type DoctorinfoMutation struct {
 	clearedofficeroom     bool
 	prename               *int
 	clearedprename        bool
-	treatment             map[int]struct{}
-	removedtreatment      map[int]struct{}
+	doctor                map[int]struct{}
+	removeddoctor         map[int]struct{}
 	done                  bool
 	oldValue              func(context.Context) (*Doctorinfo, error)
 }
@@ -2028,46 +2453,46 @@ func (m *DoctorinfoMutation) ResetPrename() {
 	m.clearedprename = false
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (m *DoctorinfoMutation) AddTreatmentIDs(ids ...int) {
-	if m.treatment == nil {
-		m.treatment = make(map[int]struct{})
+// AddDoctorIDs adds the doctor edge to Doctor by ids.
+func (m *DoctorinfoMutation) AddDoctorIDs(ids ...int) {
+	if m.doctor == nil {
+		m.doctor = make(map[int]struct{})
 	}
 	for i := range ids {
-		m.treatment[ids[i]] = struct{}{}
+		m.doctor[ids[i]] = struct{}{}
 	}
 }
 
-// RemoveTreatmentIDs removes the treatment edge to Treatment by ids.
-func (m *DoctorinfoMutation) RemoveTreatmentIDs(ids ...int) {
-	if m.removedtreatment == nil {
-		m.removedtreatment = make(map[int]struct{})
+// RemoveDoctorIDs removes the doctor edge to Doctor by ids.
+func (m *DoctorinfoMutation) RemoveDoctorIDs(ids ...int) {
+	if m.removeddoctor == nil {
+		m.removeddoctor = make(map[int]struct{})
 	}
 	for i := range ids {
-		m.removedtreatment[ids[i]] = struct{}{}
+		m.removeddoctor[ids[i]] = struct{}{}
 	}
 }
 
-// RemovedTreatment returns the removed ids of treatment.
-func (m *DoctorinfoMutation) RemovedTreatmentIDs() (ids []int) {
-	for id := range m.removedtreatment {
+// RemovedDoctor returns the removed ids of doctor.
+func (m *DoctorinfoMutation) RemovedDoctorIDs() (ids []int) {
+	for id := range m.removeddoctor {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// TreatmentIDs returns the treatment ids in the mutation.
-func (m *DoctorinfoMutation) TreatmentIDs() (ids []int) {
-	for id := range m.treatment {
+// DoctorIDs returns the doctor ids in the mutation.
+func (m *DoctorinfoMutation) DoctorIDs() (ids []int) {
+	for id := range m.doctor {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ResetTreatment reset all changes of the "treatment" edge.
-func (m *DoctorinfoMutation) ResetTreatment() {
-	m.treatment = nil
-	m.removedtreatment = nil
+// ResetDoctor reset all changes of the "doctor" edge.
+func (m *DoctorinfoMutation) ResetDoctor() {
+	m.doctor = nil
+	m.removeddoctor = nil
 }
 
 // Op returns the operation name.
@@ -2249,8 +2674,8 @@ func (m *DoctorinfoMutation) AddedEdges() []string {
 	if m.prename != nil {
 		edges = append(edges, doctorinfo.EdgePrename)
 	}
-	if m.treatment != nil {
-		edges = append(edges, doctorinfo.EdgeTreatment)
+	if m.doctor != nil {
+		edges = append(edges, doctorinfo.EdgeDoctor)
 	}
 	return edges
 }
@@ -2275,9 +2700,9 @@ func (m *DoctorinfoMutation) AddedIDs(name string) []ent.Value {
 		if id := m.prename; id != nil {
 			return []ent.Value{*id}
 		}
-	case doctorinfo.EdgeTreatment:
-		ids := make([]ent.Value, 0, len(m.treatment))
-		for id := range m.treatment {
+	case doctorinfo.EdgeDoctor:
+		ids := make([]ent.Value, 0, len(m.doctor))
+		for id := range m.doctor {
 			ids = append(ids, id)
 		}
 		return ids
@@ -2289,8 +2714,8 @@ func (m *DoctorinfoMutation) AddedIDs(name string) []ent.Value {
 // mutation.
 func (m *DoctorinfoMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 5)
-	if m.removedtreatment != nil {
-		edges = append(edges, doctorinfo.EdgeTreatment)
+	if m.removeddoctor != nil {
+		edges = append(edges, doctorinfo.EdgeDoctor)
 	}
 	return edges
 }
@@ -2299,9 +2724,9 @@ func (m *DoctorinfoMutation) RemovedEdges() []string {
 // the given edge name.
 func (m *DoctorinfoMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
-	case doctorinfo.EdgeTreatment:
-		ids := make([]ent.Value, 0, len(m.removedtreatment))
-		for id := range m.removedtreatment {
+	case doctorinfo.EdgeDoctor:
+		ids := make([]ent.Value, 0, len(m.removeddoctor))
+		for id := range m.removeddoctor {
 			ids = append(ids, id)
 		}
 		return ids
@@ -2381,8 +2806,8 @@ func (m *DoctorinfoMutation) ResetEdge(name string) error {
 	case doctorinfo.EdgePrename:
 		m.ResetPrename()
 		return nil
-	case doctorinfo.EdgeTreatment:
-		m.ResetTreatment()
+	case doctorinfo.EdgeDoctor:
+		m.ResetDoctor()
 		return nil
 	}
 	return fmt.Errorf("unknown Doctorinfo edge %s", name)
@@ -6508,7 +6933,6 @@ type PatientrecordMutation struct {
 	add_Idcardnumber                   *int
 	_Age                               *int
 	add_Age                            *int
-	_Birthday                          *time.Time
 	_Bloodtype                         *string
 	_Disease                           *string
 	_Allergic                          *string
@@ -6761,43 +7185,6 @@ func (m *PatientrecordMutation) AddedAge() (r int, exists bool) {
 func (m *PatientrecordMutation) ResetAge() {
 	m._Age = nil
 	m.add_Age = nil
-}
-
-// SetBirthday sets the Birthday field.
-func (m *PatientrecordMutation) SetBirthday(t time.Time) {
-	m._Birthday = &t
-}
-
-// Birthday returns the Birthday value in the mutation.
-func (m *PatientrecordMutation) Birthday() (r time.Time, exists bool) {
-	v := m._Birthday
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldBirthday returns the old Birthday value of the Patientrecord.
-// If the Patientrecord object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *PatientrecordMutation) OldBirthday(ctx context.Context) (v time.Time, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldBirthday is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldBirthday requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldBirthday: %w", err)
-	}
-	return oldValue.Birthday, nil
-}
-
-// ResetBirthday reset all changes of the "Birthday" field.
-func (m *PatientrecordMutation) ResetBirthday() {
-	m._Birthday = nil
 }
 
 // SetBloodtype sets the Bloodtype field.
@@ -7316,7 +7703,7 @@ func (m *PatientrecordMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *PatientrecordMutation) Fields() []string {
-	fields := make([]string, 0, 11)
+	fields := make([]string, 0, 10)
 	if m._Name != nil {
 		fields = append(fields, patientrecord.FieldName)
 	}
@@ -7325,9 +7712,6 @@ func (m *PatientrecordMutation) Fields() []string {
 	}
 	if m._Age != nil {
 		fields = append(fields, patientrecord.FieldAge)
-	}
-	if m._Birthday != nil {
-		fields = append(fields, patientrecord.FieldBirthday)
 	}
 	if m._Bloodtype != nil {
 		fields = append(fields, patientrecord.FieldBloodtype)
@@ -7364,8 +7748,6 @@ func (m *PatientrecordMutation) Field(name string) (ent.Value, bool) {
 		return m.Idcardnumber()
 	case patientrecord.FieldAge:
 		return m.Age()
-	case patientrecord.FieldBirthday:
-		return m.Birthday()
 	case patientrecord.FieldBloodtype:
 		return m.Bloodtype()
 	case patientrecord.FieldDisease:
@@ -7395,8 +7777,6 @@ func (m *PatientrecordMutation) OldField(ctx context.Context, name string) (ent.
 		return m.OldIdcardnumber(ctx)
 	case patientrecord.FieldAge:
 		return m.OldAge(ctx)
-	case patientrecord.FieldBirthday:
-		return m.OldBirthday(ctx)
 	case patientrecord.FieldBloodtype:
 		return m.OldBloodtype(ctx)
 	case patientrecord.FieldDisease:
@@ -7440,13 +7820,6 @@ func (m *PatientrecordMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAge(v)
-		return nil
-	case patientrecord.FieldBirthday:
-		v, ok := value.(time.Time)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetBirthday(v)
 		return nil
 	case patientrecord.FieldBloodtype:
 		v, ok := value.(string)
@@ -7582,9 +7955,6 @@ func (m *PatientrecordMutation) ResetField(name string) error {
 		return nil
 	case patientrecord.FieldAge:
 		m.ResetAge()
-		return nil
-	case patientrecord.FieldBirthday:
-		m.ResetBirthday()
 		return nil
 	case patientrecord.FieldBloodtype:
 		m.ResetBloodtype()
@@ -10411,8 +10781,8 @@ type TreatmentMutation struct {
 	clearedtypetreatment bool
 	patientrecord        *int
 	clearedpatientrecord bool
-	doctorinfo           *int
-	cleareddoctorinfo    bool
+	doctor               *int
+	cleareddoctor        bool
 	unpaybills           *int
 	clearedunpaybills    bool
 	done                 bool
@@ -10650,43 +11020,43 @@ func (m *TreatmentMutation) ResetPatientrecord() {
 	m.clearedpatientrecord = false
 }
 
-// SetDoctorinfoID sets the doctorinfo edge to Doctorinfo by id.
-func (m *TreatmentMutation) SetDoctorinfoID(id int) {
-	m.doctorinfo = &id
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (m *TreatmentMutation) SetDoctorID(id int) {
+	m.doctor = &id
 }
 
-// ClearDoctorinfo clears the doctorinfo edge to Doctorinfo.
-func (m *TreatmentMutation) ClearDoctorinfo() {
-	m.cleareddoctorinfo = true
+// ClearDoctor clears the doctor edge to Doctor.
+func (m *TreatmentMutation) ClearDoctor() {
+	m.cleareddoctor = true
 }
 
-// DoctorinfoCleared returns if the edge doctorinfo was cleared.
-func (m *TreatmentMutation) DoctorinfoCleared() bool {
-	return m.cleareddoctorinfo
+// DoctorCleared returns if the edge doctor was cleared.
+func (m *TreatmentMutation) DoctorCleared() bool {
+	return m.cleareddoctor
 }
 
-// DoctorinfoID returns the doctorinfo id in the mutation.
-func (m *TreatmentMutation) DoctorinfoID() (id int, exists bool) {
-	if m.doctorinfo != nil {
-		return *m.doctorinfo, true
+// DoctorID returns the doctor id in the mutation.
+func (m *TreatmentMutation) DoctorID() (id int, exists bool) {
+	if m.doctor != nil {
+		return *m.doctor, true
 	}
 	return
 }
 
-// DoctorinfoIDs returns the doctorinfo ids in the mutation.
+// DoctorIDs returns the doctor ids in the mutation.
 // Note that ids always returns len(ids) <= 1 for unique edges, and you should use
-// DoctorinfoID instead. It exists only for internal usage by the builders.
-func (m *TreatmentMutation) DoctorinfoIDs() (ids []int) {
-	if id := m.doctorinfo; id != nil {
+// DoctorID instead. It exists only for internal usage by the builders.
+func (m *TreatmentMutation) DoctorIDs() (ids []int) {
+	if id := m.doctor; id != nil {
 		ids = append(ids, *id)
 	}
 	return
 }
 
-// ResetDoctorinfo reset all changes of the "doctorinfo" edge.
-func (m *TreatmentMutation) ResetDoctorinfo() {
-	m.doctorinfo = nil
-	m.cleareddoctorinfo = false
+// ResetDoctor reset all changes of the "doctor" edge.
+func (m *TreatmentMutation) ResetDoctor() {
+	m.doctor = nil
+	m.cleareddoctor = false
 }
 
 // SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
@@ -10867,8 +11237,8 @@ func (m *TreatmentMutation) AddedEdges() []string {
 	if m.patientrecord != nil {
 		edges = append(edges, treatment.EdgePatientrecord)
 	}
-	if m.doctorinfo != nil {
-		edges = append(edges, treatment.EdgeDoctorinfo)
+	if m.doctor != nil {
+		edges = append(edges, treatment.EdgeDoctor)
 	}
 	if m.unpaybills != nil {
 		edges = append(edges, treatment.EdgeUnpaybills)
@@ -10888,8 +11258,8 @@ func (m *TreatmentMutation) AddedIDs(name string) []ent.Value {
 		if id := m.patientrecord; id != nil {
 			return []ent.Value{*id}
 		}
-	case treatment.EdgeDoctorinfo:
-		if id := m.doctorinfo; id != nil {
+	case treatment.EdgeDoctor:
+		if id := m.doctor; id != nil {
 			return []ent.Value{*id}
 		}
 	case treatment.EdgeUnpaybills:
@@ -10925,8 +11295,8 @@ func (m *TreatmentMutation) ClearedEdges() []string {
 	if m.clearedpatientrecord {
 		edges = append(edges, treatment.EdgePatientrecord)
 	}
-	if m.cleareddoctorinfo {
-		edges = append(edges, treatment.EdgeDoctorinfo)
+	if m.cleareddoctor {
+		edges = append(edges, treatment.EdgeDoctor)
 	}
 	if m.clearedunpaybills {
 		edges = append(edges, treatment.EdgeUnpaybills)
@@ -10942,8 +11312,8 @@ func (m *TreatmentMutation) EdgeCleared(name string) bool {
 		return m.clearedtypetreatment
 	case treatment.EdgePatientrecord:
 		return m.clearedpatientrecord
-	case treatment.EdgeDoctorinfo:
-		return m.cleareddoctorinfo
+	case treatment.EdgeDoctor:
+		return m.cleareddoctor
 	case treatment.EdgeUnpaybills:
 		return m.clearedunpaybills
 	}
@@ -10960,8 +11330,8 @@ func (m *TreatmentMutation) ClearEdge(name string) error {
 	case treatment.EdgePatientrecord:
 		m.ClearPatientrecord()
 		return nil
-	case treatment.EdgeDoctorinfo:
-		m.ClearDoctorinfo()
+	case treatment.EdgeDoctor:
+		m.ClearDoctor()
 		return nil
 	case treatment.EdgeUnpaybills:
 		m.ClearUnpaybills()
@@ -10981,8 +11351,8 @@ func (m *TreatmentMutation) ResetEdge(name string) error {
 	case treatment.EdgePatientrecord:
 		m.ResetPatientrecord()
 		return nil
-	case treatment.EdgeDoctorinfo:
-		m.ResetDoctorinfo()
+	case treatment.EdgeDoctor:
+		m.ResetDoctor()
 		return nil
 	case treatment.EdgeUnpaybills:
 		m.ResetUnpaybills()
@@ -11792,14 +12162,16 @@ type UserMutation struct {
 	clearedFields             map[string]struct{}
 	financier                 *int
 	clearedfinancier          bool
-	historytaking             *int
-	clearedhistorytaking      bool
+	_Nurse                    *int
+	cleared_Nurse             bool
 	_UserPatientrights        *int
 	cleared_UserPatientrights bool
 	medicalrecordstaff        *int
 	clearedmedicalrecordstaff bool
 	user2registrar            *int
 	cleareduser2registrar     bool
+	doctor                    *int
+	cleareddoctor             bool
 	userstatus                *int
 	cleareduserstatus         bool
 	done                      bool
@@ -11998,43 +12370,43 @@ func (m *UserMutation) ResetFinancier() {
 	m.clearedfinancier = false
 }
 
-// SetHistorytakingID sets the historytaking edge to Nurse by id.
-func (m *UserMutation) SetHistorytakingID(id int) {
-	m.historytaking = &id
+// SetNurseID sets the Nurse edge to Nurse by id.
+func (m *UserMutation) SetNurseID(id int) {
+	m._Nurse = &id
 }
 
-// ClearHistorytaking clears the historytaking edge to Nurse.
-func (m *UserMutation) ClearHistorytaking() {
-	m.clearedhistorytaking = true
+// ClearNurse clears the Nurse edge to Nurse.
+func (m *UserMutation) ClearNurse() {
+	m.cleared_Nurse = true
 }
 
-// HistorytakingCleared returns if the edge historytaking was cleared.
-func (m *UserMutation) HistorytakingCleared() bool {
-	return m.clearedhistorytaking
+// NurseCleared returns if the edge Nurse was cleared.
+func (m *UserMutation) NurseCleared() bool {
+	return m.cleared_Nurse
 }
 
-// HistorytakingID returns the historytaking id in the mutation.
-func (m *UserMutation) HistorytakingID() (id int, exists bool) {
-	if m.historytaking != nil {
-		return *m.historytaking, true
+// NurseID returns the Nurse id in the mutation.
+func (m *UserMutation) NurseID() (id int, exists bool) {
+	if m._Nurse != nil {
+		return *m._Nurse, true
 	}
 	return
 }
 
-// HistorytakingIDs returns the historytaking ids in the mutation.
+// NurseIDs returns the Nurse ids in the mutation.
 // Note that ids always returns len(ids) <= 1 for unique edges, and you should use
-// HistorytakingID instead. It exists only for internal usage by the builders.
-func (m *UserMutation) HistorytakingIDs() (ids []int) {
-	if id := m.historytaking; id != nil {
+// NurseID instead. It exists only for internal usage by the builders.
+func (m *UserMutation) NurseIDs() (ids []int) {
+	if id := m._Nurse; id != nil {
 		ids = append(ids, *id)
 	}
 	return
 }
 
-// ResetHistorytaking reset all changes of the "historytaking" edge.
-func (m *UserMutation) ResetHistorytaking() {
-	m.historytaking = nil
-	m.clearedhistorytaking = false
+// ResetNurse reset all changes of the "Nurse" edge.
+func (m *UserMutation) ResetNurse() {
+	m._Nurse = nil
+	m.cleared_Nurse = false
 }
 
 // SetUserPatientrightsID sets the UserPatientrights edge to Patientrights by id.
@@ -12152,6 +12524,45 @@ func (m *UserMutation) User2registrarIDs() (ids []int) {
 func (m *UserMutation) ResetUser2registrar() {
 	m.user2registrar = nil
 	m.cleareduser2registrar = false
+}
+
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (m *UserMutation) SetDoctorID(id int) {
+	m.doctor = &id
+}
+
+// ClearDoctor clears the doctor edge to Doctor.
+func (m *UserMutation) ClearDoctor() {
+	m.cleareddoctor = true
+}
+
+// DoctorCleared returns if the edge doctor was cleared.
+func (m *UserMutation) DoctorCleared() bool {
+	return m.cleareddoctor
+}
+
+// DoctorID returns the doctor id in the mutation.
+func (m *UserMutation) DoctorID() (id int, exists bool) {
+	if m.doctor != nil {
+		return *m.doctor, true
+	}
+	return
+}
+
+// DoctorIDs returns the doctor ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// DoctorID instead. It exists only for internal usage by the builders.
+func (m *UserMutation) DoctorIDs() (ids []int) {
+	if id := m.doctor; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetDoctor reset all changes of the "doctor" edge.
+func (m *UserMutation) ResetDoctor() {
+	m.doctor = nil
+	m.cleareddoctor = false
 }
 
 // SetUserstatusID sets the userstatus edge to Userstatus by id.
@@ -12325,12 +12736,12 @@ func (m *UserMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this
 // mutation.
 func (m *UserMutation) AddedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.financier != nil {
 		edges = append(edges, user.EdgeFinancier)
 	}
-	if m.historytaking != nil {
-		edges = append(edges, user.EdgeHistorytaking)
+	if m._Nurse != nil {
+		edges = append(edges, user.EdgeNurse)
 	}
 	if m._UserPatientrights != nil {
 		edges = append(edges, user.EdgeUserPatientrights)
@@ -12340,6 +12751,9 @@ func (m *UserMutation) AddedEdges() []string {
 	}
 	if m.user2registrar != nil {
 		edges = append(edges, user.EdgeUser2registrar)
+	}
+	if m.doctor != nil {
+		edges = append(edges, user.EdgeDoctor)
 	}
 	if m.userstatus != nil {
 		edges = append(edges, user.EdgeUserstatus)
@@ -12355,8 +12769,8 @@ func (m *UserMutation) AddedIDs(name string) []ent.Value {
 		if id := m.financier; id != nil {
 			return []ent.Value{*id}
 		}
-	case user.EdgeHistorytaking:
-		if id := m.historytaking; id != nil {
+	case user.EdgeNurse:
+		if id := m._Nurse; id != nil {
 			return []ent.Value{*id}
 		}
 	case user.EdgeUserPatientrights:
@@ -12371,6 +12785,10 @@ func (m *UserMutation) AddedIDs(name string) []ent.Value {
 		if id := m.user2registrar; id != nil {
 			return []ent.Value{*id}
 		}
+	case user.EdgeDoctor:
+		if id := m.doctor; id != nil {
+			return []ent.Value{*id}
+		}
 	case user.EdgeUserstatus:
 		if id := m.userstatus; id != nil {
 			return []ent.Value{*id}
@@ -12382,7 +12800,7 @@ func (m *UserMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this
 // mutation.
 func (m *UserMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	return edges
 }
 
@@ -12397,12 +12815,12 @@ func (m *UserMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this
 // mutation.
 func (m *UserMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.clearedfinancier {
 		edges = append(edges, user.EdgeFinancier)
 	}
-	if m.clearedhistorytaking {
-		edges = append(edges, user.EdgeHistorytaking)
+	if m.cleared_Nurse {
+		edges = append(edges, user.EdgeNurse)
 	}
 	if m.cleared_UserPatientrights {
 		edges = append(edges, user.EdgeUserPatientrights)
@@ -12412,6 +12830,9 @@ func (m *UserMutation) ClearedEdges() []string {
 	}
 	if m.cleareduser2registrar {
 		edges = append(edges, user.EdgeUser2registrar)
+	}
+	if m.cleareddoctor {
+		edges = append(edges, user.EdgeDoctor)
 	}
 	if m.cleareduserstatus {
 		edges = append(edges, user.EdgeUserstatus)
@@ -12425,14 +12846,16 @@ func (m *UserMutation) EdgeCleared(name string) bool {
 	switch name {
 	case user.EdgeFinancier:
 		return m.clearedfinancier
-	case user.EdgeHistorytaking:
-		return m.clearedhistorytaking
+	case user.EdgeNurse:
+		return m.cleared_Nurse
 	case user.EdgeUserPatientrights:
 		return m.cleared_UserPatientrights
 	case user.EdgeMedicalrecordstaff:
 		return m.clearedmedicalrecordstaff
 	case user.EdgeUser2registrar:
 		return m.cleareduser2registrar
+	case user.EdgeDoctor:
+		return m.cleareddoctor
 	case user.EdgeUserstatus:
 		return m.cleareduserstatus
 	}
@@ -12446,8 +12869,8 @@ func (m *UserMutation) ClearEdge(name string) error {
 	case user.EdgeFinancier:
 		m.ClearFinancier()
 		return nil
-	case user.EdgeHistorytaking:
-		m.ClearHistorytaking()
+	case user.EdgeNurse:
+		m.ClearNurse()
 		return nil
 	case user.EdgeUserPatientrights:
 		m.ClearUserPatientrights()
@@ -12457,6 +12880,9 @@ func (m *UserMutation) ClearEdge(name string) error {
 		return nil
 	case user.EdgeUser2registrar:
 		m.ClearUser2registrar()
+		return nil
+	case user.EdgeDoctor:
+		m.ClearDoctor()
 		return nil
 	case user.EdgeUserstatus:
 		m.ClearUserstatus()
@@ -12473,8 +12899,8 @@ func (m *UserMutation) ResetEdge(name string) error {
 	case user.EdgeFinancier:
 		m.ResetFinancier()
 		return nil
-	case user.EdgeHistorytaking:
-		m.ResetHistorytaking()
+	case user.EdgeNurse:
+		m.ResetNurse()
 		return nil
 	case user.EdgeUserPatientrights:
 		m.ResetUserPatientrights()
@@ -12484,6 +12910,9 @@ func (m *UserMutation) ResetEdge(name string) error {
 		return nil
 	case user.EdgeUser2registrar:
 		m.ResetUser2registrar()
+		return nil
+	case user.EdgeDoctor:
+		m.ResetDoctor()
 		return nil
 	case user.EdgeUserstatus:
 		m.ResetUserstatus()

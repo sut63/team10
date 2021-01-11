@@ -54,8 +54,8 @@ export function EntUnpaybillEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'bills': !exists(json, 'bills') ? undefined : EntBillFromJSON(json['bills']),
-        'treatment': !exists(json, 'treatment') ? undefined : EntTreatmentFromJSON(json['treatment']),
+        'bills': !exists(json, 'Bills') ? undefined : EntBillFromJSON(json['Bills']),
+        'treatment': !exists(json, 'Treatment') ? undefined : EntTreatmentFromJSON(json['Treatment']),
     };
 }
 

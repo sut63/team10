@@ -48,6 +48,19 @@ func (f DepartmentFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return f(ctx, mv)
 }
 
+// The DoctorFunc type is an adapter to allow the use of ordinary
+// function as Doctor mutator.
+type DoctorFunc func(context.Context, *ent.DoctorMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f DoctorFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.DoctorMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DoctorMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The DoctorinfoFunc type is an adapter to allow the use of ordinary
 // function as Doctorinfo mutator.
 type DoctorinfoFunc func(context.Context, *ent.DoctorinfoMutation) (ent.Value, error)

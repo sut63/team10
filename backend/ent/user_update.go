@@ -9,6 +9,7 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/nurse"
@@ -64,23 +65,23 @@ func (uu *UserUpdate) SetFinancier(f *Financier) *UserUpdate {
 	return uu.SetFinancierID(f.ID)
 }
 
-// SetHistorytakingID sets the historytaking edge to Nurse by id.
-func (uu *UserUpdate) SetHistorytakingID(id int) *UserUpdate {
-	uu.mutation.SetHistorytakingID(id)
+// SetNurseID sets the Nurse edge to Nurse by id.
+func (uu *UserUpdate) SetNurseID(id int) *UserUpdate {
+	uu.mutation.SetNurseID(id)
 	return uu
 }
 
-// SetNillableHistorytakingID sets the historytaking edge to Nurse by id if the given value is not nil.
-func (uu *UserUpdate) SetNillableHistorytakingID(id *int) *UserUpdate {
+// SetNillableNurseID sets the Nurse edge to Nurse by id if the given value is not nil.
+func (uu *UserUpdate) SetNillableNurseID(id *int) *UserUpdate {
 	if id != nil {
-		uu = uu.SetHistorytakingID(*id)
+		uu = uu.SetNurseID(*id)
 	}
 	return uu
 }
 
-// SetHistorytaking sets the historytaking edge to Nurse.
-func (uu *UserUpdate) SetHistorytaking(n *Nurse) *UserUpdate {
-	return uu.SetHistorytakingID(n.ID)
+// SetNurse sets the Nurse edge to Nurse.
+func (uu *UserUpdate) SetNurse(n *Nurse) *UserUpdate {
+	return uu.SetNurseID(n.ID)
 }
 
 // SetUserPatientrightsID sets the UserPatientrights edge to Patientrights by id.
@@ -140,6 +141,25 @@ func (uu *UserUpdate) SetUser2registrar(r *Registrar) *UserUpdate {
 	return uu.SetUser2registrarID(r.ID)
 }
 
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (uu *UserUpdate) SetDoctorID(id int) *UserUpdate {
+	uu.mutation.SetDoctorID(id)
+	return uu
+}
+
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (uu *UserUpdate) SetNillableDoctorID(id *int) *UserUpdate {
+	if id != nil {
+		uu = uu.SetDoctorID(*id)
+	}
+	return uu
+}
+
+// SetDoctor sets the doctor edge to Doctor.
+func (uu *UserUpdate) SetDoctor(d *Doctor) *UserUpdate {
+	return uu.SetDoctorID(d.ID)
+}
+
 // SetUserstatusID sets the userstatus edge to Userstatus by id.
 func (uu *UserUpdate) SetUserstatusID(id int) *UserUpdate {
 	uu.mutation.SetUserstatusID(id)
@@ -170,9 +190,9 @@ func (uu *UserUpdate) ClearFinancier() *UserUpdate {
 	return uu
 }
 
-// ClearHistorytaking clears the historytaking edge to Nurse.
-func (uu *UserUpdate) ClearHistorytaking() *UserUpdate {
-	uu.mutation.ClearHistorytaking()
+// ClearNurse clears the Nurse edge to Nurse.
+func (uu *UserUpdate) ClearNurse() *UserUpdate {
+	uu.mutation.ClearNurse()
 	return uu
 }
 
@@ -191,6 +211,12 @@ func (uu *UserUpdate) ClearMedicalrecordstaff() *UserUpdate {
 // ClearUser2registrar clears the user2registrar edge to Registrar.
 func (uu *UserUpdate) ClearUser2registrar() *UserUpdate {
 	uu.mutation.ClearUser2registrar()
+	return uu
+}
+
+// ClearDoctor clears the doctor edge to Doctor.
+func (uu *UserUpdate) ClearDoctor() *UserUpdate {
+	uu.mutation.ClearDoctor()
 	return uu
 }
 
@@ -329,12 +355,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uu.mutation.HistorytakingCleared() {
+	if uu.mutation.NurseCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.HistorytakingTable,
-			Columns: []string{user.HistorytakingColumn},
+			Table:   user.NurseTable,
+			Columns: []string{user.NurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -345,12 +371,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := uu.mutation.NurseIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.HistorytakingTable,
-			Columns: []string{user.HistorytakingColumn},
+			Table:   user.NurseTable,
+			Columns: []string{user.NurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -469,6 +495,41 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
+	if uu.mutation.DoctorCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.DoctorTable,
+			Columns: []string{user.DoctorColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: doctor.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uu.mutation.DoctorIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.DoctorTable,
+			Columns: []string{user.DoctorColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: doctor.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
 	if uu.mutation.UserstatusCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
@@ -553,23 +614,23 @@ func (uuo *UserUpdateOne) SetFinancier(f *Financier) *UserUpdateOne {
 	return uuo.SetFinancierID(f.ID)
 }
 
-// SetHistorytakingID sets the historytaking edge to Nurse by id.
-func (uuo *UserUpdateOne) SetHistorytakingID(id int) *UserUpdateOne {
-	uuo.mutation.SetHistorytakingID(id)
+// SetNurseID sets the Nurse edge to Nurse by id.
+func (uuo *UserUpdateOne) SetNurseID(id int) *UserUpdateOne {
+	uuo.mutation.SetNurseID(id)
 	return uuo
 }
 
-// SetNillableHistorytakingID sets the historytaking edge to Nurse by id if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableHistorytakingID(id *int) *UserUpdateOne {
+// SetNillableNurseID sets the Nurse edge to Nurse by id if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableNurseID(id *int) *UserUpdateOne {
 	if id != nil {
-		uuo = uuo.SetHistorytakingID(*id)
+		uuo = uuo.SetNurseID(*id)
 	}
 	return uuo
 }
 
-// SetHistorytaking sets the historytaking edge to Nurse.
-func (uuo *UserUpdateOne) SetHistorytaking(n *Nurse) *UserUpdateOne {
-	return uuo.SetHistorytakingID(n.ID)
+// SetNurse sets the Nurse edge to Nurse.
+func (uuo *UserUpdateOne) SetNurse(n *Nurse) *UserUpdateOne {
+	return uuo.SetNurseID(n.ID)
 }
 
 // SetUserPatientrightsID sets the UserPatientrights edge to Patientrights by id.
@@ -629,6 +690,25 @@ func (uuo *UserUpdateOne) SetUser2registrar(r *Registrar) *UserUpdateOne {
 	return uuo.SetUser2registrarID(r.ID)
 }
 
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (uuo *UserUpdateOne) SetDoctorID(id int) *UserUpdateOne {
+	uuo.mutation.SetDoctorID(id)
+	return uuo
+}
+
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableDoctorID(id *int) *UserUpdateOne {
+	if id != nil {
+		uuo = uuo.SetDoctorID(*id)
+	}
+	return uuo
+}
+
+// SetDoctor sets the doctor edge to Doctor.
+func (uuo *UserUpdateOne) SetDoctor(d *Doctor) *UserUpdateOne {
+	return uuo.SetDoctorID(d.ID)
+}
+
 // SetUserstatusID sets the userstatus edge to Userstatus by id.
 func (uuo *UserUpdateOne) SetUserstatusID(id int) *UserUpdateOne {
 	uuo.mutation.SetUserstatusID(id)
@@ -659,9 +739,9 @@ func (uuo *UserUpdateOne) ClearFinancier() *UserUpdateOne {
 	return uuo
 }
 
-// ClearHistorytaking clears the historytaking edge to Nurse.
-func (uuo *UserUpdateOne) ClearHistorytaking() *UserUpdateOne {
-	uuo.mutation.ClearHistorytaking()
+// ClearNurse clears the Nurse edge to Nurse.
+func (uuo *UserUpdateOne) ClearNurse() *UserUpdateOne {
+	uuo.mutation.ClearNurse()
 	return uuo
 }
 
@@ -680,6 +760,12 @@ func (uuo *UserUpdateOne) ClearMedicalrecordstaff() *UserUpdateOne {
 // ClearUser2registrar clears the user2registrar edge to Registrar.
 func (uuo *UserUpdateOne) ClearUser2registrar() *UserUpdateOne {
 	uuo.mutation.ClearUser2registrar()
+	return uuo
+}
+
+// ClearDoctor clears the doctor edge to Doctor.
+func (uuo *UserUpdateOne) ClearDoctor() *UserUpdateOne {
+	uuo.mutation.ClearDoctor()
 	return uuo
 }
 
@@ -816,12 +902,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (u *User, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uuo.mutation.HistorytakingCleared() {
+	if uuo.mutation.NurseCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.HistorytakingTable,
-			Columns: []string{user.HistorytakingColumn},
+			Table:   user.NurseTable,
+			Columns: []string{user.NurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -832,12 +918,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (u *User, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := uuo.mutation.NurseIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.HistorytakingTable,
-			Columns: []string{user.HistorytakingColumn},
+			Table:   user.NurseTable,
+			Columns: []string{user.NurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -948,6 +1034,41 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (u *User, err error) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: registrar.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if uuo.mutation.DoctorCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.DoctorTable,
+			Columns: []string{user.DoctorColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: doctor.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := uuo.mutation.DoctorIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.DoctorTable,
+			Columns: []string{user.DoctorColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: doctor.FieldID,
 				},
 			},
 		}
