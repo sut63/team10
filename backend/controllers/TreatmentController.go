@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
-	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/typetreatment"
@@ -26,7 +26,7 @@ type Treatment struct {
 	Treatment     string
 	Datetreat     string
 	Typetreatment int
-	Doctorinfo    int
+	Doctor    int
 	Patientrecord int
 }
 
@@ -59,13 +59,13 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
-	di, err := ctl.client.Doctorinfo.
+	d, err := ctl.client.Doctor.
 		Query().
-		Where(doctorinfo.IDEQ(int(obj.Doctorinfo))).
+		Where(doctor.IDEQ(int(obj.Doctor))).
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Doctorinfo not found",
+			"error": "Doctor not found",
 		})
 		return
 	}
@@ -86,7 +86,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		SetTreatment(obj.Treatment).
 		SetDatetreat(t).
 		SetTypetreatment(ttm).
-		SetDoctorinfo(di).
+		SetDoctor(d).
 		SetPatientrecord(pr).
 		Save(context.Background())
 
@@ -127,7 +127,7 @@ func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
 	}
 	tm, err := ctl.client.Treatment.
 		Query().
-		WithDoctorinfo().
+		WithDoctor().
 		WithTypetreatment().
 		WithPatientrecord().
 		Where(treatment.IDEQ(int(id))).
@@ -175,7 +175,7 @@ func (ctl *TreatmentController) ListTreatment(c *gin.Context) {
 
 	Treatment, err := ctl.client.Treatment.
 		Query().
-		WithDoctorinfo().
+		WithDoctor().
 		WithTypetreatment().
 		WithPatientrecord().
 		Limit(limit).

@@ -18,6 +18,9 @@ import {
     ControllersBill,
     ControllersBillFromJSON,
     ControllersBillToJSON,
+    ControllersDoctor,
+    ControllersDoctorFromJSON,
+    ControllersDoctorToJSON,
     ControllersDoctorinfo,
     ControllersDoctorinfoFromJSON,
     ControllersDoctorinfoToJSON,
@@ -45,6 +48,9 @@ import {
     EntDepartment,
     EntDepartmentFromJSON,
     EntDepartmentToJSON,
+    EntDoctor,
+    EntDoctorFromJSON,
+    EntDoctorToJSON,
     EntDoctorinfo,
     EntDoctorinfoFromJSON,
     EntDoctorinfoToJSON,
@@ -120,6 +126,10 @@ export interface CreateBillRequest {
 
 export interface CreateDepartmentRequest {
     department: EntDepartment;
+}
+
+export interface CreateDoctorRequest {
+    doctor: ControllersDoctor;
 }
 
 export interface CreateDoctorinfoRequest {
@@ -198,6 +208,10 @@ export interface DeleteDepartmentRequest {
     id: number;
 }
 
+export interface DeleteDoctorRequest {
+    id: number;
+}
+
 export interface DeleteDoctorinfoRequest {
     id: number;
 }
@@ -259,6 +273,10 @@ export interface GetBillRequest {
 }
 
 export interface GetDepartmentRequest {
+    id: number;
+}
+
+export interface GetDoctorRequest {
     id: number;
 }
 
@@ -361,6 +379,11 @@ export interface ListDepartmentRequest {
     offset?: number;
 }
 
+export interface ListDoctorRequest {
+    limit?: number;
+    offset?: number;
+}
+
 export interface ListDoctorinfoRequest {
     limit?: number;
     offset?: number;
@@ -459,6 +482,11 @@ export interface UpdateAbilitypatientrightsRequest {
 export interface UpdateDepartmentRequest {
     id: number;
     department: EntDepartment;
+}
+
+export interface UpdateDoctorRequest {
+    id: number;
+    doctor: EntDoctor;
 }
 
 export interface UpdateDoctorinfoRequest {
@@ -638,6 +666,41 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async createDepartment(requestParameters: CreateDepartmentRequest): Promise<EntDepartment> {
         const response = await this.createDepartmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * Create doctor
+     * Create doctor
+     */
+    async createDoctorRaw(requestParameters: CreateDoctorRequest): Promise<runtime.ApiResponse<EntDoctor>> {
+        if (requestParameters.doctor === null || requestParameters.doctor === undefined) {
+            throw new runtime.RequiredError('doctor','Required parameter requestParameters.doctor was null or undefined when calling createDoctor.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/doctors`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ControllersDoctorToJSON(requestParameters.doctor),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntDoctorFromJSON(jsonValue));
+    }
+
+    /**
+     * Create doctor
+     * Create doctor
+     */
+    async createDoctor(requestParameters: CreateDoctorRequest): Promise<EntDoctor> {
+        const response = await this.createDoctorRaw(requestParameters);
         return await response.value();
     }
 
@@ -1298,6 +1361,38 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * get doctor by ID
+     * Delete a doctor entity by ID
+     */
+    async deleteDoctorRaw(requestParameters: DeleteDoctorRequest): Promise<runtime.ApiResponse<object>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteDoctor.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/doctors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * get doctor by ID
+     * Delete a doctor entity by ID
+     */
+    async deleteDoctor(requestParameters: DeleteDoctorRequest): Promise<object> {
+        const response = await this.deleteDoctorRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
      * get doctorinfo by ID
      * Delete a doctorinfo entity by ID
      */
@@ -1806,6 +1901,38 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getDepartment(requestParameters: GetDepartmentRequest): Promise<EntDepartment> {
         const response = await this.getDepartmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * get doctor by ID
+     * Get a doctor entity by ID
+     */
+    async getDoctorRaw(requestParameters: GetDoctorRequest): Promise<runtime.ApiResponse<EntDoctor>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getDoctor.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/doctors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntDoctorFromJSON(jsonValue));
+    }
+
+    /**
+     * get doctor by ID
+     * Get a doctor entity by ID
+     */
+    async getDoctor(requestParameters: GetDoctorRequest): Promise<EntDoctor> {
+        const response = await this.getDoctorRaw(requestParameters);
         return await response.value();
     }
 
@@ -2586,6 +2713,42 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async listDepartment(requestParameters: ListDepartmentRequest): Promise<Array<EntDepartment>> {
         const response = await this.listDepartmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * list doctor entities
+     * List doctor entities
+     */
+    async listDoctorRaw(requestParameters: ListDoctorRequest): Promise<runtime.ApiResponse<Array<EntDoctor>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/doctors`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntDoctorFromJSON));
+    }
+
+    /**
+     * list doctor entities
+     * List doctor entities
+     */
+    async listDoctor(requestParameters: ListDoctorRequest): Promise<Array<EntDoctor>> {
+        const response = await this.listDoctorRaw(requestParameters);
         return await response.value();
     }
 
@@ -3396,6 +3559,45 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updateDepartment(requestParameters: UpdateDepartmentRequest): Promise<EntDepartment> {
         const response = await this.updateDepartmentRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * update doctor by ID
+     * Update a doctor entity by ID
+     */
+    async updateDoctorRaw(requestParameters: UpdateDoctorRequest): Promise<runtime.ApiResponse<EntDoctor>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateDoctor.');
+        }
+
+        if (requestParameters.doctor === null || requestParameters.doctor === undefined) {
+            throw new runtime.RequiredError('doctor','Required parameter requestParameters.doctor was null or undefined when calling updateDoctor.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/doctors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: EntDoctorToJSON(requestParameters.doctor),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntDoctorFromJSON(jsonValue));
+    }
+
+    /**
+     * update doctor by ID
+     * Update a doctor entity by ID
+     */
+    async updateDoctor(requestParameters: UpdateDoctorRequest): Promise<EntDoctor> {
+        const response = await this.updateDoctorRaw(requestParameters);
         return await response.value();
     }
 

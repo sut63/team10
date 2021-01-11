@@ -18,6 +18,10 @@ import {
     EntDepartmentFromJSON,
     EntDepartmentFromJSONTyped,
     EntDepartmentToJSON,
+    EntDoctor,
+    EntDoctorFromJSON,
+    EntDoctorFromJSONTyped,
+    EntDoctorToJSON,
     EntEducationlevel,
     EntEducationlevelFromJSON,
     EntEducationlevelFromJSONTyped,
@@ -30,10 +34,6 @@ import {
     EntPrenameFromJSON,
     EntPrenameFromJSONTyped,
     EntPrenameToJSON,
-    EntTreatment,
-    EntTreatmentFromJSON,
-    EntTreatmentFromJSONTyped,
-    EntTreatmentToJSON,
 } from './';
 
 /**
@@ -48,6 +48,12 @@ export interface EntDoctorinfoEdges {
      * @memberof EntDoctorinfoEdges
      */
     department?: EntDepartment;
+    /**
+     * Doctor holds the value of the doctor edge.
+     * @type {Array<EntDoctor>}
+     * @memberof EntDoctorinfoEdges
+     */
+    doctor?: Array<EntDoctor>;
     /**
      * 
      * @type {EntEducationlevel}
@@ -66,12 +72,6 @@ export interface EntDoctorinfoEdges {
      * @memberof EntDoctorinfoEdges
      */
     prename?: EntPrename;
-    /**
-     * Treatment holds the value of the treatment edge.
-     * @type {Array<EntTreatment>}
-     * @memberof EntDoctorinfoEdges
-     */
-    treatment?: Array<EntTreatment>;
 }
 
 export function EntDoctorinfoEdgesFromJSON(json: any): EntDoctorinfoEdges {
@@ -84,11 +84,11 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'department': !exists(json, 'department') ? undefined : EntDepartmentFromJSON(json['department']),
-        'educationlevel': !exists(json, 'educationlevel') ? undefined : EntEducationlevelFromJSON(json['educationlevel']),
-        'officeroom': !exists(json, 'officeroom') ? undefined : EntOfficeroomFromJSON(json['officeroom']),
-        'prename': !exists(json, 'prename') ? undefined : EntPrenameFromJSON(json['prename']),
-        'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
+        'department': !exists(json, 'Department') ? undefined : EntDepartmentFromJSON(json['Department']),
+        'doctor': !exists(json, 'Doctor') ? undefined : ((json['Doctor'] as Array<any>).map(EntDoctorFromJSON)),
+        'educationlevel': !exists(json, 'Educationlevel') ? undefined : EntEducationlevelFromJSON(json['Educationlevel']),
+        'officeroom': !exists(json, 'Officeroom') ? undefined : EntOfficeroomFromJSON(json['Officeroom']),
+        'prename': !exists(json, 'Prename') ? undefined : EntPrenameFromJSON(json['Prename']),
     };
 }
 
@@ -102,10 +102,10 @@ export function EntDoctorinfoEdgesToJSON(value?: EntDoctorinfoEdges | null): any
     return {
         
         'department': EntDepartmentToJSON(value.department),
+        'doctor': value.doctor === undefined ? undefined : ((value.doctor as Array<any>).map(EntDoctorToJSON)),
         'educationlevel': EntEducationlevelToJSON(value.educationlevel),
         'officeroom': EntOfficeroomToJSON(value.officeroom),
         'prename': EntPrenameToJSON(value.prename),
-        'treatment': value.treatment === undefined ? undefined : ((value.treatment as Array<any>).map(EntTreatmentToJSON)),
     };
 }
 

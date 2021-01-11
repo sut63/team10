@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/nurse"
@@ -36,19 +37,21 @@ type User struct {
 type UserEdges struct {
 	// Financier holds the value of the financier edge.
 	Financier *Financier
-	// Historytaking holds the value of the historytaking edge.
-	Historytaking *Nurse
+	// Nurse holds the value of the Nurse edge.
+	Nurse *Nurse
 	// UserPatientrights holds the value of the UserPatientrights edge.
 	UserPatientrights *Patientrights
 	// Medicalrecordstaff holds the value of the medicalrecordstaff edge.
 	Medicalrecordstaff *Medicalrecordstaff
 	// User2registrar holds the value of the user2registrar edge.
 	User2registrar *Registrar
+	// Doctor holds the value of the doctor edge.
+	Doctor *Doctor
 	// Userstatus holds the value of the userstatus edge.
 	Userstatus *Userstatus
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [6]bool
+	loadedTypes [7]bool
 }
 
 // FinancierOrErr returns the Financier value or an error if the edge
@@ -65,18 +68,18 @@ func (e UserEdges) FinancierOrErr() (*Financier, error) {
 	return nil, &NotLoadedError{edge: "financier"}
 }
 
-// HistorytakingOrErr returns the Historytaking value or an error if the edge
+// NurseOrErr returns the Nurse value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) HistorytakingOrErr() (*Nurse, error) {
+func (e UserEdges) NurseOrErr() (*Nurse, error) {
 	if e.loadedTypes[1] {
-		if e.Historytaking == nil {
-			// The edge historytaking was loaded in eager-loading,
+		if e.Nurse == nil {
+			// The edge Nurse was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: nurse.Label}
 		}
-		return e.Historytaking, nil
+		return e.Nurse, nil
 	}
-	return nil, &NotLoadedError{edge: "historytaking"}
+	return nil, &NotLoadedError{edge: "Nurse"}
 }
 
 // UserPatientrightsOrErr returns the UserPatientrights value or an error if the edge
@@ -121,10 +124,24 @@ func (e UserEdges) User2registrarOrErr() (*Registrar, error) {
 	return nil, &NotLoadedError{edge: "user2registrar"}
 }
 
+// DoctorOrErr returns the Doctor value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e UserEdges) DoctorOrErr() (*Doctor, error) {
+	if e.loadedTypes[5] {
+		if e.Doctor == nil {
+			// The edge doctor was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: doctor.Label}
+		}
+		return e.Doctor, nil
+	}
+	return nil, &NotLoadedError{edge: "doctor"}
+}
+
 // UserstatusOrErr returns the Userstatus value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e UserEdges) UserstatusOrErr() (*Userstatus, error) {
-	if e.loadedTypes[5] {
+	if e.loadedTypes[6] {
 		if e.Userstatus == nil {
 			// The edge userstatus was loaded in eager-loading,
 			// but was not found.
@@ -197,9 +214,9 @@ func (u *User) QueryFinancier() *FinancierQuery {
 	return (&UserClient{config: u.config}).QueryFinancier(u)
 }
 
-// QueryHistorytaking queries the historytaking edge of the User.
-func (u *User) QueryHistorytaking() *NurseQuery {
-	return (&UserClient{config: u.config}).QueryHistorytaking(u)
+// QueryNurse queries the Nurse edge of the User.
+func (u *User) QueryNurse() *NurseQuery {
+	return (&UserClient{config: u.config}).QueryNurse(u)
 }
 
 // QueryUserPatientrights queries the UserPatientrights edge of the User.
@@ -215,6 +232,11 @@ func (u *User) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
 // QueryUser2registrar queries the user2registrar edge of the User.
 func (u *User) QueryUser2registrar() *RegistrarQuery {
 	return (&UserClient{config: u.config}).QueryUser2registrar(u)
+}
+
+// QueryDoctor queries the doctor edge of the User.
+func (u *User) QueryDoctor() *DoctorQuery {
+	return (&UserClient{config: u.config}).QueryDoctor(u)
 }
 
 // QueryUserstatus queries the userstatus edge of the User.

@@ -54,8 +54,8 @@ export function EntDepartmentEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'department2doctorinfo': !exists(json, 'department2doctorinfo') ? undefined : ((json['department2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
-        'historytaking': !exists(json, 'historytaking') ? undefined : ((json['historytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
+        'department2doctorinfo': !exists(json, 'Department2doctorinfo') ? undefined : ((json['Department2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'historytaking': !exists(json, 'Historytaking') ? undefined : ((json['Historytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
     };
 }
 

@@ -44,7 +44,7 @@ export function EntInsuranceEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'insurancePatientrights': !exists(json, 'insurancePatientrights') ? undefined : ((json['insurancePatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
+        'insurancePatientrights': !exists(json, 'InsurancePatientrights') ? undefined : ((json['InsurancePatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
     };
 }
 

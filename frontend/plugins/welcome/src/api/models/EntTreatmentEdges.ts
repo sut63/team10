@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    EntDoctorinfo,
-    EntDoctorinfoFromJSON,
-    EntDoctorinfoFromJSONTyped,
-    EntDoctorinfoToJSON,
+    EntDoctor,
+    EntDoctorFromJSON,
+    EntDoctorFromJSONTyped,
+    EntDoctorToJSON,
     EntPatientrecord,
     EntPatientrecordFromJSON,
     EntPatientrecordFromJSONTyped,
@@ -40,10 +40,10 @@ import {
 export interface EntTreatmentEdges {
     /**
      * 
-     * @type {EntDoctorinfo}
+     * @type {EntDoctor}
      * @memberof EntTreatmentEdges
      */
-    doctorinfo?: EntDoctorinfo;
+    doctor?: EntDoctor;
     /**
      * 
      * @type {EntPatientrecord}
@@ -74,7 +74,7 @@ export function EntTreatmentEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'doctorinfo': !exists(json, 'Doctorinfo') ? undefined : EntDoctorinfoFromJSON(json['Doctorinfo']),
+        'doctor': !exists(json, 'Doctor') ? undefined : EntDoctorFromJSON(json['Doctor']),
         'patientrecord': !exists(json, 'Patientrecord') ? undefined : EntPatientrecordFromJSON(json['Patientrecord']),
         'typetreatment': !exists(json, 'Typetreatment') ? undefined : EntTypetreatmentFromJSON(json['Typetreatment']),
         'unpaybills': !exists(json, 'Unpaybills') ? undefined : EntUnpaybillFromJSON(json['Unpaybills']),
@@ -90,7 +90,7 @@ export function EntTreatmentEdgesToJSON(value?: EntTreatmentEdges | null): any {
     }
     return {
         
-        'doctorinfo': EntDoctorinfoToJSON(value.doctorinfo),
+        'doctor': EntDoctorToJSON(value.doctor),
         'patientrecord': EntPatientrecordToJSON(value.patientrecord),
         'typetreatment': EntTypetreatmentToJSON(value.typetreatment),
         'unpaybills': EntUnpaybillToJSON(value.unpaybills),

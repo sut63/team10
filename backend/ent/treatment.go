@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/facebookincubator/ent/dialect/sql"
-	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/typetreatment"
@@ -27,7 +27,7 @@ type Treatment struct {
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the TreatmentQuery when eager-loading is set.
 	Edges            TreatmentEdges `json:"edges"`
-	doctorinfo_id    *int
+	doctor_id        *int
 	patientrecord_id *int
 	typetreatment_id *int
 }
@@ -38,8 +38,8 @@ type TreatmentEdges struct {
 	Typetreatment *Typetreatment
 	// Patientrecord holds the value of the patientrecord edge.
 	Patientrecord *Patientrecord
-	// Doctorinfo holds the value of the doctorinfo edge.
-	Doctorinfo *Doctorinfo
+	// Doctor holds the value of the doctor edge.
+	Doctor *Doctor
 	// Unpaybills holds the value of the unpaybills edge.
 	Unpaybills *Unpaybill
 	// loadedTypes holds the information for reporting if a
@@ -75,18 +75,18 @@ func (e TreatmentEdges) PatientrecordOrErr() (*Patientrecord, error) {
 	return nil, &NotLoadedError{edge: "patientrecord"}
 }
 
-// DoctorinfoOrErr returns the Doctorinfo value or an error if the edge
+// DoctorOrErr returns the Doctor value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e TreatmentEdges) DoctorinfoOrErr() (*Doctorinfo, error) {
+func (e TreatmentEdges) DoctorOrErr() (*Doctor, error) {
 	if e.loadedTypes[2] {
-		if e.Doctorinfo == nil {
-			// The edge doctorinfo was loaded in eager-loading,
+		if e.Doctor == nil {
+			// The edge doctor was loaded in eager-loading,
 			// but was not found.
-			return nil, &NotFoundError{label: doctorinfo.Label}
+			return nil, &NotFoundError{label: doctor.Label}
 		}
-		return e.Doctorinfo, nil
+		return e.Doctor, nil
 	}
-	return nil, &NotLoadedError{edge: "doctorinfo"}
+	return nil, &NotLoadedError{edge: "doctor"}
 }
 
 // UnpaybillsOrErr returns the Unpaybills value or an error if the edge
@@ -115,7 +115,7 @@ func (*Treatment) scanValues() []interface{} {
 // fkValues returns the types for scanning foreign-keys values from sql.Rows.
 func (*Treatment) fkValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{}, // doctorinfo_id
+		&sql.NullInt64{}, // doctor_id
 		&sql.NullInt64{}, // patientrecord_id
 		&sql.NullInt64{}, // typetreatment_id
 	}
@@ -146,10 +146,10 @@ func (t *Treatment) assignValues(values ...interface{}) error {
 	values = values[2:]
 	if len(values) == len(treatment.ForeignKeys) {
 		if value, ok := values[0].(*sql.NullInt64); !ok {
-			return fmt.Errorf("unexpected type %T for edge-field doctorinfo_id", value)
+			return fmt.Errorf("unexpected type %T for edge-field doctor_id", value)
 		} else if value.Valid {
-			t.doctorinfo_id = new(int)
-			*t.doctorinfo_id = int(value.Int64)
+			t.doctor_id = new(int)
+			*t.doctor_id = int(value.Int64)
 		}
 		if value, ok := values[1].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field patientrecord_id", value)
@@ -177,9 +177,9 @@ func (t *Treatment) QueryPatientrecord() *PatientrecordQuery {
 	return (&TreatmentClient{config: t.config}).QueryPatientrecord(t)
 }
 
-// QueryDoctorinfo queries the doctorinfo edge of the Treatment.
-func (t *Treatment) QueryDoctorinfo() *DoctorinfoQuery {
-	return (&TreatmentClient{config: t.config}).QueryDoctorinfo(t)
+// QueryDoctor queries the doctor edge of the Treatment.
+func (t *Treatment) QueryDoctor() *DoctorQuery {
+	return (&TreatmentClient{config: t.config}).QueryDoctor(t)
 }
 
 // QueryUnpaybills queries the unpaybills edge of the Treatment.

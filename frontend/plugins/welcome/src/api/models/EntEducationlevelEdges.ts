@@ -44,7 +44,7 @@ export function EntEducationlevelEdgesFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'educationlevel2doctorinfo': !exists(json, 'educationlevel2doctorinfo') ? undefined : ((json['educationlevel2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'educationlevel2doctorinfo': !exists(json, 'Educationlevel2doctorinfo') ? undefined : ((json['Educationlevel2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
     };
 }
 

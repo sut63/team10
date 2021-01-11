@@ -54,8 +54,8 @@ export function EntPrenameEdgesFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'patientrecord': !exists(json, 'patientrecord') ? undefined : ((json['patientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
-        'prename2doctorinfo': !exists(json, 'prename2doctorinfo') ? undefined : ((json['prename2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'patientrecord': !exists(json, 'Patientrecord') ? undefined : ((json['Patientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
+        'prename2doctorinfo': !exists(json, 'Prename2doctorinfo') ? undefined : ((json['Prename2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
     };
 }
 

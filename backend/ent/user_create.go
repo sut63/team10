@@ -9,6 +9,7 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/nurse"
@@ -56,23 +57,23 @@ func (uc *UserCreate) SetFinancier(f *Financier) *UserCreate {
 	return uc.SetFinancierID(f.ID)
 }
 
-// SetHistorytakingID sets the historytaking edge to Nurse by id.
-func (uc *UserCreate) SetHistorytakingID(id int) *UserCreate {
-	uc.mutation.SetHistorytakingID(id)
+// SetNurseID sets the Nurse edge to Nurse by id.
+func (uc *UserCreate) SetNurseID(id int) *UserCreate {
+	uc.mutation.SetNurseID(id)
 	return uc
 }
 
-// SetNillableHistorytakingID sets the historytaking edge to Nurse by id if the given value is not nil.
-func (uc *UserCreate) SetNillableHistorytakingID(id *int) *UserCreate {
+// SetNillableNurseID sets the Nurse edge to Nurse by id if the given value is not nil.
+func (uc *UserCreate) SetNillableNurseID(id *int) *UserCreate {
 	if id != nil {
-		uc = uc.SetHistorytakingID(*id)
+		uc = uc.SetNurseID(*id)
 	}
 	return uc
 }
 
-// SetHistorytaking sets the historytaking edge to Nurse.
-func (uc *UserCreate) SetHistorytaking(n *Nurse) *UserCreate {
-	return uc.SetHistorytakingID(n.ID)
+// SetNurse sets the Nurse edge to Nurse.
+func (uc *UserCreate) SetNurse(n *Nurse) *UserCreate {
+	return uc.SetNurseID(n.ID)
 }
 
 // SetUserPatientrightsID sets the UserPatientrights edge to Patientrights by id.
@@ -130,6 +131,25 @@ func (uc *UserCreate) SetNillableUser2registrarID(id *int) *UserCreate {
 // SetUser2registrar sets the user2registrar edge to Registrar.
 func (uc *UserCreate) SetUser2registrar(r *Registrar) *UserCreate {
 	return uc.SetUser2registrarID(r.ID)
+}
+
+// SetDoctorID sets the doctor edge to Doctor by id.
+func (uc *UserCreate) SetDoctorID(id int) *UserCreate {
+	uc.mutation.SetDoctorID(id)
+	return uc
+}
+
+// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
+func (uc *UserCreate) SetNillableDoctorID(id *int) *UserCreate {
+	if id != nil {
+		uc = uc.SetDoctorID(*id)
+	}
+	return uc
+}
+
+// SetDoctor sets the doctor edge to Doctor.
+func (uc *UserCreate) SetDoctor(d *Doctor) *UserCreate {
+	return uc.SetDoctorID(d.ID)
 }
 
 // SetUserstatusID sets the userstatus edge to Userstatus by id.
@@ -269,12 +289,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.NurseIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.HistorytakingTable,
-			Columns: []string{user.HistorytakingColumn},
+			Table:   user.NurseTable,
+			Columns: []string{user.NurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -337,6 +357,25 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: registrar.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := uc.mutation.DoctorIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2O,
+			Inverse: false,
+			Table:   user.DoctorTable,
+			Columns: []string{user.DoctorColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: doctor.FieldID,
 				},
 			},
 		}
