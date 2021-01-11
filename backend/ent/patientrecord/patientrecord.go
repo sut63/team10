@@ -13,8 +13,6 @@ const (
 	FieldIdcardnumber = "idcardnumber"
 	// FieldAge holds the string denoting the age field in the database.
 	FieldAge = "age"
-	// FieldBirthday holds the string denoting the birthday field in the database.
-	FieldBirthday = "birthday"
 	// FieldBloodtype holds the string denoting the bloodtype field in the database.
 	FieldBloodtype = "bloodtype"
 	// FieldDisease holds the string denoting the disease field in the database.
@@ -95,7 +93,6 @@ var Columns = []string{
 	FieldName,
 	FieldIdcardnumber,
 	FieldAge,
-	FieldBirthday,
 	FieldBloodtype,
 	FieldDisease,
 	FieldAllergic,

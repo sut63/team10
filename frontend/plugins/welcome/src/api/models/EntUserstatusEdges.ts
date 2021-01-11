@@ -44,7 +44,7 @@ export function EntUserstatusEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'user': !exists(json, 'User') ? undefined : ((json['User'] as Array<any>).map(EntUserFromJSON)),
+        'user': !exists(json, 'user') ? undefined : ((json['user'] as Array<any>).map(EntUserFromJSON)),
     };
 }
 
