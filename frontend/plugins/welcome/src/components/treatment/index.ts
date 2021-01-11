@@ -1,1 +1,1 @@
-export { default } from './createTreatment';
+export { default } from './Treatment';
