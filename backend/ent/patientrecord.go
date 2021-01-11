@@ -25,8 +25,6 @@ type Patientrecord struct {
 	Idcardnumber int `json:"Idcardnumber,omitempty"`
 	// Age holds the value of the "Age" field.
 	Age int `json:"Age,omitempty"`
-	// Birthday holds the value of the "Birthday" field.
-	Birthday time.Time `json:"Birthday,omitempty"`
 	// Bloodtype holds the value of the "Bloodtype" field.
 	Bloodtype string `json:"Bloodtype,omitempty"`
 	// Disease holds the value of the "Disease" field.
@@ -144,7 +142,6 @@ func (*Patientrecord) scanValues() []interface{} {
 		&sql.NullString{}, // Name
 		&sql.NullInt64{},  // Idcardnumber
 		&sql.NullInt64{},  // Age
-		&sql.NullTime{},   // Birthday
 		&sql.NullString{}, // Bloodtype
 		&sql.NullString{}, // Disease
 		&sql.NullString{}, // Allergic
@@ -191,47 +188,42 @@ func (pa *Patientrecord) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		pa.Age = int(value.Int64)
 	}
-	if value, ok := values[3].(*sql.NullTime); !ok {
-		return fmt.Errorf("unexpected type %T for field Birthday", values[3])
-	} else if value.Valid {
-		pa.Birthday = value.Time
-	}
-	if value, ok := values[4].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Bloodtype", values[4])
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Bloodtype", values[3])
 	} else if value.Valid {
 		pa.Bloodtype = value.String
 	}
-	if value, ok := values[5].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Disease", values[5])
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Disease", values[4])
 	} else if value.Valid {
 		pa.Disease = value.String
 	}
-	if value, ok := values[6].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Allergic", values[6])
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Allergic", values[5])
 	} else if value.Valid {
 		pa.Allergic = value.String
 	}
-	if value, ok := values[7].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Phonenumber", values[7])
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Phonenumber", values[6])
 	} else if value.Valid {
 		pa.Phonenumber = value.String
 	}
-	if value, ok := values[8].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Email", values[8])
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Email", values[7])
 	} else if value.Valid {
 		pa.Email = value.String
 	}
-	if value, ok := values[9].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Home", values[9])
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Home", values[8])
 	} else if value.Valid {
 		pa.Home = value.String
 	}
-	if value, ok := values[10].(*sql.NullTime); !ok {
-		return fmt.Errorf("unexpected type %T for field Date", values[10])
+	if value, ok := values[9].(*sql.NullTime); !ok {
+		return fmt.Errorf("unexpected type %T for field Date", values[9])
 	} else if value.Valid {
 		pa.Date = value.Time
 	}
-	values = values[11:]
+	values = values[10:]
 	if len(values) == len(patientrecord.ForeignKeys) {
 		if value, ok := values[0].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field gender_id", value)
@@ -314,8 +306,6 @@ func (pa *Patientrecord) String() string {
 	builder.WriteString(fmt.Sprintf("%v", pa.Idcardnumber))
 	builder.WriteString(", Age=")
 	builder.WriteString(fmt.Sprintf("%v", pa.Age))
-	builder.WriteString(", Birthday=")
-	builder.WriteString(pa.Birthday.Format(time.ANSIC))
 	builder.WriteString(", Bloodtype=")
 	builder.WriteString(pa.Bloodtype)
 	builder.WriteString(", Disease=")
