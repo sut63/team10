@@ -127,7 +127,7 @@ export default function CreateDoctorinfo() {
 
   useEffect(() => {
     const getPrenames = async () => {
-      const res = await api.listPrename({ limit: 7, offset: 0 });
+      const res = await api.listPrename({ limit: 5, offset: 0 });
       setLoading(false);
       setPrenames(res);
     };
