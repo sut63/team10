@@ -74,19 +74,19 @@ export  default  function Create() {
 
   useEffect(() => {
     const getPrename = async () => {
-        const res = await api.listPrename({ limit: 5, offset: 2 });
+        const res = await api.listPrename({ limit: 50, offset: 2 });
         setLoading(false);
         setPrename(res);
     };
     getPrename();
     const getGender = async () => {
-        const res = await api.listGender({ limit: 2, offset: 0 });
+        const res = await api.listGender({ limit: 20, offset: 0 });
         setLoading(false);
         setGender(res);
     };
     getGender();
     const getMedicalrecordstaff = async () => {
-        const res = await api.listMedicalrecordstaff({ limit: 1, offset: 0 });
+        const res = await api.listMedicalrecordstaff({ limit: 10, offset: 0 });
         setLoading(false);
         setMedicalrecordstaff(res);
         console.log(res);
