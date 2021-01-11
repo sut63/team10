@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import {
+  Link,
   FormControl,
   Button
 } from '@material-ui/core';
@@ -59,9 +60,15 @@ const Logout: FC<{}> = () => {
   const Logout = async () => {
 
     removeCookie('Name', { path: '/' })
+    removeCookie('ID', { path: '/' })
     removeCookie('Password', { path: '/' })
     removeCookie('Log', { path: '/' })
     removeCookie('Status', { path: '/' })
+
+    removeCookie('Fin', { path: '/' })
+    removeCookie('Med', { path: '/' })
+    removeCookie('Nur', { path: '/' })
+
     window.location.reload(false)
 
   }
@@ -88,7 +95,7 @@ const Logout: FC<{}> = () => {
 
          
            &emsp;
-             
+            <Link href ="/">
             <FormControl variant="outlined" className={classes.formControl}>
               <Button
                 onClick={() => {
@@ -100,7 +107,7 @@ const Logout: FC<{}> = () => {
                 Logout
              </Button>
             </FormControl>
-         
+            </Link>
 
 
         </form>

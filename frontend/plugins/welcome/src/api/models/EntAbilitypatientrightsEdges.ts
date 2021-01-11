@@ -44,7 +44,7 @@ export function EntAbilitypatientrightsEdgesFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'abilitypatientrightsPatientrightstype': !exists(json, 'abilitypatientrightsPatientrightstype') ? undefined : ((json['abilitypatientrightsPatientrightstype'] as Array<any>).map(EntPatientrightstypeFromJSON)),
+        'abilitypatientrightsPatientrightstype': !exists(json, 'AbilitypatientrightsPatientrightstype') ? undefined : ((json['AbilitypatientrightsPatientrightstype'] as Array<any>).map(EntPatientrightstypeFromJSON)),
     };
 }
 

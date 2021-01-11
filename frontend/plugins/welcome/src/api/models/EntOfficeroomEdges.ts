@@ -44,7 +44,7 @@ export function EntOfficeroomEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'officeroom2doctorinfo': !exists(json, 'officeroom2doctorinfo') ? undefined : ((json['officeroom2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'officeroom2doctorinfo': !exists(json, 'Officeroom2doctorinfo') ? undefined : ((json['Officeroom2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
     };
 }
 

@@ -46,8 +46,8 @@ type DoctorinfoEdges struct {
 	Officeroom *Officeroom
 	// Prename holds the value of the prename edge.
 	Prename *Prename
-	// Treatment holds the value of the treatment edge.
-	Treatment []*Treatment
+	// Doctor holds the value of the doctor edge.
+	Doctor []*Doctor
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [5]bool
@@ -109,13 +109,13 @@ func (e DoctorinfoEdges) PrenameOrErr() (*Prename, error) {
 	return nil, &NotLoadedError{edge: "prename"}
 }
 
-// TreatmentOrErr returns the Treatment value or an error if the edge
+// DoctorOrErr returns the Doctor value or an error if the edge
 // was not loaded in eager-loading.
-func (e DoctorinfoEdges) TreatmentOrErr() ([]*Treatment, error) {
+func (e DoctorinfoEdges) DoctorOrErr() ([]*Doctor, error) {
 	if e.loadedTypes[4] {
-		return e.Treatment, nil
+		return e.Doctor, nil
 	}
-	return nil, &NotLoadedError{edge: "treatment"}
+	return nil, &NotLoadedError{edge: "doctor"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -221,9 +221,9 @@ func (d *Doctorinfo) QueryPrename() *PrenameQuery {
 	return (&DoctorinfoClient{config: d.config}).QueryPrename(d)
 }
 
-// QueryTreatment queries the treatment edge of the Doctorinfo.
-func (d *Doctorinfo) QueryTreatment() *TreatmentQuery {
-	return (&DoctorinfoClient{config: d.config}).QueryTreatment(d)
+// QueryDoctor queries the doctor edge of the Doctorinfo.
+func (d *Doctorinfo) QueryDoctor() *DoctorQuery {
+	return (&DoctorinfoClient{config: d.config}).QueryDoctor(d)
 }
 
 // Update returns a builder for updating this Doctorinfo.

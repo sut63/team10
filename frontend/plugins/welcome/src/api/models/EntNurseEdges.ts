@@ -54,8 +54,8 @@ export function EntNurseEdgesFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'historytaking': !exists(json, 'historytaking') ? undefined : ((json['historytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
-        'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
+        'historytaking': !exists(json, 'Historytaking') ? undefined : ((json['Historytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
+        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
     };
 }
 

@@ -14,6 +14,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Avatar } from '@material-ui/core';
 
 
 import { DefaultApi } from '../../api/apis';
@@ -21,6 +22,7 @@ import { EntPaytype } from '../../api/models/EntPaytype';
 import { EntUnpaybill } from '../../api/models/EntUnpaybill';
 import { EntFinancier } from '../../api/models/EntFinancier';
 import { EntTreatment } from '../../api';
+import { EntUser } from '../../api/models/EntUser';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,6 +47,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+
+import { Cookies } from 'react-cookie/cjs';//cookie
+import { Image1Base64Function } from '../../image/Image1';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
+
 const CreateBill: FC<{}> = () => {
   const classes = useStyles();
   const http = new DefaultApi();
@@ -55,6 +70,8 @@ const CreateBill: FC<{}> = () => {
 
   const [paytypes, setPaytypes] = React.useState<EntPaytype[]>([]);
   const [financiers, setFinanciers] = React.useState<EntFinancier[]>([]);
+  const [users, setUsers] = React.useState<EntUser[]>([]);
+
   const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
   const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
 
@@ -92,7 +109,6 @@ const CreateBill: FC<{}> = () => {
     getPaytype();
     getTreatment();
   }, [loading]);
-
 
   const refreshPage = () => {
     window.location.reload();
@@ -153,7 +169,10 @@ const CreateBill: FC<{}> = () => {
 
 
       <Page theme={pageTheme.home}>
-        <Header title={`Financial Department`}></Header>
+      <Header style={HeaderCustom} title={`Financial Department`}>
+        <Avatar alt="Remy Sharp" src={Image1Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
         <Content>
           <Grid container spacing={3} >
             <Grid container item xs={12} sm={12}  >

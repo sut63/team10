@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { DefaultApi } from'../../api/apis';
-import { Typography,Link } from '@material-ui/core'
+import { Typography,Link, Avatar } from '@material-ui/core'
 import { Content, Header, Page, pageTheme } from '@backstage/core';
 import SaveIcon from '@material-ui/icons/Save';
 import UndoIcon from '@material-ui/icons/Undo';
@@ -17,7 +17,17 @@ import TextField from '@material-ui/core/TextField';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
 import { EntGender } from '../../api/models/EntGender';
 import { EntPrename } from '../../api/models/EntPrename';
-import { EntPatientrecord } from '../../api/models/EntPatientrecord';
+
+import { Cookies } from 'react-cookie/cjs';//cookie
+import { Image2Base64Function } from '../../image/Image2';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,7 +65,6 @@ export  default  function Create() {
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(true);
 
-  const [patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
   const [prename, setPrename] = React.useState<EntPrename[]>([]);
   const [gender, setGender] = React.useState<EntGender[]>([]);
   const [medicalrecordstaff, setMedicalrecordstaff] = React.useState<EntMedicalrecordstaff[]>([]);
@@ -76,29 +85,24 @@ export  default  function Create() {
 
   useEffect(() => {
     const getPrename = async () => {
-        const res = await api.listPrename({ limit: 5, offset: 2 });
+        const res = await api.listPrename({ limit: 50, offset: 2 });
         setLoading(false);
         setPrename(res);
     };
     getPrename();
     const getGender = async () => {
-        const res = await api.listGender({ limit: 2, offset: 0 });
+        const res = await api.listGender({ limit: 20, offset: 0 });
         setLoading(false);
         setGender(res);
     };
     getGender();
     const getMedicalrecordstaff = async () => {
-        const res = await api.listMedicalrecordstaff({ limit: 1, offset: 0 });
+        const res = await api.listMedicalrecordstaff({ limit: 10, offset: 0 });
         setLoading(false);
         setMedicalrecordstaff(res);
         console.log(res);
     };
     getMedicalrecordstaff();
-    const getPatientrecord = async () => {
-      const res = await api.listPatientrecord({ limit: 10, offset: 0 });
-      setPatientrecord(res);
-    };
-    getPatientrecord();
     }, [loading]);
     
     //handle
@@ -162,17 +166,17 @@ export  default  function Create() {
         } else {
           setAlert(false);
         }
+        setTimeout(() => {
+          setStatus(false);
+        }, 3000);
       };
-      const timer = setTimeout(() => {
-        setStatus(false);
-      }, 1000);
-    
 
     return(
         <Page theme={pageTheme.home}>
-            <Header 
-            title={`ลงทะเบียนผู้ป่วยนอก`}>
-            </Header>
+          <Header style={HeaderCustom} title={`ลงทะเบียนผู้ป่วยนอก`}>
+            <Avatar alt="Remy Sharp" src={Image2Base64Function} />
+            <div style={{ marginLeft: 10 }}>{Name}</div>
+          </Header>
             <Content>
             <br />
             <br />
@@ -218,24 +222,28 @@ export  default  function Create() {
                       );
                     })}
                   </Select>
-              </FormControl> &emsp;
+              </FormControl>
 
+            <div className={classes.paper}></div>
             <TextField 
             name="idcardnumber"
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
             value={idcardnumber}
             onChange={IdcardnumberhandleChange}
-            />
+            /> &emsp;
 
-            <div className={classes.paper}></div>
             <TextField 
             name="age"
             label="อายุ" 
             variant="outlined" 
             value={age}
             onChange={AgehandleChange}
+<<<<<<< HEAD
             /> &emsp;
+=======
+            /> &emsp; 
+>>>>>>> 5b87d75bc952c8e0ec73aa48bc210fda28382827
             
             <TextField 
             label="กรุ๊ปเลือด" 
@@ -309,7 +317,8 @@ export  default  function Create() {
               </FormControl>
               <br />
               <br />
-              <FormControl>
+              
+              <Typography variant="h6" gutterBottom  align="center">
               <Button
                 onClick={() => {
                   CreatePatientrecord();
@@ -321,7 +330,19 @@ export  default  function Create() {
                 startIcon={<SaveIcon />}
                 >
                 บันทึก
-              </Button>
+              </Button> &emsp;
+              <Button
+                    color="primary" 
+                    style={{backgroundColor: "#26c6da"}} 
+                    size="large" 
+                    startIcon={<UndoIcon />}
+                    component={RouterLink}
+                    to="/Patientrecord"
+                    variant="contained"
+                >
+                  ย้อนกลับ
+                </Button>
+              </Typography>
               {status ? (
                 <div>
                 {alert ? (
@@ -335,7 +356,6 @@ export  default  function Create() {
                 )}
                 </div>
               ) : null}
-              </FormControl>
             </Typography>
           </Content>
       </Page>

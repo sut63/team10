@@ -8,7 +8,7 @@ import {
   Select,
   InputLabel,
   MenuItem,
-  TextField,
+  Avatar,
 
   Link,
   Button,
@@ -21,11 +21,21 @@ import { EntPatientrightstype } from '../../api/models/EntPatientrightstype';
 import { EntInsurance } from '../../api/models/EntInsurance';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
 import { Alert } from '@material-ui/lab';
-
-
+import { Cookies } from 'react-cookie/cjs';//cookie
+import { EntUser } from '../../api/models/EntUser';
 
 
 import { Link as RouterLink } from 'react-router-dom';
+
+import { Image3Base64Function } from '../../image/Image3';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
 
 // css style 
 const useStyles = makeStyles(theme => ({
@@ -94,6 +104,7 @@ const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
   const profile = { givenName: 'สิทธ์' };
   const http = new DefaultApi();
+  const cookies = new Cookies();
 
   const [Patientrights, setPatientrights] = React.useState<Partial<Patientrights_Type>>({});
 
@@ -105,11 +116,17 @@ const NewPatientright: FC<{}> = () => {
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(true);
 
+  const UserId = cookies.get('ID');
+
+
 
   const getMedicalrecordstaffs = async () => {
     const res = await http.listMedicalrecordstaff({ limit: 10, offset: 0 });
     setMedicalrecordstaff(res);
   };
+
+
+
 
   const getPatientrightstype = async () => {
     const res = await http.listPatientrightstype({ limit: 10, offset: 0 });
@@ -126,12 +143,27 @@ const NewPatientright: FC<{}> = () => {
     setInsurance(res);
   };
 
+
+  const getMedicalrecordstaffsUser = (
+
+    event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  ) => {
+
+    
+    const name = "Medicalrecordstaffs" as keyof typeof NewPatientright;
+    const { value } = cookies.get('Status');
+
+    setPatientrights({ ...Patientrights, [name]: value });
+  };
+
   // Lifecycle Hooks
   useEffect(() => {
     getMedicalrecordstaffs();
     getPatientrightstype();
     getPatientrecord();
     getInsurance();
+    getMedicalrecordstaffsUser();
+
   }, []);
 
   // set data to object Patientright
@@ -176,12 +208,9 @@ const NewPatientright: FC<{}> = () => {
 
   return (
     <Page theme={pageTheme.home}>
-      <Header
-        title={`ลงทะเบียน ${profile.givenName || 'to Backstage'}`}
-        subtitle="Some quick intro and links."
-      >
-        <Timer />
-
+      <Header style={HeaderCustom} title={`ลงทะเบียนสิทธิ์`}>
+        <Avatar alt="Remy Sharp" src={Image3Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
         <ContentHeader title="ข้อมูล">
@@ -307,7 +336,7 @@ const NewPatientright: FC<{}> = () => {
                 {Medicalrecordstaff.map(item => {
                   return (
                     <MenuItem key={item.id} value={item.id}>
-                      {item.id}
+                      {item.name}
                     </MenuItem>
                   );
                 })}

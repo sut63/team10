@@ -44,7 +44,7 @@ export function EntRegistrarEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
+        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
     };
 }
 

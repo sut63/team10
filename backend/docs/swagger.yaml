@@ -11,6 +11,11 @@ definitions:
       unpaybill:
         type: integer
     type: object
+  controllers.Doctor:
+    properties:
+      doctorinfo:
+        type: integer
+    type: object
   controllers.Doctorinfo:
     properties:
       department:
@@ -104,7 +109,7 @@ definitions:
     properties:
       datetreat:
         type: string
-      doctorinfo:
+      doctor:
         type: integer
       patientrecord:
         type: integer
@@ -214,6 +219,34 @@ definitions:
           $ref: '#/definitions/ent.Historytaking'
         type: array
     type: object
+  ent.Doctor:
+    properties:
+      edges:
+        $ref: '#/definitions/ent.DoctorEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the DoctorQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.DoctorEdges:
+    properties:
+      doctorinfo:
+        $ref: '#/definitions/ent.Doctorinfo'
+        description: Doctorinfo holds the value of the doctorinfo edge.
+        type: object
+      treatment:
+        description: Treatment holds the value of the treatment edge.
+        items:
+          $ref: '#/definitions/ent.Treatment'
+        type: array
+      user:
+        $ref: '#/definitions/ent.User'
+        description: User holds the value of the user edge.
+        type: object
+    type: object
   ent.Doctorinfo:
     properties:
       doctorname:
@@ -244,6 +277,11 @@ definitions:
         $ref: '#/definitions/ent.Department'
         description: Department holds the value of the department edge.
         type: object
+      doctor:
+        description: Doctor holds the value of the doctor edge.
+        items:
+          $ref: '#/definitions/ent.Doctor'
+        type: array
       educationlevel:
         $ref: '#/definitions/ent.Educationlevel'
         description: Educationlevel holds the value of the educationlevel edge.
@@ -256,11 +294,6 @@ definitions:
         $ref: '#/definitions/ent.Prename'
         description: Prename holds the value of the prename edge.
         type: object
-      treatment:
-        description: Treatment holds the value of the treatment edge.
-        items:
-          $ref: '#/definitions/ent.Treatment'
-        type: array
     type: object
   ent.Educationlevel:
     properties:
@@ -778,9 +811,9 @@ definitions:
     type: object
   ent.TreatmentEdges:
     properties:
-      doctorinfo:
-        $ref: '#/definitions/ent.Doctorinfo'
-        description: Doctorinfo holds the value of the doctorinfo edge.
+      doctor:
+        $ref: '#/definitions/ent.Doctor'
+        description: Doctor holds the value of the doctor edge.
         type: object
       patientrecord:
         $ref: '#/definitions/ent.Patientrecord'
@@ -864,18 +897,22 @@ definitions:
     type: object
   ent.UserEdges:
     properties:
+      doctor:
+        $ref: '#/definitions/ent.Doctor'
+        description: Doctor holds the value of the doctor edge.
+        type: object
       financier:
         $ref: '#/definitions/ent.Financier'
         description: Financier holds the value of the financier edge.
-        type: object
-      historytaking:
-        $ref: '#/definitions/ent.Nurse'
-        description: Historytaking holds the value of the historytaking edge.
         type: object
       medicalrecordstaff:
         $ref: '#/definitions/ent.Medicalrecordstaff'
         description: Medicalrecordstaff holds the value of the medicalrecordstaff
           edge.
+        type: object
+      nurse:
+        $ref: '#/definitions/ent.Nurse'
+        description: Nurse holds the value of the Nurse edge.
         type: object
       user2registrar:
         $ref: '#/definitions/ent.Registrar'
@@ -1859,6 +1896,157 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a doctorinfo entity by ID
+  /doctors:
+    get:
+      description: list doctor entities
+      operationId: list-doctor
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Doctor'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List doctor entities
+    post:
+      consumes:
+      - application/json
+      description: Create doctor
+      operationId: create-doctor
+      parameters:
+      - description: Doctor entity
+        in: body
+        name: doctor
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.Doctor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Doctor'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create doctor
+  /doctors/{id}:
+    delete:
+      description: get doctor by ID
+      operationId: delete-doctor
+      parameters:
+      - description: Doctor ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a doctor entity by ID
+    get:
+      description: get doctor by ID
+      operationId: get-doctor
+      parameters:
+      - description: Doctor ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Doctor'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a doctor entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update doctor by ID
+      operationId: update-doctor
+      parameters:
+      - description: Doctor ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Doctor entity
+        in: body
+        name: doctor
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Doctor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Doctor'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a doctor entity by ID
   /educationlevels:
     get:
       description: list educationlevel entities

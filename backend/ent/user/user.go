@@ -14,14 +14,16 @@ const (
 
 	// EdgeFinancier holds the string denoting the financier edge name in mutations.
 	EdgeFinancier = "financier"
-	// EdgeHistorytaking holds the string denoting the historytaking edge name in mutations.
-	EdgeHistorytaking = "historytaking"
+	// EdgeNurse holds the string denoting the nurse edge name in mutations.
+	EdgeNurse = "Nurse"
 	// EdgeUserPatientrights holds the string denoting the userpatientrights edge name in mutations.
 	EdgeUserPatientrights = "UserPatientrights"
 	// EdgeMedicalrecordstaff holds the string denoting the medicalrecordstaff edge name in mutations.
 	EdgeMedicalrecordstaff = "medicalrecordstaff"
 	// EdgeUser2registrar holds the string denoting the user2registrar edge name in mutations.
 	EdgeUser2registrar = "user2registrar"
+	// EdgeDoctor holds the string denoting the doctor edge name in mutations.
+	EdgeDoctor = "doctor"
 	// EdgeUserstatus holds the string denoting the userstatus edge name in mutations.
 	EdgeUserstatus = "userstatus"
 
@@ -34,13 +36,13 @@ const (
 	FinancierInverseTable = "financiers"
 	// FinancierColumn is the table column denoting the financier relation/edge.
 	FinancierColumn = "user_id"
-	// HistorytakingTable is the table the holds the historytaking relation/edge.
-	HistorytakingTable = "nurses"
-	// HistorytakingInverseTable is the table name for the Nurse entity.
+	// NurseTable is the table the holds the Nurse relation/edge.
+	NurseTable = "nurses"
+	// NurseInverseTable is the table name for the Nurse entity.
 	// It exists in this package in order to avoid circular dependency with the "nurse" package.
-	HistorytakingInverseTable = "nurses"
-	// HistorytakingColumn is the table column denoting the historytaking relation/edge.
-	HistorytakingColumn = "user_id"
+	NurseInverseTable = "nurses"
+	// NurseColumn is the table column denoting the Nurse relation/edge.
+	NurseColumn = "user_id"
 	// UserPatientrightsTable is the table the holds the UserPatientrights relation/edge.
 	UserPatientrightsTable = "users"
 	// UserPatientrightsInverseTable is the table name for the Patientrights entity.
@@ -62,6 +64,13 @@ const (
 	User2registrarInverseTable = "registrars"
 	// User2registrarColumn is the table column denoting the user2registrar relation/edge.
 	User2registrarColumn = "user_id"
+	// DoctorTable is the table the holds the doctor relation/edge.
+	DoctorTable = "doctors"
+	// DoctorInverseTable is the table name for the Doctor entity.
+	// It exists in this package in order to avoid circular dependency with the "doctor" package.
+	DoctorInverseTable = "doctors"
+	// DoctorColumn is the table column denoting the doctor relation/edge.
+	DoctorColumn = "user_id"
 	// UserstatusTable is the table the holds the userstatus relation/edge.
 	UserstatusTable = "users"
 	// UserstatusInverseTable is the table name for the Userstatus entity.

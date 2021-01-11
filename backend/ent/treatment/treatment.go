@@ -16,8 +16,8 @@ const (
 	EdgeTypetreatment = "typetreatment"
 	// EdgePatientrecord holds the string denoting the patientrecord edge name in mutations.
 	EdgePatientrecord = "patientrecord"
-	// EdgeDoctorinfo holds the string denoting the doctorinfo edge name in mutations.
-	EdgeDoctorinfo = "doctorinfo"
+	// EdgeDoctor holds the string denoting the doctor edge name in mutations.
+	EdgeDoctor = "doctor"
 	// EdgeUnpaybills holds the string denoting the unpaybills edge name in mutations.
 	EdgeUnpaybills = "unpaybills"
 
@@ -37,13 +37,13 @@ const (
 	PatientrecordInverseTable = "patientrecords"
 	// PatientrecordColumn is the table column denoting the patientrecord relation/edge.
 	PatientrecordColumn = "patientrecord_id"
-	// DoctorinfoTable is the table the holds the doctorinfo relation/edge.
-	DoctorinfoTable = "treatments"
-	// DoctorinfoInverseTable is the table name for the Doctorinfo entity.
-	// It exists in this package in order to avoid circular dependency with the "doctorinfo" package.
-	DoctorinfoInverseTable = "doctorinfos"
-	// DoctorinfoColumn is the table column denoting the doctorinfo relation/edge.
-	DoctorinfoColumn = "doctorinfo_id"
+	// DoctorTable is the table the holds the doctor relation/edge.
+	DoctorTable = "treatments"
+	// DoctorInverseTable is the table name for the Doctor entity.
+	// It exists in this package in order to avoid circular dependency with the "doctor" package.
+	DoctorInverseTable = "doctors"
+	// DoctorColumn is the table column denoting the doctor relation/edge.
+	DoctorColumn = "doctor_id"
 	// UnpaybillsTable is the table the holds the unpaybills relation/edge.
 	UnpaybillsTable = "unpaybills"
 	// UnpaybillsInverseTable is the table name for the Unpaybill entity.
@@ -62,7 +62,7 @@ var Columns = []string{
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the Treatment type.
 var ForeignKeys = []string{
-	"doctorinfo_id",
+	"doctor_id",
 	"patientrecord_id",
 	"typetreatment_id",
 }

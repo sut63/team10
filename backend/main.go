@@ -14,16 +14,19 @@ import (
 	_ "github.com/team10/app/docs"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/gender"
 	"github.com/team10/app/ent/medicalrecordstaff"
+	"github.com/team10/app/ent/patientrecord"
 	_ "github.com/team10/app/ent/registrar"
+	"github.com/team10/app/ent/typetreatment"
 	"github.com/team10/app/ent/user"
 	"github.com/team10/app/ent/userstatus"
 
 	//import by patientrights No.3
 	//vvv...............................vvv
-	/*
-		"time"
+	/*	"time"
+
 		"github.com/team10/app/ent/insurance"
 		"github.com/team10/app/ent/medicalrecordstaff"
 		"github.com/team10/app/ent/patientrecord"
@@ -33,6 +36,7 @@ import (
 	//import by doctorinformation No.6
 	//vvv...............................vvv
 	"github.com/team10/app/ent/department"
+	"github.com/team10/app/ent/doctorinfo"
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
@@ -275,8 +279,10 @@ type Treatments struct {
 
 // Treatment defines the struct for the Treatment
 type Treatment struct {
-	Treatment string
-	Datetreat string
+	Treatment     string
+	Typetreatment int
+	Doctor        int
+	Patientrecord int
 }
 
 // Typetreatments defines the struct for the  Typetreatments
@@ -287,6 +293,17 @@ type Typetreatments struct {
 //  Typetreatment defines the struct for the  Typetreatment
 type Typetreatment struct {
 	Typetreatment string
+}
+
+// Doctors defines the struct for the Doctors
+type Doctors struct {
+	Doctor []Doctor
+}
+
+// Doctor defines the struct for the Doctor
+type Doctor struct {
+	Doctorinfo int
+	User       int
 }
 
 //^^^::::::::::::::::::::::::::::::::::::::::::::::::^^^
@@ -398,6 +415,7 @@ func main() {
 
 	controllers.NewTreatmentController(v1, client)
 	controllers.NewTypetreatmentController(v1, client)
+	controllers.NewDoctorController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
 
 	// Set Postman By Team10
@@ -715,8 +733,8 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod", 4},
-			Financier{"Name Surname", 5},
+			Financier{"Nutchaporn Klinrod", 2},
+			Financier{"Name Surname", 8},
 		},
 	}
 	for _, f := range financiers.Financier {
@@ -743,11 +761,55 @@ func main() {
 			Paytype{"Cash"},
 		},
 	}
-
 	for _, pt := range paytypes.Paytype {
 		client.Paytype.
 			Create().
 			SetPaytype(pt.paytype).
+			Save(context.Background())
+	}
+
+	//Set Treatment data
+
+	treatments := Treatments{
+		Treatment: []Treatment{
+			Treatment{"ตรวจขั้นพื้นฐาน", 1, 1, 1},
+			Treatment{"ตรวจโควิด19", 3, 2, 1},
+		},
+	}
+	for _, t := range treatments.Treatment {
+		tt, err := client.Typetreatment.
+			Query().
+			Where(typetreatment.IDEQ(int(t.Typetreatment))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		d, err := client.Doctor.
+			Query().
+			Where(doctor.IDEQ(int(t.Doctor))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		m, err := client.Patientrecord.
+			Query().
+			Where(patientrecord.IDEQ(int(t.Patientrecord))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		client.Treatment.
+			Create().
+			SetTreatment(t.Treatment).
+			SetTypetreatment(tt).
+			SetDoctor(d).
+			SetPatientrecord(m).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
@@ -904,6 +966,30 @@ func main() {
 		client.Typetreatment.
 			Create().
 			SetTypetreatment(tm.Typetreatment).
+			Save(context.Background())
+	}
+
+	//Set Doctor data
+	Doctors := Doctors{
+		Doctor: []Doctor{
+			Doctor{1, 5},
+			Doctor{2, 5},
+		},
+	}
+	for _, d := range Doctors.Doctor {
+
+		di, err := client.Doctorinfo.
+			Query().
+			Where(doctorinfo.IDEQ(int(d.Doctorinfo))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		client.Doctor.
+			Create().
+			SetDoctorinfo(di).
 			Save(context.Background())
 	}
 

@@ -12,7 +12,7 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
-	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/treatment"
@@ -31,7 +31,7 @@ type TreatmentQuery struct {
 	// eager-loading edges.
 	withTypetreatment *TypetreatmentQuery
 	withPatientrecord *PatientrecordQuery
-	withDoctorinfo    *DoctorinfoQuery
+	withDoctor        *DoctorQuery
 	withUnpaybills    *UnpaybillQuery
 	withFKs           bool
 	// intermediate query (i.e. traversal path).
@@ -99,17 +99,17 @@ func (tq *TreatmentQuery) QueryPatientrecord() *PatientrecordQuery {
 	return query
 }
 
-// QueryDoctorinfo chains the current query on the doctorinfo edge.
-func (tq *TreatmentQuery) QueryDoctorinfo() *DoctorinfoQuery {
-	query := &DoctorinfoQuery{config: tq.config}
+// QueryDoctor chains the current query on the doctor edge.
+func (tq *TreatmentQuery) QueryDoctor() *DoctorQuery {
+	query := &DoctorQuery{config: tq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := tq.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(treatment.Table, treatment.FieldID, tq.sqlQuery()),
-			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, treatment.DoctorinfoTable, treatment.DoctorinfoColumn),
+			sqlgraph.To(doctor.Table, doctor.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, treatment.DoctorTable, treatment.DoctorColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
 		return fromU, nil
@@ -336,14 +336,14 @@ func (tq *TreatmentQuery) WithPatientrecord(opts ...func(*PatientrecordQuery)) *
 	return tq
 }
 
-//  WithDoctorinfo tells the query-builder to eager-loads the nodes that are connected to
-// the "doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
-func (tq *TreatmentQuery) WithDoctorinfo(opts ...func(*DoctorinfoQuery)) *TreatmentQuery {
-	query := &DoctorinfoQuery{config: tq.config}
+//  WithDoctor tells the query-builder to eager-loads the nodes that are connected to
+// the "doctor" edge. The optional arguments used to configure the query builder of the edge.
+func (tq *TreatmentQuery) WithDoctor(opts ...func(*DoctorQuery)) *TreatmentQuery {
+	query := &DoctorQuery{config: tq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	tq.withDoctorinfo = query
+	tq.withDoctor = query
 	return tq
 }
 
@@ -428,11 +428,11 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 		loadedTypes = [4]bool{
 			tq.withTypetreatment != nil,
 			tq.withPatientrecord != nil,
-			tq.withDoctorinfo != nil,
+			tq.withDoctor != nil,
 			tq.withUnpaybills != nil,
 		}
 	)
-	if tq.withTypetreatment != nil || tq.withPatientrecord != nil || tq.withDoctorinfo != nil {
+	if tq.withTypetreatment != nil || tq.withPatientrecord != nil || tq.withDoctor != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -512,16 +512,16 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 		}
 	}
 
-	if query := tq.withDoctorinfo; query != nil {
+	if query := tq.withDoctor; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Treatment)
 		for i := range nodes {
-			if fk := nodes[i].doctorinfo_id; fk != nil {
+			if fk := nodes[i].doctor_id; fk != nil {
 				ids = append(ids, *fk)
 				nodeids[*fk] = append(nodeids[*fk], nodes[i])
 			}
 		}
-		query.Where(doctorinfo.IDIn(ids...))
+		query.Where(doctor.IDIn(ids...))
 		neighbors, err := query.All(ctx)
 		if err != nil {
 			return nil, err
@@ -529,10 +529,10 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 		for _, n := range neighbors {
 			nodes, ok := nodeids[n.ID]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "doctorinfo_id" returned %v`, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "doctor_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Doctorinfo = n
+				nodes[i].Edges.Doctor = n
 			}
 		}
 	}

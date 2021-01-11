@@ -12,13 +12,24 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Avatar } from '@material-ui/core';
+import { Cookies } from 'react-cookie/cjs';//cookie
+import { Image4Base64Function } from '../../image/Image4';
 
 
 import { DefaultApi } from'../../api/apis';
 import { EntTypetreatment } from '../../api/models/EntTypetreatment';
-import { EntDoctorinfo } from '../../api/models/EntDoctorinfo';
+import { EntDoctor } from '../../api/models/EntDoctor';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntTreatment } from '../../api/models/EntTreatment';
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+
+const cookies = new Cookies();
+const Name = cookies.get('Name');
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -51,21 +62,21 @@ const createTreatment: FC<{}> = () => {
     const [loading, setLoading] = React.useState(true);
 
     const [typetreatments, setTypetreatments] = React.useState<EntTypetreatment[]>([]);
-    const [doctorinfos, setDoctorinfos] = React.useState<EntDoctorinfo[]>([]);
+    const [doctors, setDoctors] = React.useState<EntDoctor[]>([]);
     const [patientrecords, setPatientrecords] = React.useState<EntPatientrecord[]>([]);
     const [treatments, setTreatments] = React.useState<EntTreatment[]>([]);
 
     const [treatmentes, settreatment] = React.useState(String);
     const [datetreat, setDatetreat] = React.useState(String);
-    const [doctorinfoid, setdoctorinfoId] = React.useState(Number);
+    const [doctorid, setdoctorId] = React.useState(Number);
     const [patientrecordid, setpatientrecordId] = React.useState(Number);
     const [typetreatmentid, settypetreatmentId] = React.useState(Number);
 
     useEffect(() => {
-        const getDocdorinfo = async () => {
-            const res = await http.listDoctorinfo({ limit: 100, offset: 0 });
+        const getDocdor = async () => {
+            const res = await http.listDoctor({ limit: 100, offset: 0 });
             setLoading(false);
-            setDoctorinfos(res);
+            setDoctors(res);
           };
           const getTypetreatment = async () => {
             const res = await http.listTypetreatment({ limit: 3, offset: 0 });
@@ -85,14 +96,14 @@ const createTreatment: FC<{}> = () => {
         getPatientrecord();
         getTypetreatment();
         getTreatment();
-        getDocdorinfo();
+        getDocdor();
     }, [loading]);
 
     const TypetreatmenthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         settypetreatmentId(event.target.value as number);
       };
-    const DoctorinfohandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setdoctorinfoId(event.target.value as number);
+    const DoctorhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        setdoctorId(event.target.value as number);
       };
     const TreatmenthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         settreatment(event.target.value as string);
@@ -106,9 +117,9 @@ const createTreatment: FC<{}> = () => {
       const createTreatment = async () => {
           const tm = {
             treatment: treatmentes,
-            datetreat: datetreat + ":00+07:00",
+            datetreat: datetreat,
             typetreatment: typetreatmentid,
-            doctorinfo: doctorinfoid,
+            doctor: doctorid,
             patientrecord: patientrecordid,
           };
           console.log(tm);
@@ -141,7 +152,10 @@ const createTreatment: FC<{}> = () => {
 
 
     <Page theme={pageTheme.home}>
-        <Header title={`Treatment Department`}></Header>
+    <Header style={HeaderCustom} title={`Treatment Department`}>
+        <Avatar alt="Remy Sharp" src={Image4Base64Function} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
       <Content>
         <Grid container spacing = {3} >
           <Grid container item xs = {12} sm = {12}  >
@@ -181,14 +195,14 @@ const createTreatment: FC<{}> = () => {
                         <br/>แพทย์
                         </Typography>
                         <Select
-                        name="doctorinfo"
-                        value={doctorinfoid}
-                        onChange={DoctorinfohandleChange}
+                        name="doctor"
+                        value={doctorid}
+                        onChange={DoctorhandleChange}
                         >
-                        {doctorinfos.map(item => {
+                        {doctors.map(item => {
                         return (
                         <MenuItem value={item.id}>
-                         {item.doctorname}
+                         {item.edges?.doctorinfo?.doctorname} {item.edges?.doctorinfo?.doctorsurname}
                         </MenuItem>
                         );
                         })}
@@ -214,19 +228,7 @@ const createTreatment: FC<{}> = () => {
                         </Select>
                 </FormControl>
                 <br/>
-                <Typography align = "center"variant = "h6">
-                        <br/>วันเวลาที่รักษา
-                        </Typography>
-                <TextField
-                    className={classes.formControl}
-                    id="datetime"
-                    type="datetime-local"
-                    value={datetreat}
-                    onChange={handleDatetimeChange}
-                    InputLabelProps={{
-                     shrink: true,
-                     }}
-                 />
+              
                 <Typography align ="center">
                 <br/>
                 <Button
@@ -260,15 +262,15 @@ const createTreatment: FC<{}> = () => {
          </TableRow>
          </TableHead>
          <TableBody>
-                 {treatments.map(item =>(
+         {treatments.map(item => (doctors.filter(t => t.id === item.edges?.doctor?.id).map(item2 => (
                 <TableRow key={item.id}>
                     <TableCell align="center">{item.id}</TableCell>
-                    <TableCell align="center">{item.edges?.doctorinfo?.doctorname}</TableCell>
+                    <TableCell align="center">{item2.edges?.doctorinfo?.doctorname} {item2.edges?.doctorinfo?.doctorsurname}</TableCell>
                     <TableCell align="center">{item.edges?.patientrecord?.name}</TableCell>
                     <TableCell align="center">{item.edges?.typetreatment?.typetreatment}</TableCell> 
                     <TableCell align="center">{item.datetreat}</TableCell> 
                       </TableRow>
-            ))}
+         ))))}
          </TableBody>
          </Table>
         </TableContainer>

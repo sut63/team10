@@ -148,7 +148,6 @@ func (ctl *DoctorinfoController) GetDoctorinfo(c *gin.Context) {
 		WithEducationlevel().
 		WithOfficeroom().
 		WithPrename().
-		WithTreatment().
 		Where(doctorinfo.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -197,7 +196,6 @@ func (ctl *DoctorinfoController) ListDoctorinfo(c *gin.Context) {
 		WithEducationlevel().
 		WithOfficeroom().
 		WithPrename().
-		WithTreatment().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())
