@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-
+	
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
@@ -20,8 +20,8 @@ import (
 
 	//import by patientrights No.3
 	//vvv...............................vvv
-	/*
-		"time"
+	/*	"time"
+		
 		"github.com/team10/app/ent/insurance"
 		"github.com/team10/app/ent/medicalrecordstaff"
 		"github.com/team10/app/ent/patientrecord"
@@ -256,7 +256,10 @@ type Treatments struct {
 // Treatment defines the struct for the Treatment
 type Treatment struct {
 	Treatment string
-	Datetreat string
+	Typetreatment int
+	Doctor int
+	Patientrecord int
+	
 }
 
 // Typetreatments defines the struct for the  Typetreatments
@@ -681,11 +684,27 @@ func main() {
 			Paytype{"Cash"},
 		},
 	}
-
 	for _, pt := range paytypes.Paytype {
 		client.Paytype.
 			Create().
 			SetPaytype(pt.paytype).
+			Save(context.Background())
+	}
+
+	//Set Treatment data
+	
+	treatments := Treatments{
+		Treatment: []Treatment{
+			Treatment{"ตรวจขั้นพื้นฐาน",1,1,1},
+			Treatment{"ตรวจโควิด19",3,2,1},
+		},
+	}
+	for _, t := range treatments.Treatment {
+		client.Treatment.
+			Create().
+			SetTreatment(t.Treatment).
+			SetDoctorID(t.Doctor).
+			SetPatientrecord(t.Patientrecord).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
