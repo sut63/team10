@@ -118,6 +118,13 @@ func (ctl *DoctorinfoController) CreateDoctorinfo(c *gin.Context) {
 		})
 		return
 	}
+	
+	// Create Doctor
+	ctl.client.Doctor.
+		Create().
+		SetDoctorinfo(u).
+		SetUser("4").
+		Save(context.Background())
 
 	c.JSON(200, u)
 }
