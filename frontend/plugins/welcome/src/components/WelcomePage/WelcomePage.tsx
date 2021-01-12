@@ -91,7 +91,7 @@ const WelcomePage: FC<{}> = () => {
   }
   return (
     <Page theme={pageTheme.home}>
-      <Header style={HeaderCustom} title={`ระบบผู้ป่อยนอก`}>
+      <Header style={HeaderCustom} title={`ระบบผู้ป่วยนอก`}>
       {/*
       <Link href = "/">
       <Button

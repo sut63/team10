@@ -823,8 +823,8 @@ func main() {
 	//Set Doctor data
 	Doctors := Doctors{
 		Doctor: []Doctor{
-			Doctor{1, 4},
-			Doctor{2, 1},
+			Doctor{1, 1},
+			Doctor{2, 5},
 		},
 	}
 	for _, d := range Doctors.Doctor {
