@@ -25,7 +25,7 @@ type MedicalrecordstaffController struct {
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
-// @Router /Medicalrecordstaff/{id} [get]
+// @Router /medicalrecordstaff/{id} [get]
 func (ctl *MedicalrecordstaffController) GetMedicalrecordstaff(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
@@ -38,7 +38,6 @@ func (ctl *MedicalrecordstaffController) GetMedicalrecordstaff(c *gin.Context) {
 	m, err := ctl.client.Medicalrecordstaff.
 		Query().
 		WithUser().
-
 		Where(medicalrecordstaff.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -84,7 +83,6 @@ func (ctl *MedicalrecordstaffController) ListMedicalrecordstaff(c *gin.Context) 
 	medicalrecordstaff, err := ctl.client.Medicalrecordstaff.
 		Query().
 		WithUser().
-
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

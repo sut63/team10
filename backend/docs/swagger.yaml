@@ -966,36 +966,6 @@ info:
   title: SUT SA Example API
   version: "1.0"
 paths:
-  /Gender/{id}:
-    get:
-      description: get gender by ID
-      operationId: get-gender
-      parameters:
-      - description: Gender ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Gender'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Get a gender entity by ID
   /Insurances:
     post:
       consumes:
@@ -1025,36 +995,6 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Create Insurance
-  /Medicalrecordstaff/{id}:
-    get:
-      description: get medicalrecordstaff by ID
-      operationId: get-medicalrecordstaff
-      parameters:
-      - description: Medicalrecordstaff ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Medicalrecordstaff'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Get a medicalrecordstaff entity by ID
   /Prenames:
     post:
       consumes:
@@ -2280,6 +2220,36 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: List gender entities
+  /gender/{id}:
+    get:
+      description: get gender by ID
+      operationId: get-gender
+      parameters:
+      - description: Gender ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Gender'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a gender entity by ID
   /historytaking:
     get:
       description: list historytaking entities
@@ -2494,6 +2464,36 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: List medicalrecordstaff entities
+  /medicalrecordstaff/{id}:
+    get:
+      description: get medicalrecordstaff by ID
+      operationId: get-medicalrecordstaff
+      parameters:
+      - description: Medicalrecordstaff ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Medicalrecordstaff'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a medicalrecordstaff entity by ID
   /nurse:
     get:
       description: list nurse entities
