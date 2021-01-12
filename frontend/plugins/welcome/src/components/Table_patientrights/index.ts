@@ -1,1 +1,1 @@
-export { default } from './Tables_patientrights';
+export { default } from './Tables';
