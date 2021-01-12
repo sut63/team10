@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { DefaultApi } from '../../api/apis';
+import { Alert ,AlertTitle } from '@material-ui/lab';
 
 
 import { useCookies } from 'react-cookie/cjs';//cookie
@@ -58,20 +59,18 @@ const Login: FC<{}> = () => {
   const http = new DefaultApi();
   const classes = useStyles();
   const [cookies, setCookie, removeCookie] = useCookies(['cookiename']);
-  const [Status, setStatus] = React.useState(String);
+  const [Status, setStatus] = React.useState(true);
+  const [alert, setAlert] = React.useState(Boolean);
+
   const [Name, setName] = React.useState(String);
   const [Password, setPassword] = React.useState(String);
   const [users, setUsers] = React.useState<EntUser[]>([]);
   const arr = React.useState([]);
-  let Useusereamil;
-  
   const getUsers = async () => {
     const res = await http.listUser({ limit: 20, offset: 0 });
     setUsers(res);
   };
   //console.log(users);
-  
-
 
   useEffect(() => {
     getUsers();
@@ -81,20 +80,26 @@ const Login: FC<{}> = () => {
 
 
   const Login = async () => {
-
+    
     users.map((item) => {
       if(item.email === Name && item.password === Password){
-      
       setCookie('Name', Name, { path: '/' })
       setCookie('Log', "true",{ path: '/' })
       setCookie('Status', item.edges?.userstatus?.userstatus , { path: '/' })
 
       setCookie('Fin', item.edges?.financier?.id , { path: '/' })
       setCookie('Med', item.edges?.medicalrecordstaff?.id , { path: '/' })
-      setCookie('Nur', item.edges?.historytaking?.id , { path: '/' })
+      setCookie('Nur', item.edges?.nurse?.id , { path: '/' })
       //setCookie('Doc', item.edges?.userPatientrights?.id , { path: '/' })
       //setCookie('Reg', item.edges?.user2registrar?.id , { path: '/' })
       window.location.reload(false)                
+    }
+    else{
+      setStatus(true);
+        setAlert(true);
+        setTimeout(() => {
+          setStatus(false);
+        }, 1000);            
     }
   });
   }
@@ -107,9 +112,7 @@ const Login: FC<{}> = () => {
   const PasswordChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setPassword(event.target.value as string);
   };
-  const StatusChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setStatus(event.target.value as string);
-  };
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -155,10 +158,16 @@ const Login: FC<{}> = () => {
  
           </FormControl>
         </form>
-
         <form className={classes.form} noValidate>
-
-         
+        {Status ? (
+                  <div>
+                    {alert ? (
+                        <Alert severity="error">
+                            Email or Password not correct ,Try Again
+                        </Alert>
+                        ) : null}
+                </div>
+                 ) : null}
             <FormControl variant="outlined" className={classes.formControl}>
               <Button
                 onClick={() => {
