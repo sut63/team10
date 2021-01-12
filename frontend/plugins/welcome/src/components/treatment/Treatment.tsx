@@ -115,12 +115,13 @@ export default function ComponentsTable() {
                                                 <TableCell align="center">แพทย์</TableCell>
                                                 <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
                                                 <TableCell align="center">รูปแบบการรักษา</TableCell>
+                                                <TableCell align="center">รายละเอียดการรักษา</TableCell>
                                                 <TableCell align="center">วันเวลาที่รักษา</TableCell>
                                                 <TableCell align="center">
                                                     <Link component={RouterLink} to="/createTreatment">
                                                         <Button variant="contained" color="primary" style={{ backgroundColor: "#21b6ae" }}>
                                                             บันทึกการรักษา
-            </Button>
+                                                        </Button>
                                                     </Link></TableCell>
                                             </TableRow>
                                         </TableHead>
@@ -131,8 +132,9 @@ export default function ComponentsTable() {
                                                     <TableCell align="center">{item2.edges?.doctorinfo?.doctorname} {item2.edges?.doctorinfo?.doctorsurname}</TableCell>
                                                     <TableCell align="center">{item.edges?.patientrecord?.name}</TableCell>
                                                     <TableCell align="center">{item.edges?.typetreatment?.typetreatment}</TableCell>
+                                                    <TableCell align="center">{item.treatment}</TableCell>
                                                     <TableCell align="center">{item.datetreat}</TableCell>
-                                                    <TableCell align="center"></TableCell>
+                                                    <TableCell align="center"></TableCell>                                                       
                                                 </TableRow>
                                             ))))}
                                         </TableBody>
