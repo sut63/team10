@@ -468,10 +468,19 @@ const handleChange = (
                 <Button
                     style={{ marginLeft: 40 }}
                     component={RouterLink}
-                    to="/Historytaking"
+                    to="/"
                     variant="contained"
                 >
                     Back
+                </Button>
+                <Button
+                    style={{ marginLeft: 40 }}
+                    component={RouterLink}
+                    to="/Historytaking"
+                    variant="contained"
+                    color="secondary"
+                >
+                    SHOW
                 </Button>
                 </Typography> <br/>
                 </div>

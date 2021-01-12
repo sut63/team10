@@ -52,13 +52,15 @@ export const plugin = createPlugin({
         router.registerRoute('/tablePatientrecord', tablePatientrecord);
       }
       if (Status == 'Nur' || Status == 'Root' ) {
+        router.registerRoute('/createHistorytaking', createHistorytaking);
         router.registerRoute('/Historytaking', Historytaking);
         router.registerRoute('/tableHistorytaking', tableHistorytaking);
-        router.registerRoute('/createHistorytaking', createHistorytaking);
       }
       if (Status == 'Doc' || Status == 'Root' ) {
         router.registerRoute('/Treatment', Treatment);
         router.registerRoute('/createTreatment', createTreatment);
+        router.registerRoute('/tableHistorytaking', tableHistorytaking);
+
       }
       
       if (Status == 'Reg' || Status == 'Root' ) {
