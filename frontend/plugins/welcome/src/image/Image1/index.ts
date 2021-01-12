@@ -1,1 +1,0 @@
-export { Image1Base64Function } from './Image1';
