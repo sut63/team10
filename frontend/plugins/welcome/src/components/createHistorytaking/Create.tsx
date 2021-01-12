@@ -30,6 +30,7 @@ const HeaderCustom = {
 };
 
 const cookies = new Cookies();
+const NURID = cookies.get('Nur');
 const Name = cookies.get('Name');
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -151,13 +152,7 @@ export default function CreateHistorytaking() {
   const [Historytaking, setHistorytaking] = React.useState<Partial<Historytaking_Type>>({});
 
   const [loading, setLoading] = useState(true);
-/*
-  const [nurseid, setnurse] = useState(Number);
-  const [symptomseverityid, setsymptomseverity] = useState(Number);
-  const [departmentid, setdepartment] = useState(Number);
-  const [patientrecordid, setpatientrecord] = useState(Number);
-  const [datetime, setDatetime] = React.useState(String);
-*/
+
   useEffect(() => {
     const getSymptomseveritys = async () => {
       const res = await api.listSymptomseverity({ limit: 3, offset: 0 });
@@ -362,7 +357,7 @@ const handleChange = (
                 </Typography>
 
                 <Typography variant="h6" gutterBottom  align="center">
-                    Nurses ID : 
+                    Nurses ID :
                 <Typography variant="body1" gutterBottom> 
                 <Select
                     labelId="nurses"
