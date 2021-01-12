@@ -68,6 +68,8 @@ const Logout: FC<{}> = () => {
     removeCookie('Fin', { path: '/' })
     removeCookie('Med', { path: '/' })
     removeCookie('Nur', { path: '/' })
+    removeCookie('Doc', { path: '/' })
+    removeCookie('Reg', { path: '/' })
 
     window.location.reload(false)
 

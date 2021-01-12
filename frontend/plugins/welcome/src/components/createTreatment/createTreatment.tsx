@@ -24,6 +24,10 @@ import { EntDoctor } from '../../api/models/EntDoctor';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntTreatment } from '../../api/models/EntTreatment';
 
+
+
+
+
 // header css
 const HeaderCustom = {
   minHeight: '50px',
@@ -31,6 +35,7 @@ const HeaderCustom = {
 
 const cookies = new Cookies();
 const Name = cookies.get('Name');
+const Doc = cookies.get('Doc');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,7 +68,7 @@ const createTreatment: FC<{}> = () => {
   const [loading, setLoading] = React.useState(true);
 
   const [typetreatments, setTypetreatments] = React.useState<EntTypetreatment[]>([]);
-  const [doctors, setDoctors] = React.useState<EntDoctor[]>([]);
+  const [doctors, setDoctors] = React.useState<Partial<EntDoctor>>();
   const [patientrecords, setPatientrecords] = React.useState<EntPatientrecord[]>([]);
   const [treatments, setTreatments] = React.useState<EntTreatment[]>([]);
 
@@ -75,7 +80,7 @@ const createTreatment: FC<{}> = () => {
 
   useEffect(() => {
     const getDocdor = async () => {
-      const res = await http.listDoctor({ limit: 100, offset: 0 });
+      const res = await http.getDoctor({ id: Number(Doc) });
       setLoading(false);
       setDoctors(res);
     };
@@ -100,6 +105,10 @@ const createTreatment: FC<{}> = () => {
     getDocdor();
   }, [loading]);
 
+  const refreshPage = () => {
+    window.location.reload();
+  }
+
   const TypetreatmenthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     settypetreatmentId(event.target.value as number);
   };
@@ -120,7 +129,7 @@ const createTreatment: FC<{}> = () => {
       treatment: treatmentes,
       datetreat: datetreat,
       typetreatment: typetreatmentid,
-      doctor: doctorid,
+      doctor: Number(Doc),
       patientrecord: patientrecordid,
     };
     console.log(tm);
@@ -128,8 +137,10 @@ const createTreatment: FC<{}> = () => {
     setStatus(true);
     if (res.id != '') {
       setAlert(true);
+      refreshPage();
     } else {
       setAlert(false);
+      refreshPage();
     }
     setTimeout(() => {
       setStatus(false);
@@ -164,6 +175,34 @@ const createTreatment: FC<{}> = () => {
                 <Typography align="center" variant="h3">
                   <br />----  Create Traetment  ----
                     </Typography>
+
+                <FormControl className={classes.formControl}>
+                  <Typography align="center" variant="h6">
+                    <br />แพทย์
+                    <br />{doctors?.edges?.doctorinfo?.doctorname} {doctors?.edges?.doctorinfo?.doctorsurname}
+                  </Typography>
+
+                </FormControl>
+                <br />
+                <FormControl className={classes.formControl}>
+                  <Typography align="center" variant="h6">
+                    <br />ผู้ป่วย
+                        </Typography>
+                  <Select
+                    name="patientrecord"
+                    value={patientrecordid}
+                    onChange={PatientrecordhandleChange}
+                  >
+                    {patientrecords.map(item => {
+                      return (
+                        <MenuItem value={item.id}>
+                          {item.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+                <br />
                 <FormControl className={classes.formControl}>
                   <Typography align="center" variant="h6">
                     <br />รูปแบบการรักษา
@@ -189,43 +228,9 @@ const createTreatment: FC<{}> = () => {
                     value={treatmentes}
                     onChange={TreatmenthandleChange} />
                 </Typography>
-                <FormControl className={classes.formControl}>
-                  <Typography align="center" variant="h6">
-                    <br />แพทย์
-                        </Typography>
-                  <Select
-                    name="doctor"
-                    value={doctorid}
-                    onChange={DoctorhandleChange}
-                  >
-                    {doctors.map(item => {
-                      return (
-                        <MenuItem value={item.id}>
-                          {item.edges?.doctorinfo?.doctorname} {item.edges?.doctorinfo?.doctorsurname}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-                <br />
-                <FormControl className={classes.formControl}>
-                  <Typography align="center" variant="h6">
-                    <br />ผู้ป่วย
-                        </Typography>
-                  <Select
-                    name="patientrecord"
-                    value={patientrecordid}
-                    onChange={PatientrecordhandleChange}
-                  >
-                    {patientrecords.map(item => {
-                      return (
-                        <MenuItem value={item.id}>
-                          {item.name}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
+
+
+
                 <br />
 
                 <Typography align="center">

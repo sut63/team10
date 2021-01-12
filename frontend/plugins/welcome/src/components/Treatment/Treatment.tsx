@@ -66,7 +66,8 @@ export default function ComponentsTable() {
     const [doctors, setDoctors] = React.useState<EntDoctor[]>([]);
     const [patientrecords, setPatientrecords] = React.useState<EntPatientrecord[]>([]);
     const [treatments, setTreatments] = React.useState<EntTreatment[]>([]);
-
+    const [treatmentid, setTreatmentId] = React.useState(Number);
+    const [treatment, setTreatment] = React.useState(String);
 
     useEffect(() => {
         const getDocdor = async () => {
@@ -103,42 +104,67 @@ export default function ComponentsTable() {
                     <div style={{ marginLeft: 10 }}>{Name}</div>
                 </Header>
                 <Content>
-                    <Grid container item xs={12} sm={12}  >
-                        <Grid item xs={12}>
-                            <Paper>
-                                <TableContainer component={Paper}>
+                    <Grid container spacing={3} >
+                        <Grid container item xs={12} sm={12}  >
+                        <Grid item xs={3}>
+                                <Paper >
+                                    <Typography align="center">
+                                        <Typography align="center" variant="subtitle1">
+                                            <br />เลขที่การรักษา : {treatmentid}
+                                            <br />รายละเอียดการรักษา<br />
+                                            <TableCell align="center">{treatment}</TableCell>
+                                        </Typography>
+                                    </Typography>
+                                    <br />
+                                </Paper>
+                            </Grid>
+                            
+                            <Grid item xs={9}>
+                                <Paper>
+                                    <TableContainer component={Paper}>
 
-                                    <Table className={classes.table} aria-label="simple table">
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell align="center" >เลขที่การรักษา</TableCell>
-                                                <TableCell align="center">แพทย์</TableCell>
-                                                <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
-                                                <TableCell align="center">รูปแบบการรักษา</TableCell>
-                                                <TableCell align="center">วันเวลาที่รักษา</TableCell>
-                                                <TableCell align="center">
-                                                    <Link component={RouterLink} to="/createTreatment">
-                                                        <Button variant="contained" color="primary" style={{ backgroundColor: "#21b6ae" }}>
-                                                            บันทึกการรักษา
+                                        <Table className={classes.table} aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell align="center">เลขที่การรักษา</TableCell>
+                                                    <TableCell align="center">แพทย์</TableCell>
+                                                    <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
+                                                    <TableCell align="center">รูปแบบการรักษา</TableCell>
+                                                    <TableCell align="center">วันเวลาที่รักษา</TableCell>                                                <TableCell align="center">
+                                                        <Link component={RouterLink} to="/createTreatment">
+                                                            <Button variant="contained" color="primary" style={{ backgroundColor: "#21b6ae" }}>
+                                                                บันทึกการรักษา
             </Button>
-                                                    </Link></TableCell>
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {treatments.map(item => (doctors.filter(t => t.id === item.edges?.doctor?.id).map(item2 => (
-                                                <TableRow key={item.id}>
-                                                    <TableCell align="center">{item.id}</TableCell>
-                                                    <TableCell align="center">{item2.edges?.doctorinfo?.doctorname} {item2.edges?.doctorinfo?.doctorsurname}</TableCell>
-                                                    <TableCell align="center">{item.edges?.patientrecord?.name}</TableCell>
-                                                    <TableCell align="center">{item.edges?.typetreatment?.typetreatment}</TableCell>
-                                                    <TableCell align="center">{item.datetreat}</TableCell>
-                                                    <TableCell align="center"></TableCell>
+                                                        </Link></TableCell>
                                                 </TableRow>
-                                            ))))}
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </Paper>
+                                            </TableHead>
+                                            <TableBody>
+                                                {treatments.map(item => (doctors.filter(t => t.id === item.edges?.doctor?.id).map(item2 => (
+                                                    <TableRow key={item.id}>
+                                                        <TableCell align="center">{item.id}</TableCell>
+                                                        <TableCell align="center">{item2.edges?.doctorinfo?.doctorname} {item2.edges?.doctorinfo?.doctorsurname}</TableCell>
+                                                        <TableCell align="center">{item.edges?.patientrecord?.name}</TableCell>
+                                                        <TableCell align="center">{item.edges?.typetreatment?.typetreatment}</TableCell>
+                                                        <TableCell align="center">{item.datetreat}</TableCell>
+                                                        <TableCell align="center">
+                                                            <Button
+                                                                onClick={() => {
+                                                                    setTreatment(item.treatment as string);
+                                                                    setTreatmentId(item.id as number);                                                                    
+                                                                }}
+                                                                variant="outlined"
+                                                                color="primary"
+                                                            >
+                                                                ดูรายละเอียด
+                              </Button>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))))}
+                                            </TableBody>
+                                        </Table>
+                                    </TableContainer>
+                                </Paper>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Content>

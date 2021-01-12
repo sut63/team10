@@ -92,8 +92,8 @@ const Login: FC<{}> = () => {
       setCookie('Fin', item.edges?.financier?.id , { path: '/' })
       setCookie('Med', item.edges?.medicalrecordstaff?.id , { path: '/' })
       setCookie('Nur', item.edges?.nurse?.id , { path: '/' })
-      //setCookie('Doc', item.edges?.doctor?.id , { path: '/' })
-      //setCookie('Reg', item.edges?.user2registrar?.id, { path: '/' })
+      setCookie('Doc', item.edges?.doctor?.id , { path: '/' })
+      setCookie('Reg', item.edges?.user2registrar?.id, { path: '/' })
       window.location.reload(false)             
     }
     if(item.email != Name && item.password != Password){
