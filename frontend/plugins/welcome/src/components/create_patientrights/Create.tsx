@@ -162,7 +162,7 @@ const NewPatientright: FC<{}> = () => {
     getPatientrightstype();
     getPatientrecord();
     getInsurance();
-    getMedicalrecordstaffsUser();
+    //getMedicalrecordstaffsUser();
 
   }, []);
 
