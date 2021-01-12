@@ -226,6 +226,7 @@ const createTreatment: FC<{}> = () => {
                   <TextField
                     className={classes.formControl}
                     value={treatmentes}
+                    multiline
                     onChange={TreatmenthandleChange} />
                 </Typography>
 
