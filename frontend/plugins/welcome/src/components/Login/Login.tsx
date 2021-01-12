@@ -16,7 +16,7 @@ import { Alert ,AlertTitle } from '@material-ui/lab';
 
 
 import { useCookies } from 'react-cookie/cjs';//cookie
-
+import { Cookies } from 'react-cookie/cjs';//cookie
 import { EntUser } from '../../api/models/EntUser';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -59,8 +59,8 @@ const Login: FC<{}> = () => {
   const http = new DefaultApi();
   const classes = useStyles();
   const [cookies, setCookie, removeCookie] = useCookies(['cookiename']);
-  const [Status, setStatus] = React.useState(true);
-  const [alert, setAlert] = React.useState(Boolean);
+  const [Status, setStatus] = React.useState(false);
+  const [alert, setAlert] = React.useState(true);
 
   const [Name, setName] = React.useState(String);
   const [Password, setPassword] = React.useState(String);
@@ -74,6 +74,7 @@ const Login: FC<{}> = () => {
 
   useEffect(() => {
     getUsers();
+    
   }, []);
 
   // set data to object Patientright
@@ -81,25 +82,24 @@ const Login: FC<{}> = () => {
 
   const Login = async () => {
     
-    users.map((item) => {
+    users.map((item) => {  
       if(item.email === Name && item.password === Password){
       setCookie('Name', Name, { path: '/' })
       setCookie('Log', "true",{ path: '/' })
       setCookie('Status', item.edges?.userstatus?.userstatus , { path: '/' })
-
       setCookie('Fin', item.edges?.financier?.id , { path: '/' })
       setCookie('Med', item.edges?.medicalrecordstaff?.id , { path: '/' })
       setCookie('Nur', item.edges?.nurse?.id , { path: '/' })
-      //setCookie('Doc', item.edges?.userPatientrights?.id , { path: '/' })
-      //setCookie('Reg', item.edges?.user2registrar?.id , { path: '/' })
-      window.location.reload(false)                
+      //setCookie('Doc', item.edges?.doctor?.id , { path: '/' })
+      //setCookie('Reg', item.edges?.user2registrar?.id, { path: '/' })
+      window.location.reload(false)             
     }
-    else{
+    if(item.email != Name && item.password != Password){
       setStatus(true);
-        setAlert(true);
-        setTimeout(() => {
-          setStatus(false);
-        }, 1000);            
+      setAlert(false);
+      setTimeout(() => {
+        setStatus(false);
+      }, 1000);     
     }
   });
   }
@@ -161,11 +161,11 @@ const Login: FC<{}> = () => {
         <form className={classes.form} noValidate>
         {Status ? (
                   <div>
-                    {alert ? (
+                    {alert ? null : (
                         <Alert severity="error">
                             Email or Password not correct ,Try Again
                         </Alert>
-                        ) : null}
+                        )}
                 </div>
                  ) : null}
             <FormControl variant="outlined" className={classes.formControl}>
