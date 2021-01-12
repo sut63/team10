@@ -234,7 +234,11 @@ export  default  function Create() {
             variant="outlined" 
             value={age}
             onChange={AgehandleChange}
+<<<<<<< HEAD
+            /> &emsp; 
+=======
             /> &emsp;
+>>>>>>> 60f87ddcab0f873ab235c985c2adb16416ad4fb2
             
             <TextField 
             label="กรุ๊ปเลือด" 
