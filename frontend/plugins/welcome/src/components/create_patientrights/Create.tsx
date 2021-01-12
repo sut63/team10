@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import Timer from '../Timer';
 import { DefaultApi } from '../../api/apis'; // Api Gennerate From Command
-
+import { ControllersPatientrights } from '../../api/models/ControllersPatientrights';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntPatientrightstype } from '../../api/models/EntPatientrightstype';
 import { EntInsurance } from '../../api/models/EntInsurance';
@@ -73,32 +73,6 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-interface Patientrights_Type {
-  /**
-     * 
-     * @type {number}
-     * @memberof ControllersPatientrights
-     */
-  insurance?: number;
-  /**
-   * 
-   * @type {number}
-   * @memberof ControllersPatientrights
-   */
-  medicalrecordstaff?: number;
-  /**
-   * 
-   * @type {number}
-   * @memberof ControllersPatientrights
-   */
-  patientrecord?: number;
-  /**
-   * Abilitypatientrights int
-   * @type {number}
-   * @memberof ControllersPatientrights
-   */
-  patientrightstype?: number;
-}
 
 const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
@@ -106,7 +80,7 @@ const NewPatientright: FC<{}> = () => {
   const http = new DefaultApi();
   const cookies = new Cookies();
 
-  const [Patientrights, setPatientrights] = React.useState<Partial<Patientrights_Type>>({});
+  const [Patientrights, setPatientrights] = React.useState<Partial<ControllersPatientrights>>({});
 
   const [Patientrightstype, setPatientrightstype] = React.useState<EntPatientrightstype[]>([]);
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
@@ -117,10 +91,20 @@ const NewPatientright: FC<{}> = () => {
   const [alert, setAlert] = React.useState(true);
 
   const UserId = cookies.get('ID');
+  const med = cookies.get('Med');
 
+
+  const getChangeOfUser =  async () => {
+
+    const name = "medicalrecordstaff";
+    const value  = parseInt(med, 10);
+    setPatientrights({ ...Patientrights, [name]: value });
+  };
+ 
 
 
   const getMedicalrecordstaffs = async () => {
+    
     const res = await http.listMedicalrecordstaff({ limit: 10, offset: 0 });
     setMedicalrecordstaff(res);
   };
@@ -144,25 +128,17 @@ const NewPatientright: FC<{}> = () => {
   };
 
 
-  const getMedicalrecordstaffsUser = (
-
-    event: React.ChangeEvent<{ name?: string; value: unknown }>,
-  ) => {
-
-    
-    const name = "Medicalrecordstaffs" as keyof typeof NewPatientright;
-    const { value } = cookies.get('Status');
-
-    setPatientrights({ ...Patientrights, [name]: value });
-  };
+ 
 
   // Lifecycle Hooks
   useEffect(() => {
+    getChangeOfUser();
     getMedicalrecordstaffs();
     getPatientrightstype();
     getPatientrecord();
     getInsurance();
-    getMedicalrecordstaffsUser();
+    getChangeOfUser();
+
 
   }, []);
 
@@ -182,27 +158,35 @@ const NewPatientright: FC<{}> = () => {
 
   const CreatePatientright = async () => {
 
-    const res: any = await http.createPatientrights({
-      patientrights: Patientrights
+    if ((Patientrights.insurance != null) && (Patientrights.medicalrecordstaff != null)
+      && (Patientrights.patientrecord != null) && (Patientrights.patientrightstype != null)) {
+
+      const res: any = await http.createPatientrights({
+        patientrights: Patientrights
 
 
-    });
-    console.log(Patientrights);
-    setStatus(true);
+      });
+      console.log(Patientrights);
+      
 
-
-    if (res.id != '') {
-      setAlert(true);
-    } else {
-      setAlert(false);
-    }
-
-    const timer = setTimeout(() => {
-      setStatus(false);
-    }, 1000);
-
-
-  };
+      
+      if (res.id != '') {
+        setStatus(true);
+        setAlert(true);
+        setTimeout(() => {
+          setStatus(false);
+        }, 2000);
+        }
+        
+      }
+      else {
+        setStatus(true);
+        setAlert(false);
+        setTimeout(() => {
+          setStatus(false);
+        }, 2000);
+      }
+    };
 
 
 
@@ -223,16 +207,12 @@ const NewPatientright: FC<{}> = () => {
                 </Alert>
               ) : (
                   <Alert severity="warning" style={{ marginTop: 20 }}>
-                    This is a warning alert — check it out!
+                    บันทึกไม่สำเร็จ
                   </Alert>
                 )}
             </div>
           ) : null}
         </ContentHeader>
-
-        <div>
-          <br /><p>json {JSON.stringify(Patientrights)} </p>
-        </div>
 
 
         <div className={classes.root}>
@@ -285,6 +265,11 @@ const NewPatientright: FC<{}> = () => {
 
 
 
+            </form>
+        </div>
+
+        <div className={classes.root}>
+          <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>Patientrightstype</InputLabel>
@@ -327,20 +312,7 @@ const NewPatientright: FC<{}> = () => {
           <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>เลือกพนักงาน Medicalrecordstaff</InputLabel>
-              <Select
-                name="medicalrecordstaff"
-                value={Patientrights.medicalrecordstaff}
-                onChange={handleChange}
-              >
-                {Medicalrecordstaff.map(item => {
-                  return (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
+              {}
             </FormControl>
 
 
@@ -377,12 +349,23 @@ const NewPatientright: FC<{}> = () => {
               >
                 Submit
              </Button>
-
-              <Link component={RouterLink} to="/">
-                <Button variant="contained" color="primary">
-                  กลับสู่หน้าหลัก
-           </Button>
-              </Link>
+             <Button
+                    style={{ marginLeft: 40 }}
+                    component={RouterLink}
+                    to="/"
+                    variant="contained"
+                >
+                    Back
+                </Button>
+                <Button
+                    style={{ marginLeft: 40 }}
+                    component={RouterLink}
+                    to="/Table_patientrights"
+                    variant="contained"
+                    color="secondary"
+                >
+                    SHOW
+                </Button>
 
             </div>
           </form>
