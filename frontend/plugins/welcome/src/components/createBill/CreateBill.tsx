@@ -1,14 +1,13 @@
 import React, { useEffect, FC } from 'react';
+
 import { Content, ContentHeader, Header, Page, pageTheme, } from '@backstage/core';
+
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Grid, MenuItem, Button, TextField, Select, Typography } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import { Alert } from '@material-ui/lab';
 import Paper from '@material-ui/core/Paper';
-
-
-
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     table: {
       minWidth: 550,
     },
-   
+
   }),
 );
 
@@ -124,7 +123,9 @@ const CreateBill: FC<{}> = () => {
   };
 
   const CreatePayment = async () => {
+
     if((amounts != '')&&(paytypeid != null)&&(unpayid != null)){
+
     const b = {
       amount: amounts,
       financier: financiers?.id,
@@ -142,6 +143,7 @@ const CreateBill: FC<{}> = () => {
       setAlert(true);
       await http.updateUnpaybill({ id: unpayid, unpaybill: upb });
       refreshPage();
+
     }
   }
     else {
@@ -159,6 +161,7 @@ const CreateBill: FC<{}> = () => {
     
       <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`Financial System`}>
+
         <Avatar alt="Remy Sharp" src={Image1Base64Function} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
@@ -172,6 +175,7 @@ const CreateBill: FC<{}> = () => {
                       <Typography align="center" variant="h3">
                         <br /> ใบเสร็จรับเงิน
                       </Typography>
+
                       {status ? (
                   <div>
                     {alert ? (
@@ -185,6 +189,7 @@ const CreateBill: FC<{}> = () => {
                    )}
                 </div>
                  ) : null}
+
                         <Typography align="center" variant="subtitle1">
                           <br />เลขที่การรักษา : {treatmentid}
                           <br />ผู้ป่วย<br />
@@ -278,6 +283,7 @@ const CreateBill: FC<{}> = () => {
           </Grid>
         </Content>
       </Page>
+
   );
 };
 
