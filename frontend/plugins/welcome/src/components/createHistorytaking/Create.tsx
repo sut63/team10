@@ -30,6 +30,7 @@ const HeaderCustom = {
 };
 
 const cookies = new Cookies();
+const NURID = cookies.get('Nur');
 const Name = cookies.get('Name');
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -143,7 +144,7 @@ export default function CreateHistorytaking() {
   const [status, setStatus] = useState(false);
   const [alert, setAlert] = useState(true);
 
-  const [nurses, setNurses] = useState<EntNurse[]>([]);
+  const [nurses, setNurses] = React.useState<Partial<EntNurse>>();
   const [symptomseveritys, setSymptomseveritys] = useState<EntSymptomseverity[]>([]);
   const [departments, setDepartments] = useState<EntDepartment[]>([]);
   const [patientrecords, setPatientrecords] = useState<EntPatientrecord[]>([]);
@@ -151,14 +152,17 @@ export default function CreateHistorytaking() {
   const [Historytaking, setHistorytaking] = React.useState<Partial<Historytaking_Type>>({});
 
   const [loading, setLoading] = useState(true);
-/*
-  const [nurseid, setnurse] = useState(Number);
-  const [symptomseverityid, setsymptomseverity] = useState(Number);
-  const [departmentid, setdepartment] = useState(Number);
-  const [patientrecordid, setpatientrecord] = useState(Number);
-  const [datetime, setDatetime] = React.useState(String);
-*/
+
   useEffect(() => {
+
+    const getChangeOfUser =  async () => {
+
+      const name = "nurse";
+      const value  = parseInt(NURID, 10);
+      setHistorytaking({ ...Historytaking, [name]: value });
+    };
+    getChangeOfUser();
+
     const getSymptomseveritys = async () => {
       const res = await api.listSymptomseverity({ limit: 3, offset: 0 });
       setLoading(false);
@@ -167,7 +171,7 @@ export default function CreateHistorytaking() {
     getSymptomseveritys();
 
     const getNurses = async () => {
-      const res = await api.listNurse({ limit: 2, offset: 0 });
+      const res = await api.getNurse({id : Number(NURID)});
       setLoading(false);
       setNurses(res);
       console.log(res);
@@ -188,6 +192,7 @@ export default function CreateHistorytaking() {
     };
     getPatientrecords();
 
+
   }, [loading]);
 
 const handleChange = (
@@ -199,7 +204,19 @@ const handleChange = (
   setHistorytaking({ ...Historytaking, [name]: value });
 };
 
+
+
+
   const CreateHistorytaking = async () => {
+
+    if((Historytaking.bp != '')&&(Historytaking.datetime != '')
+        &&(Historytaking.hight != '')&&(Historytaking.oxygen != '')
+        &&(Historytaking.pulse != '')&&(Historytaking.symptom != '')
+        &&(Historytaking.temp != '')&&(Historytaking.weight != '')
+        &&(Historytaking.bp != '')&&(Historytaking.symptomseverity != null)
+        &&(Historytaking.patientrecord != null)&&(Historytaking.nurse != null)
+        &&(Historytaking.department != null)){
+
     const res: any = await api.createHistorytaking({ 
       historytaking:Historytaking
     
@@ -210,12 +227,15 @@ const handleChange = (
     setStatus(true);
     if (res.id != '') {
       setAlert(true);
-    } else {
-      setAlert(false);
+      }
     }
-    setTimeout(() => {
-      setStatus(false);
-    }, 3000);
+    else {
+      setStatus(true);
+      setAlert(false);
+      setTimeout(() => {
+        setStatus(false);
+      }, 3000);
+    }
   };
   const profile = { givenName: '' };
   return (
@@ -362,24 +382,13 @@ const handleChange = (
                 </Typography>
 
                 <Typography variant="h6" gutterBottom  align="center">
-                    Nurses ID : 
+                    Nurses : {nurses?.name}
                 <Typography variant="body1" gutterBottom> 
-                <Select
-                    labelId="nurses"
-                    id="nurses"
-                    name="nurse"
-                    value={Historytaking.nurse}
-                    onChange={handleChange}
-                    style={{ width: 500 }}
-                >
-                {nurses.map((item: EntNurse) => (
-                  <MenuItem value={item.id}>{item.name}</MenuItem>
-                ))}
-                </Select>
+                
                 </Typography>
                 </Typography><br/>
                 <Typography variant="h6" gutterBottom  align="center">
-                    Symptomseverity ID : 
+                    Symptomseverity : 
                 <Typography variant="body1" gutterBottom> 
                 <Select
                     labelId="symptomseveritys"
@@ -396,7 +405,7 @@ const handleChange = (
                 </Typography>
                 </Typography><br/>
                 <Typography variant="h6" gutterBottom  align="center">
-                    Department ID : 
+                    Department : 
                 <Typography variant="body1" gutterBottom> 
                 <Select
                     labelId="departments"
@@ -413,7 +422,7 @@ const handleChange = (
                 </Typography>
                 </Typography><br/>
                 <Typography variant="h6" gutterBottom  align="center">
-                    Patientrecord ID : 
+                    Patientrecord : 
                 <Typography variant="body1" gutterBottom> 
                 <Select
                     labelId="patientrecords"
@@ -437,8 +446,8 @@ const handleChange = (
                             success!
                         </Alert>
                         ) : (
-                            <Alert severity="warning" style={{ marginTop: 40 }}>
-                            This is a warning alert — check it out!
+                            <Alert severity="error" style={{ marginTop: 40 }}>
+                            This is a error alert — check it out!
                             </Alert>
                         )}
                     </div>

@@ -83,6 +83,8 @@ const Login: FC<{}> = () => {
     
     users.map((item) => {
       if(item.email === Name && item.password === Password){
+      setAlert(false);
+      setStatus(false);
       setCookie('Name', Name, { path: '/' })
       setCookie('Log', "true",{ path: '/' })
       setCookie('Status', item.edges?.userstatus?.userstatus , { path: '/' })
