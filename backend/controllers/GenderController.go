@@ -25,7 +25,7 @@ type GenderController struct {
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
-// @Router /Gender/{id} [get]
+// @Router /gender/{id} [get]
 func (ctl *GenderController) GetGender(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
