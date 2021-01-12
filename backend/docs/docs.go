@@ -33,51 +33,6 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/Gender/{id}": {
-            "get": {
-                "description": "get gender by ID",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get a gender entity by ID",
-                "operationId": "get-gender",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Gender ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/ent.Gender"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            }
-        },
         "/Insurances": {
             "post": {
                 "description": "Create Insurance",
@@ -109,51 +64,6 @@ var doc = `{
                     },
                     "400": {
                         "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            }
-        },
-        "/Medicalrecordstaff/{id}": {
-            "get": {
-                "description": "get medicalrecordstaff by ID",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get a medicalrecordstaff entity by ID",
-                "operationId": "get-medicalrecordstaff",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Medicalrecordstaff ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/ent.Medicalrecordstaff"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/gin.H"
                         }
@@ -2003,6 +1913,51 @@ var doc = `{
                 }
             }
         },
+        "/gender/{id}": {
+            "get": {
+                "description": "get gender by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get a gender entity by ID",
+                "operationId": "get-gender",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Gender ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ent.Gender"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
         "/historytaking": {
             "get": {
                 "description": "list historytaking entities",
@@ -2312,6 +2267,51 @@ var doc = `{
                     },
                     "400": {
                         "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
+        "/medicalrecordstaff/{id}": {
+            "get": {
+                "description": "get medicalrecordstaff by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get a medicalrecordstaff entity by ID",
+                "operationId": "get-medicalrecordstaff",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Medicalrecordstaff ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ent.Medicalrecordstaff"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/gin.H"
                         }

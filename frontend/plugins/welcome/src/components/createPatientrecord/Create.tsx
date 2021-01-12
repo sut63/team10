@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { DefaultApi } from'../../api/apis';
-import { Typography,Link, Avatar } from '@material-ui/core'
+import { Typography, Avatar } from '@material-ui/core'
 import { Content, Header, Page, pageTheme } from '@backstage/core';
 import SaveIcon from '@material-ui/icons/Save';
 import UndoIcon from '@material-ui/icons/Undo';
@@ -27,6 +27,7 @@ const HeaderCustom = {
 };
 
 const cookies = new Cookies();
+const MEDID = cookies.get('Med'); 
 const Name = cookies.get('Name');
 
 
@@ -64,11 +65,10 @@ export  default  function Create() {
 
   const [prename, setPrename] = React.useState<EntPrename[]>([]);
   const [gender, setGender] = React.useState<EntGender[]>([]);
-  const [medicalrecordstaff, setMedicalrecordstaff] = React.useState<EntMedicalrecordstaff[]>([]);
+  const [medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
    
   const [prenameid, setprenameId] = React.useState(Number);
   const [genderid, setgenderId] = React.useState(Number);
-  const [medicalrecordstaffid, setmedicalrecordstaffId] = React.useState(Number);
   const [name, setname] = React.useState(String);
   const [idcardnumber, setidcardnumber] = React.useState(String);
   const [age, setage] = React.useState(String);
@@ -94,10 +94,9 @@ export  default  function Create() {
     };
     getGender();
     const getMedicalrecordstaff = async () => {
-        const res = await api.listMedicalrecordstaff({ limit: 2, offset: 0 });
+        const res = await api.getMedicalrecordstaff({ id: Number(MEDID) });
         setLoading(false);
         setMedicalrecordstaff(res);
-        console.log(res);
     };
     getMedicalrecordstaff();
     }, [loading]);
@@ -108,9 +107,6 @@ export  default  function Create() {
       };
       const GenderhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setgenderId(event.target.value as number);
-      };
-      const MedicalrecordstaffhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setmedicalrecordstaffId(event.target.value as number);
       };
       const NamehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setname(event.target.value as string);
@@ -141,10 +137,12 @@ export  default  function Create() {
       };
     
       const CreatePatientrecord = async () => {
+        if((name != '')&&(idcardnumber != '')&&(age != '')&&(bloodtype != '')&&(disease != '')&&(
+          allergic != '')&&(phonenumber != '')&&(email != '')&&(home != '')&&(prenameid != null)&&(genderid != null)){
         const patientrecord = {
           prename : prenameid,
           gender : genderid ,
-          medicalrecordstaff : medicalrecordstaffid,
+          medicalrecordstaff : medicalrecordstaff?.id,
           name : name,
           idcardnumber : idcardnumber,
           age : age,
@@ -160,12 +158,18 @@ export  default  function Create() {
         setStatus(true);
         if (res.id != '') {
           setAlert(true);
-        } else {
-          setAlert(false);
+          setTimeout(() => {
+            setStatus(false);
+          }, 1000);
         }
+       } 
+       else {
+        setStatus(true);
+        setAlert(false);
         setTimeout(() => {
           setStatus(false);
-        }, 3000);
+        }, 1000);
+        }
       };
 
     return(
@@ -177,6 +181,19 @@ export  default  function Create() {
             <Content>
             <br />
             <br />
+            {status ? (
+                <div>
+                {alert ? (
+                  <Alert severity="success">
+                    บันทึกสำเร็จ !
+                  </Alert>
+                  ) : (
+                  <Alert severity="warning" style={{ marginTop: 20 }}>
+                    This is a warning alert — check it out!
+                  </Alert>
+                )}
+                </div>
+              ) : null}
             <Typography variant="h6" gutterBottom align="center">
               <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>คำนำหน้าชื่อ</InputLabel>
@@ -290,28 +307,10 @@ export  default  function Create() {
             value={home}
             onChange={HomehandleChange}
             />
-            
-            <div className={classes.paper}></div>
-              <FormControl variant="outlined">
-                <InputLabel>พนักงานเวชระเบียน</InputLabel>
-              <Select
-                label="พนักงานเวชระเบียน"
-                style={{ width: "35ch"}}
-                value={medicalrecordstaffid}
-                onChange={MedicalrecordstaffhandleChange}
-              >
-              {medicalrecordstaff.map(item => {
-                return (
-                  <MenuItem value={item.id}>
-                  {item.name}
-                  </MenuItem>
-                  );
-                })}
-              </Select>
-              </FormControl>
+              <br />
+              <br /> พนักงานเวชระเบียน : {medicalrecordstaff?.name}
               <br />
               <br />
-              
               <Typography variant="h6" gutterBottom  align="center">
               <Button
                 onClick={() => {
@@ -337,19 +336,6 @@ export  default  function Create() {
                   ย้อนกลับ
                 </Button>
               </Typography>
-              {status ? (
-                <div>
-                {alert ? (
-                  <Alert severity="success">
-                    บันทึกสำเร็จ !
-                  </Alert>
-                  ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
-                    This is a warning alert — check it out!
-                  </Alert>
-                )}
-                </div>
-              ) : null}
             </Typography>
           </Content>
       </Page>

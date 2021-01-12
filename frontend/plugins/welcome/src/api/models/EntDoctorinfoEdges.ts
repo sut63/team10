@@ -49,11 +49,11 @@ export interface EntDoctorinfoEdges {
      */
     department?: EntDepartment;
     /**
-     * Doctor holds the value of the doctor edge.
-     * @type {Array<EntDoctor>}
+     * 
+     * @type {EntDoctor}
      * @memberof EntDoctorinfoEdges
      */
-    doctor?: Array<EntDoctor>;
+    doctor?: EntDoctor;
     /**
      * 
      * @type {EntEducationlevel}
@@ -85,7 +85,7 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     return {
         
         'department': !exists(json, 'Department') ? undefined : EntDepartmentFromJSON(json['Department']),
-        'doctor': !exists(json, 'Doctor') ? undefined : ((json['Doctor'] as Array<any>).map(EntDoctorFromJSON)),
+        'doctor': !exists(json, 'Doctor') ? undefined : EntDoctorFromJSON(json['Doctor']),
         'educationlevel': !exists(json, 'Educationlevel') ? undefined : EntEducationlevelFromJSON(json['Educationlevel']),
         'officeroom': !exists(json, 'Officeroom') ? undefined : EntOfficeroomFromJSON(json['Officeroom']),
         'prename': !exists(json, 'Prename') ? undefined : EntPrenameFromJSON(json['Prename']),
@@ -102,7 +102,7 @@ export function EntDoctorinfoEdgesToJSON(value?: EntDoctorinfoEdges | null): any
     return {
         
         'department': EntDepartmentToJSON(value.department),
-        'doctor': value.doctor === undefined ? undefined : ((value.doctor as Array<any>).map(EntDoctorToJSON)),
+        'doctor': EntDoctorToJSON(value.doctor),
         'educationlevel': EntEducationlevelToJSON(value.educationlevel),
         'officeroom': EntOfficeroomToJSON(value.officeroom),
         'prename': EntPrenameToJSON(value.prename),

@@ -25,8 +25,8 @@ import (
 
 	//import by patientrights No.3
 	//vvv...............................vvv
-		"time"
-/*
+	"time"
+	/*
 		"github.com/team10/app/ent/insurance"
 		"github.com/team10/app/ent/medicalrecordstaff"
 		"github.com/team10/app/ent/patientrecord"
@@ -568,7 +568,7 @@ func main() {
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
-	
+
 	// Set Postman By Patientrecord System No.2
 	//vvv*******************************************************************vvv
 
@@ -591,7 +591,7 @@ func main() {
 	medicalrecordstaffs := Medicalrecordstaffs{
 		Medicalrecordstaff: []Medicalrecordstaff{
 			Medicalrecordstaff{"Phonrawin Kudthalaeng", 3},
-			Medicalrecordstaff{"Shin Sura", 4},
+			Medicalrecordstaff{"Shin Sura", 1},
 		},
 	}
 
@@ -610,13 +610,13 @@ func main() {
 			SetUser(u).
 			Save(context.Background())
 	}
-	
+
 	// Set Patientrecord Data
 	Patientrecords := Patientrecords{
 		Patientrecord: []Patientrecord{
-			Patientrecord{3, "วิลาฬ ชาญชัย", 1, 1300101198176, 21, "A", "-", "-", "0957212978", "api@gmail.com", "บ้านเลขที่ 35/6 ถ.สายไหม อ.เมือง ต.ในเมือง จ.นครราชสีมา 30000", 1},
-			Patientrecord{3, "วิชัย ชาญชัย", 1, 1300101198176, 21, "A", "-", "-", "0957212978", "api@gmail.com", "บ้านเลขที่ 35/6 ถ.สายไหม อ.เมือง ต.ในเมือง จ.นครราชสีมา 30000", 1},
-			Patientrecord{3, "วิลินา ชาญชัย", 1, 1300101198176, 21, "A", "-", "-", "0957212978", "api@gmail.com", "บ้านเลขที่ 35/6 ถ.สายไหม อ.เมือง ต.ในเมือง จ.นครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลาฬ ชาญชัย", 1, 1300101198146, 21, "A", "-", "-", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิชัย ชาญชัย", 1, 1300101198136, 21, "A", "-", "-", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลินา ชาญชัย", 1, 1300101198126, 21, "A", "-", "-", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 		},
 	}
 	for _, pr := range Patientrecords.Patientrecord {
@@ -649,7 +649,7 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
-		
+
 		client.Patientrecord.
 			Create().
 			SetPrename(p).
@@ -662,12 +662,12 @@ func main() {
 			SetAllergic(pr.Allergic).
 			SetPhonenumber(pr.Phonenumber).
 			SetEmail(pr.Email).
-			SetHome(pr.Home).		
+			SetHome(pr.Home).
 			SetMedicalrecordstaff(m).
 			SetDate(time.Now().Local()).
 			Save(context.Background())
 	}
-	
+
 	//^^^*******************************************************************^^^
 	// Set Postman By Historytaking System No.5
 	//vvv*******************************************************************vvv
@@ -750,8 +750,8 @@ func main() {
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
-	
-		// Set Doctorinformation output No.6
+
+	// Set Doctorinformation output No.6
 	//vvv...................................................................vvv
 	Doctorinfos := Doctorinfos{
 		Doctorinfo: []Doctorinfo{
@@ -819,7 +819,6 @@ func main() {
 	// Set Postman By Treatment System No.4 Part2
 	//vvv*******************************************************************vvv
 
-	
 	//Set Doctor data
 	Doctors := Doctors{
 		Doctor: []Doctor{
@@ -856,8 +855,6 @@ func main() {
 
 	//^^^*******************************************************************^^^
 
-
-	
 	// Set Postman By Bill System No.1
 	//vvv*******************************************************************vvv
 
@@ -898,7 +895,7 @@ func main() {
 			SetPaytype(pt.paytype).
 			Save(context.Background())
 	}
-	
+
 	//Set Treatment data
 
 	treatments := Treatments{
@@ -917,7 +914,7 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
-		
+
 		d, err := client.Doctor.
 			Query().
 			Where(doctor.IDEQ(int(t.Doctor))).
@@ -927,7 +924,7 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
-		
+
 		m, err := client.Patientrecord.
 			Query().
 			Where(patientrecord.IDEQ(int(t.Patientrecord))).
@@ -937,7 +934,7 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
-		
+
 		client.Treatment.
 			Create().
 			SetTreatment(t.Treatment).
@@ -948,9 +945,7 @@ func main() {
 	}
 	//^^^*******************************************************************^^^
 
-
 	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
-
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.Run()
