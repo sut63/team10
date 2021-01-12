@@ -122,6 +122,7 @@ func (ctl *DoctorinfoController) CreateDoctorinfo(c *gin.Context) {
 	c.JSON(200, u)
 }
 
+
 // GetDoctorinfo handles GET requests to retrieve a doctorinfo entity
 // @Summary Get a doctorinfo entity by ID
 // @Description get doctorinfo by ID
