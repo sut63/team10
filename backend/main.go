@@ -757,6 +757,8 @@ func main() {
 		Doctorinfo: []Doctorinfo{
 			Doctorinfo{"Thanawat", "Srikaewsiew", "0800740864", "BEN10UT100", 1, 1, 1, 1},
 			Doctorinfo{"Paonrat", "Tangtong", "0810740864", "BEN20UT100", 1, 1, 1, 1},
+			Doctorinfo{"Watcharaphong", "Taramol", "0809757643", "BEN20UT100", 1, 1, 1, 1},
+			Doctorinfo{"Payut", "Jundara", "0899654444", "BEN20UT100", 1, 1, 1, 1},
 		},
 	}
 	for _, doc := range Doctorinfos.Doctorinfo {
@@ -822,8 +824,10 @@ func main() {
 	//Set Doctor data
 	Doctors := Doctors{
 		Doctor: []Doctor{
-			Doctor{1, 1},
-			Doctor{2, 5},
+			Doctor{1, 4},			
+			Doctor{2, 1},
+			Doctor{3, 3},
+			Doctor{4, 5},
 		},
 	}
 	for _, d := range Doctors.Doctor {
