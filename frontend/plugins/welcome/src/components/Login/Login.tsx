@@ -92,13 +92,8 @@ const Login: FC<{}> = () => {
       setCookie('Fin', item.edges?.financier?.id , { path: '/' })
       setCookie('Med', item.edges?.medicalrecordstaff?.id , { path: '/' })
       setCookie('Nur', item.edges?.nurse?.id , { path: '/' })
-<<<<<<< HEAD
-      setCookie('Doc', item.edges?.doctor?.id ,{ path: '/' })
-      setCookie('Reg', item.edges?.user2registrar?.id , { path: '/' })
-      window.location.reload(false)                
-=======
-      //setCookie('Doc', item.edges?.doctor?.id , { path: '/' })
-      //setCookie('Reg', item.edges?.user2registrar?.id, { path: '/' })
+      setCookie('Doc', item.edges?.doctor?.id , { path: '/' })
+      setCookie('Reg', item.edges?.user2registrar?.id, { path: '/' })
       window.location.reload(false)             
     }
     if(item.email != Name && item.password != Password){
@@ -107,7 +102,6 @@ const Login: FC<{}> = () => {
       setTimeout(() => {
         setStatus(false);
       }, 1000);     
->>>>>>> 85dc1714f50608b38a48ca4e0bedbf97470654a2
     }
   });
   }
