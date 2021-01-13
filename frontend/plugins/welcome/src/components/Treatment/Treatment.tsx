@@ -106,7 +106,7 @@ export default function ComponentsTable() {
                 <Content>
                     <Grid container spacing={3} >
                         <Grid container item xs={12} sm={12}  >
-                        <Grid item xs={3}>
+                            <Grid item xs={3}>
                                 <Paper >
                                     <Typography align="center">
                                         <Typography align="center" variant="subtitle1">
@@ -116,9 +116,17 @@ export default function ComponentsTable() {
                                         </Typography>
                                     </Typography>
                                     <br />
+                                    <Typography align="center">
+                                        <Link component={RouterLink} to="/">
+                                            <Button variant="contained" color="primary" style={{ backgroundColor: "#21b6ae" }}>
+                                                กลับสู่หน้าหลัก
+            </Button>
+                                        </Link>
+                                    </Typography>
+                                    <br />
                                 </Paper>
                             </Grid>
-                            
+
                             <Grid item xs={9}>
                                 <Paper>
                                     <TableContainer component={Paper}>
@@ -150,7 +158,7 @@ export default function ComponentsTable() {
                                                             <Button
                                                                 onClick={() => {
                                                                     setTreatment(item.treatment as string);
-                                                                    setTreatmentId(item.id as number);                                                                    
+                                                                    setTreatmentId(item.id as number);
                                                                 }}
                                                                 variant="outlined"
                                                                 color="primary"
