@@ -27,11 +27,11 @@ const Table: FC<{}> = () => {
           
          
          
-         <Link component={RouterLink} to="">
+         <Link component={RouterLink} to="/">
            <Button variant="contained" color="primary">
            Home
            </Button>
-         </Link>
+         </Link>&emsp;
          
          <Link component={RouterLink} to="/create_Patientrights">
            <Button variant="contained" color="primary">
