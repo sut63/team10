@@ -11,6 +11,8 @@ const (
 	FieldEmail = "email"
 	// FieldPassword holds the string denoting the password field in the database.
 	FieldPassword = "password"
+	// FieldImages holds the string denoting the images field in the database.
+	FieldImages = "images"
 
 	// EdgeFinancier holds the string denoting the financier edge name in mutations.
 	EdgeFinancier = "financier"
@@ -85,6 +87,7 @@ var Columns = []string{
 	FieldID,
 	FieldEmail,
 	FieldPassword,
+	FieldImages,
 }
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the User type.

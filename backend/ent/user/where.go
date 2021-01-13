@@ -105,6 +105,13 @@ func Password(v string) predicate.User {
 	})
 }
 
+// Images applies equality check predicate on the "images" field. It's identical to ImagesEQ.
+func Images(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldImages), v))
+	})
+}
+
 // EmailEQ applies the EQ predicate on the "email" field.
 func EmailEQ(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -324,6 +331,117 @@ func PasswordEqualFold(v string) predicate.User {
 func PasswordContainsFold(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldPassword), v))
+	})
+}
+
+// ImagesEQ applies the EQ predicate on the "images" field.
+func ImagesEQ(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldImages), v))
+	})
+}
+
+// ImagesNEQ applies the NEQ predicate on the "images" field.
+func ImagesNEQ(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldImages), v))
+	})
+}
+
+// ImagesIn applies the In predicate on the "images" field.
+func ImagesIn(vs ...string) predicate.User {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.User(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldImages), v...))
+	})
+}
+
+// ImagesNotIn applies the NotIn predicate on the "images" field.
+func ImagesNotIn(vs ...string) predicate.User {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.User(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldImages), v...))
+	})
+}
+
+// ImagesGT applies the GT predicate on the "images" field.
+func ImagesGT(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldImages), v))
+	})
+}
+
+// ImagesGTE applies the GTE predicate on the "images" field.
+func ImagesGTE(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldImages), v))
+	})
+}
+
+// ImagesLT applies the LT predicate on the "images" field.
+func ImagesLT(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldImages), v))
+	})
+}
+
+// ImagesLTE applies the LTE predicate on the "images" field.
+func ImagesLTE(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldImages), v))
+	})
+}
+
+// ImagesContains applies the Contains predicate on the "images" field.
+func ImagesContains(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldImages), v))
+	})
+}
+
+// ImagesHasPrefix applies the HasPrefix predicate on the "images" field.
+func ImagesHasPrefix(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldImages), v))
+	})
+}
+
+// ImagesHasSuffix applies the HasSuffix predicate on the "images" field.
+func ImagesHasSuffix(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldImages), v))
+	})
+}
+
+// ImagesEqualFold applies the EqualFold predicate on the "images" field.
+func ImagesEqualFold(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldImages), v))
+	})
+}
+
+// ImagesContainsFold applies the ContainsFold predicate on the "images" field.
+func ImagesContainsFold(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldImages), v))
 	})
 }
 

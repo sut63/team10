@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"io/ioutil"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -55,9 +56,10 @@ type Users struct {
 
 // Users defines the struct for the Users
 type User struct {
-	Userstatus int
-	Email      string
-	Password   string
+	Userstatus 	int
+	Email      	string
+	Password   	string
+	Images		string
 }
 
 //^^^*******************************************************************^^^
@@ -434,17 +436,17 @@ func main() {
 	// Set User Data
 	User := Users{
 		User: []User{
-			User{1, "omaha_yad", "1234"},
-			User{2, "B1", "1234"},
-			User{3, "B2", "1234"},
-			User{3, "B3", "1234"},
-			User{4, "B4", "1234"},
-			User{5, "B5", "1234"},
-			User{6, "B6", "1234"},
-			User{2, "nara_haru", "1234"},
-			User{3, "morani_rode", "1234"},
-			User{3, "faratell_yova", "1234"},
-			User{3, "pulla_visan", "1234"},
+			User{1, "B0", "1234","Images/images1.txt"},
+			User{2, "B1", "1234","Images/images2.txt"},
+			User{3, "B2", "1234","Images/images3.txt"},
+			User{3, "B3", "1234","Images/images4.txt"},
+			User{4, "B4", "1234","Images/images5.txt"},
+			User{5, "B5", "1234","Images/images6.txt"},
+			User{6, "B6", "1234","Images/images7.txt"},
+			User{2, "nara_haru", "1234","Images/images8.txt"},
+			User{3, "morani_rode", "1234","Images/images9.txt"},
+			User{3, "faratell_yova", "1234","Images/images10.txt"},
+			User{3, "pulla_visan", "1234","Images/images11.txt"},
 		},
 	}
 
@@ -457,11 +459,20 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
+
+		img, err := ioutil.ReadFile(r.Images)
+
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+
+
 		client.User.
 			Create().
 			SetUserstatus(us).
 			SetEmail(r.Email + "@gmail.com").
 			SetPassword(r.Password).
+			SetImages(string(img)).
 			Save(context.Background())
 	}
 	//##############################################################################################

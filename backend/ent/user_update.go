@@ -46,6 +46,12 @@ func (uu *UserUpdate) SetPassword(s string) *UserUpdate {
 	return uu
 }
 
+// SetImages sets the images field.
+func (uu *UserUpdate) SetImages(s string) *UserUpdate {
+	uu.mutation.SetImages(s)
+	return uu
+}
+
 // SetFinancierID sets the financier edge to Financier by id.
 func (uu *UserUpdate) SetFinancierID(id int) *UserUpdate {
 	uu.mutation.SetFinancierID(id)
@@ -318,6 +324,13 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: user.FieldPassword,
+		})
+	}
+	if value, ok := uu.mutation.Images(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldImages,
 		})
 	}
 	if uu.mutation.FinancierCleared() {
@@ -595,6 +608,12 @@ func (uuo *UserUpdateOne) SetPassword(s string) *UserUpdateOne {
 	return uuo
 }
 
+// SetImages sets the images field.
+func (uuo *UserUpdateOne) SetImages(s string) *UserUpdateOne {
+	uuo.mutation.SetImages(s)
+	return uuo
+}
+
 // SetFinancierID sets the financier edge to Financier by id.
 func (uuo *UserUpdateOne) SetFinancierID(id int) *UserUpdateOne {
 	uuo.mutation.SetFinancierID(id)
@@ -865,6 +884,13 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (u *User, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: user.FieldPassword,
+		})
+	}
+	if value, ok := uuo.mutation.Images(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldImages,
 		})
 	}
 	if uuo.mutation.FinancierCleared() {

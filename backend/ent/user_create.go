@@ -38,6 +38,12 @@ func (uc *UserCreate) SetPassword(s string) *UserCreate {
 	return uc
 }
 
+// SetImages sets the images field.
+func (uc *UserCreate) SetImages(s string) *UserCreate {
+	uc.mutation.SetImages(s)
+	return uc
+}
+
 // SetFinancierID sets the financier edge to Financier by id.
 func (uc *UserCreate) SetFinancierID(id int) *UserCreate {
 	uc.mutation.SetFinancierID(id)
@@ -194,6 +200,9 @@ func (uc *UserCreate) Save(ctx context.Context) (*User, error) {
 			return nil, &ValidationError{Name: "password", err: fmt.Errorf("ent: validator failed for field \"password\": %w", err)}
 		}
 	}
+	if _, ok := uc.mutation.Images(); !ok {
+		return nil, &ValidationError{Name: "images", err: errors.New("ent: missing required field \"images\"")}
+	}
 	var (
 		err  error
 		node *User
@@ -269,6 +278,14 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Column: user.FieldPassword,
 		})
 		u.Password = value
+	}
+	if value, ok := uc.mutation.Images(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldImages,
+		})
+		u.Images = value
 	}
 	if nodes := uc.mutation.FinancierIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{

@@ -30,6 +30,12 @@ export interface ControllersUser {
      * @type {string}
      * @memberof ControllersUser
      */
+    images?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersUser
+     */
     password?: string;
     /**
      * 
@@ -50,6 +56,7 @@ export function ControllersUserFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'email': !exists(json, 'email') ? undefined : json['email'],
+        'images': !exists(json, 'images') ? undefined : json['images'],
         'password': !exists(json, 'password') ? undefined : json['password'],
         'userstatus': !exists(json, 'userstatus') ? undefined : json['userstatus'],
     };
@@ -65,6 +72,7 @@ export function ControllersUserToJSON(value?: ControllersUser | null): any {
     return {
         
         'email': value.email,
+        'images': value.images,
         'password': value.password,
         'userstatus': value.userstatus,
     };

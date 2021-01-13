@@ -561,6 +561,7 @@ var (
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "email", Type: field.TypeString, Unique: true},
 		{Name: "password", Type: field.TypeString},
+		{Name: "images", Type: field.TypeString},
 		{Name: "user_id", Type: field.TypeInt, Nullable: true},
 		{Name: "userstatus_id", Type: field.TypeInt, Nullable: true},
 	}
@@ -572,14 +573,14 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:  "users_patientrights_UserPatientrights",
-				Columns: []*schema.Column{UsersColumns[3]},
+				Columns: []*schema.Column{UsersColumns[4]},
 
 				RefColumns: []*schema.Column{PatientrightsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "users_userstatuses_user",
-				Columns: []*schema.Column{UsersColumns[4]},
+				Columns: []*schema.Column{UsersColumns[5]},
 
 				RefColumns: []*schema.Column{UserstatusesColumns[0]},
 				OnDelete:   schema.SetNull,
