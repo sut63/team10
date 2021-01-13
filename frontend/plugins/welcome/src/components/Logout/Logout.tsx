@@ -58,6 +58,7 @@ const Logout: FC<{}> = () => {
 
 
   const Logout = async () => {
+    removeCookie('Img', { path: '/' })
 
     removeCookie('Name', { path: '/' })
     removeCookie('ID', { path: '/' })

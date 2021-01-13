@@ -23,12 +23,14 @@ import { EntPaytype } from '../../api/models/EntPaytype';
 import { EntUnpaybill } from '../../api/models/EntUnpaybill';
 import { EntFinancier } from '../../api/models/EntFinancier';
 import { EntTreatment } from '../../api';
-
+import { EntUser } from '../../api/models/EntUser';
 import { Cookies } from 'react-cookie/cjs';//cookie
 
   const cookies = new Cookies();
   const FINID = cookies.get('Fin'); 
   const Name = cookies.get('Name');
+  const Img = cookies.get('Img');
+
 
   
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-import { Image1Base64Function } from '../../image/Image1';
+
 
 // header css
 const HeaderCustom = {
@@ -84,6 +86,9 @@ const CreateBill: FC<{}> = () => {
   const [patientname, setPatient] = React.useState(String);
   const [treatmentid, setTreatmentID] = React.useState(Number);
 
+
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
   useEffect(() => {
 
     const getPaytype = async () => {
@@ -106,10 +111,19 @@ const CreateBill: FC<{}> = () => {
       setLoading(false);
       setTreatment(res);
     };
+
+    const getImg = async () => {
+      const res = await http.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+    };
+
+
     getFinancier();
     getUnpaybill();
     getPaytype();
     getTreatment();
+    getImg();
   }, [loading]);
 
   const refreshPage = () => {
@@ -163,7 +177,7 @@ const CreateBill: FC<{}> = () => {
       <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`Financial System`}>
 
-        <Avatar alt="Remy Sharp" src={Image1Base64Function} />
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
         <Content>
