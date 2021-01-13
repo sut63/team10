@@ -24,9 +24,6 @@ const Table: FC<{}> = () => {
            <Content>
        <ContentHeader title="ลงทะเบียนสิทธิ์">
          
-          
-         
-         
          <Link component={RouterLink} to="/">
            <Button variant="contained" color="primary">
            Home
