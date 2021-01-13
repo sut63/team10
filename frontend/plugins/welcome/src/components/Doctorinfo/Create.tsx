@@ -168,6 +168,11 @@ const handleChange = (
 
   const Create_Doctorinfo = async () => {
    
+    if ((Doctorinfo.department != null) && (Doctorinfo.doctorname != '')
+      && (Doctorinfo.doctorsurname != '') && (Doctorinfo.educationlevel != null)
+      && (Doctorinfo.licensenumber != '')&& (Doctorinfo.officeroom != null)
+      && (Doctorinfo.prename != null)&& (Doctorinfo.telephonenumber != '')) {
+
     const res: any = await api.createDoctorinfo({ 
       doctorinfo:Doctorinfo
     
@@ -175,16 +180,24 @@ const handleChange = (
     });
     console.log(Doctorinfo);
     
-    setStatus(true);
     if (res.id != '') {
+      setStatus(true);
       setAlert(true);
-    } else {
-      setAlert(false);
+      setTimeout(() => {
+        setStatus(false);
+      }, 5000);
+      }
+      
     }
-    setTimeout(() => {
-      setStatus(false);
-    }, 3000);
+    else {
+      setStatus(true);
+      setAlert(false);
+      setTimeout(() => {
+        setStatus(false);
+      }, 5000);
+    }
   };
+
   const profile = { givenName: '' };
   return (
     <Page theme={pageTheme.home}>
@@ -349,8 +362,8 @@ const handleChange = (
                             success!
                         </Alert>
                         ) : (
-                            <Alert severity="warning" style={{ marginTop: 40 }}>
-                            This is a warning alert — check it out!
+                            <Alert severity="error" style={{ marginTop: 40 }}>
+                            Failed to save!!! Please check again.
                             </Alert>
                         )}
                     </div>
