@@ -30,6 +30,7 @@ import { Cookies } from 'react-cookie/cjs';//cookie
   const FINID = cookies.get('Fin'); 
   const Name = cookies.get('Name');
 
+  
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
@@ -101,7 +102,7 @@ const CreateBill: FC<{}> = () => {
       setFinanciers(res);
     };
     const getTreatment = async () => {
-      const res = await http.listTreatment({ limit: 100, offset: 0 });
+      const res = await http.listTreatment({ offset: 0 });
       setLoading(false);
       setTreatment(res);
     };
@@ -184,7 +185,7 @@ const CreateBill: FC<{}> = () => {
                         </Alert>
                         ) : (
                         <Alert severity="warning" >
-                            มีข้อผิดพลาด โปรดกรอกข้อมูลอีกครั้ง
+                          <strong>มีข้อผิดพลาด  โปรดกรอกข้อมูลอีกครั้ง</strong>
                        </Alert>
                    )}
                 </div>
@@ -239,7 +240,7 @@ const CreateBill: FC<{}> = () => {
                   </Typography>
                   <br />
                 </Paper>
-{/* ************************** Table Show Unpaybil and Treatment Detial **************************  */}
+{/* ************************** Table Show Unpaybil and Treatment Detail **************************  */}
               </Grid>
               <Grid item xs={8}>
                 <Paper>
