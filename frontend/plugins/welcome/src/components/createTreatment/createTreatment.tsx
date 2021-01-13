@@ -257,7 +257,7 @@ const createTreatment: FC<{}> = () => {
                 </Typography>
                 <br />
                 <Typography align="center">
-                  <Link component={RouterLink} to="/">
+                  <Link component={RouterLink} to="/Treatment">
                     <Button variant="contained" color="primary" style={{ backgroundColor: "#21b6ae" }}>
                       ย้อนกลับ
             </Button>
