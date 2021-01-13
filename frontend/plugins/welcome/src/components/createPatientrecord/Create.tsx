@@ -242,6 +242,7 @@ export  default  function Create() {
             <TextField 
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
+            type="number"
             value={idcardnumber}
             onChange={IdcardnumberhandleChange}
             /> &emsp;
@@ -249,6 +250,7 @@ export  default  function Create() {
             <TextField 
             label="อายุ" 
             variant="outlined" 
+            type="number"
             value={age}
             onChange={AgehandleChange}
             /> &emsp;
@@ -319,21 +321,27 @@ export  default  function Create() {
                 variant="contained"
                 color="primary"
                 style={{backgroundColor: "#26c6da"}}
-                size="large"
                 startIcon={<SaveIcon />}
                 >
-                บันทึก
-              </Button> &emsp;
+                Submit
+              </Button>
               <Button
-                    color="primary" 
-                    style={{backgroundColor: "#26c6da"}} 
-                    size="large" 
+                    style={{ marginLeft: 40 }}
                     startIcon={<UndoIcon />}
+                    component={RouterLink}
+                    to="/"
+                    variant="contained"
+                >
+                  Back
+                </Button>
+                <Button
+                    style={{ marginLeft: 40 }}
                     component={RouterLink}
                     to="/Patientrecord"
                     variant="contained"
+                    color="secondary"
                 >
-                  ย้อนกลับ
+                    SHOW
                 </Button>
               </Typography>
             </Typography>

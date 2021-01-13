@@ -591,7 +591,11 @@ func main() {
 	medicalrecordstaffs := Medicalrecordstaffs{
 		Medicalrecordstaff: []Medicalrecordstaff{
 			Medicalrecordstaff{"Phonrawin Kudthalaeng", 3},
-			Medicalrecordstaff{"Shin Sura", 1},
+			Medicalrecordstaff{"Mihayo Shiho", 4},
+			Medicalrecordstaff{"Josa Watashi", 9},
+			Medicalrecordstaff{"Miyato Karame", 10},
+			Medicalrecordstaff{"Watashi Kai", 11},
+			Medicalrecordstaff{"Name Surname", 1},
 		},
 	}
 
@@ -824,7 +828,7 @@ func main() {
 	//Set Doctor data
 	Doctors := Doctors{
 		Doctor: []Doctor{
-			Doctor{1, 4},			
+			Doctor{1, 4},
 			Doctor{2, 1},
 			Doctor{3, 3},
 			Doctor{4, 5},
