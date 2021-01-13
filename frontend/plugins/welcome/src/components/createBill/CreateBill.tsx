@@ -1,6 +1,6 @@
 import React, { useEffect, FC } from 'react';
 
-import { Content, ContentHeader, Header, Page, pageTheme, } from '@backstage/core';
+import { Content, Header, Page, pageTheme, } from '@backstage/core';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Grid, MenuItem, Button, TextField, Select, Typography } from '@material-ui/core';
@@ -235,6 +235,14 @@ const CreateBill: FC<{}> = () => {
                             color="primary"
                           >
                              บันทึกใบเสร็จ
+                          </Button>
+                          &emsp;
+                          <Button
+                          variant = "contained"
+                          color ="inherit"
+                          href = "/billtable"
+                          >
+                            ประวัติการรับเงิน
                           </Button>
                         </Typography>
                   </Typography>
