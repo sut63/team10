@@ -45,6 +45,12 @@ export interface EntUser {
      */
     id?: number;
     /**
+     * Images holds the value of the "images" field.
+     * @type {string}
+     * @memberof EntUser
+     */
+    images?: string;
+    /**
      * Password holds the value of the "password" field.
      * @type {string}
      * @memberof EntUser
@@ -65,6 +71,7 @@ export function EntUserFromJSONTyped(json: any, ignoreDiscriminator: boolean): E
         'edges': !exists(json, 'edges') ? undefined : EntUserEdgesFromJSON(json['edges']),
         'email': !exists(json, 'email') ? undefined : json['email'],
         'id': !exists(json, 'id') ? undefined : json['id'],
+        'images': !exists(json, 'images') ? undefined : json['images'],
         'password': !exists(json, 'password') ? undefined : json['password'],
     };
 }
@@ -81,6 +88,7 @@ export function EntUserToJSON(value?: EntUser | null): any {
         'edges': EntUserEdgesToJSON(value.edges),
         'email': value.email,
         'id': value.id,
+        'images': value.images,
         'password': value.password,
     };
 }

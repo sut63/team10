@@ -15,7 +15,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Avatar from '@material-ui/core/Avatar';
 import {  Cookies  } from 'react-cookie/cjs';//cookie
 import { useCookies } from 'react-cookie/cjs';//cookie
-
+import { EntUser } from '../../api/models/EntUser';
+import { DefaultApi } from '../../api/apis';
 
 import { Image1Base64Function } from '../../image/Image1_home';
 import { Image2Base64Function } from '../../image/Image2';
@@ -23,6 +24,12 @@ import { Image3Base64Function } from '../../image/Image3';
 import { Image4Base64Function } from '../../image/Image4';
 import { Image5Base64Function } from '../../image/image5_home';
 import { Image6Base64Function } from '../../image/image6_home';
+
+const cookies = new Cookies();
+const Img = cookies.get('Img');
+const Name = cookies.get('Name');
+
+
 
 const HeaderCustom = {
   minHeight: '50px',
@@ -79,6 +86,21 @@ export function CardTeam({ name, id, system ,imgsut,linkto}: ProfileProps) {
 }
 
 const WelcomePage: FC<{}> = () => {
+  const http = new DefaultApi();
+
+const [loading, setLoading] = React.useState(true);
+  
+const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
+  useEffect(() => {
+    const getImg = async () => {
+      const res = await http.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+    };
+    getImg();
+  }, [loading]);
+  
   const [cookies, setCookie, removeCookie] = useCookies(['cookiename']);
 
   const Logout = async () => {
@@ -92,18 +114,8 @@ const WelcomePage: FC<{}> = () => {
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`ระบบผู้ป่วยนอก`}>
-      {/*
-      <Link href = "/">
-      <Button
-                onClick={() => {
-                  Logout();
-                }}
-                variant="contained"
-              >
-                 Logout
-             </Button>
-             </Link>
-             */}
+      <Avatar alt="Remy Sharp" src={Users?.images as string} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
         <ContentHeader title="สมาชิกในกลุ่ม"></ContentHeader>

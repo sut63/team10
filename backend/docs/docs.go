@@ -4887,6 +4887,9 @@ var doc = `{
                 "email": {
                     "type": "string"
                 },
+                "images": {
+                    "type": "string"
+                },
                 "password": {
                     "type": "string"
                 },
@@ -5863,6 +5866,10 @@ var doc = `{
                 "id": {
                     "description": "ID of the ent.",
                     "type": "integer"
+                },
+                "images": {
+                    "description": "Images holds the value of the \"images\" field.",
+                    "type": "string"
                 },
                 "password": {
                     "description": "Password holds the value of the \"password\" field.",

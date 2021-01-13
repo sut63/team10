@@ -20,6 +20,7 @@ type User struct {
 	Userstatus int
 	Email      string
 	Password   string
+	Images   string
 }
 
 // CreateUser handles POST requests for adding user entities
@@ -56,6 +57,7 @@ func (ctl *UserController) CreateUser(c *gin.Context) {
 		Create().
 		SetUserstatus(us).
 		SetEmail(obj.Email).
+		SetImages(obj.Images).
 		SetPassword(obj.Password).
 		Save(context.Background())
 

@@ -3,10 +3,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import ComponanceTable from '../tableHistorytaking';
 import Button from '@material-ui/core/Button';
 import { Typography, Grid, Avatar } from '@material-ui/core';
- 
+import { useEffect } from 'react';
 import { Cookies } from 'react-cookie/cjs';//cookie
 
-import { Image5Base64Function } from '../../image/Image5';
+import { DefaultApi } from '../../api/apis';
+import { EntUser } from '../../api/models/EntUser';
 
 import {
  Content,
@@ -24,14 +25,27 @@ const HeaderCustom = {
 
 const cookies = new Cookies();
 const Name = cookies.get('Name');
+const Img = cookies.get('Img');
 
-export default function HistorytakingTable() {
-const profile = { givenName: '' };
- 
+export default function ComponentsTable() {
+  const http = new DefaultApi();
+
+  const [loading, setLoading] = React.useState(true);
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
+  useEffect(() => {
+      const getImg = async () => {
+          const res = await http.getUser({ id: Number(Img) });
+          setLoading(false);
+          setUsers(res);
+      };
+      getImg();
+  }, [loading]);
+
  return (
    <Page theme={pageTheme.home}>
      <Header style={HeaderCustom} title={`HISTORYTAKING DEPARTMENT`}>
-        <Avatar alt="Remy Sharp" src={Image5Base64Function} />
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
      <Content>

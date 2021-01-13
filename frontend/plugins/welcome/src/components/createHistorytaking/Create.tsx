@@ -22,7 +22,7 @@ import { EntDepartment} from '../../api/models/EntDepartment';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { Grid, TextField, Avatar } from '@material-ui/core';
 import { Cookies } from 'react-cookie/cjs';//cookie
-import { Image5Base64Function } from '../../image/Image5';
+import { EntUser } from '../../api/models/EntUser';
 
 // header css
 const HeaderCustom = {
@@ -32,6 +32,7 @@ const HeaderCustom = {
 const cookies = new Cookies();
 const NURID = cookies.get('Nur');
 const Name = cookies.get('Name');
+const Img = cookies.get('Img');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -152,6 +153,7 @@ export default function CreateHistorytaking() {
   const [Historytaking, setHistorytaking] = React.useState<Partial<Historytaking_Type>>({});
 
   const [loading, setLoading] = useState(true);
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
   useEffect(() => {
 
@@ -184,6 +186,13 @@ export default function CreateHistorytaking() {
       setDepartments(res);
     };
     getDepartments();
+
+    const getImg = async () => {
+      const res = await api.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+    };
+    getImg();
 
     const getPatientrecords = async () => {
       const res = await api.listPatientrecord({ limit: 3, offset: 0 });
@@ -241,7 +250,7 @@ const handleChange = (
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`HISTORYTAKING DEPARTMENT`}>
-        <Avatar alt="Remy Sharp" src={Image5Base64Function} />
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>

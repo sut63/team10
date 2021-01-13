@@ -17,9 +17,9 @@ import TextField from '@material-ui/core/TextField';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
 import { EntGender } from '../../api/models/EntGender';
 import { EntPrename } from '../../api/models/EntPrename';
+import { EntUser } from '../../api/models/EntUser';
 
 import { Cookies } from 'react-cookie/cjs';//cookie
-import { Image2Base64Function } from '../../image/Image2';
 
 // header css
 const HeaderCustom = {
@@ -29,6 +29,7 @@ const HeaderCustom = {
 const cookies = new Cookies();
 const MEDID = cookies.get('Med'); 
 const Name = cookies.get('Name');
+const Img = cookies.get('Img');
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -79,6 +80,7 @@ export  default  function Create() {
   const [email, setemail] = React.useState(String);
   const [home, sethome] = React.useState(String);
   const [loading, setLoading] = React.useState(true);
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
   useEffect(() => {
     const getPrename = async () => {
@@ -99,6 +101,12 @@ export  default  function Create() {
         setMedicalrecordstaff(res);
     };
     getMedicalrecordstaff();
+    const getImg = async () => {
+      const res = await api.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+    };
+    getImg();
     }, [loading]);
     
     //handle
@@ -175,7 +183,7 @@ export  default  function Create() {
     return(
         <Page theme={pageTheme.home}>
           <Header style={HeaderCustom} title={`ลงทะเบียนผู้ป่วยนอก`}>
-            <Avatar alt="Remy Sharp" src={Image2Base64Function} />
+            <Avatar alt="Remy Sharp" src={Users?.images as string} />
             <div style={{ marginLeft: 10 }}>{Name}</div>
           </Header>
             <Content>
@@ -242,6 +250,7 @@ export  default  function Create() {
             <TextField 
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
+            type="number"
             value={idcardnumber}
             onChange={IdcardnumberhandleChange}
             /> &emsp;
@@ -249,6 +258,7 @@ export  default  function Create() {
             <TextField 
             label="อายุ" 
             variant="outlined" 
+            type="number"
             value={age}
             onChange={AgehandleChange}
             /> &emsp;
@@ -319,21 +329,27 @@ export  default  function Create() {
                 variant="contained"
                 color="primary"
                 style={{backgroundColor: "#26c6da"}}
-                size="large"
                 startIcon={<SaveIcon />}
                 >
-                บันทึก
-              </Button> &emsp;
+                Submit
+              </Button>
               <Button
-                    color="primary" 
-                    style={{backgroundColor: "#26c6da"}} 
-                    size="large" 
+                    style={{ marginLeft: 40 }}
                     startIcon={<UndoIcon />}
+                    component={RouterLink}
+                    to="/"
+                    variant="contained"
+                >
+                  Back
+                </Button>
+                <Button
+                    style={{ marginLeft: 40 }}
                     component={RouterLink}
                     to="/Patientrecord"
                     variant="contained"
+                    color="secondary"
                 >
-                  ย้อนกลับ
+                    SHOW
                 </Button>
               </Typography>
             </Typography>

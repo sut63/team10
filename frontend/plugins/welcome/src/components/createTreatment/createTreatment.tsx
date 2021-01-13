@@ -15,10 +15,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Avatar } from '@material-ui/core';
 import { Cookies } from 'react-cookie/cjs';//cookie
-import { Image4Base64Function } from '../../image/Image4';
 
 
 import { DefaultApi } from '../../api/apis';
+import { EntUser } from '../../api/models/EntUser';
 import { EntTypetreatment } from '../../api/models/EntTypetreatment';
 import { EntDoctor } from '../../api/models/EntDoctor';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
@@ -36,6 +36,7 @@ const HeaderCustom = {
 const cookies = new Cookies();
 const Name = cookies.get('Name');
 const Doc = cookies.get('Doc');
+const Img = cookies.get('Img');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,6 +78,7 @@ const createTreatment: FC<{}> = () => {
   const [doctorid, setdoctorId] = React.useState(Number);
   const [patientrecordid, setpatientrecordId] = React.useState(Number);
   const [typetreatmentid, settypetreatmentId] = React.useState(Number);
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
   useEffect(() => {
     const getDocdor = async () => {
@@ -99,10 +101,16 @@ const createTreatment: FC<{}> = () => {
       setLoading(false);
       setTreatments(res);
     };
+    const getImg = async () => {
+      const res = await http.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+    };
     getPatientrecord();
     getTypetreatment();
     getTreatment();
     getDocdor();
+    getImg();
   }, [loading]);
 
   const refreshPage = () => {
@@ -165,7 +173,7 @@ const createTreatment: FC<{}> = () => {
 
       <Page theme={pageTheme.home}>
         <Header style={HeaderCustom} title={`Treatment Department`}>
-          <Avatar alt="Remy Sharp" src={Image4Base64Function} />
+          <Avatar alt="Remy Sharp" src={Users?.images as string} />
           <div style={{ marginLeft: 10 }}>{Name}</div>
         </Header>
         <Content>
@@ -249,7 +257,7 @@ const createTreatment: FC<{}> = () => {
                 </Typography>
                 <br />
                 <Typography align="center">
-                  <Link component={RouterLink} to="/Treatment">
+                  <Link component={RouterLink} to="/">
                     <Button variant="contained" color="primary" style={{ backgroundColor: "#21b6ae" }}>
                       ย้อนกลับ
             </Button>

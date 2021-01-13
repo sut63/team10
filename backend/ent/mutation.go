@@ -12153,6 +12153,7 @@ type UserMutation struct {
 	id                        *int
 	email                     *string
 	password                  *string
+	images                    *string
 	clearedFields             map[string]struct{}
 	financier                 *int
 	clearedfinancier          bool
@@ -12323,6 +12324,43 @@ func (m *UserMutation) OldPassword(ctx context.Context) (v string, err error) {
 // ResetPassword reset all changes of the "password" field.
 func (m *UserMutation) ResetPassword() {
 	m.password = nil
+}
+
+// SetImages sets the images field.
+func (m *UserMutation) SetImages(s string) {
+	m.images = &s
+}
+
+// Images returns the images value in the mutation.
+func (m *UserMutation) Images() (r string, exists bool) {
+	v := m.images
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldImages returns the old images value of the User.
+// If the User object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *UserMutation) OldImages(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldImages is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldImages requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldImages: %w", err)
+	}
+	return oldValue.Images, nil
+}
+
+// ResetImages reset all changes of the "images" field.
+func (m *UserMutation) ResetImages() {
+	m.images = nil
 }
 
 // SetFinancierID sets the financier edge to Financier by id.
@@ -12612,12 +12650,15 @@ func (m *UserMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 2)
+	fields := make([]string, 0, 3)
 	if m.email != nil {
 		fields = append(fields, user.FieldEmail)
 	}
 	if m.password != nil {
 		fields = append(fields, user.FieldPassword)
+	}
+	if m.images != nil {
+		fields = append(fields, user.FieldImages)
 	}
 	return fields
 }
@@ -12631,6 +12672,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.Email()
 	case user.FieldPassword:
 		return m.Password()
+	case user.FieldImages:
+		return m.Images()
 	}
 	return nil, false
 }
@@ -12644,6 +12687,8 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldEmail(ctx)
 	case user.FieldPassword:
 		return m.OldPassword(ctx)
+	case user.FieldImages:
+		return m.OldImages(ctx)
 	}
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
@@ -12666,6 +12711,13 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPassword(v)
+		return nil
+	case user.FieldImages:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetImages(v)
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)
@@ -12722,6 +12774,9 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldPassword:
 		m.ResetPassword()
+		return nil
+	case user.FieldImages:
+		m.ResetImages()
 		return nil
 	}
 	return fmt.Errorf("unknown User field %s", name)

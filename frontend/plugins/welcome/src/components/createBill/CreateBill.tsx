@@ -1,6 +1,6 @@
 import React, { useEffect, FC } from 'react';
 
-import { Content, ContentHeader, Header, Page, pageTheme, } from '@backstage/core';
+import { Content, Header, Page, pageTheme, } from '@backstage/core';
 
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Grid, MenuItem, Button, TextField, Select, Typography } from '@material-ui/core';
@@ -23,12 +23,13 @@ import { EntPaytype } from '../../api/models/EntPaytype';
 import { EntUnpaybill } from '../../api/models/EntUnpaybill';
 import { EntFinancier } from '../../api/models/EntFinancier';
 import { EntTreatment } from '../../api';
-
+import { EntUser } from '../../api/models/EntUser';
 import { Cookies } from 'react-cookie/cjs';//cookie
 
   const cookies = new Cookies();
   const FINID = cookies.get('Fin'); 
   const Name = cookies.get('Name');
+  const Img = cookies.get('Img');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-import { Image1Base64Function } from '../../image/Image1';
+
 
 // header css
 const HeaderCustom = {
@@ -83,6 +84,8 @@ const CreateBill: FC<{}> = () => {
   const [patientname, setPatient] = React.useState(String);
   const [treatmentid, setTreatmentID] = React.useState(Number);
 
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
   useEffect(() => {
 
     const getPaytype = async () => {
@@ -101,14 +104,23 @@ const CreateBill: FC<{}> = () => {
       setFinanciers(res);
     };
     const getTreatment = async () => {
-      const res = await http.listTreatment({ limit: 100, offset: 0 });
+      const res = await http.listTreatment({ offset: 0 });
       setLoading(false);
       setTreatment(res);
     };
+
+    const getImg = async () => {
+      const res = await http.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+    };
+
+
     getFinancier();
     getUnpaybill();
     getPaytype();
     getTreatment();
+    getImg();
   }, [loading]);
 
   const refreshPage = () => {
@@ -162,7 +174,7 @@ const CreateBill: FC<{}> = () => {
       <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`Financial System`}>
 
-        <Avatar alt="Remy Sharp" src={Image1Base64Function} />
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
         <Content>
@@ -184,7 +196,7 @@ const CreateBill: FC<{}> = () => {
                         </Alert>
                         ) : (
                         <Alert severity="warning" >
-                            มีข้อผิดพลาด โปรดกรอกข้อมูลอีกครั้ง
+                          <strong>มีข้อผิดพลาด  โปรดกรอกข้อมูลอีกครั้ง</strong>
                        </Alert>
                    )}
                 </div>
@@ -235,11 +247,19 @@ const CreateBill: FC<{}> = () => {
                           >
                              บันทึกใบเสร็จ
                           </Button>
+                          &emsp;
+                          <Button
+                          variant = "contained"
+                          color ="inherit"
+                          href = "/billtable"
+                          >
+                            ประวัติการรับเงิน
+                          </Button>
                         </Typography>
                   </Typography>
                   <br />
                 </Paper>
-{/* ************************** Table Show Unpaybil and Treatment Detial **************************  */}
+{/* ************************** Table Show Unpaybil and Treatment Detail **************************  */}
               </Grid>
               <Grid item xs={8}>
                 <Paper>

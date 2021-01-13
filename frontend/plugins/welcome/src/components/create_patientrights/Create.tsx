@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import { Content, Header, Page, pageTheme, ContentHeader, } from '@backstage/core';
 
 import {
@@ -86,31 +87,29 @@ const NewPatientright: FC<{}> = () => {
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const [Insurance, setInsurance] = React.useState<EntInsurance[]>([]);
-  const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<EntMedicalrecordstaff[]>([]);
+  const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(true);
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
-  const UserId = cookies.get('ID');
   const med = cookies.get('Med');
+  const Img = cookies.get('Img');
 
 
-  const getChangeOfUser =  async () => {
+  const getChangeOfUser = async () => {
 
     const name = "medicalrecordstaff";
-    const value  = parseInt(med, 10);
+    const value = parseInt(med, 10);
     setPatientrights({ ...Patientrights, [name]: value });
   };
- 
+
 
 
   const getMedicalrecordstaffs = async () => {
-    
-    const res = await http.listMedicalrecordstaff({ limit: 10, offset: 0 });
+
+    const res = await http.getMedicalrecordstaff({ id: Number(med) });
     setMedicalrecordstaff(res);
   };
-
-
-
 
   const getPatientrightstype = async () => {
     const res = await http.listPatientrightstype({ limit: 10, offset: 0 });
@@ -127,8 +126,12 @@ const NewPatientright: FC<{}> = () => {
     setInsurance(res);
   };
 
+  const getImg = async () => {
+    const res = await http.getUser({ id: Number(Img) });
+    setUsers(res);
+  };
 
- 
+
 
   // Lifecycle Hooks
   useEffect(() => {
@@ -138,8 +141,7 @@ const NewPatientright: FC<{}> = () => {
     getPatientrecord();
     getInsurance();
     getChangeOfUser();
-
-
+    getImg();
   }, []);
 
   // set data to object Patientright
@@ -167,33 +169,33 @@ const NewPatientright: FC<{}> = () => {
 
       });
       console.log(Patientrights);
-      
 
-      
+
+
       if (res.id != '') {
         setStatus(true);
         setAlert(true);
         setTimeout(() => {
           setStatus(false);
         }, 2000);
-        }
-        
       }
-      else {
-        setStatus(true);
-        setAlert(false);
-        setTimeout(() => {
-          setStatus(false);
-        }, 2000);
-      }
-    };
+
+    }
+    else {
+      setStatus(true);
+      setAlert(false);
+      setTimeout(() => {
+        setStatus(false);
+      }, 2000);
+    }
+  };
 
 
 
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`ลงทะเบียนสิทธิ์`}>
-        <Avatar alt="Remy Sharp" src={Image3Base64Function} />
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
@@ -223,7 +225,7 @@ const NewPatientright: FC<{}> = () => {
 
 
             <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>Patientrecord</InputLabel>
+              <InputLabel>ผู้ป่วย</InputLabel>
               <Select
                 name="patientrecord"
                 value={Patientrights.patientrecord}
@@ -247,7 +249,7 @@ const NewPatientright: FC<{}> = () => {
           <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>Insurance</InputLabel>
+              <InputLabel>ประกัน</InputLabel>
               <Select
                 name="insurance"
                 value={Patientrights.insurance}
@@ -265,14 +267,14 @@ const NewPatientright: FC<{}> = () => {
 
 
 
-            </form>
+          </form>
         </div>
 
         <div className={classes.root}>
           <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>Patientrightstype</InputLabel>
+              <InputLabel>รูปแบบสิทธิ์</InputLabel>
               <Select
                 name="patientrightstype"
                 value={Patientrights.patientrightstype}
@@ -294,25 +296,21 @@ const NewPatientright: FC<{}> = () => {
 
 
 
-
-
-
-
-
-
-
-
-        <ContentHeader title="พนักงาน" />
-
-
-
-
-
         <div className={classes.root}>
           <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
-              {}
+
+              <TextField
+                disabled
+                id="outlined-disabled"
+                label="พนักงานเวชระเบียง"
+                defaultValue=" "
+                value={Medicalrecordstaff?.name as string}
+
+                variant="outlined"
+              />
+
             </FormControl>
 
 
@@ -349,22 +347,22 @@ const NewPatientright: FC<{}> = () => {
               >
                 Submit
              </Button>
-             <Button
-                    style={{ marginLeft: 40 }}
-                    component={RouterLink}
-                    to="/"
-                    variant="contained"
-                >
-                    Back
+              <Button
+                style={{ marginLeft: 40 }}
+                component={RouterLink}
+                to="/"
+                variant="contained"
+              >
+                Back
                 </Button>
-                <Button
-                    style={{ marginLeft: 40 }}
-                    component={RouterLink}
-                    to="/Table_patientrights"
-                    variant="contained"
-                    color="secondary"
-                >
-                    SHOW
+              <Button
+                style={{ marginLeft: 40 }}
+                component={RouterLink}
+                to="/Table_patientrights"
+                variant="contained"
+                color="secondary"
+              >
+                SHOW
                 </Button>
 
             </div>

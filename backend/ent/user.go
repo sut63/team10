@@ -26,6 +26,8 @@ type User struct {
 	Email string `json:"email,omitempty"`
 	// Password holds the value of the "password" field.
 	Password string `json:"password,omitempty"`
+	// Images holds the value of the "images" field.
+	Images string `json:"images,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the UserQuery when eager-loading is set.
 	Edges         UserEdges `json:"edges"`
@@ -158,6 +160,7 @@ func (*User) scanValues() []interface{} {
 		&sql.NullInt64{},  // id
 		&sql.NullString{}, // email
 		&sql.NullString{}, // password
+		&sql.NullString{}, // images
 	}
 }
 
@@ -191,7 +194,12 @@ func (u *User) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		u.Password = value.String
 	}
-	values = values[2:]
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field images", values[2])
+	} else if value.Valid {
+		u.Images = value.String
+	}
+	values = values[3:]
 	if len(values) == len(user.ForeignKeys) {
 		if value, ok := values[0].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field user_id", value)
@@ -271,6 +279,8 @@ func (u *User) String() string {
 	builder.WriteString(u.Email)
 	builder.WriteString(", password=")
 	builder.WriteString(u.Password)
+	builder.WriteString(", images=")
+	builder.WriteString(u.Images)
 	builder.WriteByte(')')
 	return builder.String()
 }
