@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import { Content, Header, Page, pageTheme, ContentHeader, } from '@backstage/core';
 
 import {
@@ -86,7 +87,7 @@ const NewPatientright: FC<{}> = () => {
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const [Insurance, setInsurance] = React.useState<EntInsurance[]>([]);
-  const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<EntMedicalrecordstaff[]>([]);
+  const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(true);
 
@@ -105,7 +106,7 @@ const NewPatientright: FC<{}> = () => {
 
   const getMedicalrecordstaffs = async () => {
     
-    const res = await http.listMedicalrecordstaff({ limit: 10, offset: 0 });
+    const res = await http.getMedicalrecordstaff({id: Number(med)});
     setMedicalrecordstaff(res);
   };
 
@@ -138,6 +139,7 @@ const NewPatientright: FC<{}> = () => {
     getPatientrecord();
     getInsurance();
     getChangeOfUser();
+    
 
 
   }, []);
@@ -223,7 +225,7 @@ const NewPatientright: FC<{}> = () => {
 
 
             <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>Patientrecord</InputLabel>
+              <InputLabel>ผู้ป่วย</InputLabel>
               <Select
                 name="patientrecord"
                 value={Patientrights.patientrecord}
@@ -247,7 +249,7 @@ const NewPatientright: FC<{}> = () => {
           <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>Insurance</InputLabel>
+              <InputLabel>ประกัน</InputLabel>
               <Select
                 name="insurance"
                 value={Patientrights.insurance}
@@ -272,7 +274,7 @@ const NewPatientright: FC<{}> = () => {
           <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>Patientrightstype</InputLabel>
+              <InputLabel>รูปแบบสิทธิ์</InputLabel>
               <Select
                 name="patientrightstype"
                 value={Patientrights.patientrightstype}
@@ -302,8 +304,7 @@ const NewPatientright: FC<{}> = () => {
 
 
 
-        <ContentHeader title="พนักงาน" />
-
+       
 
 
 
@@ -312,7 +313,17 @@ const NewPatientright: FC<{}> = () => {
           <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
-              {}
+            
+            <TextField
+          disabled
+          id="outlined-disabled"
+          label="พนักงานเวชระเบียง"
+          defaultValue=" "
+          value= {Medicalrecordstaff?.name as string}
+          
+          variant="outlined"
+        />
+           
             </FormControl>
 
 
