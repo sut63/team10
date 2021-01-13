@@ -15,10 +15,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Avatar } from '@material-ui/core';
 import { Cookies } from 'react-cookie/cjs';//cookie
-import { Image4Base64Function } from '../../image/Image4';
 
 
 import { DefaultApi } from '../../api/apis';
+import { EntUser } from '../../api/models/EntUser';
 import { EntTypetreatment } from '../../api/models/EntTypetreatment';
 import { EntDoctor } from '../../api/models/EntDoctor';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
@@ -31,6 +31,7 @@ const HeaderCustom = {
 
 const cookies = new Cookies();
 const Name = cookies.get('Name');
+const Img = cookies.get('Img');
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -68,6 +69,7 @@ export default function ComponentsTable() {
     const [treatments, setTreatments] = React.useState<EntTreatment[]>([]);
     const [treatmentid, setTreatmentId] = React.useState(Number);
     const [treatment, setTreatment] = React.useState(String);
+    const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
     useEffect(() => {
         const getDocdor = async () => {
@@ -90,17 +92,23 @@ export default function ComponentsTable() {
             setLoading(false);
             setTreatments(res);
         };
+        const getImg = async () => {
+            const res = await http.getUser({ id: Number(Img) });
+            setLoading(false);
+            setUsers(res);
+        };
         getPatientrecord();
         getTypetreatment();
         getTreatment();
         getDocdor();
+        getImg();
     }, [loading]);
     return (
         <div>
 
             <Page theme={pageTheme.home}>
                 <Header style={HeaderCustom} title={`Treatment Department`}>
-                    <Avatar alt="Remy Sharp" src={Image4Base64Function} />
+                    <Avatar alt="Remy Sharp" src={Users?.images as string} />
                     <div style={{ marginLeft: 10 }}>{Name}</div>
                 </Header>
                 <Content>

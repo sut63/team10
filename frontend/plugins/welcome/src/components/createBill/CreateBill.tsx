@@ -31,8 +31,6 @@ import { Cookies } from 'react-cookie/cjs';//cookie
   const Name = cookies.get('Name');
   const Img = cookies.get('Img');
 
-
-  
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
@@ -85,7 +83,6 @@ const CreateBill: FC<{}> = () => {
   const [unpayid, setunpayId] = React.useState(Number);
   const [patientname, setPatient] = React.useState(String);
   const [treatmentid, setTreatmentID] = React.useState(Number);
-
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
 

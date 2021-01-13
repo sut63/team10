@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-//import { Link as RouterLink } from 'react-router-dom';
 import {
   Content,
   Page,
-  //BootErrorPageProps,
   Header,
   pageTheme,
-  //ContentHeader,
 } from '@backstage/core';
 import { makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -14,7 +11,6 @@ import FormControl from '@material-ui/core/FormControl';
 import { Alert } from '@material-ui/lab';
 import { DefaultApi } from '../../api/apis';
 import { Cookies } from 'react-cookie/cjs';//cookie
-import { Image6Base64Function } from '../../image/Image6';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -24,6 +20,7 @@ import { EntPrename } from '../../api/models/EntPrename';
 import { EntEducationlevel } from '../../api/models/EntEducationlevel';
 import { EntDepartment} from '../../api/models/EntDepartment';
 import { EntOfficeroom } from '../../api/models/EntOfficeroom';
+import { EntUser } from '../../api/models/EntUser';
 import { Grid,TextField, Avatar } from '@material-ui/core';
 
 // header css
@@ -33,6 +30,7 @@ const HeaderCustom = {
 
 const cookies = new Cookies();
 const Name = cookies.get('Name');
+const Img = cookies.get('Img');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -116,12 +114,14 @@ export default function CreateDoctorinfo() {
   const [status, setStatus] = useState(false);
   const [alert, setAlert] = useState(true);
 
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
   const [prenames, setPrenames] = useState<EntPrename[]>([]);
   const [educationlevels, setEducationlevels] = useState<EntEducationlevel[]>([]);
   const [departments, setDepartments] = useState<EntDepartment[]>([]);
   const [officerooms, setOfficerooms] = useState<EntOfficeroom[]>([]);
 
-  const [Doctorinfo, setDoctorinfo] =            React.useState<Partial<Doctorinfo_Type>>({});
+  const [Doctorinfo, setDoctorinfo] = React.useState<Partial<Doctorinfo_Type>>({});
 
   const [loading, setLoading] = useState(true);
 
@@ -154,6 +154,13 @@ export default function CreateDoctorinfo() {
       setOfficerooms(res);
     };
     getOfficerooms();
+
+    const getImg = async () => {
+      const res = await api.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+  };
+  getImg();
 
   }, [loading]);
 
@@ -202,7 +209,7 @@ const handleChange = (
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`DOCTOR INFORMATION DEPARTMENT`}>
-        <Avatar alt="Remy Sharp" src={Image6Base64Function} />
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>

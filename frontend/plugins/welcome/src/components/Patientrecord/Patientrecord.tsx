@@ -4,6 +4,9 @@ import ComponanceTable from '../tablePatientrecord';
 import Button from '@material-ui/core/Button';
 import { Typography, Grid, Avatar } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import { DefaultApi } from '../../api/apis';
+import { EntUser } from '../../api/models/EntUser';
+import { useEffect } from 'react';
  
 import {
  Content,
@@ -15,7 +18,6 @@ import {
 } from '@backstage/core';
 
 import { Cookies } from 'react-cookie/cjs';//cookie
-import { Image2Base64Function } from '../../image/Image2';
 
 // header css
 const HeaderCustom = {
@@ -24,14 +26,28 @@ const HeaderCustom = {
 
 const cookies = new Cookies();
 const Name = cookies.get('Name');
+const Img = cookies.get('Img');
 
 export default function Tables() {
 const profile = { givenName: '' };
+const http = new DefaultApi();
+
+  const [loading, setLoading] = React.useState(true);
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
+  useEffect(() => {
+      const getImg = async () => {
+          const res = await http.getUser({ id: Number(Img) });
+          setLoading(false);
+          setUsers(res);
+      };
+      getImg();
+  }, [loading]);
  
  return (
    <Page theme={pageTheme.home}>
      <Header style={HeaderCustom} title={`Patientrecord`}>
-        <Avatar alt="Remy Sharp" src={Image2Base64Function} />
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
      <Content>

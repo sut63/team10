@@ -90,9 +90,10 @@ const NewPatientright: FC<{}> = () => {
   const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(true);
+  const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
-  const UserId = cookies.get('ID');
   const med = cookies.get('Med');
+  const Img = cookies.get('Img');
 
 
   const getChangeOfUser = async () => {
@@ -110,9 +111,6 @@ const NewPatientright: FC<{}> = () => {
     setMedicalrecordstaff(res);
   };
 
-
-
-
   const getPatientrightstype = async () => {
     const res = await http.listPatientrightstype({ limit: 10, offset: 0 });
     setPatientrightstype(res);
@@ -128,6 +126,10 @@ const NewPatientright: FC<{}> = () => {
     setInsurance(res);
   };
 
+  const getImg = async () => {
+    const res = await http.getUser({ id: Number(Img) });
+    setUsers(res);
+  };
 
 
 
@@ -139,9 +141,7 @@ const NewPatientright: FC<{}> = () => {
     getPatientrecord();
     getInsurance();
     getChangeOfUser();
-
-
-
+    getImg();
   }, []);
 
   // set data to object Patientright
@@ -195,7 +195,7 @@ const NewPatientright: FC<{}> = () => {
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`ลงทะเบียนสิทธิ์`}>
-        <Avatar alt="Remy Sharp" src={Image3Base64Function} />
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
