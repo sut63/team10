@@ -95,18 +95,18 @@ const NewPatientright: FC<{}> = () => {
   const med = cookies.get('Med');
 
 
-  const getChangeOfUser =  async () => {
+  const getChangeOfUser = async () => {
 
     const name = "medicalrecordstaff";
-    const value  = parseInt(med, 10);
+    const value = parseInt(med, 10);
     setPatientrights({ ...Patientrights, [name]: value });
   };
- 
+
 
 
   const getMedicalrecordstaffs = async () => {
-    
-    const res = await http.getMedicalrecordstaff({id: Number(med)});
+
+    const res = await http.getMedicalrecordstaff({ id: Number(med) });
     setMedicalrecordstaff(res);
   };
 
@@ -129,7 +129,7 @@ const NewPatientright: FC<{}> = () => {
   };
 
 
- 
+
 
   // Lifecycle Hooks
   useEffect(() => {
@@ -139,7 +139,7 @@ const NewPatientright: FC<{}> = () => {
     getPatientrecord();
     getInsurance();
     getChangeOfUser();
-    
+
 
 
   }, []);
@@ -169,26 +169,26 @@ const NewPatientright: FC<{}> = () => {
 
       });
       console.log(Patientrights);
-      
 
-      
+
+
       if (res.id != '') {
         setStatus(true);
         setAlert(true);
         setTimeout(() => {
           setStatus(false);
         }, 2000);
-        }
-        
       }
-      else {
-        setStatus(true);
-        setAlert(false);
-        setTimeout(() => {
-          setStatus(false);
-        }, 2000);
-      }
-    };
+
+    }
+    else {
+      setStatus(true);
+      setAlert(false);
+      setTimeout(() => {
+        setStatus(false);
+      }, 2000);
+    }
+  };
 
 
 
@@ -267,7 +267,7 @@ const NewPatientright: FC<{}> = () => {
 
 
 
-            </form>
+          </form>
         </div>
 
         <div className={classes.root}>
@@ -296,34 +296,21 @@ const NewPatientright: FC<{}> = () => {
 
 
 
-
-
-
-
-
-
-
-
-       
-
-
-
-
         <div className={classes.root}>
           <form noValidate autoComplete="off">
 
             <FormControl variant="outlined" className={classes.formControl}>
-            
-            <TextField
-          disabled
-          id="outlined-disabled"
-          label="พนักงานเวชระเบียง"
-          defaultValue=" "
-          value= {Medicalrecordstaff?.name as string}
-          
-          variant="outlined"
-        />
-           
+
+              <TextField
+                disabled
+                id="outlined-disabled"
+                label="พนักงานเวชระเบียง"
+                defaultValue=" "
+                value={Medicalrecordstaff?.name as string}
+
+                variant="outlined"
+              />
+
             </FormControl>
 
 
@@ -360,22 +347,22 @@ const NewPatientright: FC<{}> = () => {
               >
                 Submit
              </Button>
-             <Button
-                    style={{ marginLeft: 40 }}
-                    component={RouterLink}
-                    to="/"
-                    variant="contained"
-                >
-                    Back
+              <Button
+                style={{ marginLeft: 40 }}
+                component={RouterLink}
+                to="/"
+                variant="contained"
+              >
+                Back
                 </Button>
-                <Button
-                    style={{ marginLeft: 40 }}
-                    component={RouterLink}
-                    to="/Table_patientrights"
-                    variant="contained"
-                    color="secondary"
-                >
-                    SHOW
+              <Button
+                style={{ marginLeft: 40 }}
+                component={RouterLink}
+                to="/Table_patientrights"
+                variant="contained"
+                color="secondary"
+              >
+                SHOW
                 </Button>
 
             </div>
