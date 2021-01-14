@@ -132,7 +132,11 @@ const createTreatment: FC<{}> = () => {
   const handleDatetimeChange = (event: any) => {
     setDatetreat(event.target.value as string);
   };
+
   const createTreatment = async () => {
+  if ((treatmentes != '') && (datetreat != '')
+      && (typetreatmentid != null) && (patientrecordid != null)) {
+  
     const tm = {
       treatment: treatmentes,
       datetreat: datetreat,
@@ -142,18 +146,25 @@ const createTreatment: FC<{}> = () => {
     };
     console.log(tm);
     const res: any = await http.createTreatment({ treatment: tm });
-    setStatus(true);
+    
     if (res.id != '') {
+      setStatus(true);
       setAlert(true);
-      refreshPage();
-    } else {
-      setAlert(false);
-      refreshPage();
+      setTimeout(() => {
+        setStatus(false);
+      }, 5000);
     }
+
+  }
+  else {
+    setStatus(true);
+    setAlert(false);
     setTimeout(() => {
       setStatus(false);
-    }, 1000);
-  };
+    }, 5000);
+  }
+};
+
   return (
     <div>
       {status ? (
@@ -164,7 +175,7 @@ const createTreatment: FC<{}> = () => {
             </Alert>
           ) : (
               <Alert severity="warning" style={{ marginTop: 20 }}>
-                มีข้อผิดพลาด โปรดลองอีกครั้ง
+                บันทึกการรักษาไม่สำเร็จ
               </Alert>
             )}
         </div>
