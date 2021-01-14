@@ -139,7 +139,7 @@ const createTreatment: FC<{}> = () => {
   
     const tm = {
       treatment: treatmentes,
-      datetreat: datetreat,
+      
       typetreatment: typetreatmentid,
       doctor: Number(Doc),
       patientrecord: patientrecordid,
