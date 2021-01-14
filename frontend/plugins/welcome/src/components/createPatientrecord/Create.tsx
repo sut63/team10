@@ -168,7 +168,7 @@ export  default  function Create() {
           setAlert(true);
           setTimeout(() => {
             setStatus(false);
-          }, 1000);
+          }, 5000);
         }
        } 
        else {
@@ -176,7 +176,7 @@ export  default  function Create() {
         setAlert(false);
         setTimeout(() => {
           setStatus(false);
-        }, 1000);
+        }, 5000);
         }
       };
 
@@ -265,7 +265,6 @@ export  default  function Create() {
             
             <TextField 
             label="กรุ๊ปเลือด" 
-            name="bloodtype"
             variant="outlined" 
             value={bloodtype}
             onChange={BloodtypehandleChange}
@@ -273,7 +272,6 @@ export  default  function Create() {
             
             <div className={classes.paper}></div>
             <TextField 
-            name="disease"
             label="โรคประจำตัว" 
             variant="outlined" 
             style={{ width: "25ch"}}
@@ -283,7 +281,6 @@ export  default  function Create() {
             
             <TextField
             label="แพ้ยา"  
-            name="allergic"
             variant="outlined" 
             style={{ width: "25ch"}}
             value={allergic}
