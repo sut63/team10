@@ -196,7 +196,7 @@ export  default  function Create() {
                     บันทึกสำเร็จ !
                   </Alert>
                   ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
+                  <Alert severity="error" style={{ marginTop: 20 }}>
                     บันทึกไม่สำเร็จ โปรดกรอกข้อมูลอีกครั้ง
                   </Alert>
                 )}

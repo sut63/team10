@@ -963,15 +963,14 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
-		time := time.Now().Local()
-
+		times := time.Now().Local()
 		client.Treatment.
 			Create().
 			SetTreatment(t.Treatment).
 			SetTypetreatment(tt).
 			SetDoctor(d).
+			SetDatetreat(times).
 			SetPatientrecord(m).
-			SetDatetreat(time).
 			Save(context.Background())
 	}
 	//Set Unpaybill Data
@@ -996,7 +995,6 @@ func main() {
 			SetTreatment(t).
 			Save(context.Background())
 	}
-
 	//^^^*******************************************************************^^^
 
 	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
