@@ -133,44 +133,32 @@ const createTreatment: FC<{}> = () => {
     setDatetreat(event.target.value as string);
   };
   const createTreatment = async () => {
-    const tm = {
+    if((treatmentes != '')
+        &&(typetreatmentid != null)&&(patientrecordid != null)
+        &&(Number(Doc)!= null)){
+
+    const treatments = {
       treatment: treatmentes,
-      datetreat: datetreat,
       typetreatment: typetreatmentid,
       doctor: Number(Doc),
       patientrecord: patientrecordid,
     };
-    console.log(tm);
-    const res: any = await http.createTreatment({ treatment: tm });
+    console.log(treatments);
+    const res: any = await http.createTreatment({ treatment: treatments });
     setStatus(true);
     if (res.id != '') {
       setAlert(true);
-      refreshPage();
-    } else {
-      setAlert(false);
-      refreshPage();
+      }
     }
-    setTimeout(() => {
-      setStatus(false);
-    }, 1000);
+    else {
+      setStatus(true);
+      setAlert(false);
+      setTimeout(() => {
+        setStatus(false);
+      }, 5000);
+    }
   };
   return (
-    <div>
-      {status ? (
-        <div>
-          {alert ? (
-            <Alert severity="success">
-              บันทึกการรักษาสำเร็จ
-            </Alert>
-          ) : (
-              <Alert severity="warning" style={{ marginTop: 20 }}>
-                มีข้อผิดพลาด โปรดลองอีกครั้ง
-              </Alert>
-            )}
-        </div>
-      ) : null}
-
-
       <Page theme={pageTheme.home}>
         <Header style={HeaderCustom} title={`Treatment Department`}>
           <Avatar alt="Remy Sharp" src={Users?.images as string} />
@@ -241,6 +229,23 @@ const createTreatment: FC<{}> = () => {
 
 
                 <br />
+                <div>
+                <Typography align="center">
+                      {status ? (
+                  <div>
+                    {alert ? (
+                        <Alert severity="success">
+                            บันทึกการชำระสำเร็จ
+                        </Alert>
+                        ) : (
+                        <Alert severity="error" >
+                          <strong>มีข้อผิดพลาด  โปรดกรอกข้อมูลอีกครั้ง</strong>
+                       </Alert>
+                   )}
+                </div>
+                 ) : null}
+                 </Typography>
+
 
                 <Typography align="center">
                   <br />

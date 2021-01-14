@@ -168,7 +168,7 @@ export  default  function Create() {
           setAlert(true);
           setTimeout(() => {
             setStatus(false);
-          }, 1000);
+          }, 5000);
         }
        } 
        else {
@@ -176,7 +176,7 @@ export  default  function Create() {
         setAlert(false);
         setTimeout(() => {
           setStatus(false);
-        }, 1000);
+        }, 5000);
         }
       };
 
@@ -196,7 +196,7 @@ export  default  function Create() {
                     บันทึกสำเร็จ !
                   </Alert>
                   ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
+                  <Alert severity="error" style={{ marginTop: 20 }}>
                     บันทึกไม่สำเร็จ โปรดกรอกข้อมูลอีกครั้ง
                   </Alert>
                 )}
