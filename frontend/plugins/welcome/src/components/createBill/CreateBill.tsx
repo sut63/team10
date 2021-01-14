@@ -125,8 +125,7 @@ const CreateBill: FC<{}> = () => {
 
   const CreatePayment = async () => {
 
-    if((amounts != '')&&(paytypeid != null)&&(unpayid != null)){
-
+    if((amounts != '')&&(paytypeid != null)&&(unpayid != null)&&(unpayid != 0)){
     const b = {
       amount: amounts,
       financier: financiers?.id,
@@ -204,6 +203,7 @@ const CreateBill: FC<{}> = () => {
                         <Typography align="center" variant="subtitle1">
                           <br/>รูปแบบการชำระ<br /> 
                             <Select
+                            id = "select-paytype"
                             name="paytype"
                             value={paytypeid}
                             className={classes.formControl}
@@ -218,6 +218,7 @@ const CreateBill: FC<{}> = () => {
                             <br/>
                           <br/>ค่ารักษา<br />
                             <TextField
+                            id = "add-amount"
                             className={classes.formControl}
                             value={amounts}
                             size = "small"

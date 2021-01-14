@@ -20,6 +20,7 @@ import (
 	"github.com/team10/app/ent/patientrecord"
 	_ "github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/typetreatment"
+	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/user"
 	"github.com/team10/app/ent/userstatus"
 
@@ -216,6 +217,15 @@ type Financiers struct {
 type Financier struct {
 	name string
 	user int
+}
+// Unpaybills defines the struct for the Unpaybills
+type Unpaybills struct {
+	Unpaybill []Unpaybill
+}
+// Unpaybill defines the struct for the Unpaybill
+type Unpaybill struct {
+	status string
+	treatment int
 }
 
 //*******************************************************************
@@ -938,6 +948,7 @@ func main() {
 			fmt.Println(err.Error())
 			return
 		}
+		time := time.Now().Local()
 
 		client.Treatment.
 			Create().
@@ -945,8 +956,32 @@ func main() {
 			SetTypetreatment(tt).
 			SetDoctor(d).
 			SetPatientrecord(m).
+			SetDatetreat(time).
 			Save(context.Background())
 	}
+	//Set Unpaybill Data
+	unpaybills := Unpaybills{
+		Unpaybill: []Unpaybill{
+			Unpaybill{"Unapay", 1},
+			Unpaybill{"Unpay", 2},
+		},
+	}
+	for _, ub := range unpaybills.Unpaybill {
+		t, err := client.Treatment.
+			Query().
+			Where(treatment.IDEQ(ub.treatment)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		client.Unpaybill.
+			Create().
+			SetStatus(ub.status).
+			SetTreatment(t).
+			Save(context.Background())
+	}
+
 	//^^^*******************************************************************^^^
 
 	//^^^^^^^^^-------------------------------------------------------------------^^^^^^^^^
