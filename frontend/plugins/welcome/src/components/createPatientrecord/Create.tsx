@@ -196,7 +196,7 @@ export  default  function Create() {
                     บันทึกสำเร็จ !
                   </Alert>
                   ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
+                  <Alert severity="error" style={{ marginTop: 20 }}>
                     บันทึกไม่สำเร็จ โปรดกรอกข้อมูลอีกครั้ง
                   </Alert>
                 )}
@@ -207,6 +207,7 @@ export  default  function Create() {
               <InputLabel>คำนำหน้าชื่อ</InputLabel>
               <Select
                 name="prename"
+                id="prename"
                 label="คำนำหน้าชื่อ"
                 value={prenameid}
                 onChange={PrenamehandleChange}
@@ -222,8 +223,10 @@ export  default  function Create() {
               </FormControl> &emsp;
 
             <TextField 
+            name="name"
             label="ชื่อ-นามสกุล" 
             variant="outlined" 
+            type="string"
             value={name}
             onChange={NamehandleChange}
             /> &emsp;
@@ -232,6 +235,7 @@ export  default  function Create() {
                 <InputLabel>เพศ</InputLabel>
                   <Select
                     name="gender"
+                    id="gender"
                     label="เพศ"
                     value={genderid}
                     onChange={GenderhandleChange}
@@ -248,6 +252,7 @@ export  default  function Create() {
 
             <div className={classes.paper}></div>
             <TextField 
+            name="idcardnumber"
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
             type="number"
@@ -256,6 +261,7 @@ export  default  function Create() {
             /> &emsp;
 
             <TextField 
+            name="age"
             label="อายุ" 
             variant="outlined" 
             type="number"
@@ -264,24 +270,30 @@ export  default  function Create() {
             /> &emsp;
             
             <TextField 
+            name="bloodtype"
             label="กรุ๊ปเลือด" 
             variant="outlined" 
+            type="string"
             value={bloodtype}
             onChange={BloodtypehandleChange}
             /> 
             
             <div className={classes.paper}></div>
             <TextField 
+            name="disease"
             label="โรคประจำตัว" 
             variant="outlined" 
+            type="string"
             style={{ width: "25ch"}}
             value={disease}
             onChange={DiseasehandleChange}
             /> &emsp;
             
             <TextField
+            name="allergic"
             label="แพ้ยา"  
             variant="outlined" 
+            type="string"
             style={{ width: "25ch"}}
             value={allergic}
             onChange={AllergichandleChange}
@@ -289,16 +301,20 @@ export  default  function Create() {
             
             <div className={classes.paper}></div>
             <TextField 
+            name="phonenumber"
             label="เบอร์โทรที่ติดต่อได้" 
             variant="outlined"
+            type="string"
             style={{ width: "25ch"}} 
             value={phonenumber}
             onChange={PhonenumberhandleChange}
             /> &emsp;
             
             <TextField 
+            name="email"
             label="อีเมล์" 
             variant="outlined"
+            type="string"
             style={{ width: "25ch"}} 
             value={email}
             onChange={EmailhandleChange}
@@ -306,9 +322,11 @@ export  default  function Create() {
 
             <div className={classes.paper}></div>
             <TextField
+            name="home"
             label="ที่อยู่"
             multiline
             variant="outlined"
+            type="string"
             style={{ width: "67ch"}}
             rows={3}
             value={home}

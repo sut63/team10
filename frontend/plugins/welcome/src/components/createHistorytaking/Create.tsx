@@ -228,8 +228,6 @@ const handleChange = (
 
     const res: any = await api.createHistorytaking({ 
       historytaking:Historytaking
-    
-    
     });
     console.log(Historytaking);
     
@@ -391,7 +389,7 @@ const handleChange = (
                 </Typography>
 
                 <Typography variant="h6" gutterBottom  align="center">
-                    Nurses : {nurses?.name}
+                    Nurse : {nurses?.name}
                 <Typography variant="body1" gutterBottom> 
                 
                 </Typography>

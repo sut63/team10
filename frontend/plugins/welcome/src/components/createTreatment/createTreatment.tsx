@@ -134,7 +134,7 @@ const createTreatment: FC<{}> = () => {
   };
 
   const createTreatment = async () => {
-  if ((treatmentes != '') 
+  if ((treatmentes != '') && (datetreat != '')
       && (typetreatmentid != null) && (patientrecordid != null)) {
   
     const tm = {
