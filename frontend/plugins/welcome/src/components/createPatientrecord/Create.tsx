@@ -197,7 +197,7 @@ export  default  function Create() {
                   </Alert>
                   ) : (
                   <Alert severity="warning" style={{ marginTop: 20 }}>
-                    This is a warning alert — check it out!
+                    บันทึกไม่สำเร็จ โปรดกรอกข้อมูลอีกครั้ง
                   </Alert>
                 )}
                 </div>
