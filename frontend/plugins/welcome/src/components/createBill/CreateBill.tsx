@@ -155,8 +155,8 @@ const CreateBill: FC<{}> = () => {
       await http.updateUnpaybill({ id: unpayid, unpaybill: upb });
       setTimeout(() => {
         setStatus(false);
-      }, 3000);
-      refreshPage();
+        refreshPage();
+      }, 5000);
 
     }
   }
@@ -165,7 +165,7 @@ const CreateBill: FC<{}> = () => {
       setAlert(false);
       setTimeout(() => {
         setStatus(false);
-      }, 3000);
+      }, 5000);
   
     }
    
