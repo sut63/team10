@@ -321,8 +321,8 @@ export  default  function Create() {
             autoComplete="off"
             name="email"
             label="อีเมล์" 
-            variant="outlined"
             type="string"
+            variant="outlined"
             style={{ width: "25ch"}} 
             value={email}
             onChange={EmailhandleChange}
