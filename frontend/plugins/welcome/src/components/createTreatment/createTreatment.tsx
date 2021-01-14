@@ -147,6 +147,7 @@ const createTreatment: FC<{}> = () => {
     console.log(tm);
     const res: any = await http.createTreatment({ treatment: tm });
     
+    
     if (res.id != '') {
       setStatus(true);
       setAlert(true);
