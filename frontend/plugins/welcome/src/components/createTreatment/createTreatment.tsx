@@ -132,33 +132,82 @@ const createTreatment: FC<{}> = () => {
   const handleDatetimeChange = (event: any) => {
     setDatetreat(event.target.value as string);
   };
+
   const createTreatment = async () => {
+<<<<<<< HEAD
     if((treatmentes != '')
         &&(typetreatmentid != null)&&(patientrecordid != null)
         &&(Number(Doc)!= null)){
 
     const treatments = {
+=======
+  if ((treatmentes != '') && (datetreat != '')
+      && (typetreatmentid != null) && (patientrecordid != null)) {
+  
+    const tm = {
+>>>>>>> 83c9ae4547254a3aaca1df8577ebc6536e3f54b5
       treatment: treatmentes,
       typetreatment: typetreatmentid,
       doctor: Number(Doc),
       patientrecord: patientrecordid,
     };
+<<<<<<< HEAD
     console.log(treatments);
     const res: any = await http.createTreatment({ treatment: treatments });
     setStatus(true);
+=======
+    console.log(tm);
+    const res: any = await http.createTreatment({ treatment: tm });
+        
+>>>>>>> 83c9ae4547254a3aaca1df8577ebc6536e3f54b5
     if (res.id != '') {
+      setStatus(true);
       setAlert(true);
+<<<<<<< HEAD
       }
     }
     else {
       setStatus(true);
       setAlert(false);
+=======
+>>>>>>> 83c9ae4547254a3aaca1df8577ebc6536e3f54b5
       setTimeout(() => {
         setStatus(false);
       }, 5000);
     }
+<<<<<<< HEAD
   };
   return (
+=======
+
+  }
+  else {
+    setStatus(true);
+    setAlert(false);
+    setTimeout(() => {
+      setStatus(false);
+    }, 5000);
+  }
+};
+
+  return (
+    <div>
+      {status ? (
+        <div>
+          {alert ? (
+            <Alert severity="success">
+              บันทึกการรักษาสำเร็จ
+            </Alert>
+          ) : (
+              <Alert severity="warning" style={{ marginTop: 20 }}>
+                บันทึกการรักษาไม่สำเร็จ
+              </Alert>
+            )}
+        </div>
+      ) : null}
+
+
+>>>>>>> 83c9ae4547254a3aaca1df8577ebc6536e3f54b5
       <Page theme={pageTheme.home}>
         <Header style={HeaderCustom} title={`Treatment Department`}>
           <Avatar alt="Remy Sharp" src={Users?.images as string} />
