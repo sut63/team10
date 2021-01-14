@@ -223,6 +223,7 @@ export  default  function Create() {
               </FormControl> &emsp;
 
             <TextField 
+            autoComplete="off"
             name="name"
             label="ชื่อ-นามสกุล" 
             variant="outlined" 
@@ -252,6 +253,7 @@ export  default  function Create() {
 
             <div className={classes.paper}></div>
             <TextField 
+            autoComplete="off"
             name="idcardnumber"
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
@@ -261,6 +263,7 @@ export  default  function Create() {
             /> &emsp;
 
             <TextField 
+            autoComplete="off"
             name="age"
             label="อายุ" 
             variant="outlined" 
@@ -270,6 +273,7 @@ export  default  function Create() {
             /> &emsp;
             
             <TextField 
+            autoComplete="off"
             name="bloodtype"
             label="กรุ๊ปเลือด" 
             variant="outlined" 
@@ -280,6 +284,7 @@ export  default  function Create() {
             
             <div className={classes.paper}></div>
             <TextField 
+            autoComplete="off"
             name="disease"
             label="โรคประจำตัว" 
             variant="outlined" 
@@ -290,6 +295,7 @@ export  default  function Create() {
             /> &emsp;
             
             <TextField
+            autoComplete="off"
             name="allergic"
             label="แพ้ยา"  
             variant="outlined" 
@@ -300,7 +306,8 @@ export  default  function Create() {
             /> 
             
             <div className={classes.paper}></div>
-            <TextField 
+            <TextField
+            autoComplete="off" 
             name="phonenumber"
             label="เบอร์โทรที่ติดต่อได้" 
             variant="outlined"
@@ -311,6 +318,7 @@ export  default  function Create() {
             /> &emsp;
             
             <TextField 
+            autoComplete="off"
             name="email"
             label="อีเมล์" 
             variant="outlined"
@@ -322,6 +330,7 @@ export  default  function Create() {
 
             <div className={classes.paper}></div>
             <TextField
+            autoComplete="off"
             name="home"
             label="ที่อยู่"
             multiline
