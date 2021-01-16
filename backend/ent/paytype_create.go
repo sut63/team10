@@ -26,19 +26,19 @@ func (pc *PaytypeCreate) SetPaytype(s string) *PaytypeCreate {
 	return pc
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (pc *PaytypeCreate) AddBillIDs(ids ...int) *PaytypeCreate {
-	pc.mutation.AddBillIDs(ids...)
+// AddEdgesOfBillIDs adds the EdgesOfBills edge to Bill by ids.
+func (pc *PaytypeCreate) AddEdgesOfBillIDs(ids ...int) *PaytypeCreate {
+	pc.mutation.AddEdgesOfBillIDs(ids...)
 	return pc
 }
 
-// AddBills adds the bills edges to Bill.
-func (pc *PaytypeCreate) AddBills(b ...*Bill) *PaytypeCreate {
+// AddEdgesOfBills adds the EdgesOfBills edges to Bill.
+func (pc *PaytypeCreate) AddEdgesOfBills(b ...*Bill) *PaytypeCreate {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return pc.AddBillIDs(ids...)
+	return pc.AddEdgesOfBillIDs(ids...)
 }
 
 // Mutation returns the PaytypeMutation object of the builder.
@@ -124,12 +124,12 @@ func (pc *PaytypeCreate) createSpec() (*Paytype, *sqlgraph.CreateSpec) {
 		})
 		pa.Paytype = value
 	}
-	if nodes := pc.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   paytype.BillsTable,
-			Columns: []string{paytype.BillsColumn},
+			Table:   paytype.EdgesOfBillsTable,
+			Columns: []string{paytype.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -12,45 +12,45 @@ const (
 	// FieldDatetreat holds the string denoting the datetreat field in the database.
 	FieldDatetreat = "datetreat"
 
-	// EdgeTypetreatment holds the string denoting the typetreatment edge name in mutations.
-	EdgeTypetreatment = "typetreatment"
-	// EdgePatientrecord holds the string denoting the patientrecord edge name in mutations.
-	EdgePatientrecord = "patientrecord"
-	// EdgeDoctor holds the string denoting the doctor edge name in mutations.
-	EdgeDoctor = "doctor"
-	// EdgeUnpaybills holds the string denoting the unpaybills edge name in mutations.
-	EdgeUnpaybills = "unpaybills"
+	// EdgeEdgesOfTypetreatment holds the string denoting the edgesoftypetreatment edge name in mutations.
+	EdgeEdgesOfTypetreatment = "EdgesOfTypetreatment"
+	// EdgeEdgesOfPatientrecord holds the string denoting the edgesofpatientrecord edge name in mutations.
+	EdgeEdgesOfPatientrecord = "EdgesOfPatientrecord"
+	// EdgeEdgesOfDoctor holds the string denoting the edgesofdoctor edge name in mutations.
+	EdgeEdgesOfDoctor = "EdgesOfDoctor"
+	// EdgeEdgesOfUnpaybills holds the string denoting the edgesofunpaybills edge name in mutations.
+	EdgeEdgesOfUnpaybills = "EdgesOfUnpaybills"
 
 	// Table holds the table name of the treatment in the database.
 	Table = "treatments"
-	// TypetreatmentTable is the table the holds the typetreatment relation/edge.
-	TypetreatmentTable = "treatments"
-	// TypetreatmentInverseTable is the table name for the Typetreatment entity.
+	// EdgesOfTypetreatmentTable is the table the holds the EdgesOfTypetreatment relation/edge.
+	EdgesOfTypetreatmentTable = "treatments"
+	// EdgesOfTypetreatmentInverseTable is the table name for the Typetreatment entity.
 	// It exists in this package in order to avoid circular dependency with the "typetreatment" package.
-	TypetreatmentInverseTable = "typetreatments"
-	// TypetreatmentColumn is the table column denoting the typetreatment relation/edge.
-	TypetreatmentColumn = "typetreatment_id"
-	// PatientrecordTable is the table the holds the patientrecord relation/edge.
-	PatientrecordTable = "treatments"
-	// PatientrecordInverseTable is the table name for the Patientrecord entity.
+	EdgesOfTypetreatmentInverseTable = "typetreatments"
+	// EdgesOfTypetreatmentColumn is the table column denoting the EdgesOfTypetreatment relation/edge.
+	EdgesOfTypetreatmentColumn = "typetreatment_id"
+	// EdgesOfPatientrecordTable is the table the holds the EdgesOfPatientrecord relation/edge.
+	EdgesOfPatientrecordTable = "treatments"
+	// EdgesOfPatientrecordInverseTable is the table name for the Patientrecord entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrecord" package.
-	PatientrecordInverseTable = "patientrecords"
-	// PatientrecordColumn is the table column denoting the patientrecord relation/edge.
-	PatientrecordColumn = "patientrecord_id"
-	// DoctorTable is the table the holds the doctor relation/edge.
-	DoctorTable = "treatments"
-	// DoctorInverseTable is the table name for the Doctor entity.
+	EdgesOfPatientrecordInverseTable = "patientrecords"
+	// EdgesOfPatientrecordColumn is the table column denoting the EdgesOfPatientrecord relation/edge.
+	EdgesOfPatientrecordColumn = "patientrecord_id"
+	// EdgesOfDoctorTable is the table the holds the EdgesOfDoctor relation/edge.
+	EdgesOfDoctorTable = "treatments"
+	// EdgesOfDoctorInverseTable is the table name for the Doctor entity.
 	// It exists in this package in order to avoid circular dependency with the "doctor" package.
-	DoctorInverseTable = "doctors"
-	// DoctorColumn is the table column denoting the doctor relation/edge.
-	DoctorColumn = "doctor_id"
-	// UnpaybillsTable is the table the holds the unpaybills relation/edge.
-	UnpaybillsTable = "unpaybills"
-	// UnpaybillsInverseTable is the table name for the Unpaybill entity.
+	EdgesOfDoctorInverseTable = "doctors"
+	// EdgesOfDoctorColumn is the table column denoting the EdgesOfDoctor relation/edge.
+	EdgesOfDoctorColumn = "doctor_id"
+	// EdgesOfUnpaybillsTable is the table the holds the EdgesOfUnpaybills relation/edge.
+	EdgesOfUnpaybillsTable = "unpaybills"
+	// EdgesOfUnpaybillsInverseTable is the table name for the Unpaybill entity.
 	// It exists in this package in order to avoid circular dependency with the "unpaybill" package.
-	UnpaybillsInverseTable = "unpaybills"
-	// UnpaybillsColumn is the table column denoting the unpaybills relation/edge.
-	UnpaybillsColumn = "treatment_id"
+	EdgesOfUnpaybillsInverseTable = "unpaybills"
+	// EdgesOfUnpaybillsColumn is the table column denoting the EdgesOfUnpaybills relation/edge.
+	EdgesOfUnpaybillsColumn = "treatment_id"
 )
 
 // Columns holds all SQL columns for treatment fields.

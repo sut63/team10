@@ -24,20 +24,20 @@ type Userstatus struct {
 
 // UserstatusEdges holds the relations/edges for other nodes in the graph.
 type UserstatusEdges struct {
-	// User holds the value of the user edge.
-	User []*User
+	// EdgesOfUser holds the value of the EdgesOfUser edge.
+	EdgesOfUser []*User
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// UserOrErr returns the User value or an error if the edge
+// EdgesOfUserOrErr returns the EdgesOfUser value or an error if the edge
 // was not loaded in eager-loading.
-func (e UserstatusEdges) UserOrErr() ([]*User, error) {
+func (e UserstatusEdges) EdgesOfUserOrErr() ([]*User, error) {
 	if e.loadedTypes[0] {
-		return e.User, nil
+		return e.EdgesOfUser, nil
 	}
-	return nil, &NotLoadedError{edge: "user"}
+	return nil, &NotLoadedError{edge: "EdgesOfUser"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -68,9 +68,9 @@ func (u *Userstatus) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryUser queries the user edge of the Userstatus.
-func (u *Userstatus) QueryUser() *UserQuery {
-	return (&UserstatusClient{config: u.config}).QueryUser(u)
+// QueryEdgesOfUser queries the EdgesOfUser edge of the Userstatus.
+func (u *Userstatus) QueryEdgesOfUser() *UserQuery {
+	return (&UserstatusClient{config: u.config}).QueryEdgesOfUser(u)
 }
 
 // Update returns a builder for updating this Userstatus.

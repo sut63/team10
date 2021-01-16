@@ -49,73 +49,73 @@ type Historytaking struct {
 
 // HistorytakingEdges holds the relations/edges for other nodes in the graph.
 type HistorytakingEdges struct {
-	// Nurse holds the value of the nurse edge.
-	Nurse *Nurse
-	// Department holds the value of the department edge.
-	Department *Department
-	// Symptomseverity holds the value of the symptomseverity edge.
-	Symptomseverity *Symptomseverity
-	// Patientrecord holds the value of the patientrecord edge.
-	Patientrecord *Patientrecord
+	// EdgesOfNurse holds the value of the EdgesOfNurse edge.
+	EdgesOfNurse *Nurse
+	// EdgesOfDepartment holds the value of the EdgesOfDepartment edge.
+	EdgesOfDepartment *Department
+	// EdgesOfSymptomseverity holds the value of the EdgesOfSymptomseverity edge.
+	EdgesOfSymptomseverity *Symptomseverity
+	// EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.
+	EdgesOfPatientrecord *Patientrecord
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [4]bool
 }
 
-// NurseOrErr returns the Nurse value or an error if the edge
+// EdgesOfNurseOrErr returns the EdgesOfNurse value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e HistorytakingEdges) NurseOrErr() (*Nurse, error) {
+func (e HistorytakingEdges) EdgesOfNurseOrErr() (*Nurse, error) {
 	if e.loadedTypes[0] {
-		if e.Nurse == nil {
-			// The edge nurse was loaded in eager-loading,
+		if e.EdgesOfNurse == nil {
+			// The edge EdgesOfNurse was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: nurse.Label}
 		}
-		return e.Nurse, nil
+		return e.EdgesOfNurse, nil
 	}
-	return nil, &NotLoadedError{edge: "nurse"}
+	return nil, &NotLoadedError{edge: "EdgesOfNurse"}
 }
 
-// DepartmentOrErr returns the Department value or an error if the edge
+// EdgesOfDepartmentOrErr returns the EdgesOfDepartment value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e HistorytakingEdges) DepartmentOrErr() (*Department, error) {
+func (e HistorytakingEdges) EdgesOfDepartmentOrErr() (*Department, error) {
 	if e.loadedTypes[1] {
-		if e.Department == nil {
-			// The edge department was loaded in eager-loading,
+		if e.EdgesOfDepartment == nil {
+			// The edge EdgesOfDepartment was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: department.Label}
 		}
-		return e.Department, nil
+		return e.EdgesOfDepartment, nil
 	}
-	return nil, &NotLoadedError{edge: "department"}
+	return nil, &NotLoadedError{edge: "EdgesOfDepartment"}
 }
 
-// SymptomseverityOrErr returns the Symptomseverity value or an error if the edge
+// EdgesOfSymptomseverityOrErr returns the EdgesOfSymptomseverity value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e HistorytakingEdges) SymptomseverityOrErr() (*Symptomseverity, error) {
+func (e HistorytakingEdges) EdgesOfSymptomseverityOrErr() (*Symptomseverity, error) {
 	if e.loadedTypes[2] {
-		if e.Symptomseverity == nil {
-			// The edge symptomseverity was loaded in eager-loading,
+		if e.EdgesOfSymptomseverity == nil {
+			// The edge EdgesOfSymptomseverity was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: symptomseverity.Label}
 		}
-		return e.Symptomseverity, nil
+		return e.EdgesOfSymptomseverity, nil
 	}
-	return nil, &NotLoadedError{edge: "symptomseverity"}
+	return nil, &NotLoadedError{edge: "EdgesOfSymptomseverity"}
 }
 
-// PatientrecordOrErr returns the Patientrecord value or an error if the edge
+// EdgesOfPatientrecordOrErr returns the EdgesOfPatientrecord value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e HistorytakingEdges) PatientrecordOrErr() (*Patientrecord, error) {
+func (e HistorytakingEdges) EdgesOfPatientrecordOrErr() (*Patientrecord, error) {
 	if e.loadedTypes[3] {
-		if e.Patientrecord == nil {
-			// The edge patientrecord was loaded in eager-loading,
+		if e.EdgesOfPatientrecord == nil {
+			// The edge EdgesOfPatientrecord was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: patientrecord.Label}
 		}
-		return e.Patientrecord, nil
+		return e.EdgesOfPatientrecord, nil
 	}
-	return nil, &NotLoadedError{edge: "patientrecord"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrecord"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -231,24 +231,24 @@ func (h *Historytaking) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryNurse queries the nurse edge of the Historytaking.
-func (h *Historytaking) QueryNurse() *NurseQuery {
-	return (&HistorytakingClient{config: h.config}).QueryNurse(h)
+// QueryEdgesOfNurse queries the EdgesOfNurse edge of the Historytaking.
+func (h *Historytaking) QueryEdgesOfNurse() *NurseQuery {
+	return (&HistorytakingClient{config: h.config}).QueryEdgesOfNurse(h)
 }
 
-// QueryDepartment queries the department edge of the Historytaking.
-func (h *Historytaking) QueryDepartment() *DepartmentQuery {
-	return (&HistorytakingClient{config: h.config}).QueryDepartment(h)
+// QueryEdgesOfDepartment queries the EdgesOfDepartment edge of the Historytaking.
+func (h *Historytaking) QueryEdgesOfDepartment() *DepartmentQuery {
+	return (&HistorytakingClient{config: h.config}).QueryEdgesOfDepartment(h)
 }
 
-// QuerySymptomseverity queries the symptomseverity edge of the Historytaking.
-func (h *Historytaking) QuerySymptomseverity() *SymptomseverityQuery {
-	return (&HistorytakingClient{config: h.config}).QuerySymptomseverity(h)
+// QueryEdgesOfSymptomseverity queries the EdgesOfSymptomseverity edge of the Historytaking.
+func (h *Historytaking) QueryEdgesOfSymptomseverity() *SymptomseverityQuery {
+	return (&HistorytakingClient{config: h.config}).QueryEdgesOfSymptomseverity(h)
 }
 
-// QueryPatientrecord queries the patientrecord edge of the Historytaking.
-func (h *Historytaking) QueryPatientrecord() *PatientrecordQuery {
-	return (&HistorytakingClient{config: h.config}).QueryPatientrecord(h)
+// QueryEdgesOfPatientrecord queries the EdgesOfPatientrecord edge of the Historytaking.
+func (h *Historytaking) QueryEdgesOfPatientrecord() *PatientrecordQuery {
+	return (&HistorytakingClient{config: h.config}).QueryEdgesOfPatientrecord(h)
 }
 
 // Update returns a builder for updating this Historytaking.

@@ -16,54 +16,54 @@ const (
 	// FieldLicensenumber holds the string denoting the licensenumber field in the database.
 	FieldLicensenumber = "licensenumber"
 
-	// EdgeDepartment holds the string denoting the department edge name in mutations.
-	EdgeDepartment = "department"
-	// EdgeEducationlevel holds the string denoting the educationlevel edge name in mutations.
-	EdgeEducationlevel = "educationlevel"
-	// EdgeOfficeroom holds the string denoting the officeroom edge name in mutations.
-	EdgeOfficeroom = "officeroom"
-	// EdgePrename holds the string denoting the prename edge name in mutations.
-	EdgePrename = "prename"
-	// EdgeDoctor holds the string denoting the doctor edge name in mutations.
-	EdgeDoctor = "doctor"
+	// EdgeEdgesOfDepartment holds the string denoting the edgesofdepartment edge name in mutations.
+	EdgeEdgesOfDepartment = "EdgesOfDepartment"
+	// EdgeEdgesOfEducationlevel holds the string denoting the edgesofeducationlevel edge name in mutations.
+	EdgeEdgesOfEducationlevel = "EdgesOfEducationlevel"
+	// EdgeEdgesOfOfficeroom holds the string denoting the edgesofofficeroom edge name in mutations.
+	EdgeEdgesOfOfficeroom = "EdgesOfOfficeroom"
+	// EdgeEdgesOfPrename holds the string denoting the edgesofprename edge name in mutations.
+	EdgeEdgesOfPrename = "EdgesOfPrename"
+	// EdgeEdgesOfDoctor holds the string denoting the edgesofdoctor edge name in mutations.
+	EdgeEdgesOfDoctor = "EdgesOfDoctor"
 
 	// Table holds the table name of the doctorinfo in the database.
 	Table = "doctorinfos"
-	// DepartmentTable is the table the holds the department relation/edge.
-	DepartmentTable = "doctorinfos"
-	// DepartmentInverseTable is the table name for the Department entity.
+	// EdgesOfDepartmentTable is the table the holds the EdgesOfDepartment relation/edge.
+	EdgesOfDepartmentTable = "doctorinfos"
+	// EdgesOfDepartmentInverseTable is the table name for the Department entity.
 	// It exists in this package in order to avoid circular dependency with the "department" package.
-	DepartmentInverseTable = "departments"
-	// DepartmentColumn is the table column denoting the department relation/edge.
-	DepartmentColumn = "department"
-	// EducationlevelTable is the table the holds the educationlevel relation/edge.
-	EducationlevelTable = "doctorinfos"
-	// EducationlevelInverseTable is the table name for the Educationlevel entity.
+	EdgesOfDepartmentInverseTable = "departments"
+	// EdgesOfDepartmentColumn is the table column denoting the EdgesOfDepartment relation/edge.
+	EdgesOfDepartmentColumn = "department"
+	// EdgesOfEducationlevelTable is the table the holds the EdgesOfEducationlevel relation/edge.
+	EdgesOfEducationlevelTable = "doctorinfos"
+	// EdgesOfEducationlevelInverseTable is the table name for the Educationlevel entity.
 	// It exists in this package in order to avoid circular dependency with the "educationlevel" package.
-	EducationlevelInverseTable = "educationlevels"
-	// EducationlevelColumn is the table column denoting the educationlevel relation/edge.
-	EducationlevelColumn = "level"
-	// OfficeroomTable is the table the holds the officeroom relation/edge.
-	OfficeroomTable = "doctorinfos"
-	// OfficeroomInverseTable is the table name for the Officeroom entity.
+	EdgesOfEducationlevelInverseTable = "educationlevels"
+	// EdgesOfEducationlevelColumn is the table column denoting the EdgesOfEducationlevel relation/edge.
+	EdgesOfEducationlevelColumn = "level"
+	// EdgesOfOfficeroomTable is the table the holds the EdgesOfOfficeroom relation/edge.
+	EdgesOfOfficeroomTable = "doctorinfos"
+	// EdgesOfOfficeroomInverseTable is the table name for the Officeroom entity.
 	// It exists in this package in order to avoid circular dependency with the "officeroom" package.
-	OfficeroomInverseTable = "officerooms"
-	// OfficeroomColumn is the table column denoting the officeroom relation/edge.
-	OfficeroomColumn = "roomnumber"
-	// PrenameTable is the table the holds the prename relation/edge.
-	PrenameTable = "doctorinfos"
-	// PrenameInverseTable is the table name for the Prename entity.
+	EdgesOfOfficeroomInverseTable = "officerooms"
+	// EdgesOfOfficeroomColumn is the table column denoting the EdgesOfOfficeroom relation/edge.
+	EdgesOfOfficeroomColumn = "roomnumber"
+	// EdgesOfPrenameTable is the table the holds the EdgesOfPrename relation/edge.
+	EdgesOfPrenameTable = "doctorinfos"
+	// EdgesOfPrenameInverseTable is the table name for the Prename entity.
 	// It exists in this package in order to avoid circular dependency with the "prename" package.
-	PrenameInverseTable = "prenames"
-	// PrenameColumn is the table column denoting the prename relation/edge.
-	PrenameColumn = "prefix"
-	// DoctorTable is the table the holds the doctor relation/edge.
-	DoctorTable = "doctors"
-	// DoctorInverseTable is the table name for the Doctor entity.
+	EdgesOfPrenameInverseTable = "prenames"
+	// EdgesOfPrenameColumn is the table column denoting the EdgesOfPrename relation/edge.
+	EdgesOfPrenameColumn = "prefix"
+	// EdgesOfDoctorTable is the table the holds the EdgesOfDoctor relation/edge.
+	EdgesOfDoctorTable = "doctors"
+	// EdgesOfDoctorInverseTable is the table name for the Doctor entity.
 	// It exists in this package in order to avoid circular dependency with the "doctor" package.
-	DoctorInverseTable = "doctors"
-	// DoctorColumn is the table column denoting the doctor relation/edge.
-	DoctorColumn = "doctorinfo_id"
+	EdgesOfDoctorInverseTable = "doctors"
+	// EdgesOfDoctorColumn is the table column denoting the EdgesOfDoctor relation/edge.
+	EdgesOfDoctorColumn = "doctorinfo_id"
 )
 
 // Columns holds all SQL columns for doctorinfo fields.

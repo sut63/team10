@@ -26,7 +26,7 @@ type OfficeroomQuery struct {
 	unique     []string
 	predicates []predicate.Officeroom
 	// eager-loading edges.
-	withOfficeroom2doctorinfo *DoctorinfoQuery
+	withEdgesOfOfficeroom2doctorinfo *DoctorinfoQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,8 +56,8 @@ func (oq *OfficeroomQuery) Order(o ...OrderFunc) *OfficeroomQuery {
 	return oq
 }
 
-// QueryOfficeroom2doctorinfo chains the current query on the officeroom2doctorinfo edge.
-func (oq *OfficeroomQuery) QueryOfficeroom2doctorinfo() *DoctorinfoQuery {
+// QueryEdgesOfOfficeroom2doctorinfo chains the current query on the EdgesOfOfficeroom2doctorinfo edge.
+func (oq *OfficeroomQuery) QueryEdgesOfOfficeroom2doctorinfo() *DoctorinfoQuery {
 	query := &DoctorinfoQuery{config: oq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := oq.prepareQuery(ctx); err != nil {
@@ -66,7 +66,7 @@ func (oq *OfficeroomQuery) QueryOfficeroom2doctorinfo() *DoctorinfoQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(officeroom.Table, officeroom.FieldID, oq.sqlQuery()),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, officeroom.Officeroom2doctorinfoTable, officeroom.Officeroom2doctorinfoColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, officeroom.EdgesOfOfficeroom2doctorinfoTable, officeroom.EdgesOfOfficeroom2doctorinfoColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(oq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (oq *OfficeroomQuery) Clone() *OfficeroomQuery {
 	}
 }
 
-//  WithOfficeroom2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
-// the "officeroom2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
-func (oq *OfficeroomQuery) WithOfficeroom2doctorinfo(opts ...func(*DoctorinfoQuery)) *OfficeroomQuery {
+//  WithEdgesOfOfficeroom2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfOfficeroom2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
+func (oq *OfficeroomQuery) WithEdgesOfOfficeroom2doctorinfo(opts ...func(*DoctorinfoQuery)) *OfficeroomQuery {
 	query := &DoctorinfoQuery{config: oq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	oq.withOfficeroom2doctorinfo = query
+	oq.withEdgesOfOfficeroom2doctorinfo = query
 	return oq
 }
 
@@ -331,7 +331,7 @@ func (oq *OfficeroomQuery) sqlAll(ctx context.Context) ([]*Officeroom, error) {
 		nodes       = []*Officeroom{}
 		_spec       = oq.querySpec()
 		loadedTypes = [1]bool{
-			oq.withOfficeroom2doctorinfo != nil,
+			oq.withEdgesOfOfficeroom2doctorinfo != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -355,7 +355,7 @@ func (oq *OfficeroomQuery) sqlAll(ctx context.Context) ([]*Officeroom, error) {
 		return nodes, nil
 	}
 
-	if query := oq.withOfficeroom2doctorinfo; query != nil {
+	if query := oq.withEdgesOfOfficeroom2doctorinfo; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Officeroom)
 		for i := range nodes {
@@ -364,7 +364,7 @@ func (oq *OfficeroomQuery) sqlAll(ctx context.Context) ([]*Officeroom, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Doctorinfo(func(s *sql.Selector) {
-			s.Where(sql.InValues(officeroom.Officeroom2doctorinfoColumn, fks...))
+			s.Where(sql.InValues(officeroom.EdgesOfOfficeroom2doctorinfoColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -379,7 +379,7 @@ func (oq *OfficeroomQuery) sqlAll(ctx context.Context) ([]*Officeroom, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "roomnumber" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Officeroom2doctorinfo = append(node.Edges.Officeroom2doctorinfo, n)
+			node.Edges.EdgesOfOfficeroom2doctorinfo = append(node.Edges.EdgesOfOfficeroom2doctorinfo, n)
 		}
 	}
 

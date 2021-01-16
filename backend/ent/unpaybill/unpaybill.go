@@ -10,27 +10,27 @@ const (
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
 
-	// EdgeTreatment holds the string denoting the treatment edge name in mutations.
-	EdgeTreatment = "treatment"
-	// EdgeBills holds the string denoting the bills edge name in mutations.
-	EdgeBills = "bills"
+	// EdgeEdgesOfTreatment holds the string denoting the edgesoftreatment edge name in mutations.
+	EdgeEdgesOfTreatment = "EdgesOfTreatment"
+	// EdgeEdgesOfBills holds the string denoting the edgesofbills edge name in mutations.
+	EdgeEdgesOfBills = "EdgesOfBills"
 
 	// Table holds the table name of the unpaybill in the database.
 	Table = "unpaybills"
-	// TreatmentTable is the table the holds the treatment relation/edge.
-	TreatmentTable = "unpaybills"
-	// TreatmentInverseTable is the table name for the Treatment entity.
+	// EdgesOfTreatmentTable is the table the holds the EdgesOfTreatment relation/edge.
+	EdgesOfTreatmentTable = "unpaybills"
+	// EdgesOfTreatmentInverseTable is the table name for the Treatment entity.
 	// It exists in this package in order to avoid circular dependency with the "treatment" package.
-	TreatmentInverseTable = "treatments"
-	// TreatmentColumn is the table column denoting the treatment relation/edge.
-	TreatmentColumn = "treatment_id"
-	// BillsTable is the table the holds the bills relation/edge.
-	BillsTable = "bills"
-	// BillsInverseTable is the table name for the Bill entity.
+	EdgesOfTreatmentInverseTable = "treatments"
+	// EdgesOfTreatmentColumn is the table column denoting the EdgesOfTreatment relation/edge.
+	EdgesOfTreatmentColumn = "treatment_id"
+	// EdgesOfBillsTable is the table the holds the EdgesOfBills relation/edge.
+	EdgesOfBillsTable = "bills"
+	// EdgesOfBillsInverseTable is the table name for the Bill entity.
 	// It exists in this package in order to avoid circular dependency with the "bill" package.
-	BillsInverseTable = "bills"
-	// BillsColumn is the table column denoting the bills relation/edge.
-	BillsColumn = "treatment_id"
+	EdgesOfBillsInverseTable = "bills"
+	// EdgesOfBillsColumn is the table column denoting the EdgesOfBills relation/edge.
+	EdgesOfBillsColumn = "treatment_id"
 )
 
 // Columns holds all SQL columns for unpaybill fields.

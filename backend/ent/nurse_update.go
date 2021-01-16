@@ -47,38 +47,38 @@ func (nu *NurseUpdate) SetPosition(s string) *NurseUpdate {
 	return nu
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (nu *NurseUpdate) AddHistorytakingIDs(ids ...int) *NurseUpdate {
-	nu.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (nu *NurseUpdate) AddEdgesOfHistorytakingIDs(ids ...int) *NurseUpdate {
+	nu.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return nu
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (nu *NurseUpdate) AddHistorytaking(h ...*Historytaking) *NurseUpdate {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (nu *NurseUpdate) AddEdgesOfHistorytaking(h ...*Historytaking) *NurseUpdate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return nu.AddHistorytakingIDs(ids...)
+	return nu.AddEdgesOfHistorytakingIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (nu *NurseUpdate) SetUserID(id int) *NurseUpdate {
-	nu.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (nu *NurseUpdate) SetEdgesOfUserID(id int) *NurseUpdate {
+	nu.mutation.SetEdgesOfUserID(id)
 	return nu
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (nu *NurseUpdate) SetNillableUserID(id *int) *NurseUpdate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (nu *NurseUpdate) SetNillableEdgesOfUserID(id *int) *NurseUpdate {
 	if id != nil {
-		nu = nu.SetUserID(*id)
+		nu = nu.SetEdgesOfUserID(*id)
 	}
 	return nu
 }
 
-// SetUser sets the user edge to User.
-func (nu *NurseUpdate) SetUser(u *User) *NurseUpdate {
-	return nu.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (nu *NurseUpdate) SetEdgesOfUser(u *User) *NurseUpdate {
+	return nu.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the NurseMutation object of the builder.
@@ -86,24 +86,24 @@ func (nu *NurseUpdate) Mutation() *NurseMutation {
 	return nu.mutation
 }
 
-// RemoveHistorytakingIDs removes the historytaking edge to Historytaking by ids.
-func (nu *NurseUpdate) RemoveHistorytakingIDs(ids ...int) *NurseUpdate {
-	nu.mutation.RemoveHistorytakingIDs(ids...)
+// RemoveEdgesOfHistorytakingIDs removes the EdgesOfHistorytaking edge to Historytaking by ids.
+func (nu *NurseUpdate) RemoveEdgesOfHistorytakingIDs(ids ...int) *NurseUpdate {
+	nu.mutation.RemoveEdgesOfHistorytakingIDs(ids...)
 	return nu
 }
 
-// RemoveHistorytaking removes historytaking edges to Historytaking.
-func (nu *NurseUpdate) RemoveHistorytaking(h ...*Historytaking) *NurseUpdate {
+// RemoveEdgesOfHistorytaking removes EdgesOfHistorytaking edges to Historytaking.
+func (nu *NurseUpdate) RemoveEdgesOfHistorytaking(h ...*Historytaking) *NurseUpdate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return nu.RemoveHistorytakingIDs(ids...)
+	return nu.RemoveEdgesOfHistorytakingIDs(ids...)
 }
 
-// ClearUser clears the user edge to User.
-func (nu *NurseUpdate) ClearUser() *NurseUpdate {
-	nu.mutation.ClearUser()
+// ClearEdgesOfUser clears the EdgesOfUser edge to User.
+func (nu *NurseUpdate) ClearEdgesOfUser() *NurseUpdate {
+	nu.mutation.ClearEdgesOfUser()
 	return nu
 }
 
@@ -198,12 +198,12 @@ func (nu *NurseUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: nurse.FieldPosition,
 		})
 	}
-	if nodes := nu.mutation.RemovedHistorytakingIDs(); len(nodes) > 0 {
+	if nodes := nu.mutation.RemovedEdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   nurse.HistorytakingTable,
-			Columns: []string{nurse.HistorytakingColumn},
+			Table:   nurse.EdgesOfHistorytakingTable,
+			Columns: []string{nurse.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -217,12 +217,12 @@ func (nu *NurseUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nu.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := nu.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   nurse.HistorytakingTable,
-			Columns: []string{nurse.HistorytakingColumn},
+			Table:   nurse.EdgesOfHistorytakingTable,
+			Columns: []string{nurse.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -236,12 +236,12 @@ func (nu *NurseUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nu.mutation.UserCleared() {
+	if nu.mutation.EdgesOfUserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   nurse.UserTable,
-			Columns: []string{nurse.UserColumn},
+			Table:   nurse.EdgesOfUserTable,
+			Columns: []string{nurse.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -252,12 +252,12 @@ func (nu *NurseUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nu.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := nu.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   nurse.UserTable,
-			Columns: []string{nurse.UserColumn},
+			Table:   nurse.EdgesOfUserTable,
+			Columns: []string{nurse.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -307,38 +307,38 @@ func (nuo *NurseUpdateOne) SetPosition(s string) *NurseUpdateOne {
 	return nuo
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (nuo *NurseUpdateOne) AddHistorytakingIDs(ids ...int) *NurseUpdateOne {
-	nuo.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (nuo *NurseUpdateOne) AddEdgesOfHistorytakingIDs(ids ...int) *NurseUpdateOne {
+	nuo.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return nuo
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (nuo *NurseUpdateOne) AddHistorytaking(h ...*Historytaking) *NurseUpdateOne {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (nuo *NurseUpdateOne) AddEdgesOfHistorytaking(h ...*Historytaking) *NurseUpdateOne {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return nuo.AddHistorytakingIDs(ids...)
+	return nuo.AddEdgesOfHistorytakingIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (nuo *NurseUpdateOne) SetUserID(id int) *NurseUpdateOne {
-	nuo.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (nuo *NurseUpdateOne) SetEdgesOfUserID(id int) *NurseUpdateOne {
+	nuo.mutation.SetEdgesOfUserID(id)
 	return nuo
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (nuo *NurseUpdateOne) SetNillableUserID(id *int) *NurseUpdateOne {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (nuo *NurseUpdateOne) SetNillableEdgesOfUserID(id *int) *NurseUpdateOne {
 	if id != nil {
-		nuo = nuo.SetUserID(*id)
+		nuo = nuo.SetEdgesOfUserID(*id)
 	}
 	return nuo
 }
 
-// SetUser sets the user edge to User.
-func (nuo *NurseUpdateOne) SetUser(u *User) *NurseUpdateOne {
-	return nuo.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (nuo *NurseUpdateOne) SetEdgesOfUser(u *User) *NurseUpdateOne {
+	return nuo.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the NurseMutation object of the builder.
@@ -346,24 +346,24 @@ func (nuo *NurseUpdateOne) Mutation() *NurseMutation {
 	return nuo.mutation
 }
 
-// RemoveHistorytakingIDs removes the historytaking edge to Historytaking by ids.
-func (nuo *NurseUpdateOne) RemoveHistorytakingIDs(ids ...int) *NurseUpdateOne {
-	nuo.mutation.RemoveHistorytakingIDs(ids...)
+// RemoveEdgesOfHistorytakingIDs removes the EdgesOfHistorytaking edge to Historytaking by ids.
+func (nuo *NurseUpdateOne) RemoveEdgesOfHistorytakingIDs(ids ...int) *NurseUpdateOne {
+	nuo.mutation.RemoveEdgesOfHistorytakingIDs(ids...)
 	return nuo
 }
 
-// RemoveHistorytaking removes historytaking edges to Historytaking.
-func (nuo *NurseUpdateOne) RemoveHistorytaking(h ...*Historytaking) *NurseUpdateOne {
+// RemoveEdgesOfHistorytaking removes EdgesOfHistorytaking edges to Historytaking.
+func (nuo *NurseUpdateOne) RemoveEdgesOfHistorytaking(h ...*Historytaking) *NurseUpdateOne {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return nuo.RemoveHistorytakingIDs(ids...)
+	return nuo.RemoveEdgesOfHistorytakingIDs(ids...)
 }
 
-// ClearUser clears the user edge to User.
-func (nuo *NurseUpdateOne) ClearUser() *NurseUpdateOne {
-	nuo.mutation.ClearUser()
+// ClearEdgesOfUser clears the EdgesOfUser edge to User.
+func (nuo *NurseUpdateOne) ClearEdgesOfUser() *NurseUpdateOne {
+	nuo.mutation.ClearEdgesOfUser()
 	return nuo
 }
 
@@ -456,12 +456,12 @@ func (nuo *NurseUpdateOne) sqlSave(ctx context.Context) (n *Nurse, err error) {
 			Column: nurse.FieldPosition,
 		})
 	}
-	if nodes := nuo.mutation.RemovedHistorytakingIDs(); len(nodes) > 0 {
+	if nodes := nuo.mutation.RemovedEdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   nurse.HistorytakingTable,
-			Columns: []string{nurse.HistorytakingColumn},
+			Table:   nurse.EdgesOfHistorytakingTable,
+			Columns: []string{nurse.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -475,12 +475,12 @@ func (nuo *NurseUpdateOne) sqlSave(ctx context.Context) (n *Nurse, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nuo.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := nuo.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   nurse.HistorytakingTable,
-			Columns: []string{nurse.HistorytakingColumn},
+			Table:   nurse.EdgesOfHistorytakingTable,
+			Columns: []string{nurse.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -494,12 +494,12 @@ func (nuo *NurseUpdateOne) sqlSave(ctx context.Context) (n *Nurse, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nuo.mutation.UserCleared() {
+	if nuo.mutation.EdgesOfUserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   nurse.UserTable,
-			Columns: []string{nurse.UserColumn},
+			Table:   nurse.EdgesOfUserTable,
+			Columns: []string{nurse.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -510,12 +510,12 @@ func (nuo *NurseUpdateOne) sqlSave(ctx context.Context) (n *Nurse, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := nuo.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := nuo.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   nurse.UserTable,
-			Columns: []string{nurse.UserColumn},
+			Table:   nurse.EdgesOfUserTable,
+			Columns: []string{nurse.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

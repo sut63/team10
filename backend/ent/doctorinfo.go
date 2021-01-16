@@ -39,89 +39,89 @@ type Doctorinfo struct {
 
 // DoctorinfoEdges holds the relations/edges for other nodes in the graph.
 type DoctorinfoEdges struct {
-	// Department holds the value of the department edge.
-	Department *Department
-	// Educationlevel holds the value of the educationlevel edge.
-	Educationlevel *Educationlevel
-	// Officeroom holds the value of the officeroom edge.
-	Officeroom *Officeroom
-	// Prename holds the value of the prename edge.
-	Prename *Prename
-	// Doctor holds the value of the doctor edge.
-	Doctor *Doctor
+	// EdgesOfDepartment holds the value of the EdgesOfDepartment edge.
+	EdgesOfDepartment *Department
+	// EdgesOfEducationlevel holds the value of the EdgesOfEducationlevel edge.
+	EdgesOfEducationlevel *Educationlevel
+	// EdgesOfOfficeroom holds the value of the EdgesOfOfficeroom edge.
+	EdgesOfOfficeroom *Officeroom
+	// EdgesOfPrename holds the value of the EdgesOfPrename edge.
+	EdgesOfPrename *Prename
+	// EdgesOfDoctor holds the value of the EdgesOfDoctor edge.
+	EdgesOfDoctor *Doctor
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [5]bool
 }
 
-// DepartmentOrErr returns the Department value or an error if the edge
+// EdgesOfDepartmentOrErr returns the EdgesOfDepartment value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e DoctorinfoEdges) DepartmentOrErr() (*Department, error) {
+func (e DoctorinfoEdges) EdgesOfDepartmentOrErr() (*Department, error) {
 	if e.loadedTypes[0] {
-		if e.Department == nil {
-			// The edge department was loaded in eager-loading,
+		if e.EdgesOfDepartment == nil {
+			// The edge EdgesOfDepartment was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: department.Label}
 		}
-		return e.Department, nil
+		return e.EdgesOfDepartment, nil
 	}
-	return nil, &NotLoadedError{edge: "department"}
+	return nil, &NotLoadedError{edge: "EdgesOfDepartment"}
 }
 
-// EducationlevelOrErr returns the Educationlevel value or an error if the edge
+// EdgesOfEducationlevelOrErr returns the EdgesOfEducationlevel value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e DoctorinfoEdges) EducationlevelOrErr() (*Educationlevel, error) {
+func (e DoctorinfoEdges) EdgesOfEducationlevelOrErr() (*Educationlevel, error) {
 	if e.loadedTypes[1] {
-		if e.Educationlevel == nil {
-			// The edge educationlevel was loaded in eager-loading,
+		if e.EdgesOfEducationlevel == nil {
+			// The edge EdgesOfEducationlevel was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: educationlevel.Label}
 		}
-		return e.Educationlevel, nil
+		return e.EdgesOfEducationlevel, nil
 	}
-	return nil, &NotLoadedError{edge: "educationlevel"}
+	return nil, &NotLoadedError{edge: "EdgesOfEducationlevel"}
 }
 
-// OfficeroomOrErr returns the Officeroom value or an error if the edge
+// EdgesOfOfficeroomOrErr returns the EdgesOfOfficeroom value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e DoctorinfoEdges) OfficeroomOrErr() (*Officeroom, error) {
+func (e DoctorinfoEdges) EdgesOfOfficeroomOrErr() (*Officeroom, error) {
 	if e.loadedTypes[2] {
-		if e.Officeroom == nil {
-			// The edge officeroom was loaded in eager-loading,
+		if e.EdgesOfOfficeroom == nil {
+			// The edge EdgesOfOfficeroom was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: officeroom.Label}
 		}
-		return e.Officeroom, nil
+		return e.EdgesOfOfficeroom, nil
 	}
-	return nil, &NotLoadedError{edge: "officeroom"}
+	return nil, &NotLoadedError{edge: "EdgesOfOfficeroom"}
 }
 
-// PrenameOrErr returns the Prename value or an error if the edge
+// EdgesOfPrenameOrErr returns the EdgesOfPrename value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e DoctorinfoEdges) PrenameOrErr() (*Prename, error) {
+func (e DoctorinfoEdges) EdgesOfPrenameOrErr() (*Prename, error) {
 	if e.loadedTypes[3] {
-		if e.Prename == nil {
-			// The edge prename was loaded in eager-loading,
+		if e.EdgesOfPrename == nil {
+			// The edge EdgesOfPrename was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: prename.Label}
 		}
-		return e.Prename, nil
+		return e.EdgesOfPrename, nil
 	}
-	return nil, &NotLoadedError{edge: "prename"}
+	return nil, &NotLoadedError{edge: "EdgesOfPrename"}
 }
 
-// DoctorOrErr returns the Doctor value or an error if the edge
+// EdgesOfDoctorOrErr returns the EdgesOfDoctor value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e DoctorinfoEdges) DoctorOrErr() (*Doctor, error) {
+func (e DoctorinfoEdges) EdgesOfDoctorOrErr() (*Doctor, error) {
 	if e.loadedTypes[4] {
-		if e.Doctor == nil {
-			// The edge doctor was loaded in eager-loading,
+		if e.EdgesOfDoctor == nil {
+			// The edge EdgesOfDoctor was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: doctor.Label}
 		}
-		return e.Doctor, nil
+		return e.EdgesOfDoctor, nil
 	}
-	return nil, &NotLoadedError{edge: "doctor"}
+	return nil, &NotLoadedError{edge: "EdgesOfDoctor"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -207,29 +207,29 @@ func (d *Doctorinfo) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryDepartment queries the department edge of the Doctorinfo.
-func (d *Doctorinfo) QueryDepartment() *DepartmentQuery {
-	return (&DoctorinfoClient{config: d.config}).QueryDepartment(d)
+// QueryEdgesOfDepartment queries the EdgesOfDepartment edge of the Doctorinfo.
+func (d *Doctorinfo) QueryEdgesOfDepartment() *DepartmentQuery {
+	return (&DoctorinfoClient{config: d.config}).QueryEdgesOfDepartment(d)
 }
 
-// QueryEducationlevel queries the educationlevel edge of the Doctorinfo.
-func (d *Doctorinfo) QueryEducationlevel() *EducationlevelQuery {
-	return (&DoctorinfoClient{config: d.config}).QueryEducationlevel(d)
+// QueryEdgesOfEducationlevel queries the EdgesOfEducationlevel edge of the Doctorinfo.
+func (d *Doctorinfo) QueryEdgesOfEducationlevel() *EducationlevelQuery {
+	return (&DoctorinfoClient{config: d.config}).QueryEdgesOfEducationlevel(d)
 }
 
-// QueryOfficeroom queries the officeroom edge of the Doctorinfo.
-func (d *Doctorinfo) QueryOfficeroom() *OfficeroomQuery {
-	return (&DoctorinfoClient{config: d.config}).QueryOfficeroom(d)
+// QueryEdgesOfOfficeroom queries the EdgesOfOfficeroom edge of the Doctorinfo.
+func (d *Doctorinfo) QueryEdgesOfOfficeroom() *OfficeroomQuery {
+	return (&DoctorinfoClient{config: d.config}).QueryEdgesOfOfficeroom(d)
 }
 
-// QueryPrename queries the prename edge of the Doctorinfo.
-func (d *Doctorinfo) QueryPrename() *PrenameQuery {
-	return (&DoctorinfoClient{config: d.config}).QueryPrename(d)
+// QueryEdgesOfPrename queries the EdgesOfPrename edge of the Doctorinfo.
+func (d *Doctorinfo) QueryEdgesOfPrename() *PrenameQuery {
+	return (&DoctorinfoClient{config: d.config}).QueryEdgesOfPrename(d)
 }
 
-// QueryDoctor queries the doctor edge of the Doctorinfo.
-func (d *Doctorinfo) QueryDoctor() *DoctorQuery {
-	return (&DoctorinfoClient{config: d.config}).QueryDoctor(d)
+// QueryEdgesOfDoctor queries the EdgesOfDoctor edge of the Doctorinfo.
+func (d *Doctorinfo) QueryEdgesOfDoctor() *DoctorQuery {
+	return (&DoctorinfoClient{config: d.config}).QueryEdgesOfDoctor(d)
 }
 
 // Update returns a builder for updating this Doctorinfo.

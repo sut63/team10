@@ -89,12 +89,12 @@ const Login: FC<{}> = () => {
       setCookie('Img', item.id , { path: '/' })
       setCookie('Name', item.email, { path: '/' })
       setCookie('Log', "true",{ path: '/' })
-      setCookie('Status', item.edges?.userstatus?.userstatus , { path: '/' })
-      setCookie('Fin', item.edges?.financier?.id , { path: '/' })
-      setCookie('Med', item.edges?.medicalrecordstaff?.id , { path: '/' })
-      setCookie('Nur', item.edges?.nurse?.id , { path: '/' })
-      setCookie('Doc', item.edges?.doctor?.id , { path: '/' })
-      setCookie('Reg', item.edges?.user2registrar?.id, { path: '/' })
+      setCookie('Status', item.edges?.edgesOfUserstatus?.userstatus , { path: '/' })
+      setCookie('Fin', item.edges?.edgesOfFinancier?.id , { path: '/' })
+      setCookie('Med', item.edges?.edgesOfMedicalrecordstaff?.id , { path: '/' })
+      setCookie('Nur', item.edges?.edgesOfNurse?.id , { path: '/' })
+      setCookie('Doc', item.edges?.edgesOfDoctor?.id , { path: '/' })
+      setCookie('Reg', item.edges?.edgesOfUser2registrar?.id, { path: '/' })
       window.location.reload(false)             
     }
     if(item.email != Name && item.password != Password){

@@ -35,34 +35,34 @@ func (pu *PrenameUpdate) SetPrefix(s string) *PrenameUpdate {
 	return pu
 }
 
-// AddPrename2doctorinfoIDs adds the prename2doctorinfo edge to Doctorinfo by ids.
-func (pu *PrenameUpdate) AddPrename2doctorinfoIDs(ids ...int) *PrenameUpdate {
-	pu.mutation.AddPrename2doctorinfoIDs(ids...)
+// AddEdgesOfPrename2doctorinfoIDs adds the EdgesOfPrename2doctorinfo edge to Doctorinfo by ids.
+func (pu *PrenameUpdate) AddEdgesOfPrename2doctorinfoIDs(ids ...int) *PrenameUpdate {
+	pu.mutation.AddEdgesOfPrename2doctorinfoIDs(ids...)
 	return pu
 }
 
-// AddPrename2doctorinfo adds the prename2doctorinfo edges to Doctorinfo.
-func (pu *PrenameUpdate) AddPrename2doctorinfo(d ...*Doctorinfo) *PrenameUpdate {
+// AddEdgesOfPrename2doctorinfo adds the EdgesOfPrename2doctorinfo edges to Doctorinfo.
+func (pu *PrenameUpdate) AddEdgesOfPrename2doctorinfo(d ...*Doctorinfo) *PrenameUpdate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return pu.AddPrename2doctorinfoIDs(ids...)
+	return pu.AddEdgesOfPrename2doctorinfoIDs(ids...)
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (pu *PrenameUpdate) AddPatientrecordIDs(ids ...int) *PrenameUpdate {
-	pu.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (pu *PrenameUpdate) AddEdgesOfPatientrecordIDs(ids ...int) *PrenameUpdate {
+	pu.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return pu
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (pu *PrenameUpdate) AddPatientrecord(p ...*Patientrecord) *PrenameUpdate {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (pu *PrenameUpdate) AddEdgesOfPatientrecord(p ...*Patientrecord) *PrenameUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return pu.AddPatientrecordIDs(ids...)
+	return pu.AddEdgesOfPatientrecordIDs(ids...)
 }
 
 // Mutation returns the PrenameMutation object of the builder.
@@ -70,34 +70,34 @@ func (pu *PrenameUpdate) Mutation() *PrenameMutation {
 	return pu.mutation
 }
 
-// RemovePrename2doctorinfoIDs removes the prename2doctorinfo edge to Doctorinfo by ids.
-func (pu *PrenameUpdate) RemovePrename2doctorinfoIDs(ids ...int) *PrenameUpdate {
-	pu.mutation.RemovePrename2doctorinfoIDs(ids...)
+// RemoveEdgesOfPrename2doctorinfoIDs removes the EdgesOfPrename2doctorinfo edge to Doctorinfo by ids.
+func (pu *PrenameUpdate) RemoveEdgesOfPrename2doctorinfoIDs(ids ...int) *PrenameUpdate {
+	pu.mutation.RemoveEdgesOfPrename2doctorinfoIDs(ids...)
 	return pu
 }
 
-// RemovePrename2doctorinfo removes prename2doctorinfo edges to Doctorinfo.
-func (pu *PrenameUpdate) RemovePrename2doctorinfo(d ...*Doctorinfo) *PrenameUpdate {
+// RemoveEdgesOfPrename2doctorinfo removes EdgesOfPrename2doctorinfo edges to Doctorinfo.
+func (pu *PrenameUpdate) RemoveEdgesOfPrename2doctorinfo(d ...*Doctorinfo) *PrenameUpdate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return pu.RemovePrename2doctorinfoIDs(ids...)
+	return pu.RemoveEdgesOfPrename2doctorinfoIDs(ids...)
 }
 
-// RemovePatientrecordIDs removes the patientrecord edge to Patientrecord by ids.
-func (pu *PrenameUpdate) RemovePatientrecordIDs(ids ...int) *PrenameUpdate {
-	pu.mutation.RemovePatientrecordIDs(ids...)
+// RemoveEdgesOfPatientrecordIDs removes the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (pu *PrenameUpdate) RemoveEdgesOfPatientrecordIDs(ids ...int) *PrenameUpdate {
+	pu.mutation.RemoveEdgesOfPatientrecordIDs(ids...)
 	return pu
 }
 
-// RemovePatientrecord removes patientrecord edges to Patientrecord.
-func (pu *PrenameUpdate) RemovePatientrecord(p ...*Patientrecord) *PrenameUpdate {
+// RemoveEdgesOfPatientrecord removes EdgesOfPatientrecord edges to Patientrecord.
+func (pu *PrenameUpdate) RemoveEdgesOfPatientrecord(p ...*Patientrecord) *PrenameUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return pu.RemovePatientrecordIDs(ids...)
+	return pu.RemoveEdgesOfPatientrecordIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -182,12 +182,12 @@ func (pu *PrenameUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: prename.FieldPrefix,
 		})
 	}
-	if nodes := pu.mutation.RemovedPrename2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.RemovedEdgesOfPrename2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.Prename2doctorinfoTable,
-			Columns: []string{prename.Prename2doctorinfoColumn},
+			Table:   prename.EdgesOfPrename2doctorinfoTable,
+			Columns: []string{prename.EdgesOfPrename2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -201,12 +201,12 @@ func (pu *PrenameUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.Prename2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfPrename2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.Prename2doctorinfoTable,
-			Columns: []string{prename.Prename2doctorinfoColumn},
+			Table:   prename.EdgesOfPrename2doctorinfoTable,
+			Columns: []string{prename.EdgesOfPrename2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -220,12 +220,12 @@ func (pu *PrenameUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := pu.mutation.RemovedPatientrecordIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.RemovedEdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.PatientrecordTable,
-			Columns: []string{prename.PatientrecordColumn},
+			Table:   prename.EdgesOfPatientrecordTable,
+			Columns: []string{prename.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -239,12 +239,12 @@ func (pu *PrenameUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.PatientrecordTable,
-			Columns: []string{prename.PatientrecordColumn},
+			Table:   prename.EdgesOfPatientrecordTable,
+			Columns: []string{prename.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -282,34 +282,34 @@ func (puo *PrenameUpdateOne) SetPrefix(s string) *PrenameUpdateOne {
 	return puo
 }
 
-// AddPrename2doctorinfoIDs adds the prename2doctorinfo edge to Doctorinfo by ids.
-func (puo *PrenameUpdateOne) AddPrename2doctorinfoIDs(ids ...int) *PrenameUpdateOne {
-	puo.mutation.AddPrename2doctorinfoIDs(ids...)
+// AddEdgesOfPrename2doctorinfoIDs adds the EdgesOfPrename2doctorinfo edge to Doctorinfo by ids.
+func (puo *PrenameUpdateOne) AddEdgesOfPrename2doctorinfoIDs(ids ...int) *PrenameUpdateOne {
+	puo.mutation.AddEdgesOfPrename2doctorinfoIDs(ids...)
 	return puo
 }
 
-// AddPrename2doctorinfo adds the prename2doctorinfo edges to Doctorinfo.
-func (puo *PrenameUpdateOne) AddPrename2doctorinfo(d ...*Doctorinfo) *PrenameUpdateOne {
+// AddEdgesOfPrename2doctorinfo adds the EdgesOfPrename2doctorinfo edges to Doctorinfo.
+func (puo *PrenameUpdateOne) AddEdgesOfPrename2doctorinfo(d ...*Doctorinfo) *PrenameUpdateOne {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return puo.AddPrename2doctorinfoIDs(ids...)
+	return puo.AddEdgesOfPrename2doctorinfoIDs(ids...)
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (puo *PrenameUpdateOne) AddPatientrecordIDs(ids ...int) *PrenameUpdateOne {
-	puo.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (puo *PrenameUpdateOne) AddEdgesOfPatientrecordIDs(ids ...int) *PrenameUpdateOne {
+	puo.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return puo
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (puo *PrenameUpdateOne) AddPatientrecord(p ...*Patientrecord) *PrenameUpdateOne {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (puo *PrenameUpdateOne) AddEdgesOfPatientrecord(p ...*Patientrecord) *PrenameUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return puo.AddPatientrecordIDs(ids...)
+	return puo.AddEdgesOfPatientrecordIDs(ids...)
 }
 
 // Mutation returns the PrenameMutation object of the builder.
@@ -317,34 +317,34 @@ func (puo *PrenameUpdateOne) Mutation() *PrenameMutation {
 	return puo.mutation
 }
 
-// RemovePrename2doctorinfoIDs removes the prename2doctorinfo edge to Doctorinfo by ids.
-func (puo *PrenameUpdateOne) RemovePrename2doctorinfoIDs(ids ...int) *PrenameUpdateOne {
-	puo.mutation.RemovePrename2doctorinfoIDs(ids...)
+// RemoveEdgesOfPrename2doctorinfoIDs removes the EdgesOfPrename2doctorinfo edge to Doctorinfo by ids.
+func (puo *PrenameUpdateOne) RemoveEdgesOfPrename2doctorinfoIDs(ids ...int) *PrenameUpdateOne {
+	puo.mutation.RemoveEdgesOfPrename2doctorinfoIDs(ids...)
 	return puo
 }
 
-// RemovePrename2doctorinfo removes prename2doctorinfo edges to Doctorinfo.
-func (puo *PrenameUpdateOne) RemovePrename2doctorinfo(d ...*Doctorinfo) *PrenameUpdateOne {
+// RemoveEdgesOfPrename2doctorinfo removes EdgesOfPrename2doctorinfo edges to Doctorinfo.
+func (puo *PrenameUpdateOne) RemoveEdgesOfPrename2doctorinfo(d ...*Doctorinfo) *PrenameUpdateOne {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return puo.RemovePrename2doctorinfoIDs(ids...)
+	return puo.RemoveEdgesOfPrename2doctorinfoIDs(ids...)
 }
 
-// RemovePatientrecordIDs removes the patientrecord edge to Patientrecord by ids.
-func (puo *PrenameUpdateOne) RemovePatientrecordIDs(ids ...int) *PrenameUpdateOne {
-	puo.mutation.RemovePatientrecordIDs(ids...)
+// RemoveEdgesOfPatientrecordIDs removes the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (puo *PrenameUpdateOne) RemoveEdgesOfPatientrecordIDs(ids ...int) *PrenameUpdateOne {
+	puo.mutation.RemoveEdgesOfPatientrecordIDs(ids...)
 	return puo
 }
 
-// RemovePatientrecord removes patientrecord edges to Patientrecord.
-func (puo *PrenameUpdateOne) RemovePatientrecord(p ...*Patientrecord) *PrenameUpdateOne {
+// RemoveEdgesOfPatientrecord removes EdgesOfPatientrecord edges to Patientrecord.
+func (puo *PrenameUpdateOne) RemoveEdgesOfPatientrecord(p ...*Patientrecord) *PrenameUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return puo.RemovePatientrecordIDs(ids...)
+	return puo.RemoveEdgesOfPatientrecordIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -427,12 +427,12 @@ func (puo *PrenameUpdateOne) sqlSave(ctx context.Context) (pr *Prename, err erro
 			Column: prename.FieldPrefix,
 		})
 	}
-	if nodes := puo.mutation.RemovedPrename2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.RemovedEdgesOfPrename2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.Prename2doctorinfoTable,
-			Columns: []string{prename.Prename2doctorinfoColumn},
+			Table:   prename.EdgesOfPrename2doctorinfoTable,
+			Columns: []string{prename.EdgesOfPrename2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -446,12 +446,12 @@ func (puo *PrenameUpdateOne) sqlSave(ctx context.Context) (pr *Prename, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.Prename2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfPrename2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.Prename2doctorinfoTable,
-			Columns: []string{prename.Prename2doctorinfoColumn},
+			Table:   prename.EdgesOfPrename2doctorinfoTable,
+			Columns: []string{prename.EdgesOfPrename2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -465,12 +465,12 @@ func (puo *PrenameUpdateOne) sqlSave(ctx context.Context) (pr *Prename, err erro
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := puo.mutation.RemovedPatientrecordIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.RemovedEdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.PatientrecordTable,
-			Columns: []string{prename.PatientrecordColumn},
+			Table:   prename.EdgesOfPatientrecordTable,
+			Columns: []string{prename.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -484,12 +484,12 @@ func (puo *PrenameUpdateOne) sqlSave(ctx context.Context) (pr *Prename, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.PatientrecordTable,
-			Columns: []string{prename.PatientrecordColumn},
+			Table:   prename.EdgesOfPatientrecordTable,
+			Columns: []string{prename.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

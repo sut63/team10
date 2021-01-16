@@ -68,10 +68,10 @@ export default function ComponentsTable() {
              <TableCell align="center">{item.bp}</TableCell>
              <TableCell align="center">{item.oxygen}</TableCell>
              <TableCell align="center">{item.symptom}</TableCell>
-             <TableCell align="center">{item.edges?.nurse?.name}</TableCell>
-             <TableCell align="center">{item.edges?.symptomseverity?.symptomseverity}</TableCell>
-             <TableCell align="center">{item.edges?.department?.department}</TableCell>
-             <TableCell align="center">{item.edges?.patientrecord?.name}</TableCell>
+             <TableCell align="center">{item.edges?.edgesOfNurse?.name}</TableCell>
+             <TableCell align="center">{item.edges?.edgesOfSymptomseverity?.symptomseverity}</TableCell>
+             <TableCell align="center">{item.edges?.edgesOfDepartment?.department}</TableCell>
+             <TableCell align="center">{item.edges?.edgesOfPatientrecord?.name}</TableCell>
              <TableCell align="center">{item.datetime}</TableCell>
            </TableRow>
          ))}

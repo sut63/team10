@@ -27,9 +27,9 @@ type FinancierQuery struct {
 	unique     []string
 	predicates []predicate.Financier
 	// eager-loading edges.
-	withBills *BillQuery
-	withUser  *UserQuery
-	withFKs   bool
+	withEdgesOfBills *BillQuery
+	withEdgesOfUser  *UserQuery
+	withFKs          bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -59,8 +59,8 @@ func (fq *FinancierQuery) Order(o ...OrderFunc) *FinancierQuery {
 	return fq
 }
 
-// QueryBills chains the current query on the bills edge.
-func (fq *FinancierQuery) QueryBills() *BillQuery {
+// QueryEdgesOfBills chains the current query on the EdgesOfBills edge.
+func (fq *FinancierQuery) QueryEdgesOfBills() *BillQuery {
 	query := &BillQuery{config: fq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := fq.prepareQuery(ctx); err != nil {
@@ -69,7 +69,7 @@ func (fq *FinancierQuery) QueryBills() *BillQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(financier.Table, financier.FieldID, fq.sqlQuery()),
 			sqlgraph.To(bill.Table, bill.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, financier.BillsTable, financier.BillsColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, financier.EdgesOfBillsTable, financier.EdgesOfBillsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(fq.driver.Dialect(), step)
 		return fromU, nil
@@ -77,8 +77,8 @@ func (fq *FinancierQuery) QueryBills() *BillQuery {
 	return query
 }
 
-// QueryUser chains the current query on the user edge.
-func (fq *FinancierQuery) QueryUser() *UserQuery {
+// QueryEdgesOfUser chains the current query on the EdgesOfUser edge.
+func (fq *FinancierQuery) QueryEdgesOfUser() *UserQuery {
 	query := &UserQuery{config: fq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := fq.prepareQuery(ctx); err != nil {
@@ -87,7 +87,7 @@ func (fq *FinancierQuery) QueryUser() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(financier.Table, financier.FieldID, fq.sqlQuery()),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, financier.UserTable, financier.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, financier.EdgesOfUserTable, financier.EdgesOfUserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(fq.driver.Dialect(), step)
 		return fromU, nil
@@ -274,25 +274,25 @@ func (fq *FinancierQuery) Clone() *FinancierQuery {
 	}
 }
 
-//  WithBills tells the query-builder to eager-loads the nodes that are connected to
-// the "bills" edge. The optional arguments used to configure the query builder of the edge.
-func (fq *FinancierQuery) WithBills(opts ...func(*BillQuery)) *FinancierQuery {
+//  WithEdgesOfBills tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfBills" edge. The optional arguments used to configure the query builder of the edge.
+func (fq *FinancierQuery) WithEdgesOfBills(opts ...func(*BillQuery)) *FinancierQuery {
 	query := &BillQuery{config: fq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	fq.withBills = query
+	fq.withEdgesOfBills = query
 	return fq
 }
 
-//  WithUser tells the query-builder to eager-loads the nodes that are connected to
-// the "user" edge. The optional arguments used to configure the query builder of the edge.
-func (fq *FinancierQuery) WithUser(opts ...func(*UserQuery)) *FinancierQuery {
+//  WithEdgesOfUser tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUser" edge. The optional arguments used to configure the query builder of the edge.
+func (fq *FinancierQuery) WithEdgesOfUser(opts ...func(*UserQuery)) *FinancierQuery {
 	query := &UserQuery{config: fq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	fq.withUser = query
+	fq.withEdgesOfUser = query
 	return fq
 }
 
@@ -364,11 +364,11 @@ func (fq *FinancierQuery) sqlAll(ctx context.Context) ([]*Financier, error) {
 		withFKs     = fq.withFKs
 		_spec       = fq.querySpec()
 		loadedTypes = [2]bool{
-			fq.withBills != nil,
-			fq.withUser != nil,
+			fq.withEdgesOfBills != nil,
+			fq.withEdgesOfUser != nil,
 		}
 	)
-	if fq.withUser != nil {
+	if fq.withEdgesOfUser != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -398,7 +398,7 @@ func (fq *FinancierQuery) sqlAll(ctx context.Context) ([]*Financier, error) {
 		return nodes, nil
 	}
 
-	if query := fq.withBills; query != nil {
+	if query := fq.withEdgesOfBills; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Financier)
 		for i := range nodes {
@@ -407,7 +407,7 @@ func (fq *FinancierQuery) sqlAll(ctx context.Context) ([]*Financier, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Bill(func(s *sql.Selector) {
-			s.Where(sql.InValues(financier.BillsColumn, fks...))
+			s.Where(sql.InValues(financier.EdgesOfBillsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -422,11 +422,11 @@ func (fq *FinancierQuery) sqlAll(ctx context.Context) ([]*Financier, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "officer_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Bills = append(node.Edges.Bills, n)
+			node.Edges.EdgesOfBills = append(node.Edges.EdgesOfBills, n)
 		}
 	}
 
-	if query := fq.withUser; query != nil {
+	if query := fq.withEdgesOfUser; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Financier)
 		for i := range nodes {
@@ -446,7 +446,7 @@ func (fq *FinancierQuery) sqlAll(ctx context.Context) ([]*Financier, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.User = n
+				nodes[i].Edges.EdgesOfUser = n
 			}
 		}
 	}

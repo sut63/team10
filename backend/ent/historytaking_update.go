@@ -128,80 +128,80 @@ func (hu *HistorytakingUpdate) SetDatetime(t time.Time) *HistorytakingUpdate {
 	return hu
 }
 
-// SetNurseID sets the nurse edge to Nurse by id.
-func (hu *HistorytakingUpdate) SetNurseID(id int) *HistorytakingUpdate {
-	hu.mutation.SetNurseID(id)
+// SetEdgesOfNurseID sets the EdgesOfNurse edge to Nurse by id.
+func (hu *HistorytakingUpdate) SetEdgesOfNurseID(id int) *HistorytakingUpdate {
+	hu.mutation.SetEdgesOfNurseID(id)
 	return hu
 }
 
-// SetNillableNurseID sets the nurse edge to Nurse by id if the given value is not nil.
-func (hu *HistorytakingUpdate) SetNillableNurseID(id *int) *HistorytakingUpdate {
+// SetNillableEdgesOfNurseID sets the EdgesOfNurse edge to Nurse by id if the given value is not nil.
+func (hu *HistorytakingUpdate) SetNillableEdgesOfNurseID(id *int) *HistorytakingUpdate {
 	if id != nil {
-		hu = hu.SetNurseID(*id)
+		hu = hu.SetEdgesOfNurseID(*id)
 	}
 	return hu
 }
 
-// SetNurse sets the nurse edge to Nurse.
-func (hu *HistorytakingUpdate) SetNurse(n *Nurse) *HistorytakingUpdate {
-	return hu.SetNurseID(n.ID)
+// SetEdgesOfNurse sets the EdgesOfNurse edge to Nurse.
+func (hu *HistorytakingUpdate) SetEdgesOfNurse(n *Nurse) *HistorytakingUpdate {
+	return hu.SetEdgesOfNurseID(n.ID)
 }
 
-// SetDepartmentID sets the department edge to Department by id.
-func (hu *HistorytakingUpdate) SetDepartmentID(id int) *HistorytakingUpdate {
-	hu.mutation.SetDepartmentID(id)
+// SetEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id.
+func (hu *HistorytakingUpdate) SetEdgesOfDepartmentID(id int) *HistorytakingUpdate {
+	hu.mutation.SetEdgesOfDepartmentID(id)
 	return hu
 }
 
-// SetNillableDepartmentID sets the department edge to Department by id if the given value is not nil.
-func (hu *HistorytakingUpdate) SetNillableDepartmentID(id *int) *HistorytakingUpdate {
+// SetNillableEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id if the given value is not nil.
+func (hu *HistorytakingUpdate) SetNillableEdgesOfDepartmentID(id *int) *HistorytakingUpdate {
 	if id != nil {
-		hu = hu.SetDepartmentID(*id)
+		hu = hu.SetEdgesOfDepartmentID(*id)
 	}
 	return hu
 }
 
-// SetDepartment sets the department edge to Department.
-func (hu *HistorytakingUpdate) SetDepartment(d *Department) *HistorytakingUpdate {
-	return hu.SetDepartmentID(d.ID)
+// SetEdgesOfDepartment sets the EdgesOfDepartment edge to Department.
+func (hu *HistorytakingUpdate) SetEdgesOfDepartment(d *Department) *HistorytakingUpdate {
+	return hu.SetEdgesOfDepartmentID(d.ID)
 }
 
-// SetSymptomseverityID sets the symptomseverity edge to Symptomseverity by id.
-func (hu *HistorytakingUpdate) SetSymptomseverityID(id int) *HistorytakingUpdate {
-	hu.mutation.SetSymptomseverityID(id)
+// SetEdgesOfSymptomseverityID sets the EdgesOfSymptomseverity edge to Symptomseverity by id.
+func (hu *HistorytakingUpdate) SetEdgesOfSymptomseverityID(id int) *HistorytakingUpdate {
+	hu.mutation.SetEdgesOfSymptomseverityID(id)
 	return hu
 }
 
-// SetNillableSymptomseverityID sets the symptomseverity edge to Symptomseverity by id if the given value is not nil.
-func (hu *HistorytakingUpdate) SetNillableSymptomseverityID(id *int) *HistorytakingUpdate {
+// SetNillableEdgesOfSymptomseverityID sets the EdgesOfSymptomseverity edge to Symptomseverity by id if the given value is not nil.
+func (hu *HistorytakingUpdate) SetNillableEdgesOfSymptomseverityID(id *int) *HistorytakingUpdate {
 	if id != nil {
-		hu = hu.SetSymptomseverityID(*id)
+		hu = hu.SetEdgesOfSymptomseverityID(*id)
 	}
 	return hu
 }
 
-// SetSymptomseverity sets the symptomseverity edge to Symptomseverity.
-func (hu *HistorytakingUpdate) SetSymptomseverity(s *Symptomseverity) *HistorytakingUpdate {
-	return hu.SetSymptomseverityID(s.ID)
+// SetEdgesOfSymptomseverity sets the EdgesOfSymptomseverity edge to Symptomseverity.
+func (hu *HistorytakingUpdate) SetEdgesOfSymptomseverity(s *Symptomseverity) *HistorytakingUpdate {
+	return hu.SetEdgesOfSymptomseverityID(s.ID)
 }
 
-// SetPatientrecordID sets the patientrecord edge to Patientrecord by id.
-func (hu *HistorytakingUpdate) SetPatientrecordID(id int) *HistorytakingUpdate {
-	hu.mutation.SetPatientrecordID(id)
+// SetEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id.
+func (hu *HistorytakingUpdate) SetEdgesOfPatientrecordID(id int) *HistorytakingUpdate {
+	hu.mutation.SetEdgesOfPatientrecordID(id)
 	return hu
 }
 
-// SetNillablePatientrecordID sets the patientrecord edge to Patientrecord by id if the given value is not nil.
-func (hu *HistorytakingUpdate) SetNillablePatientrecordID(id *int) *HistorytakingUpdate {
+// SetNillableEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id if the given value is not nil.
+func (hu *HistorytakingUpdate) SetNillableEdgesOfPatientrecordID(id *int) *HistorytakingUpdate {
 	if id != nil {
-		hu = hu.SetPatientrecordID(*id)
+		hu = hu.SetEdgesOfPatientrecordID(*id)
 	}
 	return hu
 }
 
-// SetPatientrecord sets the patientrecord edge to Patientrecord.
-func (hu *HistorytakingUpdate) SetPatientrecord(p *Patientrecord) *HistorytakingUpdate {
-	return hu.SetPatientrecordID(p.ID)
+// SetEdgesOfPatientrecord sets the EdgesOfPatientrecord edge to Patientrecord.
+func (hu *HistorytakingUpdate) SetEdgesOfPatientrecord(p *Patientrecord) *HistorytakingUpdate {
+	return hu.SetEdgesOfPatientrecordID(p.ID)
 }
 
 // Mutation returns the HistorytakingMutation object of the builder.
@@ -209,27 +209,27 @@ func (hu *HistorytakingUpdate) Mutation() *HistorytakingMutation {
 	return hu.mutation
 }
 
-// ClearNurse clears the nurse edge to Nurse.
-func (hu *HistorytakingUpdate) ClearNurse() *HistorytakingUpdate {
-	hu.mutation.ClearNurse()
+// ClearEdgesOfNurse clears the EdgesOfNurse edge to Nurse.
+func (hu *HistorytakingUpdate) ClearEdgesOfNurse() *HistorytakingUpdate {
+	hu.mutation.ClearEdgesOfNurse()
 	return hu
 }
 
-// ClearDepartment clears the department edge to Department.
-func (hu *HistorytakingUpdate) ClearDepartment() *HistorytakingUpdate {
-	hu.mutation.ClearDepartment()
+// ClearEdgesOfDepartment clears the EdgesOfDepartment edge to Department.
+func (hu *HistorytakingUpdate) ClearEdgesOfDepartment() *HistorytakingUpdate {
+	hu.mutation.ClearEdgesOfDepartment()
 	return hu
 }
 
-// ClearSymptomseverity clears the symptomseverity edge to Symptomseverity.
-func (hu *HistorytakingUpdate) ClearSymptomseverity() *HistorytakingUpdate {
-	hu.mutation.ClearSymptomseverity()
+// ClearEdgesOfSymptomseverity clears the EdgesOfSymptomseverity edge to Symptomseverity.
+func (hu *HistorytakingUpdate) ClearEdgesOfSymptomseverity() *HistorytakingUpdate {
+	hu.mutation.ClearEdgesOfSymptomseverity()
 	return hu
 }
 
-// ClearPatientrecord clears the patientrecord edge to Patientrecord.
-func (hu *HistorytakingUpdate) ClearPatientrecord() *HistorytakingUpdate {
-	hu.mutation.ClearPatientrecord()
+// ClearEdgesOfPatientrecord clears the EdgesOfPatientrecord edge to Patientrecord.
+func (hu *HistorytakingUpdate) ClearEdgesOfPatientrecord() *HistorytakingUpdate {
+	hu.mutation.ClearEdgesOfPatientrecord()
 	return hu
 }
 
@@ -408,12 +408,12 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: historytaking.FieldDatetime,
 		})
 	}
-	if hu.mutation.NurseCleared() {
+	if hu.mutation.EdgesOfNurseCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.NurseTable,
-			Columns: []string{historytaking.NurseColumn},
+			Table:   historytaking.EdgesOfNurseTable,
+			Columns: []string{historytaking.EdgesOfNurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -424,12 +424,12 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hu.mutation.NurseIDs(); len(nodes) > 0 {
+	if nodes := hu.mutation.EdgesOfNurseIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.NurseTable,
-			Columns: []string{historytaking.NurseColumn},
+			Table:   historytaking.EdgesOfNurseTable,
+			Columns: []string{historytaking.EdgesOfNurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -443,12 +443,12 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if hu.mutation.DepartmentCleared() {
+	if hu.mutation.EdgesOfDepartmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.DepartmentTable,
-			Columns: []string{historytaking.DepartmentColumn},
+			Table:   historytaking.EdgesOfDepartmentTable,
+			Columns: []string{historytaking.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -459,12 +459,12 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hu.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := hu.mutation.EdgesOfDepartmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.DepartmentTable,
-			Columns: []string{historytaking.DepartmentColumn},
+			Table:   historytaking.EdgesOfDepartmentTable,
+			Columns: []string{historytaking.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -478,12 +478,12 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if hu.mutation.SymptomseverityCleared() {
+	if hu.mutation.EdgesOfSymptomseverityCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.SymptomseverityTable,
-			Columns: []string{historytaking.SymptomseverityColumn},
+			Table:   historytaking.EdgesOfSymptomseverityTable,
+			Columns: []string{historytaking.EdgesOfSymptomseverityColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -494,12 +494,12 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hu.mutation.SymptomseverityIDs(); len(nodes) > 0 {
+	if nodes := hu.mutation.EdgesOfSymptomseverityIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.SymptomseverityTable,
-			Columns: []string{historytaking.SymptomseverityColumn},
+			Table:   historytaking.EdgesOfSymptomseverityTable,
+			Columns: []string{historytaking.EdgesOfSymptomseverityColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -513,12 +513,12 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if hu.mutation.PatientrecordCleared() {
+	if hu.mutation.EdgesOfPatientrecordCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.PatientrecordTable,
-			Columns: []string{historytaking.PatientrecordColumn},
+			Table:   historytaking.EdgesOfPatientrecordTable,
+			Columns: []string{historytaking.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -529,12 +529,12 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := hu.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := hu.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.PatientrecordTable,
-			Columns: []string{historytaking.PatientrecordColumn},
+			Table:   historytaking.EdgesOfPatientrecordTable,
+			Columns: []string{historytaking.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -662,80 +662,80 @@ func (huo *HistorytakingUpdateOne) SetDatetime(t time.Time) *HistorytakingUpdate
 	return huo
 }
 
-// SetNurseID sets the nurse edge to Nurse by id.
-func (huo *HistorytakingUpdateOne) SetNurseID(id int) *HistorytakingUpdateOne {
-	huo.mutation.SetNurseID(id)
+// SetEdgesOfNurseID sets the EdgesOfNurse edge to Nurse by id.
+func (huo *HistorytakingUpdateOne) SetEdgesOfNurseID(id int) *HistorytakingUpdateOne {
+	huo.mutation.SetEdgesOfNurseID(id)
 	return huo
 }
 
-// SetNillableNurseID sets the nurse edge to Nurse by id if the given value is not nil.
-func (huo *HistorytakingUpdateOne) SetNillableNurseID(id *int) *HistorytakingUpdateOne {
+// SetNillableEdgesOfNurseID sets the EdgesOfNurse edge to Nurse by id if the given value is not nil.
+func (huo *HistorytakingUpdateOne) SetNillableEdgesOfNurseID(id *int) *HistorytakingUpdateOne {
 	if id != nil {
-		huo = huo.SetNurseID(*id)
+		huo = huo.SetEdgesOfNurseID(*id)
 	}
 	return huo
 }
 
-// SetNurse sets the nurse edge to Nurse.
-func (huo *HistorytakingUpdateOne) SetNurse(n *Nurse) *HistorytakingUpdateOne {
-	return huo.SetNurseID(n.ID)
+// SetEdgesOfNurse sets the EdgesOfNurse edge to Nurse.
+func (huo *HistorytakingUpdateOne) SetEdgesOfNurse(n *Nurse) *HistorytakingUpdateOne {
+	return huo.SetEdgesOfNurseID(n.ID)
 }
 
-// SetDepartmentID sets the department edge to Department by id.
-func (huo *HistorytakingUpdateOne) SetDepartmentID(id int) *HistorytakingUpdateOne {
-	huo.mutation.SetDepartmentID(id)
+// SetEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id.
+func (huo *HistorytakingUpdateOne) SetEdgesOfDepartmentID(id int) *HistorytakingUpdateOne {
+	huo.mutation.SetEdgesOfDepartmentID(id)
 	return huo
 }
 
-// SetNillableDepartmentID sets the department edge to Department by id if the given value is not nil.
-func (huo *HistorytakingUpdateOne) SetNillableDepartmentID(id *int) *HistorytakingUpdateOne {
+// SetNillableEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id if the given value is not nil.
+func (huo *HistorytakingUpdateOne) SetNillableEdgesOfDepartmentID(id *int) *HistorytakingUpdateOne {
 	if id != nil {
-		huo = huo.SetDepartmentID(*id)
+		huo = huo.SetEdgesOfDepartmentID(*id)
 	}
 	return huo
 }
 
-// SetDepartment sets the department edge to Department.
-func (huo *HistorytakingUpdateOne) SetDepartment(d *Department) *HistorytakingUpdateOne {
-	return huo.SetDepartmentID(d.ID)
+// SetEdgesOfDepartment sets the EdgesOfDepartment edge to Department.
+func (huo *HistorytakingUpdateOne) SetEdgesOfDepartment(d *Department) *HistorytakingUpdateOne {
+	return huo.SetEdgesOfDepartmentID(d.ID)
 }
 
-// SetSymptomseverityID sets the symptomseverity edge to Symptomseverity by id.
-func (huo *HistorytakingUpdateOne) SetSymptomseverityID(id int) *HistorytakingUpdateOne {
-	huo.mutation.SetSymptomseverityID(id)
+// SetEdgesOfSymptomseverityID sets the EdgesOfSymptomseverity edge to Symptomseverity by id.
+func (huo *HistorytakingUpdateOne) SetEdgesOfSymptomseverityID(id int) *HistorytakingUpdateOne {
+	huo.mutation.SetEdgesOfSymptomseverityID(id)
 	return huo
 }
 
-// SetNillableSymptomseverityID sets the symptomseverity edge to Symptomseverity by id if the given value is not nil.
-func (huo *HistorytakingUpdateOne) SetNillableSymptomseverityID(id *int) *HistorytakingUpdateOne {
+// SetNillableEdgesOfSymptomseverityID sets the EdgesOfSymptomseverity edge to Symptomseverity by id if the given value is not nil.
+func (huo *HistorytakingUpdateOne) SetNillableEdgesOfSymptomseverityID(id *int) *HistorytakingUpdateOne {
 	if id != nil {
-		huo = huo.SetSymptomseverityID(*id)
+		huo = huo.SetEdgesOfSymptomseverityID(*id)
 	}
 	return huo
 }
 
-// SetSymptomseverity sets the symptomseverity edge to Symptomseverity.
-func (huo *HistorytakingUpdateOne) SetSymptomseverity(s *Symptomseverity) *HistorytakingUpdateOne {
-	return huo.SetSymptomseverityID(s.ID)
+// SetEdgesOfSymptomseverity sets the EdgesOfSymptomseverity edge to Symptomseverity.
+func (huo *HistorytakingUpdateOne) SetEdgesOfSymptomseverity(s *Symptomseverity) *HistorytakingUpdateOne {
+	return huo.SetEdgesOfSymptomseverityID(s.ID)
 }
 
-// SetPatientrecordID sets the patientrecord edge to Patientrecord by id.
-func (huo *HistorytakingUpdateOne) SetPatientrecordID(id int) *HistorytakingUpdateOne {
-	huo.mutation.SetPatientrecordID(id)
+// SetEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id.
+func (huo *HistorytakingUpdateOne) SetEdgesOfPatientrecordID(id int) *HistorytakingUpdateOne {
+	huo.mutation.SetEdgesOfPatientrecordID(id)
 	return huo
 }
 
-// SetNillablePatientrecordID sets the patientrecord edge to Patientrecord by id if the given value is not nil.
-func (huo *HistorytakingUpdateOne) SetNillablePatientrecordID(id *int) *HistorytakingUpdateOne {
+// SetNillableEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id if the given value is not nil.
+func (huo *HistorytakingUpdateOne) SetNillableEdgesOfPatientrecordID(id *int) *HistorytakingUpdateOne {
 	if id != nil {
-		huo = huo.SetPatientrecordID(*id)
+		huo = huo.SetEdgesOfPatientrecordID(*id)
 	}
 	return huo
 }
 
-// SetPatientrecord sets the patientrecord edge to Patientrecord.
-func (huo *HistorytakingUpdateOne) SetPatientrecord(p *Patientrecord) *HistorytakingUpdateOne {
-	return huo.SetPatientrecordID(p.ID)
+// SetEdgesOfPatientrecord sets the EdgesOfPatientrecord edge to Patientrecord.
+func (huo *HistorytakingUpdateOne) SetEdgesOfPatientrecord(p *Patientrecord) *HistorytakingUpdateOne {
+	return huo.SetEdgesOfPatientrecordID(p.ID)
 }
 
 // Mutation returns the HistorytakingMutation object of the builder.
@@ -743,27 +743,27 @@ func (huo *HistorytakingUpdateOne) Mutation() *HistorytakingMutation {
 	return huo.mutation
 }
 
-// ClearNurse clears the nurse edge to Nurse.
-func (huo *HistorytakingUpdateOne) ClearNurse() *HistorytakingUpdateOne {
-	huo.mutation.ClearNurse()
+// ClearEdgesOfNurse clears the EdgesOfNurse edge to Nurse.
+func (huo *HistorytakingUpdateOne) ClearEdgesOfNurse() *HistorytakingUpdateOne {
+	huo.mutation.ClearEdgesOfNurse()
 	return huo
 }
 
-// ClearDepartment clears the department edge to Department.
-func (huo *HistorytakingUpdateOne) ClearDepartment() *HistorytakingUpdateOne {
-	huo.mutation.ClearDepartment()
+// ClearEdgesOfDepartment clears the EdgesOfDepartment edge to Department.
+func (huo *HistorytakingUpdateOne) ClearEdgesOfDepartment() *HistorytakingUpdateOne {
+	huo.mutation.ClearEdgesOfDepartment()
 	return huo
 }
 
-// ClearSymptomseverity clears the symptomseverity edge to Symptomseverity.
-func (huo *HistorytakingUpdateOne) ClearSymptomseverity() *HistorytakingUpdateOne {
-	huo.mutation.ClearSymptomseverity()
+// ClearEdgesOfSymptomseverity clears the EdgesOfSymptomseverity edge to Symptomseverity.
+func (huo *HistorytakingUpdateOne) ClearEdgesOfSymptomseverity() *HistorytakingUpdateOne {
+	huo.mutation.ClearEdgesOfSymptomseverity()
 	return huo
 }
 
-// ClearPatientrecord clears the patientrecord edge to Patientrecord.
-func (huo *HistorytakingUpdateOne) ClearPatientrecord() *HistorytakingUpdateOne {
-	huo.mutation.ClearPatientrecord()
+// ClearEdgesOfPatientrecord clears the EdgesOfPatientrecord edge to Patientrecord.
+func (huo *HistorytakingUpdateOne) ClearEdgesOfPatientrecord() *HistorytakingUpdateOne {
+	huo.mutation.ClearEdgesOfPatientrecord()
 	return huo
 }
 
@@ -940,12 +940,12 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 			Column: historytaking.FieldDatetime,
 		})
 	}
-	if huo.mutation.NurseCleared() {
+	if huo.mutation.EdgesOfNurseCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.NurseTable,
-			Columns: []string{historytaking.NurseColumn},
+			Table:   historytaking.EdgesOfNurseTable,
+			Columns: []string{historytaking.EdgesOfNurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -956,12 +956,12 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := huo.mutation.NurseIDs(); len(nodes) > 0 {
+	if nodes := huo.mutation.EdgesOfNurseIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.NurseTable,
-			Columns: []string{historytaking.NurseColumn},
+			Table:   historytaking.EdgesOfNurseTable,
+			Columns: []string{historytaking.EdgesOfNurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -975,12 +975,12 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if huo.mutation.DepartmentCleared() {
+	if huo.mutation.EdgesOfDepartmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.DepartmentTable,
-			Columns: []string{historytaking.DepartmentColumn},
+			Table:   historytaking.EdgesOfDepartmentTable,
+			Columns: []string{historytaking.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -991,12 +991,12 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := huo.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := huo.mutation.EdgesOfDepartmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.DepartmentTable,
-			Columns: []string{historytaking.DepartmentColumn},
+			Table:   historytaking.EdgesOfDepartmentTable,
+			Columns: []string{historytaking.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1010,12 +1010,12 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if huo.mutation.SymptomseverityCleared() {
+	if huo.mutation.EdgesOfSymptomseverityCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.SymptomseverityTable,
-			Columns: []string{historytaking.SymptomseverityColumn},
+			Table:   historytaking.EdgesOfSymptomseverityTable,
+			Columns: []string{historytaking.EdgesOfSymptomseverityColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1026,12 +1026,12 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := huo.mutation.SymptomseverityIDs(); len(nodes) > 0 {
+	if nodes := huo.mutation.EdgesOfSymptomseverityIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.SymptomseverityTable,
-			Columns: []string{historytaking.SymptomseverityColumn},
+			Table:   historytaking.EdgesOfSymptomseverityTable,
+			Columns: []string{historytaking.EdgesOfSymptomseverityColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1045,12 +1045,12 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if huo.mutation.PatientrecordCleared() {
+	if huo.mutation.EdgesOfPatientrecordCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.PatientrecordTable,
-			Columns: []string{historytaking.PatientrecordColumn},
+			Table:   historytaking.EdgesOfPatientrecordTable,
+			Columns: []string{historytaking.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1061,12 +1061,12 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := huo.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := huo.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.PatientrecordTable,
-			Columns: []string{historytaking.PatientrecordColumn},
+			Table:   historytaking.EdgesOfPatientrecordTable,
+			Columns: []string{historytaking.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

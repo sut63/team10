@@ -34,73 +34,73 @@ type Treatment struct {
 
 // TreatmentEdges holds the relations/edges for other nodes in the graph.
 type TreatmentEdges struct {
-	// Typetreatment holds the value of the typetreatment edge.
-	Typetreatment *Typetreatment
-	// Patientrecord holds the value of the patientrecord edge.
-	Patientrecord *Patientrecord
-	// Doctor holds the value of the doctor edge.
-	Doctor *Doctor
-	// Unpaybills holds the value of the unpaybills edge.
-	Unpaybills *Unpaybill
+	// EdgesOfTypetreatment holds the value of the EdgesOfTypetreatment edge.
+	EdgesOfTypetreatment *Typetreatment
+	// EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.
+	EdgesOfPatientrecord *Patientrecord
+	// EdgesOfDoctor holds the value of the EdgesOfDoctor edge.
+	EdgesOfDoctor *Doctor
+	// EdgesOfUnpaybills holds the value of the EdgesOfUnpaybills edge.
+	EdgesOfUnpaybills *Unpaybill
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [4]bool
 }
 
-// TypetreatmentOrErr returns the Typetreatment value or an error if the edge
+// EdgesOfTypetreatmentOrErr returns the EdgesOfTypetreatment value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e TreatmentEdges) TypetreatmentOrErr() (*Typetreatment, error) {
+func (e TreatmentEdges) EdgesOfTypetreatmentOrErr() (*Typetreatment, error) {
 	if e.loadedTypes[0] {
-		if e.Typetreatment == nil {
-			// The edge typetreatment was loaded in eager-loading,
+		if e.EdgesOfTypetreatment == nil {
+			// The edge EdgesOfTypetreatment was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: typetreatment.Label}
 		}
-		return e.Typetreatment, nil
+		return e.EdgesOfTypetreatment, nil
 	}
-	return nil, &NotLoadedError{edge: "typetreatment"}
+	return nil, &NotLoadedError{edge: "EdgesOfTypetreatment"}
 }
 
-// PatientrecordOrErr returns the Patientrecord value or an error if the edge
+// EdgesOfPatientrecordOrErr returns the EdgesOfPatientrecord value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e TreatmentEdges) PatientrecordOrErr() (*Patientrecord, error) {
+func (e TreatmentEdges) EdgesOfPatientrecordOrErr() (*Patientrecord, error) {
 	if e.loadedTypes[1] {
-		if e.Patientrecord == nil {
-			// The edge patientrecord was loaded in eager-loading,
+		if e.EdgesOfPatientrecord == nil {
+			// The edge EdgesOfPatientrecord was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: patientrecord.Label}
 		}
-		return e.Patientrecord, nil
+		return e.EdgesOfPatientrecord, nil
 	}
-	return nil, &NotLoadedError{edge: "patientrecord"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrecord"}
 }
 
-// DoctorOrErr returns the Doctor value or an error if the edge
+// EdgesOfDoctorOrErr returns the EdgesOfDoctor value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e TreatmentEdges) DoctorOrErr() (*Doctor, error) {
+func (e TreatmentEdges) EdgesOfDoctorOrErr() (*Doctor, error) {
 	if e.loadedTypes[2] {
-		if e.Doctor == nil {
-			// The edge doctor was loaded in eager-loading,
+		if e.EdgesOfDoctor == nil {
+			// The edge EdgesOfDoctor was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: doctor.Label}
 		}
-		return e.Doctor, nil
+		return e.EdgesOfDoctor, nil
 	}
-	return nil, &NotLoadedError{edge: "doctor"}
+	return nil, &NotLoadedError{edge: "EdgesOfDoctor"}
 }
 
-// UnpaybillsOrErr returns the Unpaybills value or an error if the edge
+// EdgesOfUnpaybillsOrErr returns the EdgesOfUnpaybills value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e TreatmentEdges) UnpaybillsOrErr() (*Unpaybill, error) {
+func (e TreatmentEdges) EdgesOfUnpaybillsOrErr() (*Unpaybill, error) {
 	if e.loadedTypes[3] {
-		if e.Unpaybills == nil {
-			// The edge unpaybills was loaded in eager-loading,
+		if e.EdgesOfUnpaybills == nil {
+			// The edge EdgesOfUnpaybills was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: unpaybill.Label}
 		}
-		return e.Unpaybills, nil
+		return e.EdgesOfUnpaybills, nil
 	}
-	return nil, &NotLoadedError{edge: "unpaybills"}
+	return nil, &NotLoadedError{edge: "EdgesOfUnpaybills"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -167,24 +167,24 @@ func (t *Treatment) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryTypetreatment queries the typetreatment edge of the Treatment.
-func (t *Treatment) QueryTypetreatment() *TypetreatmentQuery {
-	return (&TreatmentClient{config: t.config}).QueryTypetreatment(t)
+// QueryEdgesOfTypetreatment queries the EdgesOfTypetreatment edge of the Treatment.
+func (t *Treatment) QueryEdgesOfTypetreatment() *TypetreatmentQuery {
+	return (&TreatmentClient{config: t.config}).QueryEdgesOfTypetreatment(t)
 }
 
-// QueryPatientrecord queries the patientrecord edge of the Treatment.
-func (t *Treatment) QueryPatientrecord() *PatientrecordQuery {
-	return (&TreatmentClient{config: t.config}).QueryPatientrecord(t)
+// QueryEdgesOfPatientrecord queries the EdgesOfPatientrecord edge of the Treatment.
+func (t *Treatment) QueryEdgesOfPatientrecord() *PatientrecordQuery {
+	return (&TreatmentClient{config: t.config}).QueryEdgesOfPatientrecord(t)
 }
 
-// QueryDoctor queries the doctor edge of the Treatment.
-func (t *Treatment) QueryDoctor() *DoctorQuery {
-	return (&TreatmentClient{config: t.config}).QueryDoctor(t)
+// QueryEdgesOfDoctor queries the EdgesOfDoctor edge of the Treatment.
+func (t *Treatment) QueryEdgesOfDoctor() *DoctorQuery {
+	return (&TreatmentClient{config: t.config}).QueryEdgesOfDoctor(t)
 }
 
-// QueryUnpaybills queries the unpaybills edge of the Treatment.
-func (t *Treatment) QueryUnpaybills() *UnpaybillQuery {
-	return (&TreatmentClient{config: t.config}).QueryUnpaybills(t)
+// QueryEdgesOfUnpaybills queries the EdgesOfUnpaybills edge of the Treatment.
+func (t *Treatment) QueryEdgesOfUnpaybills() *UnpaybillQuery {
+	return (&TreatmentClient{config: t.config}).QueryEdgesOfUnpaybills(t)
 }
 
 // Update returns a builder for updating this Treatment.

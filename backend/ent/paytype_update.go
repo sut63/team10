@@ -34,19 +34,19 @@ func (pu *PaytypeUpdate) SetPaytype(s string) *PaytypeUpdate {
 	return pu
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (pu *PaytypeUpdate) AddBillIDs(ids ...int) *PaytypeUpdate {
-	pu.mutation.AddBillIDs(ids...)
+// AddEdgesOfBillIDs adds the EdgesOfBills edge to Bill by ids.
+func (pu *PaytypeUpdate) AddEdgesOfBillIDs(ids ...int) *PaytypeUpdate {
+	pu.mutation.AddEdgesOfBillIDs(ids...)
 	return pu
 }
 
-// AddBills adds the bills edges to Bill.
-func (pu *PaytypeUpdate) AddBills(b ...*Bill) *PaytypeUpdate {
+// AddEdgesOfBills adds the EdgesOfBills edges to Bill.
+func (pu *PaytypeUpdate) AddEdgesOfBills(b ...*Bill) *PaytypeUpdate {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return pu.AddBillIDs(ids...)
+	return pu.AddEdgesOfBillIDs(ids...)
 }
 
 // Mutation returns the PaytypeMutation object of the builder.
@@ -54,19 +54,19 @@ func (pu *PaytypeUpdate) Mutation() *PaytypeMutation {
 	return pu.mutation
 }
 
-// RemoveBillIDs removes the bills edge to Bill by ids.
-func (pu *PaytypeUpdate) RemoveBillIDs(ids ...int) *PaytypeUpdate {
-	pu.mutation.RemoveBillIDs(ids...)
+// RemoveEdgesOfBillIDs removes the EdgesOfBills edge to Bill by ids.
+func (pu *PaytypeUpdate) RemoveEdgesOfBillIDs(ids ...int) *PaytypeUpdate {
+	pu.mutation.RemoveEdgesOfBillIDs(ids...)
 	return pu
 }
 
-// RemoveBills removes bills edges to Bill.
-func (pu *PaytypeUpdate) RemoveBills(b ...*Bill) *PaytypeUpdate {
+// RemoveEdgesOfBills removes EdgesOfBills edges to Bill.
+func (pu *PaytypeUpdate) RemoveEdgesOfBills(b ...*Bill) *PaytypeUpdate {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return pu.RemoveBillIDs(ids...)
+	return pu.RemoveEdgesOfBillIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -151,12 +151,12 @@ func (pu *PaytypeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: paytype.FieldPaytype,
 		})
 	}
-	if nodes := pu.mutation.RemovedBillsIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.RemovedEdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   paytype.BillsTable,
-			Columns: []string{paytype.BillsColumn},
+			Table:   paytype.EdgesOfBillsTable,
+			Columns: []string{paytype.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -170,12 +170,12 @@ func (pu *PaytypeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   paytype.BillsTable,
-			Columns: []string{paytype.BillsColumn},
+			Table:   paytype.EdgesOfBillsTable,
+			Columns: []string{paytype.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -213,19 +213,19 @@ func (puo *PaytypeUpdateOne) SetPaytype(s string) *PaytypeUpdateOne {
 	return puo
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (puo *PaytypeUpdateOne) AddBillIDs(ids ...int) *PaytypeUpdateOne {
-	puo.mutation.AddBillIDs(ids...)
+// AddEdgesOfBillIDs adds the EdgesOfBills edge to Bill by ids.
+func (puo *PaytypeUpdateOne) AddEdgesOfBillIDs(ids ...int) *PaytypeUpdateOne {
+	puo.mutation.AddEdgesOfBillIDs(ids...)
 	return puo
 }
 
-// AddBills adds the bills edges to Bill.
-func (puo *PaytypeUpdateOne) AddBills(b ...*Bill) *PaytypeUpdateOne {
+// AddEdgesOfBills adds the EdgesOfBills edges to Bill.
+func (puo *PaytypeUpdateOne) AddEdgesOfBills(b ...*Bill) *PaytypeUpdateOne {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return puo.AddBillIDs(ids...)
+	return puo.AddEdgesOfBillIDs(ids...)
 }
 
 // Mutation returns the PaytypeMutation object of the builder.
@@ -233,19 +233,19 @@ func (puo *PaytypeUpdateOne) Mutation() *PaytypeMutation {
 	return puo.mutation
 }
 
-// RemoveBillIDs removes the bills edge to Bill by ids.
-func (puo *PaytypeUpdateOne) RemoveBillIDs(ids ...int) *PaytypeUpdateOne {
-	puo.mutation.RemoveBillIDs(ids...)
+// RemoveEdgesOfBillIDs removes the EdgesOfBills edge to Bill by ids.
+func (puo *PaytypeUpdateOne) RemoveEdgesOfBillIDs(ids ...int) *PaytypeUpdateOne {
+	puo.mutation.RemoveEdgesOfBillIDs(ids...)
 	return puo
 }
 
-// RemoveBills removes bills edges to Bill.
-func (puo *PaytypeUpdateOne) RemoveBills(b ...*Bill) *PaytypeUpdateOne {
+// RemoveEdgesOfBills removes EdgesOfBills edges to Bill.
+func (puo *PaytypeUpdateOne) RemoveEdgesOfBills(b ...*Bill) *PaytypeUpdateOne {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return puo.RemoveBillIDs(ids...)
+	return puo.RemoveEdgesOfBillIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -328,12 +328,12 @@ func (puo *PaytypeUpdateOne) sqlSave(ctx context.Context) (pa *Paytype, err erro
 			Column: paytype.FieldPaytype,
 		})
 	}
-	if nodes := puo.mutation.RemovedBillsIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.RemovedEdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   paytype.BillsTable,
-			Columns: []string{paytype.BillsColumn},
+			Table:   paytype.EdgesOfBillsTable,
+			Columns: []string{paytype.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -347,12 +347,12 @@ func (puo *PaytypeUpdateOne) sqlSave(ctx context.Context) (pa *Paytype, err erro
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   paytype.BillsTable,
-			Columns: []string{paytype.BillsColumn},
+			Table:   paytype.EdgesOfBillsTable,
+			Columns: []string{paytype.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

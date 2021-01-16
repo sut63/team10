@@ -10,27 +10,27 @@ const (
 	// FieldPrefix holds the string denoting the prefix field in the database.
 	FieldPrefix = "prefix"
 
-	// EdgePrename2doctorinfo holds the string denoting the prename2doctorinfo edge name in mutations.
-	EdgePrename2doctorinfo = "prename2doctorinfo"
-	// EdgePatientrecord holds the string denoting the patientrecord edge name in mutations.
-	EdgePatientrecord = "patientrecord"
+	// EdgeEdgesOfPrename2doctorinfo holds the string denoting the edgesofprename2doctorinfo edge name in mutations.
+	EdgeEdgesOfPrename2doctorinfo = "EdgesOfPrename2doctorinfo"
+	// EdgeEdgesOfPatientrecord holds the string denoting the edgesofpatientrecord edge name in mutations.
+	EdgeEdgesOfPatientrecord = "EdgesOfPatientrecord"
 
 	// Table holds the table name of the prename in the database.
 	Table = "prenames"
-	// Prename2doctorinfoTable is the table the holds the prename2doctorinfo relation/edge.
-	Prename2doctorinfoTable = "doctorinfos"
-	// Prename2doctorinfoInverseTable is the table name for the Doctorinfo entity.
+	// EdgesOfPrename2doctorinfoTable is the table the holds the EdgesOfPrename2doctorinfo relation/edge.
+	EdgesOfPrename2doctorinfoTable = "doctorinfos"
+	// EdgesOfPrename2doctorinfoInverseTable is the table name for the Doctorinfo entity.
 	// It exists in this package in order to avoid circular dependency with the "doctorinfo" package.
-	Prename2doctorinfoInverseTable = "doctorinfos"
-	// Prename2doctorinfoColumn is the table column denoting the prename2doctorinfo relation/edge.
-	Prename2doctorinfoColumn = "prefix"
-	// PatientrecordTable is the table the holds the patientrecord relation/edge.
-	PatientrecordTable = "patientrecords"
-	// PatientrecordInverseTable is the table name for the Patientrecord entity.
+	EdgesOfPrename2doctorinfoInverseTable = "doctorinfos"
+	// EdgesOfPrename2doctorinfoColumn is the table column denoting the EdgesOfPrename2doctorinfo relation/edge.
+	EdgesOfPrename2doctorinfoColumn = "prefix"
+	// EdgesOfPatientrecordTable is the table the holds the EdgesOfPatientrecord relation/edge.
+	EdgesOfPatientrecordTable = "patientrecords"
+	// EdgesOfPatientrecordInverseTable is the table name for the Patientrecord entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrecord" package.
-	PatientrecordInverseTable = "patientrecords"
-	// PatientrecordColumn is the table column denoting the patientrecord relation/edge.
-	PatientrecordColumn = "prefix_id"
+	EdgesOfPatientrecordInverseTable = "patientrecords"
+	// EdgesOfPatientrecordColumn is the table column denoting the EdgesOfPatientrecord relation/edge.
+	EdgesOfPatientrecordColumn = "prefix_id"
 )
 
 // Columns holds all SQL columns for prename fields.

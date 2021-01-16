@@ -26,7 +26,7 @@ type UserstatusQuery struct {
 	unique     []string
 	predicates []predicate.Userstatus
 	// eager-loading edges.
-	withUser *UserQuery
+	withEdgesOfUser *UserQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,8 +56,8 @@ func (uq *UserstatusQuery) Order(o ...OrderFunc) *UserstatusQuery {
 	return uq
 }
 
-// QueryUser chains the current query on the user edge.
-func (uq *UserstatusQuery) QueryUser() *UserQuery {
+// QueryEdgesOfUser chains the current query on the EdgesOfUser edge.
+func (uq *UserstatusQuery) QueryEdgesOfUser() *UserQuery {
 	query := &UserQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -66,7 +66,7 @@ func (uq *UserstatusQuery) QueryUser() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(userstatus.Table, userstatus.FieldID, uq.sqlQuery()),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, userstatus.UserTable, userstatus.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, userstatus.EdgesOfUserTable, userstatus.EdgesOfUserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (uq *UserstatusQuery) Clone() *UserstatusQuery {
 	}
 }
 
-//  WithUser tells the query-builder to eager-loads the nodes that are connected to
-// the "user" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserstatusQuery) WithUser(opts ...func(*UserQuery)) *UserstatusQuery {
+//  WithEdgesOfUser tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUser" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserstatusQuery) WithEdgesOfUser(opts ...func(*UserQuery)) *UserstatusQuery {
 	query := &UserQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withUser = query
+	uq.withEdgesOfUser = query
 	return uq
 }
 
@@ -331,7 +331,7 @@ func (uq *UserstatusQuery) sqlAll(ctx context.Context) ([]*Userstatus, error) {
 		nodes       = []*Userstatus{}
 		_spec       = uq.querySpec()
 		loadedTypes = [1]bool{
-			uq.withUser != nil,
+			uq.withEdgesOfUser != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -355,7 +355,7 @@ func (uq *UserstatusQuery) sqlAll(ctx context.Context) ([]*Userstatus, error) {
 		return nodes, nil
 	}
 
-	if query := uq.withUser; query != nil {
+	if query := uq.withEdgesOfUser; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Userstatus)
 		for i := range nodes {
@@ -364,7 +364,7 @@ func (uq *UserstatusQuery) sqlAll(ctx context.Context) ([]*Userstatus, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.User(func(s *sql.Selector) {
-			s.Where(sql.InValues(userstatus.UserColumn, fks...))
+			s.Where(sql.InValues(userstatus.EdgesOfUserColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -379,7 +379,7 @@ func (uq *UserstatusQuery) sqlAll(ctx context.Context) ([]*Userstatus, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "userstatus_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.User = append(node.Edges.User, n)
+			node.Edges.EdgesOfUser = append(node.Edges.EdgesOfUser, n)
 		}
 	}
 

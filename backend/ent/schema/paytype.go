@@ -21,6 +21,6 @@ func (Paytype) Fields() []ent.Field {
 // Edges of the Paytype.
 func (Paytype) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("bills", Bill.Type).StorageKey(edge.Column("paytype_id")),
+		edge.To("EdgesOfBills", Bill.Type).StorageKey(edge.Column("paytype_id")),
 	}
 }

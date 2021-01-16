@@ -34,19 +34,19 @@ func (iu *InsuranceUpdate) SetInsurancecompany(s string) *InsuranceUpdate {
 	return iu
 }
 
-// AddInsurancePatientrightIDs adds the InsurancePatientrights edge to Patientrights by ids.
-func (iu *InsuranceUpdate) AddInsurancePatientrightIDs(ids ...int) *InsuranceUpdate {
-	iu.mutation.AddInsurancePatientrightIDs(ids...)
+// AddEdgesOfInsurancePatientrightIDs adds the EdgesOfInsurancePatientrights edge to Patientrights by ids.
+func (iu *InsuranceUpdate) AddEdgesOfInsurancePatientrightIDs(ids ...int) *InsuranceUpdate {
+	iu.mutation.AddEdgesOfInsurancePatientrightIDs(ids...)
 	return iu
 }
 
-// AddInsurancePatientrights adds the InsurancePatientrights edges to Patientrights.
-func (iu *InsuranceUpdate) AddInsurancePatientrights(p ...*Patientrights) *InsuranceUpdate {
+// AddEdgesOfInsurancePatientrights adds the EdgesOfInsurancePatientrights edges to Patientrights.
+func (iu *InsuranceUpdate) AddEdgesOfInsurancePatientrights(p ...*Patientrights) *InsuranceUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return iu.AddInsurancePatientrightIDs(ids...)
+	return iu.AddEdgesOfInsurancePatientrightIDs(ids...)
 }
 
 // Mutation returns the InsuranceMutation object of the builder.
@@ -54,19 +54,19 @@ func (iu *InsuranceUpdate) Mutation() *InsuranceMutation {
 	return iu.mutation
 }
 
-// RemoveInsurancePatientrightIDs removes the InsurancePatientrights edge to Patientrights by ids.
-func (iu *InsuranceUpdate) RemoveInsurancePatientrightIDs(ids ...int) *InsuranceUpdate {
-	iu.mutation.RemoveInsurancePatientrightIDs(ids...)
+// RemoveEdgesOfInsurancePatientrightIDs removes the EdgesOfInsurancePatientrights edge to Patientrights by ids.
+func (iu *InsuranceUpdate) RemoveEdgesOfInsurancePatientrightIDs(ids ...int) *InsuranceUpdate {
+	iu.mutation.RemoveEdgesOfInsurancePatientrightIDs(ids...)
 	return iu
 }
 
-// RemoveInsurancePatientrights removes InsurancePatientrights edges to Patientrights.
-func (iu *InsuranceUpdate) RemoveInsurancePatientrights(p ...*Patientrights) *InsuranceUpdate {
+// RemoveEdgesOfInsurancePatientrights removes EdgesOfInsurancePatientrights edges to Patientrights.
+func (iu *InsuranceUpdate) RemoveEdgesOfInsurancePatientrights(p ...*Patientrights) *InsuranceUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return iu.RemoveInsurancePatientrightIDs(ids...)
+	return iu.RemoveEdgesOfInsurancePatientrightIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -146,12 +146,12 @@ func (iu *InsuranceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: insurance.FieldInsurancecompany,
 		})
 	}
-	if nodes := iu.mutation.RemovedInsurancePatientrightsIDs(); len(nodes) > 0 {
+	if nodes := iu.mutation.RemovedEdgesOfInsurancePatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   insurance.InsurancePatientrightsTable,
-			Columns: []string{insurance.InsurancePatientrightsColumn},
+			Table:   insurance.EdgesOfInsurancePatientrightsTable,
+			Columns: []string{insurance.EdgesOfInsurancePatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -165,12 +165,12 @@ func (iu *InsuranceUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iu.mutation.InsurancePatientrightsIDs(); len(nodes) > 0 {
+	if nodes := iu.mutation.EdgesOfInsurancePatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   insurance.InsurancePatientrightsTable,
-			Columns: []string{insurance.InsurancePatientrightsColumn},
+			Table:   insurance.EdgesOfInsurancePatientrightsTable,
+			Columns: []string{insurance.EdgesOfInsurancePatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -208,19 +208,19 @@ func (iuo *InsuranceUpdateOne) SetInsurancecompany(s string) *InsuranceUpdateOne
 	return iuo
 }
 
-// AddInsurancePatientrightIDs adds the InsurancePatientrights edge to Patientrights by ids.
-func (iuo *InsuranceUpdateOne) AddInsurancePatientrightIDs(ids ...int) *InsuranceUpdateOne {
-	iuo.mutation.AddInsurancePatientrightIDs(ids...)
+// AddEdgesOfInsurancePatientrightIDs adds the EdgesOfInsurancePatientrights edge to Patientrights by ids.
+func (iuo *InsuranceUpdateOne) AddEdgesOfInsurancePatientrightIDs(ids ...int) *InsuranceUpdateOne {
+	iuo.mutation.AddEdgesOfInsurancePatientrightIDs(ids...)
 	return iuo
 }
 
-// AddInsurancePatientrights adds the InsurancePatientrights edges to Patientrights.
-func (iuo *InsuranceUpdateOne) AddInsurancePatientrights(p ...*Patientrights) *InsuranceUpdateOne {
+// AddEdgesOfInsurancePatientrights adds the EdgesOfInsurancePatientrights edges to Patientrights.
+func (iuo *InsuranceUpdateOne) AddEdgesOfInsurancePatientrights(p ...*Patientrights) *InsuranceUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return iuo.AddInsurancePatientrightIDs(ids...)
+	return iuo.AddEdgesOfInsurancePatientrightIDs(ids...)
 }
 
 // Mutation returns the InsuranceMutation object of the builder.
@@ -228,19 +228,19 @@ func (iuo *InsuranceUpdateOne) Mutation() *InsuranceMutation {
 	return iuo.mutation
 }
 
-// RemoveInsurancePatientrightIDs removes the InsurancePatientrights edge to Patientrights by ids.
-func (iuo *InsuranceUpdateOne) RemoveInsurancePatientrightIDs(ids ...int) *InsuranceUpdateOne {
-	iuo.mutation.RemoveInsurancePatientrightIDs(ids...)
+// RemoveEdgesOfInsurancePatientrightIDs removes the EdgesOfInsurancePatientrights edge to Patientrights by ids.
+func (iuo *InsuranceUpdateOne) RemoveEdgesOfInsurancePatientrightIDs(ids ...int) *InsuranceUpdateOne {
+	iuo.mutation.RemoveEdgesOfInsurancePatientrightIDs(ids...)
 	return iuo
 }
 
-// RemoveInsurancePatientrights removes InsurancePatientrights edges to Patientrights.
-func (iuo *InsuranceUpdateOne) RemoveInsurancePatientrights(p ...*Patientrights) *InsuranceUpdateOne {
+// RemoveEdgesOfInsurancePatientrights removes EdgesOfInsurancePatientrights edges to Patientrights.
+func (iuo *InsuranceUpdateOne) RemoveEdgesOfInsurancePatientrights(p ...*Patientrights) *InsuranceUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return iuo.RemoveInsurancePatientrightIDs(ids...)
+	return iuo.RemoveEdgesOfInsurancePatientrightIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -318,12 +318,12 @@ func (iuo *InsuranceUpdateOne) sqlSave(ctx context.Context) (i *Insurance, err e
 			Column: insurance.FieldInsurancecompany,
 		})
 	}
-	if nodes := iuo.mutation.RemovedInsurancePatientrightsIDs(); len(nodes) > 0 {
+	if nodes := iuo.mutation.RemovedEdgesOfInsurancePatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   insurance.InsurancePatientrightsTable,
-			Columns: []string{insurance.InsurancePatientrightsColumn},
+			Table:   insurance.EdgesOfInsurancePatientrightsTable,
+			Columns: []string{insurance.EdgesOfInsurancePatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -337,12 +337,12 @@ func (iuo *InsuranceUpdateOne) sqlSave(ctx context.Context) (i *Insurance, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := iuo.mutation.InsurancePatientrightsIDs(); len(nodes) > 0 {
+	if nodes := iuo.mutation.EdgesOfInsurancePatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   insurance.InsurancePatientrightsTable,
-			Columns: []string{insurance.InsurancePatientrightsColumn},
+			Table:   insurance.EdgesOfInsurancePatientrightsTable,
+			Columns: []string{insurance.EdgesOfInsurancePatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

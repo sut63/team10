@@ -44,137 +44,137 @@ func (uc *UserCreate) SetImages(s string) *UserCreate {
 	return uc
 }
 
-// SetFinancierID sets the financier edge to Financier by id.
-func (uc *UserCreate) SetFinancierID(id int) *UserCreate {
-	uc.mutation.SetFinancierID(id)
+// SetEdgesOfFinancierID sets the EdgesOfFinancier edge to Financier by id.
+func (uc *UserCreate) SetEdgesOfFinancierID(id int) *UserCreate {
+	uc.mutation.SetEdgesOfFinancierID(id)
 	return uc
 }
 
-// SetNillableFinancierID sets the financier edge to Financier by id if the given value is not nil.
-func (uc *UserCreate) SetNillableFinancierID(id *int) *UserCreate {
+// SetNillableEdgesOfFinancierID sets the EdgesOfFinancier edge to Financier by id if the given value is not nil.
+func (uc *UserCreate) SetNillableEdgesOfFinancierID(id *int) *UserCreate {
 	if id != nil {
-		uc = uc.SetFinancierID(*id)
+		uc = uc.SetEdgesOfFinancierID(*id)
 	}
 	return uc
 }
 
-// SetFinancier sets the financier edge to Financier.
-func (uc *UserCreate) SetFinancier(f *Financier) *UserCreate {
-	return uc.SetFinancierID(f.ID)
+// SetEdgesOfFinancier sets the EdgesOfFinancier edge to Financier.
+func (uc *UserCreate) SetEdgesOfFinancier(f *Financier) *UserCreate {
+	return uc.SetEdgesOfFinancierID(f.ID)
 }
 
-// SetNurseID sets the Nurse edge to Nurse by id.
-func (uc *UserCreate) SetNurseID(id int) *UserCreate {
-	uc.mutation.SetNurseID(id)
+// SetEdgesOfNurseID sets the EdgesOfNurse edge to Nurse by id.
+func (uc *UserCreate) SetEdgesOfNurseID(id int) *UserCreate {
+	uc.mutation.SetEdgesOfNurseID(id)
 	return uc
 }
 
-// SetNillableNurseID sets the Nurse edge to Nurse by id if the given value is not nil.
-func (uc *UserCreate) SetNillableNurseID(id *int) *UserCreate {
+// SetNillableEdgesOfNurseID sets the EdgesOfNurse edge to Nurse by id if the given value is not nil.
+func (uc *UserCreate) SetNillableEdgesOfNurseID(id *int) *UserCreate {
 	if id != nil {
-		uc = uc.SetNurseID(*id)
+		uc = uc.SetEdgesOfNurseID(*id)
 	}
 	return uc
 }
 
-// SetNurse sets the Nurse edge to Nurse.
-func (uc *UserCreate) SetNurse(n *Nurse) *UserCreate {
-	return uc.SetNurseID(n.ID)
+// SetEdgesOfNurse sets the EdgesOfNurse edge to Nurse.
+func (uc *UserCreate) SetEdgesOfNurse(n *Nurse) *UserCreate {
+	return uc.SetEdgesOfNurseID(n.ID)
 }
 
-// SetUserPatientrightsID sets the UserPatientrights edge to Patientrights by id.
-func (uc *UserCreate) SetUserPatientrightsID(id int) *UserCreate {
-	uc.mutation.SetUserPatientrightsID(id)
+// SetEdgesOfUserPatientrightsID sets the EdgesOfUserPatientrights edge to Patientrights by id.
+func (uc *UserCreate) SetEdgesOfUserPatientrightsID(id int) *UserCreate {
+	uc.mutation.SetEdgesOfUserPatientrightsID(id)
 	return uc
 }
 
-// SetNillableUserPatientrightsID sets the UserPatientrights edge to Patientrights by id if the given value is not nil.
-func (uc *UserCreate) SetNillableUserPatientrightsID(id *int) *UserCreate {
+// SetNillableEdgesOfUserPatientrightsID sets the EdgesOfUserPatientrights edge to Patientrights by id if the given value is not nil.
+func (uc *UserCreate) SetNillableEdgesOfUserPatientrightsID(id *int) *UserCreate {
 	if id != nil {
-		uc = uc.SetUserPatientrightsID(*id)
+		uc = uc.SetEdgesOfUserPatientrightsID(*id)
 	}
 	return uc
 }
 
-// SetUserPatientrights sets the UserPatientrights edge to Patientrights.
-func (uc *UserCreate) SetUserPatientrights(p *Patientrights) *UserCreate {
-	return uc.SetUserPatientrightsID(p.ID)
+// SetEdgesOfUserPatientrights sets the EdgesOfUserPatientrights edge to Patientrights.
+func (uc *UserCreate) SetEdgesOfUserPatientrights(p *Patientrights) *UserCreate {
+	return uc.SetEdgesOfUserPatientrightsID(p.ID)
 }
 
-// SetMedicalrecordstaffID sets the medicalrecordstaff edge to Medicalrecordstaff by id.
-func (uc *UserCreate) SetMedicalrecordstaffID(id int) *UserCreate {
-	uc.mutation.SetMedicalrecordstaffID(id)
+// SetEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id.
+func (uc *UserCreate) SetEdgesOfMedicalrecordstaffID(id int) *UserCreate {
+	uc.mutation.SetEdgesOfMedicalrecordstaffID(id)
 	return uc
 }
 
-// SetNillableMedicalrecordstaffID sets the medicalrecordstaff edge to Medicalrecordstaff by id if the given value is not nil.
-func (uc *UserCreate) SetNillableMedicalrecordstaffID(id *int) *UserCreate {
+// SetNillableEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id if the given value is not nil.
+func (uc *UserCreate) SetNillableEdgesOfMedicalrecordstaffID(id *int) *UserCreate {
 	if id != nil {
-		uc = uc.SetMedicalrecordstaffID(*id)
+		uc = uc.SetEdgesOfMedicalrecordstaffID(*id)
 	}
 	return uc
 }
 
-// SetMedicalrecordstaff sets the medicalrecordstaff edge to Medicalrecordstaff.
-func (uc *UserCreate) SetMedicalrecordstaff(m *Medicalrecordstaff) *UserCreate {
-	return uc.SetMedicalrecordstaffID(m.ID)
+// SetEdgesOfMedicalrecordstaff sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff.
+func (uc *UserCreate) SetEdgesOfMedicalrecordstaff(m *Medicalrecordstaff) *UserCreate {
+	return uc.SetEdgesOfMedicalrecordstaffID(m.ID)
 }
 
-// SetUser2registrarID sets the user2registrar edge to Registrar by id.
-func (uc *UserCreate) SetUser2registrarID(id int) *UserCreate {
-	uc.mutation.SetUser2registrarID(id)
+// SetEdgesOfUser2registrarID sets the EdgesOfUser2registrar edge to Registrar by id.
+func (uc *UserCreate) SetEdgesOfUser2registrarID(id int) *UserCreate {
+	uc.mutation.SetEdgesOfUser2registrarID(id)
 	return uc
 }
 
-// SetNillableUser2registrarID sets the user2registrar edge to Registrar by id if the given value is not nil.
-func (uc *UserCreate) SetNillableUser2registrarID(id *int) *UserCreate {
+// SetNillableEdgesOfUser2registrarID sets the EdgesOfUser2registrar edge to Registrar by id if the given value is not nil.
+func (uc *UserCreate) SetNillableEdgesOfUser2registrarID(id *int) *UserCreate {
 	if id != nil {
-		uc = uc.SetUser2registrarID(*id)
+		uc = uc.SetEdgesOfUser2registrarID(*id)
 	}
 	return uc
 }
 
-// SetUser2registrar sets the user2registrar edge to Registrar.
-func (uc *UserCreate) SetUser2registrar(r *Registrar) *UserCreate {
-	return uc.SetUser2registrarID(r.ID)
+// SetEdgesOfUser2registrar sets the EdgesOfUser2registrar edge to Registrar.
+func (uc *UserCreate) SetEdgesOfUser2registrar(r *Registrar) *UserCreate {
+	return uc.SetEdgesOfUser2registrarID(r.ID)
 }
 
-// SetDoctorID sets the doctor edge to Doctor by id.
-func (uc *UserCreate) SetDoctorID(id int) *UserCreate {
-	uc.mutation.SetDoctorID(id)
+// SetEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id.
+func (uc *UserCreate) SetEdgesOfDoctorID(id int) *UserCreate {
+	uc.mutation.SetEdgesOfDoctorID(id)
 	return uc
 }
 
-// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
-func (uc *UserCreate) SetNillableDoctorID(id *int) *UserCreate {
+// SetNillableEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id if the given value is not nil.
+func (uc *UserCreate) SetNillableEdgesOfDoctorID(id *int) *UserCreate {
 	if id != nil {
-		uc = uc.SetDoctorID(*id)
+		uc = uc.SetEdgesOfDoctorID(*id)
 	}
 	return uc
 }
 
-// SetDoctor sets the doctor edge to Doctor.
-func (uc *UserCreate) SetDoctor(d *Doctor) *UserCreate {
-	return uc.SetDoctorID(d.ID)
+// SetEdgesOfDoctor sets the EdgesOfDoctor edge to Doctor.
+func (uc *UserCreate) SetEdgesOfDoctor(d *Doctor) *UserCreate {
+	return uc.SetEdgesOfDoctorID(d.ID)
 }
 
-// SetUserstatusID sets the userstatus edge to Userstatus by id.
-func (uc *UserCreate) SetUserstatusID(id int) *UserCreate {
-	uc.mutation.SetUserstatusID(id)
+// SetEdgesOfUserstatusID sets the EdgesOfUserstatus edge to Userstatus by id.
+func (uc *UserCreate) SetEdgesOfUserstatusID(id int) *UserCreate {
+	uc.mutation.SetEdgesOfUserstatusID(id)
 	return uc
 }
 
-// SetNillableUserstatusID sets the userstatus edge to Userstatus by id if the given value is not nil.
-func (uc *UserCreate) SetNillableUserstatusID(id *int) *UserCreate {
+// SetNillableEdgesOfUserstatusID sets the EdgesOfUserstatus edge to Userstatus by id if the given value is not nil.
+func (uc *UserCreate) SetNillableEdgesOfUserstatusID(id *int) *UserCreate {
 	if id != nil {
-		uc = uc.SetUserstatusID(*id)
+		uc = uc.SetEdgesOfUserstatusID(*id)
 	}
 	return uc
 }
 
-// SetUserstatus sets the userstatus edge to Userstatus.
-func (uc *UserCreate) SetUserstatus(u *Userstatus) *UserCreate {
-	return uc.SetUserstatusID(u.ID)
+// SetEdgesOfUserstatus sets the EdgesOfUserstatus edge to Userstatus.
+func (uc *UserCreate) SetEdgesOfUserstatus(u *Userstatus) *UserCreate {
+	return uc.SetEdgesOfUserstatusID(u.ID)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -287,12 +287,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		})
 		u.Images = value
 	}
-	if nodes := uc.mutation.FinancierIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfFinancierIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.FinancierTable,
-			Columns: []string{user.FinancierColumn},
+			Table:   user.EdgesOfFinancierTable,
+			Columns: []string{user.EdgesOfFinancierColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -306,12 +306,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.NurseIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfNurseIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.NurseTable,
-			Columns: []string{user.NurseColumn},
+			Table:   user.EdgesOfNurseTable,
+			Columns: []string{user.EdgesOfNurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -325,12 +325,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.UserPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfUserPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: false,
-			Table:   user.UserPatientrightsTable,
-			Columns: []string{user.UserPatientrightsColumn},
+			Table:   user.EdgesOfUserPatientrightsTable,
+			Columns: []string{user.EdgesOfUserPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -344,12 +344,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.MedicalrecordstaffIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfMedicalrecordstaffIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.MedicalrecordstaffTable,
-			Columns: []string{user.MedicalrecordstaffColumn},
+			Table:   user.EdgesOfMedicalrecordstaffTable,
+			Columns: []string{user.EdgesOfMedicalrecordstaffColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -363,12 +363,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.User2registrarIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfUser2registrarIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.User2registrarTable,
-			Columns: []string{user.User2registrarColumn},
+			Table:   user.EdgesOfUser2registrarTable,
+			Columns: []string{user.EdgesOfUser2registrarColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -382,12 +382,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.DoctorIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfDoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   user.DoctorTable,
-			Columns: []string{user.DoctorColumn},
+			Table:   user.EdgesOfDoctorTable,
+			Columns: []string{user.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -401,12 +401,12 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.UserstatusIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfUserstatusIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   user.UserstatusTable,
-			Columns: []string{user.UserstatusColumn},
+			Table:   user.EdgesOfUserstatusTable,
+			Columns: []string{user.EdgesOfUserstatusColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -14,18 +14,18 @@ const (
 	// FieldExamine holds the string denoting the examine field in the database.
 	FieldExamine = "examine"
 
-	// EdgeAbilitypatientrightsPatientrightstype holds the string denoting the abilitypatientrightspatientrightstype edge name in mutations.
-	EdgeAbilitypatientrightsPatientrightstype = "AbilitypatientrightsPatientrightstype"
+	// EdgeEdgesOfAbilitypatientrightsPatientrightstype holds the string denoting the edgesofabilitypatientrightspatientrightstype edge name in mutations.
+	EdgeEdgesOfAbilitypatientrightsPatientrightstype = "EdgesOfAbilitypatientrightsPatientrightstype"
 
 	// Table holds the table name of the abilitypatientrights in the database.
 	Table = "abilitypatientrights"
-	// AbilitypatientrightsPatientrightstypeTable is the table the holds the AbilitypatientrightsPatientrightstype relation/edge.
-	AbilitypatientrightsPatientrightstypeTable = "patientrightstypes"
-	// AbilitypatientrightsPatientrightstypeInverseTable is the table name for the Patientrightstype entity.
+	// EdgesOfAbilitypatientrightsPatientrightstypeTable is the table the holds the EdgesOfAbilitypatientrightsPatientrightstype relation/edge.
+	EdgesOfAbilitypatientrightsPatientrightstypeTable = "patientrightstypes"
+	// EdgesOfAbilitypatientrightsPatientrightstypeInverseTable is the table name for the Patientrightstype entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrightstype" package.
-	AbilitypatientrightsPatientrightstypeInverseTable = "patientrightstypes"
-	// AbilitypatientrightsPatientrightstypeColumn is the table column denoting the AbilitypatientrightsPatientrightstype relation/edge.
-	AbilitypatientrightsPatientrightstypeColumn = "Abilitypatientrights_id"
+	EdgesOfAbilitypatientrightsPatientrightstypeInverseTable = "patientrightstypes"
+	// EdgesOfAbilitypatientrightsPatientrightstypeColumn is the table column denoting the EdgesOfAbilitypatientrightsPatientrightstype relation/edge.
+	EdgesOfAbilitypatientrightsPatientrightstypeColumn = "Abilitypatientrights_id"
 )
 
 // Columns holds all SQL columns for abilitypatientrights fields.

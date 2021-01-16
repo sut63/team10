@@ -10,18 +10,18 @@ const (
 	// FieldSymptomseverity holds the string denoting the symptomseverity field in the database.
 	FieldSymptomseverity = "symptomseverity"
 
-	// EdgeHistorytaking holds the string denoting the historytaking edge name in mutations.
-	EdgeHistorytaking = "historytaking"
+	// EdgeEdgesOfHistorytaking holds the string denoting the edgesofhistorytaking edge name in mutations.
+	EdgeEdgesOfHistorytaking = "EdgesOfHistorytaking"
 
 	// Table holds the table name of the symptomseverity in the database.
 	Table = "symptomseverities"
-	// HistorytakingTable is the table the holds the historytaking relation/edge.
-	HistorytakingTable = "historytakings"
-	// HistorytakingInverseTable is the table name for the Historytaking entity.
+	// EdgesOfHistorytakingTable is the table the holds the EdgesOfHistorytaking relation/edge.
+	EdgesOfHistorytakingTable = "historytakings"
+	// EdgesOfHistorytakingInverseTable is the table name for the Historytaking entity.
 	// It exists in this package in order to avoid circular dependency with the "historytaking" package.
-	HistorytakingInverseTable = "historytakings"
-	// HistorytakingColumn is the table column denoting the historytaking relation/edge.
-	HistorytakingColumn = "symptomseverity_id"
+	EdgesOfHistorytakingInverseTable = "historytakings"
+	// EdgesOfHistorytakingColumn is the table column denoting the EdgesOfHistorytaking relation/edge.
+	EdgesOfHistorytakingColumn = "symptomseverity_id"
 )
 
 // Columns holds all SQL columns for symptomseverity fields.

@@ -340,25 +340,25 @@ func ExamineLTE(v int) predicate.Abilitypatientrights {
 	})
 }
 
-// HasAbilitypatientrightsPatientrightstype applies the HasEdge predicate on the "AbilitypatientrightsPatientrightstype" edge.
-func HasAbilitypatientrightsPatientrightstype() predicate.Abilitypatientrights {
+// HasEdgesOfAbilitypatientrightsPatientrightstype applies the HasEdge predicate on the "EdgesOfAbilitypatientrightsPatientrightstype" edge.
+func HasEdgesOfAbilitypatientrightsPatientrightstype() predicate.Abilitypatientrights {
 	return predicate.Abilitypatientrights(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(AbilitypatientrightsPatientrightstypeTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, AbilitypatientrightsPatientrightstypeTable, AbilitypatientrightsPatientrightstypeColumn),
+			sqlgraph.To(EdgesOfAbilitypatientrightsPatientrightstypeTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfAbilitypatientrightsPatientrightstypeTable, EdgesOfAbilitypatientrightsPatientrightstypeColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasAbilitypatientrightsPatientrightstypeWith applies the HasEdge predicate on the "AbilitypatientrightsPatientrightstype" edge with a given conditions (other predicates).
-func HasAbilitypatientrightsPatientrightstypeWith(preds ...predicate.Patientrightstype) predicate.Abilitypatientrights {
+// HasEdgesOfAbilitypatientrightsPatientrightstypeWith applies the HasEdge predicate on the "EdgesOfAbilitypatientrightsPatientrightstype" edge with a given conditions (other predicates).
+func HasEdgesOfAbilitypatientrightsPatientrightstypeWith(preds ...predicate.Patientrightstype) predicate.Abilitypatientrights {
 	return predicate.Abilitypatientrights(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(AbilitypatientrightsPatientrightstypeInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, AbilitypatientrightsPatientrightstypeTable, AbilitypatientrightsPatientrightstypeColumn),
+			sqlgraph.To(EdgesOfAbilitypatientrightsPatientrightstypeInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfAbilitypatientrightsPatientrightstypeTable, EdgesOfAbilitypatientrightsPatientrightstypeColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

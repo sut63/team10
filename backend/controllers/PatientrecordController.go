@@ -114,9 +114,9 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 
 	pr, err := ctl.client.Patientrecord.
 		Create().
-		SetGender(g).
-		SetMedicalrecordstaff(m).
-		SetPrename(p).
+		SetEdgesOfGender(g).
+		SetEdgesOfMedicalrecordstaff(m).
+		SetEdgesOfPrename(p).
 		SetName(obj.Name).
 		SetIdcardnumber(id).
 		SetAge(a).
@@ -204,9 +204,9 @@ func (ctl *PatientrecordController) ListPatientrecord(c *gin.Context) {
 
 	patientrecord, err := ctl.client.Patientrecord.
 		Query().
-		WithGender().
-		WithMedicalrecordstaff().
-		WithPrename().
+		WithEdgesOfGender().
+		WithEdgesOfMedicalrecordstaff().
+		WithEdgesOfPrename().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

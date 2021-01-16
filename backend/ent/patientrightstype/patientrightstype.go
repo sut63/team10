@@ -14,27 +14,27 @@ const (
 	// FieldResponsible holds the string denoting the responsible field in the database.
 	FieldResponsible = "responsible"
 
-	// EdgePatientrightstypePatientrights holds the string denoting the patientrightstypepatientrights edge name in mutations.
-	EdgePatientrightstypePatientrights = "PatientrightstypePatientrights"
-	// EdgePatientrightstypeAbilitypatientrights holds the string denoting the patientrightstypeabilitypatientrights edge name in mutations.
-	EdgePatientrightstypeAbilitypatientrights = "PatientrightstypeAbilitypatientrights"
+	// EdgeEdgesOfPatientrightstypePatientrights holds the string denoting the edgesofpatientrightstypepatientrights edge name in mutations.
+	EdgeEdgesOfPatientrightstypePatientrights = "EdgesOfPatientrightstypePatientrights"
+	// EdgeEdgesOfPatientrightstypeAbilitypatientrights holds the string denoting the edgesofpatientrightstypeabilitypatientrights edge name in mutations.
+	EdgeEdgesOfPatientrightstypeAbilitypatientrights = "EdgesOfPatientrightstypeAbilitypatientrights"
 
 	// Table holds the table name of the patientrightstype in the database.
 	Table = "patientrightstypes"
-	// PatientrightstypePatientrightsTable is the table the holds the PatientrightstypePatientrights relation/edge.
-	PatientrightstypePatientrightsTable = "patientrights"
-	// PatientrightstypePatientrightsInverseTable is the table name for the Patientrights entity.
+	// EdgesOfPatientrightstypePatientrightsTable is the table the holds the EdgesOfPatientrightstypePatientrights relation/edge.
+	EdgesOfPatientrightstypePatientrightsTable = "patientrights"
+	// EdgesOfPatientrightstypePatientrightsInverseTable is the table name for the Patientrights entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrights" package.
-	PatientrightstypePatientrightsInverseTable = "patientrights"
-	// PatientrightstypePatientrightsColumn is the table column denoting the PatientrightstypePatientrights relation/edge.
-	PatientrightstypePatientrightsColumn = "Patientrightstype_id"
-	// PatientrightstypeAbilitypatientrightsTable is the table the holds the PatientrightstypeAbilitypatientrights relation/edge.
-	PatientrightstypeAbilitypatientrightsTable = "patientrightstypes"
-	// PatientrightstypeAbilitypatientrightsInverseTable is the table name for the Abilitypatientrights entity.
+	EdgesOfPatientrightstypePatientrightsInverseTable = "patientrights"
+	// EdgesOfPatientrightstypePatientrightsColumn is the table column denoting the EdgesOfPatientrightstypePatientrights relation/edge.
+	EdgesOfPatientrightstypePatientrightsColumn = "Patientrightstype_id"
+	// EdgesOfPatientrightstypeAbilitypatientrightsTable is the table the holds the EdgesOfPatientrightstypeAbilitypatientrights relation/edge.
+	EdgesOfPatientrightstypeAbilitypatientrightsTable = "patientrightstypes"
+	// EdgesOfPatientrightstypeAbilitypatientrightsInverseTable is the table name for the Abilitypatientrights entity.
 	// It exists in this package in order to avoid circular dependency with the "abilitypatientrights" package.
-	PatientrightstypeAbilitypatientrightsInverseTable = "abilitypatientrights"
-	// PatientrightstypeAbilitypatientrightsColumn is the table column denoting the PatientrightstypeAbilitypatientrights relation/edge.
-	PatientrightstypeAbilitypatientrightsColumn = "Abilitypatientrights_id"
+	EdgesOfPatientrightstypeAbilitypatientrightsInverseTable = "abilitypatientrights"
+	// EdgesOfPatientrightstypeAbilitypatientrightsColumn is the table column denoting the EdgesOfPatientrightstypeAbilitypatientrights relation/edge.
+	EdgesOfPatientrightstypeAbilitypatientrightsColumn = "Abilitypatientrights_id"
 )
 
 // Columns holds all SQL columns for patientrightstype fields.

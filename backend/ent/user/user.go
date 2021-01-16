@@ -14,72 +14,72 @@ const (
 	// FieldImages holds the string denoting the images field in the database.
 	FieldImages = "images"
 
-	// EdgeFinancier holds the string denoting the financier edge name in mutations.
-	EdgeFinancier = "financier"
-	// EdgeNurse holds the string denoting the nurse edge name in mutations.
-	EdgeNurse = "Nurse"
-	// EdgeUserPatientrights holds the string denoting the userpatientrights edge name in mutations.
-	EdgeUserPatientrights = "UserPatientrights"
-	// EdgeMedicalrecordstaff holds the string denoting the medicalrecordstaff edge name in mutations.
-	EdgeMedicalrecordstaff = "medicalrecordstaff"
-	// EdgeUser2registrar holds the string denoting the user2registrar edge name in mutations.
-	EdgeUser2registrar = "user2registrar"
-	// EdgeDoctor holds the string denoting the doctor edge name in mutations.
-	EdgeDoctor = "doctor"
-	// EdgeUserstatus holds the string denoting the userstatus edge name in mutations.
-	EdgeUserstatus = "userstatus"
+	// EdgeEdgesOfFinancier holds the string denoting the edgesoffinancier edge name in mutations.
+	EdgeEdgesOfFinancier = "EdgesOfFinancier"
+	// EdgeEdgesOfNurse holds the string denoting the edgesofnurse edge name in mutations.
+	EdgeEdgesOfNurse = "EdgesOfNurse"
+	// EdgeEdgesOfUserPatientrights holds the string denoting the edgesofuserpatientrights edge name in mutations.
+	EdgeEdgesOfUserPatientrights = "EdgesOfUserPatientrights"
+	// EdgeEdgesOfMedicalrecordstaff holds the string denoting the edgesofmedicalrecordstaff edge name in mutations.
+	EdgeEdgesOfMedicalrecordstaff = "EdgesOfMedicalrecordstaff"
+	// EdgeEdgesOfUser2registrar holds the string denoting the edgesofuser2registrar edge name in mutations.
+	EdgeEdgesOfUser2registrar = "EdgesOfUser2registrar"
+	// EdgeEdgesOfDoctor holds the string denoting the edgesofdoctor edge name in mutations.
+	EdgeEdgesOfDoctor = "EdgesOfDoctor"
+	// EdgeEdgesOfUserstatus holds the string denoting the edgesofuserstatus edge name in mutations.
+	EdgeEdgesOfUserstatus = "EdgesOfUserstatus"
 
 	// Table holds the table name of the user in the database.
 	Table = "users"
-	// FinancierTable is the table the holds the financier relation/edge.
-	FinancierTable = "financiers"
-	// FinancierInverseTable is the table name for the Financier entity.
+	// EdgesOfFinancierTable is the table the holds the EdgesOfFinancier relation/edge.
+	EdgesOfFinancierTable = "financiers"
+	// EdgesOfFinancierInverseTable is the table name for the Financier entity.
 	// It exists in this package in order to avoid circular dependency with the "financier" package.
-	FinancierInverseTable = "financiers"
-	// FinancierColumn is the table column denoting the financier relation/edge.
-	FinancierColumn = "user_id"
-	// NurseTable is the table the holds the Nurse relation/edge.
-	NurseTable = "nurses"
-	// NurseInverseTable is the table name for the Nurse entity.
+	EdgesOfFinancierInverseTable = "financiers"
+	// EdgesOfFinancierColumn is the table column denoting the EdgesOfFinancier relation/edge.
+	EdgesOfFinancierColumn = "user_id"
+	// EdgesOfNurseTable is the table the holds the EdgesOfNurse relation/edge.
+	EdgesOfNurseTable = "nurses"
+	// EdgesOfNurseInverseTable is the table name for the Nurse entity.
 	// It exists in this package in order to avoid circular dependency with the "nurse" package.
-	NurseInverseTable = "nurses"
-	// NurseColumn is the table column denoting the Nurse relation/edge.
-	NurseColumn = "user_id"
-	// UserPatientrightsTable is the table the holds the UserPatientrights relation/edge.
-	UserPatientrightsTable = "users"
-	// UserPatientrightsInverseTable is the table name for the Patientrights entity.
+	EdgesOfNurseInverseTable = "nurses"
+	// EdgesOfNurseColumn is the table column denoting the EdgesOfNurse relation/edge.
+	EdgesOfNurseColumn = "user_id"
+	// EdgesOfUserPatientrightsTable is the table the holds the EdgesOfUserPatientrights relation/edge.
+	EdgesOfUserPatientrightsTable = "users"
+	// EdgesOfUserPatientrightsInverseTable is the table name for the Patientrights entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrights" package.
-	UserPatientrightsInverseTable = "patientrights"
-	// UserPatientrightsColumn is the table column denoting the UserPatientrights relation/edge.
-	UserPatientrightsColumn = "user_id"
-	// MedicalrecordstaffTable is the table the holds the medicalrecordstaff relation/edge.
-	MedicalrecordstaffTable = "medicalrecordstaffs"
-	// MedicalrecordstaffInverseTable is the table name for the Medicalrecordstaff entity.
+	EdgesOfUserPatientrightsInverseTable = "patientrights"
+	// EdgesOfUserPatientrightsColumn is the table column denoting the EdgesOfUserPatientrights relation/edge.
+	EdgesOfUserPatientrightsColumn = "user_id"
+	// EdgesOfMedicalrecordstaffTable is the table the holds the EdgesOfMedicalrecordstaff relation/edge.
+	EdgesOfMedicalrecordstaffTable = "medicalrecordstaffs"
+	// EdgesOfMedicalrecordstaffInverseTable is the table name for the Medicalrecordstaff entity.
 	// It exists in this package in order to avoid circular dependency with the "medicalrecordstaff" package.
-	MedicalrecordstaffInverseTable = "medicalrecordstaffs"
-	// MedicalrecordstaffColumn is the table column denoting the medicalrecordstaff relation/edge.
-	MedicalrecordstaffColumn = "user_id"
-	// User2registrarTable is the table the holds the user2registrar relation/edge.
-	User2registrarTable = "registrars"
-	// User2registrarInverseTable is the table name for the Registrar entity.
+	EdgesOfMedicalrecordstaffInverseTable = "medicalrecordstaffs"
+	// EdgesOfMedicalrecordstaffColumn is the table column denoting the EdgesOfMedicalrecordstaff relation/edge.
+	EdgesOfMedicalrecordstaffColumn = "user_id"
+	// EdgesOfUser2registrarTable is the table the holds the EdgesOfUser2registrar relation/edge.
+	EdgesOfUser2registrarTable = "registrars"
+	// EdgesOfUser2registrarInverseTable is the table name for the Registrar entity.
 	// It exists in this package in order to avoid circular dependency with the "registrar" package.
-	User2registrarInverseTable = "registrars"
-	// User2registrarColumn is the table column denoting the user2registrar relation/edge.
-	User2registrarColumn = "user_id"
-	// DoctorTable is the table the holds the doctor relation/edge.
-	DoctorTable = "doctors"
-	// DoctorInverseTable is the table name for the Doctor entity.
+	EdgesOfUser2registrarInverseTable = "registrars"
+	// EdgesOfUser2registrarColumn is the table column denoting the EdgesOfUser2registrar relation/edge.
+	EdgesOfUser2registrarColumn = "user_id"
+	// EdgesOfDoctorTable is the table the holds the EdgesOfDoctor relation/edge.
+	EdgesOfDoctorTable = "doctors"
+	// EdgesOfDoctorInverseTable is the table name for the Doctor entity.
 	// It exists in this package in order to avoid circular dependency with the "doctor" package.
-	DoctorInverseTable = "doctors"
-	// DoctorColumn is the table column denoting the doctor relation/edge.
-	DoctorColumn = "user_id"
-	// UserstatusTable is the table the holds the userstatus relation/edge.
-	UserstatusTable = "users"
-	// UserstatusInverseTable is the table name for the Userstatus entity.
+	EdgesOfDoctorInverseTable = "doctors"
+	// EdgesOfDoctorColumn is the table column denoting the EdgesOfDoctor relation/edge.
+	EdgesOfDoctorColumn = "user_id"
+	// EdgesOfUserstatusTable is the table the holds the EdgesOfUserstatus relation/edge.
+	EdgesOfUserstatusTable = "users"
+	// EdgesOfUserstatusInverseTable is the table name for the Userstatus entity.
 	// It exists in this package in order to avoid circular dependency with the "userstatus" package.
-	UserstatusInverseTable = "userstatuses"
-	// UserstatusColumn is the table column denoting the userstatus relation/edge.
-	UserstatusColumn = "userstatus_id"
+	EdgesOfUserstatusInverseTable = "userstatuses"
+	// EdgesOfUserstatusColumn is the table column denoting the EdgesOfUserstatus relation/edge.
+	EdgesOfUserstatusColumn = "userstatus_id"
 )
 
 // Columns holds all SQL columns for user fields.

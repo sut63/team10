@@ -25,8 +25,8 @@ func (Patientrights) Edges() []ent.Edge {
 	return []ent.Edge{
 
 		
-		edge.From("PatientrightsPatientrightstype", Patientrightstype.Type).
-			Ref("PatientrightstypePatientrights").
+		edge.From("EdgesOfPatientrightsPatientrightstype", Patientrightstype.Type).
+			Ref("EdgesOfPatientrightstypePatientrights").
 			Unique(),
 			//รูปแบบสิทธิ์
 
@@ -35,18 +35,18 @@ func (Patientrights) Edges() []ent.Edge {
 
 		*/
 
-		edge.From("PatientrightsInsurance", Insurance.Type).
-			Ref("InsurancePatientrights").
+		edge.From("EdgesOfPatientrightsInsurance", Insurance.Type).
+			Ref("EdgesOfInsurancePatientrights").
 			Unique(),
 			//ผู้จ่ายเงิน
 
-		edge.From("PatientrightsPatientrecord", Patientrecord.Type).
-			Ref("PatientrecordPatientrights").
+		edge.From("EdgesOfPatientrightsPatientrecord", Patientrecord.Type).
+			Ref("EdgesOfPatientrecordPatientrights").
 			Unique(),
 			//ผู้ป่วย ผู้รับสิทธิ์
 
-		edge.From("PatientrightsMedicalrecordstaff", Medicalrecordstaff.Type).
-			Ref("MedicalrecordstaffPatientrights").
+		edge.From("EdgesOfPatientrightsMedicalrecordstaff", Medicalrecordstaff.Type).
+			Ref("EdgesOfMedicalrecordstaffPatientrights").
 			Unique(),
 			//พนักงานผู้กรอกข้อมูล
 

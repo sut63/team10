@@ -27,11 +27,11 @@ import {
  */
 export interface EntPaytypeEdges {
     /**
-     * Bills holds the value of the bills edge.
+     * EdgesOfBills holds the value of the EdgesOfBills edge.
      * @type {Array<EntBill>}
      * @memberof EntPaytypeEdges
      */
-    bills?: Array<EntBill>;
+    edgesOfBills?: Array<EntBill>;
 }
 
 export function EntPaytypeEdgesFromJSON(json: any): EntPaytypeEdges {
@@ -44,7 +44,7 @@ export function EntPaytypeEdgesFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'bills': !exists(json, 'Bills') ? undefined : ((json['Bills'] as Array<any>).map(EntBillFromJSON)),
+        'edgesOfBills': !exists(json, 'EdgesOfBills') ? undefined : ((json['EdgesOfBills'] as Array<any>).map(EntBillFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntPaytypeEdgesToJSON(value?: EntPaytypeEdges | null): any {
     }
     return {
         
-        'bills': value.bills === undefined ? undefined : ((value.bills as Array<any>).map(EntBillToJSON)),
+        'EdgesOfBills': value.edgesOfBills === undefined ? undefined : ((value.edgesOfBills as Array<any>).map(EntBillToJSON)),
     };
 }
 

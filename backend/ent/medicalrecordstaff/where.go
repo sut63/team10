@@ -209,25 +209,25 @@ func NameContainsFold(v string) predicate.Medicalrecordstaff {
 	})
 }
 
-// HasPatientrecord applies the HasEdge predicate on the "patientrecord" edge.
-func HasPatientrecord() predicate.Medicalrecordstaff {
+// HasEdgesOfPatientrecord applies the HasEdge predicate on the "EdgesOfPatientrecord" edge.
+func HasEdgesOfPatientrecord() predicate.Medicalrecordstaff {
 	return predicate.Medicalrecordstaff(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(PatientrecordTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, PatientrecordTable, PatientrecordColumn),
+			sqlgraph.To(EdgesOfPatientrecordTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfPatientrecordTable, EdgesOfPatientrecordColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasPatientrecordWith applies the HasEdge predicate on the "patientrecord" edge with a given conditions (other predicates).
-func HasPatientrecordWith(preds ...predicate.Patientrecord) predicate.Medicalrecordstaff {
+// HasEdgesOfPatientrecordWith applies the HasEdge predicate on the "EdgesOfPatientrecord" edge with a given conditions (other predicates).
+func HasEdgesOfPatientrecordWith(preds ...predicate.Patientrecord) predicate.Medicalrecordstaff {
 	return predicate.Medicalrecordstaff(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(PatientrecordInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, PatientrecordTable, PatientrecordColumn),
+			sqlgraph.To(EdgesOfPatientrecordInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfPatientrecordTable, EdgesOfPatientrecordColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -237,25 +237,25 @@ func HasPatientrecordWith(preds ...predicate.Patientrecord) predicate.Medicalrec
 	})
 }
 
-// HasMedicalrecordstaffPatientrights applies the HasEdge predicate on the "MedicalrecordstaffPatientrights" edge.
-func HasMedicalrecordstaffPatientrights() predicate.Medicalrecordstaff {
+// HasEdgesOfMedicalrecordstaffPatientrights applies the HasEdge predicate on the "EdgesOfMedicalrecordstaffPatientrights" edge.
+func HasEdgesOfMedicalrecordstaffPatientrights() predicate.Medicalrecordstaff {
 	return predicate.Medicalrecordstaff(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(MedicalrecordstaffPatientrightsTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, MedicalrecordstaffPatientrightsTable, MedicalrecordstaffPatientrightsColumn),
+			sqlgraph.To(EdgesOfMedicalrecordstaffPatientrightsTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfMedicalrecordstaffPatientrightsTable, EdgesOfMedicalrecordstaffPatientrightsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasMedicalrecordstaffPatientrightsWith applies the HasEdge predicate on the "MedicalrecordstaffPatientrights" edge with a given conditions (other predicates).
-func HasMedicalrecordstaffPatientrightsWith(preds ...predicate.Patientrights) predicate.Medicalrecordstaff {
+// HasEdgesOfMedicalrecordstaffPatientrightsWith applies the HasEdge predicate on the "EdgesOfMedicalrecordstaffPatientrights" edge with a given conditions (other predicates).
+func HasEdgesOfMedicalrecordstaffPatientrightsWith(preds ...predicate.Patientrights) predicate.Medicalrecordstaff {
 	return predicate.Medicalrecordstaff(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(MedicalrecordstaffPatientrightsInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, MedicalrecordstaffPatientrightsTable, MedicalrecordstaffPatientrightsColumn),
+			sqlgraph.To(EdgesOfMedicalrecordstaffPatientrightsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfMedicalrecordstaffPatientrightsTable, EdgesOfMedicalrecordstaffPatientrightsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -265,25 +265,25 @@ func HasMedicalrecordstaffPatientrightsWith(preds ...predicate.Patientrights) pr
 	})
 }
 
-// HasUser applies the HasEdge predicate on the "user" edge.
-func HasUser() predicate.Medicalrecordstaff {
+// HasEdgesOfUser applies the HasEdge predicate on the "EdgesOfUser" edge.
+func HasEdgesOfUser() predicate.Medicalrecordstaff {
 	return predicate.Medicalrecordstaff(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UserTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, UserTable, UserColumn),
+			sqlgraph.To(EdgesOfUserTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, EdgesOfUserTable, EdgesOfUserColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasUserWith applies the HasEdge predicate on the "user" edge with a given conditions (other predicates).
-func HasUserWith(preds ...predicate.User) predicate.Medicalrecordstaff {
+// HasEdgesOfUserWith applies the HasEdge predicate on the "EdgesOfUser" edge with a given conditions (other predicates).
+func HasEdgesOfUserWith(preds ...predicate.User) predicate.Medicalrecordstaff {
 	return predicate.Medicalrecordstaff(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UserInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, UserTable, UserColumn),
+			sqlgraph.To(EdgesOfUserInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, EdgesOfUserTable, EdgesOfUserColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

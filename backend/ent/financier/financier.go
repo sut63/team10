@@ -10,27 +10,27 @@ const (
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 
-	// EdgeBills holds the string denoting the bills edge name in mutations.
-	EdgeBills = "bills"
-	// EdgeUser holds the string denoting the user edge name in mutations.
-	EdgeUser = "user"
+	// EdgeEdgesOfBills holds the string denoting the edgesofbills edge name in mutations.
+	EdgeEdgesOfBills = "EdgesOfBills"
+	// EdgeEdgesOfUser holds the string denoting the edgesofuser edge name in mutations.
+	EdgeEdgesOfUser = "EdgesOfUser"
 
 	// Table holds the table name of the financier in the database.
 	Table = "financiers"
-	// BillsTable is the table the holds the bills relation/edge.
-	BillsTable = "bills"
-	// BillsInverseTable is the table name for the Bill entity.
+	// EdgesOfBillsTable is the table the holds the EdgesOfBills relation/edge.
+	EdgesOfBillsTable = "bills"
+	// EdgesOfBillsInverseTable is the table name for the Bill entity.
 	// It exists in this package in order to avoid circular dependency with the "bill" package.
-	BillsInverseTable = "bills"
-	// BillsColumn is the table column denoting the bills relation/edge.
-	BillsColumn = "officer_id"
-	// UserTable is the table the holds the user relation/edge.
-	UserTable = "financiers"
-	// UserInverseTable is the table name for the User entity.
+	EdgesOfBillsInverseTable = "bills"
+	// EdgesOfBillsColumn is the table column denoting the EdgesOfBills relation/edge.
+	EdgesOfBillsColumn = "officer_id"
+	// EdgesOfUserTable is the table the holds the EdgesOfUser relation/edge.
+	EdgesOfUserTable = "financiers"
+	// EdgesOfUserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
-	// UserColumn is the table column denoting the user relation/edge.
-	UserColumn = "user_id"
+	EdgesOfUserInverseTable = "users"
+	// EdgesOfUserColumn is the table column denoting the EdgesOfUser relation/edge.
+	EdgesOfUserColumn = "user_id"
 )
 
 // Columns holds all SQL columns for financier fields.

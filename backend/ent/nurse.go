@@ -30,36 +30,36 @@ type Nurse struct {
 
 // NurseEdges holds the relations/edges for other nodes in the graph.
 type NurseEdges struct {
-	// Historytaking holds the value of the historytaking edge.
-	Historytaking []*Historytaking
-	// User holds the value of the user edge.
-	User *User
+	// EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.
+	EdgesOfHistorytaking []*Historytaking
+	// EdgesOfUser holds the value of the EdgesOfUser edge.
+	EdgesOfUser *User
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
 }
 
-// HistorytakingOrErr returns the Historytaking value or an error if the edge
+// EdgesOfHistorytakingOrErr returns the EdgesOfHistorytaking value or an error if the edge
 // was not loaded in eager-loading.
-func (e NurseEdges) HistorytakingOrErr() ([]*Historytaking, error) {
+func (e NurseEdges) EdgesOfHistorytakingOrErr() ([]*Historytaking, error) {
 	if e.loadedTypes[0] {
-		return e.Historytaking, nil
+		return e.EdgesOfHistorytaking, nil
 	}
-	return nil, &NotLoadedError{edge: "historytaking"}
+	return nil, &NotLoadedError{edge: "EdgesOfHistorytaking"}
 }
 
-// UserOrErr returns the User value or an error if the edge
+// EdgesOfUserOrErr returns the EdgesOfUser value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e NurseEdges) UserOrErr() (*User, error) {
+func (e NurseEdges) EdgesOfUserOrErr() (*User, error) {
 	if e.loadedTypes[1] {
-		if e.User == nil {
-			// The edge user was loaded in eager-loading,
+		if e.EdgesOfUser == nil {
+			// The edge EdgesOfUser was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: user.Label}
 		}
-		return e.User, nil
+		return e.EdgesOfUser, nil
 	}
-	return nil, &NotLoadedError{edge: "user"}
+	return nil, &NotLoadedError{edge: "EdgesOfUser"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -118,14 +118,14 @@ func (n *Nurse) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryHistorytaking queries the historytaking edge of the Nurse.
-func (n *Nurse) QueryHistorytaking() *HistorytakingQuery {
-	return (&NurseClient{config: n.config}).QueryHistorytaking(n)
+// QueryEdgesOfHistorytaking queries the EdgesOfHistorytaking edge of the Nurse.
+func (n *Nurse) QueryEdgesOfHistorytaking() *HistorytakingQuery {
+	return (&NurseClient{config: n.config}).QueryEdgesOfHistorytaking(n)
 }
 
-// QueryUser queries the user edge of the Nurse.
-func (n *Nurse) QueryUser() *UserQuery {
-	return (&NurseClient{config: n.config}).QueryUser(n)
+// QueryEdgesOfUser queries the EdgesOfUser edge of the Nurse.
+func (n *Nurse) QueryEdgesOfUser() *UserQuery {
+	return (&NurseClient{config: n.config}).QueryEdgesOfUser(n)
 }
 
 // Update returns a builder for updating this Nurse.

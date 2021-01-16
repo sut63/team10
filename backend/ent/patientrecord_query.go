@@ -31,13 +31,13 @@ type PatientrecordQuery struct {
 	unique     []string
 	predicates []predicate.Patientrecord
 	// eager-loading edges.
-	withGender                     *GenderQuery
-	withMedicalrecordstaff         *MedicalrecordstaffQuery
-	withPrename                    *PrenameQuery
-	withHistorytaking              *HistorytakingQuery
-	withTreatment                  *TreatmentQuery
-	withPatientrecordPatientrights *PatientrightsQuery
-	withFKs                        bool
+	withEdgesOfGender                     *GenderQuery
+	withEdgesOfMedicalrecordstaff         *MedicalrecordstaffQuery
+	withEdgesOfPrename                    *PrenameQuery
+	withEdgesOfHistorytaking              *HistorytakingQuery
+	withEdgesOfTreatment                  *TreatmentQuery
+	withEdgesOfPatientrecordPatientrights *PatientrightsQuery
+	withFKs                               bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -67,8 +67,8 @@ func (pq *PatientrecordQuery) Order(o ...OrderFunc) *PatientrecordQuery {
 	return pq
 }
 
-// QueryGender chains the current query on the gender edge.
-func (pq *PatientrecordQuery) QueryGender() *GenderQuery {
+// QueryEdgesOfGender chains the current query on the EdgesOfGender edge.
+func (pq *PatientrecordQuery) QueryEdgesOfGender() *GenderQuery {
 	query := &GenderQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -77,7 +77,7 @@ func (pq *PatientrecordQuery) QueryGender() *GenderQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, pq.sqlQuery()),
 			sqlgraph.To(gender.Table, gender.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.GenderTable, patientrecord.GenderColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.EdgesOfGenderTable, patientrecord.EdgesOfGenderColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -85,8 +85,8 @@ func (pq *PatientrecordQuery) QueryGender() *GenderQuery {
 	return query
 }
 
-// QueryMedicalrecordstaff chains the current query on the medicalrecordstaff edge.
-func (pq *PatientrecordQuery) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
+// QueryEdgesOfMedicalrecordstaff chains the current query on the EdgesOfMedicalrecordstaff edge.
+func (pq *PatientrecordQuery) QueryEdgesOfMedicalrecordstaff() *MedicalrecordstaffQuery {
 	query := &MedicalrecordstaffQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -95,7 +95,7 @@ func (pq *PatientrecordQuery) QueryMedicalrecordstaff() *MedicalrecordstaffQuery
 		step := sqlgraph.NewStep(
 			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, pq.sqlQuery()),
 			sqlgraph.To(medicalrecordstaff.Table, medicalrecordstaff.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.MedicalrecordstaffTable, patientrecord.MedicalrecordstaffColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.EdgesOfMedicalrecordstaffTable, patientrecord.EdgesOfMedicalrecordstaffColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -103,8 +103,8 @@ func (pq *PatientrecordQuery) QueryMedicalrecordstaff() *MedicalrecordstaffQuery
 	return query
 }
 
-// QueryPrename chains the current query on the prename edge.
-func (pq *PatientrecordQuery) QueryPrename() *PrenameQuery {
+// QueryEdgesOfPrename chains the current query on the EdgesOfPrename edge.
+func (pq *PatientrecordQuery) QueryEdgesOfPrename() *PrenameQuery {
 	query := &PrenameQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -113,7 +113,7 @@ func (pq *PatientrecordQuery) QueryPrename() *PrenameQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, pq.sqlQuery()),
 			sqlgraph.To(prename.Table, prename.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.PrenameTable, patientrecord.PrenameColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.EdgesOfPrenameTable, patientrecord.EdgesOfPrenameColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -121,8 +121,8 @@ func (pq *PatientrecordQuery) QueryPrename() *PrenameQuery {
 	return query
 }
 
-// QueryHistorytaking chains the current query on the historytaking edge.
-func (pq *PatientrecordQuery) QueryHistorytaking() *HistorytakingQuery {
+// QueryEdgesOfHistorytaking chains the current query on the EdgesOfHistorytaking edge.
+func (pq *PatientrecordQuery) QueryEdgesOfHistorytaking() *HistorytakingQuery {
 	query := &HistorytakingQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -131,7 +131,7 @@ func (pq *PatientrecordQuery) QueryHistorytaking() *HistorytakingQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, pq.sqlQuery()),
 			sqlgraph.To(historytaking.Table, historytaking.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, patientrecord.HistorytakingTable, patientrecord.HistorytakingColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, patientrecord.EdgesOfHistorytakingTable, patientrecord.EdgesOfHistorytakingColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -139,8 +139,8 @@ func (pq *PatientrecordQuery) QueryHistorytaking() *HistorytakingQuery {
 	return query
 }
 
-// QueryTreatment chains the current query on the treatment edge.
-func (pq *PatientrecordQuery) QueryTreatment() *TreatmentQuery {
+// QueryEdgesOfTreatment chains the current query on the EdgesOfTreatment edge.
+func (pq *PatientrecordQuery) QueryEdgesOfTreatment() *TreatmentQuery {
 	query := &TreatmentQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -149,7 +149,7 @@ func (pq *PatientrecordQuery) QueryTreatment() *TreatmentQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, pq.sqlQuery()),
 			sqlgraph.To(treatment.Table, treatment.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, patientrecord.TreatmentTable, patientrecord.TreatmentColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, patientrecord.EdgesOfTreatmentTable, patientrecord.EdgesOfTreatmentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -157,8 +157,8 @@ func (pq *PatientrecordQuery) QueryTreatment() *TreatmentQuery {
 	return query
 }
 
-// QueryPatientrecordPatientrights chains the current query on the PatientrecordPatientrights edge.
-func (pq *PatientrecordQuery) QueryPatientrecordPatientrights() *PatientrightsQuery {
+// QueryEdgesOfPatientrecordPatientrights chains the current query on the EdgesOfPatientrecordPatientrights edge.
+func (pq *PatientrecordQuery) QueryEdgesOfPatientrecordPatientrights() *PatientrightsQuery {
 	query := &PatientrightsQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -167,7 +167,7 @@ func (pq *PatientrecordQuery) QueryPatientrecordPatientrights() *PatientrightsQu
 		step := sqlgraph.NewStep(
 			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, pq.sqlQuery()),
 			sqlgraph.To(patientrights.Table, patientrights.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, patientrecord.PatientrecordPatientrightsTable, patientrecord.PatientrecordPatientrightsColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, patientrecord.EdgesOfPatientrecordPatientrightsTable, patientrecord.EdgesOfPatientrecordPatientrightsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -354,69 +354,69 @@ func (pq *PatientrecordQuery) Clone() *PatientrecordQuery {
 	}
 }
 
-//  WithGender tells the query-builder to eager-loads the nodes that are connected to
-// the "gender" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PatientrecordQuery) WithGender(opts ...func(*GenderQuery)) *PatientrecordQuery {
+//  WithEdgesOfGender tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfGender" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PatientrecordQuery) WithEdgesOfGender(opts ...func(*GenderQuery)) *PatientrecordQuery {
 	query := &GenderQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withGender = query
+	pq.withEdgesOfGender = query
 	return pq
 }
 
-//  WithMedicalrecordstaff tells the query-builder to eager-loads the nodes that are connected to
-// the "medicalrecordstaff" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PatientrecordQuery) WithMedicalrecordstaff(opts ...func(*MedicalrecordstaffQuery)) *PatientrecordQuery {
+//  WithEdgesOfMedicalrecordstaff tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfMedicalrecordstaff" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PatientrecordQuery) WithEdgesOfMedicalrecordstaff(opts ...func(*MedicalrecordstaffQuery)) *PatientrecordQuery {
 	query := &MedicalrecordstaffQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withMedicalrecordstaff = query
+	pq.withEdgesOfMedicalrecordstaff = query
 	return pq
 }
 
-//  WithPrename tells the query-builder to eager-loads the nodes that are connected to
-// the "prename" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PatientrecordQuery) WithPrename(opts ...func(*PrenameQuery)) *PatientrecordQuery {
+//  WithEdgesOfPrename tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPrename" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PatientrecordQuery) WithEdgesOfPrename(opts ...func(*PrenameQuery)) *PatientrecordQuery {
 	query := &PrenameQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withPrename = query
+	pq.withEdgesOfPrename = query
 	return pq
 }
 
-//  WithHistorytaking tells the query-builder to eager-loads the nodes that are connected to
-// the "historytaking" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PatientrecordQuery) WithHistorytaking(opts ...func(*HistorytakingQuery)) *PatientrecordQuery {
+//  WithEdgesOfHistorytaking tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfHistorytaking" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PatientrecordQuery) WithEdgesOfHistorytaking(opts ...func(*HistorytakingQuery)) *PatientrecordQuery {
 	query := &HistorytakingQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withHistorytaking = query
+	pq.withEdgesOfHistorytaking = query
 	return pq
 }
 
-//  WithTreatment tells the query-builder to eager-loads the nodes that are connected to
-// the "treatment" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PatientrecordQuery) WithTreatment(opts ...func(*TreatmentQuery)) *PatientrecordQuery {
+//  WithEdgesOfTreatment tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfTreatment" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PatientrecordQuery) WithEdgesOfTreatment(opts ...func(*TreatmentQuery)) *PatientrecordQuery {
 	query := &TreatmentQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withTreatment = query
+	pq.withEdgesOfTreatment = query
 	return pq
 }
 
-//  WithPatientrecordPatientrights tells the query-builder to eager-loads the nodes that are connected to
-// the "PatientrecordPatientrights" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PatientrecordQuery) WithPatientrecordPatientrights(opts ...func(*PatientrightsQuery)) *PatientrecordQuery {
+//  WithEdgesOfPatientrecordPatientrights tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPatientrecordPatientrights" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PatientrecordQuery) WithEdgesOfPatientrecordPatientrights(opts ...func(*PatientrightsQuery)) *PatientrecordQuery {
 	query := &PatientrightsQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withPatientrecordPatientrights = query
+	pq.withEdgesOfPatientrecordPatientrights = query
 	return pq
 }
 
@@ -488,15 +488,15 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 		withFKs     = pq.withFKs
 		_spec       = pq.querySpec()
 		loadedTypes = [6]bool{
-			pq.withGender != nil,
-			pq.withMedicalrecordstaff != nil,
-			pq.withPrename != nil,
-			pq.withHistorytaking != nil,
-			pq.withTreatment != nil,
-			pq.withPatientrecordPatientrights != nil,
+			pq.withEdgesOfGender != nil,
+			pq.withEdgesOfMedicalrecordstaff != nil,
+			pq.withEdgesOfPrename != nil,
+			pq.withEdgesOfHistorytaking != nil,
+			pq.withEdgesOfTreatment != nil,
+			pq.withEdgesOfPatientrecordPatientrights != nil,
 		}
 	)
-	if pq.withGender != nil || pq.withMedicalrecordstaff != nil || pq.withPrename != nil {
+	if pq.withEdgesOfGender != nil || pq.withEdgesOfMedicalrecordstaff != nil || pq.withEdgesOfPrename != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -526,7 +526,7 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 		return nodes, nil
 	}
 
-	if query := pq.withGender; query != nil {
+	if query := pq.withEdgesOfGender; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Patientrecord)
 		for i := range nodes {
@@ -546,12 +546,12 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 				return nil, fmt.Errorf(`unexpected foreign-key "gender_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Gender = n
+				nodes[i].Edges.EdgesOfGender = n
 			}
 		}
 	}
 
-	if query := pq.withMedicalrecordstaff; query != nil {
+	if query := pq.withEdgesOfMedicalrecordstaff; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Patientrecord)
 		for i := range nodes {
@@ -571,12 +571,12 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 				return nil, fmt.Errorf(`unexpected foreign-key "medicalrecordstaff_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Medicalrecordstaff = n
+				nodes[i].Edges.EdgesOfMedicalrecordstaff = n
 			}
 		}
 	}
 
-	if query := pq.withPrename; query != nil {
+	if query := pq.withEdgesOfPrename; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Patientrecord)
 		for i := range nodes {
@@ -596,12 +596,12 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 				return nil, fmt.Errorf(`unexpected foreign-key "prefix_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Prename = n
+				nodes[i].Edges.EdgesOfPrename = n
 			}
 		}
 	}
 
-	if query := pq.withHistorytaking; query != nil {
+	if query := pq.withEdgesOfHistorytaking; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Patientrecord)
 		for i := range nodes {
@@ -610,7 +610,7 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 		}
 		query.withFKs = true
 		query.Where(predicate.Historytaking(func(s *sql.Selector) {
-			s.Where(sql.InValues(patientrecord.HistorytakingColumn, fks...))
+			s.Where(sql.InValues(patientrecord.EdgesOfHistorytakingColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -625,11 +625,11 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "patientrecord_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Historytaking = append(node.Edges.Historytaking, n)
+			node.Edges.EdgesOfHistorytaking = append(node.Edges.EdgesOfHistorytaking, n)
 		}
 	}
 
-	if query := pq.withTreatment; query != nil {
+	if query := pq.withEdgesOfTreatment; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Patientrecord)
 		for i := range nodes {
@@ -638,7 +638,7 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 		}
 		query.withFKs = true
 		query.Where(predicate.Treatment(func(s *sql.Selector) {
-			s.Where(sql.InValues(patientrecord.TreatmentColumn, fks...))
+			s.Where(sql.InValues(patientrecord.EdgesOfTreatmentColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -653,11 +653,11 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "patientrecord_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Treatment = append(node.Edges.Treatment, n)
+			node.Edges.EdgesOfTreatment = append(node.Edges.EdgesOfTreatment, n)
 		}
 	}
 
-	if query := pq.withPatientrecordPatientrights; query != nil {
+	if query := pq.withEdgesOfPatientrecordPatientrights; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Patientrecord)
 		for i := range nodes {
@@ -666,7 +666,7 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 		}
 		query.withFKs = true
 		query.Where(predicate.Patientrights(func(s *sql.Selector) {
-			s.Where(sql.InValues(patientrecord.PatientrecordPatientrightsColumn, fks...))
+			s.Where(sql.InValues(patientrecord.EdgesOfPatientrecordPatientrightsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -681,7 +681,7 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "patientrecord_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.PatientrecordPatientrights = append(node.Edges.PatientrecordPatientrights, n)
+			node.Edges.EdgesOfPatientrecordPatientrights = append(node.Edges.EdgesOfPatientrecordPatientrights, n)
 		}
 	}
 

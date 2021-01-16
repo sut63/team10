@@ -28,11 +28,11 @@ type HistorytakingQuery struct {
 	unique     []string
 	predicates []predicate.Historytaking
 	// eager-loading edges.
-	withNurse           *NurseQuery
-	withDepartment      *DepartmentQuery
-	withSymptomseverity *SymptomseverityQuery
-	withPatientrecord   *PatientrecordQuery
-	withFKs             bool
+	withEdgesOfNurse           *NurseQuery
+	withEdgesOfDepartment      *DepartmentQuery
+	withEdgesOfSymptomseverity *SymptomseverityQuery
+	withEdgesOfPatientrecord   *PatientrecordQuery
+	withFKs                    bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -62,8 +62,8 @@ func (hq *HistorytakingQuery) Order(o ...OrderFunc) *HistorytakingQuery {
 	return hq
 }
 
-// QueryNurse chains the current query on the nurse edge.
-func (hq *HistorytakingQuery) QueryNurse() *NurseQuery {
+// QueryEdgesOfNurse chains the current query on the EdgesOfNurse edge.
+func (hq *HistorytakingQuery) QueryEdgesOfNurse() *NurseQuery {
 	query := &NurseQuery{config: hq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := hq.prepareQuery(ctx); err != nil {
@@ -72,7 +72,7 @@ func (hq *HistorytakingQuery) QueryNurse() *NurseQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(historytaking.Table, historytaking.FieldID, hq.sqlQuery()),
 			sqlgraph.To(nurse.Table, nurse.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, historytaking.NurseTable, historytaking.NurseColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, historytaking.EdgesOfNurseTable, historytaking.EdgesOfNurseColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(hq.driver.Dialect(), step)
 		return fromU, nil
@@ -80,8 +80,8 @@ func (hq *HistorytakingQuery) QueryNurse() *NurseQuery {
 	return query
 }
 
-// QueryDepartment chains the current query on the department edge.
-func (hq *HistorytakingQuery) QueryDepartment() *DepartmentQuery {
+// QueryEdgesOfDepartment chains the current query on the EdgesOfDepartment edge.
+func (hq *HistorytakingQuery) QueryEdgesOfDepartment() *DepartmentQuery {
 	query := &DepartmentQuery{config: hq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := hq.prepareQuery(ctx); err != nil {
@@ -90,7 +90,7 @@ func (hq *HistorytakingQuery) QueryDepartment() *DepartmentQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(historytaking.Table, historytaking.FieldID, hq.sqlQuery()),
 			sqlgraph.To(department.Table, department.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, historytaking.DepartmentTable, historytaking.DepartmentColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, historytaking.EdgesOfDepartmentTable, historytaking.EdgesOfDepartmentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(hq.driver.Dialect(), step)
 		return fromU, nil
@@ -98,8 +98,8 @@ func (hq *HistorytakingQuery) QueryDepartment() *DepartmentQuery {
 	return query
 }
 
-// QuerySymptomseverity chains the current query on the symptomseverity edge.
-func (hq *HistorytakingQuery) QuerySymptomseverity() *SymptomseverityQuery {
+// QueryEdgesOfSymptomseverity chains the current query on the EdgesOfSymptomseverity edge.
+func (hq *HistorytakingQuery) QueryEdgesOfSymptomseverity() *SymptomseverityQuery {
 	query := &SymptomseverityQuery{config: hq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := hq.prepareQuery(ctx); err != nil {
@@ -108,7 +108,7 @@ func (hq *HistorytakingQuery) QuerySymptomseverity() *SymptomseverityQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(historytaking.Table, historytaking.FieldID, hq.sqlQuery()),
 			sqlgraph.To(symptomseverity.Table, symptomseverity.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, historytaking.SymptomseverityTable, historytaking.SymptomseverityColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, historytaking.EdgesOfSymptomseverityTable, historytaking.EdgesOfSymptomseverityColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(hq.driver.Dialect(), step)
 		return fromU, nil
@@ -116,8 +116,8 @@ func (hq *HistorytakingQuery) QuerySymptomseverity() *SymptomseverityQuery {
 	return query
 }
 
-// QueryPatientrecord chains the current query on the patientrecord edge.
-func (hq *HistorytakingQuery) QueryPatientrecord() *PatientrecordQuery {
+// QueryEdgesOfPatientrecord chains the current query on the EdgesOfPatientrecord edge.
+func (hq *HistorytakingQuery) QueryEdgesOfPatientrecord() *PatientrecordQuery {
 	query := &PatientrecordQuery{config: hq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := hq.prepareQuery(ctx); err != nil {
@@ -126,7 +126,7 @@ func (hq *HistorytakingQuery) QueryPatientrecord() *PatientrecordQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(historytaking.Table, historytaking.FieldID, hq.sqlQuery()),
 			sqlgraph.To(patientrecord.Table, patientrecord.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, historytaking.PatientrecordTable, historytaking.PatientrecordColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, historytaking.EdgesOfPatientrecordTable, historytaking.EdgesOfPatientrecordColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(hq.driver.Dialect(), step)
 		return fromU, nil
@@ -313,47 +313,47 @@ func (hq *HistorytakingQuery) Clone() *HistorytakingQuery {
 	}
 }
 
-//  WithNurse tells the query-builder to eager-loads the nodes that are connected to
-// the "nurse" edge. The optional arguments used to configure the query builder of the edge.
-func (hq *HistorytakingQuery) WithNurse(opts ...func(*NurseQuery)) *HistorytakingQuery {
+//  WithEdgesOfNurse tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfNurse" edge. The optional arguments used to configure the query builder of the edge.
+func (hq *HistorytakingQuery) WithEdgesOfNurse(opts ...func(*NurseQuery)) *HistorytakingQuery {
 	query := &NurseQuery{config: hq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	hq.withNurse = query
+	hq.withEdgesOfNurse = query
 	return hq
 }
 
-//  WithDepartment tells the query-builder to eager-loads the nodes that are connected to
-// the "department" edge. The optional arguments used to configure the query builder of the edge.
-func (hq *HistorytakingQuery) WithDepartment(opts ...func(*DepartmentQuery)) *HistorytakingQuery {
+//  WithEdgesOfDepartment tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfDepartment" edge. The optional arguments used to configure the query builder of the edge.
+func (hq *HistorytakingQuery) WithEdgesOfDepartment(opts ...func(*DepartmentQuery)) *HistorytakingQuery {
 	query := &DepartmentQuery{config: hq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	hq.withDepartment = query
+	hq.withEdgesOfDepartment = query
 	return hq
 }
 
-//  WithSymptomseverity tells the query-builder to eager-loads the nodes that are connected to
-// the "symptomseverity" edge. The optional arguments used to configure the query builder of the edge.
-func (hq *HistorytakingQuery) WithSymptomseverity(opts ...func(*SymptomseverityQuery)) *HistorytakingQuery {
+//  WithEdgesOfSymptomseverity tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfSymptomseverity" edge. The optional arguments used to configure the query builder of the edge.
+func (hq *HistorytakingQuery) WithEdgesOfSymptomseverity(opts ...func(*SymptomseverityQuery)) *HistorytakingQuery {
 	query := &SymptomseverityQuery{config: hq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	hq.withSymptomseverity = query
+	hq.withEdgesOfSymptomseverity = query
 	return hq
 }
 
-//  WithPatientrecord tells the query-builder to eager-loads the nodes that are connected to
-// the "patientrecord" edge. The optional arguments used to configure the query builder of the edge.
-func (hq *HistorytakingQuery) WithPatientrecord(opts ...func(*PatientrecordQuery)) *HistorytakingQuery {
+//  WithEdgesOfPatientrecord tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPatientrecord" edge. The optional arguments used to configure the query builder of the edge.
+func (hq *HistorytakingQuery) WithEdgesOfPatientrecord(opts ...func(*PatientrecordQuery)) *HistorytakingQuery {
 	query := &PatientrecordQuery{config: hq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	hq.withPatientrecord = query
+	hq.withEdgesOfPatientrecord = query
 	return hq
 }
 
@@ -425,13 +425,13 @@ func (hq *HistorytakingQuery) sqlAll(ctx context.Context) ([]*Historytaking, err
 		withFKs     = hq.withFKs
 		_spec       = hq.querySpec()
 		loadedTypes = [4]bool{
-			hq.withNurse != nil,
-			hq.withDepartment != nil,
-			hq.withSymptomseverity != nil,
-			hq.withPatientrecord != nil,
+			hq.withEdgesOfNurse != nil,
+			hq.withEdgesOfDepartment != nil,
+			hq.withEdgesOfSymptomseverity != nil,
+			hq.withEdgesOfPatientrecord != nil,
 		}
 	)
-	if hq.withNurse != nil || hq.withDepartment != nil || hq.withSymptomseverity != nil || hq.withPatientrecord != nil {
+	if hq.withEdgesOfNurse != nil || hq.withEdgesOfDepartment != nil || hq.withEdgesOfSymptomseverity != nil || hq.withEdgesOfPatientrecord != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -461,7 +461,7 @@ func (hq *HistorytakingQuery) sqlAll(ctx context.Context) ([]*Historytaking, err
 		return nodes, nil
 	}
 
-	if query := hq.withNurse; query != nil {
+	if query := hq.withEdgesOfNurse; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Historytaking)
 		for i := range nodes {
@@ -481,12 +481,12 @@ func (hq *HistorytakingQuery) sqlAll(ctx context.Context) ([]*Historytaking, err
 				return nil, fmt.Errorf(`unexpected foreign-key "nurse_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Nurse = n
+				nodes[i].Edges.EdgesOfNurse = n
 			}
 		}
 	}
 
-	if query := hq.withDepartment; query != nil {
+	if query := hq.withEdgesOfDepartment; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Historytaking)
 		for i := range nodes {
@@ -506,12 +506,12 @@ func (hq *HistorytakingQuery) sqlAll(ctx context.Context) ([]*Historytaking, err
 				return nil, fmt.Errorf(`unexpected foreign-key "department_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Department = n
+				nodes[i].Edges.EdgesOfDepartment = n
 			}
 		}
 	}
 
-	if query := hq.withSymptomseverity; query != nil {
+	if query := hq.withEdgesOfSymptomseverity; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Historytaking)
 		for i := range nodes {
@@ -531,12 +531,12 @@ func (hq *HistorytakingQuery) sqlAll(ctx context.Context) ([]*Historytaking, err
 				return nil, fmt.Errorf(`unexpected foreign-key "symptomseverity_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Symptomseverity = n
+				nodes[i].Edges.EdgesOfSymptomseverity = n
 			}
 		}
 	}
 
-	if query := hq.withPatientrecord; query != nil {
+	if query := hq.withEdgesOfPatientrecord; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Historytaking)
 		for i := range nodes {
@@ -556,7 +556,7 @@ func (hq *HistorytakingQuery) sqlAll(ctx context.Context) ([]*Historytaking, err
 				return nil, fmt.Errorf(`unexpected foreign-key "patientrecord_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Patientrecord = n
+				nodes[i].Edges.EdgesOfPatientrecord = n
 			}
 		}
 	}

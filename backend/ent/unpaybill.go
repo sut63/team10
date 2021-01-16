@@ -27,41 +27,41 @@ type Unpaybill struct {
 
 // UnpaybillEdges holds the relations/edges for other nodes in the graph.
 type UnpaybillEdges struct {
-	// Treatment holds the value of the treatment edge.
-	Treatment *Treatment
-	// Bills holds the value of the bills edge.
-	Bills *Bill
+	// EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
+	EdgesOfTreatment *Treatment
+	// EdgesOfBills holds the value of the EdgesOfBills edge.
+	EdgesOfBills *Bill
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
 }
 
-// TreatmentOrErr returns the Treatment value or an error if the edge
+// EdgesOfTreatmentOrErr returns the EdgesOfTreatment value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UnpaybillEdges) TreatmentOrErr() (*Treatment, error) {
+func (e UnpaybillEdges) EdgesOfTreatmentOrErr() (*Treatment, error) {
 	if e.loadedTypes[0] {
-		if e.Treatment == nil {
-			// The edge treatment was loaded in eager-loading,
+		if e.EdgesOfTreatment == nil {
+			// The edge EdgesOfTreatment was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: treatment.Label}
 		}
-		return e.Treatment, nil
+		return e.EdgesOfTreatment, nil
 	}
-	return nil, &NotLoadedError{edge: "treatment"}
+	return nil, &NotLoadedError{edge: "EdgesOfTreatment"}
 }
 
-// BillsOrErr returns the Bills value or an error if the edge
+// EdgesOfBillsOrErr returns the EdgesOfBills value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UnpaybillEdges) BillsOrErr() (*Bill, error) {
+func (e UnpaybillEdges) EdgesOfBillsOrErr() (*Bill, error) {
 	if e.loadedTypes[1] {
-		if e.Bills == nil {
-			// The edge bills was loaded in eager-loading,
+		if e.EdgesOfBills == nil {
+			// The edge EdgesOfBills was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: bill.Label}
 		}
-		return e.Bills, nil
+		return e.EdgesOfBills, nil
 	}
-	return nil, &NotLoadedError{edge: "bills"}
+	return nil, &NotLoadedError{edge: "EdgesOfBills"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -108,14 +108,14 @@ func (u *Unpaybill) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryTreatment queries the treatment edge of the Unpaybill.
-func (u *Unpaybill) QueryTreatment() *TreatmentQuery {
-	return (&UnpaybillClient{config: u.config}).QueryTreatment(u)
+// QueryEdgesOfTreatment queries the EdgesOfTreatment edge of the Unpaybill.
+func (u *Unpaybill) QueryEdgesOfTreatment() *TreatmentQuery {
+	return (&UnpaybillClient{config: u.config}).QueryEdgesOfTreatment(u)
 }
 
-// QueryBills queries the bills edge of the Unpaybill.
-func (u *Unpaybill) QueryBills() *BillQuery {
-	return (&UnpaybillClient{config: u.config}).QueryBills(u)
+// QueryEdgesOfBills queries the EdgesOfBills edge of the Unpaybill.
+func (u *Unpaybill) QueryEdgesOfBills() *BillQuery {
+	return (&UnpaybillClient{config: u.config}).QueryEdgesOfBills(u)
 }
 
 // Update returns a builder for updating this Unpaybill.

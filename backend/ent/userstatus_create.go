@@ -26,19 +26,19 @@ func (uc *UserstatusCreate) SetUserstatus(s string) *UserstatusCreate {
 	return uc
 }
 
-// AddUserIDs adds the user edge to User by ids.
-func (uc *UserstatusCreate) AddUserIDs(ids ...int) *UserstatusCreate {
-	uc.mutation.AddUserIDs(ids...)
+// AddEdgesOfUserIDs adds the EdgesOfUser edge to User by ids.
+func (uc *UserstatusCreate) AddEdgesOfUserIDs(ids ...int) *UserstatusCreate {
+	uc.mutation.AddEdgesOfUserIDs(ids...)
 	return uc
 }
 
-// AddUser adds the user edges to User.
-func (uc *UserstatusCreate) AddUser(u ...*User) *UserstatusCreate {
+// AddEdgesOfUser adds the EdgesOfUser edges to User.
+func (uc *UserstatusCreate) AddEdgesOfUser(u ...*User) *UserstatusCreate {
 	ids := make([]int, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
-	return uc.AddUserIDs(ids...)
+	return uc.AddEdgesOfUserIDs(ids...)
 }
 
 // Mutation returns the UserstatusMutation object of the builder.
@@ -119,12 +119,12 @@ func (uc *UserstatusCreate) createSpec() (*Userstatus, *sqlgraph.CreateSpec) {
 		})
 		u.Userstatus = value
 	}
-	if nodes := uc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   userstatus.UserTable,
-			Columns: []string{userstatus.UserColumn},
+			Table:   userstatus.EdgesOfUserTable,
+			Columns: []string{userstatus.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

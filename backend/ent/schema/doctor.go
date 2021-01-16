@@ -19,8 +19,8 @@ func (Doctor) Fields() []ent.Field {
 // Edges of the Doctor.
 func (Doctor) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("doctorinfo", Doctorinfo.Type).Ref("doctor").Unique(),
-		edge.From("user", User.Type).Ref("doctor").Unique(),
-		edge.To("treatment", Treatment.Type).StorageKey(edge.Column("doctor_id")),
+		edge.From("EdgesOfDoctorinfo", Doctorinfo.Type).Ref("EdgesOfDoctor").Unique(),
+		edge.From("EdgesOfUser", User.Type).Ref("EdgesOfDoctor").Unique(),
+		edge.To("EdgesOfTreatment", Treatment.Type).StorageKey(edge.Column("doctor_id")),
 	}
 }

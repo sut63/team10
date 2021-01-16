@@ -24,20 +24,20 @@ type Educationlevel struct {
 
 // EducationlevelEdges holds the relations/edges for other nodes in the graph.
 type EducationlevelEdges struct {
-	// Educationlevel2doctorinfo holds the value of the educationlevel2doctorinfo edge.
-	Educationlevel2doctorinfo []*Doctorinfo
+	// EdgesOfEducationlevel2doctorinfo holds the value of the EdgesOfEducationlevel2doctorinfo edge.
+	EdgesOfEducationlevel2doctorinfo []*Doctorinfo
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// Educationlevel2doctorinfoOrErr returns the Educationlevel2doctorinfo value or an error if the edge
+// EdgesOfEducationlevel2doctorinfoOrErr returns the EdgesOfEducationlevel2doctorinfo value or an error if the edge
 // was not loaded in eager-loading.
-func (e EducationlevelEdges) Educationlevel2doctorinfoOrErr() ([]*Doctorinfo, error) {
+func (e EducationlevelEdges) EdgesOfEducationlevel2doctorinfoOrErr() ([]*Doctorinfo, error) {
 	if e.loadedTypes[0] {
-		return e.Educationlevel2doctorinfo, nil
+		return e.EdgesOfEducationlevel2doctorinfo, nil
 	}
-	return nil, &NotLoadedError{edge: "educationlevel2doctorinfo"}
+	return nil, &NotLoadedError{edge: "EdgesOfEducationlevel2doctorinfo"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -68,9 +68,9 @@ func (e *Educationlevel) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryEducationlevel2doctorinfo queries the educationlevel2doctorinfo edge of the Educationlevel.
-func (e *Educationlevel) QueryEducationlevel2doctorinfo() *DoctorinfoQuery {
-	return (&EducationlevelClient{config: e.config}).QueryEducationlevel2doctorinfo(e)
+// QueryEdgesOfEducationlevel2doctorinfo queries the EdgesOfEducationlevel2doctorinfo edge of the Educationlevel.
+func (e *Educationlevel) QueryEdgesOfEducationlevel2doctorinfo() *DoctorinfoQuery {
+	return (&EducationlevelClient{config: e.config}).QueryEdgesOfEducationlevel2doctorinfo(e)
 }
 
 // Update returns a builder for updating this Educationlevel.

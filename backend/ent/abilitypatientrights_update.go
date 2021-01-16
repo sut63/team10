@@ -67,19 +67,19 @@ func (au *AbilitypatientrightsUpdate) AddExamine(i int) *AbilitypatientrightsUpd
 	return au
 }
 
-// AddAbilitypatientrightsPatientrightstypeIDs adds the AbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
-func (au *AbilitypatientrightsUpdate) AddAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsUpdate {
-	au.mutation.AddAbilitypatientrightsPatientrightstypeIDs(ids...)
+// AddEdgesOfAbilitypatientrightsPatientrightstypeIDs adds the EdgesOfAbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
+func (au *AbilitypatientrightsUpdate) AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsUpdate {
+	au.mutation.AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 	return au
 }
 
-// AddAbilitypatientrightsPatientrightstype adds the AbilitypatientrightsPatientrightstype edges to Patientrightstype.
-func (au *AbilitypatientrightsUpdate) AddAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsUpdate {
+// AddEdgesOfAbilitypatientrightsPatientrightstype adds the EdgesOfAbilitypatientrightsPatientrightstype edges to Patientrightstype.
+func (au *AbilitypatientrightsUpdate) AddEdgesOfAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return au.AddAbilitypatientrightsPatientrightstypeIDs(ids...)
+	return au.AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 }
 
 // Mutation returns the AbilitypatientrightsMutation object of the builder.
@@ -87,19 +87,19 @@ func (au *AbilitypatientrightsUpdate) Mutation() *AbilitypatientrightsMutation {
 	return au.mutation
 }
 
-// RemoveAbilitypatientrightsPatientrightstypeIDs removes the AbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
-func (au *AbilitypatientrightsUpdate) RemoveAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsUpdate {
-	au.mutation.RemoveAbilitypatientrightsPatientrightstypeIDs(ids...)
+// RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs removes the EdgesOfAbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
+func (au *AbilitypatientrightsUpdate) RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsUpdate {
+	au.mutation.RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 	return au
 }
 
-// RemoveAbilitypatientrightsPatientrightstype removes AbilitypatientrightsPatientrightstype edges to Patientrightstype.
-func (au *AbilitypatientrightsUpdate) RemoveAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsUpdate {
+// RemoveEdgesOfAbilitypatientrightsPatientrightstype removes EdgesOfAbilitypatientrightsPatientrightstype edges to Patientrightstype.
+func (au *AbilitypatientrightsUpdate) RemoveEdgesOfAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return au.RemoveAbilitypatientrightsPatientrightstypeIDs(ids...)
+	return au.RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -214,12 +214,12 @@ func (au *AbilitypatientrightsUpdate) sqlSave(ctx context.Context) (n int, err e
 			Column: abilitypatientrights.FieldExamine,
 		})
 	}
-	if nodes := au.mutation.RemovedAbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if nodes := au.mutation.RemovedEdgesOfAbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   abilitypatientrights.AbilitypatientrightsPatientrightstypeTable,
-			Columns: []string{abilitypatientrights.AbilitypatientrightsPatientrightstypeColumn},
+			Table:   abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeTable,
+			Columns: []string{abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -233,12 +233,12 @@ func (au *AbilitypatientrightsUpdate) sqlSave(ctx context.Context) (n int, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := au.mutation.AbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if nodes := au.mutation.EdgesOfAbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   abilitypatientrights.AbilitypatientrightsPatientrightstypeTable,
-			Columns: []string{abilitypatientrights.AbilitypatientrightsPatientrightstypeColumn},
+			Table:   abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeTable,
+			Columns: []string{abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -309,19 +309,19 @@ func (auo *AbilitypatientrightsUpdateOne) AddExamine(i int) *Abilitypatientright
 	return auo
 }
 
-// AddAbilitypatientrightsPatientrightstypeIDs adds the AbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
-func (auo *AbilitypatientrightsUpdateOne) AddAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsUpdateOne {
-	auo.mutation.AddAbilitypatientrightsPatientrightstypeIDs(ids...)
+// AddEdgesOfAbilitypatientrightsPatientrightstypeIDs adds the EdgesOfAbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
+func (auo *AbilitypatientrightsUpdateOne) AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsUpdateOne {
+	auo.mutation.AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 	return auo
 }
 
-// AddAbilitypatientrightsPatientrightstype adds the AbilitypatientrightsPatientrightstype edges to Patientrightstype.
-func (auo *AbilitypatientrightsUpdateOne) AddAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsUpdateOne {
+// AddEdgesOfAbilitypatientrightsPatientrightstype adds the EdgesOfAbilitypatientrightsPatientrightstype edges to Patientrightstype.
+func (auo *AbilitypatientrightsUpdateOne) AddEdgesOfAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return auo.AddAbilitypatientrightsPatientrightstypeIDs(ids...)
+	return auo.AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 }
 
 // Mutation returns the AbilitypatientrightsMutation object of the builder.
@@ -329,19 +329,19 @@ func (auo *AbilitypatientrightsUpdateOne) Mutation() *AbilitypatientrightsMutati
 	return auo.mutation
 }
 
-// RemoveAbilitypatientrightsPatientrightstypeIDs removes the AbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
-func (auo *AbilitypatientrightsUpdateOne) RemoveAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsUpdateOne {
-	auo.mutation.RemoveAbilitypatientrightsPatientrightstypeIDs(ids...)
+// RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs removes the EdgesOfAbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
+func (auo *AbilitypatientrightsUpdateOne) RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsUpdateOne {
+	auo.mutation.RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 	return auo
 }
 
-// RemoveAbilitypatientrightsPatientrightstype removes AbilitypatientrightsPatientrightstype edges to Patientrightstype.
-func (auo *AbilitypatientrightsUpdateOne) RemoveAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsUpdateOne {
+// RemoveEdgesOfAbilitypatientrightsPatientrightstype removes EdgesOfAbilitypatientrightsPatientrightstype edges to Patientrightstype.
+func (auo *AbilitypatientrightsUpdateOne) RemoveEdgesOfAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return auo.RemoveAbilitypatientrightsPatientrightstypeIDs(ids...)
+	return auo.RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -454,12 +454,12 @@ func (auo *AbilitypatientrightsUpdateOne) sqlSave(ctx context.Context) (a *Abili
 			Column: abilitypatientrights.FieldExamine,
 		})
 	}
-	if nodes := auo.mutation.RemovedAbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if nodes := auo.mutation.RemovedEdgesOfAbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   abilitypatientrights.AbilitypatientrightsPatientrightstypeTable,
-			Columns: []string{abilitypatientrights.AbilitypatientrightsPatientrightstypeColumn},
+			Table:   abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeTable,
+			Columns: []string{abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -473,12 +473,12 @@ func (auo *AbilitypatientrightsUpdateOne) sqlSave(ctx context.Context) (a *Abili
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := auo.mutation.AbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if nodes := auo.mutation.EdgesOfAbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   abilitypatientrights.AbilitypatientrightsPatientrightstypeTable,
-			Columns: []string{abilitypatientrights.AbilitypatientrightsPatientrightstypeColumn},
+			Table:   abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeTable,
+			Columns: []string{abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -26,47 +26,47 @@ type Medicalrecordstaff struct {
 
 // MedicalrecordstaffEdges holds the relations/edges for other nodes in the graph.
 type MedicalrecordstaffEdges struct {
-	// Patientrecord holds the value of the patientrecord edge.
-	Patientrecord []*Patientrecord
-	// MedicalrecordstaffPatientrights holds the value of the MedicalrecordstaffPatientrights edge.
-	MedicalrecordstaffPatientrights []*Patientrights
-	// User holds the value of the user edge.
-	User *User
+	// EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.
+	EdgesOfPatientrecord []*Patientrecord
+	// EdgesOfMedicalrecordstaffPatientrights holds the value of the EdgesOfMedicalrecordstaffPatientrights edge.
+	EdgesOfMedicalrecordstaffPatientrights []*Patientrights
+	// EdgesOfUser holds the value of the EdgesOfUser edge.
+	EdgesOfUser *User
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [3]bool
 }
 
-// PatientrecordOrErr returns the Patientrecord value or an error if the edge
+// EdgesOfPatientrecordOrErr returns the EdgesOfPatientrecord value or an error if the edge
 // was not loaded in eager-loading.
-func (e MedicalrecordstaffEdges) PatientrecordOrErr() ([]*Patientrecord, error) {
+func (e MedicalrecordstaffEdges) EdgesOfPatientrecordOrErr() ([]*Patientrecord, error) {
 	if e.loadedTypes[0] {
-		return e.Patientrecord, nil
+		return e.EdgesOfPatientrecord, nil
 	}
-	return nil, &NotLoadedError{edge: "patientrecord"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrecord"}
 }
 
-// MedicalrecordstaffPatientrightsOrErr returns the MedicalrecordstaffPatientrights value or an error if the edge
+// EdgesOfMedicalrecordstaffPatientrightsOrErr returns the EdgesOfMedicalrecordstaffPatientrights value or an error if the edge
 // was not loaded in eager-loading.
-func (e MedicalrecordstaffEdges) MedicalrecordstaffPatientrightsOrErr() ([]*Patientrights, error) {
+func (e MedicalrecordstaffEdges) EdgesOfMedicalrecordstaffPatientrightsOrErr() ([]*Patientrights, error) {
 	if e.loadedTypes[1] {
-		return e.MedicalrecordstaffPatientrights, nil
+		return e.EdgesOfMedicalrecordstaffPatientrights, nil
 	}
-	return nil, &NotLoadedError{edge: "MedicalrecordstaffPatientrights"}
+	return nil, &NotLoadedError{edge: "EdgesOfMedicalrecordstaffPatientrights"}
 }
 
-// UserOrErr returns the User value or an error if the edge
+// EdgesOfUserOrErr returns the EdgesOfUser value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e MedicalrecordstaffEdges) UserOrErr() (*User, error) {
+func (e MedicalrecordstaffEdges) EdgesOfUserOrErr() (*User, error) {
 	if e.loadedTypes[2] {
-		if e.User == nil {
-			// The edge user was loaded in eager-loading,
+		if e.EdgesOfUser == nil {
+			// The edge EdgesOfUser was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: user.Label}
 		}
-		return e.User, nil
+		return e.EdgesOfUser, nil
 	}
-	return nil, &NotLoadedError{edge: "user"}
+	return nil, &NotLoadedError{edge: "EdgesOfUser"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -113,19 +113,19 @@ func (m *Medicalrecordstaff) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryPatientrecord queries the patientrecord edge of the Medicalrecordstaff.
-func (m *Medicalrecordstaff) QueryPatientrecord() *PatientrecordQuery {
-	return (&MedicalrecordstaffClient{config: m.config}).QueryPatientrecord(m)
+// QueryEdgesOfPatientrecord queries the EdgesOfPatientrecord edge of the Medicalrecordstaff.
+func (m *Medicalrecordstaff) QueryEdgesOfPatientrecord() *PatientrecordQuery {
+	return (&MedicalrecordstaffClient{config: m.config}).QueryEdgesOfPatientrecord(m)
 }
 
-// QueryMedicalrecordstaffPatientrights queries the MedicalrecordstaffPatientrights edge of the Medicalrecordstaff.
-func (m *Medicalrecordstaff) QueryMedicalrecordstaffPatientrights() *PatientrightsQuery {
-	return (&MedicalrecordstaffClient{config: m.config}).QueryMedicalrecordstaffPatientrights(m)
+// QueryEdgesOfMedicalrecordstaffPatientrights queries the EdgesOfMedicalrecordstaffPatientrights edge of the Medicalrecordstaff.
+func (m *Medicalrecordstaff) QueryEdgesOfMedicalrecordstaffPatientrights() *PatientrightsQuery {
+	return (&MedicalrecordstaffClient{config: m.config}).QueryEdgesOfMedicalrecordstaffPatientrights(m)
 }
 
-// QueryUser queries the user edge of the Medicalrecordstaff.
-func (m *Medicalrecordstaff) QueryUser() *UserQuery {
-	return (&MedicalrecordstaffClient{config: m.config}).QueryUser(m)
+// QueryEdgesOfUser queries the EdgesOfUser edge of the Medicalrecordstaff.
+func (m *Medicalrecordstaff) QueryEdgesOfUser() *UserQuery {
+	return (&MedicalrecordstaffClient{config: m.config}).QueryEdgesOfUser(m)
 }
 
 // Update returns a builder for updating this Medicalrecordstaff.

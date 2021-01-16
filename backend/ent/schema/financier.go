@@ -22,7 +22,7 @@ func (Financier) Fields() []ent.Field {
 // Edges of the Financier.
 func (Financier) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("bills", Bill.Type).StorageKey(edge.Column("officer_id")),
-		edge.From("user", User.Type).Ref("financier").Unique(),
+		edge.To("EdgesOfBills", Bill.Type).StorageKey(edge.Column("officer_id")),
+		edge.From("EdgesOfUser", User.Type).Ref("EdgesOfFinancier").Unique(),
 	}
 }

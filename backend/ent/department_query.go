@@ -27,8 +27,8 @@ type DepartmentQuery struct {
 	unique     []string
 	predicates []predicate.Department
 	// eager-loading edges.
-	withDepartment2doctorinfo *DoctorinfoQuery
-	withHistorytaking         *HistorytakingQuery
+	withEdgesOfDepartment2doctorinfo *DoctorinfoQuery
+	withEdgesOfHistorytaking         *HistorytakingQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -58,8 +58,8 @@ func (dq *DepartmentQuery) Order(o ...OrderFunc) *DepartmentQuery {
 	return dq
 }
 
-// QueryDepartment2doctorinfo chains the current query on the department2doctorinfo edge.
-func (dq *DepartmentQuery) QueryDepartment2doctorinfo() *DoctorinfoQuery {
+// QueryEdgesOfDepartment2doctorinfo chains the current query on the EdgesOfDepartment2doctorinfo edge.
+func (dq *DepartmentQuery) QueryEdgesOfDepartment2doctorinfo() *DoctorinfoQuery {
 	query := &DoctorinfoQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -68,7 +68,7 @@ func (dq *DepartmentQuery) QueryDepartment2doctorinfo() *DoctorinfoQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(department.Table, department.FieldID, dq.sqlQuery()),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, department.Department2doctorinfoTable, department.Department2doctorinfoColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, department.EdgesOfDepartment2doctorinfoTable, department.EdgesOfDepartment2doctorinfoColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -76,8 +76,8 @@ func (dq *DepartmentQuery) QueryDepartment2doctorinfo() *DoctorinfoQuery {
 	return query
 }
 
-// QueryHistorytaking chains the current query on the historytaking edge.
-func (dq *DepartmentQuery) QueryHistorytaking() *HistorytakingQuery {
+// QueryEdgesOfHistorytaking chains the current query on the EdgesOfHistorytaking edge.
+func (dq *DepartmentQuery) QueryEdgesOfHistorytaking() *HistorytakingQuery {
 	query := &HistorytakingQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -86,7 +86,7 @@ func (dq *DepartmentQuery) QueryHistorytaking() *HistorytakingQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(department.Table, department.FieldID, dq.sqlQuery()),
 			sqlgraph.To(historytaking.Table, historytaking.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, department.HistorytakingTable, department.HistorytakingColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, department.EdgesOfHistorytakingTable, department.EdgesOfHistorytakingColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -273,25 +273,25 @@ func (dq *DepartmentQuery) Clone() *DepartmentQuery {
 	}
 }
 
-//  WithDepartment2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
-// the "department2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DepartmentQuery) WithDepartment2doctorinfo(opts ...func(*DoctorinfoQuery)) *DepartmentQuery {
+//  WithEdgesOfDepartment2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfDepartment2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DepartmentQuery) WithEdgesOfDepartment2doctorinfo(opts ...func(*DoctorinfoQuery)) *DepartmentQuery {
 	query := &DoctorinfoQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withDepartment2doctorinfo = query
+	dq.withEdgesOfDepartment2doctorinfo = query
 	return dq
 }
 
-//  WithHistorytaking tells the query-builder to eager-loads the nodes that are connected to
-// the "historytaking" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DepartmentQuery) WithHistorytaking(opts ...func(*HistorytakingQuery)) *DepartmentQuery {
+//  WithEdgesOfHistorytaking tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfHistorytaking" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DepartmentQuery) WithEdgesOfHistorytaking(opts ...func(*HistorytakingQuery)) *DepartmentQuery {
 	query := &HistorytakingQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withHistorytaking = query
+	dq.withEdgesOfHistorytaking = query
 	return dq
 }
 
@@ -362,8 +362,8 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context) ([]*Department, error) {
 		nodes       = []*Department{}
 		_spec       = dq.querySpec()
 		loadedTypes = [2]bool{
-			dq.withDepartment2doctorinfo != nil,
-			dq.withHistorytaking != nil,
+			dq.withEdgesOfDepartment2doctorinfo != nil,
+			dq.withEdgesOfHistorytaking != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -387,7 +387,7 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context) ([]*Department, error) {
 		return nodes, nil
 	}
 
-	if query := dq.withDepartment2doctorinfo; query != nil {
+	if query := dq.withEdgesOfDepartment2doctorinfo; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Department)
 		for i := range nodes {
@@ -396,7 +396,7 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context) ([]*Department, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Doctorinfo(func(s *sql.Selector) {
-			s.Where(sql.InValues(department.Department2doctorinfoColumn, fks...))
+			s.Where(sql.InValues(department.EdgesOfDepartment2doctorinfoColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -411,11 +411,11 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context) ([]*Department, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "department" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Department2doctorinfo = append(node.Edges.Department2doctorinfo, n)
+			node.Edges.EdgesOfDepartment2doctorinfo = append(node.Edges.EdgesOfDepartment2doctorinfo, n)
 		}
 	}
 
-	if query := dq.withHistorytaking; query != nil {
+	if query := dq.withEdgesOfHistorytaking; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Department)
 		for i := range nodes {
@@ -424,7 +424,7 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context) ([]*Department, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Historytaking(func(s *sql.Selector) {
-			s.Where(sql.InValues(department.HistorytakingColumn, fks...))
+			s.Where(sql.InValues(department.EdgesOfHistorytakingColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -439,7 +439,7 @@ func (dq *DepartmentQuery) sqlAll(ctx context.Context) ([]*Department, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "department_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Historytaking = append(node.Edges.Historytaking, n)
+			node.Edges.EdgesOfHistorytaking = append(node.Edges.EdgesOfHistorytaking, n)
 		}
 	}
 

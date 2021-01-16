@@ -10,18 +10,18 @@ const (
 	// FieldUserstatus holds the string denoting the userstatus field in the database.
 	FieldUserstatus = "userstatus"
 
-	// EdgeUser holds the string denoting the user edge name in mutations.
-	EdgeUser = "user"
+	// EdgeEdgesOfUser holds the string denoting the edgesofuser edge name in mutations.
+	EdgeEdgesOfUser = "EdgesOfUser"
 
 	// Table holds the table name of the userstatus in the database.
 	Table = "userstatuses"
-	// UserTable is the table the holds the user relation/edge.
-	UserTable = "users"
-	// UserInverseTable is the table name for the User entity.
+	// EdgesOfUserTable is the table the holds the EdgesOfUser relation/edge.
+	EdgesOfUserTable = "users"
+	// EdgesOfUserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
-	// UserColumn is the table column denoting the user relation/edge.
-	UserColumn = "userstatus_id"
+	EdgesOfUserInverseTable = "users"
+	// EdgesOfUserColumn is the table column denoting the EdgesOfUser relation/edge.
+	EdgesOfUserColumn = "userstatus_id"
 )
 
 // Columns holds all SQL columns for userstatus fields.

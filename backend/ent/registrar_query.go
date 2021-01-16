@@ -25,8 +25,8 @@ type RegistrarQuery struct {
 	unique     []string
 	predicates []predicate.Registrar
 	// eager-loading edges.
-	withUser *UserQuery
-	withFKs  bool
+	withEdgesOfUser *UserQuery
+	withFKs         bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,8 +56,8 @@ func (rq *RegistrarQuery) Order(o ...OrderFunc) *RegistrarQuery {
 	return rq
 }
 
-// QueryUser chains the current query on the user edge.
-func (rq *RegistrarQuery) QueryUser() *UserQuery {
+// QueryEdgesOfUser chains the current query on the EdgesOfUser edge.
+func (rq *RegistrarQuery) QueryEdgesOfUser() *UserQuery {
 	query := &UserQuery{config: rq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := rq.prepareQuery(ctx); err != nil {
@@ -66,7 +66,7 @@ func (rq *RegistrarQuery) QueryUser() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(registrar.Table, registrar.FieldID, rq.sqlQuery()),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, registrar.UserTable, registrar.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, registrar.EdgesOfUserTable, registrar.EdgesOfUserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(rq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (rq *RegistrarQuery) Clone() *RegistrarQuery {
 	}
 }
 
-//  WithUser tells the query-builder to eager-loads the nodes that are connected to
-// the "user" edge. The optional arguments used to configure the query builder of the edge.
-func (rq *RegistrarQuery) WithUser(opts ...func(*UserQuery)) *RegistrarQuery {
+//  WithEdgesOfUser tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUser" edge. The optional arguments used to configure the query builder of the edge.
+func (rq *RegistrarQuery) WithEdgesOfUser(opts ...func(*UserQuery)) *RegistrarQuery {
 	query := &UserQuery{config: rq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	rq.withUser = query
+	rq.withEdgesOfUser = query
 	return rq
 }
 
@@ -332,10 +332,10 @@ func (rq *RegistrarQuery) sqlAll(ctx context.Context) ([]*Registrar, error) {
 		withFKs     = rq.withFKs
 		_spec       = rq.querySpec()
 		loadedTypes = [1]bool{
-			rq.withUser != nil,
+			rq.withEdgesOfUser != nil,
 		}
 	)
-	if rq.withUser != nil {
+	if rq.withEdgesOfUser != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -365,7 +365,7 @@ func (rq *RegistrarQuery) sqlAll(ctx context.Context) ([]*Registrar, error) {
 		return nodes, nil
 	}
 
-	if query := rq.withUser; query != nil {
+	if query := rq.withEdgesOfUser; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Registrar)
 		for i := range nodes {
@@ -385,7 +385,7 @@ func (rq *RegistrarQuery) sqlAll(ctx context.Context) ([]*Registrar, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.User = n
+				nodes[i].Edges.EdgesOfUser = n
 			}
 		}
 	}

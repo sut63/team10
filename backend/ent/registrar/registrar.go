@@ -10,18 +10,18 @@ const (
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 
-	// EdgeUser holds the string denoting the user edge name in mutations.
-	EdgeUser = "user"
+	// EdgeEdgesOfUser holds the string denoting the edgesofuser edge name in mutations.
+	EdgeEdgesOfUser = "EdgesOfUser"
 
 	// Table holds the table name of the registrar in the database.
 	Table = "registrars"
-	// UserTable is the table the holds the user relation/edge.
-	UserTable = "registrars"
-	// UserInverseTable is the table name for the User entity.
+	// EdgesOfUserTable is the table the holds the EdgesOfUser relation/edge.
+	EdgesOfUserTable = "registrars"
+	// EdgesOfUserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
-	// UserColumn is the table column denoting the user relation/edge.
-	UserColumn = "user_id"
+	EdgesOfUserInverseTable = "users"
+	// EdgesOfUserColumn is the table column denoting the EdgesOfUser relation/edge.
+	EdgesOfUserColumn = "user_id"
 )
 
 // Columns holds all SQL columns for registrar fields.

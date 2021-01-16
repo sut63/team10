@@ -10,18 +10,18 @@ const (
 	// FieldLevel holds the string denoting the level field in the database.
 	FieldLevel = "level"
 
-	// EdgeEducationlevel2doctorinfo holds the string denoting the educationlevel2doctorinfo edge name in mutations.
-	EdgeEducationlevel2doctorinfo = "educationlevel2doctorinfo"
+	// EdgeEdgesOfEducationlevel2doctorinfo holds the string denoting the edgesofeducationlevel2doctorinfo edge name in mutations.
+	EdgeEdgesOfEducationlevel2doctorinfo = "EdgesOfEducationlevel2doctorinfo"
 
 	// Table holds the table name of the educationlevel in the database.
 	Table = "educationlevels"
-	// Educationlevel2doctorinfoTable is the table the holds the educationlevel2doctorinfo relation/edge.
-	Educationlevel2doctorinfoTable = "doctorinfos"
-	// Educationlevel2doctorinfoInverseTable is the table name for the Doctorinfo entity.
+	// EdgesOfEducationlevel2doctorinfoTable is the table the holds the EdgesOfEducationlevel2doctorinfo relation/edge.
+	EdgesOfEducationlevel2doctorinfoTable = "doctorinfos"
+	// EdgesOfEducationlevel2doctorinfoInverseTable is the table name for the Doctorinfo entity.
 	// It exists in this package in order to avoid circular dependency with the "doctorinfo" package.
-	Educationlevel2doctorinfoInverseTable = "doctorinfos"
-	// Educationlevel2doctorinfoColumn is the table column denoting the educationlevel2doctorinfo relation/edge.
-	Educationlevel2doctorinfoColumn = "level"
+	EdgesOfEducationlevel2doctorinfoInverseTable = "doctorinfos"
+	// EdgesOfEducationlevel2doctorinfoColumn is the table column denoting the EdgesOfEducationlevel2doctorinfo relation/edge.
+	EdgesOfEducationlevel2doctorinfoColumn = "level"
 )
 
 // Columns holds all SQL columns for educationlevel fields.

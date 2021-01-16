@@ -78,80 +78,80 @@ func (hc *HistorytakingCreate) SetDatetime(t time.Time) *HistorytakingCreate {
 	return hc
 }
 
-// SetNurseID sets the nurse edge to Nurse by id.
-func (hc *HistorytakingCreate) SetNurseID(id int) *HistorytakingCreate {
-	hc.mutation.SetNurseID(id)
+// SetEdgesOfNurseID sets the EdgesOfNurse edge to Nurse by id.
+func (hc *HistorytakingCreate) SetEdgesOfNurseID(id int) *HistorytakingCreate {
+	hc.mutation.SetEdgesOfNurseID(id)
 	return hc
 }
 
-// SetNillableNurseID sets the nurse edge to Nurse by id if the given value is not nil.
-func (hc *HistorytakingCreate) SetNillableNurseID(id *int) *HistorytakingCreate {
+// SetNillableEdgesOfNurseID sets the EdgesOfNurse edge to Nurse by id if the given value is not nil.
+func (hc *HistorytakingCreate) SetNillableEdgesOfNurseID(id *int) *HistorytakingCreate {
 	if id != nil {
-		hc = hc.SetNurseID(*id)
+		hc = hc.SetEdgesOfNurseID(*id)
 	}
 	return hc
 }
 
-// SetNurse sets the nurse edge to Nurse.
-func (hc *HistorytakingCreate) SetNurse(n *Nurse) *HistorytakingCreate {
-	return hc.SetNurseID(n.ID)
+// SetEdgesOfNurse sets the EdgesOfNurse edge to Nurse.
+func (hc *HistorytakingCreate) SetEdgesOfNurse(n *Nurse) *HistorytakingCreate {
+	return hc.SetEdgesOfNurseID(n.ID)
 }
 
-// SetDepartmentID sets the department edge to Department by id.
-func (hc *HistorytakingCreate) SetDepartmentID(id int) *HistorytakingCreate {
-	hc.mutation.SetDepartmentID(id)
+// SetEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id.
+func (hc *HistorytakingCreate) SetEdgesOfDepartmentID(id int) *HistorytakingCreate {
+	hc.mutation.SetEdgesOfDepartmentID(id)
 	return hc
 }
 
-// SetNillableDepartmentID sets the department edge to Department by id if the given value is not nil.
-func (hc *HistorytakingCreate) SetNillableDepartmentID(id *int) *HistorytakingCreate {
+// SetNillableEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id if the given value is not nil.
+func (hc *HistorytakingCreate) SetNillableEdgesOfDepartmentID(id *int) *HistorytakingCreate {
 	if id != nil {
-		hc = hc.SetDepartmentID(*id)
+		hc = hc.SetEdgesOfDepartmentID(*id)
 	}
 	return hc
 }
 
-// SetDepartment sets the department edge to Department.
-func (hc *HistorytakingCreate) SetDepartment(d *Department) *HistorytakingCreate {
-	return hc.SetDepartmentID(d.ID)
+// SetEdgesOfDepartment sets the EdgesOfDepartment edge to Department.
+func (hc *HistorytakingCreate) SetEdgesOfDepartment(d *Department) *HistorytakingCreate {
+	return hc.SetEdgesOfDepartmentID(d.ID)
 }
 
-// SetSymptomseverityID sets the symptomseverity edge to Symptomseverity by id.
-func (hc *HistorytakingCreate) SetSymptomseverityID(id int) *HistorytakingCreate {
-	hc.mutation.SetSymptomseverityID(id)
+// SetEdgesOfSymptomseverityID sets the EdgesOfSymptomseverity edge to Symptomseverity by id.
+func (hc *HistorytakingCreate) SetEdgesOfSymptomseverityID(id int) *HistorytakingCreate {
+	hc.mutation.SetEdgesOfSymptomseverityID(id)
 	return hc
 }
 
-// SetNillableSymptomseverityID sets the symptomseverity edge to Symptomseverity by id if the given value is not nil.
-func (hc *HistorytakingCreate) SetNillableSymptomseverityID(id *int) *HistorytakingCreate {
+// SetNillableEdgesOfSymptomseverityID sets the EdgesOfSymptomseverity edge to Symptomseverity by id if the given value is not nil.
+func (hc *HistorytakingCreate) SetNillableEdgesOfSymptomseverityID(id *int) *HistorytakingCreate {
 	if id != nil {
-		hc = hc.SetSymptomseverityID(*id)
+		hc = hc.SetEdgesOfSymptomseverityID(*id)
 	}
 	return hc
 }
 
-// SetSymptomseverity sets the symptomseverity edge to Symptomseverity.
-func (hc *HistorytakingCreate) SetSymptomseverity(s *Symptomseverity) *HistorytakingCreate {
-	return hc.SetSymptomseverityID(s.ID)
+// SetEdgesOfSymptomseverity sets the EdgesOfSymptomseverity edge to Symptomseverity.
+func (hc *HistorytakingCreate) SetEdgesOfSymptomseverity(s *Symptomseverity) *HistorytakingCreate {
+	return hc.SetEdgesOfSymptomseverityID(s.ID)
 }
 
-// SetPatientrecordID sets the patientrecord edge to Patientrecord by id.
-func (hc *HistorytakingCreate) SetPatientrecordID(id int) *HistorytakingCreate {
-	hc.mutation.SetPatientrecordID(id)
+// SetEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id.
+func (hc *HistorytakingCreate) SetEdgesOfPatientrecordID(id int) *HistorytakingCreate {
+	hc.mutation.SetEdgesOfPatientrecordID(id)
 	return hc
 }
 
-// SetNillablePatientrecordID sets the patientrecord edge to Patientrecord by id if the given value is not nil.
-func (hc *HistorytakingCreate) SetNillablePatientrecordID(id *int) *HistorytakingCreate {
+// SetNillableEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id if the given value is not nil.
+func (hc *HistorytakingCreate) SetNillableEdgesOfPatientrecordID(id *int) *HistorytakingCreate {
 	if id != nil {
-		hc = hc.SetPatientrecordID(*id)
+		hc = hc.SetEdgesOfPatientrecordID(*id)
 	}
 	return hc
 }
 
-// SetPatientrecord sets the patientrecord edge to Patientrecord.
-func (hc *HistorytakingCreate) SetPatientrecord(p *Patientrecord) *HistorytakingCreate {
-	return hc.SetPatientrecordID(p.ID)
+// SetEdgesOfPatientrecord sets the EdgesOfPatientrecord edge to Patientrecord.
+func (hc *HistorytakingCreate) SetEdgesOfPatientrecord(p *Patientrecord) *HistorytakingCreate {
+	return hc.SetEdgesOfPatientrecordID(p.ID)
 }
 
 // Mutation returns the HistorytakingMutation object of the builder.
@@ -320,12 +320,12 @@ func (hc *HistorytakingCreate) createSpec() (*Historytaking, *sqlgraph.CreateSpe
 		})
 		h.Datetime = value
 	}
-	if nodes := hc.mutation.NurseIDs(); len(nodes) > 0 {
+	if nodes := hc.mutation.EdgesOfNurseIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.NurseTable,
-			Columns: []string{historytaking.NurseColumn},
+			Table:   historytaking.EdgesOfNurseTable,
+			Columns: []string{historytaking.EdgesOfNurseColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -339,12 +339,12 @@ func (hc *HistorytakingCreate) createSpec() (*Historytaking, *sqlgraph.CreateSpe
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hc.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := hc.mutation.EdgesOfDepartmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.DepartmentTable,
-			Columns: []string{historytaking.DepartmentColumn},
+			Table:   historytaking.EdgesOfDepartmentTable,
+			Columns: []string{historytaking.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -358,12 +358,12 @@ func (hc *HistorytakingCreate) createSpec() (*Historytaking, *sqlgraph.CreateSpe
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hc.mutation.SymptomseverityIDs(); len(nodes) > 0 {
+	if nodes := hc.mutation.EdgesOfSymptomseverityIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.SymptomseverityTable,
-			Columns: []string{historytaking.SymptomseverityColumn},
+			Table:   historytaking.EdgesOfSymptomseverityTable,
+			Columns: []string{historytaking.EdgesOfSymptomseverityColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -377,12 +377,12 @@ func (hc *HistorytakingCreate) createSpec() (*Historytaking, *sqlgraph.CreateSpe
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := hc.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := hc.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   historytaking.PatientrecordTable,
-			Columns: []string{historytaking.PatientrecordColumn},
+			Table:   historytaking.EdgesOfPatientrecordTable,
+			Columns: []string{historytaking.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

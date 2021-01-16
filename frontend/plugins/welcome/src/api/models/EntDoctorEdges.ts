@@ -39,19 +39,19 @@ export interface EntDoctorEdges {
      * @type {EntDoctorinfo}
      * @memberof EntDoctorEdges
      */
-    doctorinfo?: EntDoctorinfo;
+    edgesOfDoctorinfo?: EntDoctorinfo;
     /**
-     * Treatment holds the value of the treatment edge.
+     * EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
      * @type {Array<EntTreatment>}
      * @memberof EntDoctorEdges
      */
-    treatment?: Array<EntTreatment>;
+    edgesOfTreatment?: Array<EntTreatment>;
     /**
      * 
      * @type {EntUser}
      * @memberof EntDoctorEdges
      */
-    user?: EntUser;
+    edgesOfUser?: EntUser;
 }
 
 export function EntDoctorEdgesFromJSON(json: any): EntDoctorEdges {
@@ -64,9 +64,9 @@ export function EntDoctorEdgesFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'doctorinfo': !exists(json, 'Doctorinfo') ? undefined : EntDoctorinfoFromJSON(json['Doctorinfo']),
-        'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
-        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
+        'edgesOfDoctorinfo': !exists(json, 'EdgesOfDoctorinfo') ? undefined : EntDoctorinfoFromJSON(json['EdgesOfDoctorinfo']),
+        'edgesOfTreatment': !exists(json, 'EdgesOfTreatment') ? undefined : ((json['EdgesOfTreatment'] as Array<any>).map(EntTreatmentFromJSON)),
+        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
     };
 }
 
@@ -79,9 +79,9 @@ export function EntDoctorEdgesToJSON(value?: EntDoctorEdges | null): any {
     }
     return {
         
-        'doctorinfo': EntDoctorinfoToJSON(value.doctorinfo),
-        'treatment': value.treatment === undefined ? undefined : ((value.treatment as Array<any>).map(EntTreatmentToJSON)),
-        'user': EntUserToJSON(value.user),
+        'EdgesOfDoctorinfo': EntDoctorinfoToJSON(value.edgesOfDoctorinfo),
+        'EdgesOfTreatment': value.edgesOfTreatment === undefined ? undefined : ((value.edgesOfTreatment as Array<any>).map(EntTreatmentToJSON)),
+        'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
     };
 }
 

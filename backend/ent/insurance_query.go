@@ -26,7 +26,7 @@ type InsuranceQuery struct {
 	unique     []string
 	predicates []predicate.Insurance
 	// eager-loading edges.
-	withInsurancePatientrights *PatientrightsQuery
+	withEdgesOfInsurancePatientrights *PatientrightsQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,8 +56,8 @@ func (iq *InsuranceQuery) Order(o ...OrderFunc) *InsuranceQuery {
 	return iq
 }
 
-// QueryInsurancePatientrights chains the current query on the InsurancePatientrights edge.
-func (iq *InsuranceQuery) QueryInsurancePatientrights() *PatientrightsQuery {
+// QueryEdgesOfInsurancePatientrights chains the current query on the EdgesOfInsurancePatientrights edge.
+func (iq *InsuranceQuery) QueryEdgesOfInsurancePatientrights() *PatientrightsQuery {
 	query := &PatientrightsQuery{config: iq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := iq.prepareQuery(ctx); err != nil {
@@ -66,7 +66,7 @@ func (iq *InsuranceQuery) QueryInsurancePatientrights() *PatientrightsQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(insurance.Table, insurance.FieldID, iq.sqlQuery()),
 			sqlgraph.To(patientrights.Table, patientrights.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, insurance.InsurancePatientrightsTable, insurance.InsurancePatientrightsColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, insurance.EdgesOfInsurancePatientrightsTable, insurance.EdgesOfInsurancePatientrightsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(iq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (iq *InsuranceQuery) Clone() *InsuranceQuery {
 	}
 }
 
-//  WithInsurancePatientrights tells the query-builder to eager-loads the nodes that are connected to
-// the "InsurancePatientrights" edge. The optional arguments used to configure the query builder of the edge.
-func (iq *InsuranceQuery) WithInsurancePatientrights(opts ...func(*PatientrightsQuery)) *InsuranceQuery {
+//  WithEdgesOfInsurancePatientrights tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfInsurancePatientrights" edge. The optional arguments used to configure the query builder of the edge.
+func (iq *InsuranceQuery) WithEdgesOfInsurancePatientrights(opts ...func(*PatientrightsQuery)) *InsuranceQuery {
 	query := &PatientrightsQuery{config: iq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	iq.withInsurancePatientrights = query
+	iq.withEdgesOfInsurancePatientrights = query
 	return iq
 }
 
@@ -331,7 +331,7 @@ func (iq *InsuranceQuery) sqlAll(ctx context.Context) ([]*Insurance, error) {
 		nodes       = []*Insurance{}
 		_spec       = iq.querySpec()
 		loadedTypes = [1]bool{
-			iq.withInsurancePatientrights != nil,
+			iq.withEdgesOfInsurancePatientrights != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -355,7 +355,7 @@ func (iq *InsuranceQuery) sqlAll(ctx context.Context) ([]*Insurance, error) {
 		return nodes, nil
 	}
 
-	if query := iq.withInsurancePatientrights; query != nil {
+	if query := iq.withEdgesOfInsurancePatientrights; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Insurance)
 		for i := range nodes {
@@ -364,7 +364,7 @@ func (iq *InsuranceQuery) sqlAll(ctx context.Context) ([]*Insurance, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Patientrights(func(s *sql.Selector) {
-			s.Where(sql.InValues(insurance.InsurancePatientrightsColumn, fks...))
+			s.Where(sql.InValues(insurance.EdgesOfInsurancePatientrightsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -379,7 +379,7 @@ func (iq *InsuranceQuery) sqlAll(ctx context.Context) ([]*Insurance, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "Insurance_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.InsurancePatientrights = append(node.Edges.InsurancePatientrights, n)
+			node.Edges.EdgesOfInsurancePatientrights = append(node.Edges.EdgesOfInsurancePatientrights, n)
 		}
 	}
 

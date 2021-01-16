@@ -34,23 +34,23 @@ func (ru *RegistrarUpdate) SetName(s string) *RegistrarUpdate {
 	return ru
 }
 
-// SetUserID sets the user edge to User by id.
-func (ru *RegistrarUpdate) SetUserID(id int) *RegistrarUpdate {
-	ru.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (ru *RegistrarUpdate) SetEdgesOfUserID(id int) *RegistrarUpdate {
+	ru.mutation.SetEdgesOfUserID(id)
 	return ru
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (ru *RegistrarUpdate) SetNillableUserID(id *int) *RegistrarUpdate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (ru *RegistrarUpdate) SetNillableEdgesOfUserID(id *int) *RegistrarUpdate {
 	if id != nil {
-		ru = ru.SetUserID(*id)
+		ru = ru.SetEdgesOfUserID(*id)
 	}
 	return ru
 }
 
-// SetUser sets the user edge to User.
-func (ru *RegistrarUpdate) SetUser(u *User) *RegistrarUpdate {
-	return ru.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (ru *RegistrarUpdate) SetEdgesOfUser(u *User) *RegistrarUpdate {
+	return ru.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the RegistrarMutation object of the builder.
@@ -58,9 +58,9 @@ func (ru *RegistrarUpdate) Mutation() *RegistrarMutation {
 	return ru.mutation
 }
 
-// ClearUser clears the user edge to User.
-func (ru *RegistrarUpdate) ClearUser() *RegistrarUpdate {
-	ru.mutation.ClearUser()
+// ClearEdgesOfUser clears the EdgesOfUser edge to User.
+func (ru *RegistrarUpdate) ClearEdgesOfUser() *RegistrarUpdate {
+	ru.mutation.ClearEdgesOfUser()
 	return ru
 }
 
@@ -141,12 +141,12 @@ func (ru *RegistrarUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: registrar.FieldName,
 		})
 	}
-	if ru.mutation.UserCleared() {
+	if ru.mutation.EdgesOfUserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   registrar.UserTable,
-			Columns: []string{registrar.UserColumn},
+			Table:   registrar.EdgesOfUserTable,
+			Columns: []string{registrar.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -157,12 +157,12 @@ func (ru *RegistrarUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ru.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := ru.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   registrar.UserTable,
-			Columns: []string{registrar.UserColumn},
+			Table:   registrar.EdgesOfUserTable,
+			Columns: []string{registrar.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -200,23 +200,23 @@ func (ruo *RegistrarUpdateOne) SetName(s string) *RegistrarUpdateOne {
 	return ruo
 }
 
-// SetUserID sets the user edge to User by id.
-func (ruo *RegistrarUpdateOne) SetUserID(id int) *RegistrarUpdateOne {
-	ruo.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (ruo *RegistrarUpdateOne) SetEdgesOfUserID(id int) *RegistrarUpdateOne {
+	ruo.mutation.SetEdgesOfUserID(id)
 	return ruo
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (ruo *RegistrarUpdateOne) SetNillableUserID(id *int) *RegistrarUpdateOne {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (ruo *RegistrarUpdateOne) SetNillableEdgesOfUserID(id *int) *RegistrarUpdateOne {
 	if id != nil {
-		ruo = ruo.SetUserID(*id)
+		ruo = ruo.SetEdgesOfUserID(*id)
 	}
 	return ruo
 }
 
-// SetUser sets the user edge to User.
-func (ruo *RegistrarUpdateOne) SetUser(u *User) *RegistrarUpdateOne {
-	return ruo.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (ruo *RegistrarUpdateOne) SetEdgesOfUser(u *User) *RegistrarUpdateOne {
+	return ruo.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the RegistrarMutation object of the builder.
@@ -224,9 +224,9 @@ func (ruo *RegistrarUpdateOne) Mutation() *RegistrarMutation {
 	return ruo.mutation
 }
 
-// ClearUser clears the user edge to User.
-func (ruo *RegistrarUpdateOne) ClearUser() *RegistrarUpdateOne {
-	ruo.mutation.ClearUser()
+// ClearEdgesOfUser clears the EdgesOfUser edge to User.
+func (ruo *RegistrarUpdateOne) ClearEdgesOfUser() *RegistrarUpdateOne {
+	ruo.mutation.ClearEdgesOfUser()
 	return ruo
 }
 
@@ -305,12 +305,12 @@ func (ruo *RegistrarUpdateOne) sqlSave(ctx context.Context) (r *Registrar, err e
 			Column: registrar.FieldName,
 		})
 	}
-	if ruo.mutation.UserCleared() {
+	if ruo.mutation.EdgesOfUserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   registrar.UserTable,
-			Columns: []string{registrar.UserColumn},
+			Table:   registrar.EdgesOfUserTable,
+			Columns: []string{registrar.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -321,12 +321,12 @@ func (ruo *RegistrarUpdateOne) sqlSave(ctx context.Context) (r *Registrar, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ruo.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := ruo.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   registrar.UserTable,
-			Columns: []string{registrar.UserColumn},
+			Table:   registrar.EdgesOfUserTable,
+			Columns: []string{registrar.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

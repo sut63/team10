@@ -106,10 +106,10 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 	u, err := ctl.client.Patientrights.
 		Create().
 		SetPermissionDate(t).
-		SetPatientrightsPatientrightstype(Patientrightstype).
-		SetPatientrightsPatientrecord(Patientrecord).
-		SetPatientrightsMedicalrecordstaff(Medicalrecordstaff).
-		SetPatientrightsInsurance(Insurance).
+		SetEdgesOfPatientrightsPatientrightstype(Patientrightstype).
+		SetEdgesOfPatientrightsPatientrecord(Patientrecord).
+		SetEdgesOfPatientrightsMedicalrecordstaff(Medicalrecordstaff).
+		SetEdgesOfPatientrightsInsurance(Insurance).
 		Save(context.Background())
 
 	if err != nil {
@@ -144,10 +144,10 @@ func (ctl *PatientrightsController) GetPatientrights(c *gin.Context) {
 
 	u, err := ctl.client.Patientrights.
 		Query().
-		WithPatientrightsInsurance().
-		WithPatientrightsPatientrightstype().
-		WithPatientrightsPatientrecord().
-		WithPatientrightsMedicalrecordstaff().
+		WithEdgesOfPatientrightsInsurance().
+		WithEdgesOfPatientrightsPatientrightstype().
+		WithEdgesOfPatientrightsPatientrecord().
+		WithEdgesOfPatientrightsMedicalrecordstaff().
 		Where(patientrights.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -225,10 +225,10 @@ func (ctl *PatientrightsController) ListPatientrights(c *gin.Context) {
 
 	patientrightss, err := ctl.client.Patientrights.
 		Query().
-		WithPatientrightsInsurance().
-		WithPatientrightsPatientrightstype().
-		WithPatientrightsPatientrecord().
-		WithPatientrightsMedicalrecordstaff().
+		WithEdgesOfPatientrightsInsurance().
+		WithEdgesOfPatientrightsPatientrightstype().
+		WithEdgesOfPatientrightsPatientrecord().
+		WithEdgesOfPatientrightsMedicalrecordstaff().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

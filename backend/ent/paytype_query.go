@@ -26,7 +26,7 @@ type PaytypeQuery struct {
 	unique     []string
 	predicates []predicate.Paytype
 	// eager-loading edges.
-	withBills *BillQuery
+	withEdgesOfBills *BillQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,8 +56,8 @@ func (pq *PaytypeQuery) Order(o ...OrderFunc) *PaytypeQuery {
 	return pq
 }
 
-// QueryBills chains the current query on the bills edge.
-func (pq *PaytypeQuery) QueryBills() *BillQuery {
+// QueryEdgesOfBills chains the current query on the EdgesOfBills edge.
+func (pq *PaytypeQuery) QueryEdgesOfBills() *BillQuery {
 	query := &BillQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -66,7 +66,7 @@ func (pq *PaytypeQuery) QueryBills() *BillQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(paytype.Table, paytype.FieldID, pq.sqlQuery()),
 			sqlgraph.To(bill.Table, bill.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, paytype.BillsTable, paytype.BillsColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, paytype.EdgesOfBillsTable, paytype.EdgesOfBillsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (pq *PaytypeQuery) Clone() *PaytypeQuery {
 	}
 }
 
-//  WithBills tells the query-builder to eager-loads the nodes that are connected to
-// the "bills" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PaytypeQuery) WithBills(opts ...func(*BillQuery)) *PaytypeQuery {
+//  WithEdgesOfBills tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfBills" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PaytypeQuery) WithEdgesOfBills(opts ...func(*BillQuery)) *PaytypeQuery {
 	query := &BillQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withBills = query
+	pq.withEdgesOfBills = query
 	return pq
 }
 
@@ -331,7 +331,7 @@ func (pq *PaytypeQuery) sqlAll(ctx context.Context) ([]*Paytype, error) {
 		nodes       = []*Paytype{}
 		_spec       = pq.querySpec()
 		loadedTypes = [1]bool{
-			pq.withBills != nil,
+			pq.withEdgesOfBills != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -355,7 +355,7 @@ func (pq *PaytypeQuery) sqlAll(ctx context.Context) ([]*Paytype, error) {
 		return nodes, nil
 	}
 
-	if query := pq.withBills; query != nil {
+	if query := pq.withEdgesOfBills; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Paytype)
 		for i := range nodes {
@@ -364,7 +364,7 @@ func (pq *PaytypeQuery) sqlAll(ctx context.Context) ([]*Paytype, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Bill(func(s *sql.Selector) {
-			s.Where(sql.InValues(paytype.BillsColumn, fks...))
+			s.Where(sql.InValues(paytype.EdgesOfBillsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -379,7 +379,7 @@ func (pq *PaytypeQuery) sqlAll(ctx context.Context) ([]*Paytype, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "paytype_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Bills = append(node.Edges.Bills, n)
+			node.Edges.EdgesOfBills = append(node.Edges.EdgesOfBills, n)
 		}
 	}
 

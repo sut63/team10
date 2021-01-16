@@ -673,7 +673,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create doctor
      * Create doctor
      */
-    async createDoctorRaw(requestParameters: CreateDoctorRequest): Promise<runtime.ApiResponse<EntDoctor>> {
+    async createDoctorRaw(requestParameters: CreateDoctorRequest): Promise<runtime.ApiResponse<ControllersDoctor>> {
         if (requestParameters.doctor === null || requestParameters.doctor === undefined) {
             throw new runtime.RequiredError('doctor','Required parameter requestParameters.doctor was null or undefined when calling createDoctor.');
         }
@@ -692,14 +692,14 @@ export class DefaultApi extends runtime.BaseAPI {
             body: ControllersDoctorToJSON(requestParameters.doctor),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntDoctorFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersDoctorFromJSON(jsonValue));
     }
 
     /**
      * Create doctor
      * Create doctor
      */
-    async createDoctor(requestParameters: CreateDoctorRequest): Promise<EntDoctor> {
+    async createDoctor(requestParameters: CreateDoctorRequest): Promise<ControllersDoctor> {
         const response = await this.createDoctorRaw(requestParameters);
         return await response.value();
     }

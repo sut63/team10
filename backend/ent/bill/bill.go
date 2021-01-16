@@ -12,36 +12,36 @@ const (
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 
-	// EdgePaytype holds the string denoting the paytype edge name in mutations.
-	EdgePaytype = "paytype"
-	// EdgeOfficer holds the string denoting the officer edge name in mutations.
-	EdgeOfficer = "officer"
-	// EdgeTreatment holds the string denoting the treatment edge name in mutations.
-	EdgeTreatment = "treatment"
+	// EdgeEdgesOfPaytype holds the string denoting the edgesofpaytype edge name in mutations.
+	EdgeEdgesOfPaytype = "EdgesOfPaytype"
+	// EdgeEdgesOfOfficer holds the string denoting the edgesofofficer edge name in mutations.
+	EdgeEdgesOfOfficer = "EdgesOfOfficer"
+	// EdgeEdgesOfTreatment holds the string denoting the edgesoftreatment edge name in mutations.
+	EdgeEdgesOfTreatment = "EdgesOfTreatment"
 
 	// Table holds the table name of the bill in the database.
 	Table = "bills"
-	// PaytypeTable is the table the holds the paytype relation/edge.
-	PaytypeTable = "bills"
-	// PaytypeInverseTable is the table name for the Paytype entity.
+	// EdgesOfPaytypeTable is the table the holds the EdgesOfPaytype relation/edge.
+	EdgesOfPaytypeTable = "bills"
+	// EdgesOfPaytypeInverseTable is the table name for the Paytype entity.
 	// It exists in this package in order to avoid circular dependency with the "paytype" package.
-	PaytypeInverseTable = "paytypes"
-	// PaytypeColumn is the table column denoting the paytype relation/edge.
-	PaytypeColumn = "paytype_id"
-	// OfficerTable is the table the holds the officer relation/edge.
-	OfficerTable = "bills"
-	// OfficerInverseTable is the table name for the Financier entity.
+	EdgesOfPaytypeInverseTable = "paytypes"
+	// EdgesOfPaytypeColumn is the table column denoting the EdgesOfPaytype relation/edge.
+	EdgesOfPaytypeColumn = "paytype_id"
+	// EdgesOfOfficerTable is the table the holds the EdgesOfOfficer relation/edge.
+	EdgesOfOfficerTable = "bills"
+	// EdgesOfOfficerInverseTable is the table name for the Financier entity.
 	// It exists in this package in order to avoid circular dependency with the "financier" package.
-	OfficerInverseTable = "financiers"
-	// OfficerColumn is the table column denoting the officer relation/edge.
-	OfficerColumn = "officer_id"
-	// TreatmentTable is the table the holds the treatment relation/edge.
-	TreatmentTable = "bills"
-	// TreatmentInverseTable is the table name for the Unpaybill entity.
+	EdgesOfOfficerInverseTable = "financiers"
+	// EdgesOfOfficerColumn is the table column denoting the EdgesOfOfficer relation/edge.
+	EdgesOfOfficerColumn = "officer_id"
+	// EdgesOfTreatmentTable is the table the holds the EdgesOfTreatment relation/edge.
+	EdgesOfTreatmentTable = "bills"
+	// EdgesOfTreatmentInverseTable is the table name for the Unpaybill entity.
 	// It exists in this package in order to avoid circular dependency with the "unpaybill" package.
-	TreatmentInverseTable = "unpaybills"
-	// TreatmentColumn is the table column denoting the treatment relation/edge.
-	TreatmentColumn = "treatment_id"
+	EdgesOfTreatmentInverseTable = "unpaybills"
+	// EdgesOfTreatmentColumn is the table column denoting the EdgesOfTreatment relation/edge.
+	EdgesOfTreatmentColumn = "treatment_id"
 )
 
 // Columns holds all SQL columns for bill fields.

@@ -27,11 +27,11 @@ import {
  */
 export interface EntUserstatusEdges {
     /**
-     * User holds the value of the user edge.
+     * EdgesOfUser holds the value of the EdgesOfUser edge.
      * @type {Array<EntUser>}
      * @memberof EntUserstatusEdges
      */
-    user?: Array<EntUser>;
+    edgesOfUser?: Array<EntUser>;
 }
 
 export function EntUserstatusEdgesFromJSON(json: any): EntUserstatusEdges {
@@ -44,7 +44,7 @@ export function EntUserstatusEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'user': !exists(json, 'User') ? undefined : ((json['User'] as Array<any>).map(EntUserFromJSON)),
+        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : ((json['EdgesOfUser'] as Array<any>).map(EntUserFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntUserstatusEdgesToJSON(value?: EntUserstatusEdges | null): any
     }
     return {
         
-        'user': value.user === undefined ? undefined : ((value.user as Array<any>).map(EntUserToJSON)),
+        'EdgesOfUser': value.edgesOfUser === undefined ? undefined : ((value.edgesOfUser as Array<any>).map(EntUserToJSON)),
     };
 }
 

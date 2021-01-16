@@ -26,52 +26,52 @@ type Doctor struct {
 
 // DoctorEdges holds the relations/edges for other nodes in the graph.
 type DoctorEdges struct {
-	// Doctorinfo holds the value of the doctorinfo edge.
-	Doctorinfo *Doctorinfo
-	// User holds the value of the user edge.
-	User *User
-	// Treatment holds the value of the treatment edge.
-	Treatment []*Treatment
+	// EdgesOfDoctorinfo holds the value of the EdgesOfDoctorinfo edge.
+	EdgesOfDoctorinfo *Doctorinfo
+	// EdgesOfUser holds the value of the EdgesOfUser edge.
+	EdgesOfUser *User
+	// EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
+	EdgesOfTreatment []*Treatment
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [3]bool
 }
 
-// DoctorinfoOrErr returns the Doctorinfo value or an error if the edge
+// EdgesOfDoctorinfoOrErr returns the EdgesOfDoctorinfo value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e DoctorEdges) DoctorinfoOrErr() (*Doctorinfo, error) {
+func (e DoctorEdges) EdgesOfDoctorinfoOrErr() (*Doctorinfo, error) {
 	if e.loadedTypes[0] {
-		if e.Doctorinfo == nil {
-			// The edge doctorinfo was loaded in eager-loading,
+		if e.EdgesOfDoctorinfo == nil {
+			// The edge EdgesOfDoctorinfo was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: doctorinfo.Label}
 		}
-		return e.Doctorinfo, nil
+		return e.EdgesOfDoctorinfo, nil
 	}
-	return nil, &NotLoadedError{edge: "doctorinfo"}
+	return nil, &NotLoadedError{edge: "EdgesOfDoctorinfo"}
 }
 
-// UserOrErr returns the User value or an error if the edge
+// EdgesOfUserOrErr returns the EdgesOfUser value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e DoctorEdges) UserOrErr() (*User, error) {
+func (e DoctorEdges) EdgesOfUserOrErr() (*User, error) {
 	if e.loadedTypes[1] {
-		if e.User == nil {
-			// The edge user was loaded in eager-loading,
+		if e.EdgesOfUser == nil {
+			// The edge EdgesOfUser was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: user.Label}
 		}
-		return e.User, nil
+		return e.EdgesOfUser, nil
 	}
-	return nil, &NotLoadedError{edge: "user"}
+	return nil, &NotLoadedError{edge: "EdgesOfUser"}
 }
 
-// TreatmentOrErr returns the Treatment value or an error if the edge
+// EdgesOfTreatmentOrErr returns the EdgesOfTreatment value or an error if the edge
 // was not loaded in eager-loading.
-func (e DoctorEdges) TreatmentOrErr() ([]*Treatment, error) {
+func (e DoctorEdges) EdgesOfTreatmentOrErr() ([]*Treatment, error) {
 	if e.loadedTypes[2] {
-		return e.Treatment, nil
+		return e.EdgesOfTreatment, nil
 	}
-	return nil, &NotLoadedError{edge: "treatment"}
+	return nil, &NotLoadedError{edge: "EdgesOfTreatment"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -119,19 +119,19 @@ func (d *Doctor) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryDoctorinfo queries the doctorinfo edge of the Doctor.
-func (d *Doctor) QueryDoctorinfo() *DoctorinfoQuery {
-	return (&DoctorClient{config: d.config}).QueryDoctorinfo(d)
+// QueryEdgesOfDoctorinfo queries the EdgesOfDoctorinfo edge of the Doctor.
+func (d *Doctor) QueryEdgesOfDoctorinfo() *DoctorinfoQuery {
+	return (&DoctorClient{config: d.config}).QueryEdgesOfDoctorinfo(d)
 }
 
-// QueryUser queries the user edge of the Doctor.
-func (d *Doctor) QueryUser() *UserQuery {
-	return (&DoctorClient{config: d.config}).QueryUser(d)
+// QueryEdgesOfUser queries the EdgesOfUser edge of the Doctor.
+func (d *Doctor) QueryEdgesOfUser() *UserQuery {
+	return (&DoctorClient{config: d.config}).QueryEdgesOfUser(d)
 }
 
-// QueryTreatment queries the treatment edge of the Doctor.
-func (d *Doctor) QueryTreatment() *TreatmentQuery {
-	return (&DoctorClient{config: d.config}).QueryTreatment(d)
+// QueryEdgesOfTreatment queries the EdgesOfTreatment edge of the Doctor.
+func (d *Doctor) QueryEdgesOfTreatment() *TreatmentQuery {
+	return (&DoctorClient{config: d.config}).QueryEdgesOfTreatment(d)
 }
 
 // Update returns a builder for updating this Doctor.

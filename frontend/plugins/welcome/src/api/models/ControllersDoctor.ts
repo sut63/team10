@@ -25,6 +25,12 @@ export interface ControllersDoctor {
      * @memberof ControllersDoctor
      */
     doctorinfo?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllersDoctor
+     */
+    user?: number;
 }
 
 export function ControllersDoctorFromJSON(json: any): ControllersDoctor {
@@ -38,6 +44,7 @@ export function ControllersDoctorFromJSONTyped(json: any, ignoreDiscriminator: b
     return {
         
         'doctorinfo': !exists(json, 'doctorinfo') ? undefined : json['doctorinfo'],
+        'user': !exists(json, 'user') ? undefined : json['user'],
     };
 }
 
@@ -51,6 +58,7 @@ export function ControllersDoctorToJSON(value?: ControllersDoctor | null): any {
     return {
         
         'doctorinfo': value.doctorinfo,
+        'user': value.user,
     };
 }
 

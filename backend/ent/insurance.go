@@ -24,20 +24,20 @@ type Insurance struct {
 
 // InsuranceEdges holds the relations/edges for other nodes in the graph.
 type InsuranceEdges struct {
-	// InsurancePatientrights holds the value of the InsurancePatientrights edge.
-	InsurancePatientrights []*Patientrights
+	// EdgesOfInsurancePatientrights holds the value of the EdgesOfInsurancePatientrights edge.
+	EdgesOfInsurancePatientrights []*Patientrights
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// InsurancePatientrightsOrErr returns the InsurancePatientrights value or an error if the edge
+// EdgesOfInsurancePatientrightsOrErr returns the EdgesOfInsurancePatientrights value or an error if the edge
 // was not loaded in eager-loading.
-func (e InsuranceEdges) InsurancePatientrightsOrErr() ([]*Patientrights, error) {
+func (e InsuranceEdges) EdgesOfInsurancePatientrightsOrErr() ([]*Patientrights, error) {
 	if e.loadedTypes[0] {
-		return e.InsurancePatientrights, nil
+		return e.EdgesOfInsurancePatientrights, nil
 	}
-	return nil, &NotLoadedError{edge: "InsurancePatientrights"}
+	return nil, &NotLoadedError{edge: "EdgesOfInsurancePatientrights"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -68,9 +68,9 @@ func (i *Insurance) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryInsurancePatientrights queries the InsurancePatientrights edge of the Insurance.
-func (i *Insurance) QueryInsurancePatientrights() *PatientrightsQuery {
-	return (&InsuranceClient{config: i.config}).QueryInsurancePatientrights(i)
+// QueryEdgesOfInsurancePatientrights queries the EdgesOfInsurancePatientrights edge of the Insurance.
+func (i *Insurance) QueryEdgesOfInsurancePatientrights() *PatientrightsQuery {
+	return (&InsuranceClient{config: i.config}).QueryEdgesOfInsurancePatientrights(i)
 }
 
 // Update returns a builder for updating this Insurance.

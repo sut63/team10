@@ -32,14 +32,14 @@ type UserQuery struct {
 	unique     []string
 	predicates []predicate.User
 	// eager-loading edges.
-	withFinancier          *FinancierQuery
-	withNurse              *NurseQuery
-	withUserPatientrights  *PatientrightsQuery
-	withMedicalrecordstaff *MedicalrecordstaffQuery
-	withUser2registrar     *RegistrarQuery
-	withDoctor             *DoctorQuery
-	withUserstatus         *UserstatusQuery
-	withFKs                bool
+	withEdgesOfFinancier          *FinancierQuery
+	withEdgesOfNurse              *NurseQuery
+	withEdgesOfUserPatientrights  *PatientrightsQuery
+	withEdgesOfMedicalrecordstaff *MedicalrecordstaffQuery
+	withEdgesOfUser2registrar     *RegistrarQuery
+	withEdgesOfDoctor             *DoctorQuery
+	withEdgesOfUserstatus         *UserstatusQuery
+	withFKs                       bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -69,8 +69,8 @@ func (uq *UserQuery) Order(o ...OrderFunc) *UserQuery {
 	return uq
 }
 
-// QueryFinancier chains the current query on the financier edge.
-func (uq *UserQuery) QueryFinancier() *FinancierQuery {
+// QueryEdgesOfFinancier chains the current query on the EdgesOfFinancier edge.
+func (uq *UserQuery) QueryEdgesOfFinancier() *FinancierQuery {
 	query := &FinancierQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -79,7 +79,7 @@ func (uq *UserQuery) QueryFinancier() *FinancierQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(financier.Table, financier.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, user.FinancierTable, user.FinancierColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, user.EdgesOfFinancierTable, user.EdgesOfFinancierColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -87,8 +87,8 @@ func (uq *UserQuery) QueryFinancier() *FinancierQuery {
 	return query
 }
 
-// QueryNurse chains the current query on the Nurse edge.
-func (uq *UserQuery) QueryNurse() *NurseQuery {
+// QueryEdgesOfNurse chains the current query on the EdgesOfNurse edge.
+func (uq *UserQuery) QueryEdgesOfNurse() *NurseQuery {
 	query := &NurseQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -97,7 +97,7 @@ func (uq *UserQuery) QueryNurse() *NurseQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(nurse.Table, nurse.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, user.NurseTable, user.NurseColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, user.EdgesOfNurseTable, user.EdgesOfNurseColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -105,8 +105,8 @@ func (uq *UserQuery) QueryNurse() *NurseQuery {
 	return query
 }
 
-// QueryUserPatientrights chains the current query on the UserPatientrights edge.
-func (uq *UserQuery) QueryUserPatientrights() *PatientrightsQuery {
+// QueryEdgesOfUserPatientrights chains the current query on the EdgesOfUserPatientrights edge.
+func (uq *UserQuery) QueryEdgesOfUserPatientrights() *PatientrightsQuery {
 	query := &PatientrightsQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -115,7 +115,7 @@ func (uq *UserQuery) QueryUserPatientrights() *PatientrightsQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(patientrights.Table, patientrights.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, false, user.UserPatientrightsTable, user.UserPatientrightsColumn),
+			sqlgraph.Edge(sqlgraph.M2O, false, user.EdgesOfUserPatientrightsTable, user.EdgesOfUserPatientrightsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -123,8 +123,8 @@ func (uq *UserQuery) QueryUserPatientrights() *PatientrightsQuery {
 	return query
 }
 
-// QueryMedicalrecordstaff chains the current query on the medicalrecordstaff edge.
-func (uq *UserQuery) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
+// QueryEdgesOfMedicalrecordstaff chains the current query on the EdgesOfMedicalrecordstaff edge.
+func (uq *UserQuery) QueryEdgesOfMedicalrecordstaff() *MedicalrecordstaffQuery {
 	query := &MedicalrecordstaffQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -133,7 +133,7 @@ func (uq *UserQuery) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(medicalrecordstaff.Table, medicalrecordstaff.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, user.MedicalrecordstaffTable, user.MedicalrecordstaffColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, user.EdgesOfMedicalrecordstaffTable, user.EdgesOfMedicalrecordstaffColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -141,8 +141,8 @@ func (uq *UserQuery) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
 	return query
 }
 
-// QueryUser2registrar chains the current query on the user2registrar edge.
-func (uq *UserQuery) QueryUser2registrar() *RegistrarQuery {
+// QueryEdgesOfUser2registrar chains the current query on the EdgesOfUser2registrar edge.
+func (uq *UserQuery) QueryEdgesOfUser2registrar() *RegistrarQuery {
 	query := &RegistrarQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -151,7 +151,7 @@ func (uq *UserQuery) QueryUser2registrar() *RegistrarQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(registrar.Table, registrar.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, user.User2registrarTable, user.User2registrarColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, user.EdgesOfUser2registrarTable, user.EdgesOfUser2registrarColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -159,8 +159,8 @@ func (uq *UserQuery) QueryUser2registrar() *RegistrarQuery {
 	return query
 }
 
-// QueryDoctor chains the current query on the doctor edge.
-func (uq *UserQuery) QueryDoctor() *DoctorQuery {
+// QueryEdgesOfDoctor chains the current query on the EdgesOfDoctor edge.
+func (uq *UserQuery) QueryEdgesOfDoctor() *DoctorQuery {
 	query := &DoctorQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -169,7 +169,7 @@ func (uq *UserQuery) QueryDoctor() *DoctorQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(doctor.Table, doctor.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, user.DoctorTable, user.DoctorColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, user.EdgesOfDoctorTable, user.EdgesOfDoctorColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -177,8 +177,8 @@ func (uq *UserQuery) QueryDoctor() *DoctorQuery {
 	return query
 }
 
-// QueryUserstatus chains the current query on the userstatus edge.
-func (uq *UserQuery) QueryUserstatus() *UserstatusQuery {
+// QueryEdgesOfUserstatus chains the current query on the EdgesOfUserstatus edge.
+func (uq *UserQuery) QueryEdgesOfUserstatus() *UserstatusQuery {
 	query := &UserstatusQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -187,7 +187,7 @@ func (uq *UserQuery) QueryUserstatus() *UserstatusQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(user.Table, user.FieldID, uq.sqlQuery()),
 			sqlgraph.To(userstatus.Table, userstatus.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, user.UserstatusTable, user.UserstatusColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, user.EdgesOfUserstatusTable, user.EdgesOfUserstatusColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -374,80 +374,80 @@ func (uq *UserQuery) Clone() *UserQuery {
 	}
 }
 
-//  WithFinancier tells the query-builder to eager-loads the nodes that are connected to
-// the "financier" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserQuery) WithFinancier(opts ...func(*FinancierQuery)) *UserQuery {
+//  WithEdgesOfFinancier tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfFinancier" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserQuery) WithEdgesOfFinancier(opts ...func(*FinancierQuery)) *UserQuery {
 	query := &FinancierQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withFinancier = query
+	uq.withEdgesOfFinancier = query
 	return uq
 }
 
-//  WithNurse tells the query-builder to eager-loads the nodes that are connected to
-// the "Nurse" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserQuery) WithNurse(opts ...func(*NurseQuery)) *UserQuery {
+//  WithEdgesOfNurse tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfNurse" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserQuery) WithEdgesOfNurse(opts ...func(*NurseQuery)) *UserQuery {
 	query := &NurseQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withNurse = query
+	uq.withEdgesOfNurse = query
 	return uq
 }
 
-//  WithUserPatientrights tells the query-builder to eager-loads the nodes that are connected to
-// the "UserPatientrights" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserQuery) WithUserPatientrights(opts ...func(*PatientrightsQuery)) *UserQuery {
+//  WithEdgesOfUserPatientrights tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUserPatientrights" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserQuery) WithEdgesOfUserPatientrights(opts ...func(*PatientrightsQuery)) *UserQuery {
 	query := &PatientrightsQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withUserPatientrights = query
+	uq.withEdgesOfUserPatientrights = query
 	return uq
 }
 
-//  WithMedicalrecordstaff tells the query-builder to eager-loads the nodes that are connected to
-// the "medicalrecordstaff" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserQuery) WithMedicalrecordstaff(opts ...func(*MedicalrecordstaffQuery)) *UserQuery {
+//  WithEdgesOfMedicalrecordstaff tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfMedicalrecordstaff" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserQuery) WithEdgesOfMedicalrecordstaff(opts ...func(*MedicalrecordstaffQuery)) *UserQuery {
 	query := &MedicalrecordstaffQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withMedicalrecordstaff = query
+	uq.withEdgesOfMedicalrecordstaff = query
 	return uq
 }
 
-//  WithUser2registrar tells the query-builder to eager-loads the nodes that are connected to
-// the "user2registrar" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserQuery) WithUser2registrar(opts ...func(*RegistrarQuery)) *UserQuery {
+//  WithEdgesOfUser2registrar tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUser2registrar" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserQuery) WithEdgesOfUser2registrar(opts ...func(*RegistrarQuery)) *UserQuery {
 	query := &RegistrarQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withUser2registrar = query
+	uq.withEdgesOfUser2registrar = query
 	return uq
 }
 
-//  WithDoctor tells the query-builder to eager-loads the nodes that are connected to
-// the "doctor" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserQuery) WithDoctor(opts ...func(*DoctorQuery)) *UserQuery {
+//  WithEdgesOfDoctor tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfDoctor" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserQuery) WithEdgesOfDoctor(opts ...func(*DoctorQuery)) *UserQuery {
 	query := &DoctorQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withDoctor = query
+	uq.withEdgesOfDoctor = query
 	return uq
 }
 
-//  WithUserstatus tells the query-builder to eager-loads the nodes that are connected to
-// the "userstatus" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UserQuery) WithUserstatus(opts ...func(*UserstatusQuery)) *UserQuery {
+//  WithEdgesOfUserstatus tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUserstatus" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UserQuery) WithEdgesOfUserstatus(opts ...func(*UserstatusQuery)) *UserQuery {
 	query := &UserstatusQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withUserstatus = query
+	uq.withEdgesOfUserstatus = query
 	return uq
 }
 
@@ -519,16 +519,16 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		withFKs     = uq.withFKs
 		_spec       = uq.querySpec()
 		loadedTypes = [7]bool{
-			uq.withFinancier != nil,
-			uq.withNurse != nil,
-			uq.withUserPatientrights != nil,
-			uq.withMedicalrecordstaff != nil,
-			uq.withUser2registrar != nil,
-			uq.withDoctor != nil,
-			uq.withUserstatus != nil,
+			uq.withEdgesOfFinancier != nil,
+			uq.withEdgesOfNurse != nil,
+			uq.withEdgesOfUserPatientrights != nil,
+			uq.withEdgesOfMedicalrecordstaff != nil,
+			uq.withEdgesOfUser2registrar != nil,
+			uq.withEdgesOfDoctor != nil,
+			uq.withEdgesOfUserstatus != nil,
 		}
 	)
-	if uq.withUserPatientrights != nil || uq.withUserstatus != nil {
+	if uq.withEdgesOfUserPatientrights != nil || uq.withEdgesOfUserstatus != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -558,7 +558,7 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		return nodes, nil
 	}
 
-	if query := uq.withFinancier; query != nil {
+	if query := uq.withEdgesOfFinancier; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*User)
 		for i := range nodes {
@@ -567,7 +567,7 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Financier(func(s *sql.Selector) {
-			s.Where(sql.InValues(user.FinancierColumn, fks...))
+			s.Where(sql.InValues(user.EdgesOfFinancierColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -582,11 +582,11 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Financier = n
+			node.Edges.EdgesOfFinancier = n
 		}
 	}
 
-	if query := uq.withNurse; query != nil {
+	if query := uq.withEdgesOfNurse; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*User)
 		for i := range nodes {
@@ -595,7 +595,7 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Nurse(func(s *sql.Selector) {
-			s.Where(sql.InValues(user.NurseColumn, fks...))
+			s.Where(sql.InValues(user.EdgesOfNurseColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -610,11 +610,11 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Nurse = n
+			node.Edges.EdgesOfNurse = n
 		}
 	}
 
-	if query := uq.withUserPatientrights; query != nil {
+	if query := uq.withEdgesOfUserPatientrights; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*User)
 		for i := range nodes {
@@ -634,12 +634,12 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.UserPatientrights = n
+				nodes[i].Edges.EdgesOfUserPatientrights = n
 			}
 		}
 	}
 
-	if query := uq.withMedicalrecordstaff; query != nil {
+	if query := uq.withEdgesOfMedicalrecordstaff; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*User)
 		for i := range nodes {
@@ -648,7 +648,7 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Medicalrecordstaff(func(s *sql.Selector) {
-			s.Where(sql.InValues(user.MedicalrecordstaffColumn, fks...))
+			s.Where(sql.InValues(user.EdgesOfMedicalrecordstaffColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -663,11 +663,11 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Medicalrecordstaff = n
+			node.Edges.EdgesOfMedicalrecordstaff = n
 		}
 	}
 
-	if query := uq.withUser2registrar; query != nil {
+	if query := uq.withEdgesOfUser2registrar; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*User)
 		for i := range nodes {
@@ -676,7 +676,7 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Registrar(func(s *sql.Selector) {
-			s.Where(sql.InValues(user.User2registrarColumn, fks...))
+			s.Where(sql.InValues(user.EdgesOfUser2registrarColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -691,11 +691,11 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.User2registrar = n
+			node.Edges.EdgesOfUser2registrar = n
 		}
 	}
 
-	if query := uq.withDoctor; query != nil {
+	if query := uq.withEdgesOfDoctor; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*User)
 		for i := range nodes {
@@ -704,7 +704,7 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Doctor(func(s *sql.Selector) {
-			s.Where(sql.InValues(user.DoctorColumn, fks...))
+			s.Where(sql.InValues(user.EdgesOfDoctorColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -719,11 +719,11 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Doctor = n
+			node.Edges.EdgesOfDoctor = n
 		}
 	}
 
-	if query := uq.withUserstatus; query != nil {
+	if query := uq.withEdgesOfUserstatus; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*User)
 		for i := range nodes {
@@ -743,7 +743,7 @@ func (uq *UserQuery) sqlAll(ctx context.Context) ([]*User, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "userstatus_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Userstatus = n
+				nodes[i].Edges.EdgesOfUserstatus = n
 			}
 		}
 	}

@@ -23,8 +23,8 @@ func (Bill) Fields() []ent.Field {
 // Edges of the Bill.
 func (Bill) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("paytype", Paytype.Type).Ref("bills").Unique(),
-		edge.From("officer", Financier.Type).Ref("bills").Unique(),
-		edge.From("treatment", Unpaybill.Type).Ref("bills").Unique(),
+		edge.From("EdgesOfPaytype", Paytype.Type).Ref("EdgesOfBills").Unique(),
+		edge.From("EdgesOfOfficer", Financier.Type).Ref("EdgesOfBills").Unique(),
+		edge.From("EdgesOfTreatment", Unpaybill.Type).Ref("EdgesOfBills").Unique(),
 	}
 }

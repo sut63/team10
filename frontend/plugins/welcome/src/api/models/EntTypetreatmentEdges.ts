@@ -27,11 +27,11 @@ import {
  */
 export interface EntTypetreatmentEdges {
     /**
-     * Treatment holds the value of the treatment edge.
+     * EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
      * @type {Array<EntTreatment>}
      * @memberof EntTypetreatmentEdges
      */
-    treatment?: Array<EntTreatment>;
+    edgesOfTreatment?: Array<EntTreatment>;
 }
 
 export function EntTypetreatmentEdgesFromJSON(json: any): EntTypetreatmentEdges {
@@ -44,7 +44,7 @@ export function EntTypetreatmentEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
+        'edgesOfTreatment': !exists(json, 'EdgesOfTreatment') ? undefined : ((json['EdgesOfTreatment'] as Array<any>).map(EntTreatmentFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntTypetreatmentEdgesToJSON(value?: EntTypetreatmentEdges | null
     }
     return {
         
-        'treatment': value.treatment === undefined ? undefined : ((value.treatment as Array<any>).map(EntTreatmentToJSON)),
+        'EdgesOfTreatment': value.edgesOfTreatment === undefined ? undefined : ((value.edgesOfTreatment as Array<any>).map(EntTreatmentToJSON)),
     };
 }
 

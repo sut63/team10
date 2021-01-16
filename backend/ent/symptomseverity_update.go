@@ -34,19 +34,19 @@ func (su *SymptomseverityUpdate) SetSymptomseverity(s string) *SymptomseverityUp
 	return su
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (su *SymptomseverityUpdate) AddHistorytakingIDs(ids ...int) *SymptomseverityUpdate {
-	su.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (su *SymptomseverityUpdate) AddEdgesOfHistorytakingIDs(ids ...int) *SymptomseverityUpdate {
+	su.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return su
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (su *SymptomseverityUpdate) AddHistorytaking(h ...*Historytaking) *SymptomseverityUpdate {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (su *SymptomseverityUpdate) AddEdgesOfHistorytaking(h ...*Historytaking) *SymptomseverityUpdate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return su.AddHistorytakingIDs(ids...)
+	return su.AddEdgesOfHistorytakingIDs(ids...)
 }
 
 // Mutation returns the SymptomseverityMutation object of the builder.
@@ -54,19 +54,19 @@ func (su *SymptomseverityUpdate) Mutation() *SymptomseverityMutation {
 	return su.mutation
 }
 
-// RemoveHistorytakingIDs removes the historytaking edge to Historytaking by ids.
-func (su *SymptomseverityUpdate) RemoveHistorytakingIDs(ids ...int) *SymptomseverityUpdate {
-	su.mutation.RemoveHistorytakingIDs(ids...)
+// RemoveEdgesOfHistorytakingIDs removes the EdgesOfHistorytaking edge to Historytaking by ids.
+func (su *SymptomseverityUpdate) RemoveEdgesOfHistorytakingIDs(ids ...int) *SymptomseverityUpdate {
+	su.mutation.RemoveEdgesOfHistorytakingIDs(ids...)
 	return su
 }
 
-// RemoveHistorytaking removes historytaking edges to Historytaking.
-func (su *SymptomseverityUpdate) RemoveHistorytaking(h ...*Historytaking) *SymptomseverityUpdate {
+// RemoveEdgesOfHistorytaking removes EdgesOfHistorytaking edges to Historytaking.
+func (su *SymptomseverityUpdate) RemoveEdgesOfHistorytaking(h ...*Historytaking) *SymptomseverityUpdate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return su.RemoveHistorytakingIDs(ids...)
+	return su.RemoveEdgesOfHistorytakingIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -146,12 +146,12 @@ func (su *SymptomseverityUpdate) sqlSave(ctx context.Context) (n int, err error)
 			Column: symptomseverity.FieldSymptomseverity,
 		})
 	}
-	if nodes := su.mutation.RemovedHistorytakingIDs(); len(nodes) > 0 {
+	if nodes := su.mutation.RemovedEdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   symptomseverity.HistorytakingTable,
-			Columns: []string{symptomseverity.HistorytakingColumn},
+			Table:   symptomseverity.EdgesOfHistorytakingTable,
+			Columns: []string{symptomseverity.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -165,12 +165,12 @@ func (su *SymptomseverityUpdate) sqlSave(ctx context.Context) (n int, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := su.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := su.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   symptomseverity.HistorytakingTable,
-			Columns: []string{symptomseverity.HistorytakingColumn},
+			Table:   symptomseverity.EdgesOfHistorytakingTable,
+			Columns: []string{symptomseverity.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -208,19 +208,19 @@ func (suo *SymptomseverityUpdateOne) SetSymptomseverity(s string) *Symptomseveri
 	return suo
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (suo *SymptomseverityUpdateOne) AddHistorytakingIDs(ids ...int) *SymptomseverityUpdateOne {
-	suo.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (suo *SymptomseverityUpdateOne) AddEdgesOfHistorytakingIDs(ids ...int) *SymptomseverityUpdateOne {
+	suo.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return suo
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (suo *SymptomseverityUpdateOne) AddHistorytaking(h ...*Historytaking) *SymptomseverityUpdateOne {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (suo *SymptomseverityUpdateOne) AddEdgesOfHistorytaking(h ...*Historytaking) *SymptomseverityUpdateOne {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return suo.AddHistorytakingIDs(ids...)
+	return suo.AddEdgesOfHistorytakingIDs(ids...)
 }
 
 // Mutation returns the SymptomseverityMutation object of the builder.
@@ -228,19 +228,19 @@ func (suo *SymptomseverityUpdateOne) Mutation() *SymptomseverityMutation {
 	return suo.mutation
 }
 
-// RemoveHistorytakingIDs removes the historytaking edge to Historytaking by ids.
-func (suo *SymptomseverityUpdateOne) RemoveHistorytakingIDs(ids ...int) *SymptomseverityUpdateOne {
-	suo.mutation.RemoveHistorytakingIDs(ids...)
+// RemoveEdgesOfHistorytakingIDs removes the EdgesOfHistorytaking edge to Historytaking by ids.
+func (suo *SymptomseverityUpdateOne) RemoveEdgesOfHistorytakingIDs(ids ...int) *SymptomseverityUpdateOne {
+	suo.mutation.RemoveEdgesOfHistorytakingIDs(ids...)
 	return suo
 }
 
-// RemoveHistorytaking removes historytaking edges to Historytaking.
-func (suo *SymptomseverityUpdateOne) RemoveHistorytaking(h ...*Historytaking) *SymptomseverityUpdateOne {
+// RemoveEdgesOfHistorytaking removes EdgesOfHistorytaking edges to Historytaking.
+func (suo *SymptomseverityUpdateOne) RemoveEdgesOfHistorytaking(h ...*Historytaking) *SymptomseverityUpdateOne {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return suo.RemoveHistorytakingIDs(ids...)
+	return suo.RemoveEdgesOfHistorytakingIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -318,12 +318,12 @@ func (suo *SymptomseverityUpdateOne) sqlSave(ctx context.Context) (s *Symptomsev
 			Column: symptomseverity.FieldSymptomseverity,
 		})
 	}
-	if nodes := suo.mutation.RemovedHistorytakingIDs(); len(nodes) > 0 {
+	if nodes := suo.mutation.RemovedEdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   symptomseverity.HistorytakingTable,
-			Columns: []string{symptomseverity.HistorytakingColumn},
+			Table:   symptomseverity.EdgesOfHistorytakingTable,
+			Columns: []string{symptomseverity.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -337,12 +337,12 @@ func (suo *SymptomseverityUpdateOne) sqlSave(ctx context.Context) (s *Symptomsev
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := suo.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := suo.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   symptomseverity.HistorytakingTable,
-			Columns: []string{symptomseverity.HistorytakingColumn},
+			Table:   symptomseverity.EdgesOfHistorytakingTable,
+			Columns: []string{symptomseverity.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -34,19 +34,19 @@ func (uu *UserstatusUpdate) SetUserstatus(s string) *UserstatusUpdate {
 	return uu
 }
 
-// AddUserIDs adds the user edge to User by ids.
-func (uu *UserstatusUpdate) AddUserIDs(ids ...int) *UserstatusUpdate {
-	uu.mutation.AddUserIDs(ids...)
+// AddEdgesOfUserIDs adds the EdgesOfUser edge to User by ids.
+func (uu *UserstatusUpdate) AddEdgesOfUserIDs(ids ...int) *UserstatusUpdate {
+	uu.mutation.AddEdgesOfUserIDs(ids...)
 	return uu
 }
 
-// AddUser adds the user edges to User.
-func (uu *UserstatusUpdate) AddUser(u ...*User) *UserstatusUpdate {
+// AddEdgesOfUser adds the EdgesOfUser edges to User.
+func (uu *UserstatusUpdate) AddEdgesOfUser(u ...*User) *UserstatusUpdate {
 	ids := make([]int, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
-	return uu.AddUserIDs(ids...)
+	return uu.AddEdgesOfUserIDs(ids...)
 }
 
 // Mutation returns the UserstatusMutation object of the builder.
@@ -54,19 +54,19 @@ func (uu *UserstatusUpdate) Mutation() *UserstatusMutation {
 	return uu.mutation
 }
 
-// RemoveUserIDs removes the user edge to User by ids.
-func (uu *UserstatusUpdate) RemoveUserIDs(ids ...int) *UserstatusUpdate {
-	uu.mutation.RemoveUserIDs(ids...)
+// RemoveEdgesOfUserIDs removes the EdgesOfUser edge to User by ids.
+func (uu *UserstatusUpdate) RemoveEdgesOfUserIDs(ids ...int) *UserstatusUpdate {
+	uu.mutation.RemoveEdgesOfUserIDs(ids...)
 	return uu
 }
 
-// RemoveUser removes user edges to User.
-func (uu *UserstatusUpdate) RemoveUser(u ...*User) *UserstatusUpdate {
+// RemoveEdgesOfUser removes EdgesOfUser edges to User.
+func (uu *UserstatusUpdate) RemoveEdgesOfUser(u ...*User) *UserstatusUpdate {
 	ids := make([]int, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
-	return uu.RemoveUserIDs(ids...)
+	return uu.RemoveEdgesOfUserIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -146,12 +146,12 @@ func (uu *UserstatusUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: userstatus.FieldUserstatus,
 		})
 	}
-	if nodes := uu.mutation.RemovedUserIDs(); len(nodes) > 0 {
+	if nodes := uu.mutation.RemovedEdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   userstatus.UserTable,
-			Columns: []string{userstatus.UserColumn},
+			Table:   userstatus.EdgesOfUserTable,
+			Columns: []string{userstatus.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -165,12 +165,12 @@ func (uu *UserstatusUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := uu.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   userstatus.UserTable,
-			Columns: []string{userstatus.UserColumn},
+			Table:   userstatus.EdgesOfUserTable,
+			Columns: []string{userstatus.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -208,19 +208,19 @@ func (uuo *UserstatusUpdateOne) SetUserstatus(s string) *UserstatusUpdateOne {
 	return uuo
 }
 
-// AddUserIDs adds the user edge to User by ids.
-func (uuo *UserstatusUpdateOne) AddUserIDs(ids ...int) *UserstatusUpdateOne {
-	uuo.mutation.AddUserIDs(ids...)
+// AddEdgesOfUserIDs adds the EdgesOfUser edge to User by ids.
+func (uuo *UserstatusUpdateOne) AddEdgesOfUserIDs(ids ...int) *UserstatusUpdateOne {
+	uuo.mutation.AddEdgesOfUserIDs(ids...)
 	return uuo
 }
 
-// AddUser adds the user edges to User.
-func (uuo *UserstatusUpdateOne) AddUser(u ...*User) *UserstatusUpdateOne {
+// AddEdgesOfUser adds the EdgesOfUser edges to User.
+func (uuo *UserstatusUpdateOne) AddEdgesOfUser(u ...*User) *UserstatusUpdateOne {
 	ids := make([]int, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
-	return uuo.AddUserIDs(ids...)
+	return uuo.AddEdgesOfUserIDs(ids...)
 }
 
 // Mutation returns the UserstatusMutation object of the builder.
@@ -228,19 +228,19 @@ func (uuo *UserstatusUpdateOne) Mutation() *UserstatusMutation {
 	return uuo.mutation
 }
 
-// RemoveUserIDs removes the user edge to User by ids.
-func (uuo *UserstatusUpdateOne) RemoveUserIDs(ids ...int) *UserstatusUpdateOne {
-	uuo.mutation.RemoveUserIDs(ids...)
+// RemoveEdgesOfUserIDs removes the EdgesOfUser edge to User by ids.
+func (uuo *UserstatusUpdateOne) RemoveEdgesOfUserIDs(ids ...int) *UserstatusUpdateOne {
+	uuo.mutation.RemoveEdgesOfUserIDs(ids...)
 	return uuo
 }
 
-// RemoveUser removes user edges to User.
-func (uuo *UserstatusUpdateOne) RemoveUser(u ...*User) *UserstatusUpdateOne {
+// RemoveEdgesOfUser removes EdgesOfUser edges to User.
+func (uuo *UserstatusUpdateOne) RemoveEdgesOfUser(u ...*User) *UserstatusUpdateOne {
 	ids := make([]int, len(u))
 	for i := range u {
 		ids[i] = u[i].ID
 	}
-	return uuo.RemoveUserIDs(ids...)
+	return uuo.RemoveEdgesOfUserIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -318,12 +318,12 @@ func (uuo *UserstatusUpdateOne) sqlSave(ctx context.Context) (u *Userstatus, err
 			Column: userstatus.FieldUserstatus,
 		})
 	}
-	if nodes := uuo.mutation.RemovedUserIDs(); len(nodes) > 0 {
+	if nodes := uuo.mutation.RemovedEdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   userstatus.UserTable,
-			Columns: []string{userstatus.UserColumn},
+			Table:   userstatus.EdgesOfUserTable,
+			Columns: []string{userstatus.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -337,12 +337,12 @@ func (uuo *UserstatusUpdateOne) sqlSave(ctx context.Context) (u *Userstatus, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := uuo.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   userstatus.UserTable,
-			Columns: []string{userstatus.UserColumn},
+			Table:   userstatus.EdgesOfUserTable,
+			Columns: []string{userstatus.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

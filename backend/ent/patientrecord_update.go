@@ -108,106 +108,106 @@ func (pu *PatientrecordUpdate) SetDate(t time.Time) *PatientrecordUpdate {
 	return pu
 }
 
-// SetGenderID sets the gender edge to Gender by id.
-func (pu *PatientrecordUpdate) SetGenderID(id int) *PatientrecordUpdate {
-	pu.mutation.SetGenderID(id)
+// SetEdgesOfGenderID sets the EdgesOfGender edge to Gender by id.
+func (pu *PatientrecordUpdate) SetEdgesOfGenderID(id int) *PatientrecordUpdate {
+	pu.mutation.SetEdgesOfGenderID(id)
 	return pu
 }
 
-// SetNillableGenderID sets the gender edge to Gender by id if the given value is not nil.
-func (pu *PatientrecordUpdate) SetNillableGenderID(id *int) *PatientrecordUpdate {
+// SetNillableEdgesOfGenderID sets the EdgesOfGender edge to Gender by id if the given value is not nil.
+func (pu *PatientrecordUpdate) SetNillableEdgesOfGenderID(id *int) *PatientrecordUpdate {
 	if id != nil {
-		pu = pu.SetGenderID(*id)
+		pu = pu.SetEdgesOfGenderID(*id)
 	}
 	return pu
 }
 
-// SetGender sets the gender edge to Gender.
-func (pu *PatientrecordUpdate) SetGender(g *Gender) *PatientrecordUpdate {
-	return pu.SetGenderID(g.ID)
+// SetEdgesOfGender sets the EdgesOfGender edge to Gender.
+func (pu *PatientrecordUpdate) SetEdgesOfGender(g *Gender) *PatientrecordUpdate {
+	return pu.SetEdgesOfGenderID(g.ID)
 }
 
-// SetMedicalrecordstaffID sets the medicalrecordstaff edge to Medicalrecordstaff by id.
-func (pu *PatientrecordUpdate) SetMedicalrecordstaffID(id int) *PatientrecordUpdate {
-	pu.mutation.SetMedicalrecordstaffID(id)
+// SetEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id.
+func (pu *PatientrecordUpdate) SetEdgesOfMedicalrecordstaffID(id int) *PatientrecordUpdate {
+	pu.mutation.SetEdgesOfMedicalrecordstaffID(id)
 	return pu
 }
 
-// SetNillableMedicalrecordstaffID sets the medicalrecordstaff edge to Medicalrecordstaff by id if the given value is not nil.
-func (pu *PatientrecordUpdate) SetNillableMedicalrecordstaffID(id *int) *PatientrecordUpdate {
+// SetNillableEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id if the given value is not nil.
+func (pu *PatientrecordUpdate) SetNillableEdgesOfMedicalrecordstaffID(id *int) *PatientrecordUpdate {
 	if id != nil {
-		pu = pu.SetMedicalrecordstaffID(*id)
+		pu = pu.SetEdgesOfMedicalrecordstaffID(*id)
 	}
 	return pu
 }
 
-// SetMedicalrecordstaff sets the medicalrecordstaff edge to Medicalrecordstaff.
-func (pu *PatientrecordUpdate) SetMedicalrecordstaff(m *Medicalrecordstaff) *PatientrecordUpdate {
-	return pu.SetMedicalrecordstaffID(m.ID)
+// SetEdgesOfMedicalrecordstaff sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff.
+func (pu *PatientrecordUpdate) SetEdgesOfMedicalrecordstaff(m *Medicalrecordstaff) *PatientrecordUpdate {
+	return pu.SetEdgesOfMedicalrecordstaffID(m.ID)
 }
 
-// SetPrenameID sets the prename edge to Prename by id.
-func (pu *PatientrecordUpdate) SetPrenameID(id int) *PatientrecordUpdate {
-	pu.mutation.SetPrenameID(id)
+// SetEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id.
+func (pu *PatientrecordUpdate) SetEdgesOfPrenameID(id int) *PatientrecordUpdate {
+	pu.mutation.SetEdgesOfPrenameID(id)
 	return pu
 }
 
-// SetNillablePrenameID sets the prename edge to Prename by id if the given value is not nil.
-func (pu *PatientrecordUpdate) SetNillablePrenameID(id *int) *PatientrecordUpdate {
+// SetNillableEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id if the given value is not nil.
+func (pu *PatientrecordUpdate) SetNillableEdgesOfPrenameID(id *int) *PatientrecordUpdate {
 	if id != nil {
-		pu = pu.SetPrenameID(*id)
+		pu = pu.SetEdgesOfPrenameID(*id)
 	}
 	return pu
 }
 
-// SetPrename sets the prename edge to Prename.
-func (pu *PatientrecordUpdate) SetPrename(p *Prename) *PatientrecordUpdate {
-	return pu.SetPrenameID(p.ID)
+// SetEdgesOfPrename sets the EdgesOfPrename edge to Prename.
+func (pu *PatientrecordUpdate) SetEdgesOfPrename(p *Prename) *PatientrecordUpdate {
+	return pu.SetEdgesOfPrenameID(p.ID)
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (pu *PatientrecordUpdate) AddHistorytakingIDs(ids ...int) *PatientrecordUpdate {
-	pu.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (pu *PatientrecordUpdate) AddEdgesOfHistorytakingIDs(ids ...int) *PatientrecordUpdate {
+	pu.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return pu
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (pu *PatientrecordUpdate) AddHistorytaking(h ...*Historytaking) *PatientrecordUpdate {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (pu *PatientrecordUpdate) AddEdgesOfHistorytaking(h ...*Historytaking) *PatientrecordUpdate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return pu.AddHistorytakingIDs(ids...)
+	return pu.AddEdgesOfHistorytakingIDs(ids...)
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (pu *PatientrecordUpdate) AddTreatmentIDs(ids ...int) *PatientrecordUpdate {
-	pu.mutation.AddTreatmentIDs(ids...)
+// AddEdgesOfTreatmentIDs adds the EdgesOfTreatment edge to Treatment by ids.
+func (pu *PatientrecordUpdate) AddEdgesOfTreatmentIDs(ids ...int) *PatientrecordUpdate {
+	pu.mutation.AddEdgesOfTreatmentIDs(ids...)
 	return pu
 }
 
-// AddTreatment adds the treatment edges to Treatment.
-func (pu *PatientrecordUpdate) AddTreatment(t ...*Treatment) *PatientrecordUpdate {
+// AddEdgesOfTreatment adds the EdgesOfTreatment edges to Treatment.
+func (pu *PatientrecordUpdate) AddEdgesOfTreatment(t ...*Treatment) *PatientrecordUpdate {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return pu.AddTreatmentIDs(ids...)
+	return pu.AddEdgesOfTreatmentIDs(ids...)
 }
 
-// AddPatientrecordPatientrightIDs adds the PatientrecordPatientrights edge to Patientrights by ids.
-func (pu *PatientrecordUpdate) AddPatientrecordPatientrightIDs(ids ...int) *PatientrecordUpdate {
-	pu.mutation.AddPatientrecordPatientrightIDs(ids...)
+// AddEdgesOfPatientrecordPatientrightIDs adds the EdgesOfPatientrecordPatientrights edge to Patientrights by ids.
+func (pu *PatientrecordUpdate) AddEdgesOfPatientrecordPatientrightIDs(ids ...int) *PatientrecordUpdate {
+	pu.mutation.AddEdgesOfPatientrecordPatientrightIDs(ids...)
 	return pu
 }
 
-// AddPatientrecordPatientrights adds the PatientrecordPatientrights edges to Patientrights.
-func (pu *PatientrecordUpdate) AddPatientrecordPatientrights(p ...*Patientrights) *PatientrecordUpdate {
+// AddEdgesOfPatientrecordPatientrights adds the EdgesOfPatientrecordPatientrights edges to Patientrights.
+func (pu *PatientrecordUpdate) AddEdgesOfPatientrecordPatientrights(p ...*Patientrights) *PatientrecordUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return pu.AddPatientrecordPatientrightIDs(ids...)
+	return pu.AddEdgesOfPatientrecordPatientrightIDs(ids...)
 }
 
 // Mutation returns the PatientrecordMutation object of the builder.
@@ -215,67 +215,67 @@ func (pu *PatientrecordUpdate) Mutation() *PatientrecordMutation {
 	return pu.mutation
 }
 
-// ClearGender clears the gender edge to Gender.
-func (pu *PatientrecordUpdate) ClearGender() *PatientrecordUpdate {
-	pu.mutation.ClearGender()
+// ClearEdgesOfGender clears the EdgesOfGender edge to Gender.
+func (pu *PatientrecordUpdate) ClearEdgesOfGender() *PatientrecordUpdate {
+	pu.mutation.ClearEdgesOfGender()
 	return pu
 }
 
-// ClearMedicalrecordstaff clears the medicalrecordstaff edge to Medicalrecordstaff.
-func (pu *PatientrecordUpdate) ClearMedicalrecordstaff() *PatientrecordUpdate {
-	pu.mutation.ClearMedicalrecordstaff()
+// ClearEdgesOfMedicalrecordstaff clears the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff.
+func (pu *PatientrecordUpdate) ClearEdgesOfMedicalrecordstaff() *PatientrecordUpdate {
+	pu.mutation.ClearEdgesOfMedicalrecordstaff()
 	return pu
 }
 
-// ClearPrename clears the prename edge to Prename.
-func (pu *PatientrecordUpdate) ClearPrename() *PatientrecordUpdate {
-	pu.mutation.ClearPrename()
+// ClearEdgesOfPrename clears the EdgesOfPrename edge to Prename.
+func (pu *PatientrecordUpdate) ClearEdgesOfPrename() *PatientrecordUpdate {
+	pu.mutation.ClearEdgesOfPrename()
 	return pu
 }
 
-// RemoveHistorytakingIDs removes the historytaking edge to Historytaking by ids.
-func (pu *PatientrecordUpdate) RemoveHistorytakingIDs(ids ...int) *PatientrecordUpdate {
-	pu.mutation.RemoveHistorytakingIDs(ids...)
+// RemoveEdgesOfHistorytakingIDs removes the EdgesOfHistorytaking edge to Historytaking by ids.
+func (pu *PatientrecordUpdate) RemoveEdgesOfHistorytakingIDs(ids ...int) *PatientrecordUpdate {
+	pu.mutation.RemoveEdgesOfHistorytakingIDs(ids...)
 	return pu
 }
 
-// RemoveHistorytaking removes historytaking edges to Historytaking.
-func (pu *PatientrecordUpdate) RemoveHistorytaking(h ...*Historytaking) *PatientrecordUpdate {
+// RemoveEdgesOfHistorytaking removes EdgesOfHistorytaking edges to Historytaking.
+func (pu *PatientrecordUpdate) RemoveEdgesOfHistorytaking(h ...*Historytaking) *PatientrecordUpdate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return pu.RemoveHistorytakingIDs(ids...)
+	return pu.RemoveEdgesOfHistorytakingIDs(ids...)
 }
 
-// RemoveTreatmentIDs removes the treatment edge to Treatment by ids.
-func (pu *PatientrecordUpdate) RemoveTreatmentIDs(ids ...int) *PatientrecordUpdate {
-	pu.mutation.RemoveTreatmentIDs(ids...)
+// RemoveEdgesOfTreatmentIDs removes the EdgesOfTreatment edge to Treatment by ids.
+func (pu *PatientrecordUpdate) RemoveEdgesOfTreatmentIDs(ids ...int) *PatientrecordUpdate {
+	pu.mutation.RemoveEdgesOfTreatmentIDs(ids...)
 	return pu
 }
 
-// RemoveTreatment removes treatment edges to Treatment.
-func (pu *PatientrecordUpdate) RemoveTreatment(t ...*Treatment) *PatientrecordUpdate {
+// RemoveEdgesOfTreatment removes EdgesOfTreatment edges to Treatment.
+func (pu *PatientrecordUpdate) RemoveEdgesOfTreatment(t ...*Treatment) *PatientrecordUpdate {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return pu.RemoveTreatmentIDs(ids...)
+	return pu.RemoveEdgesOfTreatmentIDs(ids...)
 }
 
-// RemovePatientrecordPatientrightIDs removes the PatientrecordPatientrights edge to Patientrights by ids.
-func (pu *PatientrecordUpdate) RemovePatientrecordPatientrightIDs(ids ...int) *PatientrecordUpdate {
-	pu.mutation.RemovePatientrecordPatientrightIDs(ids...)
+// RemoveEdgesOfPatientrecordPatientrightIDs removes the EdgesOfPatientrecordPatientrights edge to Patientrights by ids.
+func (pu *PatientrecordUpdate) RemoveEdgesOfPatientrecordPatientrightIDs(ids ...int) *PatientrecordUpdate {
+	pu.mutation.RemoveEdgesOfPatientrecordPatientrightIDs(ids...)
 	return pu
 }
 
-// RemovePatientrecordPatientrights removes PatientrecordPatientrights edges to Patientrights.
-func (pu *PatientrecordUpdate) RemovePatientrecordPatientrights(p ...*Patientrights) *PatientrecordUpdate {
+// RemoveEdgesOfPatientrecordPatientrights removes EdgesOfPatientrecordPatientrights edges to Patientrights.
+func (pu *PatientrecordUpdate) RemoveEdgesOfPatientrecordPatientrights(p ...*Patientrights) *PatientrecordUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return pu.RemovePatientrecordPatientrightIDs(ids...)
+	return pu.RemoveEdgesOfPatientrecordPatientrightIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -432,12 +432,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: patientrecord.FieldDate,
 		})
 	}
-	if pu.mutation.GenderCleared() {
+	if pu.mutation.EdgesOfGenderCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.GenderTable,
-			Columns: []string{patientrecord.GenderColumn},
+			Table:   patientrecord.EdgesOfGenderTable,
+			Columns: []string{patientrecord.EdgesOfGenderColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -448,12 +448,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.GenderIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfGenderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.GenderTable,
-			Columns: []string{patientrecord.GenderColumn},
+			Table:   patientrecord.EdgesOfGenderTable,
+			Columns: []string{patientrecord.EdgesOfGenderColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -467,12 +467,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if pu.mutation.MedicalrecordstaffCleared() {
+	if pu.mutation.EdgesOfMedicalrecordstaffCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.MedicalrecordstaffTable,
-			Columns: []string{patientrecord.MedicalrecordstaffColumn},
+			Table:   patientrecord.EdgesOfMedicalrecordstaffTable,
+			Columns: []string{patientrecord.EdgesOfMedicalrecordstaffColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -483,12 +483,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.MedicalrecordstaffIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfMedicalrecordstaffIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.MedicalrecordstaffTable,
-			Columns: []string{patientrecord.MedicalrecordstaffColumn},
+			Table:   patientrecord.EdgesOfMedicalrecordstaffTable,
+			Columns: []string{patientrecord.EdgesOfMedicalrecordstaffColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -502,12 +502,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if pu.mutation.PrenameCleared() {
+	if pu.mutation.EdgesOfPrenameCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.PrenameTable,
-			Columns: []string{patientrecord.PrenameColumn},
+			Table:   patientrecord.EdgesOfPrenameTable,
+			Columns: []string{patientrecord.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -518,12 +518,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.PrenameIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfPrenameIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.PrenameTable,
-			Columns: []string{patientrecord.PrenameColumn},
+			Table:   patientrecord.EdgesOfPrenameTable,
+			Columns: []string{patientrecord.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -537,12 +537,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := pu.mutation.RemovedHistorytakingIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.RemovedEdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.HistorytakingTable,
-			Columns: []string{patientrecord.HistorytakingColumn},
+			Table:   patientrecord.EdgesOfHistorytakingTable,
+			Columns: []string{patientrecord.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -556,12 +556,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.HistorytakingTable,
-			Columns: []string{patientrecord.HistorytakingColumn},
+			Table:   patientrecord.EdgesOfHistorytakingTable,
+			Columns: []string{patientrecord.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -575,12 +575,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := pu.mutation.RemovedTreatmentIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.RemovedEdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.TreatmentTable,
-			Columns: []string{patientrecord.TreatmentColumn},
+			Table:   patientrecord.EdgesOfTreatmentTable,
+			Columns: []string{patientrecord.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -594,12 +594,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.TreatmentTable,
-			Columns: []string{patientrecord.TreatmentColumn},
+			Table:   patientrecord.EdgesOfTreatmentTable,
+			Columns: []string{patientrecord.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -613,12 +613,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := pu.mutation.RemovedPatientrecordPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.RemovedEdgesOfPatientrecordPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.PatientrecordPatientrightsTable,
-			Columns: []string{patientrecord.PatientrecordPatientrightsColumn},
+			Table:   patientrecord.EdgesOfPatientrecordPatientrightsTable,
+			Columns: []string{patientrecord.EdgesOfPatientrecordPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -632,12 +632,12 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.PatientrecordPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfPatientrecordPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.PatientrecordPatientrightsTable,
-			Columns: []string{patientrecord.PatientrecordPatientrightsColumn},
+			Table:   patientrecord.EdgesOfPatientrecordPatientrightsTable,
+			Columns: []string{patientrecord.EdgesOfPatientrecordPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -743,106 +743,106 @@ func (puo *PatientrecordUpdateOne) SetDate(t time.Time) *PatientrecordUpdateOne 
 	return puo
 }
 
-// SetGenderID sets the gender edge to Gender by id.
-func (puo *PatientrecordUpdateOne) SetGenderID(id int) *PatientrecordUpdateOne {
-	puo.mutation.SetGenderID(id)
+// SetEdgesOfGenderID sets the EdgesOfGender edge to Gender by id.
+func (puo *PatientrecordUpdateOne) SetEdgesOfGenderID(id int) *PatientrecordUpdateOne {
+	puo.mutation.SetEdgesOfGenderID(id)
 	return puo
 }
 
-// SetNillableGenderID sets the gender edge to Gender by id if the given value is not nil.
-func (puo *PatientrecordUpdateOne) SetNillableGenderID(id *int) *PatientrecordUpdateOne {
+// SetNillableEdgesOfGenderID sets the EdgesOfGender edge to Gender by id if the given value is not nil.
+func (puo *PatientrecordUpdateOne) SetNillableEdgesOfGenderID(id *int) *PatientrecordUpdateOne {
 	if id != nil {
-		puo = puo.SetGenderID(*id)
+		puo = puo.SetEdgesOfGenderID(*id)
 	}
 	return puo
 }
 
-// SetGender sets the gender edge to Gender.
-func (puo *PatientrecordUpdateOne) SetGender(g *Gender) *PatientrecordUpdateOne {
-	return puo.SetGenderID(g.ID)
+// SetEdgesOfGender sets the EdgesOfGender edge to Gender.
+func (puo *PatientrecordUpdateOne) SetEdgesOfGender(g *Gender) *PatientrecordUpdateOne {
+	return puo.SetEdgesOfGenderID(g.ID)
 }
 
-// SetMedicalrecordstaffID sets the medicalrecordstaff edge to Medicalrecordstaff by id.
-func (puo *PatientrecordUpdateOne) SetMedicalrecordstaffID(id int) *PatientrecordUpdateOne {
-	puo.mutation.SetMedicalrecordstaffID(id)
+// SetEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id.
+func (puo *PatientrecordUpdateOne) SetEdgesOfMedicalrecordstaffID(id int) *PatientrecordUpdateOne {
+	puo.mutation.SetEdgesOfMedicalrecordstaffID(id)
 	return puo
 }
 
-// SetNillableMedicalrecordstaffID sets the medicalrecordstaff edge to Medicalrecordstaff by id if the given value is not nil.
-func (puo *PatientrecordUpdateOne) SetNillableMedicalrecordstaffID(id *int) *PatientrecordUpdateOne {
+// SetNillableEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id if the given value is not nil.
+func (puo *PatientrecordUpdateOne) SetNillableEdgesOfMedicalrecordstaffID(id *int) *PatientrecordUpdateOne {
 	if id != nil {
-		puo = puo.SetMedicalrecordstaffID(*id)
+		puo = puo.SetEdgesOfMedicalrecordstaffID(*id)
 	}
 	return puo
 }
 
-// SetMedicalrecordstaff sets the medicalrecordstaff edge to Medicalrecordstaff.
-func (puo *PatientrecordUpdateOne) SetMedicalrecordstaff(m *Medicalrecordstaff) *PatientrecordUpdateOne {
-	return puo.SetMedicalrecordstaffID(m.ID)
+// SetEdgesOfMedicalrecordstaff sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff.
+func (puo *PatientrecordUpdateOne) SetEdgesOfMedicalrecordstaff(m *Medicalrecordstaff) *PatientrecordUpdateOne {
+	return puo.SetEdgesOfMedicalrecordstaffID(m.ID)
 }
 
-// SetPrenameID sets the prename edge to Prename by id.
-func (puo *PatientrecordUpdateOne) SetPrenameID(id int) *PatientrecordUpdateOne {
-	puo.mutation.SetPrenameID(id)
+// SetEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id.
+func (puo *PatientrecordUpdateOne) SetEdgesOfPrenameID(id int) *PatientrecordUpdateOne {
+	puo.mutation.SetEdgesOfPrenameID(id)
 	return puo
 }
 
-// SetNillablePrenameID sets the prename edge to Prename by id if the given value is not nil.
-func (puo *PatientrecordUpdateOne) SetNillablePrenameID(id *int) *PatientrecordUpdateOne {
+// SetNillableEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id if the given value is not nil.
+func (puo *PatientrecordUpdateOne) SetNillableEdgesOfPrenameID(id *int) *PatientrecordUpdateOne {
 	if id != nil {
-		puo = puo.SetPrenameID(*id)
+		puo = puo.SetEdgesOfPrenameID(*id)
 	}
 	return puo
 }
 
-// SetPrename sets the prename edge to Prename.
-func (puo *PatientrecordUpdateOne) SetPrename(p *Prename) *PatientrecordUpdateOne {
-	return puo.SetPrenameID(p.ID)
+// SetEdgesOfPrename sets the EdgesOfPrename edge to Prename.
+func (puo *PatientrecordUpdateOne) SetEdgesOfPrename(p *Prename) *PatientrecordUpdateOne {
+	return puo.SetEdgesOfPrenameID(p.ID)
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (puo *PatientrecordUpdateOne) AddHistorytakingIDs(ids ...int) *PatientrecordUpdateOne {
-	puo.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (puo *PatientrecordUpdateOne) AddEdgesOfHistorytakingIDs(ids ...int) *PatientrecordUpdateOne {
+	puo.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return puo
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (puo *PatientrecordUpdateOne) AddHistorytaking(h ...*Historytaking) *PatientrecordUpdateOne {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (puo *PatientrecordUpdateOne) AddEdgesOfHistorytaking(h ...*Historytaking) *PatientrecordUpdateOne {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return puo.AddHistorytakingIDs(ids...)
+	return puo.AddEdgesOfHistorytakingIDs(ids...)
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (puo *PatientrecordUpdateOne) AddTreatmentIDs(ids ...int) *PatientrecordUpdateOne {
-	puo.mutation.AddTreatmentIDs(ids...)
+// AddEdgesOfTreatmentIDs adds the EdgesOfTreatment edge to Treatment by ids.
+func (puo *PatientrecordUpdateOne) AddEdgesOfTreatmentIDs(ids ...int) *PatientrecordUpdateOne {
+	puo.mutation.AddEdgesOfTreatmentIDs(ids...)
 	return puo
 }
 
-// AddTreatment adds the treatment edges to Treatment.
-func (puo *PatientrecordUpdateOne) AddTreatment(t ...*Treatment) *PatientrecordUpdateOne {
+// AddEdgesOfTreatment adds the EdgesOfTreatment edges to Treatment.
+func (puo *PatientrecordUpdateOne) AddEdgesOfTreatment(t ...*Treatment) *PatientrecordUpdateOne {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return puo.AddTreatmentIDs(ids...)
+	return puo.AddEdgesOfTreatmentIDs(ids...)
 }
 
-// AddPatientrecordPatientrightIDs adds the PatientrecordPatientrights edge to Patientrights by ids.
-func (puo *PatientrecordUpdateOne) AddPatientrecordPatientrightIDs(ids ...int) *PatientrecordUpdateOne {
-	puo.mutation.AddPatientrecordPatientrightIDs(ids...)
+// AddEdgesOfPatientrecordPatientrightIDs adds the EdgesOfPatientrecordPatientrights edge to Patientrights by ids.
+func (puo *PatientrecordUpdateOne) AddEdgesOfPatientrecordPatientrightIDs(ids ...int) *PatientrecordUpdateOne {
+	puo.mutation.AddEdgesOfPatientrecordPatientrightIDs(ids...)
 	return puo
 }
 
-// AddPatientrecordPatientrights adds the PatientrecordPatientrights edges to Patientrights.
-func (puo *PatientrecordUpdateOne) AddPatientrecordPatientrights(p ...*Patientrights) *PatientrecordUpdateOne {
+// AddEdgesOfPatientrecordPatientrights adds the EdgesOfPatientrecordPatientrights edges to Patientrights.
+func (puo *PatientrecordUpdateOne) AddEdgesOfPatientrecordPatientrights(p ...*Patientrights) *PatientrecordUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return puo.AddPatientrecordPatientrightIDs(ids...)
+	return puo.AddEdgesOfPatientrecordPatientrightIDs(ids...)
 }
 
 // Mutation returns the PatientrecordMutation object of the builder.
@@ -850,67 +850,67 @@ func (puo *PatientrecordUpdateOne) Mutation() *PatientrecordMutation {
 	return puo.mutation
 }
 
-// ClearGender clears the gender edge to Gender.
-func (puo *PatientrecordUpdateOne) ClearGender() *PatientrecordUpdateOne {
-	puo.mutation.ClearGender()
+// ClearEdgesOfGender clears the EdgesOfGender edge to Gender.
+func (puo *PatientrecordUpdateOne) ClearEdgesOfGender() *PatientrecordUpdateOne {
+	puo.mutation.ClearEdgesOfGender()
 	return puo
 }
 
-// ClearMedicalrecordstaff clears the medicalrecordstaff edge to Medicalrecordstaff.
-func (puo *PatientrecordUpdateOne) ClearMedicalrecordstaff() *PatientrecordUpdateOne {
-	puo.mutation.ClearMedicalrecordstaff()
+// ClearEdgesOfMedicalrecordstaff clears the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff.
+func (puo *PatientrecordUpdateOne) ClearEdgesOfMedicalrecordstaff() *PatientrecordUpdateOne {
+	puo.mutation.ClearEdgesOfMedicalrecordstaff()
 	return puo
 }
 
-// ClearPrename clears the prename edge to Prename.
-func (puo *PatientrecordUpdateOne) ClearPrename() *PatientrecordUpdateOne {
-	puo.mutation.ClearPrename()
+// ClearEdgesOfPrename clears the EdgesOfPrename edge to Prename.
+func (puo *PatientrecordUpdateOne) ClearEdgesOfPrename() *PatientrecordUpdateOne {
+	puo.mutation.ClearEdgesOfPrename()
 	return puo
 }
 
-// RemoveHistorytakingIDs removes the historytaking edge to Historytaking by ids.
-func (puo *PatientrecordUpdateOne) RemoveHistorytakingIDs(ids ...int) *PatientrecordUpdateOne {
-	puo.mutation.RemoveHistorytakingIDs(ids...)
+// RemoveEdgesOfHistorytakingIDs removes the EdgesOfHistorytaking edge to Historytaking by ids.
+func (puo *PatientrecordUpdateOne) RemoveEdgesOfHistorytakingIDs(ids ...int) *PatientrecordUpdateOne {
+	puo.mutation.RemoveEdgesOfHistorytakingIDs(ids...)
 	return puo
 }
 
-// RemoveHistorytaking removes historytaking edges to Historytaking.
-func (puo *PatientrecordUpdateOne) RemoveHistorytaking(h ...*Historytaking) *PatientrecordUpdateOne {
+// RemoveEdgesOfHistorytaking removes EdgesOfHistorytaking edges to Historytaking.
+func (puo *PatientrecordUpdateOne) RemoveEdgesOfHistorytaking(h ...*Historytaking) *PatientrecordUpdateOne {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return puo.RemoveHistorytakingIDs(ids...)
+	return puo.RemoveEdgesOfHistorytakingIDs(ids...)
 }
 
-// RemoveTreatmentIDs removes the treatment edge to Treatment by ids.
-func (puo *PatientrecordUpdateOne) RemoveTreatmentIDs(ids ...int) *PatientrecordUpdateOne {
-	puo.mutation.RemoveTreatmentIDs(ids...)
+// RemoveEdgesOfTreatmentIDs removes the EdgesOfTreatment edge to Treatment by ids.
+func (puo *PatientrecordUpdateOne) RemoveEdgesOfTreatmentIDs(ids ...int) *PatientrecordUpdateOne {
+	puo.mutation.RemoveEdgesOfTreatmentIDs(ids...)
 	return puo
 }
 
-// RemoveTreatment removes treatment edges to Treatment.
-func (puo *PatientrecordUpdateOne) RemoveTreatment(t ...*Treatment) *PatientrecordUpdateOne {
+// RemoveEdgesOfTreatment removes EdgesOfTreatment edges to Treatment.
+func (puo *PatientrecordUpdateOne) RemoveEdgesOfTreatment(t ...*Treatment) *PatientrecordUpdateOne {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return puo.RemoveTreatmentIDs(ids...)
+	return puo.RemoveEdgesOfTreatmentIDs(ids...)
 }
 
-// RemovePatientrecordPatientrightIDs removes the PatientrecordPatientrights edge to Patientrights by ids.
-func (puo *PatientrecordUpdateOne) RemovePatientrecordPatientrightIDs(ids ...int) *PatientrecordUpdateOne {
-	puo.mutation.RemovePatientrecordPatientrightIDs(ids...)
+// RemoveEdgesOfPatientrecordPatientrightIDs removes the EdgesOfPatientrecordPatientrights edge to Patientrights by ids.
+func (puo *PatientrecordUpdateOne) RemoveEdgesOfPatientrecordPatientrightIDs(ids ...int) *PatientrecordUpdateOne {
+	puo.mutation.RemoveEdgesOfPatientrecordPatientrightIDs(ids...)
 	return puo
 }
 
-// RemovePatientrecordPatientrights removes PatientrecordPatientrights edges to Patientrights.
-func (puo *PatientrecordUpdateOne) RemovePatientrecordPatientrights(p ...*Patientrights) *PatientrecordUpdateOne {
+// RemoveEdgesOfPatientrecordPatientrights removes EdgesOfPatientrecordPatientrights edges to Patientrights.
+func (puo *PatientrecordUpdateOne) RemoveEdgesOfPatientrecordPatientrights(p ...*Patientrights) *PatientrecordUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return puo.RemovePatientrecordPatientrightIDs(ids...)
+	return puo.RemoveEdgesOfPatientrecordPatientrightIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -1065,12 +1065,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 			Column: patientrecord.FieldDate,
 		})
 	}
-	if puo.mutation.GenderCleared() {
+	if puo.mutation.EdgesOfGenderCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.GenderTable,
-			Columns: []string{patientrecord.GenderColumn},
+			Table:   patientrecord.EdgesOfGenderTable,
+			Columns: []string{patientrecord.EdgesOfGenderColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1081,12 +1081,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.GenderIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfGenderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.GenderTable,
-			Columns: []string{patientrecord.GenderColumn},
+			Table:   patientrecord.EdgesOfGenderTable,
+			Columns: []string{patientrecord.EdgesOfGenderColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1100,12 +1100,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if puo.mutation.MedicalrecordstaffCleared() {
+	if puo.mutation.EdgesOfMedicalrecordstaffCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.MedicalrecordstaffTable,
-			Columns: []string{patientrecord.MedicalrecordstaffColumn},
+			Table:   patientrecord.EdgesOfMedicalrecordstaffTable,
+			Columns: []string{patientrecord.EdgesOfMedicalrecordstaffColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1116,12 +1116,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.MedicalrecordstaffIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfMedicalrecordstaffIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.MedicalrecordstaffTable,
-			Columns: []string{patientrecord.MedicalrecordstaffColumn},
+			Table:   patientrecord.EdgesOfMedicalrecordstaffTable,
+			Columns: []string{patientrecord.EdgesOfMedicalrecordstaffColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1135,12 +1135,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if puo.mutation.PrenameCleared() {
+	if puo.mutation.EdgesOfPrenameCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.PrenameTable,
-			Columns: []string{patientrecord.PrenameColumn},
+			Table:   patientrecord.EdgesOfPrenameTable,
+			Columns: []string{patientrecord.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1151,12 +1151,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.PrenameIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfPrenameIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.PrenameTable,
-			Columns: []string{patientrecord.PrenameColumn},
+			Table:   patientrecord.EdgesOfPrenameTable,
+			Columns: []string{patientrecord.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1170,12 +1170,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := puo.mutation.RemovedHistorytakingIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.RemovedEdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.HistorytakingTable,
-			Columns: []string{patientrecord.HistorytakingColumn},
+			Table:   patientrecord.EdgesOfHistorytakingTable,
+			Columns: []string{patientrecord.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1189,12 +1189,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.HistorytakingTable,
-			Columns: []string{patientrecord.HistorytakingColumn},
+			Table:   patientrecord.EdgesOfHistorytakingTable,
+			Columns: []string{patientrecord.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1208,12 +1208,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := puo.mutation.RemovedTreatmentIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.RemovedEdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.TreatmentTable,
-			Columns: []string{patientrecord.TreatmentColumn},
+			Table:   patientrecord.EdgesOfTreatmentTable,
+			Columns: []string{patientrecord.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1227,12 +1227,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.TreatmentTable,
-			Columns: []string{patientrecord.TreatmentColumn},
+			Table:   patientrecord.EdgesOfTreatmentTable,
+			Columns: []string{patientrecord.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1246,12 +1246,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := puo.mutation.RemovedPatientrecordPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.RemovedEdgesOfPatientrecordPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.PatientrecordPatientrightsTable,
-			Columns: []string{patientrecord.PatientrecordPatientrightsColumn},
+			Table:   patientrecord.EdgesOfPatientrecordPatientrightsTable,
+			Columns: []string{patientrecord.EdgesOfPatientrecordPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -1265,12 +1265,12 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.PatientrecordPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfPatientrecordPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.PatientrecordPatientrightsTable,
-			Columns: []string{patientrecord.PatientrecordPatientrightsColumn},
+			Table:   patientrecord.EdgesOfPatientrecordPatientrightsTable,
+			Columns: []string{patientrecord.EdgesOfPatientrecordPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

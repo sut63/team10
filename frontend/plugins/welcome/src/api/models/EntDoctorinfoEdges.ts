@@ -47,31 +47,31 @@ export interface EntDoctorinfoEdges {
      * @type {EntDepartment}
      * @memberof EntDoctorinfoEdges
      */
-    department?: EntDepartment;
+    edgesOfDepartment?: EntDepartment;
     /**
      * 
      * @type {EntDoctor}
      * @memberof EntDoctorinfoEdges
      */
-    doctor?: EntDoctor;
+    edgesOfDoctor?: EntDoctor;
     /**
      * 
      * @type {EntEducationlevel}
      * @memberof EntDoctorinfoEdges
      */
-    educationlevel?: EntEducationlevel;
+    edgesOfEducationlevel?: EntEducationlevel;
     /**
      * 
      * @type {EntOfficeroom}
      * @memberof EntDoctorinfoEdges
      */
-    officeroom?: EntOfficeroom;
+    edgesOfOfficeroom?: EntOfficeroom;
     /**
      * 
      * @type {EntPrename}
      * @memberof EntDoctorinfoEdges
      */
-    prename?: EntPrename;
+    edgesOfPrename?: EntPrename;
 }
 
 export function EntDoctorinfoEdgesFromJSON(json: any): EntDoctorinfoEdges {
@@ -84,11 +84,11 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'department': !exists(json, 'Department') ? undefined : EntDepartmentFromJSON(json['Department']),
-        'doctor': !exists(json, 'Doctor') ? undefined : EntDoctorFromJSON(json['Doctor']),
-        'educationlevel': !exists(json, 'Educationlevel') ? undefined : EntEducationlevelFromJSON(json['Educationlevel']),
-        'officeroom': !exists(json, 'Officeroom') ? undefined : EntOfficeroomFromJSON(json['Officeroom']),
-        'prename': !exists(json, 'Prename') ? undefined : EntPrenameFromJSON(json['Prename']),
+        'edgesOfDepartment': !exists(json, 'EdgesOfDepartment') ? undefined : EntDepartmentFromJSON(json['EdgesOfDepartment']),
+        'edgesOfDoctor': !exists(json, 'EdgesOfDoctor') ? undefined : EntDoctorFromJSON(json['EdgesOfDoctor']),
+        'edgesOfEducationlevel': !exists(json, 'EdgesOfEducationlevel') ? undefined : EntEducationlevelFromJSON(json['EdgesOfEducationlevel']),
+        'edgesOfOfficeroom': !exists(json, 'EdgesOfOfficeroom') ? undefined : EntOfficeroomFromJSON(json['EdgesOfOfficeroom']),
+        'edgesOfPrename': !exists(json, 'EdgesOfPrename') ? undefined : EntPrenameFromJSON(json['EdgesOfPrename']),
     };
 }
 
@@ -101,11 +101,11 @@ export function EntDoctorinfoEdgesToJSON(value?: EntDoctorinfoEdges | null): any
     }
     return {
         
-        'department': EntDepartmentToJSON(value.department),
-        'doctor': EntDoctorToJSON(value.doctor),
-        'educationlevel': EntEducationlevelToJSON(value.educationlevel),
-        'officeroom': EntOfficeroomToJSON(value.officeroom),
-        'prename': EntPrenameToJSON(value.prename),
+        'EdgesOfDepartment': EntDepartmentToJSON(value.edgesOfDepartment),
+        'EdgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
+        'EdgesOfEducationlevel': EntEducationlevelToJSON(value.edgesOfEducationlevel),
+        'EdgesOfOfficeroom': EntOfficeroomToJSON(value.edgesOfOfficeroom),
+        'EdgesOfPrename': EntPrenameToJSON(value.edgesOfPrename),
     };
 }
 

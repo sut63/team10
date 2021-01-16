@@ -49,90 +49,90 @@ type Patientrecord struct {
 
 // PatientrecordEdges holds the relations/edges for other nodes in the graph.
 type PatientrecordEdges struct {
-	// Gender holds the value of the gender edge.
-	Gender *Gender
-	// Medicalrecordstaff holds the value of the medicalrecordstaff edge.
-	Medicalrecordstaff *Medicalrecordstaff
-	// Prename holds the value of the prename edge.
-	Prename *Prename
-	// Historytaking holds the value of the historytaking edge.
-	Historytaking []*Historytaking
-	// Treatment holds the value of the treatment edge.
-	Treatment []*Treatment
-	// PatientrecordPatientrights holds the value of the PatientrecordPatientrights edge.
-	PatientrecordPatientrights []*Patientrights
+	// EdgesOfGender holds the value of the EdgesOfGender edge.
+	EdgesOfGender *Gender
+	// EdgesOfMedicalrecordstaff holds the value of the EdgesOfMedicalrecordstaff edge.
+	EdgesOfMedicalrecordstaff *Medicalrecordstaff
+	// EdgesOfPrename holds the value of the EdgesOfPrename edge.
+	EdgesOfPrename *Prename
+	// EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.
+	EdgesOfHistorytaking []*Historytaking
+	// EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
+	EdgesOfTreatment []*Treatment
+	// EdgesOfPatientrecordPatientrights holds the value of the EdgesOfPatientrecordPatientrights edge.
+	EdgesOfPatientrecordPatientrights []*Patientrights
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [6]bool
 }
 
-// GenderOrErr returns the Gender value or an error if the edge
+// EdgesOfGenderOrErr returns the EdgesOfGender value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e PatientrecordEdges) GenderOrErr() (*Gender, error) {
+func (e PatientrecordEdges) EdgesOfGenderOrErr() (*Gender, error) {
 	if e.loadedTypes[0] {
-		if e.Gender == nil {
-			// The edge gender was loaded in eager-loading,
+		if e.EdgesOfGender == nil {
+			// The edge EdgesOfGender was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: gender.Label}
 		}
-		return e.Gender, nil
+		return e.EdgesOfGender, nil
 	}
-	return nil, &NotLoadedError{edge: "gender"}
+	return nil, &NotLoadedError{edge: "EdgesOfGender"}
 }
 
-// MedicalrecordstaffOrErr returns the Medicalrecordstaff value or an error if the edge
+// EdgesOfMedicalrecordstaffOrErr returns the EdgesOfMedicalrecordstaff value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e PatientrecordEdges) MedicalrecordstaffOrErr() (*Medicalrecordstaff, error) {
+func (e PatientrecordEdges) EdgesOfMedicalrecordstaffOrErr() (*Medicalrecordstaff, error) {
 	if e.loadedTypes[1] {
-		if e.Medicalrecordstaff == nil {
-			// The edge medicalrecordstaff was loaded in eager-loading,
+		if e.EdgesOfMedicalrecordstaff == nil {
+			// The edge EdgesOfMedicalrecordstaff was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: medicalrecordstaff.Label}
 		}
-		return e.Medicalrecordstaff, nil
+		return e.EdgesOfMedicalrecordstaff, nil
 	}
-	return nil, &NotLoadedError{edge: "medicalrecordstaff"}
+	return nil, &NotLoadedError{edge: "EdgesOfMedicalrecordstaff"}
 }
 
-// PrenameOrErr returns the Prename value or an error if the edge
+// EdgesOfPrenameOrErr returns the EdgesOfPrename value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e PatientrecordEdges) PrenameOrErr() (*Prename, error) {
+func (e PatientrecordEdges) EdgesOfPrenameOrErr() (*Prename, error) {
 	if e.loadedTypes[2] {
-		if e.Prename == nil {
-			// The edge prename was loaded in eager-loading,
+		if e.EdgesOfPrename == nil {
+			// The edge EdgesOfPrename was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: prename.Label}
 		}
-		return e.Prename, nil
+		return e.EdgesOfPrename, nil
 	}
-	return nil, &NotLoadedError{edge: "prename"}
+	return nil, &NotLoadedError{edge: "EdgesOfPrename"}
 }
 
-// HistorytakingOrErr returns the Historytaking value or an error if the edge
+// EdgesOfHistorytakingOrErr returns the EdgesOfHistorytaking value or an error if the edge
 // was not loaded in eager-loading.
-func (e PatientrecordEdges) HistorytakingOrErr() ([]*Historytaking, error) {
+func (e PatientrecordEdges) EdgesOfHistorytakingOrErr() ([]*Historytaking, error) {
 	if e.loadedTypes[3] {
-		return e.Historytaking, nil
+		return e.EdgesOfHistorytaking, nil
 	}
-	return nil, &NotLoadedError{edge: "historytaking"}
+	return nil, &NotLoadedError{edge: "EdgesOfHistorytaking"}
 }
 
-// TreatmentOrErr returns the Treatment value or an error if the edge
+// EdgesOfTreatmentOrErr returns the EdgesOfTreatment value or an error if the edge
 // was not loaded in eager-loading.
-func (e PatientrecordEdges) TreatmentOrErr() ([]*Treatment, error) {
+func (e PatientrecordEdges) EdgesOfTreatmentOrErr() ([]*Treatment, error) {
 	if e.loadedTypes[4] {
-		return e.Treatment, nil
+		return e.EdgesOfTreatment, nil
 	}
-	return nil, &NotLoadedError{edge: "treatment"}
+	return nil, &NotLoadedError{edge: "EdgesOfTreatment"}
 }
 
-// PatientrecordPatientrightsOrErr returns the PatientrecordPatientrights value or an error if the edge
+// EdgesOfPatientrecordPatientrightsOrErr returns the EdgesOfPatientrecordPatientrights value or an error if the edge
 // was not loaded in eager-loading.
-func (e PatientrecordEdges) PatientrecordPatientrightsOrErr() ([]*Patientrights, error) {
+func (e PatientrecordEdges) EdgesOfPatientrecordPatientrightsOrErr() ([]*Patientrights, error) {
 	if e.loadedTypes[5] {
-		return e.PatientrecordPatientrights, nil
+		return e.EdgesOfPatientrecordPatientrights, nil
 	}
-	return nil, &NotLoadedError{edge: "PatientrecordPatientrights"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrecordPatientrights"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -247,34 +247,34 @@ func (pa *Patientrecord) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryGender queries the gender edge of the Patientrecord.
-func (pa *Patientrecord) QueryGender() *GenderQuery {
-	return (&PatientrecordClient{config: pa.config}).QueryGender(pa)
+// QueryEdgesOfGender queries the EdgesOfGender edge of the Patientrecord.
+func (pa *Patientrecord) QueryEdgesOfGender() *GenderQuery {
+	return (&PatientrecordClient{config: pa.config}).QueryEdgesOfGender(pa)
 }
 
-// QueryMedicalrecordstaff queries the medicalrecordstaff edge of the Patientrecord.
-func (pa *Patientrecord) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
-	return (&PatientrecordClient{config: pa.config}).QueryMedicalrecordstaff(pa)
+// QueryEdgesOfMedicalrecordstaff queries the EdgesOfMedicalrecordstaff edge of the Patientrecord.
+func (pa *Patientrecord) QueryEdgesOfMedicalrecordstaff() *MedicalrecordstaffQuery {
+	return (&PatientrecordClient{config: pa.config}).QueryEdgesOfMedicalrecordstaff(pa)
 }
 
-// QueryPrename queries the prename edge of the Patientrecord.
-func (pa *Patientrecord) QueryPrename() *PrenameQuery {
-	return (&PatientrecordClient{config: pa.config}).QueryPrename(pa)
+// QueryEdgesOfPrename queries the EdgesOfPrename edge of the Patientrecord.
+func (pa *Patientrecord) QueryEdgesOfPrename() *PrenameQuery {
+	return (&PatientrecordClient{config: pa.config}).QueryEdgesOfPrename(pa)
 }
 
-// QueryHistorytaking queries the historytaking edge of the Patientrecord.
-func (pa *Patientrecord) QueryHistorytaking() *HistorytakingQuery {
-	return (&PatientrecordClient{config: pa.config}).QueryHistorytaking(pa)
+// QueryEdgesOfHistorytaking queries the EdgesOfHistorytaking edge of the Patientrecord.
+func (pa *Patientrecord) QueryEdgesOfHistorytaking() *HistorytakingQuery {
+	return (&PatientrecordClient{config: pa.config}).QueryEdgesOfHistorytaking(pa)
 }
 
-// QueryTreatment queries the treatment edge of the Patientrecord.
-func (pa *Patientrecord) QueryTreatment() *TreatmentQuery {
-	return (&PatientrecordClient{config: pa.config}).QueryTreatment(pa)
+// QueryEdgesOfTreatment queries the EdgesOfTreatment edge of the Patientrecord.
+func (pa *Patientrecord) QueryEdgesOfTreatment() *TreatmentQuery {
+	return (&PatientrecordClient{config: pa.config}).QueryEdgesOfTreatment(pa)
 }
 
-// QueryPatientrecordPatientrights queries the PatientrecordPatientrights edge of the Patientrecord.
-func (pa *Patientrecord) QueryPatientrecordPatientrights() *PatientrightsQuery {
-	return (&PatientrecordClient{config: pa.config}).QueryPatientrecordPatientrights(pa)
+// QueryEdgesOfPatientrecordPatientrights queries the EdgesOfPatientrecordPatientrights edge of the Patientrecord.
+func (pa *Patientrecord) QueryEdgesOfPatientrecordPatientrights() *PatientrightsQuery {
+	return (&PatientrecordClient{config: pa.config}).QueryEdgesOfPatientrecordPatientrights(pa)
 }
 
 // Update returns a builder for updating this Patientrecord.

@@ -39,38 +39,38 @@ func (pc *PatientrightstypeCreate) SetResponsible(s string) *PatientrightstypeCr
 	return pc
 }
 
-// AddPatientrightstypePatientrightIDs adds the PatientrightstypePatientrights edge to Patientrights by ids.
-func (pc *PatientrightstypeCreate) AddPatientrightstypePatientrightIDs(ids ...int) *PatientrightstypeCreate {
-	pc.mutation.AddPatientrightstypePatientrightIDs(ids...)
+// AddEdgesOfPatientrightstypePatientrightIDs adds the EdgesOfPatientrightstypePatientrights edge to Patientrights by ids.
+func (pc *PatientrightstypeCreate) AddEdgesOfPatientrightstypePatientrightIDs(ids ...int) *PatientrightstypeCreate {
+	pc.mutation.AddEdgesOfPatientrightstypePatientrightIDs(ids...)
 	return pc
 }
 
-// AddPatientrightstypePatientrights adds the PatientrightstypePatientrights edges to Patientrights.
-func (pc *PatientrightstypeCreate) AddPatientrightstypePatientrights(p ...*Patientrights) *PatientrightstypeCreate {
+// AddEdgesOfPatientrightstypePatientrights adds the EdgesOfPatientrightstypePatientrights edges to Patientrights.
+func (pc *PatientrightstypeCreate) AddEdgesOfPatientrightstypePatientrights(p ...*Patientrights) *PatientrightstypeCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return pc.AddPatientrightstypePatientrightIDs(ids...)
+	return pc.AddEdgesOfPatientrightstypePatientrightIDs(ids...)
 }
 
-// SetPatientrightstypeAbilitypatientrightsID sets the PatientrightstypeAbilitypatientrights edge to Abilitypatientrights by id.
-func (pc *PatientrightstypeCreate) SetPatientrightstypeAbilitypatientrightsID(id int) *PatientrightstypeCreate {
-	pc.mutation.SetPatientrightstypeAbilitypatientrightsID(id)
+// SetEdgesOfPatientrightstypeAbilitypatientrightsID sets the EdgesOfPatientrightstypeAbilitypatientrights edge to Abilitypatientrights by id.
+func (pc *PatientrightstypeCreate) SetEdgesOfPatientrightstypeAbilitypatientrightsID(id int) *PatientrightstypeCreate {
+	pc.mutation.SetEdgesOfPatientrightstypeAbilitypatientrightsID(id)
 	return pc
 }
 
-// SetNillablePatientrightstypeAbilitypatientrightsID sets the PatientrightstypeAbilitypatientrights edge to Abilitypatientrights by id if the given value is not nil.
-func (pc *PatientrightstypeCreate) SetNillablePatientrightstypeAbilitypatientrightsID(id *int) *PatientrightstypeCreate {
+// SetNillableEdgesOfPatientrightstypeAbilitypatientrightsID sets the EdgesOfPatientrightstypeAbilitypatientrights edge to Abilitypatientrights by id if the given value is not nil.
+func (pc *PatientrightstypeCreate) SetNillableEdgesOfPatientrightstypeAbilitypatientrightsID(id *int) *PatientrightstypeCreate {
 	if id != nil {
-		pc = pc.SetPatientrightstypeAbilitypatientrightsID(*id)
+		pc = pc.SetEdgesOfPatientrightstypeAbilitypatientrightsID(*id)
 	}
 	return pc
 }
 
-// SetPatientrightstypeAbilitypatientrights sets the PatientrightstypeAbilitypatientrights edge to Abilitypatientrights.
-func (pc *PatientrightstypeCreate) SetPatientrightstypeAbilitypatientrights(a *Abilitypatientrights) *PatientrightstypeCreate {
-	return pc.SetPatientrightstypeAbilitypatientrightsID(a.ID)
+// SetEdgesOfPatientrightstypeAbilitypatientrights sets the EdgesOfPatientrightstypeAbilitypatientrights edge to Abilitypatientrights.
+func (pc *PatientrightstypeCreate) SetEdgesOfPatientrightstypeAbilitypatientrights(a *Abilitypatientrights) *PatientrightstypeCreate {
+	return pc.SetEdgesOfPatientrightstypeAbilitypatientrightsID(a.ID)
 }
 
 // Mutation returns the PatientrightstypeMutation object of the builder.
@@ -173,12 +173,12 @@ func (pc *PatientrightstypeCreate) createSpec() (*Patientrightstype, *sqlgraph.C
 		})
 		pa.Responsible = value
 	}
-	if nodes := pc.mutation.PatientrightstypePatientrightsIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfPatientrightstypePatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrightstype.PatientrightstypePatientrightsTable,
-			Columns: []string{patientrightstype.PatientrightstypePatientrightsColumn},
+			Table:   patientrightstype.EdgesOfPatientrightstypePatientrightsTable,
+			Columns: []string{patientrightstype.EdgesOfPatientrightstypePatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -192,12 +192,12 @@ func (pc *PatientrightstypeCreate) createSpec() (*Patientrightstype, *sqlgraph.C
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := pc.mutation.PatientrightstypeAbilitypatientrightsIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfPatientrightstypeAbilitypatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrightstype.PatientrightstypeAbilitypatientrightsTable,
-			Columns: []string{patientrightstype.PatientrightstypeAbilitypatientrightsColumn},
+			Table:   patientrightstype.EdgesOfPatientrightstypeAbilitypatientrightsTable,
+			Columns: []string{patientrightstype.EdgesOfPatientrightstypeAbilitypatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

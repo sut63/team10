@@ -23,12 +23,12 @@ func (User) Fields() []ent.Field {
 // Edges of the User.
 func (User) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("financier", Financier.Type).StorageKey(edge.Column("user_id")).Unique(),
-		edge.To("Nurse", Nurse.Type).StorageKey(edge.Column("user_id")).Unique(),
-		edge.To("UserPatientrights", Patientrights.Type).StorageKey(edge.Column("user_id")).Unique(),
-		edge.To("medicalrecordstaff", Medicalrecordstaff.Type).StorageKey(edge.Column("user_id")).Unique(),
-		edge.To("user2registrar", Registrar.Type).StorageKey(edge.Column("user_id")).Unique(),
-		edge.To("doctor", Doctor.Type).StorageKey(edge.Column("user_id")).Unique(),
-		edge.From("userstatus", Userstatus.Type).Ref("user").Unique(),
+		edge.To("EdgesOfFinancier", Financier.Type).StorageKey(edge.Column("user_id")).Unique(),
+		edge.To("EdgesOfNurse", Nurse.Type).StorageKey(edge.Column("user_id")).Unique(),
+		edge.To("EdgesOfUserPatientrights", Patientrights.Type).StorageKey(edge.Column("user_id")).Unique(),
+		edge.To("EdgesOfMedicalrecordstaff", Medicalrecordstaff.Type).StorageKey(edge.Column("user_id")).Unique(),
+		edge.To("EdgesOfUser2registrar", Registrar.Type).StorageKey(edge.Column("user_id")).Unique(),
+		edge.To("EdgesOfDoctor", Doctor.Type).StorageKey(edge.Column("user_id")).Unique(),
+		edge.From("EdgesOfUserstatus", Userstatus.Type).Ref("EdgesOfUser").Unique(),
 	}
 }

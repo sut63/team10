@@ -37,7 +37,7 @@ func (ctl *MedicalrecordstaffController) GetMedicalrecordstaff(c *gin.Context) {
 
 	m, err := ctl.client.Medicalrecordstaff.
 		Query().
-		WithUser().
+		WithEdgesOfUser().
 		Where(medicalrecordstaff.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -82,7 +82,7 @@ func (ctl *MedicalrecordstaffController) ListMedicalrecordstaff(c *gin.Context) 
 
 	medicalrecordstaff, err := ctl.client.Medicalrecordstaff.
 		Query().
-		WithUser().
+		WithEdgesOfUser().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

@@ -209,25 +209,25 @@ func PaytypeContainsFold(v string) predicate.Paytype {
 	})
 }
 
-// HasBills applies the HasEdge predicate on the "bills" edge.
-func HasBills() predicate.Paytype {
+// HasEdgesOfBills applies the HasEdge predicate on the "EdgesOfBills" edge.
+func HasEdgesOfBills() predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(BillsTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, BillsTable, BillsColumn),
+			sqlgraph.To(EdgesOfBillsTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfBillsTable, EdgesOfBillsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasBillsWith applies the HasEdge predicate on the "bills" edge with a given conditions (other predicates).
-func HasBillsWith(preds ...predicate.Bill) predicate.Paytype {
+// HasEdgesOfBillsWith applies the HasEdge predicate on the "EdgesOfBills" edge with a given conditions (other predicates).
+func HasEdgesOfBillsWith(preds ...predicate.Bill) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(BillsInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, BillsTable, BillsColumn),
+			sqlgraph.To(EdgesOfBillsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfBillsTable, EdgesOfBillsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

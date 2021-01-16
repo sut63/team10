@@ -24,10 +24,10 @@ func (Patientrightstype) Fields() []ent.Field {
 func (Patientrightstype) Edges() []ent.Edge {
 	return []ent.Edge{
 
-		edge.To("PatientrightstypePatientrights", Patientrights.Type).StorageKey(edge.Column("Patientrightstype_id")),//เป็นส่วนประกอบของ OUTPUT หลัก
+		edge.To("EdgesOfPatientrightstypePatientrights", Patientrights.Type).StorageKey(edge.Column("Patientrightstype_id")),//เป็นส่วนประกอบของ OUTPUT หลัก
 
-		edge.From("PatientrightstypeAbilitypatientrights", Abilitypatientrights.Type).
-			Ref("AbilitypatientrightsPatientrightstype").
+		edge.From("EdgesOfPatientrightstypeAbilitypatientrights", Abilitypatientrights.Type).
+			Ref("EdgesOfAbilitypatientrightsPatientrightstype").
 			Unique(),
 			//บอกว่า รูปแบบสิทธิ์นี้มีความสามารถอะไรบ้าง
 

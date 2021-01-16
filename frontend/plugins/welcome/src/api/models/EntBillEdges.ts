@@ -39,19 +39,19 @@ export interface EntBillEdges {
      * @type {EntFinancier}
      * @memberof EntBillEdges
      */
-    officer?: EntFinancier;
+    edgesOfOfficer?: EntFinancier;
     /**
      * 
      * @type {EntPaytype}
      * @memberof EntBillEdges
      */
-    paytype?: EntPaytype;
+    edgesOfPaytype?: EntPaytype;
     /**
      * 
      * @type {EntUnpaybill}
      * @memberof EntBillEdges
      */
-    treatment?: EntUnpaybill;
+    edgesOfTreatment?: EntUnpaybill;
 }
 
 export function EntBillEdgesFromJSON(json: any): EntBillEdges {
@@ -64,9 +64,9 @@ export function EntBillEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'officer': !exists(json, 'Officer') ? undefined : EntFinancierFromJSON(json['Officer']),
-        'paytype': !exists(json, 'Paytype') ? undefined : EntPaytypeFromJSON(json['Paytype']),
-        'treatment': !exists(json, 'Treatment') ? undefined : EntUnpaybillFromJSON(json['Treatment']),
+        'edgesOfOfficer': !exists(json, 'EdgesOfOfficer') ? undefined : EntFinancierFromJSON(json['EdgesOfOfficer']),
+        'edgesOfPaytype': !exists(json, 'EdgesOfPaytype') ? undefined : EntPaytypeFromJSON(json['EdgesOfPaytype']),
+        'edgesOfTreatment': !exists(json, 'EdgesOfTreatment') ? undefined : EntUnpaybillFromJSON(json['EdgesOfTreatment']),
     };
 }
 
@@ -79,9 +79,9 @@ export function EntBillEdgesToJSON(value?: EntBillEdges | null): any {
     }
     return {
         
-        'officer': EntFinancierToJSON(value.officer),
-        'paytype': EntPaytypeToJSON(value.paytype),
-        'treatment': EntUnpaybillToJSON(value.treatment),
+        'EdgesOfOfficer': EntFinancierToJSON(value.edgesOfOfficer),
+        'EdgesOfPaytype': EntPaytypeToJSON(value.edgesOfPaytype),
+        'EdgesOfTreatment': EntUnpaybillToJSON(value.edgesOfTreatment),
     };
 }
 

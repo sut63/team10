@@ -24,10 +24,10 @@ func (Doctorinfo) Fields() []ent.Field {
 // Edges of the Doctorinfo.
 func (Doctorinfo) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("department", Department.Type).Ref("department2doctorinfo").Unique(),
-		edge.From("educationlevel", Educationlevel.Type).Ref("educationlevel2doctorinfo").Unique(),
-		edge.From("officeroom", Officeroom.Type).Ref("officeroom2doctorinfo").Unique(),
-		edge.From("prename", Prename.Type).Ref("prename2doctorinfo").Unique(),
-		edge.To("doctor", Doctor.Type).StorageKey(edge.Column("doctorinfo_id")).Unique(),
+		edge.From("EdgesOfDepartment", Department.Type).Ref("EdgesOfDepartment2doctorinfo").Unique(),
+		edge.From("EdgesOfEducationlevel", Educationlevel.Type).Ref("EdgesOfEducationlevel2doctorinfo").Unique(),
+		edge.From("EdgesOfOfficeroom", Officeroom.Type).Ref("EdgesOfOfficeroom2doctorinfo").Unique(),
+		edge.From("EdgesOfPrename", Prename.Type).Ref("EdgesOfPrename2doctorinfo").Unique(),
+		edge.To("EdgesOfDoctor", Doctor.Type).StorageKey(edge.Column("doctorinfo_id")).Unique(),
 	}
 }

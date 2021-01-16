@@ -10,18 +10,18 @@ const (
 	// FieldGenderstatus holds the string denoting the genderstatus field in the database.
 	FieldGenderstatus = "genderstatus"
 
-	// EdgePatientrecord holds the string denoting the patientrecord edge name in mutations.
-	EdgePatientrecord = "patientrecord"
+	// EdgeEdgesOfPatientrecord holds the string denoting the edgesofpatientrecord edge name in mutations.
+	EdgeEdgesOfPatientrecord = "EdgesOfPatientrecord"
 
 	// Table holds the table name of the gender in the database.
 	Table = "genders"
-	// PatientrecordTable is the table the holds the patientrecord relation/edge.
-	PatientrecordTable = "patientrecords"
-	// PatientrecordInverseTable is the table name for the Patientrecord entity.
+	// EdgesOfPatientrecordTable is the table the holds the EdgesOfPatientrecord relation/edge.
+	EdgesOfPatientrecordTable = "patientrecords"
+	// EdgesOfPatientrecordInverseTable is the table name for the Patientrecord entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrecord" package.
-	PatientrecordInverseTable = "patientrecords"
-	// PatientrecordColumn is the table column denoting the patientrecord relation/edge.
-	PatientrecordColumn = "gender_id"
+	EdgesOfPatientrecordInverseTable = "patientrecords"
+	// EdgesOfPatientrecordColumn is the table column denoting the EdgesOfPatientrecord relation/edge.
+	EdgesOfPatientrecordColumn = "gender_id"
 )
 
 // Columns holds all SQL columns for gender fields.

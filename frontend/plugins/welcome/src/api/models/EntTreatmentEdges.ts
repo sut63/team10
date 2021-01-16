@@ -43,25 +43,25 @@ export interface EntTreatmentEdges {
      * @type {EntDoctor}
      * @memberof EntTreatmentEdges
      */
-    doctor?: EntDoctor;
+    edgesOfDoctor?: EntDoctor;
     /**
      * 
      * @type {EntPatientrecord}
      * @memberof EntTreatmentEdges
      */
-    patientrecord?: EntPatientrecord;
+    edgesOfPatientrecord?: EntPatientrecord;
     /**
      * 
      * @type {EntTypetreatment}
      * @memberof EntTreatmentEdges
      */
-    typetreatment?: EntTypetreatment;
+    edgesOfTypetreatment?: EntTypetreatment;
     /**
      * 
      * @type {EntUnpaybill}
      * @memberof EntTreatmentEdges
      */
-    unpaybills?: EntUnpaybill;
+    edgesOfUnpaybills?: EntUnpaybill;
 }
 
 export function EntTreatmentEdgesFromJSON(json: any): EntTreatmentEdges {
@@ -74,10 +74,10 @@ export function EntTreatmentEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'doctor': !exists(json, 'Doctor') ? undefined : EntDoctorFromJSON(json['Doctor']),
-        'patientrecord': !exists(json, 'Patientrecord') ? undefined : EntPatientrecordFromJSON(json['Patientrecord']),
-        'typetreatment': !exists(json, 'Typetreatment') ? undefined : EntTypetreatmentFromJSON(json['Typetreatment']),
-        'unpaybills': !exists(json, 'Unpaybills') ? undefined : EntUnpaybillFromJSON(json['Unpaybills']),
+        'edgesOfDoctor': !exists(json, 'EdgesOfDoctor') ? undefined : EntDoctorFromJSON(json['EdgesOfDoctor']),
+        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : EntPatientrecordFromJSON(json['EdgesOfPatientrecord']),
+        'edgesOfTypetreatment': !exists(json, 'EdgesOfTypetreatment') ? undefined : EntTypetreatmentFromJSON(json['EdgesOfTypetreatment']),
+        'edgesOfUnpaybills': !exists(json, 'EdgesOfUnpaybills') ? undefined : EntUnpaybillFromJSON(json['EdgesOfUnpaybills']),
     };
 }
 
@@ -90,10 +90,10 @@ export function EntTreatmentEdgesToJSON(value?: EntTreatmentEdges | null): any {
     }
     return {
         
-        'doctor': EntDoctorToJSON(value.doctor),
-        'patientrecord': EntPatientrecordToJSON(value.patientrecord),
-        'typetreatment': EntTypetreatmentToJSON(value.typetreatment),
-        'unpaybills': EntUnpaybillToJSON(value.unpaybills),
+        'EdgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
+        'EdgesOfPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrecord),
+        'EdgesOfTypetreatment': EntTypetreatmentToJSON(value.edgesOfTypetreatment),
+        'EdgesOfUnpaybills': EntUnpaybillToJSON(value.edgesOfUnpaybills),
     };
 }
 

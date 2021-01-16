@@ -29,11 +29,11 @@ type TreatmentQuery struct {
 	unique     []string
 	predicates []predicate.Treatment
 	// eager-loading edges.
-	withTypetreatment *TypetreatmentQuery
-	withPatientrecord *PatientrecordQuery
-	withDoctor        *DoctorQuery
-	withUnpaybills    *UnpaybillQuery
-	withFKs           bool
+	withEdgesOfTypetreatment *TypetreatmentQuery
+	withEdgesOfPatientrecord *PatientrecordQuery
+	withEdgesOfDoctor        *DoctorQuery
+	withEdgesOfUnpaybills    *UnpaybillQuery
+	withFKs                  bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -63,8 +63,8 @@ func (tq *TreatmentQuery) Order(o ...OrderFunc) *TreatmentQuery {
 	return tq
 }
 
-// QueryTypetreatment chains the current query on the typetreatment edge.
-func (tq *TreatmentQuery) QueryTypetreatment() *TypetreatmentQuery {
+// QueryEdgesOfTypetreatment chains the current query on the EdgesOfTypetreatment edge.
+func (tq *TreatmentQuery) QueryEdgesOfTypetreatment() *TypetreatmentQuery {
 	query := &TypetreatmentQuery{config: tq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := tq.prepareQuery(ctx); err != nil {
@@ -73,7 +73,7 @@ func (tq *TreatmentQuery) QueryTypetreatment() *TypetreatmentQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(treatment.Table, treatment.FieldID, tq.sqlQuery()),
 			sqlgraph.To(typetreatment.Table, typetreatment.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, treatment.TypetreatmentTable, treatment.TypetreatmentColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, treatment.EdgesOfTypetreatmentTable, treatment.EdgesOfTypetreatmentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
 		return fromU, nil
@@ -81,8 +81,8 @@ func (tq *TreatmentQuery) QueryTypetreatment() *TypetreatmentQuery {
 	return query
 }
 
-// QueryPatientrecord chains the current query on the patientrecord edge.
-func (tq *TreatmentQuery) QueryPatientrecord() *PatientrecordQuery {
+// QueryEdgesOfPatientrecord chains the current query on the EdgesOfPatientrecord edge.
+func (tq *TreatmentQuery) QueryEdgesOfPatientrecord() *PatientrecordQuery {
 	query := &PatientrecordQuery{config: tq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := tq.prepareQuery(ctx); err != nil {
@@ -91,7 +91,7 @@ func (tq *TreatmentQuery) QueryPatientrecord() *PatientrecordQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(treatment.Table, treatment.FieldID, tq.sqlQuery()),
 			sqlgraph.To(patientrecord.Table, patientrecord.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, treatment.PatientrecordTable, treatment.PatientrecordColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, treatment.EdgesOfPatientrecordTable, treatment.EdgesOfPatientrecordColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
 		return fromU, nil
@@ -99,8 +99,8 @@ func (tq *TreatmentQuery) QueryPatientrecord() *PatientrecordQuery {
 	return query
 }
 
-// QueryDoctor chains the current query on the doctor edge.
-func (tq *TreatmentQuery) QueryDoctor() *DoctorQuery {
+// QueryEdgesOfDoctor chains the current query on the EdgesOfDoctor edge.
+func (tq *TreatmentQuery) QueryEdgesOfDoctor() *DoctorQuery {
 	query := &DoctorQuery{config: tq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := tq.prepareQuery(ctx); err != nil {
@@ -109,7 +109,7 @@ func (tq *TreatmentQuery) QueryDoctor() *DoctorQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(treatment.Table, treatment.FieldID, tq.sqlQuery()),
 			sqlgraph.To(doctor.Table, doctor.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, treatment.DoctorTable, treatment.DoctorColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, treatment.EdgesOfDoctorTable, treatment.EdgesOfDoctorColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
 		return fromU, nil
@@ -117,8 +117,8 @@ func (tq *TreatmentQuery) QueryDoctor() *DoctorQuery {
 	return query
 }
 
-// QueryUnpaybills chains the current query on the unpaybills edge.
-func (tq *TreatmentQuery) QueryUnpaybills() *UnpaybillQuery {
+// QueryEdgesOfUnpaybills chains the current query on the EdgesOfUnpaybills edge.
+func (tq *TreatmentQuery) QueryEdgesOfUnpaybills() *UnpaybillQuery {
 	query := &UnpaybillQuery{config: tq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := tq.prepareQuery(ctx); err != nil {
@@ -127,7 +127,7 @@ func (tq *TreatmentQuery) QueryUnpaybills() *UnpaybillQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(treatment.Table, treatment.FieldID, tq.sqlQuery()),
 			sqlgraph.To(unpaybill.Table, unpaybill.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, treatment.UnpaybillsTable, treatment.UnpaybillsColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, treatment.EdgesOfUnpaybillsTable, treatment.EdgesOfUnpaybillsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
 		return fromU, nil
@@ -314,47 +314,47 @@ func (tq *TreatmentQuery) Clone() *TreatmentQuery {
 	}
 }
 
-//  WithTypetreatment tells the query-builder to eager-loads the nodes that are connected to
-// the "typetreatment" edge. The optional arguments used to configure the query builder of the edge.
-func (tq *TreatmentQuery) WithTypetreatment(opts ...func(*TypetreatmentQuery)) *TreatmentQuery {
+//  WithEdgesOfTypetreatment tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfTypetreatment" edge. The optional arguments used to configure the query builder of the edge.
+func (tq *TreatmentQuery) WithEdgesOfTypetreatment(opts ...func(*TypetreatmentQuery)) *TreatmentQuery {
 	query := &TypetreatmentQuery{config: tq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	tq.withTypetreatment = query
+	tq.withEdgesOfTypetreatment = query
 	return tq
 }
 
-//  WithPatientrecord tells the query-builder to eager-loads the nodes that are connected to
-// the "patientrecord" edge. The optional arguments used to configure the query builder of the edge.
-func (tq *TreatmentQuery) WithPatientrecord(opts ...func(*PatientrecordQuery)) *TreatmentQuery {
+//  WithEdgesOfPatientrecord tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPatientrecord" edge. The optional arguments used to configure the query builder of the edge.
+func (tq *TreatmentQuery) WithEdgesOfPatientrecord(opts ...func(*PatientrecordQuery)) *TreatmentQuery {
 	query := &PatientrecordQuery{config: tq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	tq.withPatientrecord = query
+	tq.withEdgesOfPatientrecord = query
 	return tq
 }
 
-//  WithDoctor tells the query-builder to eager-loads the nodes that are connected to
-// the "doctor" edge. The optional arguments used to configure the query builder of the edge.
-func (tq *TreatmentQuery) WithDoctor(opts ...func(*DoctorQuery)) *TreatmentQuery {
+//  WithEdgesOfDoctor tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfDoctor" edge. The optional arguments used to configure the query builder of the edge.
+func (tq *TreatmentQuery) WithEdgesOfDoctor(opts ...func(*DoctorQuery)) *TreatmentQuery {
 	query := &DoctorQuery{config: tq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	tq.withDoctor = query
+	tq.withEdgesOfDoctor = query
 	return tq
 }
 
-//  WithUnpaybills tells the query-builder to eager-loads the nodes that are connected to
-// the "unpaybills" edge. The optional arguments used to configure the query builder of the edge.
-func (tq *TreatmentQuery) WithUnpaybills(opts ...func(*UnpaybillQuery)) *TreatmentQuery {
+//  WithEdgesOfUnpaybills tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUnpaybills" edge. The optional arguments used to configure the query builder of the edge.
+func (tq *TreatmentQuery) WithEdgesOfUnpaybills(opts ...func(*UnpaybillQuery)) *TreatmentQuery {
 	query := &UnpaybillQuery{config: tq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	tq.withUnpaybills = query
+	tq.withEdgesOfUnpaybills = query
 	return tq
 }
 
@@ -426,13 +426,13 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 		withFKs     = tq.withFKs
 		_spec       = tq.querySpec()
 		loadedTypes = [4]bool{
-			tq.withTypetreatment != nil,
-			tq.withPatientrecord != nil,
-			tq.withDoctor != nil,
-			tq.withUnpaybills != nil,
+			tq.withEdgesOfTypetreatment != nil,
+			tq.withEdgesOfPatientrecord != nil,
+			tq.withEdgesOfDoctor != nil,
+			tq.withEdgesOfUnpaybills != nil,
 		}
 	)
-	if tq.withTypetreatment != nil || tq.withPatientrecord != nil || tq.withDoctor != nil {
+	if tq.withEdgesOfTypetreatment != nil || tq.withEdgesOfPatientrecord != nil || tq.withEdgesOfDoctor != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -462,7 +462,7 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 		return nodes, nil
 	}
 
-	if query := tq.withTypetreatment; query != nil {
+	if query := tq.withEdgesOfTypetreatment; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Treatment)
 		for i := range nodes {
@@ -482,12 +482,12 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "typetreatment_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Typetreatment = n
+				nodes[i].Edges.EdgesOfTypetreatment = n
 			}
 		}
 	}
 
-	if query := tq.withPatientrecord; query != nil {
+	if query := tq.withEdgesOfPatientrecord; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Treatment)
 		for i := range nodes {
@@ -507,12 +507,12 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "patientrecord_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Patientrecord = n
+				nodes[i].Edges.EdgesOfPatientrecord = n
 			}
 		}
 	}
 
-	if query := tq.withDoctor; query != nil {
+	if query := tq.withEdgesOfDoctor; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Treatment)
 		for i := range nodes {
@@ -532,12 +532,12 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "doctor_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Doctor = n
+				nodes[i].Edges.EdgesOfDoctor = n
 			}
 		}
 	}
 
-	if query := tq.withUnpaybills; query != nil {
+	if query := tq.withEdgesOfUnpaybills; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Treatment)
 		for i := range nodes {
@@ -546,7 +546,7 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Unpaybill(func(s *sql.Selector) {
-			s.Where(sql.InValues(treatment.UnpaybillsColumn, fks...))
+			s.Where(sql.InValues(treatment.EdgesOfUnpaybillsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -561,7 +561,7 @@ func (tq *TreatmentQuery) sqlAll(ctx context.Context) ([]*Treatment, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "treatment_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Unpaybills = n
+			node.Edges.EdgesOfUnpaybills = n
 		}
 	}
 

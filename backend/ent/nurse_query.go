@@ -27,9 +27,9 @@ type NurseQuery struct {
 	unique     []string
 	predicates []predicate.Nurse
 	// eager-loading edges.
-	withHistorytaking *HistorytakingQuery
-	withUser          *UserQuery
-	withFKs           bool
+	withEdgesOfHistorytaking *HistorytakingQuery
+	withEdgesOfUser          *UserQuery
+	withFKs                  bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -59,8 +59,8 @@ func (nq *NurseQuery) Order(o ...OrderFunc) *NurseQuery {
 	return nq
 }
 
-// QueryHistorytaking chains the current query on the historytaking edge.
-func (nq *NurseQuery) QueryHistorytaking() *HistorytakingQuery {
+// QueryEdgesOfHistorytaking chains the current query on the EdgesOfHistorytaking edge.
+func (nq *NurseQuery) QueryEdgesOfHistorytaking() *HistorytakingQuery {
 	query := &HistorytakingQuery{config: nq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := nq.prepareQuery(ctx); err != nil {
@@ -69,7 +69,7 @@ func (nq *NurseQuery) QueryHistorytaking() *HistorytakingQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(nurse.Table, nurse.FieldID, nq.sqlQuery()),
 			sqlgraph.To(historytaking.Table, historytaking.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, nurse.HistorytakingTable, nurse.HistorytakingColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, nurse.EdgesOfHistorytakingTable, nurse.EdgesOfHistorytakingColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(nq.driver.Dialect(), step)
 		return fromU, nil
@@ -77,8 +77,8 @@ func (nq *NurseQuery) QueryHistorytaking() *HistorytakingQuery {
 	return query
 }
 
-// QueryUser chains the current query on the user edge.
-func (nq *NurseQuery) QueryUser() *UserQuery {
+// QueryEdgesOfUser chains the current query on the EdgesOfUser edge.
+func (nq *NurseQuery) QueryEdgesOfUser() *UserQuery {
 	query := &UserQuery{config: nq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := nq.prepareQuery(ctx); err != nil {
@@ -87,7 +87,7 @@ func (nq *NurseQuery) QueryUser() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(nurse.Table, nurse.FieldID, nq.sqlQuery()),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, nurse.UserTable, nurse.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, nurse.EdgesOfUserTable, nurse.EdgesOfUserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(nq.driver.Dialect(), step)
 		return fromU, nil
@@ -274,25 +274,25 @@ func (nq *NurseQuery) Clone() *NurseQuery {
 	}
 }
 
-//  WithHistorytaking tells the query-builder to eager-loads the nodes that are connected to
-// the "historytaking" edge. The optional arguments used to configure the query builder of the edge.
-func (nq *NurseQuery) WithHistorytaking(opts ...func(*HistorytakingQuery)) *NurseQuery {
+//  WithEdgesOfHistorytaking tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfHistorytaking" edge. The optional arguments used to configure the query builder of the edge.
+func (nq *NurseQuery) WithEdgesOfHistorytaking(opts ...func(*HistorytakingQuery)) *NurseQuery {
 	query := &HistorytakingQuery{config: nq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	nq.withHistorytaking = query
+	nq.withEdgesOfHistorytaking = query
 	return nq
 }
 
-//  WithUser tells the query-builder to eager-loads the nodes that are connected to
-// the "user" edge. The optional arguments used to configure the query builder of the edge.
-func (nq *NurseQuery) WithUser(opts ...func(*UserQuery)) *NurseQuery {
+//  WithEdgesOfUser tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUser" edge. The optional arguments used to configure the query builder of the edge.
+func (nq *NurseQuery) WithEdgesOfUser(opts ...func(*UserQuery)) *NurseQuery {
 	query := &UserQuery{config: nq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	nq.withUser = query
+	nq.withEdgesOfUser = query
 	return nq
 }
 
@@ -364,11 +364,11 @@ func (nq *NurseQuery) sqlAll(ctx context.Context) ([]*Nurse, error) {
 		withFKs     = nq.withFKs
 		_spec       = nq.querySpec()
 		loadedTypes = [2]bool{
-			nq.withHistorytaking != nil,
-			nq.withUser != nil,
+			nq.withEdgesOfHistorytaking != nil,
+			nq.withEdgesOfUser != nil,
 		}
 	)
-	if nq.withUser != nil {
+	if nq.withEdgesOfUser != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -398,7 +398,7 @@ func (nq *NurseQuery) sqlAll(ctx context.Context) ([]*Nurse, error) {
 		return nodes, nil
 	}
 
-	if query := nq.withHistorytaking; query != nil {
+	if query := nq.withEdgesOfHistorytaking; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Nurse)
 		for i := range nodes {
@@ -407,7 +407,7 @@ func (nq *NurseQuery) sqlAll(ctx context.Context) ([]*Nurse, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Historytaking(func(s *sql.Selector) {
-			s.Where(sql.InValues(nurse.HistorytakingColumn, fks...))
+			s.Where(sql.InValues(nurse.EdgesOfHistorytakingColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -422,11 +422,11 @@ func (nq *NurseQuery) sqlAll(ctx context.Context) ([]*Nurse, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "nurse_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Historytaking = append(node.Edges.Historytaking, n)
+			node.Edges.EdgesOfHistorytaking = append(node.Edges.EdgesOfHistorytaking, n)
 		}
 	}
 
-	if query := nq.withUser; query != nil {
+	if query := nq.withEdgesOfUser; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Nurse)
 		for i := range nodes {
@@ -446,7 +446,7 @@ func (nq *NurseQuery) sqlAll(ctx context.Context) ([]*Nurse, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.User = n
+				nodes[i].Edges.EdgesOfUser = n
 			}
 		}
 	}

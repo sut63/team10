@@ -21,57 +21,57 @@ type DoctorCreate struct {
 	hooks    []Hook
 }
 
-// SetDoctorinfoID sets the doctorinfo edge to Doctorinfo by id.
-func (dc *DoctorCreate) SetDoctorinfoID(id int) *DoctorCreate {
-	dc.mutation.SetDoctorinfoID(id)
+// SetEdgesOfDoctorinfoID sets the EdgesOfDoctorinfo edge to Doctorinfo by id.
+func (dc *DoctorCreate) SetEdgesOfDoctorinfoID(id int) *DoctorCreate {
+	dc.mutation.SetEdgesOfDoctorinfoID(id)
 	return dc
 }
 
-// SetNillableDoctorinfoID sets the doctorinfo edge to Doctorinfo by id if the given value is not nil.
-func (dc *DoctorCreate) SetNillableDoctorinfoID(id *int) *DoctorCreate {
+// SetNillableEdgesOfDoctorinfoID sets the EdgesOfDoctorinfo edge to Doctorinfo by id if the given value is not nil.
+func (dc *DoctorCreate) SetNillableEdgesOfDoctorinfoID(id *int) *DoctorCreate {
 	if id != nil {
-		dc = dc.SetDoctorinfoID(*id)
+		dc = dc.SetEdgesOfDoctorinfoID(*id)
 	}
 	return dc
 }
 
-// SetDoctorinfo sets the doctorinfo edge to Doctorinfo.
-func (dc *DoctorCreate) SetDoctorinfo(d *Doctorinfo) *DoctorCreate {
-	return dc.SetDoctorinfoID(d.ID)
+// SetEdgesOfDoctorinfo sets the EdgesOfDoctorinfo edge to Doctorinfo.
+func (dc *DoctorCreate) SetEdgesOfDoctorinfo(d *Doctorinfo) *DoctorCreate {
+	return dc.SetEdgesOfDoctorinfoID(d.ID)
 }
 
-// SetUserID sets the user edge to User by id.
-func (dc *DoctorCreate) SetUserID(id int) *DoctorCreate {
-	dc.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (dc *DoctorCreate) SetEdgesOfUserID(id int) *DoctorCreate {
+	dc.mutation.SetEdgesOfUserID(id)
 	return dc
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (dc *DoctorCreate) SetNillableUserID(id *int) *DoctorCreate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (dc *DoctorCreate) SetNillableEdgesOfUserID(id *int) *DoctorCreate {
 	if id != nil {
-		dc = dc.SetUserID(*id)
+		dc = dc.SetEdgesOfUserID(*id)
 	}
 	return dc
 }
 
-// SetUser sets the user edge to User.
-func (dc *DoctorCreate) SetUser(u *User) *DoctorCreate {
-	return dc.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (dc *DoctorCreate) SetEdgesOfUser(u *User) *DoctorCreate {
+	return dc.SetEdgesOfUserID(u.ID)
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (dc *DoctorCreate) AddTreatmentIDs(ids ...int) *DoctorCreate {
-	dc.mutation.AddTreatmentIDs(ids...)
+// AddEdgesOfTreatmentIDs adds the EdgesOfTreatment edge to Treatment by ids.
+func (dc *DoctorCreate) AddEdgesOfTreatmentIDs(ids ...int) *DoctorCreate {
+	dc.mutation.AddEdgesOfTreatmentIDs(ids...)
 	return dc
 }
 
-// AddTreatment adds the treatment edges to Treatment.
-func (dc *DoctorCreate) AddTreatment(t ...*Treatment) *DoctorCreate {
+// AddEdgesOfTreatment adds the EdgesOfTreatment edges to Treatment.
+func (dc *DoctorCreate) AddEdgesOfTreatment(t ...*Treatment) *DoctorCreate {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return dc.AddTreatmentIDs(ids...)
+	return dc.AddEdgesOfTreatmentIDs(ids...)
 }
 
 // Mutation returns the DoctorMutation object of the builder.
@@ -141,12 +141,12 @@ func (dc *DoctorCreate) createSpec() (*Doctor, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
-	if nodes := dc.mutation.DoctorinfoIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfDoctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   doctor.DoctorinfoTable,
-			Columns: []string{doctor.DoctorinfoColumn},
+			Table:   doctor.EdgesOfDoctorinfoTable,
+			Columns: []string{doctor.EdgesOfDoctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -160,12 +160,12 @@ func (dc *DoctorCreate) createSpec() (*Doctor, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   doctor.UserTable,
-			Columns: []string{doctor.UserColumn},
+			Table:   doctor.EdgesOfUserTable,
+			Columns: []string{doctor.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -179,12 +179,12 @@ func (dc *DoctorCreate) createSpec() (*Doctor, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   doctor.TreatmentTable,
-			Columns: []string{doctor.TreatmentColumn},
+			Table:   doctor.EdgesOfTreatmentTable,
+			Columns: []string{doctor.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

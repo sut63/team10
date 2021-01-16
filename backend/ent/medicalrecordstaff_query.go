@@ -28,10 +28,10 @@ type MedicalrecordstaffQuery struct {
 	unique     []string
 	predicates []predicate.Medicalrecordstaff
 	// eager-loading edges.
-	withPatientrecord                   *PatientrecordQuery
-	withMedicalrecordstaffPatientrights *PatientrightsQuery
-	withUser                            *UserQuery
-	withFKs                             bool
+	withEdgesOfPatientrecord                   *PatientrecordQuery
+	withEdgesOfMedicalrecordstaffPatientrights *PatientrightsQuery
+	withEdgesOfUser                            *UserQuery
+	withFKs                                    bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -61,8 +61,8 @@ func (mq *MedicalrecordstaffQuery) Order(o ...OrderFunc) *MedicalrecordstaffQuer
 	return mq
 }
 
-// QueryPatientrecord chains the current query on the patientrecord edge.
-func (mq *MedicalrecordstaffQuery) QueryPatientrecord() *PatientrecordQuery {
+// QueryEdgesOfPatientrecord chains the current query on the EdgesOfPatientrecord edge.
+func (mq *MedicalrecordstaffQuery) QueryEdgesOfPatientrecord() *PatientrecordQuery {
 	query := &PatientrecordQuery{config: mq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := mq.prepareQuery(ctx); err != nil {
@@ -71,7 +71,7 @@ func (mq *MedicalrecordstaffQuery) QueryPatientrecord() *PatientrecordQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(medicalrecordstaff.Table, medicalrecordstaff.FieldID, mq.sqlQuery()),
 			sqlgraph.To(patientrecord.Table, patientrecord.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, medicalrecordstaff.PatientrecordTable, medicalrecordstaff.PatientrecordColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, medicalrecordstaff.EdgesOfPatientrecordTable, medicalrecordstaff.EdgesOfPatientrecordColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(mq.driver.Dialect(), step)
 		return fromU, nil
@@ -79,8 +79,8 @@ func (mq *MedicalrecordstaffQuery) QueryPatientrecord() *PatientrecordQuery {
 	return query
 }
 
-// QueryMedicalrecordstaffPatientrights chains the current query on the MedicalrecordstaffPatientrights edge.
-func (mq *MedicalrecordstaffQuery) QueryMedicalrecordstaffPatientrights() *PatientrightsQuery {
+// QueryEdgesOfMedicalrecordstaffPatientrights chains the current query on the EdgesOfMedicalrecordstaffPatientrights edge.
+func (mq *MedicalrecordstaffQuery) QueryEdgesOfMedicalrecordstaffPatientrights() *PatientrightsQuery {
 	query := &PatientrightsQuery{config: mq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := mq.prepareQuery(ctx); err != nil {
@@ -89,7 +89,7 @@ func (mq *MedicalrecordstaffQuery) QueryMedicalrecordstaffPatientrights() *Patie
 		step := sqlgraph.NewStep(
 			sqlgraph.From(medicalrecordstaff.Table, medicalrecordstaff.FieldID, mq.sqlQuery()),
 			sqlgraph.To(patientrights.Table, patientrights.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, medicalrecordstaff.MedicalrecordstaffPatientrightsTable, medicalrecordstaff.MedicalrecordstaffPatientrightsColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsTable, medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(mq.driver.Dialect(), step)
 		return fromU, nil
@@ -97,8 +97,8 @@ func (mq *MedicalrecordstaffQuery) QueryMedicalrecordstaffPatientrights() *Patie
 	return query
 }
 
-// QueryUser chains the current query on the user edge.
-func (mq *MedicalrecordstaffQuery) QueryUser() *UserQuery {
+// QueryEdgesOfUser chains the current query on the EdgesOfUser edge.
+func (mq *MedicalrecordstaffQuery) QueryEdgesOfUser() *UserQuery {
 	query := &UserQuery{config: mq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := mq.prepareQuery(ctx); err != nil {
@@ -107,7 +107,7 @@ func (mq *MedicalrecordstaffQuery) QueryUser() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(medicalrecordstaff.Table, medicalrecordstaff.FieldID, mq.sqlQuery()),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, medicalrecordstaff.UserTable, medicalrecordstaff.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, medicalrecordstaff.EdgesOfUserTable, medicalrecordstaff.EdgesOfUserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(mq.driver.Dialect(), step)
 		return fromU, nil
@@ -294,36 +294,36 @@ func (mq *MedicalrecordstaffQuery) Clone() *MedicalrecordstaffQuery {
 	}
 }
 
-//  WithPatientrecord tells the query-builder to eager-loads the nodes that are connected to
-// the "patientrecord" edge. The optional arguments used to configure the query builder of the edge.
-func (mq *MedicalrecordstaffQuery) WithPatientrecord(opts ...func(*PatientrecordQuery)) *MedicalrecordstaffQuery {
+//  WithEdgesOfPatientrecord tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPatientrecord" edge. The optional arguments used to configure the query builder of the edge.
+func (mq *MedicalrecordstaffQuery) WithEdgesOfPatientrecord(opts ...func(*PatientrecordQuery)) *MedicalrecordstaffQuery {
 	query := &PatientrecordQuery{config: mq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	mq.withPatientrecord = query
+	mq.withEdgesOfPatientrecord = query
 	return mq
 }
 
-//  WithMedicalrecordstaffPatientrights tells the query-builder to eager-loads the nodes that are connected to
-// the "MedicalrecordstaffPatientrights" edge. The optional arguments used to configure the query builder of the edge.
-func (mq *MedicalrecordstaffQuery) WithMedicalrecordstaffPatientrights(opts ...func(*PatientrightsQuery)) *MedicalrecordstaffQuery {
+//  WithEdgesOfMedicalrecordstaffPatientrights tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfMedicalrecordstaffPatientrights" edge. The optional arguments used to configure the query builder of the edge.
+func (mq *MedicalrecordstaffQuery) WithEdgesOfMedicalrecordstaffPatientrights(opts ...func(*PatientrightsQuery)) *MedicalrecordstaffQuery {
 	query := &PatientrightsQuery{config: mq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	mq.withMedicalrecordstaffPatientrights = query
+	mq.withEdgesOfMedicalrecordstaffPatientrights = query
 	return mq
 }
 
-//  WithUser tells the query-builder to eager-loads the nodes that are connected to
-// the "user" edge. The optional arguments used to configure the query builder of the edge.
-func (mq *MedicalrecordstaffQuery) WithUser(opts ...func(*UserQuery)) *MedicalrecordstaffQuery {
+//  WithEdgesOfUser tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUser" edge. The optional arguments used to configure the query builder of the edge.
+func (mq *MedicalrecordstaffQuery) WithEdgesOfUser(opts ...func(*UserQuery)) *MedicalrecordstaffQuery {
 	query := &UserQuery{config: mq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	mq.withUser = query
+	mq.withEdgesOfUser = query
 	return mq
 }
 
@@ -395,12 +395,12 @@ func (mq *MedicalrecordstaffQuery) sqlAll(ctx context.Context) ([]*Medicalrecord
 		withFKs     = mq.withFKs
 		_spec       = mq.querySpec()
 		loadedTypes = [3]bool{
-			mq.withPatientrecord != nil,
-			mq.withMedicalrecordstaffPatientrights != nil,
-			mq.withUser != nil,
+			mq.withEdgesOfPatientrecord != nil,
+			mq.withEdgesOfMedicalrecordstaffPatientrights != nil,
+			mq.withEdgesOfUser != nil,
 		}
 	)
-	if mq.withUser != nil {
+	if mq.withEdgesOfUser != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -430,7 +430,7 @@ func (mq *MedicalrecordstaffQuery) sqlAll(ctx context.Context) ([]*Medicalrecord
 		return nodes, nil
 	}
 
-	if query := mq.withPatientrecord; query != nil {
+	if query := mq.withEdgesOfPatientrecord; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Medicalrecordstaff)
 		for i := range nodes {
@@ -439,7 +439,7 @@ func (mq *MedicalrecordstaffQuery) sqlAll(ctx context.Context) ([]*Medicalrecord
 		}
 		query.withFKs = true
 		query.Where(predicate.Patientrecord(func(s *sql.Selector) {
-			s.Where(sql.InValues(medicalrecordstaff.PatientrecordColumn, fks...))
+			s.Where(sql.InValues(medicalrecordstaff.EdgesOfPatientrecordColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -454,11 +454,11 @@ func (mq *MedicalrecordstaffQuery) sqlAll(ctx context.Context) ([]*Medicalrecord
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "medicalrecordstaff_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Patientrecord = append(node.Edges.Patientrecord, n)
+			node.Edges.EdgesOfPatientrecord = append(node.Edges.EdgesOfPatientrecord, n)
 		}
 	}
 
-	if query := mq.withMedicalrecordstaffPatientrights; query != nil {
+	if query := mq.withEdgesOfMedicalrecordstaffPatientrights; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Medicalrecordstaff)
 		for i := range nodes {
@@ -467,7 +467,7 @@ func (mq *MedicalrecordstaffQuery) sqlAll(ctx context.Context) ([]*Medicalrecord
 		}
 		query.withFKs = true
 		query.Where(predicate.Patientrights(func(s *sql.Selector) {
-			s.Where(sql.InValues(medicalrecordstaff.MedicalrecordstaffPatientrightsColumn, fks...))
+			s.Where(sql.InValues(medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -482,11 +482,11 @@ func (mq *MedicalrecordstaffQuery) sqlAll(ctx context.Context) ([]*Medicalrecord
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "medicalrecordstaff_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.MedicalrecordstaffPatientrights = append(node.Edges.MedicalrecordstaffPatientrights, n)
+			node.Edges.EdgesOfMedicalrecordstaffPatientrights = append(node.Edges.EdgesOfMedicalrecordstaffPatientrights, n)
 		}
 	}
 
-	if query := mq.withUser; query != nil {
+	if query := mq.withEdgesOfUser; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Medicalrecordstaff)
 		for i := range nodes {
@@ -506,7 +506,7 @@ func (mq *MedicalrecordstaffQuery) sqlAll(ctx context.Context) ([]*Medicalrecord
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.User = n
+				nodes[i].Edges.EdgesOfUser = n
 			}
 		}
 	}

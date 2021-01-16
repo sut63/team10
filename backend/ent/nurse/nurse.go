@@ -14,27 +14,27 @@ const (
 	// FieldPosition holds the string denoting the position field in the database.
 	FieldPosition = "position"
 
-	// EdgeHistorytaking holds the string denoting the historytaking edge name in mutations.
-	EdgeHistorytaking = "historytaking"
-	// EdgeUser holds the string denoting the user edge name in mutations.
-	EdgeUser = "user"
+	// EdgeEdgesOfHistorytaking holds the string denoting the edgesofhistorytaking edge name in mutations.
+	EdgeEdgesOfHistorytaking = "EdgesOfHistorytaking"
+	// EdgeEdgesOfUser holds the string denoting the edgesofuser edge name in mutations.
+	EdgeEdgesOfUser = "EdgesOfUser"
 
 	// Table holds the table name of the nurse in the database.
 	Table = "nurses"
-	// HistorytakingTable is the table the holds the historytaking relation/edge.
-	HistorytakingTable = "historytakings"
-	// HistorytakingInverseTable is the table name for the Historytaking entity.
+	// EdgesOfHistorytakingTable is the table the holds the EdgesOfHistorytaking relation/edge.
+	EdgesOfHistorytakingTable = "historytakings"
+	// EdgesOfHistorytakingInverseTable is the table name for the Historytaking entity.
 	// It exists in this package in order to avoid circular dependency with the "historytaking" package.
-	HistorytakingInverseTable = "historytakings"
-	// HistorytakingColumn is the table column denoting the historytaking relation/edge.
-	HistorytakingColumn = "nurse_id"
-	// UserTable is the table the holds the user relation/edge.
-	UserTable = "nurses"
-	// UserInverseTable is the table name for the User entity.
+	EdgesOfHistorytakingInverseTable = "historytakings"
+	// EdgesOfHistorytakingColumn is the table column denoting the EdgesOfHistorytaking relation/edge.
+	EdgesOfHistorytakingColumn = "nurse_id"
+	// EdgesOfUserTable is the table the holds the EdgesOfUser relation/edge.
+	EdgesOfUserTable = "nurses"
+	// EdgesOfUserInverseTable is the table name for the User entity.
 	// It exists in this package in order to avoid circular dependency with the "user" package.
-	UserInverseTable = "users"
-	// UserColumn is the table column denoting the user relation/edge.
-	UserColumn = "user_id"
+	EdgesOfUserInverseTable = "users"
+	// EdgesOfUserColumn is the table column denoting the EdgesOfUser relation/edge.
+	EdgesOfUserColumn = "user_id"
 )
 
 // Columns holds all SQL columns for nurse fields.

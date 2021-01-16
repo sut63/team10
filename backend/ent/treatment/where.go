@@ -294,25 +294,25 @@ func DatetreatLTE(v time.Time) predicate.Treatment {
 	})
 }
 
-// HasTypetreatment applies the HasEdge predicate on the "typetreatment" edge.
-func HasTypetreatment() predicate.Treatment {
+// HasEdgesOfTypetreatment applies the HasEdge predicate on the "EdgesOfTypetreatment" edge.
+func HasEdgesOfTypetreatment() predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(TypetreatmentTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, TypetreatmentTable, TypetreatmentColumn),
+			sqlgraph.To(EdgesOfTypetreatmentTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfTypetreatmentTable, EdgesOfTypetreatmentColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasTypetreatmentWith applies the HasEdge predicate on the "typetreatment" edge with a given conditions (other predicates).
-func HasTypetreatmentWith(preds ...predicate.Typetreatment) predicate.Treatment {
+// HasEdgesOfTypetreatmentWith applies the HasEdge predicate on the "EdgesOfTypetreatment" edge with a given conditions (other predicates).
+func HasEdgesOfTypetreatmentWith(preds ...predicate.Typetreatment) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(TypetreatmentInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, TypetreatmentTable, TypetreatmentColumn),
+			sqlgraph.To(EdgesOfTypetreatmentInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfTypetreatmentTable, EdgesOfTypetreatmentColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -322,25 +322,25 @@ func HasTypetreatmentWith(preds ...predicate.Typetreatment) predicate.Treatment 
 	})
 }
 
-// HasPatientrecord applies the HasEdge predicate on the "patientrecord" edge.
-func HasPatientrecord() predicate.Treatment {
+// HasEdgesOfPatientrecord applies the HasEdge predicate on the "EdgesOfPatientrecord" edge.
+func HasEdgesOfPatientrecord() predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(PatientrecordTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, PatientrecordTable, PatientrecordColumn),
+			sqlgraph.To(EdgesOfPatientrecordTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfPatientrecordTable, EdgesOfPatientrecordColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasPatientrecordWith applies the HasEdge predicate on the "patientrecord" edge with a given conditions (other predicates).
-func HasPatientrecordWith(preds ...predicate.Patientrecord) predicate.Treatment {
+// HasEdgesOfPatientrecordWith applies the HasEdge predicate on the "EdgesOfPatientrecord" edge with a given conditions (other predicates).
+func HasEdgesOfPatientrecordWith(preds ...predicate.Patientrecord) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(PatientrecordInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, PatientrecordTable, PatientrecordColumn),
+			sqlgraph.To(EdgesOfPatientrecordInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfPatientrecordTable, EdgesOfPatientrecordColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -350,25 +350,25 @@ func HasPatientrecordWith(preds ...predicate.Patientrecord) predicate.Treatment 
 	})
 }
 
-// HasDoctor applies the HasEdge predicate on the "doctor" edge.
-func HasDoctor() predicate.Treatment {
+// HasEdgesOfDoctor applies the HasEdge predicate on the "EdgesOfDoctor" edge.
+func HasEdgesOfDoctor() predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(DoctorTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, DoctorTable, DoctorColumn),
+			sqlgraph.To(EdgesOfDoctorTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfDoctorTable, EdgesOfDoctorColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasDoctorWith applies the HasEdge predicate on the "doctor" edge with a given conditions (other predicates).
-func HasDoctorWith(preds ...predicate.Doctor) predicate.Treatment {
+// HasEdgesOfDoctorWith applies the HasEdge predicate on the "EdgesOfDoctor" edge with a given conditions (other predicates).
+func HasEdgesOfDoctorWith(preds ...predicate.Doctor) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(DoctorInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, DoctorTable, DoctorColumn),
+			sqlgraph.To(EdgesOfDoctorInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfDoctorTable, EdgesOfDoctorColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -378,25 +378,25 @@ func HasDoctorWith(preds ...predicate.Doctor) predicate.Treatment {
 	})
 }
 
-// HasUnpaybills applies the HasEdge predicate on the "unpaybills" edge.
-func HasUnpaybills() predicate.Treatment {
+// HasEdgesOfUnpaybills applies the HasEdge predicate on the "EdgesOfUnpaybills" edge.
+func HasEdgesOfUnpaybills() predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UnpaybillsTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, UnpaybillsTable, UnpaybillsColumn),
+			sqlgraph.To(EdgesOfUnpaybillsTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, false, EdgesOfUnpaybillsTable, EdgesOfUnpaybillsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasUnpaybillsWith applies the HasEdge predicate on the "unpaybills" edge with a given conditions (other predicates).
-func HasUnpaybillsWith(preds ...predicate.Unpaybill) predicate.Treatment {
+// HasEdgesOfUnpaybillsWith applies the HasEdge predicate on the "EdgesOfUnpaybills" edge with a given conditions (other predicates).
+func HasEdgesOfUnpaybillsWith(preds ...predicate.Unpaybill) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UnpaybillsInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, UnpaybillsTable, UnpaybillsColumn),
+			sqlgraph.To(EdgesOfUnpaybillsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, false, EdgesOfUnpaybillsTable, EdgesOfUnpaybillsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

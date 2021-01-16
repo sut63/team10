@@ -103,12 +103,12 @@ const BillTable: FC<{}> = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {bills.map(item => (treatments.filter(t => t.id == item.edges?.treatment?.id).map(item2 =>(
+                        {bills.map(item => (treatments.filter(t => t.id == item.edges?.edgesOfTreatment?.id).map(item2 =>(
                           <TableRow key={item.id}>
                             <TableCell align="center">{item.id}</TableCell>
                             <TableCell align="center">{item2.id}</TableCell>
-                            <TableCell align="center">{item2.edges?.typetreatment?.typetreatment}</TableCell>
-                            <TableCell align="center">{item2.edges?.patientrecord?.name}</TableCell>   
+                            <TableCell align="center">{item2.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
+                            <TableCell align="center">{item2.edges?.edgesOfPatientrecord?.name}</TableCell>   
                             <TableCell align="center">{item.amount}</TableCell>
                             <TableCell align="center">{item.date}</TableCell>                                              
                           </TableRow>

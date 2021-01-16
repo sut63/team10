@@ -21,6 +21,6 @@ func (Symptomseverity) Fields() []ent.Field {
 // Edges of the Symptomseverity.
 func (Symptomseverity) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("historytaking", Historytaking.Type).StorageKey(edge.Column("symptomseverity_id")),
+		edge.To("EdgesOfHistorytaking", Historytaking.Type).StorageKey(edge.Column("symptomseverity_id")),
 	}
 }

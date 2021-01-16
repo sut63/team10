@@ -209,25 +209,25 @@ func LevelContainsFold(v string) predicate.Educationlevel {
 	})
 }
 
-// HasEducationlevel2doctorinfo applies the HasEdge predicate on the "educationlevel2doctorinfo" edge.
-func HasEducationlevel2doctorinfo() predicate.Educationlevel {
+// HasEdgesOfEducationlevel2doctorinfo applies the HasEdge predicate on the "EdgesOfEducationlevel2doctorinfo" edge.
+func HasEdgesOfEducationlevel2doctorinfo() predicate.Educationlevel {
 	return predicate.Educationlevel(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(Educationlevel2doctorinfoTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, Educationlevel2doctorinfoTable, Educationlevel2doctorinfoColumn),
+			sqlgraph.To(EdgesOfEducationlevel2doctorinfoTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfEducationlevel2doctorinfoTable, EdgesOfEducationlevel2doctorinfoColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasEducationlevel2doctorinfoWith applies the HasEdge predicate on the "educationlevel2doctorinfo" edge with a given conditions (other predicates).
-func HasEducationlevel2doctorinfoWith(preds ...predicate.Doctorinfo) predicate.Educationlevel {
+// HasEdgesOfEducationlevel2doctorinfoWith applies the HasEdge predicate on the "EdgesOfEducationlevel2doctorinfo" edge with a given conditions (other predicates).
+func HasEdgesOfEducationlevel2doctorinfoWith(preds ...predicate.Doctorinfo) predicate.Educationlevel {
 	return predicate.Educationlevel(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(Educationlevel2doctorinfoInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, Educationlevel2doctorinfoTable, Educationlevel2doctorinfoColumn),
+			sqlgraph.To(EdgesOfEducationlevel2doctorinfoInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfEducationlevel2doctorinfoTable, EdgesOfEducationlevel2doctorinfoColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

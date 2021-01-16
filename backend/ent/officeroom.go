@@ -24,20 +24,20 @@ type Officeroom struct {
 
 // OfficeroomEdges holds the relations/edges for other nodes in the graph.
 type OfficeroomEdges struct {
-	// Officeroom2doctorinfo holds the value of the officeroom2doctorinfo edge.
-	Officeroom2doctorinfo []*Doctorinfo
+	// EdgesOfOfficeroom2doctorinfo holds the value of the EdgesOfOfficeroom2doctorinfo edge.
+	EdgesOfOfficeroom2doctorinfo []*Doctorinfo
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// Officeroom2doctorinfoOrErr returns the Officeroom2doctorinfo value or an error if the edge
+// EdgesOfOfficeroom2doctorinfoOrErr returns the EdgesOfOfficeroom2doctorinfo value or an error if the edge
 // was not loaded in eager-loading.
-func (e OfficeroomEdges) Officeroom2doctorinfoOrErr() ([]*Doctorinfo, error) {
+func (e OfficeroomEdges) EdgesOfOfficeroom2doctorinfoOrErr() ([]*Doctorinfo, error) {
 	if e.loadedTypes[0] {
-		return e.Officeroom2doctorinfo, nil
+		return e.EdgesOfOfficeroom2doctorinfo, nil
 	}
-	return nil, &NotLoadedError{edge: "officeroom2doctorinfo"}
+	return nil, &NotLoadedError{edge: "EdgesOfOfficeroom2doctorinfo"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -68,9 +68,9 @@ func (o *Officeroom) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryOfficeroom2doctorinfo queries the officeroom2doctorinfo edge of the Officeroom.
-func (o *Officeroom) QueryOfficeroom2doctorinfo() *DoctorinfoQuery {
-	return (&OfficeroomClient{config: o.config}).QueryOfficeroom2doctorinfo(o)
+// QueryEdgesOfOfficeroom2doctorinfo queries the EdgesOfOfficeroom2doctorinfo edge of the Officeroom.
+func (o *Officeroom) QueryEdgesOfOfficeroom2doctorinfo() *DoctorinfoQuery {
+	return (&OfficeroomClient{config: o.config}).QueryEdgesOfOfficeroom2doctorinfo(o)
 }
 
 // Update returns a builder for updating this Officeroom.

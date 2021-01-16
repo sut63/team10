@@ -28,53 +28,53 @@ func (mc *MedicalrecordstaffCreate) SetName(s string) *MedicalrecordstaffCreate 
 	return mc
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (mc *MedicalrecordstaffCreate) AddPatientrecordIDs(ids ...int) *MedicalrecordstaffCreate {
-	mc.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (mc *MedicalrecordstaffCreate) AddEdgesOfPatientrecordIDs(ids ...int) *MedicalrecordstaffCreate {
+	mc.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return mc
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (mc *MedicalrecordstaffCreate) AddPatientrecord(p ...*Patientrecord) *MedicalrecordstaffCreate {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (mc *MedicalrecordstaffCreate) AddEdgesOfPatientrecord(p ...*Patientrecord) *MedicalrecordstaffCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return mc.AddPatientrecordIDs(ids...)
+	return mc.AddEdgesOfPatientrecordIDs(ids...)
 }
 
-// AddMedicalrecordstaffPatientrightIDs adds the MedicalrecordstaffPatientrights edge to Patientrights by ids.
-func (mc *MedicalrecordstaffCreate) AddMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffCreate {
-	mc.mutation.AddMedicalrecordstaffPatientrightIDs(ids...)
+// AddEdgesOfMedicalrecordstaffPatientrightIDs adds the EdgesOfMedicalrecordstaffPatientrights edge to Patientrights by ids.
+func (mc *MedicalrecordstaffCreate) AddEdgesOfMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffCreate {
+	mc.mutation.AddEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 	return mc
 }
 
-// AddMedicalrecordstaffPatientrights adds the MedicalrecordstaffPatientrights edges to Patientrights.
-func (mc *MedicalrecordstaffCreate) AddMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffCreate {
+// AddEdgesOfMedicalrecordstaffPatientrights adds the EdgesOfMedicalrecordstaffPatientrights edges to Patientrights.
+func (mc *MedicalrecordstaffCreate) AddEdgesOfMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return mc.AddMedicalrecordstaffPatientrightIDs(ids...)
+	return mc.AddEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (mc *MedicalrecordstaffCreate) SetUserID(id int) *MedicalrecordstaffCreate {
-	mc.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (mc *MedicalrecordstaffCreate) SetEdgesOfUserID(id int) *MedicalrecordstaffCreate {
+	mc.mutation.SetEdgesOfUserID(id)
 	return mc
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (mc *MedicalrecordstaffCreate) SetNillableUserID(id *int) *MedicalrecordstaffCreate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (mc *MedicalrecordstaffCreate) SetNillableEdgesOfUserID(id *int) *MedicalrecordstaffCreate {
 	if id != nil {
-		mc = mc.SetUserID(*id)
+		mc = mc.SetEdgesOfUserID(*id)
 	}
 	return mc
 }
 
-// SetUser sets the user edge to User.
-func (mc *MedicalrecordstaffCreate) SetUser(u *User) *MedicalrecordstaffCreate {
-	return mc.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (mc *MedicalrecordstaffCreate) SetEdgesOfUser(u *User) *MedicalrecordstaffCreate {
+	return mc.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the MedicalrecordstaffMutation object of the builder.
@@ -155,12 +155,12 @@ func (mc *MedicalrecordstaffCreate) createSpec() (*Medicalrecordstaff, *sqlgraph
 		})
 		m.Name = value
 	}
-	if nodes := mc.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := mc.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.PatientrecordTable,
-			Columns: []string{medicalrecordstaff.PatientrecordColumn},
+			Table:   medicalrecordstaff.EdgesOfPatientrecordTable,
+			Columns: []string{medicalrecordstaff.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -174,12 +174,12 @@ func (mc *MedicalrecordstaffCreate) createSpec() (*Medicalrecordstaff, *sqlgraph
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := mc.mutation.MedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := mc.mutation.EdgesOfMedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.MedicalrecordstaffPatientrightsTable,
-			Columns: []string{medicalrecordstaff.MedicalrecordstaffPatientrightsColumn},
+			Table:   medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsTable,
+			Columns: []string{medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -193,12 +193,12 @@ func (mc *MedicalrecordstaffCreate) createSpec() (*Medicalrecordstaff, *sqlgraph
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := mc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := mc.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   medicalrecordstaff.UserTable,
-			Columns: []string{medicalrecordstaff.UserColumn},
+			Table:   medicalrecordstaff.EdgesOfUserTable,
+			Columns: []string{medicalrecordstaff.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

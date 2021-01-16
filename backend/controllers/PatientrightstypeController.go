@@ -64,7 +64,7 @@ func (ctl *PatientrightstypeController) CreatePatientrightstype(c *gin.Context) 
 		SetPermission(obj.Permission).
 		SetPermissionArea(obj.PermissionArea).
 		SetResponsible(obj.Responsible).
-		SetPatientrightstypeAbilitypatientrights(Abilitypatientrights).
+		SetEdgesOfPatientrightstypeAbilitypatientrights(Abilitypatientrights).
 		Save(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -100,7 +100,7 @@ func (ctl *PatientrightstypeController) GetPatientrightstype(c *gin.Context) {
 	u, err := ctl.client.Patientrightstype.
 		Query().
 		Where(patientrightstype.IDEQ(int(id))).
-		WithPatientrightstypeAbilitypatientrights().
+		WithEdgesOfPatientrightstypeAbilitypatientrights().
 		Only(context.Background())
 	if err != nil {
 		c.JSON(404, gin.H{
@@ -139,8 +139,7 @@ func (ctl *PatientrightstypeController) ListPatientrightstype(c *gin.Context) {
   
 	patientrightstypes, err := ctl.client.Patientrightstype.
 		Query().
-		
-		WithPatientrightstypeAbilitypatientrights().
+		WithEdgesOfPatientrightstypeAbilitypatientrights().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

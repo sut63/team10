@@ -26,23 +26,23 @@ func (rc *RegistrarCreate) SetName(s string) *RegistrarCreate {
 	return rc
 }
 
-// SetUserID sets the user edge to User by id.
-func (rc *RegistrarCreate) SetUserID(id int) *RegistrarCreate {
-	rc.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (rc *RegistrarCreate) SetEdgesOfUserID(id int) *RegistrarCreate {
+	rc.mutation.SetEdgesOfUserID(id)
 	return rc
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (rc *RegistrarCreate) SetNillableUserID(id *int) *RegistrarCreate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (rc *RegistrarCreate) SetNillableEdgesOfUserID(id *int) *RegistrarCreate {
 	if id != nil {
-		rc = rc.SetUserID(*id)
+		rc = rc.SetEdgesOfUserID(*id)
 	}
 	return rc
 }
 
-// SetUser sets the user edge to User.
-func (rc *RegistrarCreate) SetUser(u *User) *RegistrarCreate {
-	return rc.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (rc *RegistrarCreate) SetEdgesOfUser(u *User) *RegistrarCreate {
+	return rc.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the RegistrarMutation object of the builder.
@@ -123,12 +123,12 @@ func (rc *RegistrarCreate) createSpec() (*Registrar, *sqlgraph.CreateSpec) {
 		})
 		r.Name = value
 	}
-	if nodes := rc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := rc.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   registrar.UserTable,
-			Columns: []string{registrar.UserColumn},
+			Table:   registrar.EdgesOfUserTable,
+			Columns: []string{registrar.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

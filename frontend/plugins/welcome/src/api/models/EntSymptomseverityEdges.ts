@@ -27,11 +27,11 @@ import {
  */
 export interface EntSymptomseverityEdges {
     /**
-     * Historytaking holds the value of the historytaking edge.
+     * EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.
      * @type {Array<EntHistorytaking>}
      * @memberof EntSymptomseverityEdges
      */
-    historytaking?: Array<EntHistorytaking>;
+    edgesOfHistorytaking?: Array<EntHistorytaking>;
 }
 
 export function EntSymptomseverityEdgesFromJSON(json: any): EntSymptomseverityEdges {
@@ -44,7 +44,7 @@ export function EntSymptomseverityEdgesFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'historytaking': !exists(json, 'Historytaking') ? undefined : ((json['Historytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
+        'edgesOfHistorytaking': !exists(json, 'EdgesOfHistorytaking') ? undefined : ((json['EdgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntSymptomseverityEdgesToJSON(value?: EntSymptomseverityEdges | 
     }
     return {
         
-        'historytaking': value.historytaking === undefined ? undefined : ((value.historytaking as Array<any>).map(EntHistorytakingToJSON)),
+        'EdgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
     };
 }
 

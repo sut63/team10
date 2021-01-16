@@ -51,37 +51,37 @@ export interface EntPatientrecordEdges {
      * @type {EntGender}
      * @memberof EntPatientrecordEdges
      */
-    gender?: EntGender;
+    edgesOfGender?: EntGender;
     /**
-     * Historytaking holds the value of the historytaking edge.
+     * EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.
      * @type {Array<EntHistorytaking>}
      * @memberof EntPatientrecordEdges
      */
-    historytaking?: Array<EntHistorytaking>;
+    edgesOfHistorytaking?: Array<EntHistorytaking>;
     /**
      * 
      * @type {EntMedicalrecordstaff}
      * @memberof EntPatientrecordEdges
      */
-    medicalrecordstaff?: EntMedicalrecordstaff;
+    edgesOfMedicalrecordstaff?: EntMedicalrecordstaff;
     /**
-     * PatientrecordPatientrights holds the value of the PatientrecordPatientrights edge.
+     * EdgesOfPatientrecordPatientrights holds the value of the EdgesOfPatientrecordPatientrights edge.
      * @type {Array<EntPatientrights>}
      * @memberof EntPatientrecordEdges
      */
-    patientrecordPatientrights?: Array<EntPatientrights>;
+    edgesOfPatientrecordPatientrights?: Array<EntPatientrights>;
     /**
      * 
      * @type {EntPrename}
      * @memberof EntPatientrecordEdges
      */
-    prename?: EntPrename;
+    edgesOfPrename?: EntPrename;
     /**
-     * Treatment holds the value of the treatment edge.
+     * EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
      * @type {Array<EntTreatment>}
      * @memberof EntPatientrecordEdges
      */
-    treatment?: Array<EntTreatment>;
+    edgesOfTreatment?: Array<EntTreatment>;
 }
 
 export function EntPatientrecordEdgesFromJSON(json: any): EntPatientrecordEdges {
@@ -94,12 +94,12 @@ export function EntPatientrecordEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'gender': !exists(json, 'Gender') ? undefined : EntGenderFromJSON(json['Gender']),
-        'historytaking': !exists(json, 'Historytaking') ? undefined : ((json['Historytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
-        'medicalrecordstaff': !exists(json, 'Medicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['Medicalrecordstaff']),
-        'patientrecordPatientrights': !exists(json, 'PatientrecordPatientrights') ? undefined : ((json['PatientrecordPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
-        'prename': !exists(json, 'Prename') ? undefined : EntPrenameFromJSON(json['Prename']),
-        'treatment': !exists(json, 'Treatment') ? undefined : ((json['Treatment'] as Array<any>).map(EntTreatmentFromJSON)),
+        'edgesOfGender': !exists(json, 'EdgesOfGender') ? undefined : EntGenderFromJSON(json['EdgesOfGender']),
+        'edgesOfHistorytaking': !exists(json, 'EdgesOfHistorytaking') ? undefined : ((json['EdgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
+        'edgesOfMedicalrecordstaff': !exists(json, 'EdgesOfMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['EdgesOfMedicalrecordstaff']),
+        'edgesOfPatientrecordPatientrights': !exists(json, 'EdgesOfPatientrecordPatientrights') ? undefined : ((json['EdgesOfPatientrecordPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
+        'edgesOfPrename': !exists(json, 'EdgesOfPrename') ? undefined : EntPrenameFromJSON(json['EdgesOfPrename']),
+        'edgesOfTreatment': !exists(json, 'EdgesOfTreatment') ? undefined : ((json['EdgesOfTreatment'] as Array<any>).map(EntTreatmentFromJSON)),
     };
 }
 
@@ -112,12 +112,12 @@ export function EntPatientrecordEdgesToJSON(value?: EntPatientrecordEdges | null
     }
     return {
         
-        'gender': EntGenderToJSON(value.gender),
-        'historytaking': value.historytaking === undefined ? undefined : ((value.historytaking as Array<any>).map(EntHistorytakingToJSON)),
-        'medicalrecordstaff': EntMedicalrecordstaffToJSON(value.medicalrecordstaff),
-        'patientrecordPatientrights': value.patientrecordPatientrights === undefined ? undefined : ((value.patientrecordPatientrights as Array<any>).map(EntPatientrightsToJSON)),
-        'prename': EntPrenameToJSON(value.prename),
-        'treatment': value.treatment === undefined ? undefined : ((value.treatment as Array<any>).map(EntTreatmentToJSON)),
+        'EdgesOfGender': EntGenderToJSON(value.edgesOfGender),
+        'EdgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
+        'EdgesOfMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfMedicalrecordstaff),
+        'EdgesOfPatientrecordPatientrights': value.edgesOfPatientrecordPatientrights === undefined ? undefined : ((value.edgesOfPatientrecordPatientrights as Array<any>).map(EntPatientrightsToJSON)),
+        'EdgesOfPrename': EntPrenameToJSON(value.edgesOfPrename),
+        'EdgesOfTreatment': value.edgesOfTreatment === undefined ? undefined : ((value.edgesOfTreatment as Array<any>).map(EntTreatmentToJSON)),
     };
 }
 

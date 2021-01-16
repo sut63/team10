@@ -26,19 +26,19 @@ func (tc *TypetreatmentCreate) SetTypetreatment(s string) *TypetreatmentCreate {
 	return tc
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (tc *TypetreatmentCreate) AddTreatmentIDs(ids ...int) *TypetreatmentCreate {
-	tc.mutation.AddTreatmentIDs(ids...)
+// AddEdgesOfTreatmentIDs adds the EdgesOfTreatment edge to Treatment by ids.
+func (tc *TypetreatmentCreate) AddEdgesOfTreatmentIDs(ids ...int) *TypetreatmentCreate {
+	tc.mutation.AddEdgesOfTreatmentIDs(ids...)
 	return tc
 }
 
-// AddTreatment adds the treatment edges to Treatment.
-func (tc *TypetreatmentCreate) AddTreatment(t ...*Treatment) *TypetreatmentCreate {
+// AddEdgesOfTreatment adds the EdgesOfTreatment edges to Treatment.
+func (tc *TypetreatmentCreate) AddEdgesOfTreatment(t ...*Treatment) *TypetreatmentCreate {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return tc.AddTreatmentIDs(ids...)
+	return tc.AddEdgesOfTreatmentIDs(ids...)
 }
 
 // Mutation returns the TypetreatmentMutation object of the builder.
@@ -124,12 +124,12 @@ func (tc *TypetreatmentCreate) createSpec() (*Typetreatment, *sqlgraph.CreateSpe
 		})
 		t.Typetreatment = value
 	}
-	if nodes := tc.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := tc.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   typetreatment.TreatmentTable,
-			Columns: []string{typetreatment.TreatmentColumn},
+			Table:   typetreatment.EdgesOfTreatmentTable,
+			Columns: []string{typetreatment.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

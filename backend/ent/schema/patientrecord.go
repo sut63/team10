@@ -30,11 +30,11 @@ func (Patientrecord) Fields() []ent.Field {
 // Edges of the Patientrecord.
 func (Patientrecord) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("gender", Gender.Type).Ref("patientrecord").Unique(),
-		edge.From("medicalrecordstaff", Medicalrecordstaff.Type).Ref("patientrecord").Unique(),
-		edge.From("prename", Prename.Type).Ref("patientrecord").Unique(),
-		edge.To("historytaking", Historytaking.Type).StorageKey(edge.Column("patientrecord_id")),
-		edge.To("treatment", Treatment.Type).StorageKey(edge.Column("patientrecord_id")),
-		edge.To("PatientrecordPatientrights", Patientrights.Type).StorageKey(edge.Column("patientrecord_id")),
+		edge.From("EdgesOfGender", Gender.Type).Ref("EdgesOfPatientrecord").Unique(),
+		edge.From("EdgesOfMedicalrecordstaff", Medicalrecordstaff.Type).Ref("EdgesOfPatientrecord").Unique(),
+		edge.From("EdgesOfPrename", Prename.Type).Ref("EdgesOfPatientrecord").Unique(),
+		edge.To("EdgesOfHistorytaking", Historytaking.Type).StorageKey(edge.Column("patientrecord_id")),
+		edge.To("EdgesOfTreatment", Treatment.Type).StorageKey(edge.Column("patientrecord_id")),
+		edge.To("EdgesOfPatientrecordPatientrights", Patientrights.Type).StorageKey(edge.Column("patientrecord_id")),
 	}
 }

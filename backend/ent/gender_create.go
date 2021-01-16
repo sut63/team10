@@ -26,19 +26,19 @@ func (gc *GenderCreate) SetGenderstatus(s string) *GenderCreate {
 	return gc
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (gc *GenderCreate) AddPatientrecordIDs(ids ...int) *GenderCreate {
-	gc.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (gc *GenderCreate) AddEdgesOfPatientrecordIDs(ids ...int) *GenderCreate {
+	gc.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return gc
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (gc *GenderCreate) AddPatientrecord(p ...*Patientrecord) *GenderCreate {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (gc *GenderCreate) AddEdgesOfPatientrecord(p ...*Patientrecord) *GenderCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return gc.AddPatientrecordIDs(ids...)
+	return gc.AddEdgesOfPatientrecordIDs(ids...)
 }
 
 // Mutation returns the GenderMutation object of the builder.
@@ -119,12 +119,12 @@ func (gc *GenderCreate) createSpec() (*Gender, *sqlgraph.CreateSpec) {
 		})
 		ge.Genderstatus = value
 	}
-	if nodes := gc.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := gc.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   gender.PatientrecordTable,
-			Columns: []string{gender.PatientrecordColumn},
+			Table:   gender.EdgesOfPatientrecordTable,
+			Columns: []string{gender.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -24,20 +24,20 @@ type Symptomseverity struct {
 
 // SymptomseverityEdges holds the relations/edges for other nodes in the graph.
 type SymptomseverityEdges struct {
-	// Historytaking holds the value of the historytaking edge.
-	Historytaking []*Historytaking
+	// EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.
+	EdgesOfHistorytaking []*Historytaking
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// HistorytakingOrErr returns the Historytaking value or an error if the edge
+// EdgesOfHistorytakingOrErr returns the EdgesOfHistorytaking value or an error if the edge
 // was not loaded in eager-loading.
-func (e SymptomseverityEdges) HistorytakingOrErr() ([]*Historytaking, error) {
+func (e SymptomseverityEdges) EdgesOfHistorytakingOrErr() ([]*Historytaking, error) {
 	if e.loadedTypes[0] {
-		return e.Historytaking, nil
+		return e.EdgesOfHistorytaking, nil
 	}
-	return nil, &NotLoadedError{edge: "historytaking"}
+	return nil, &NotLoadedError{edge: "EdgesOfHistorytaking"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -68,9 +68,9 @@ func (s *Symptomseverity) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryHistorytaking queries the historytaking edge of the Symptomseverity.
-func (s *Symptomseverity) QueryHistorytaking() *HistorytakingQuery {
-	return (&SymptomseverityClient{config: s.config}).QueryHistorytaking(s)
+// QueryEdgesOfHistorytaking queries the EdgesOfHistorytaking edge of the Symptomseverity.
+func (s *Symptomseverity) QueryEdgesOfHistorytaking() *HistorytakingQuery {
+	return (&SymptomseverityClient{config: s.config}).QueryEdgesOfHistorytaking(s)
 }
 
 // Update returns a builder for updating this Symptomseverity.

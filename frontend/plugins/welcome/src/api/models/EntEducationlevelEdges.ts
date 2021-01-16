@@ -27,11 +27,11 @@ import {
  */
 export interface EntEducationlevelEdges {
     /**
-     * Educationlevel2doctorinfo holds the value of the educationlevel2doctorinfo edge.
+     * EdgesOfEducationlevel2doctorinfo holds the value of the EdgesOfEducationlevel2doctorinfo edge.
      * @type {Array<EntDoctorinfo>}
      * @memberof EntEducationlevelEdges
      */
-    educationlevel2doctorinfo?: Array<EntDoctorinfo>;
+    edgesOfEducationlevel2doctorinfo?: Array<EntDoctorinfo>;
 }
 
 export function EntEducationlevelEdgesFromJSON(json: any): EntEducationlevelEdges {
@@ -44,7 +44,7 @@ export function EntEducationlevelEdgesFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'educationlevel2doctorinfo': !exists(json, 'Educationlevel2doctorinfo') ? undefined : ((json['Educationlevel2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'edgesOfEducationlevel2doctorinfo': !exists(json, 'EdgesOfEducationlevel2doctorinfo') ? undefined : ((json['EdgesOfEducationlevel2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntEducationlevelEdgesToJSON(value?: EntEducationlevelEdges | nu
     }
     return {
         
-        'educationlevel2doctorinfo': value.educationlevel2doctorinfo === undefined ? undefined : ((value.educationlevel2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
+        'EdgesOfEducationlevel2doctorinfo': value.edgesOfEducationlevel2doctorinfo === undefined ? undefined : ((value.edgesOfEducationlevel2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
     };
 }
 

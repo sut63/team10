@@ -24,20 +24,20 @@ type Typetreatment struct {
 
 // TypetreatmentEdges holds the relations/edges for other nodes in the graph.
 type TypetreatmentEdges struct {
-	// Treatment holds the value of the treatment edge.
-	Treatment []*Treatment
+	// EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
+	EdgesOfTreatment []*Treatment
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// TreatmentOrErr returns the Treatment value or an error if the edge
+// EdgesOfTreatmentOrErr returns the EdgesOfTreatment value or an error if the edge
 // was not loaded in eager-loading.
-func (e TypetreatmentEdges) TreatmentOrErr() ([]*Treatment, error) {
+func (e TypetreatmentEdges) EdgesOfTreatmentOrErr() ([]*Treatment, error) {
 	if e.loadedTypes[0] {
-		return e.Treatment, nil
+		return e.EdgesOfTreatment, nil
 	}
-	return nil, &NotLoadedError{edge: "treatment"}
+	return nil, &NotLoadedError{edge: "EdgesOfTreatment"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -68,9 +68,9 @@ func (t *Typetreatment) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryTreatment queries the treatment edge of the Typetreatment.
-func (t *Typetreatment) QueryTreatment() *TreatmentQuery {
-	return (&TypetreatmentClient{config: t.config}).QueryTreatment(t)
+// QueryEdgesOfTreatment queries the EdgesOfTreatment edge of the Typetreatment.
+func (t *Typetreatment) QueryEdgesOfTreatment() *TreatmentQuery {
+	return (&TypetreatmentClient{config: t.config}).QueryEdgesOfTreatment(t)
 }
 
 // Update returns a builder for updating this Typetreatment.

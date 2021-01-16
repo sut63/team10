@@ -39,38 +39,38 @@ func (nc *NurseCreate) SetPosition(s string) *NurseCreate {
 	return nc
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (nc *NurseCreate) AddHistorytakingIDs(ids ...int) *NurseCreate {
-	nc.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (nc *NurseCreate) AddEdgesOfHistorytakingIDs(ids ...int) *NurseCreate {
+	nc.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return nc
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (nc *NurseCreate) AddHistorytaking(h ...*Historytaking) *NurseCreate {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (nc *NurseCreate) AddEdgesOfHistorytaking(h ...*Historytaking) *NurseCreate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return nc.AddHistorytakingIDs(ids...)
+	return nc.AddEdgesOfHistorytakingIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (nc *NurseCreate) SetUserID(id int) *NurseCreate {
-	nc.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (nc *NurseCreate) SetEdgesOfUserID(id int) *NurseCreate {
+	nc.mutation.SetEdgesOfUserID(id)
 	return nc
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (nc *NurseCreate) SetNillableUserID(id *int) *NurseCreate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (nc *NurseCreate) SetNillableEdgesOfUserID(id *int) *NurseCreate {
 	if id != nil {
-		nc = nc.SetUserID(*id)
+		nc = nc.SetEdgesOfUserID(*id)
 	}
 	return nc
 }
 
-// SetUser sets the user edge to User.
-func (nc *NurseCreate) SetUser(u *User) *NurseCreate {
-	return nc.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (nc *NurseCreate) SetEdgesOfUser(u *User) *NurseCreate {
+	return nc.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the NurseMutation object of the builder.
@@ -173,12 +173,12 @@ func (nc *NurseCreate) createSpec() (*Nurse, *sqlgraph.CreateSpec) {
 		})
 		n.Position = value
 	}
-	if nodes := nc.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := nc.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   nurse.HistorytakingTable,
-			Columns: []string{nurse.HistorytakingColumn},
+			Table:   nurse.EdgesOfHistorytakingTable,
+			Columns: []string{nurse.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -192,12 +192,12 @@ func (nc *NurseCreate) createSpec() (*Nurse, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := nc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := nc.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   nurse.UserTable,
-			Columns: []string{nurse.UserColumn},
+			Table:   nurse.EdgesOfUserTable,
+			Columns: []string{nurse.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -35,42 +35,42 @@ func (uu *UnpaybillUpdate) SetStatus(s string) *UnpaybillUpdate {
 	return uu
 }
 
-// SetTreatmentID sets the treatment edge to Treatment by id.
-func (uu *UnpaybillUpdate) SetTreatmentID(id int) *UnpaybillUpdate {
-	uu.mutation.SetTreatmentID(id)
+// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Treatment by id.
+func (uu *UnpaybillUpdate) SetEdgesOfTreatmentID(id int) *UnpaybillUpdate {
+	uu.mutation.SetEdgesOfTreatmentID(id)
 	return uu
 }
 
-// SetNillableTreatmentID sets the treatment edge to Treatment by id if the given value is not nil.
-func (uu *UnpaybillUpdate) SetNillableTreatmentID(id *int) *UnpaybillUpdate {
+// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Treatment by id if the given value is not nil.
+func (uu *UnpaybillUpdate) SetNillableEdgesOfTreatmentID(id *int) *UnpaybillUpdate {
 	if id != nil {
-		uu = uu.SetTreatmentID(*id)
+		uu = uu.SetEdgesOfTreatmentID(*id)
 	}
 	return uu
 }
 
-// SetTreatment sets the treatment edge to Treatment.
-func (uu *UnpaybillUpdate) SetTreatment(t *Treatment) *UnpaybillUpdate {
-	return uu.SetTreatmentID(t.ID)
+// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Treatment.
+func (uu *UnpaybillUpdate) SetEdgesOfTreatment(t *Treatment) *UnpaybillUpdate {
+	return uu.SetEdgesOfTreatmentID(t.ID)
 }
 
-// SetBillsID sets the bills edge to Bill by id.
-func (uu *UnpaybillUpdate) SetBillsID(id int) *UnpaybillUpdate {
-	uu.mutation.SetBillsID(id)
+// SetEdgesOfBillsID sets the EdgesOfBills edge to Bill by id.
+func (uu *UnpaybillUpdate) SetEdgesOfBillsID(id int) *UnpaybillUpdate {
+	uu.mutation.SetEdgesOfBillsID(id)
 	return uu
 }
 
-// SetNillableBillsID sets the bills edge to Bill by id if the given value is not nil.
-func (uu *UnpaybillUpdate) SetNillableBillsID(id *int) *UnpaybillUpdate {
+// SetNillableEdgesOfBillsID sets the EdgesOfBills edge to Bill by id if the given value is not nil.
+func (uu *UnpaybillUpdate) SetNillableEdgesOfBillsID(id *int) *UnpaybillUpdate {
 	if id != nil {
-		uu = uu.SetBillsID(*id)
+		uu = uu.SetEdgesOfBillsID(*id)
 	}
 	return uu
 }
 
-// SetBills sets the bills edge to Bill.
-func (uu *UnpaybillUpdate) SetBills(b *Bill) *UnpaybillUpdate {
-	return uu.SetBillsID(b.ID)
+// SetEdgesOfBills sets the EdgesOfBills edge to Bill.
+func (uu *UnpaybillUpdate) SetEdgesOfBills(b *Bill) *UnpaybillUpdate {
+	return uu.SetEdgesOfBillsID(b.ID)
 }
 
 // Mutation returns the UnpaybillMutation object of the builder.
@@ -78,15 +78,15 @@ func (uu *UnpaybillUpdate) Mutation() *UnpaybillMutation {
 	return uu.mutation
 }
 
-// ClearTreatment clears the treatment edge to Treatment.
-func (uu *UnpaybillUpdate) ClearTreatment() *UnpaybillUpdate {
-	uu.mutation.ClearTreatment()
+// ClearEdgesOfTreatment clears the EdgesOfTreatment edge to Treatment.
+func (uu *UnpaybillUpdate) ClearEdgesOfTreatment() *UnpaybillUpdate {
+	uu.mutation.ClearEdgesOfTreatment()
 	return uu
 }
 
-// ClearBills clears the bills edge to Bill.
-func (uu *UnpaybillUpdate) ClearBills() *UnpaybillUpdate {
-	uu.mutation.ClearBills()
+// ClearEdgesOfBills clears the EdgesOfBills edge to Bill.
+func (uu *UnpaybillUpdate) ClearEdgesOfBills() *UnpaybillUpdate {
+	uu.mutation.ClearEdgesOfBills()
 	return uu
 }
 
@@ -172,12 +172,12 @@ func (uu *UnpaybillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: unpaybill.FieldStatus,
 		})
 	}
-	if uu.mutation.TreatmentCleared() {
+	if uu.mutation.EdgesOfTreatmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   unpaybill.TreatmentTable,
-			Columns: []string{unpaybill.TreatmentColumn},
+			Table:   unpaybill.EdgesOfTreatmentTable,
+			Columns: []string{unpaybill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -188,12 +188,12 @@ func (uu *UnpaybillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := uu.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   unpaybill.TreatmentTable,
-			Columns: []string{unpaybill.TreatmentColumn},
+			Table:   unpaybill.EdgesOfTreatmentTable,
+			Columns: []string{unpaybill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -207,12 +207,12 @@ func (uu *UnpaybillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uu.mutation.BillsCleared() {
+	if uu.mutation.EdgesOfBillsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   unpaybill.BillsTable,
-			Columns: []string{unpaybill.BillsColumn},
+			Table:   unpaybill.EdgesOfBillsTable,
+			Columns: []string{unpaybill.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -223,12 +223,12 @@ func (uu *UnpaybillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uu.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := uu.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   unpaybill.BillsTable,
-			Columns: []string{unpaybill.BillsColumn},
+			Table:   unpaybill.EdgesOfBillsTable,
+			Columns: []string{unpaybill.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -266,42 +266,42 @@ func (uuo *UnpaybillUpdateOne) SetStatus(s string) *UnpaybillUpdateOne {
 	return uuo
 }
 
-// SetTreatmentID sets the treatment edge to Treatment by id.
-func (uuo *UnpaybillUpdateOne) SetTreatmentID(id int) *UnpaybillUpdateOne {
-	uuo.mutation.SetTreatmentID(id)
+// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Treatment by id.
+func (uuo *UnpaybillUpdateOne) SetEdgesOfTreatmentID(id int) *UnpaybillUpdateOne {
+	uuo.mutation.SetEdgesOfTreatmentID(id)
 	return uuo
 }
 
-// SetNillableTreatmentID sets the treatment edge to Treatment by id if the given value is not nil.
-func (uuo *UnpaybillUpdateOne) SetNillableTreatmentID(id *int) *UnpaybillUpdateOne {
+// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Treatment by id if the given value is not nil.
+func (uuo *UnpaybillUpdateOne) SetNillableEdgesOfTreatmentID(id *int) *UnpaybillUpdateOne {
 	if id != nil {
-		uuo = uuo.SetTreatmentID(*id)
+		uuo = uuo.SetEdgesOfTreatmentID(*id)
 	}
 	return uuo
 }
 
-// SetTreatment sets the treatment edge to Treatment.
-func (uuo *UnpaybillUpdateOne) SetTreatment(t *Treatment) *UnpaybillUpdateOne {
-	return uuo.SetTreatmentID(t.ID)
+// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Treatment.
+func (uuo *UnpaybillUpdateOne) SetEdgesOfTreatment(t *Treatment) *UnpaybillUpdateOne {
+	return uuo.SetEdgesOfTreatmentID(t.ID)
 }
 
-// SetBillsID sets the bills edge to Bill by id.
-func (uuo *UnpaybillUpdateOne) SetBillsID(id int) *UnpaybillUpdateOne {
-	uuo.mutation.SetBillsID(id)
+// SetEdgesOfBillsID sets the EdgesOfBills edge to Bill by id.
+func (uuo *UnpaybillUpdateOne) SetEdgesOfBillsID(id int) *UnpaybillUpdateOne {
+	uuo.mutation.SetEdgesOfBillsID(id)
 	return uuo
 }
 
-// SetNillableBillsID sets the bills edge to Bill by id if the given value is not nil.
-func (uuo *UnpaybillUpdateOne) SetNillableBillsID(id *int) *UnpaybillUpdateOne {
+// SetNillableEdgesOfBillsID sets the EdgesOfBills edge to Bill by id if the given value is not nil.
+func (uuo *UnpaybillUpdateOne) SetNillableEdgesOfBillsID(id *int) *UnpaybillUpdateOne {
 	if id != nil {
-		uuo = uuo.SetBillsID(*id)
+		uuo = uuo.SetEdgesOfBillsID(*id)
 	}
 	return uuo
 }
 
-// SetBills sets the bills edge to Bill.
-func (uuo *UnpaybillUpdateOne) SetBills(b *Bill) *UnpaybillUpdateOne {
-	return uuo.SetBillsID(b.ID)
+// SetEdgesOfBills sets the EdgesOfBills edge to Bill.
+func (uuo *UnpaybillUpdateOne) SetEdgesOfBills(b *Bill) *UnpaybillUpdateOne {
+	return uuo.SetEdgesOfBillsID(b.ID)
 }
 
 // Mutation returns the UnpaybillMutation object of the builder.
@@ -309,15 +309,15 @@ func (uuo *UnpaybillUpdateOne) Mutation() *UnpaybillMutation {
 	return uuo.mutation
 }
 
-// ClearTreatment clears the treatment edge to Treatment.
-func (uuo *UnpaybillUpdateOne) ClearTreatment() *UnpaybillUpdateOne {
-	uuo.mutation.ClearTreatment()
+// ClearEdgesOfTreatment clears the EdgesOfTreatment edge to Treatment.
+func (uuo *UnpaybillUpdateOne) ClearEdgesOfTreatment() *UnpaybillUpdateOne {
+	uuo.mutation.ClearEdgesOfTreatment()
 	return uuo
 }
 
-// ClearBills clears the bills edge to Bill.
-func (uuo *UnpaybillUpdateOne) ClearBills() *UnpaybillUpdateOne {
-	uuo.mutation.ClearBills()
+// ClearEdgesOfBills clears the EdgesOfBills edge to Bill.
+func (uuo *UnpaybillUpdateOne) ClearEdgesOfBills() *UnpaybillUpdateOne {
+	uuo.mutation.ClearEdgesOfBills()
 	return uuo
 }
 
@@ -401,12 +401,12 @@ func (uuo *UnpaybillUpdateOne) sqlSave(ctx context.Context) (u *Unpaybill, err e
 			Column: unpaybill.FieldStatus,
 		})
 	}
-	if uuo.mutation.TreatmentCleared() {
+	if uuo.mutation.EdgesOfTreatmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   unpaybill.TreatmentTable,
-			Columns: []string{unpaybill.TreatmentColumn},
+			Table:   unpaybill.EdgesOfTreatmentTable,
+			Columns: []string{unpaybill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -417,12 +417,12 @@ func (uuo *UnpaybillUpdateOne) sqlSave(ctx context.Context) (u *Unpaybill, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := uuo.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   unpaybill.TreatmentTable,
-			Columns: []string{unpaybill.TreatmentColumn},
+			Table:   unpaybill.EdgesOfTreatmentTable,
+			Columns: []string{unpaybill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -436,12 +436,12 @@ func (uuo *UnpaybillUpdateOne) sqlSave(ctx context.Context) (u *Unpaybill, err e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uuo.mutation.BillsCleared() {
+	if uuo.mutation.EdgesOfBillsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   unpaybill.BillsTable,
-			Columns: []string{unpaybill.BillsColumn},
+			Table:   unpaybill.EdgesOfBillsTable,
+			Columns: []string{unpaybill.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -452,12 +452,12 @@ func (uuo *UnpaybillUpdateOne) sqlSave(ctx context.Context) (u *Unpaybill, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := uuo.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := uuo.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   unpaybill.BillsTable,
-			Columns: []string{unpaybill.BillsColumn},
+			Table:   unpaybill.EdgesOfBillsTable,
+			Columns: []string{unpaybill.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

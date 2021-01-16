@@ -22,6 +22,6 @@ func (Registrar) Fields() []ent.Field {
 func (Registrar) Edges() []ent.Edge {
 	return []ent.Edge{
 		
-		edge.From("user", User.Type).Ref("user2registrar").Unique(),
+		edge.From("EdgesOfUser", User.Type).Ref("EdgesOfUser2registrar").Unique(),
 	}
 }

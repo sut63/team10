@@ -76,11 +76,11 @@ export default function ComponentsTable() {
           : Patientrightss.map((item :any)=> (
            <TableRow>
              <TableCell align="center">{item.id}</TableCell>
-             <TableCell align="center">{item.edges.patientrightsInsurance.insurancecompany}</TableCell>
-             <TableCell align="center">{item.edges.patientrightsMedicalrecordstaff.id}</TableCell>
+             <TableCell align="center">{item.edges.edgesOfPatientrightsInsurance.insurancecompany}</TableCell>
+             <TableCell align="center">{item.edges.edgesOfPatientrightsMedicalrecordstaff.id}</TableCell>
              
-             <TableCell align="center">{item.edges.patientrightsPatientrightstype.permission}</TableCell>
-             <TableCell align="center">{item.edges.patientrightsPatientrecord.name}</TableCell>
+             <TableCell align="center">{item.edges.edgesOfPatientrightsPatientrightstype.permission}</TableCell>
+             <TableCell align="center">{item.edges.edgesOfPatientrightsPatientrecord.name}</TableCell>
              <TableCell align="center">{item.permissionDate}</TableCell>
              <TableCell align="center">
                <Button

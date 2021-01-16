@@ -26,19 +26,19 @@ func (ec *EducationlevelCreate) SetLevel(s string) *EducationlevelCreate {
 	return ec
 }
 
-// AddEducationlevel2doctorinfoIDs adds the educationlevel2doctorinfo edge to Doctorinfo by ids.
-func (ec *EducationlevelCreate) AddEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelCreate {
-	ec.mutation.AddEducationlevel2doctorinfoIDs(ids...)
+// AddEdgesOfEducationlevel2doctorinfoIDs adds the EdgesOfEducationlevel2doctorinfo edge to Doctorinfo by ids.
+func (ec *EducationlevelCreate) AddEdgesOfEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelCreate {
+	ec.mutation.AddEdgesOfEducationlevel2doctorinfoIDs(ids...)
 	return ec
 }
 
-// AddEducationlevel2doctorinfo adds the educationlevel2doctorinfo edges to Doctorinfo.
-func (ec *EducationlevelCreate) AddEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelCreate {
+// AddEdgesOfEducationlevel2doctorinfo adds the EdgesOfEducationlevel2doctorinfo edges to Doctorinfo.
+func (ec *EducationlevelCreate) AddEdgesOfEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelCreate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return ec.AddEducationlevel2doctorinfoIDs(ids...)
+	return ec.AddEdgesOfEducationlevel2doctorinfoIDs(ids...)
 }
 
 // Mutation returns the EducationlevelMutation object of the builder.
@@ -124,12 +124,12 @@ func (ec *EducationlevelCreate) createSpec() (*Educationlevel, *sqlgraph.CreateS
 		})
 		e.Level = value
 	}
-	if nodes := ec.mutation.Educationlevel2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := ec.mutation.EdgesOfEducationlevel2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   educationlevel.Educationlevel2doctorinfoTable,
-			Columns: []string{educationlevel.Educationlevel2doctorinfoColumn},
+			Table:   educationlevel.EdgesOfEducationlevel2doctorinfoTable,
+			Columns: []string{educationlevel.EdgesOfEducationlevel2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -27,11 +27,11 @@ import {
  */
 export interface EntOfficeroomEdges {
     /**
-     * Officeroom2doctorinfo holds the value of the officeroom2doctorinfo edge.
+     * EdgesOfOfficeroom2doctorinfo holds the value of the EdgesOfOfficeroom2doctorinfo edge.
      * @type {Array<EntDoctorinfo>}
      * @memberof EntOfficeroomEdges
      */
-    officeroom2doctorinfo?: Array<EntDoctorinfo>;
+    edgesOfOfficeroom2doctorinfo?: Array<EntDoctorinfo>;
 }
 
 export function EntOfficeroomEdgesFromJSON(json: any): EntOfficeroomEdges {
@@ -44,7 +44,7 @@ export function EntOfficeroomEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'officeroom2doctorinfo': !exists(json, 'Officeroom2doctorinfo') ? undefined : ((json['Officeroom2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'edgesOfOfficeroom2doctorinfo': !exists(json, 'EdgesOfOfficeroom2doctorinfo') ? undefined : ((json['EdgesOfOfficeroom2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntOfficeroomEdgesToJSON(value?: EntOfficeroomEdges | null): any
     }
     return {
         
-        'officeroom2doctorinfo': value.officeroom2doctorinfo === undefined ? undefined : ((value.officeroom2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
+        'EdgesOfOfficeroom2doctorinfo': value.edgesOfOfficeroom2doctorinfo === undefined ? undefined : ((value.edgesOfOfficeroom2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
     };
 }
 

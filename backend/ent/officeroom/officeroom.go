@@ -10,18 +10,18 @@ const (
 	// FieldRoomnumber holds the string denoting the roomnumber field in the database.
 	FieldRoomnumber = "roomnumber"
 
-	// EdgeOfficeroom2doctorinfo holds the string denoting the officeroom2doctorinfo edge name in mutations.
-	EdgeOfficeroom2doctorinfo = "officeroom2doctorinfo"
+	// EdgeEdgesOfOfficeroom2doctorinfo holds the string denoting the edgesofofficeroom2doctorinfo edge name in mutations.
+	EdgeEdgesOfOfficeroom2doctorinfo = "EdgesOfOfficeroom2doctorinfo"
 
 	// Table holds the table name of the officeroom in the database.
 	Table = "officerooms"
-	// Officeroom2doctorinfoTable is the table the holds the officeroom2doctorinfo relation/edge.
-	Officeroom2doctorinfoTable = "doctorinfos"
-	// Officeroom2doctorinfoInverseTable is the table name for the Doctorinfo entity.
+	// EdgesOfOfficeroom2doctorinfoTable is the table the holds the EdgesOfOfficeroom2doctorinfo relation/edge.
+	EdgesOfOfficeroom2doctorinfoTable = "doctorinfos"
+	// EdgesOfOfficeroom2doctorinfoInverseTable is the table name for the Doctorinfo entity.
 	// It exists in this package in order to avoid circular dependency with the "doctorinfo" package.
-	Officeroom2doctorinfoInverseTable = "doctorinfos"
-	// Officeroom2doctorinfoColumn is the table column denoting the officeroom2doctorinfo relation/edge.
-	Officeroom2doctorinfoColumn = "roomnumber"
+	EdgesOfOfficeroom2doctorinfoInverseTable = "doctorinfos"
+	// EdgesOfOfficeroom2doctorinfoColumn is the table column denoting the EdgesOfOfficeroom2doctorinfo relation/edge.
+	EdgesOfOfficeroom2doctorinfoColumn = "roomnumber"
 )
 
 // Columns holds all SQL columns for officeroom fields.

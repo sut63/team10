@@ -55,7 +55,7 @@ func (ctl *UserController) CreateUser(c *gin.Context) {
 
 	u, err := ctl.client.User.
 		Create().
-		SetUserstatus(us).
+		SetEdgesOfUserstatus(us).
 		SetEmail(obj.Email).
 		SetImages(obj.Images).
 		SetPassword(obj.Password).
@@ -92,13 +92,13 @@ func (ctl *UserController) GetUser(c *gin.Context) {
 	}
 	u, err := ctl.client.User.
 		Query().
-		WithFinancier().
-		WithNurse().
-		WithMedicalrecordstaff().
-		WithUser2registrar().
-		WithUserPatientrights().
-		WithUserstatus().
-		WithDoctor().
+		WithEdgesOfFinancier().
+		WithEdgesOfNurse().
+		WithEdgesOfMedicalrecordstaff().
+		WithEdgesOfUser2registrar().
+		WithEdgesOfUserPatientrights().
+		WithEdgesOfUserstatus().
+		WithEdgesOfDoctor().
 		Where(user.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -144,13 +144,13 @@ func (ctl *UserController) ListUser(c *gin.Context) {
 
 	users, err := ctl.client.User.
 		Query().
-		WithFinancier().
-		WithNurse().
-		WithMedicalrecordstaff().
-		WithUser2registrar().
-		WithUserPatientrights().
-		WithUserstatus().
-		WithDoctor().
+		WithEdgesOfFinancier().
+		WithEdgesOfNurse().
+		WithEdgesOfMedicalrecordstaff().
+		WithEdgesOfUser2registrar().
+		WithEdgesOfUserPatientrights().
+		WithEdgesOfUserstatus().
+		WithEdgesOfDoctor().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())
