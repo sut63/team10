@@ -1,6 +1,6 @@
 import { createPlugin } from '@backstage/core';
 import WelcomePage from './components/WelcomePage';
-import SignIn from './components/SignIn'
+
 
 import create_Patientrights from './components/create_patientrights';
 import Table_patientrights from './components/Table_patientrights';
@@ -12,6 +12,7 @@ import BillTable from './components/tableBill'
 import createTreatment from './components/createTreatment';
 import Treatment from './components/Treatment';
 import CreateDoctorinfo from './components/Doctorinfo';
+import create_Doctor from './components/create_Doctor';
 import createPatientrecord from './components/createPatientrecord';
 import Patientrecord from './components/Patientrecord';
 import tablePatientrecord from './components/tablePatientrecord';
@@ -20,7 +21,7 @@ import Logout from './components/Logout';
 import reg from './components/reg';
 
 import { Cookies } from 'react-cookie/cjs';//cookie
-import React, { useEffect, FC } from 'react';
+
 
 
 
@@ -68,7 +69,9 @@ export const plugin = createPlugin({
       }
       
       if (Status == 'Reg' || Status == 'Root' ) {
+        
         router.registerRoute('/Doctorinfo', CreateDoctorinfo);
+        router.registerRoute('/create_Doctor', create_Doctor);
       }
 
     

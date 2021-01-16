@@ -43,7 +43,7 @@ type Patientrecord struct {
 // @Accept   json
 // @Produce  json
 // @Param patientrecord body Patientrecord true "Patientrecord entity"
-// @Success 200 {object} ent.Patientrecord
+// @Success 200 {object} Patientrecord
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /patientrecord [post]

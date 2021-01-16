@@ -44,7 +44,7 @@ type Historytaking struct {
 // @Accept   json
 // @Produce  json
 // @Param historytaking body Historytaking true "Historytaking entity"
-// @Success 200 {object} ent.Historytaking
+// @Success 200 {object} Historytaking
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /historytaking [post]

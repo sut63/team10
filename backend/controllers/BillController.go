@@ -35,7 +35,7 @@ type Bill struct {
 // @Accept   json
 // @Produce  json
 // @Param bill body Bill true "Bill entity"
-// @Success 200 {object} ent.Bill
+// @Success 200 {object} Bill
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /bills [post]

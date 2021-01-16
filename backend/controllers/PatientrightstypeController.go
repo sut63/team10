@@ -31,8 +31,8 @@ type Patientrightstype struct {
 // @ID create-patientrightstype
 // @Accept   json
 // @Produce  json
-// @Param patientrightstype body ent.Patientrightstype true "Patientrightstype entity"
-// @Success 200 {object} ent.Patientrightstype
+// @Param patientrightstype body Patientrightstype true "Patientrightstype entity"
+// @Success 200 {object} Patientrightstype
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /patientrightstypes [post]

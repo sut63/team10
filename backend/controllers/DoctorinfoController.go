@@ -41,7 +41,7 @@ type Doctorinfo struct {
 // @Accept   json
 // @Produce  json
 // @Param doctorinfo body Doctorinfo true "Doctorinfo entity"
-// @Success 200 {object} ent.Doctorinfo
+// @Success 200 {object} Doctorinfo
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /doctorinfos [post]
@@ -149,6 +149,7 @@ func (ctl *DoctorinfoController) GetDoctorinfo(c *gin.Context) {
 		WithEdgesOfEducationlevel().
 		WithEdgesOfOfficeroom().
 		WithEdgesOfPrename().
+		WithEdgesOfDoctor().
 		Where(doctorinfo.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -197,6 +198,7 @@ func (ctl *DoctorinfoController) ListDoctorinfo(c *gin.Context) {
 		WithEdgesOfEducationlevel().
 		WithEdgesOfOfficeroom().
 		WithEdgesOfPrename().
+		WithEdgesOfDoctor().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

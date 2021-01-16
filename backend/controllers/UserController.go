@@ -16,6 +16,7 @@ type UserController struct {
 	client *ent.Client
 	router gin.IRouter
 }
+// User defines the struct for the User entity
 type User struct {
 	Userstatus int
 	Email      string
@@ -30,7 +31,7 @@ type User struct {
 // @Accept   json
 // @Produce  json
 // @Param user body User true "User entity"
-// @Success 200 {object} ent.User
+// @Success 200 {object} User
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /users [post]

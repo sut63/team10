@@ -192,7 +192,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Treatment"
+                            "$ref": "#/definitions/controllers.Treatment"
                         }
                     },
                     "400": {
@@ -778,7 +778,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Bill"
+                            "$ref": "#/definitions/controllers.Bill"
                         }
                     },
                     "400": {
@@ -1181,7 +1181,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Doctorinfo"
+                            "$ref": "#/definitions/controllers.Doctorinfo"
                         }
                     },
                     "400": {
@@ -2029,7 +2029,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Historytaking"
+                            "$ref": "#/definitions/controllers.Historytaking"
                         }
                     },
                     "400": {
@@ -2848,7 +2848,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Patientrecord"
+                            "$ref": "#/definitions/controllers.Patientrecord"
                         }
                     },
                     "400": {
@@ -3200,7 +3200,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/ent.Patientrightstype"
+                            "$ref": "#/definitions/controllers.Patientrightstype"
                         }
                     }
                 ],
@@ -3208,7 +3208,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Patientrightstype"
+                            "$ref": "#/definitions/controllers.Patientrightstype"
                         }
                     },
                     "400": {
@@ -4318,7 +4318,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.User"
+                            "$ref": "#/definitions/controllers.User"
                         }
                     },
                     "400": {
@@ -4861,6 +4861,23 @@ var doc = `{
                 "patientrightstype": {
                     "description": "Abilitypatientrights int",
                     "type": "integer"
+                }
+            }
+        },
+        "controllers.Patientrightstype": {
+            "type": "object",
+            "properties": {
+                "abilitypatientrights": {
+                    "type": "integer"
+                },
+                "permission": {
+                    "type": "string"
+                },
+                "permissionArea": {
+                    "type": "string"
+                },
+                "responsible": {
+                    "type": "string"
                 }
             }
         },

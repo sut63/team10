@@ -37,7 +37,7 @@ type Treatment struct {
 // @Accept   json
 // @Produce  json
 // @Param Treatment body Treatment true "Treatment entity"
-// @Success 200 {object} ent.Treatment
+// @Success 200 {object} Treatment
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /Treatments [post]

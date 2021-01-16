@@ -17,6 +17,7 @@ type NurseController struct {
 	router gin.IRouter
 }
 
+// Nurse defines the struct for the Nurse entity
 type Nurse struct {
 	Name			string
 	Nursinglicense	string
