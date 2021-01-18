@@ -106,7 +106,6 @@ const NewPatientright: FC<{}> = () => {
   };
 
 
-
   // Lifecycle Hooks
   useEffect(() => {
 
