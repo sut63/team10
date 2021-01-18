@@ -74,7 +74,6 @@ export const plugin = createPlugin({
         router.registerRoute('/create_Doctor', create_Doctor);
       }
 
-    
       router.registerRoute('/', WelcomePage);
     }
 
