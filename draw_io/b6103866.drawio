@@ -1,6 +1,6 @@
-<mxfile host="65bd71144e" modified="2021-01-14T15:32:00.414Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" etag="WSZPH2ha8qQTZHhYYn1f" version="13.10.0" type="embed" pages="3">
+<mxfile host="65bd71144e" modified="2021-01-18T12:28:11.994Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" etag="ecR5FITYcAVy57hRtr9x" version="13.10.0" type="embed" pages="3">
     <diagram id="uq04VEFEQE6Xi56XoTHK" name="Communication Diagram">
-        <mxGraphModel dx="1836" dy="740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1838" dy="414" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -180,7 +180,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="9OtMg5kcq7ys0b88Z_S4" name="Class Diagram ( ทั้ง Entity, Boundary, Control">
-        <mxGraphModel dx="1836" dy="740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1838" dy="414" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="KtXMnVQGv9gxdhzujqgW-0"/>
                 <mxCell id="KtXMnVQGv9gxdhzujqgW-1" parent="KtXMnVQGv9gxdhzujqgW-0"/>
@@ -425,7 +425,7 @@
                         <mxPoint x="-177" y="-29" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="ECTTBvpi7TeA_VYZKQmi-0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="KtXMnVQGv9gxdhzujqgW-1">
+                <mxCell id="ECTTBvpi7TeA_VYZKQmi-0" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" parent="KtXMnVQGv9gxdhzujqgW-1" vertex="1" connectable="0">
                     <mxGeometry x="339.99833927181726" y="599.9960553717672" as="geometry">
                         <mxPoint x="-392" y="-189" as="offset"/>
                     </mxGeometry>
@@ -434,7 +434,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="bKuJ9HDTIBWNmMeNKlTZ" name="System Activity Diagram">
-        <mxGraphModel dx="1009" dy="740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1011" dy="414" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="Hbqb-1Qobj14XvleTHor-0"/>
                 <mxCell id="Hbqb-1Qobj14XvleTHor-1" parent="Hbqb-1Qobj14XvleTHor-0"/>

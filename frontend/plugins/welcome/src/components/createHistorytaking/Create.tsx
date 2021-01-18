@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { EntNurse } from '../../api/models/EntNurse';
 import { EntSymptomseverity } from '../../api/models/EntSymptomseverity';
-import { EntDepartment} from '../../api/models/EntDepartment';
+import { EntDepartment } from '../../api/models/EntDepartment';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { Grid, TextField, Avatar } from '@material-ui/core';
 import { Cookies } from 'react-cookie/cjs';//cookie
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3),
     },
     formControl: {
-        width: 250,
+      width: 250,
     },
     withoutLabel: {
       marginTop: theme.spacing(3),
@@ -157,10 +157,10 @@ export default function CreateHistorytaking() {
 
   useEffect(() => {
 
-    const getChangeOfUser =  async () => {
+    const getChangeOfUser = async () => {
 
       const name = "nurse";
-      const value  = parseInt(NURID, 10);
+      const value = parseInt(NURID, 10);
       setHistorytaking({ ...Historytaking, [name]: value });
     };
     getChangeOfUser();
@@ -173,7 +173,7 @@ export default function CreateHistorytaking() {
     getSymptomseveritys();
 
     const getNurses = async () => {
-      const res = await api.getNurse({id : Number(NURID)});
+      const res = await api.getNurse({ id: Number(NURID) });
       setLoading(false);
       setNurses(res);
       console.log(res);
@@ -204,36 +204,36 @@ export default function CreateHistorytaking() {
 
   }, [loading]);
 
-const handleChange = (
+  const handleChange = (
 
-  event: React.ChangeEvent<{ name?: string; value: unknown }>,
-) => {
-  const name = event.target.name as keyof typeof CreateHistorytaking;
-  const { value } = event.target;
-  setHistorytaking({ ...Historytaking, [name]: value });
-};
+    event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  ) => {
+    const name = event.target.name as keyof typeof CreateHistorytaking;
+    const { value } = event.target;
+    setHistorytaking({ ...Historytaking, [name]: value });
+  };
 
 
 
 
   const CreateHistorytaking = async () => {
 
-    if((Historytaking.bp != '')&&(Historytaking.datetime != '')
-        &&(Historytaking.hight != '')&&(Historytaking.oxygen != '')
-        &&(Historytaking.pulse != '')&&(Historytaking.symptom != '')
-        &&(Historytaking.temp != '')&&(Historytaking.weight != '')
-        &&(Historytaking.bp != '')&&(Historytaking.symptomseverity != null)
-        &&(Historytaking.patientrecord != null)&&(Historytaking.nurse != null)
-        &&(Historytaking.department != null)){
+    if ((Historytaking.bp != '') && (Historytaking.datetime != '')
+      && (Historytaking.hight != '') && (Historytaking.oxygen != '')
+      && (Historytaking.pulse != '') && (Historytaking.symptom != '')
+      && (Historytaking.temp != '') && (Historytaking.weight != '')
+      && (Historytaking.bp != '') && (Historytaking.symptomseverity != null)
+      && (Historytaking.patientrecord != null) && (Historytaking.nurse != null)
+      && (Historytaking.department != null)) {
 
-    const res: any = await api.createHistorytaking({ 
-      historytaking:Historytaking
-    });
-    console.log(Historytaking);
-    
-    setStatus(true);
-    if (res.id != '') {
-      setAlert(true);
+      const res: any = await api.createHistorytaking({
+        historytaking: Historytaking
+      });
+      console.log(Historytaking);
+
+      setStatus(true);
+      if (res.id != '') {
+        setAlert(true);
       }
     }
     else {
@@ -252,248 +252,248 @@ const handleChange = (
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
-        <Grid container spacing = {5} >
-          <Grid container item xs = {12} sm = {12}  >
-              <Grid item xs = {12}>
-                <Typography align ="center">
-                    <Typography align = "center" variant = "h3">
-                      <br/>=====  Create Historytaking  ===== <br/> <br/>
-                    </Typography> 
-                        <div className={classes.root}>
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                                <TextField
-                                    name="hight"
-                                    label="Hight(cm)"
-                                    variant="outlined"
-                                    type="number"
-                                    size="medium"
-                                        
-                                    value={Historytaking.hight}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-      
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                                <TextField
-                                    name="weight"
-                                    label="Weight(kg)"
-                                    variant="outlined"
-                                    type="number"
-                                    size="medium"
-                                    
-                                    value={Historytaking.weight}
-                                    onChange={handleChange}
-                                    />
-                            </FormControl>
-                            </form>
-                        </div><br/>
-                        
-                        <div className={classes.root}>
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                    name="temp"
-                                    label="Temperature(Celcius)"
-                                    variant="outlined"
-                                    type="number"
-                                    size="medium"
-                                    
-                                    value={Historytaking.temp}
-                                    onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="pulse"
-                                label="Pulse(Times/minute)"
-                                variant="outlined"
-                                type="number"
-                                size="medium"
-                                
-                                value={Historytaking.pulse}
-                                onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-                        </div><br/>
-
-                        <div className={classes.root}>
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="respiration"
-                                label="Respiration(Times/minute)"
-                                variant="outlined"
-                                type="number"
-                                size="medium"
-                                
-                                value={Historytaking.respiration}
-                                onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-                        
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="bp"
-                                label="Blood pressure(mm/Hg)"
-                                variant="outlined"
-                                type="string"
-                                size="medium"
-                                
-                                value={Historytaking.bp}
-                                onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-                        </div><br/>
-       
-                        <div className={classes.root}>
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="oxygen"
-                                label="Oxygen(%)"
-                                variant="outlined"
-                                type="string"
-                                size="medium"
-                                
-                                value={Historytaking.oxygen}
-                                onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-                        
-                            <form noValidate autoComplete="off">
-                            <FormControl variant="filled" className={classes.formControl}>
-                            <TextField
-                                name="symptom"
-                                label="Symptomseverity"
-                                variant="outlined"
-                                type="string"
-                                size="medium"
-                                
-                                value={Historytaking.symptom}
-                                onChange={handleChange}
-                                />
-                            </FormControl>
-                            </form>
-                        </div><br/>
+        <Grid container spacing={5} >
+          <Grid container item xs={12} sm={12}  >
+            <Grid item xs={12}>
+              <Typography align="center">
+                <Typography align="center" variant="h3">
+                  <br />=====  Create Historytaking  ===== <br /> <br />
                 </Typography>
+                <div className={classes.root}>
+                  <form noValidate autoComplete="off">
+                    <FormControl variant="filled" className={classes.formControl}>
+                      <TextField
+                        name="hight"
+                        label="Hight(cm)"
+                        variant="outlined"
+                        type="number"
+                        size="medium"
 
-                <Typography variant="h6" gutterBottom  align="center">
-                    Nurse : {nurses?.name}
-                <Typography variant="body1" gutterBottom> 
-                
+                        value={Historytaking.hight}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </form>
+
+                  <form noValidate autoComplete="off">
+                    <FormControl variant="filled" className={classes.formControl}>
+                      <TextField
+                        name="weight"
+                        label="Weight(kg)"
+                        variant="outlined"
+                        type="number"
+                        size="medium"
+
+                        value={Historytaking.weight}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </form>
+                </div><br />
+
+                <div className={classes.root}>
+                  <form noValidate autoComplete="off">
+                    <FormControl variant="filled" className={classes.formControl}>
+                      <TextField
+                        name="temp"
+                        label="Temperature(Celcius)"
+                        variant="outlined"
+                        type="number"
+                        size="medium"
+
+                        value={Historytaking.temp}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </form>
+
+                  <form noValidate autoComplete="off">
+                    <FormControl variant="filled" className={classes.formControl}>
+                      <TextField
+                        name="pulse"
+                        label="Pulse(Times/minute)"
+                        variant="outlined"
+                        type="number"
+                        size="medium"
+
+                        value={Historytaking.pulse}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </form>
+                </div><br />
+
+                <div className={classes.root}>
+                  <form noValidate autoComplete="off">
+                    <FormControl variant="filled" className={classes.formControl}>
+                      <TextField
+                        name="respiration"
+                        label="Respiration(Times/minute)"
+                        variant="outlined"
+                        type="number"
+                        size="medium"
+
+                        value={Historytaking.respiration}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </form>
+
+                  <form noValidate autoComplete="off">
+                    <FormControl variant="filled" className={classes.formControl}>
+                      <TextField
+                        name="bp"
+                        label="Blood pressure(mm/Hg)"
+                        variant="outlined"
+                        type="string"
+                        size="medium"
+
+                        value={Historytaking.bp}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </form>
+                </div><br />
+
+                <div className={classes.root}>
+                  <form noValidate autoComplete="off">
+                    <FormControl variant="filled" className={classes.formControl}>
+                      <TextField
+                        name="oxygen"
+                        label="Oxygen(%)"
+                        variant="outlined"
+                        type="string"
+                        size="medium"
+
+                        value={Historytaking.oxygen}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </form>
+
+                  <form noValidate autoComplete="off">
+                    <FormControl variant="filled" className={classes.formControl}>
+                      <TextField
+                        name="symptom"
+                        label="Symptomseverity"
+                        variant="outlined"
+                        type="string"
+                        size="medium"
+
+                        value={Historytaking.symptom}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </form>
+                </div><br />
+              </Typography>
+
+              <Typography variant="h6" gutterBottom align="center">
+                Nurse : {nurses?.name}
+                <Typography variant="body1" gutterBottom>
+
                 </Typography>
-                </Typography><br/>
-                <Typography variant="h6" gutterBottom  align="center">
-                    Symptomseverity : 
-                <Typography variant="body1" gutterBottom> 
-                <Select
+              </Typography><br />
+              <Typography variant="h6" gutterBottom align="center">
+                Symptomseverity :
+                <Typography variant="body1" gutterBottom>
+                  <Select
                     labelId="symptomseveritys"
                     id="symptomseveritys"
                     name="symptomseverity"
                     value={Historytaking.symptomseverity}
                     onChange={handleChange}
                     style={{ width: 500 }}
-                >
-                {symptomseveritys.map((item: any) => (
-                  <MenuItem value={item.id}>{item.symptomseverity}</MenuItem>
-                ))}
-                </Select>
+                  >
+                    {symptomseveritys.map((item: any) => (
+                      <MenuItem value={item.id}>{item.symptomseverity}</MenuItem>
+                    ))}
+                  </Select>
                 </Typography>
-                </Typography><br/>
-                <Typography variant="h6" gutterBottom  align="center">
-                    Department : 
-                <Typography variant="body1" gutterBottom> 
-                <Select
+              </Typography><br />
+              <Typography variant="h6" gutterBottom align="center">
+                Department :
+                <Typography variant="body1" gutterBottom>
+                  <Select
                     labelId="departments"
                     id="departments"
                     name="department"
                     value={Historytaking.department}
                     onChange={handleChange}
                     style={{ width: 500 }}
-                >
-                {departments.map((item: any) => (
-                    <MenuItem value={item.id}>{item.department}</MenuItem>
-                ))}
-                </Select>
+                  >
+                    {departments.map((item: any) => (
+                      <MenuItem value={item.id}>{item.department}</MenuItem>
+                    ))}
+                  </Select>
                 </Typography>
-                </Typography><br/>
-                <Typography variant="h6" gutterBottom  align="center">
-                    Patientrecord : 
-                <Typography variant="body1" gutterBottom> 
-                <Select
+              </Typography><br />
+              <Typography variant="h6" gutterBottom align="center">
+                Patientrecord :
+                <Typography variant="body1" gutterBottom>
+                  <Select
                     labelId="patientrecords"
                     id="patientrecords"
                     name="patientrecord"
                     value={Historytaking.patientrecord}
                     onChange={handleChange}
                     style={{ width: 500 }}
-                >
-                {patientrecords.map((item: any) => (
-                  <MenuItem value={item.id}>{item.name}</MenuItem>
-                ))}
-                </Select>
+                  >
+                    {patientrecords.map((item: any) => (
+                      <MenuItem value={item.id}>{item.name}</MenuItem>
+                    ))}
+                  </Select>
                 </Typography>
-                </Typography><br/>
-                <Grid container justify="center">
-                    {status ? (
-                    <div>
-                        {alert ? (
-                        <Alert severity="success">
-                            success!
+              </Typography><br />
+              <Grid container justify="center">
+                {status ? (
+                  <div>
+                    {alert ? (
+                      <Alert severity="success">
+                        success!
+                      </Alert>
+                    ) : (
+                        <Alert severity="error" style={{ marginTop: 40 }}>
+                          This is a error alert — check it out!
                         </Alert>
-                        ) : (
-                            <Alert severity="error" style={{ marginTop: 40 }}>
-                            This is a error alert — check it out!
-                            </Alert>
-                        )}
-                    </div>
-                    ) : null}
-                </Grid> <br/>
+                      )}
+                  </div>
+                ) : null}
+              </Grid> <br />
 
-                <div className={classes.margin}>
-                <Typography variant="h6" gutterBottom  align="center">
-                <Button
+              <div className={classes.margin}>
+                <Typography variant="h6" gutterBottom align="center">
+                  <Button
                     onClick={() => {
-                    CreateHistorytaking();
+                      CreateHistorytaking();
                     }}
                     variant="contained"
                     color="primary"
-                >
+                  >
                     Submit
                 </Button>
-                <Button
+                  <Button
                     style={{ marginLeft: 40 }}
                     component={RouterLink}
                     to="/"
                     variant="contained"
-                >
+                  >
                     Back
                 </Button>
-                <Button
+                  <Button
                     style={{ marginLeft: 40 }}
                     component={RouterLink}
                     to="/Historytaking"
                     variant="contained"
                     color="secondary"
-                >
+                  >
                     SHOW
                 </Button>
-                </Typography> <br/>
-                </div>
-                </Grid>
+                </Typography> <br />
+              </div>
             </Grid>
-        </Grid>     
+          </Grid>
+        </Grid>
       </Content>
     </Page>
   );

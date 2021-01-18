@@ -1,22 +1,34 @@
 import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import { Content, Header, Page, pageTheme, ContentHeader, } from '@backstage/core';
+
 import {
+
   FormControl,
   Select,
   InputLabel,
   MenuItem,
   Avatar,
+
+  Link,
   Button,
 } from '@material-ui/core';
+import Timer from '../Timer';
 import { DefaultApi } from '../../api/apis'; // Api Gennerate From Command
+import { ControllersPatientrightstype } from '../../api/models/ControllersPatientrightstype';
 
-import { ControllersDoctor } from '../../api/models/ControllersDoctor';
-import { EntUser } from '../../api/models/EntUser';
 
-import { EntDoctorinfo } from '../../api/models/EntDoctorinfo';
+import { EntInsurance } from '../../api/models/EntInsurance';
+
 import { Alert } from '@material-ui/lab';
 import { Cookies } from 'react-cookie/cjs';//cookie
+import { EntUser } from '../../api/models/EntUser';
+
+
+import { Link as RouterLink } from 'react-router-dom';
+
+import { Image3Base64Function } from '../../image/Image3';
 
 // header css
 const HeaderCustom = {
@@ -65,25 +77,27 @@ const useStyles = makeStyles(theme => ({
 
 const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
+  const profile = { givenName: 'สิทธ์' };
   const http = new DefaultApi();
   const cookies = new Cookies();
-  const [Doctor, setDoctor] = React.useState<Partial<ControllersDoctor>>({});
-  const [User, setUser] = React.useState<EntUser[]>([]);
-  const [Doctorinfo, setDoctorinfo] = React.useState<EntDoctorinfo[]>([]);
+
+  const [Patientrightstype, setPatientrightstype] = React.useState<Partial<ControllersPatientrightstype>>({});
+  const [Insurance, setInsurance] = React.useState<EntInsurance[]>([]);
   const [status, setStatus] = React.useState(false);
   const [alert, setAlert] = React.useState(true);
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
   const Img = cookies.get('Img');
 
 
-  const getUser = async () => {
-    const res = await http.listUser({ limit: 10, offset: 0 });
-    setUser(res);
-  };
 
-  const getDoctorinfo = async () => {
-    const res = await http.listDoctorinfo({ limit: 10, offset: 0 });
-    setDoctorinfo(res);
+
+
+ 
+
+  const getInsurance = async () => {
+    const res = await http.listInsurance({ limit: 10, offset: 0 });
+    setInsurance(res);
   };
 
   const getImg = async () => {
@@ -91,10 +105,13 @@ const NewPatientright: FC<{}> = () => {
     setUsers(res);
   };
 
+
+
   // Lifecycle Hooks
   useEffect(() => {
-    getUser();
-    getDoctorinfo();
+
+    getInsurance();
+
     getImg();
   }, []);
 
@@ -105,45 +122,56 @@ const NewPatientright: FC<{}> = () => {
   ) => {
     const name = event.target.name as keyof typeof NewPatientright;
     const { value } = event.target;
-    setDoctor({ ...Doctor, [name]: value });
+    setPatientrightstype({ ...Patientrightstype, [name]: value });
   };
+
+
+
+
 
   const CreatePatientright = async () => {
 
-    if ((Doctor.doctorinfo != null) && (Doctor.user != null)
-    ) {
-      const res: any = await http.createDoctor({
-        doctor: Doctor
+    if ((Patientrightstype.insurance != null) && (Patientrightstype.medicalrecordstaff != null)
+      && (Patientrightstype.patientrecord != null) && (Patientrightstype.patientrightstype != null)) {
+
+      const res: any = await http.createPatientrightstype({
+        patientrights: Patientrightstype
+
+
       });
-      console.log(Doctor);
+      console.log(Patientrightstype);
+
+
 
       if (res.id != '') {
         setStatus(true);
         setAlert(true);
         setTimeout(() => {
           setStatus(false);
-        }, 5000);   
+        }, 2000);
       }
-      window.location.reload(false)
+
     }
     else {
       setStatus(true);
       setAlert(false);
       setTimeout(() => {
         setStatus(false);
-      }, 5000);
+      }, 2000);
     }
   };
 
 
+
   return (
     <Page theme={pageTheme.home}>
-      <Header style={HeaderCustom} title={`ลงทะหมอ`}>
+      <Header style={HeaderCustom} title={`ลงทะเบียนสิทธิ์`}>
         <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
         <ContentHeader title="ข้อมูล">
+
           {status ? (
             <div>
               {alert ? (
@@ -159,51 +187,89 @@ const NewPatientright: FC<{}> = () => {
           ) : null}
         </ContentHeader>
 
+
+
+
         <div className={classes.root}>
           <form noValidate autoComplete="off">
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>user</InputLabel>
-              <Select
-                name="user"
-                value={Doctor.user}
+            <FormControl variant="filled" className={classes.formControl}>
+              <TextField
+                name="hight"
+                label="Hight(cm)"
+                variant="outlined"
+                type="number"
+                size="medium"
+
+                value={Historytaking.hight}
                 onChange={handleChange}
-              >
-                {User.filter(i => (i.edges?.edgesOfDoctor?.id  === undefined)).map(item => {
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.email} {item.edges?.edgesOfDoctor?.id}
-                      </MenuItem>
-                );
-              })}
-              </Select>
+              />
             </FormControl>
           </form>
-        </div>
+        </div><br />
+        <div className={classes.root}>
+          <form noValidate autoComplete="off">
+            <FormControl variant="filled" className={classes.formControl}>
+              <TextField
+                name="weight"
+                label="Weight(kg)"
+                variant="outlined"
+                type="number"
+                size="medium"
+
+                value={Historytaking.weight}
+                onChange={handleChange}
+              />
+            </FormControl>
+          </form>
+        </div><br />
+
+
+        <div className={classes.root}>
+          <form noValidate autoComplete="off">
+            <FormControl variant="filled" className={classes.formControl}>
+              <TextField
+                name="weight"
+                label="Weight(kg)"
+                variant="outlined"
+                type="number"
+                size="medium"
+
+                value={Historytaking.weight}
+                onChange={handleChange}
+              />
+            </FormControl>
+          </form>
+        </div><br />
+
 
         <div className={classes.root}>
           <form noValidate autoComplete="off">
             <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel>ข้อมูลหมอ</InputLabel>
+              <InputLabel>ผู้ป่วย</InputLabel>
               <Select
-                name="doctorinfo"
-                value={Doctor.doctorinfo}
+                name="patientrecord"
+                value={Patientrightstype.patientrecord}
                 onChange={handleChange}
               >
-                {Doctorinfo.filter(i => (i.edges?.edgesOfDoctor?.id  === undefined)).map(item => {
-                  
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.doctorname} {item.doctorsurname} {item.edges?.edgesOfDoctor?.id}
-                      </MenuItem>
+                {Patientrecord.map((item: any) => {
+                  return (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.name}
+                    </MenuItem>
                   );
                 })}
               </Select>
             </FormControl>
+
+
           </form>
         </div>
 
+
         <div className={classes.root}>
           <form noValidate autoComplete="off">
+
+
             <div className={classes.margin}>
               <Button
                 onClick={() => {
@@ -214,7 +280,6 @@ const NewPatientright: FC<{}> = () => {
               >
                 Submit
              </Button>
-             {/*
               <Button
                 style={{ marginLeft: 40 }}
                 component={RouterLink}
@@ -223,17 +288,16 @@ const NewPatientright: FC<{}> = () => {
               >
                 Back
                 </Button>
-                
               <Button
                 style={{ marginLeft: 40 }}
                 component={RouterLink}
-                to="/Table_doctor"
+                to="/Table_patientrights"
                 variant="contained"
                 color="secondary"
               >
                 SHOW
                 </Button>
-                */}
+
             </div>
           </form>
         </div>
