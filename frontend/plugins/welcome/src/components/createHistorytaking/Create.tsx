@@ -241,7 +241,6 @@ export default function CreateHistorytaking() {
       }, 3000);
     }
   };
-  const profile = { givenName: '' };
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`HISTORYTAKING DEPARTMENT`}>
