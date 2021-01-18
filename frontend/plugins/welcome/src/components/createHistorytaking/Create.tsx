@@ -213,9 +213,6 @@ export default function CreateHistorytaking() {
     setHistorytaking({ ...Historytaking, [name]: value });
   };
 
-
-
-
   const CreateHistorytaking = async () => {
 
     if ((Historytaking.bp != '') && (Historytaking.datetime != '')
