@@ -266,7 +266,7 @@ export default function CreateHistorytaking() {
                         name="hight"
                         label="Hight(cm)"
                         variant="outlined"
-                        type="number"
+                        type="string"
                         size="medium"
 
                         value={Historytaking.hight}
@@ -281,7 +281,7 @@ export default function CreateHistorytaking() {
                         name="weight"
                         label="Weight(kg)"
                         variant="outlined"
-                        type="number"
+                        type="string"
                         size="medium"
 
                         value={Historytaking.weight}
@@ -298,7 +298,7 @@ export default function CreateHistorytaking() {
                         name="temp"
                         label="Temperature(Celcius)"
                         variant="outlined"
-                        type="number"
+                        type="stringr"
                         size="medium"
 
                         value={Historytaking.temp}
@@ -313,7 +313,7 @@ export default function CreateHistorytaking() {
                         name="pulse"
                         label="Pulse(Times/minute)"
                         variant="outlined"
-                        type="number"
+                        type="string"
                         size="medium"
 
                         value={Historytaking.pulse}
@@ -330,7 +330,7 @@ export default function CreateHistorytaking() {
                         name="respiration"
                         label="Respiration(Times/minute)"
                         variant="outlined"
-                        type="number"
+                        type="string"
                         size="medium"
 
                         value={Historytaking.respiration}
