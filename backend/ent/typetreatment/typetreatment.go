@@ -10,18 +10,18 @@ const (
 	// FieldTypetreatment holds the string denoting the typetreatment field in the database.
 	FieldTypetreatment = "typetreatment"
 
-	// EdgeTreatment holds the string denoting the treatment edge name in mutations.
-	EdgeTreatment = "treatment"
+	// EdgeEdgesOfTreatment holds the string denoting the edgesoftreatment edge name in mutations.
+	EdgeEdgesOfTreatment = "EdgesOfTreatment"
 
 	// Table holds the table name of the typetreatment in the database.
 	Table = "typetreatments"
-	// TreatmentTable is the table the holds the treatment relation/edge.
-	TreatmentTable = "treatments"
-	// TreatmentInverseTable is the table name for the Treatment entity.
+	// EdgesOfTreatmentTable is the table the holds the EdgesOfTreatment relation/edge.
+	EdgesOfTreatmentTable = "treatments"
+	// EdgesOfTreatmentInverseTable is the table name for the Treatment entity.
 	// It exists in this package in order to avoid circular dependency with the "treatment" package.
-	TreatmentInverseTable = "treatments"
-	// TreatmentColumn is the table column denoting the treatment relation/edge.
-	TreatmentColumn = "typetreatment_id"
+	EdgesOfTreatmentInverseTable = "treatments"
+	// EdgesOfTreatmentColumn is the table column denoting the EdgesOfTreatment relation/edge.
+	EdgesOfTreatmentColumn = "typetreatment_id"
 )
 
 // Columns holds all SQL columns for typetreatment fields.

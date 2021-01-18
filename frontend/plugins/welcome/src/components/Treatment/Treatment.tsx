@@ -155,12 +155,12 @@ export default function ComponentsTable() {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {treatments.map(item => (doctors.filter(t => t.id === item.edges?.doctor?.id).map(item2 => (
+                                                {treatments.map(item => (doctors.filter(t => t.id === item.edges?.edgesOfDoctor?.id).map(item2 => (
                                                     <TableRow key={item.id}>
                                                         <TableCell align="center">{item.id}</TableCell>
-                                                        <TableCell align="center">{item2.edges?.doctorinfo?.doctorname} {item2.edges?.doctorinfo?.doctorsurname}</TableCell>
-                                                        <TableCell align="center">{item.edges?.patientrecord?.name}</TableCell>
-                                                        <TableCell align="center">{item.edges?.typetreatment?.typetreatment}</TableCell>
+                                                        <TableCell align="center">{item2.edges?.edgesOfDoctorinfo?.doctorname} {item2.edges?.edgesOfDoctorinfo?.doctorsurname}</TableCell>
+                                                        <TableCell align="center">{item.edges?.edgesOfPatientrecord?.name}</TableCell>
+                                                        <TableCell align="center">{item.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
                                                         <TableCell align="center">{item.datetreat}</TableCell>
                                                         <TableCell align="center">
                                                             <Button

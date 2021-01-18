@@ -26,36 +26,36 @@ type Financier struct {
 
 // FinancierEdges holds the relations/edges for other nodes in the graph.
 type FinancierEdges struct {
-	// Bills holds the value of the bills edge.
-	Bills []*Bill
-	// User holds the value of the user edge.
-	User *User
+	// EdgesOfBills holds the value of the EdgesOfBills edge.
+	EdgesOfBills []*Bill
+	// EdgesOfUser holds the value of the EdgesOfUser edge.
+	EdgesOfUser *User
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
 }
 
-// BillsOrErr returns the Bills value or an error if the edge
+// EdgesOfBillsOrErr returns the EdgesOfBills value or an error if the edge
 // was not loaded in eager-loading.
-func (e FinancierEdges) BillsOrErr() ([]*Bill, error) {
+func (e FinancierEdges) EdgesOfBillsOrErr() ([]*Bill, error) {
 	if e.loadedTypes[0] {
-		return e.Bills, nil
+		return e.EdgesOfBills, nil
 	}
-	return nil, &NotLoadedError{edge: "bills"}
+	return nil, &NotLoadedError{edge: "EdgesOfBills"}
 }
 
-// UserOrErr returns the User value or an error if the edge
+// EdgesOfUserOrErr returns the EdgesOfUser value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e FinancierEdges) UserOrErr() (*User, error) {
+func (e FinancierEdges) EdgesOfUserOrErr() (*User, error) {
 	if e.loadedTypes[1] {
-		if e.User == nil {
-			// The edge user was loaded in eager-loading,
+		if e.EdgesOfUser == nil {
+			// The edge EdgesOfUser was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: user.Label}
 		}
-		return e.User, nil
+		return e.EdgesOfUser, nil
 	}
-	return nil, &NotLoadedError{edge: "user"}
+	return nil, &NotLoadedError{edge: "EdgesOfUser"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -102,14 +102,14 @@ func (f *Financier) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryBills queries the bills edge of the Financier.
-func (f *Financier) QueryBills() *BillQuery {
-	return (&FinancierClient{config: f.config}).QueryBills(f)
+// QueryEdgesOfBills queries the EdgesOfBills edge of the Financier.
+func (f *Financier) QueryEdgesOfBills() *BillQuery {
+	return (&FinancierClient{config: f.config}).QueryEdgesOfBills(f)
 }
 
-// QueryUser queries the user edge of the Financier.
-func (f *Financier) QueryUser() *UserQuery {
-	return (&FinancierClient{config: f.config}).QueryUser(f)
+// QueryEdgesOfUser queries the EdgesOfUser edge of the Financier.
+func (f *Financier) QueryEdgesOfUser() *UserQuery {
+	return (&FinancierClient{config: f.config}).QueryEdgesOfUser(f)
 }
 
 // Update returns a builder for updating this Financier.

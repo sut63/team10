@@ -17,6 +17,7 @@ type NurseController struct {
 	router gin.IRouter
 }
 
+// Nurse defines the struct for the Nurse entity
 type Nurse struct {
 	Name			string
 	Nursinglicense	string
@@ -57,7 +58,7 @@ func (ctl *NurseController) CreateNurse(c *gin.Context) {
 
 	n, err := ctl.client.Nurse.
 		Create().
-		SetUser(u).
+		SetEdgesOfUser(u).
 		SetName(obj.Name).
 		SetNursinglicense(obj.Nursinglicense).
 		SetPosition(obj.Position).
@@ -94,6 +95,7 @@ func (ctl *NurseController) GetNurse(c *gin.Context) {
 	}
 	u, err := ctl.client.Nurse.
 		Query().
+		WithEdgesOfUser().
 		Where(nurse.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -139,6 +141,7 @@ func (ctl *NurseController) ListNurse(c *gin.Context) {
 
 	nurse, err := ctl.client.Nurse.
 		Query().
+		WithEdgesOfUser().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

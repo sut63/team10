@@ -27,34 +27,34 @@ func (dc *DepartmentCreate) SetDepartment(s string) *DepartmentCreate {
 	return dc
 }
 
-// AddDepartment2doctorinfoIDs adds the department2doctorinfo edge to Doctorinfo by ids.
-func (dc *DepartmentCreate) AddDepartment2doctorinfoIDs(ids ...int) *DepartmentCreate {
-	dc.mutation.AddDepartment2doctorinfoIDs(ids...)
+// AddEdgesOfDepartment2doctorinfoIDs adds the EdgesOfDepartment2doctorinfo edge to Doctorinfo by ids.
+func (dc *DepartmentCreate) AddEdgesOfDepartment2doctorinfoIDs(ids ...int) *DepartmentCreate {
+	dc.mutation.AddEdgesOfDepartment2doctorinfoIDs(ids...)
 	return dc
 }
 
-// AddDepartment2doctorinfo adds the department2doctorinfo edges to Doctorinfo.
-func (dc *DepartmentCreate) AddDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentCreate {
+// AddEdgesOfDepartment2doctorinfo adds the EdgesOfDepartment2doctorinfo edges to Doctorinfo.
+func (dc *DepartmentCreate) AddEdgesOfDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentCreate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return dc.AddDepartment2doctorinfoIDs(ids...)
+	return dc.AddEdgesOfDepartment2doctorinfoIDs(ids...)
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (dc *DepartmentCreate) AddHistorytakingIDs(ids ...int) *DepartmentCreate {
-	dc.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (dc *DepartmentCreate) AddEdgesOfHistorytakingIDs(ids ...int) *DepartmentCreate {
+	dc.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return dc
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (dc *DepartmentCreate) AddHistorytaking(h ...*Historytaking) *DepartmentCreate {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (dc *DepartmentCreate) AddEdgesOfHistorytaking(h ...*Historytaking) *DepartmentCreate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return dc.AddHistorytakingIDs(ids...)
+	return dc.AddEdgesOfHistorytakingIDs(ids...)
 }
 
 // Mutation returns the DepartmentMutation object of the builder.
@@ -140,12 +140,12 @@ func (dc *DepartmentCreate) createSpec() (*Department, *sqlgraph.CreateSpec) {
 		})
 		d.Department = value
 	}
-	if nodes := dc.mutation.Department2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfDepartment2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.Department2doctorinfoTable,
-			Columns: []string{department.Department2doctorinfoColumn},
+			Table:   department.EdgesOfDepartment2doctorinfoTable,
+			Columns: []string{department.EdgesOfDepartment2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -159,12 +159,12 @@ func (dc *DepartmentCreate) createSpec() (*Department, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.HistorytakingTable,
-			Columns: []string{department.HistorytakingColumn},
+			Table:   department.EdgesOfHistorytakingTable,
+			Columns: []string{department.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

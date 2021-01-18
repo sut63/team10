@@ -56,99 +56,99 @@ func (du *DoctorinfoUpdate) SetLicensenumber(s string) *DoctorinfoUpdate {
 	return du
 }
 
-// SetDepartmentID sets the department edge to Department by id.
-func (du *DoctorinfoUpdate) SetDepartmentID(id int) *DoctorinfoUpdate {
-	du.mutation.SetDepartmentID(id)
+// SetEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id.
+func (du *DoctorinfoUpdate) SetEdgesOfDepartmentID(id int) *DoctorinfoUpdate {
+	du.mutation.SetEdgesOfDepartmentID(id)
 	return du
 }
 
-// SetNillableDepartmentID sets the department edge to Department by id if the given value is not nil.
-func (du *DoctorinfoUpdate) SetNillableDepartmentID(id *int) *DoctorinfoUpdate {
+// SetNillableEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id if the given value is not nil.
+func (du *DoctorinfoUpdate) SetNillableEdgesOfDepartmentID(id *int) *DoctorinfoUpdate {
 	if id != nil {
-		du = du.SetDepartmentID(*id)
+		du = du.SetEdgesOfDepartmentID(*id)
 	}
 	return du
 }
 
-// SetDepartment sets the department edge to Department.
-func (du *DoctorinfoUpdate) SetDepartment(d *Department) *DoctorinfoUpdate {
-	return du.SetDepartmentID(d.ID)
+// SetEdgesOfDepartment sets the EdgesOfDepartment edge to Department.
+func (du *DoctorinfoUpdate) SetEdgesOfDepartment(d *Department) *DoctorinfoUpdate {
+	return du.SetEdgesOfDepartmentID(d.ID)
 }
 
-// SetEducationlevelID sets the educationlevel edge to Educationlevel by id.
-func (du *DoctorinfoUpdate) SetEducationlevelID(id int) *DoctorinfoUpdate {
-	du.mutation.SetEducationlevelID(id)
+// SetEdgesOfEducationlevelID sets the EdgesOfEducationlevel edge to Educationlevel by id.
+func (du *DoctorinfoUpdate) SetEdgesOfEducationlevelID(id int) *DoctorinfoUpdate {
+	du.mutation.SetEdgesOfEducationlevelID(id)
 	return du
 }
 
-// SetNillableEducationlevelID sets the educationlevel edge to Educationlevel by id if the given value is not nil.
-func (du *DoctorinfoUpdate) SetNillableEducationlevelID(id *int) *DoctorinfoUpdate {
+// SetNillableEdgesOfEducationlevelID sets the EdgesOfEducationlevel edge to Educationlevel by id if the given value is not nil.
+func (du *DoctorinfoUpdate) SetNillableEdgesOfEducationlevelID(id *int) *DoctorinfoUpdate {
 	if id != nil {
-		du = du.SetEducationlevelID(*id)
+		du = du.SetEdgesOfEducationlevelID(*id)
 	}
 	return du
 }
 
-// SetEducationlevel sets the educationlevel edge to Educationlevel.
-func (du *DoctorinfoUpdate) SetEducationlevel(e *Educationlevel) *DoctorinfoUpdate {
-	return du.SetEducationlevelID(e.ID)
+// SetEdgesOfEducationlevel sets the EdgesOfEducationlevel edge to Educationlevel.
+func (du *DoctorinfoUpdate) SetEdgesOfEducationlevel(e *Educationlevel) *DoctorinfoUpdate {
+	return du.SetEdgesOfEducationlevelID(e.ID)
 }
 
-// SetOfficeroomID sets the officeroom edge to Officeroom by id.
-func (du *DoctorinfoUpdate) SetOfficeroomID(id int) *DoctorinfoUpdate {
-	du.mutation.SetOfficeroomID(id)
+// SetEdgesOfOfficeroomID sets the EdgesOfOfficeroom edge to Officeroom by id.
+func (du *DoctorinfoUpdate) SetEdgesOfOfficeroomID(id int) *DoctorinfoUpdate {
+	du.mutation.SetEdgesOfOfficeroomID(id)
 	return du
 }
 
-// SetNillableOfficeroomID sets the officeroom edge to Officeroom by id if the given value is not nil.
-func (du *DoctorinfoUpdate) SetNillableOfficeroomID(id *int) *DoctorinfoUpdate {
+// SetNillableEdgesOfOfficeroomID sets the EdgesOfOfficeroom edge to Officeroom by id if the given value is not nil.
+func (du *DoctorinfoUpdate) SetNillableEdgesOfOfficeroomID(id *int) *DoctorinfoUpdate {
 	if id != nil {
-		du = du.SetOfficeroomID(*id)
+		du = du.SetEdgesOfOfficeroomID(*id)
 	}
 	return du
 }
 
-// SetOfficeroom sets the officeroom edge to Officeroom.
-func (du *DoctorinfoUpdate) SetOfficeroom(o *Officeroom) *DoctorinfoUpdate {
-	return du.SetOfficeroomID(o.ID)
+// SetEdgesOfOfficeroom sets the EdgesOfOfficeroom edge to Officeroom.
+func (du *DoctorinfoUpdate) SetEdgesOfOfficeroom(o *Officeroom) *DoctorinfoUpdate {
+	return du.SetEdgesOfOfficeroomID(o.ID)
 }
 
-// SetPrenameID sets the prename edge to Prename by id.
-func (du *DoctorinfoUpdate) SetPrenameID(id int) *DoctorinfoUpdate {
-	du.mutation.SetPrenameID(id)
+// SetEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id.
+func (du *DoctorinfoUpdate) SetEdgesOfPrenameID(id int) *DoctorinfoUpdate {
+	du.mutation.SetEdgesOfPrenameID(id)
 	return du
 }
 
-// SetNillablePrenameID sets the prename edge to Prename by id if the given value is not nil.
-func (du *DoctorinfoUpdate) SetNillablePrenameID(id *int) *DoctorinfoUpdate {
+// SetNillableEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id if the given value is not nil.
+func (du *DoctorinfoUpdate) SetNillableEdgesOfPrenameID(id *int) *DoctorinfoUpdate {
 	if id != nil {
-		du = du.SetPrenameID(*id)
+		du = du.SetEdgesOfPrenameID(*id)
 	}
 	return du
 }
 
-// SetPrename sets the prename edge to Prename.
-func (du *DoctorinfoUpdate) SetPrename(p *Prename) *DoctorinfoUpdate {
-	return du.SetPrenameID(p.ID)
+// SetEdgesOfPrename sets the EdgesOfPrename edge to Prename.
+func (du *DoctorinfoUpdate) SetEdgesOfPrename(p *Prename) *DoctorinfoUpdate {
+	return du.SetEdgesOfPrenameID(p.ID)
 }
 
-// SetDoctorID sets the doctor edge to Doctor by id.
-func (du *DoctorinfoUpdate) SetDoctorID(id int) *DoctorinfoUpdate {
-	du.mutation.SetDoctorID(id)
+// SetEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id.
+func (du *DoctorinfoUpdate) SetEdgesOfDoctorID(id int) *DoctorinfoUpdate {
+	du.mutation.SetEdgesOfDoctorID(id)
 	return du
 }
 
-// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
-func (du *DoctorinfoUpdate) SetNillableDoctorID(id *int) *DoctorinfoUpdate {
+// SetNillableEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id if the given value is not nil.
+func (du *DoctorinfoUpdate) SetNillableEdgesOfDoctorID(id *int) *DoctorinfoUpdate {
 	if id != nil {
-		du = du.SetDoctorID(*id)
+		du = du.SetEdgesOfDoctorID(*id)
 	}
 	return du
 }
 
-// SetDoctor sets the doctor edge to Doctor.
-func (du *DoctorinfoUpdate) SetDoctor(d *Doctor) *DoctorinfoUpdate {
-	return du.SetDoctorID(d.ID)
+// SetEdgesOfDoctor sets the EdgesOfDoctor edge to Doctor.
+func (du *DoctorinfoUpdate) SetEdgesOfDoctor(d *Doctor) *DoctorinfoUpdate {
+	return du.SetEdgesOfDoctorID(d.ID)
 }
 
 // Mutation returns the DoctorinfoMutation object of the builder.
@@ -156,33 +156,33 @@ func (du *DoctorinfoUpdate) Mutation() *DoctorinfoMutation {
 	return du.mutation
 }
 
-// ClearDepartment clears the department edge to Department.
-func (du *DoctorinfoUpdate) ClearDepartment() *DoctorinfoUpdate {
-	du.mutation.ClearDepartment()
+// ClearEdgesOfDepartment clears the EdgesOfDepartment edge to Department.
+func (du *DoctorinfoUpdate) ClearEdgesOfDepartment() *DoctorinfoUpdate {
+	du.mutation.ClearEdgesOfDepartment()
 	return du
 }
 
-// ClearEducationlevel clears the educationlevel edge to Educationlevel.
-func (du *DoctorinfoUpdate) ClearEducationlevel() *DoctorinfoUpdate {
-	du.mutation.ClearEducationlevel()
+// ClearEdgesOfEducationlevel clears the EdgesOfEducationlevel edge to Educationlevel.
+func (du *DoctorinfoUpdate) ClearEdgesOfEducationlevel() *DoctorinfoUpdate {
+	du.mutation.ClearEdgesOfEducationlevel()
 	return du
 }
 
-// ClearOfficeroom clears the officeroom edge to Officeroom.
-func (du *DoctorinfoUpdate) ClearOfficeroom() *DoctorinfoUpdate {
-	du.mutation.ClearOfficeroom()
+// ClearEdgesOfOfficeroom clears the EdgesOfOfficeroom edge to Officeroom.
+func (du *DoctorinfoUpdate) ClearEdgesOfOfficeroom() *DoctorinfoUpdate {
+	du.mutation.ClearEdgesOfOfficeroom()
 	return du
 }
 
-// ClearPrename clears the prename edge to Prename.
-func (du *DoctorinfoUpdate) ClearPrename() *DoctorinfoUpdate {
-	du.mutation.ClearPrename()
+// ClearEdgesOfPrename clears the EdgesOfPrename edge to Prename.
+func (du *DoctorinfoUpdate) ClearEdgesOfPrename() *DoctorinfoUpdate {
+	du.mutation.ClearEdgesOfPrename()
 	return du
 }
 
-// ClearDoctor clears the doctor edge to Doctor.
-func (du *DoctorinfoUpdate) ClearDoctor() *DoctorinfoUpdate {
-	du.mutation.ClearDoctor()
+// ClearEdgesOfDoctor clears the EdgesOfDoctor edge to Doctor.
+func (du *DoctorinfoUpdate) ClearEdgesOfDoctor() *DoctorinfoUpdate {
+	du.mutation.ClearEdgesOfDoctor()
 	return du
 }
 
@@ -304,12 +304,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: doctorinfo.FieldLicensenumber,
 		})
 	}
-	if du.mutation.DepartmentCleared() {
+	if du.mutation.EdgesOfDepartmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.DepartmentTable,
-			Columns: []string{doctorinfo.DepartmentColumn},
+			Table:   doctorinfo.EdgesOfDepartmentTable,
+			Columns: []string{doctorinfo.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -320,12 +320,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.EdgesOfDepartmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.DepartmentTable,
-			Columns: []string{doctorinfo.DepartmentColumn},
+			Table:   doctorinfo.EdgesOfDepartmentTable,
+			Columns: []string{doctorinfo.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -339,12 +339,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if du.mutation.EducationlevelCleared() {
+	if du.mutation.EdgesOfEducationlevelCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.EducationlevelTable,
-			Columns: []string{doctorinfo.EducationlevelColumn},
+			Table:   doctorinfo.EdgesOfEducationlevelTable,
+			Columns: []string{doctorinfo.EdgesOfEducationlevelColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -355,12 +355,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.EducationlevelIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.EdgesOfEducationlevelIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.EducationlevelTable,
-			Columns: []string{doctorinfo.EducationlevelColumn},
+			Table:   doctorinfo.EdgesOfEducationlevelTable,
+			Columns: []string{doctorinfo.EdgesOfEducationlevelColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -374,12 +374,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if du.mutation.OfficeroomCleared() {
+	if du.mutation.EdgesOfOfficeroomCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.OfficeroomTable,
-			Columns: []string{doctorinfo.OfficeroomColumn},
+			Table:   doctorinfo.EdgesOfOfficeroomTable,
+			Columns: []string{doctorinfo.EdgesOfOfficeroomColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -390,12 +390,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.OfficeroomIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.EdgesOfOfficeroomIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.OfficeroomTable,
-			Columns: []string{doctorinfo.OfficeroomColumn},
+			Table:   doctorinfo.EdgesOfOfficeroomTable,
+			Columns: []string{doctorinfo.EdgesOfOfficeroomColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -409,12 +409,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if du.mutation.PrenameCleared() {
+	if du.mutation.EdgesOfPrenameCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.PrenameTable,
-			Columns: []string{doctorinfo.PrenameColumn},
+			Table:   doctorinfo.EdgesOfPrenameTable,
+			Columns: []string{doctorinfo.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -425,12 +425,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.PrenameIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.EdgesOfPrenameIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.PrenameTable,
-			Columns: []string{doctorinfo.PrenameColumn},
+			Table:   doctorinfo.EdgesOfPrenameTable,
+			Columns: []string{doctorinfo.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -444,12 +444,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if du.mutation.DoctorCleared() {
+	if du.mutation.EdgesOfDoctorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   doctorinfo.DoctorTable,
-			Columns: []string{doctorinfo.DoctorColumn},
+			Table:   doctorinfo.EdgesOfDoctorTable,
+			Columns: []string{doctorinfo.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -460,12 +460,12 @@ func (du *DoctorinfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.DoctorIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.EdgesOfDoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   doctorinfo.DoctorTable,
-			Columns: []string{doctorinfo.DoctorColumn},
+			Table:   doctorinfo.EdgesOfDoctorTable,
+			Columns: []string{doctorinfo.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -521,99 +521,99 @@ func (duo *DoctorinfoUpdateOne) SetLicensenumber(s string) *DoctorinfoUpdateOne 
 	return duo
 }
 
-// SetDepartmentID sets the department edge to Department by id.
-func (duo *DoctorinfoUpdateOne) SetDepartmentID(id int) *DoctorinfoUpdateOne {
-	duo.mutation.SetDepartmentID(id)
+// SetEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfDepartmentID(id int) *DoctorinfoUpdateOne {
+	duo.mutation.SetEdgesOfDepartmentID(id)
 	return duo
 }
 
-// SetNillableDepartmentID sets the department edge to Department by id if the given value is not nil.
-func (duo *DoctorinfoUpdateOne) SetNillableDepartmentID(id *int) *DoctorinfoUpdateOne {
+// SetNillableEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id if the given value is not nil.
+func (duo *DoctorinfoUpdateOne) SetNillableEdgesOfDepartmentID(id *int) *DoctorinfoUpdateOne {
 	if id != nil {
-		duo = duo.SetDepartmentID(*id)
+		duo = duo.SetEdgesOfDepartmentID(*id)
 	}
 	return duo
 }
 
-// SetDepartment sets the department edge to Department.
-func (duo *DoctorinfoUpdateOne) SetDepartment(d *Department) *DoctorinfoUpdateOne {
-	return duo.SetDepartmentID(d.ID)
+// SetEdgesOfDepartment sets the EdgesOfDepartment edge to Department.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfDepartment(d *Department) *DoctorinfoUpdateOne {
+	return duo.SetEdgesOfDepartmentID(d.ID)
 }
 
-// SetEducationlevelID sets the educationlevel edge to Educationlevel by id.
-func (duo *DoctorinfoUpdateOne) SetEducationlevelID(id int) *DoctorinfoUpdateOne {
-	duo.mutation.SetEducationlevelID(id)
+// SetEdgesOfEducationlevelID sets the EdgesOfEducationlevel edge to Educationlevel by id.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfEducationlevelID(id int) *DoctorinfoUpdateOne {
+	duo.mutation.SetEdgesOfEducationlevelID(id)
 	return duo
 }
 
-// SetNillableEducationlevelID sets the educationlevel edge to Educationlevel by id if the given value is not nil.
-func (duo *DoctorinfoUpdateOne) SetNillableEducationlevelID(id *int) *DoctorinfoUpdateOne {
+// SetNillableEdgesOfEducationlevelID sets the EdgesOfEducationlevel edge to Educationlevel by id if the given value is not nil.
+func (duo *DoctorinfoUpdateOne) SetNillableEdgesOfEducationlevelID(id *int) *DoctorinfoUpdateOne {
 	if id != nil {
-		duo = duo.SetEducationlevelID(*id)
+		duo = duo.SetEdgesOfEducationlevelID(*id)
 	}
 	return duo
 }
 
-// SetEducationlevel sets the educationlevel edge to Educationlevel.
-func (duo *DoctorinfoUpdateOne) SetEducationlevel(e *Educationlevel) *DoctorinfoUpdateOne {
-	return duo.SetEducationlevelID(e.ID)
+// SetEdgesOfEducationlevel sets the EdgesOfEducationlevel edge to Educationlevel.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfEducationlevel(e *Educationlevel) *DoctorinfoUpdateOne {
+	return duo.SetEdgesOfEducationlevelID(e.ID)
 }
 
-// SetOfficeroomID sets the officeroom edge to Officeroom by id.
-func (duo *DoctorinfoUpdateOne) SetOfficeroomID(id int) *DoctorinfoUpdateOne {
-	duo.mutation.SetOfficeroomID(id)
+// SetEdgesOfOfficeroomID sets the EdgesOfOfficeroom edge to Officeroom by id.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfOfficeroomID(id int) *DoctorinfoUpdateOne {
+	duo.mutation.SetEdgesOfOfficeroomID(id)
 	return duo
 }
 
-// SetNillableOfficeroomID sets the officeroom edge to Officeroom by id if the given value is not nil.
-func (duo *DoctorinfoUpdateOne) SetNillableOfficeroomID(id *int) *DoctorinfoUpdateOne {
+// SetNillableEdgesOfOfficeroomID sets the EdgesOfOfficeroom edge to Officeroom by id if the given value is not nil.
+func (duo *DoctorinfoUpdateOne) SetNillableEdgesOfOfficeroomID(id *int) *DoctorinfoUpdateOne {
 	if id != nil {
-		duo = duo.SetOfficeroomID(*id)
+		duo = duo.SetEdgesOfOfficeroomID(*id)
 	}
 	return duo
 }
 
-// SetOfficeroom sets the officeroom edge to Officeroom.
-func (duo *DoctorinfoUpdateOne) SetOfficeroom(o *Officeroom) *DoctorinfoUpdateOne {
-	return duo.SetOfficeroomID(o.ID)
+// SetEdgesOfOfficeroom sets the EdgesOfOfficeroom edge to Officeroom.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfOfficeroom(o *Officeroom) *DoctorinfoUpdateOne {
+	return duo.SetEdgesOfOfficeroomID(o.ID)
 }
 
-// SetPrenameID sets the prename edge to Prename by id.
-func (duo *DoctorinfoUpdateOne) SetPrenameID(id int) *DoctorinfoUpdateOne {
-	duo.mutation.SetPrenameID(id)
+// SetEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfPrenameID(id int) *DoctorinfoUpdateOne {
+	duo.mutation.SetEdgesOfPrenameID(id)
 	return duo
 }
 
-// SetNillablePrenameID sets the prename edge to Prename by id if the given value is not nil.
-func (duo *DoctorinfoUpdateOne) SetNillablePrenameID(id *int) *DoctorinfoUpdateOne {
+// SetNillableEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id if the given value is not nil.
+func (duo *DoctorinfoUpdateOne) SetNillableEdgesOfPrenameID(id *int) *DoctorinfoUpdateOne {
 	if id != nil {
-		duo = duo.SetPrenameID(*id)
+		duo = duo.SetEdgesOfPrenameID(*id)
 	}
 	return duo
 }
 
-// SetPrename sets the prename edge to Prename.
-func (duo *DoctorinfoUpdateOne) SetPrename(p *Prename) *DoctorinfoUpdateOne {
-	return duo.SetPrenameID(p.ID)
+// SetEdgesOfPrename sets the EdgesOfPrename edge to Prename.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfPrename(p *Prename) *DoctorinfoUpdateOne {
+	return duo.SetEdgesOfPrenameID(p.ID)
 }
 
-// SetDoctorID sets the doctor edge to Doctor by id.
-func (duo *DoctorinfoUpdateOne) SetDoctorID(id int) *DoctorinfoUpdateOne {
-	duo.mutation.SetDoctorID(id)
+// SetEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfDoctorID(id int) *DoctorinfoUpdateOne {
+	duo.mutation.SetEdgesOfDoctorID(id)
 	return duo
 }
 
-// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
-func (duo *DoctorinfoUpdateOne) SetNillableDoctorID(id *int) *DoctorinfoUpdateOne {
+// SetNillableEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id if the given value is not nil.
+func (duo *DoctorinfoUpdateOne) SetNillableEdgesOfDoctorID(id *int) *DoctorinfoUpdateOne {
 	if id != nil {
-		duo = duo.SetDoctorID(*id)
+		duo = duo.SetEdgesOfDoctorID(*id)
 	}
 	return duo
 }
 
-// SetDoctor sets the doctor edge to Doctor.
-func (duo *DoctorinfoUpdateOne) SetDoctor(d *Doctor) *DoctorinfoUpdateOne {
-	return duo.SetDoctorID(d.ID)
+// SetEdgesOfDoctor sets the EdgesOfDoctor edge to Doctor.
+func (duo *DoctorinfoUpdateOne) SetEdgesOfDoctor(d *Doctor) *DoctorinfoUpdateOne {
+	return duo.SetEdgesOfDoctorID(d.ID)
 }
 
 // Mutation returns the DoctorinfoMutation object of the builder.
@@ -621,33 +621,33 @@ func (duo *DoctorinfoUpdateOne) Mutation() *DoctorinfoMutation {
 	return duo.mutation
 }
 
-// ClearDepartment clears the department edge to Department.
-func (duo *DoctorinfoUpdateOne) ClearDepartment() *DoctorinfoUpdateOne {
-	duo.mutation.ClearDepartment()
+// ClearEdgesOfDepartment clears the EdgesOfDepartment edge to Department.
+func (duo *DoctorinfoUpdateOne) ClearEdgesOfDepartment() *DoctorinfoUpdateOne {
+	duo.mutation.ClearEdgesOfDepartment()
 	return duo
 }
 
-// ClearEducationlevel clears the educationlevel edge to Educationlevel.
-func (duo *DoctorinfoUpdateOne) ClearEducationlevel() *DoctorinfoUpdateOne {
-	duo.mutation.ClearEducationlevel()
+// ClearEdgesOfEducationlevel clears the EdgesOfEducationlevel edge to Educationlevel.
+func (duo *DoctorinfoUpdateOne) ClearEdgesOfEducationlevel() *DoctorinfoUpdateOne {
+	duo.mutation.ClearEdgesOfEducationlevel()
 	return duo
 }
 
-// ClearOfficeroom clears the officeroom edge to Officeroom.
-func (duo *DoctorinfoUpdateOne) ClearOfficeroom() *DoctorinfoUpdateOne {
-	duo.mutation.ClearOfficeroom()
+// ClearEdgesOfOfficeroom clears the EdgesOfOfficeroom edge to Officeroom.
+func (duo *DoctorinfoUpdateOne) ClearEdgesOfOfficeroom() *DoctorinfoUpdateOne {
+	duo.mutation.ClearEdgesOfOfficeroom()
 	return duo
 }
 
-// ClearPrename clears the prename edge to Prename.
-func (duo *DoctorinfoUpdateOne) ClearPrename() *DoctorinfoUpdateOne {
-	duo.mutation.ClearPrename()
+// ClearEdgesOfPrename clears the EdgesOfPrename edge to Prename.
+func (duo *DoctorinfoUpdateOne) ClearEdgesOfPrename() *DoctorinfoUpdateOne {
+	duo.mutation.ClearEdgesOfPrename()
 	return duo
 }
 
-// ClearDoctor clears the doctor edge to Doctor.
-func (duo *DoctorinfoUpdateOne) ClearDoctor() *DoctorinfoUpdateOne {
-	duo.mutation.ClearDoctor()
+// ClearEdgesOfDoctor clears the EdgesOfDoctor edge to Doctor.
+func (duo *DoctorinfoUpdateOne) ClearEdgesOfDoctor() *DoctorinfoUpdateOne {
+	duo.mutation.ClearEdgesOfDoctor()
 	return duo
 }
 
@@ -767,12 +767,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 			Column: doctorinfo.FieldLicensenumber,
 		})
 	}
-	if duo.mutation.DepartmentCleared() {
+	if duo.mutation.EdgesOfDepartmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.DepartmentTable,
-			Columns: []string{doctorinfo.DepartmentColumn},
+			Table:   doctorinfo.EdgesOfDepartmentTable,
+			Columns: []string{doctorinfo.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -783,12 +783,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.EdgesOfDepartmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.DepartmentTable,
-			Columns: []string{doctorinfo.DepartmentColumn},
+			Table:   doctorinfo.EdgesOfDepartmentTable,
+			Columns: []string{doctorinfo.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -802,12 +802,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if duo.mutation.EducationlevelCleared() {
+	if duo.mutation.EdgesOfEducationlevelCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.EducationlevelTable,
-			Columns: []string{doctorinfo.EducationlevelColumn},
+			Table:   doctorinfo.EdgesOfEducationlevelTable,
+			Columns: []string{doctorinfo.EdgesOfEducationlevelColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -818,12 +818,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.EducationlevelIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.EdgesOfEducationlevelIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.EducationlevelTable,
-			Columns: []string{doctorinfo.EducationlevelColumn},
+			Table:   doctorinfo.EdgesOfEducationlevelTable,
+			Columns: []string{doctorinfo.EdgesOfEducationlevelColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -837,12 +837,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if duo.mutation.OfficeroomCleared() {
+	if duo.mutation.EdgesOfOfficeroomCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.OfficeroomTable,
-			Columns: []string{doctorinfo.OfficeroomColumn},
+			Table:   doctorinfo.EdgesOfOfficeroomTable,
+			Columns: []string{doctorinfo.EdgesOfOfficeroomColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -853,12 +853,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.OfficeroomIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.EdgesOfOfficeroomIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.OfficeroomTable,
-			Columns: []string{doctorinfo.OfficeroomColumn},
+			Table:   doctorinfo.EdgesOfOfficeroomTable,
+			Columns: []string{doctorinfo.EdgesOfOfficeroomColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -872,12 +872,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if duo.mutation.PrenameCleared() {
+	if duo.mutation.EdgesOfPrenameCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.PrenameTable,
-			Columns: []string{doctorinfo.PrenameColumn},
+			Table:   doctorinfo.EdgesOfPrenameTable,
+			Columns: []string{doctorinfo.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -888,12 +888,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.PrenameIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.EdgesOfPrenameIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.PrenameTable,
-			Columns: []string{doctorinfo.PrenameColumn},
+			Table:   doctorinfo.EdgesOfPrenameTable,
+			Columns: []string{doctorinfo.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -907,12 +907,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if duo.mutation.DoctorCleared() {
+	if duo.mutation.EdgesOfDoctorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   doctorinfo.DoctorTable,
-			Columns: []string{doctorinfo.DoctorColumn},
+			Table:   doctorinfo.EdgesOfDoctorTable,
+			Columns: []string{doctorinfo.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -923,12 +923,12 @@ func (duo *DoctorinfoUpdateOne) sqlSave(ctx context.Context) (d *Doctorinfo, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.DoctorIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.EdgesOfDoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   doctorinfo.DoctorTable,
-			Columns: []string{doctorinfo.DoctorColumn},
+			Table:   doctorinfo.EdgesOfDoctorTable,
+			Columns: []string{doctorinfo.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

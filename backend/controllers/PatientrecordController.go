@@ -43,7 +43,7 @@ type Patientrecord struct {
 // @Accept   json
 // @Produce  json
 // @Param patientrecord body Patientrecord true "Patientrecord entity"
-// @Success 200 {object} ent.Patientrecord
+// @Success 200 {object} Patientrecord
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /patientrecord [post]
@@ -114,9 +114,9 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 
 	pr, err := ctl.client.Patientrecord.
 		Create().
-		SetGender(g).
-		SetMedicalrecordstaff(m).
-		SetPrename(p).
+		SetEdgesOfGender(g).
+		SetEdgesOfMedicalrecordstaff(m).
+		SetEdgesOfPrename(p).
 		SetName(obj.Name).
 		SetIdcardnumber(id).
 		SetAge(a).
@@ -204,9 +204,9 @@ func (ctl *PatientrecordController) ListPatientrecord(c *gin.Context) {
 
 	patientrecord, err := ctl.client.Patientrecord.
 		Query().
-		WithGender().
-		WithMedicalrecordstaff().
-		WithPrename().
+		WithEdgesOfGender().
+		WithEdgesOfMedicalrecordstaff().
+		WithEdgesOfPrename().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

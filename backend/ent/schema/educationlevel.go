@@ -21,6 +21,6 @@ func (Educationlevel) Fields() []ent.Field {
 // Edges of the Educationlevel.
 func (Educationlevel) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("educationlevel2doctorinfo", Doctorinfo.Type).StorageKey(edge.Column("level")),
+		edge.To("EdgesOfEducationlevel2doctorinfo", Doctorinfo.Type).StorageKey(edge.Column("level")),
 	}
 }

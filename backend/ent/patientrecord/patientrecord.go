@@ -28,63 +28,63 @@ const (
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 
-	// EdgeGender holds the string denoting the gender edge name in mutations.
-	EdgeGender = "gender"
-	// EdgeMedicalrecordstaff holds the string denoting the medicalrecordstaff edge name in mutations.
-	EdgeMedicalrecordstaff = "medicalrecordstaff"
-	// EdgePrename holds the string denoting the prename edge name in mutations.
-	EdgePrename = "prename"
-	// EdgeHistorytaking holds the string denoting the historytaking edge name in mutations.
-	EdgeHistorytaking = "historytaking"
-	// EdgeTreatment holds the string denoting the treatment edge name in mutations.
-	EdgeTreatment = "treatment"
-	// EdgePatientrecordPatientrights holds the string denoting the patientrecordpatientrights edge name in mutations.
-	EdgePatientrecordPatientrights = "PatientrecordPatientrights"
+	// EdgeEdgesOfGender holds the string denoting the edgesofgender edge name in mutations.
+	EdgeEdgesOfGender = "EdgesOfGender"
+	// EdgeEdgesOfMedicalrecordstaff holds the string denoting the edgesofmedicalrecordstaff edge name in mutations.
+	EdgeEdgesOfMedicalrecordstaff = "EdgesOfMedicalrecordstaff"
+	// EdgeEdgesOfPrename holds the string denoting the edgesofprename edge name in mutations.
+	EdgeEdgesOfPrename = "EdgesOfPrename"
+	// EdgeEdgesOfHistorytaking holds the string denoting the edgesofhistorytaking edge name in mutations.
+	EdgeEdgesOfHistorytaking = "EdgesOfHistorytaking"
+	// EdgeEdgesOfTreatment holds the string denoting the edgesoftreatment edge name in mutations.
+	EdgeEdgesOfTreatment = "EdgesOfTreatment"
+	// EdgeEdgesOfPatientrecordPatientrights holds the string denoting the edgesofpatientrecordpatientrights edge name in mutations.
+	EdgeEdgesOfPatientrecordPatientrights = "EdgesOfPatientrecordPatientrights"
 
 	// Table holds the table name of the patientrecord in the database.
 	Table = "patientrecords"
-	// GenderTable is the table the holds the gender relation/edge.
-	GenderTable = "patientrecords"
-	// GenderInverseTable is the table name for the Gender entity.
+	// EdgesOfGenderTable is the table the holds the EdgesOfGender relation/edge.
+	EdgesOfGenderTable = "patientrecords"
+	// EdgesOfGenderInverseTable is the table name for the Gender entity.
 	// It exists in this package in order to avoid circular dependency with the "gender" package.
-	GenderInverseTable = "genders"
-	// GenderColumn is the table column denoting the gender relation/edge.
-	GenderColumn = "gender_id"
-	// MedicalrecordstaffTable is the table the holds the medicalrecordstaff relation/edge.
-	MedicalrecordstaffTable = "patientrecords"
-	// MedicalrecordstaffInverseTable is the table name for the Medicalrecordstaff entity.
+	EdgesOfGenderInverseTable = "genders"
+	// EdgesOfGenderColumn is the table column denoting the EdgesOfGender relation/edge.
+	EdgesOfGenderColumn = "gender_id"
+	// EdgesOfMedicalrecordstaffTable is the table the holds the EdgesOfMedicalrecordstaff relation/edge.
+	EdgesOfMedicalrecordstaffTable = "patientrecords"
+	// EdgesOfMedicalrecordstaffInverseTable is the table name for the Medicalrecordstaff entity.
 	// It exists in this package in order to avoid circular dependency with the "medicalrecordstaff" package.
-	MedicalrecordstaffInverseTable = "medicalrecordstaffs"
-	// MedicalrecordstaffColumn is the table column denoting the medicalrecordstaff relation/edge.
-	MedicalrecordstaffColumn = "medicalrecordstaff_id"
-	// PrenameTable is the table the holds the prename relation/edge.
-	PrenameTable = "patientrecords"
-	// PrenameInverseTable is the table name for the Prename entity.
+	EdgesOfMedicalrecordstaffInverseTable = "medicalrecordstaffs"
+	// EdgesOfMedicalrecordstaffColumn is the table column denoting the EdgesOfMedicalrecordstaff relation/edge.
+	EdgesOfMedicalrecordstaffColumn = "medicalrecordstaff_id"
+	// EdgesOfPrenameTable is the table the holds the EdgesOfPrename relation/edge.
+	EdgesOfPrenameTable = "patientrecords"
+	// EdgesOfPrenameInverseTable is the table name for the Prename entity.
 	// It exists in this package in order to avoid circular dependency with the "prename" package.
-	PrenameInverseTable = "prenames"
-	// PrenameColumn is the table column denoting the prename relation/edge.
-	PrenameColumn = "prefix_id"
-	// HistorytakingTable is the table the holds the historytaking relation/edge.
-	HistorytakingTable = "historytakings"
-	// HistorytakingInverseTable is the table name for the Historytaking entity.
+	EdgesOfPrenameInverseTable = "prenames"
+	// EdgesOfPrenameColumn is the table column denoting the EdgesOfPrename relation/edge.
+	EdgesOfPrenameColumn = "prefix_id"
+	// EdgesOfHistorytakingTable is the table the holds the EdgesOfHistorytaking relation/edge.
+	EdgesOfHistorytakingTable = "historytakings"
+	// EdgesOfHistorytakingInverseTable is the table name for the Historytaking entity.
 	// It exists in this package in order to avoid circular dependency with the "historytaking" package.
-	HistorytakingInverseTable = "historytakings"
-	// HistorytakingColumn is the table column denoting the historytaking relation/edge.
-	HistorytakingColumn = "patientrecord_id"
-	// TreatmentTable is the table the holds the treatment relation/edge.
-	TreatmentTable = "treatments"
-	// TreatmentInverseTable is the table name for the Treatment entity.
+	EdgesOfHistorytakingInverseTable = "historytakings"
+	// EdgesOfHistorytakingColumn is the table column denoting the EdgesOfHistorytaking relation/edge.
+	EdgesOfHistorytakingColumn = "patientrecord_id"
+	// EdgesOfTreatmentTable is the table the holds the EdgesOfTreatment relation/edge.
+	EdgesOfTreatmentTable = "treatments"
+	// EdgesOfTreatmentInverseTable is the table name for the Treatment entity.
 	// It exists in this package in order to avoid circular dependency with the "treatment" package.
-	TreatmentInverseTable = "treatments"
-	// TreatmentColumn is the table column denoting the treatment relation/edge.
-	TreatmentColumn = "patientrecord_id"
-	// PatientrecordPatientrightsTable is the table the holds the PatientrecordPatientrights relation/edge.
-	PatientrecordPatientrightsTable = "patientrights"
-	// PatientrecordPatientrightsInverseTable is the table name for the Patientrights entity.
+	EdgesOfTreatmentInverseTable = "treatments"
+	// EdgesOfTreatmentColumn is the table column denoting the EdgesOfTreatment relation/edge.
+	EdgesOfTreatmentColumn = "patientrecord_id"
+	// EdgesOfPatientrecordPatientrightsTable is the table the holds the EdgesOfPatientrecordPatientrights relation/edge.
+	EdgesOfPatientrecordPatientrightsTable = "patientrights"
+	// EdgesOfPatientrecordPatientrightsInverseTable is the table name for the Patientrights entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrights" package.
-	PatientrecordPatientrightsInverseTable = "patientrights"
-	// PatientrecordPatientrightsColumn is the table column denoting the PatientrecordPatientrights relation/edge.
-	PatientrecordPatientrightsColumn = "patientrecord_id"
+	EdgesOfPatientrecordPatientrightsInverseTable = "patientrights"
+	// EdgesOfPatientrecordPatientrightsColumn is the table column denoting the EdgesOfPatientrecordPatientrights relation/edge.
+	EdgesOfPatientrecordPatientrightsColumn = "patientrecord_id"
 )
 
 // Columns holds all SQL columns for patientrecord fields.

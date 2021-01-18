@@ -209,25 +209,25 @@ func RoomnumberContainsFold(v string) predicate.Officeroom {
 	})
 }
 
-// HasOfficeroom2doctorinfo applies the HasEdge predicate on the "officeroom2doctorinfo" edge.
-func HasOfficeroom2doctorinfo() predicate.Officeroom {
+// HasEdgesOfOfficeroom2doctorinfo applies the HasEdge predicate on the "EdgesOfOfficeroom2doctorinfo" edge.
+func HasEdgesOfOfficeroom2doctorinfo() predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(Officeroom2doctorinfoTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, Officeroom2doctorinfoTable, Officeroom2doctorinfoColumn),
+			sqlgraph.To(EdgesOfOfficeroom2doctorinfoTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfOfficeroom2doctorinfoTable, EdgesOfOfficeroom2doctorinfoColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasOfficeroom2doctorinfoWith applies the HasEdge predicate on the "officeroom2doctorinfo" edge with a given conditions (other predicates).
-func HasOfficeroom2doctorinfoWith(preds ...predicate.Doctorinfo) predicate.Officeroom {
+// HasEdgesOfOfficeroom2doctorinfoWith applies the HasEdge predicate on the "EdgesOfOfficeroom2doctorinfo" edge with a given conditions (other predicates).
+func HasEdgesOfOfficeroom2doctorinfoWith(preds ...predicate.Doctorinfo) predicate.Officeroom {
 	return predicate.Officeroom(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(Officeroom2doctorinfoInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, Officeroom2doctorinfoTable, Officeroom2doctorinfoColumn),
+			sqlgraph.To(EdgesOfOfficeroom2doctorinfoInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfOfficeroom2doctorinfoTable, EdgesOfOfficeroom2doctorinfoColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

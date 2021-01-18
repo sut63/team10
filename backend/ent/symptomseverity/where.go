@@ -209,25 +209,25 @@ func SymptomseverityContainsFold(v string) predicate.Symptomseverity {
 	})
 }
 
-// HasHistorytaking applies the HasEdge predicate on the "historytaking" edge.
-func HasHistorytaking() predicate.Symptomseverity {
+// HasEdgesOfHistorytaking applies the HasEdge predicate on the "EdgesOfHistorytaking" edge.
+func HasEdgesOfHistorytaking() predicate.Symptomseverity {
 	return predicate.Symptomseverity(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(HistorytakingTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, HistorytakingTable, HistorytakingColumn),
+			sqlgraph.To(EdgesOfHistorytakingTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfHistorytakingTable, EdgesOfHistorytakingColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasHistorytakingWith applies the HasEdge predicate on the "historytaking" edge with a given conditions (other predicates).
-func HasHistorytakingWith(preds ...predicate.Historytaking) predicate.Symptomseverity {
+// HasEdgesOfHistorytakingWith applies the HasEdge predicate on the "EdgesOfHistorytaking" edge with a given conditions (other predicates).
+func HasEdgesOfHistorytakingWith(preds ...predicate.Historytaking) predicate.Symptomseverity {
 	return predicate.Symptomseverity(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(HistorytakingInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, HistorytakingTable, HistorytakingColumn),
+			sqlgraph.To(EdgesOfHistorytakingInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfHistorytakingTable, EdgesOfHistorytakingColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

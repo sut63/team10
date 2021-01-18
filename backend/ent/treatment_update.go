@@ -44,80 +44,80 @@ func (tu *TreatmentUpdate) SetDatetreat(t time.Time) *TreatmentUpdate {
 	return tu
 }
 
-// SetTypetreatmentID sets the typetreatment edge to Typetreatment by id.
-func (tu *TreatmentUpdate) SetTypetreatmentID(id int) *TreatmentUpdate {
-	tu.mutation.SetTypetreatmentID(id)
+// SetEdgesOfTypetreatmentID sets the EdgesOfTypetreatment edge to Typetreatment by id.
+func (tu *TreatmentUpdate) SetEdgesOfTypetreatmentID(id int) *TreatmentUpdate {
+	tu.mutation.SetEdgesOfTypetreatmentID(id)
 	return tu
 }
 
-// SetNillableTypetreatmentID sets the typetreatment edge to Typetreatment by id if the given value is not nil.
-func (tu *TreatmentUpdate) SetNillableTypetreatmentID(id *int) *TreatmentUpdate {
+// SetNillableEdgesOfTypetreatmentID sets the EdgesOfTypetreatment edge to Typetreatment by id if the given value is not nil.
+func (tu *TreatmentUpdate) SetNillableEdgesOfTypetreatmentID(id *int) *TreatmentUpdate {
 	if id != nil {
-		tu = tu.SetTypetreatmentID(*id)
+		tu = tu.SetEdgesOfTypetreatmentID(*id)
 	}
 	return tu
 }
 
-// SetTypetreatment sets the typetreatment edge to Typetreatment.
-func (tu *TreatmentUpdate) SetTypetreatment(t *Typetreatment) *TreatmentUpdate {
-	return tu.SetTypetreatmentID(t.ID)
+// SetEdgesOfTypetreatment sets the EdgesOfTypetreatment edge to Typetreatment.
+func (tu *TreatmentUpdate) SetEdgesOfTypetreatment(t *Typetreatment) *TreatmentUpdate {
+	return tu.SetEdgesOfTypetreatmentID(t.ID)
 }
 
-// SetPatientrecordID sets the patientrecord edge to Patientrecord by id.
-func (tu *TreatmentUpdate) SetPatientrecordID(id int) *TreatmentUpdate {
-	tu.mutation.SetPatientrecordID(id)
+// SetEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id.
+func (tu *TreatmentUpdate) SetEdgesOfPatientrecordID(id int) *TreatmentUpdate {
+	tu.mutation.SetEdgesOfPatientrecordID(id)
 	return tu
 }
 
-// SetNillablePatientrecordID sets the patientrecord edge to Patientrecord by id if the given value is not nil.
-func (tu *TreatmentUpdate) SetNillablePatientrecordID(id *int) *TreatmentUpdate {
+// SetNillableEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id if the given value is not nil.
+func (tu *TreatmentUpdate) SetNillableEdgesOfPatientrecordID(id *int) *TreatmentUpdate {
 	if id != nil {
-		tu = tu.SetPatientrecordID(*id)
+		tu = tu.SetEdgesOfPatientrecordID(*id)
 	}
 	return tu
 }
 
-// SetPatientrecord sets the patientrecord edge to Patientrecord.
-func (tu *TreatmentUpdate) SetPatientrecord(p *Patientrecord) *TreatmentUpdate {
-	return tu.SetPatientrecordID(p.ID)
+// SetEdgesOfPatientrecord sets the EdgesOfPatientrecord edge to Patientrecord.
+func (tu *TreatmentUpdate) SetEdgesOfPatientrecord(p *Patientrecord) *TreatmentUpdate {
+	return tu.SetEdgesOfPatientrecordID(p.ID)
 }
 
-// SetDoctorID sets the doctor edge to Doctor by id.
-func (tu *TreatmentUpdate) SetDoctorID(id int) *TreatmentUpdate {
-	tu.mutation.SetDoctorID(id)
+// SetEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id.
+func (tu *TreatmentUpdate) SetEdgesOfDoctorID(id int) *TreatmentUpdate {
+	tu.mutation.SetEdgesOfDoctorID(id)
 	return tu
 }
 
-// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
-func (tu *TreatmentUpdate) SetNillableDoctorID(id *int) *TreatmentUpdate {
+// SetNillableEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id if the given value is not nil.
+func (tu *TreatmentUpdate) SetNillableEdgesOfDoctorID(id *int) *TreatmentUpdate {
 	if id != nil {
-		tu = tu.SetDoctorID(*id)
+		tu = tu.SetEdgesOfDoctorID(*id)
 	}
 	return tu
 }
 
-// SetDoctor sets the doctor edge to Doctor.
-func (tu *TreatmentUpdate) SetDoctor(d *Doctor) *TreatmentUpdate {
-	return tu.SetDoctorID(d.ID)
+// SetEdgesOfDoctor sets the EdgesOfDoctor edge to Doctor.
+func (tu *TreatmentUpdate) SetEdgesOfDoctor(d *Doctor) *TreatmentUpdate {
+	return tu.SetEdgesOfDoctorID(d.ID)
 }
 
-// SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
-func (tu *TreatmentUpdate) SetUnpaybillsID(id int) *TreatmentUpdate {
-	tu.mutation.SetUnpaybillsID(id)
+// SetEdgesOfUnpaybillsID sets the EdgesOfUnpaybills edge to Unpaybill by id.
+func (tu *TreatmentUpdate) SetEdgesOfUnpaybillsID(id int) *TreatmentUpdate {
+	tu.mutation.SetEdgesOfUnpaybillsID(id)
 	return tu
 }
 
-// SetNillableUnpaybillsID sets the unpaybills edge to Unpaybill by id if the given value is not nil.
-func (tu *TreatmentUpdate) SetNillableUnpaybillsID(id *int) *TreatmentUpdate {
+// SetNillableEdgesOfUnpaybillsID sets the EdgesOfUnpaybills edge to Unpaybill by id if the given value is not nil.
+func (tu *TreatmentUpdate) SetNillableEdgesOfUnpaybillsID(id *int) *TreatmentUpdate {
 	if id != nil {
-		tu = tu.SetUnpaybillsID(*id)
+		tu = tu.SetEdgesOfUnpaybillsID(*id)
 	}
 	return tu
 }
 
-// SetUnpaybills sets the unpaybills edge to Unpaybill.
-func (tu *TreatmentUpdate) SetUnpaybills(u *Unpaybill) *TreatmentUpdate {
-	return tu.SetUnpaybillsID(u.ID)
+// SetEdgesOfUnpaybills sets the EdgesOfUnpaybills edge to Unpaybill.
+func (tu *TreatmentUpdate) SetEdgesOfUnpaybills(u *Unpaybill) *TreatmentUpdate {
+	return tu.SetEdgesOfUnpaybillsID(u.ID)
 }
 
 // Mutation returns the TreatmentMutation object of the builder.
@@ -125,27 +125,27 @@ func (tu *TreatmentUpdate) Mutation() *TreatmentMutation {
 	return tu.mutation
 }
 
-// ClearTypetreatment clears the typetreatment edge to Typetreatment.
-func (tu *TreatmentUpdate) ClearTypetreatment() *TreatmentUpdate {
-	tu.mutation.ClearTypetreatment()
+// ClearEdgesOfTypetreatment clears the EdgesOfTypetreatment edge to Typetreatment.
+func (tu *TreatmentUpdate) ClearEdgesOfTypetreatment() *TreatmentUpdate {
+	tu.mutation.ClearEdgesOfTypetreatment()
 	return tu
 }
 
-// ClearPatientrecord clears the patientrecord edge to Patientrecord.
-func (tu *TreatmentUpdate) ClearPatientrecord() *TreatmentUpdate {
-	tu.mutation.ClearPatientrecord()
+// ClearEdgesOfPatientrecord clears the EdgesOfPatientrecord edge to Patientrecord.
+func (tu *TreatmentUpdate) ClearEdgesOfPatientrecord() *TreatmentUpdate {
+	tu.mutation.ClearEdgesOfPatientrecord()
 	return tu
 }
 
-// ClearDoctor clears the doctor edge to Doctor.
-func (tu *TreatmentUpdate) ClearDoctor() *TreatmentUpdate {
-	tu.mutation.ClearDoctor()
+// ClearEdgesOfDoctor clears the EdgesOfDoctor edge to Doctor.
+func (tu *TreatmentUpdate) ClearEdgesOfDoctor() *TreatmentUpdate {
+	tu.mutation.ClearEdgesOfDoctor()
 	return tu
 }
 
-// ClearUnpaybills clears the unpaybills edge to Unpaybill.
-func (tu *TreatmentUpdate) ClearUnpaybills() *TreatmentUpdate {
-	tu.mutation.ClearUnpaybills()
+// ClearEdgesOfUnpaybills clears the EdgesOfUnpaybills edge to Unpaybill.
+func (tu *TreatmentUpdate) ClearEdgesOfUnpaybills() *TreatmentUpdate {
+	tu.mutation.ClearEdgesOfUnpaybills()
 	return tu
 }
 
@@ -238,12 +238,12 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: treatment.FieldDatetreat,
 		})
 	}
-	if tu.mutation.TypetreatmentCleared() {
+	if tu.mutation.EdgesOfTypetreatmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.TypetreatmentTable,
-			Columns: []string{treatment.TypetreatmentColumn},
+			Table:   treatment.EdgesOfTypetreatmentTable,
+			Columns: []string{treatment.EdgesOfTypetreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -254,12 +254,12 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.TypetreatmentIDs(); len(nodes) > 0 {
+	if nodes := tu.mutation.EdgesOfTypetreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.TypetreatmentTable,
-			Columns: []string{treatment.TypetreatmentColumn},
+			Table:   treatment.EdgesOfTypetreatmentTable,
+			Columns: []string{treatment.EdgesOfTypetreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -273,12 +273,12 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tu.mutation.PatientrecordCleared() {
+	if tu.mutation.EdgesOfPatientrecordCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.PatientrecordTable,
-			Columns: []string{treatment.PatientrecordColumn},
+			Table:   treatment.EdgesOfPatientrecordTable,
+			Columns: []string{treatment.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -289,12 +289,12 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := tu.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.PatientrecordTable,
-			Columns: []string{treatment.PatientrecordColumn},
+			Table:   treatment.EdgesOfPatientrecordTable,
+			Columns: []string{treatment.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -308,12 +308,12 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tu.mutation.DoctorCleared() {
+	if tu.mutation.EdgesOfDoctorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorTable,
-			Columns: []string{treatment.DoctorColumn},
+			Table:   treatment.EdgesOfDoctorTable,
+			Columns: []string{treatment.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -324,12 +324,12 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.DoctorIDs(); len(nodes) > 0 {
+	if nodes := tu.mutation.EdgesOfDoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorTable,
-			Columns: []string{treatment.DoctorColumn},
+			Table:   treatment.EdgesOfDoctorTable,
+			Columns: []string{treatment.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -343,12 +343,12 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tu.mutation.UnpaybillsCleared() {
+	if tu.mutation.EdgesOfUnpaybillsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.UnpaybillsTable,
-			Columns: []string{treatment.UnpaybillsColumn},
+			Table:   treatment.EdgesOfUnpaybillsTable,
+			Columns: []string{treatment.EdgesOfUnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -359,12 +359,12 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.UnpaybillsIDs(); len(nodes) > 0 {
+	if nodes := tu.mutation.EdgesOfUnpaybillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.UnpaybillsTable,
-			Columns: []string{treatment.UnpaybillsColumn},
+			Table:   treatment.EdgesOfUnpaybillsTable,
+			Columns: []string{treatment.EdgesOfUnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -408,80 +408,80 @@ func (tuo *TreatmentUpdateOne) SetDatetreat(t time.Time) *TreatmentUpdateOne {
 	return tuo
 }
 
-// SetTypetreatmentID sets the typetreatment edge to Typetreatment by id.
-func (tuo *TreatmentUpdateOne) SetTypetreatmentID(id int) *TreatmentUpdateOne {
-	tuo.mutation.SetTypetreatmentID(id)
+// SetEdgesOfTypetreatmentID sets the EdgesOfTypetreatment edge to Typetreatment by id.
+func (tuo *TreatmentUpdateOne) SetEdgesOfTypetreatmentID(id int) *TreatmentUpdateOne {
+	tuo.mutation.SetEdgesOfTypetreatmentID(id)
 	return tuo
 }
 
-// SetNillableTypetreatmentID sets the typetreatment edge to Typetreatment by id if the given value is not nil.
-func (tuo *TreatmentUpdateOne) SetNillableTypetreatmentID(id *int) *TreatmentUpdateOne {
+// SetNillableEdgesOfTypetreatmentID sets the EdgesOfTypetreatment edge to Typetreatment by id if the given value is not nil.
+func (tuo *TreatmentUpdateOne) SetNillableEdgesOfTypetreatmentID(id *int) *TreatmentUpdateOne {
 	if id != nil {
-		tuo = tuo.SetTypetreatmentID(*id)
+		tuo = tuo.SetEdgesOfTypetreatmentID(*id)
 	}
 	return tuo
 }
 
-// SetTypetreatment sets the typetreatment edge to Typetreatment.
-func (tuo *TreatmentUpdateOne) SetTypetreatment(t *Typetreatment) *TreatmentUpdateOne {
-	return tuo.SetTypetreatmentID(t.ID)
+// SetEdgesOfTypetreatment sets the EdgesOfTypetreatment edge to Typetreatment.
+func (tuo *TreatmentUpdateOne) SetEdgesOfTypetreatment(t *Typetreatment) *TreatmentUpdateOne {
+	return tuo.SetEdgesOfTypetreatmentID(t.ID)
 }
 
-// SetPatientrecordID sets the patientrecord edge to Patientrecord by id.
-func (tuo *TreatmentUpdateOne) SetPatientrecordID(id int) *TreatmentUpdateOne {
-	tuo.mutation.SetPatientrecordID(id)
+// SetEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id.
+func (tuo *TreatmentUpdateOne) SetEdgesOfPatientrecordID(id int) *TreatmentUpdateOne {
+	tuo.mutation.SetEdgesOfPatientrecordID(id)
 	return tuo
 }
 
-// SetNillablePatientrecordID sets the patientrecord edge to Patientrecord by id if the given value is not nil.
-func (tuo *TreatmentUpdateOne) SetNillablePatientrecordID(id *int) *TreatmentUpdateOne {
+// SetNillableEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id if the given value is not nil.
+func (tuo *TreatmentUpdateOne) SetNillableEdgesOfPatientrecordID(id *int) *TreatmentUpdateOne {
 	if id != nil {
-		tuo = tuo.SetPatientrecordID(*id)
+		tuo = tuo.SetEdgesOfPatientrecordID(*id)
 	}
 	return tuo
 }
 
-// SetPatientrecord sets the patientrecord edge to Patientrecord.
-func (tuo *TreatmentUpdateOne) SetPatientrecord(p *Patientrecord) *TreatmentUpdateOne {
-	return tuo.SetPatientrecordID(p.ID)
+// SetEdgesOfPatientrecord sets the EdgesOfPatientrecord edge to Patientrecord.
+func (tuo *TreatmentUpdateOne) SetEdgesOfPatientrecord(p *Patientrecord) *TreatmentUpdateOne {
+	return tuo.SetEdgesOfPatientrecordID(p.ID)
 }
 
-// SetDoctorID sets the doctor edge to Doctor by id.
-func (tuo *TreatmentUpdateOne) SetDoctorID(id int) *TreatmentUpdateOne {
-	tuo.mutation.SetDoctorID(id)
+// SetEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id.
+func (tuo *TreatmentUpdateOne) SetEdgesOfDoctorID(id int) *TreatmentUpdateOne {
+	tuo.mutation.SetEdgesOfDoctorID(id)
 	return tuo
 }
 
-// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
-func (tuo *TreatmentUpdateOne) SetNillableDoctorID(id *int) *TreatmentUpdateOne {
+// SetNillableEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id if the given value is not nil.
+func (tuo *TreatmentUpdateOne) SetNillableEdgesOfDoctorID(id *int) *TreatmentUpdateOne {
 	if id != nil {
-		tuo = tuo.SetDoctorID(*id)
+		tuo = tuo.SetEdgesOfDoctorID(*id)
 	}
 	return tuo
 }
 
-// SetDoctor sets the doctor edge to Doctor.
-func (tuo *TreatmentUpdateOne) SetDoctor(d *Doctor) *TreatmentUpdateOne {
-	return tuo.SetDoctorID(d.ID)
+// SetEdgesOfDoctor sets the EdgesOfDoctor edge to Doctor.
+func (tuo *TreatmentUpdateOne) SetEdgesOfDoctor(d *Doctor) *TreatmentUpdateOne {
+	return tuo.SetEdgesOfDoctorID(d.ID)
 }
 
-// SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
-func (tuo *TreatmentUpdateOne) SetUnpaybillsID(id int) *TreatmentUpdateOne {
-	tuo.mutation.SetUnpaybillsID(id)
+// SetEdgesOfUnpaybillsID sets the EdgesOfUnpaybills edge to Unpaybill by id.
+func (tuo *TreatmentUpdateOne) SetEdgesOfUnpaybillsID(id int) *TreatmentUpdateOne {
+	tuo.mutation.SetEdgesOfUnpaybillsID(id)
 	return tuo
 }
 
-// SetNillableUnpaybillsID sets the unpaybills edge to Unpaybill by id if the given value is not nil.
-func (tuo *TreatmentUpdateOne) SetNillableUnpaybillsID(id *int) *TreatmentUpdateOne {
+// SetNillableEdgesOfUnpaybillsID sets the EdgesOfUnpaybills edge to Unpaybill by id if the given value is not nil.
+func (tuo *TreatmentUpdateOne) SetNillableEdgesOfUnpaybillsID(id *int) *TreatmentUpdateOne {
 	if id != nil {
-		tuo = tuo.SetUnpaybillsID(*id)
+		tuo = tuo.SetEdgesOfUnpaybillsID(*id)
 	}
 	return tuo
 }
 
-// SetUnpaybills sets the unpaybills edge to Unpaybill.
-func (tuo *TreatmentUpdateOne) SetUnpaybills(u *Unpaybill) *TreatmentUpdateOne {
-	return tuo.SetUnpaybillsID(u.ID)
+// SetEdgesOfUnpaybills sets the EdgesOfUnpaybills edge to Unpaybill.
+func (tuo *TreatmentUpdateOne) SetEdgesOfUnpaybills(u *Unpaybill) *TreatmentUpdateOne {
+	return tuo.SetEdgesOfUnpaybillsID(u.ID)
 }
 
 // Mutation returns the TreatmentMutation object of the builder.
@@ -489,27 +489,27 @@ func (tuo *TreatmentUpdateOne) Mutation() *TreatmentMutation {
 	return tuo.mutation
 }
 
-// ClearTypetreatment clears the typetreatment edge to Typetreatment.
-func (tuo *TreatmentUpdateOne) ClearTypetreatment() *TreatmentUpdateOne {
-	tuo.mutation.ClearTypetreatment()
+// ClearEdgesOfTypetreatment clears the EdgesOfTypetreatment edge to Typetreatment.
+func (tuo *TreatmentUpdateOne) ClearEdgesOfTypetreatment() *TreatmentUpdateOne {
+	tuo.mutation.ClearEdgesOfTypetreatment()
 	return tuo
 }
 
-// ClearPatientrecord clears the patientrecord edge to Patientrecord.
-func (tuo *TreatmentUpdateOne) ClearPatientrecord() *TreatmentUpdateOne {
-	tuo.mutation.ClearPatientrecord()
+// ClearEdgesOfPatientrecord clears the EdgesOfPatientrecord edge to Patientrecord.
+func (tuo *TreatmentUpdateOne) ClearEdgesOfPatientrecord() *TreatmentUpdateOne {
+	tuo.mutation.ClearEdgesOfPatientrecord()
 	return tuo
 }
 
-// ClearDoctor clears the doctor edge to Doctor.
-func (tuo *TreatmentUpdateOne) ClearDoctor() *TreatmentUpdateOne {
-	tuo.mutation.ClearDoctor()
+// ClearEdgesOfDoctor clears the EdgesOfDoctor edge to Doctor.
+func (tuo *TreatmentUpdateOne) ClearEdgesOfDoctor() *TreatmentUpdateOne {
+	tuo.mutation.ClearEdgesOfDoctor()
 	return tuo
 }
 
-// ClearUnpaybills clears the unpaybills edge to Unpaybill.
-func (tuo *TreatmentUpdateOne) ClearUnpaybills() *TreatmentUpdateOne {
-	tuo.mutation.ClearUnpaybills()
+// ClearEdgesOfUnpaybills clears the EdgesOfUnpaybills edge to Unpaybill.
+func (tuo *TreatmentUpdateOne) ClearEdgesOfUnpaybills() *TreatmentUpdateOne {
+	tuo.mutation.ClearEdgesOfUnpaybills()
 	return tuo
 }
 
@@ -600,12 +600,12 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 			Column: treatment.FieldDatetreat,
 		})
 	}
-	if tuo.mutation.TypetreatmentCleared() {
+	if tuo.mutation.EdgesOfTypetreatmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.TypetreatmentTable,
-			Columns: []string{treatment.TypetreatmentColumn},
+			Table:   treatment.EdgesOfTypetreatmentTable,
+			Columns: []string{treatment.EdgesOfTypetreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -616,12 +616,12 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.TypetreatmentIDs(); len(nodes) > 0 {
+	if nodes := tuo.mutation.EdgesOfTypetreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.TypetreatmentTable,
-			Columns: []string{treatment.TypetreatmentColumn},
+			Table:   treatment.EdgesOfTypetreatmentTable,
+			Columns: []string{treatment.EdgesOfTypetreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -635,12 +635,12 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tuo.mutation.PatientrecordCleared() {
+	if tuo.mutation.EdgesOfPatientrecordCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.PatientrecordTable,
-			Columns: []string{treatment.PatientrecordColumn},
+			Table:   treatment.EdgesOfPatientrecordTable,
+			Columns: []string{treatment.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -651,12 +651,12 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := tuo.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.PatientrecordTable,
-			Columns: []string{treatment.PatientrecordColumn},
+			Table:   treatment.EdgesOfPatientrecordTable,
+			Columns: []string{treatment.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -670,12 +670,12 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tuo.mutation.DoctorCleared() {
+	if tuo.mutation.EdgesOfDoctorCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorTable,
-			Columns: []string{treatment.DoctorColumn},
+			Table:   treatment.EdgesOfDoctorTable,
+			Columns: []string{treatment.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -686,12 +686,12 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.DoctorIDs(); len(nodes) > 0 {
+	if nodes := tuo.mutation.EdgesOfDoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorTable,
-			Columns: []string{treatment.DoctorColumn},
+			Table:   treatment.EdgesOfDoctorTable,
+			Columns: []string{treatment.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -705,12 +705,12 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if tuo.mutation.UnpaybillsCleared() {
+	if tuo.mutation.EdgesOfUnpaybillsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.UnpaybillsTable,
-			Columns: []string{treatment.UnpaybillsColumn},
+			Table:   treatment.EdgesOfUnpaybillsTable,
+			Columns: []string{treatment.EdgesOfUnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -721,12 +721,12 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.UnpaybillsIDs(); len(nodes) > 0 {
+	if nodes := tuo.mutation.EdgesOfUnpaybillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.UnpaybillsTable,
-			Columns: []string{treatment.UnpaybillsColumn},
+			Table:   treatment.EdgesOfUnpaybillsTable,
+			Columns: []string{treatment.EdgesOfUnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

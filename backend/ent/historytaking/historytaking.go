@@ -26,45 +26,45 @@ const (
 	// FieldDatetime holds the string denoting the datetime field in the database.
 	FieldDatetime = "datetime"
 
-	// EdgeNurse holds the string denoting the nurse edge name in mutations.
-	EdgeNurse = "nurse"
-	// EdgeDepartment holds the string denoting the department edge name in mutations.
-	EdgeDepartment = "department"
-	// EdgeSymptomseverity holds the string denoting the symptomseverity edge name in mutations.
-	EdgeSymptomseverity = "symptomseverity"
-	// EdgePatientrecord holds the string denoting the patientrecord edge name in mutations.
-	EdgePatientrecord = "patientrecord"
+	// EdgeEdgesOfNurse holds the string denoting the edgesofnurse edge name in mutations.
+	EdgeEdgesOfNurse = "EdgesOfNurse"
+	// EdgeEdgesOfDepartment holds the string denoting the edgesofdepartment edge name in mutations.
+	EdgeEdgesOfDepartment = "EdgesOfDepartment"
+	// EdgeEdgesOfSymptomseverity holds the string denoting the edgesofsymptomseverity edge name in mutations.
+	EdgeEdgesOfSymptomseverity = "EdgesOfSymptomseverity"
+	// EdgeEdgesOfPatientrecord holds the string denoting the edgesofpatientrecord edge name in mutations.
+	EdgeEdgesOfPatientrecord = "EdgesOfPatientrecord"
 
 	// Table holds the table name of the historytaking in the database.
 	Table = "historytakings"
-	// NurseTable is the table the holds the nurse relation/edge.
-	NurseTable = "historytakings"
-	// NurseInverseTable is the table name for the Nurse entity.
+	// EdgesOfNurseTable is the table the holds the EdgesOfNurse relation/edge.
+	EdgesOfNurseTable = "historytakings"
+	// EdgesOfNurseInverseTable is the table name for the Nurse entity.
 	// It exists in this package in order to avoid circular dependency with the "nurse" package.
-	NurseInverseTable = "nurses"
-	// NurseColumn is the table column denoting the nurse relation/edge.
-	NurseColumn = "nurse_id"
-	// DepartmentTable is the table the holds the department relation/edge.
-	DepartmentTable = "historytakings"
-	// DepartmentInverseTable is the table name for the Department entity.
+	EdgesOfNurseInverseTable = "nurses"
+	// EdgesOfNurseColumn is the table column denoting the EdgesOfNurse relation/edge.
+	EdgesOfNurseColumn = "nurse_id"
+	// EdgesOfDepartmentTable is the table the holds the EdgesOfDepartment relation/edge.
+	EdgesOfDepartmentTable = "historytakings"
+	// EdgesOfDepartmentInverseTable is the table name for the Department entity.
 	// It exists in this package in order to avoid circular dependency with the "department" package.
-	DepartmentInverseTable = "departments"
-	// DepartmentColumn is the table column denoting the department relation/edge.
-	DepartmentColumn = "department_id"
-	// SymptomseverityTable is the table the holds the symptomseverity relation/edge.
-	SymptomseverityTable = "historytakings"
-	// SymptomseverityInverseTable is the table name for the Symptomseverity entity.
+	EdgesOfDepartmentInverseTable = "departments"
+	// EdgesOfDepartmentColumn is the table column denoting the EdgesOfDepartment relation/edge.
+	EdgesOfDepartmentColumn = "department_id"
+	// EdgesOfSymptomseverityTable is the table the holds the EdgesOfSymptomseverity relation/edge.
+	EdgesOfSymptomseverityTable = "historytakings"
+	// EdgesOfSymptomseverityInverseTable is the table name for the Symptomseverity entity.
 	// It exists in this package in order to avoid circular dependency with the "symptomseverity" package.
-	SymptomseverityInverseTable = "symptomseverities"
-	// SymptomseverityColumn is the table column denoting the symptomseverity relation/edge.
-	SymptomseverityColumn = "symptomseverity_id"
-	// PatientrecordTable is the table the holds the patientrecord relation/edge.
-	PatientrecordTable = "historytakings"
-	// PatientrecordInverseTable is the table name for the Patientrecord entity.
+	EdgesOfSymptomseverityInverseTable = "symptomseverities"
+	// EdgesOfSymptomseverityColumn is the table column denoting the EdgesOfSymptomseverity relation/edge.
+	EdgesOfSymptomseverityColumn = "symptomseverity_id"
+	// EdgesOfPatientrecordTable is the table the holds the EdgesOfPatientrecord relation/edge.
+	EdgesOfPatientrecordTable = "historytakings"
+	// EdgesOfPatientrecordInverseTable is the table name for the Patientrecord entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrecord" package.
-	PatientrecordInverseTable = "patientrecords"
-	// PatientrecordColumn is the table column denoting the patientrecord relation/edge.
-	PatientrecordColumn = "patientrecord_id"
+	EdgesOfPatientrecordInverseTable = "patientrecords"
+	// EdgesOfPatientrecordColumn is the table column denoting the EdgesOfPatientrecord relation/edge.
+	EdgesOfPatientrecordColumn = "patientrecord_id"
 )
 
 // Columns holds all SQL columns for historytaking fields.

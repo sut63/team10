@@ -35,34 +35,34 @@ func (du *DepartmentUpdate) SetDepartment(s string) *DepartmentUpdate {
 	return du
 }
 
-// AddDepartment2doctorinfoIDs adds the department2doctorinfo edge to Doctorinfo by ids.
-func (du *DepartmentUpdate) AddDepartment2doctorinfoIDs(ids ...int) *DepartmentUpdate {
-	du.mutation.AddDepartment2doctorinfoIDs(ids...)
+// AddEdgesOfDepartment2doctorinfoIDs adds the EdgesOfDepartment2doctorinfo edge to Doctorinfo by ids.
+func (du *DepartmentUpdate) AddEdgesOfDepartment2doctorinfoIDs(ids ...int) *DepartmentUpdate {
+	du.mutation.AddEdgesOfDepartment2doctorinfoIDs(ids...)
 	return du
 }
 
-// AddDepartment2doctorinfo adds the department2doctorinfo edges to Doctorinfo.
-func (du *DepartmentUpdate) AddDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentUpdate {
+// AddEdgesOfDepartment2doctorinfo adds the EdgesOfDepartment2doctorinfo edges to Doctorinfo.
+func (du *DepartmentUpdate) AddEdgesOfDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentUpdate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return du.AddDepartment2doctorinfoIDs(ids...)
+	return du.AddEdgesOfDepartment2doctorinfoIDs(ids...)
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (du *DepartmentUpdate) AddHistorytakingIDs(ids ...int) *DepartmentUpdate {
-	du.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (du *DepartmentUpdate) AddEdgesOfHistorytakingIDs(ids ...int) *DepartmentUpdate {
+	du.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return du
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (du *DepartmentUpdate) AddHistorytaking(h ...*Historytaking) *DepartmentUpdate {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (du *DepartmentUpdate) AddEdgesOfHistorytaking(h ...*Historytaking) *DepartmentUpdate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return du.AddHistorytakingIDs(ids...)
+	return du.AddEdgesOfHistorytakingIDs(ids...)
 }
 
 // Mutation returns the DepartmentMutation object of the builder.
@@ -70,34 +70,34 @@ func (du *DepartmentUpdate) Mutation() *DepartmentMutation {
 	return du.mutation
 }
 
-// RemoveDepartment2doctorinfoIDs removes the department2doctorinfo edge to Doctorinfo by ids.
-func (du *DepartmentUpdate) RemoveDepartment2doctorinfoIDs(ids ...int) *DepartmentUpdate {
-	du.mutation.RemoveDepartment2doctorinfoIDs(ids...)
+// RemoveEdgesOfDepartment2doctorinfoIDs removes the EdgesOfDepartment2doctorinfo edge to Doctorinfo by ids.
+func (du *DepartmentUpdate) RemoveEdgesOfDepartment2doctorinfoIDs(ids ...int) *DepartmentUpdate {
+	du.mutation.RemoveEdgesOfDepartment2doctorinfoIDs(ids...)
 	return du
 }
 
-// RemoveDepartment2doctorinfo removes department2doctorinfo edges to Doctorinfo.
-func (du *DepartmentUpdate) RemoveDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentUpdate {
+// RemoveEdgesOfDepartment2doctorinfo removes EdgesOfDepartment2doctorinfo edges to Doctorinfo.
+func (du *DepartmentUpdate) RemoveEdgesOfDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentUpdate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return du.RemoveDepartment2doctorinfoIDs(ids...)
+	return du.RemoveEdgesOfDepartment2doctorinfoIDs(ids...)
 }
 
-// RemoveHistorytakingIDs removes the historytaking edge to Historytaking by ids.
-func (du *DepartmentUpdate) RemoveHistorytakingIDs(ids ...int) *DepartmentUpdate {
-	du.mutation.RemoveHistorytakingIDs(ids...)
+// RemoveEdgesOfHistorytakingIDs removes the EdgesOfHistorytaking edge to Historytaking by ids.
+func (du *DepartmentUpdate) RemoveEdgesOfHistorytakingIDs(ids ...int) *DepartmentUpdate {
+	du.mutation.RemoveEdgesOfHistorytakingIDs(ids...)
 	return du
 }
 
-// RemoveHistorytaking removes historytaking edges to Historytaking.
-func (du *DepartmentUpdate) RemoveHistorytaking(h ...*Historytaking) *DepartmentUpdate {
+// RemoveEdgesOfHistorytaking removes EdgesOfHistorytaking edges to Historytaking.
+func (du *DepartmentUpdate) RemoveEdgesOfHistorytaking(h ...*Historytaking) *DepartmentUpdate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return du.RemoveHistorytakingIDs(ids...)
+	return du.RemoveEdgesOfHistorytakingIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -182,12 +182,12 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: department.FieldDepartment,
 		})
 	}
-	if nodes := du.mutation.RemovedDepartment2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.RemovedEdgesOfDepartment2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.Department2doctorinfoTable,
-			Columns: []string{department.Department2doctorinfoColumn},
+			Table:   department.EdgesOfDepartment2doctorinfoTable,
+			Columns: []string{department.EdgesOfDepartment2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -201,12 +201,12 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.Department2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.EdgesOfDepartment2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.Department2doctorinfoTable,
-			Columns: []string{department.Department2doctorinfoColumn},
+			Table:   department.EdgesOfDepartment2doctorinfoTable,
+			Columns: []string{department.EdgesOfDepartment2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -220,12 +220,12 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := du.mutation.RemovedHistorytakingIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.RemovedEdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.HistorytakingTable,
-			Columns: []string{department.HistorytakingColumn},
+			Table:   department.EdgesOfHistorytakingTable,
+			Columns: []string{department.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -239,12 +239,12 @@ func (du *DepartmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := du.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := du.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.HistorytakingTable,
-			Columns: []string{department.HistorytakingColumn},
+			Table:   department.EdgesOfHistorytakingTable,
+			Columns: []string{department.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -282,34 +282,34 @@ func (duo *DepartmentUpdateOne) SetDepartment(s string) *DepartmentUpdateOne {
 	return duo
 }
 
-// AddDepartment2doctorinfoIDs adds the department2doctorinfo edge to Doctorinfo by ids.
-func (duo *DepartmentUpdateOne) AddDepartment2doctorinfoIDs(ids ...int) *DepartmentUpdateOne {
-	duo.mutation.AddDepartment2doctorinfoIDs(ids...)
+// AddEdgesOfDepartment2doctorinfoIDs adds the EdgesOfDepartment2doctorinfo edge to Doctorinfo by ids.
+func (duo *DepartmentUpdateOne) AddEdgesOfDepartment2doctorinfoIDs(ids ...int) *DepartmentUpdateOne {
+	duo.mutation.AddEdgesOfDepartment2doctorinfoIDs(ids...)
 	return duo
 }
 
-// AddDepartment2doctorinfo adds the department2doctorinfo edges to Doctorinfo.
-func (duo *DepartmentUpdateOne) AddDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentUpdateOne {
+// AddEdgesOfDepartment2doctorinfo adds the EdgesOfDepartment2doctorinfo edges to Doctorinfo.
+func (duo *DepartmentUpdateOne) AddEdgesOfDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentUpdateOne {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return duo.AddDepartment2doctorinfoIDs(ids...)
+	return duo.AddEdgesOfDepartment2doctorinfoIDs(ids...)
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (duo *DepartmentUpdateOne) AddHistorytakingIDs(ids ...int) *DepartmentUpdateOne {
-	duo.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (duo *DepartmentUpdateOne) AddEdgesOfHistorytakingIDs(ids ...int) *DepartmentUpdateOne {
+	duo.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return duo
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (duo *DepartmentUpdateOne) AddHistorytaking(h ...*Historytaking) *DepartmentUpdateOne {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (duo *DepartmentUpdateOne) AddEdgesOfHistorytaking(h ...*Historytaking) *DepartmentUpdateOne {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return duo.AddHistorytakingIDs(ids...)
+	return duo.AddEdgesOfHistorytakingIDs(ids...)
 }
 
 // Mutation returns the DepartmentMutation object of the builder.
@@ -317,34 +317,34 @@ func (duo *DepartmentUpdateOne) Mutation() *DepartmentMutation {
 	return duo.mutation
 }
 
-// RemoveDepartment2doctorinfoIDs removes the department2doctorinfo edge to Doctorinfo by ids.
-func (duo *DepartmentUpdateOne) RemoveDepartment2doctorinfoIDs(ids ...int) *DepartmentUpdateOne {
-	duo.mutation.RemoveDepartment2doctorinfoIDs(ids...)
+// RemoveEdgesOfDepartment2doctorinfoIDs removes the EdgesOfDepartment2doctorinfo edge to Doctorinfo by ids.
+func (duo *DepartmentUpdateOne) RemoveEdgesOfDepartment2doctorinfoIDs(ids ...int) *DepartmentUpdateOne {
+	duo.mutation.RemoveEdgesOfDepartment2doctorinfoIDs(ids...)
 	return duo
 }
 
-// RemoveDepartment2doctorinfo removes department2doctorinfo edges to Doctorinfo.
-func (duo *DepartmentUpdateOne) RemoveDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentUpdateOne {
+// RemoveEdgesOfDepartment2doctorinfo removes EdgesOfDepartment2doctorinfo edges to Doctorinfo.
+func (duo *DepartmentUpdateOne) RemoveEdgesOfDepartment2doctorinfo(d ...*Doctorinfo) *DepartmentUpdateOne {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return duo.RemoveDepartment2doctorinfoIDs(ids...)
+	return duo.RemoveEdgesOfDepartment2doctorinfoIDs(ids...)
 }
 
-// RemoveHistorytakingIDs removes the historytaking edge to Historytaking by ids.
-func (duo *DepartmentUpdateOne) RemoveHistorytakingIDs(ids ...int) *DepartmentUpdateOne {
-	duo.mutation.RemoveHistorytakingIDs(ids...)
+// RemoveEdgesOfHistorytakingIDs removes the EdgesOfHistorytaking edge to Historytaking by ids.
+func (duo *DepartmentUpdateOne) RemoveEdgesOfHistorytakingIDs(ids ...int) *DepartmentUpdateOne {
+	duo.mutation.RemoveEdgesOfHistorytakingIDs(ids...)
 	return duo
 }
 
-// RemoveHistorytaking removes historytaking edges to Historytaking.
-func (duo *DepartmentUpdateOne) RemoveHistorytaking(h ...*Historytaking) *DepartmentUpdateOne {
+// RemoveEdgesOfHistorytaking removes EdgesOfHistorytaking edges to Historytaking.
+func (duo *DepartmentUpdateOne) RemoveEdgesOfHistorytaking(h ...*Historytaking) *DepartmentUpdateOne {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return duo.RemoveHistorytakingIDs(ids...)
+	return duo.RemoveEdgesOfHistorytakingIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -427,12 +427,12 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (d *Department, err
 			Column: department.FieldDepartment,
 		})
 	}
-	if nodes := duo.mutation.RemovedDepartment2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.RemovedEdgesOfDepartment2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.Department2doctorinfoTable,
-			Columns: []string{department.Department2doctorinfoColumn},
+			Table:   department.EdgesOfDepartment2doctorinfoTable,
+			Columns: []string{department.EdgesOfDepartment2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -446,12 +446,12 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (d *Department, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.Department2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.EdgesOfDepartment2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.Department2doctorinfoTable,
-			Columns: []string{department.Department2doctorinfoColumn},
+			Table:   department.EdgesOfDepartment2doctorinfoTable,
+			Columns: []string{department.EdgesOfDepartment2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -465,12 +465,12 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (d *Department, err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := duo.mutation.RemovedHistorytakingIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.RemovedEdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.HistorytakingTable,
-			Columns: []string{department.HistorytakingColumn},
+			Table:   department.EdgesOfHistorytakingTable,
+			Columns: []string{department.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -484,12 +484,12 @@ func (duo *DepartmentUpdateOne) sqlSave(ctx context.Context) (d *Department, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := duo.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := duo.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   department.HistorytakingTable,
-			Columns: []string{department.HistorytakingColumn},
+			Table:   department.EdgesOfHistorytakingTable,
+			Columns: []string{department.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

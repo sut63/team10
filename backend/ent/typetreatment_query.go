@@ -26,7 +26,7 @@ type TypetreatmentQuery struct {
 	unique     []string
 	predicates []predicate.Typetreatment
 	// eager-loading edges.
-	withTreatment *TreatmentQuery
+	withEdgesOfTreatment *TreatmentQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,8 +56,8 @@ func (tq *TypetreatmentQuery) Order(o ...OrderFunc) *TypetreatmentQuery {
 	return tq
 }
 
-// QueryTreatment chains the current query on the treatment edge.
-func (tq *TypetreatmentQuery) QueryTreatment() *TreatmentQuery {
+// QueryEdgesOfTreatment chains the current query on the EdgesOfTreatment edge.
+func (tq *TypetreatmentQuery) QueryEdgesOfTreatment() *TreatmentQuery {
 	query := &TreatmentQuery{config: tq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := tq.prepareQuery(ctx); err != nil {
@@ -66,7 +66,7 @@ func (tq *TypetreatmentQuery) QueryTreatment() *TreatmentQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(typetreatment.Table, typetreatment.FieldID, tq.sqlQuery()),
 			sqlgraph.To(treatment.Table, treatment.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, typetreatment.TreatmentTable, typetreatment.TreatmentColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, typetreatment.EdgesOfTreatmentTable, typetreatment.EdgesOfTreatmentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(tq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (tq *TypetreatmentQuery) Clone() *TypetreatmentQuery {
 	}
 }
 
-//  WithTreatment tells the query-builder to eager-loads the nodes that are connected to
-// the "treatment" edge. The optional arguments used to configure the query builder of the edge.
-func (tq *TypetreatmentQuery) WithTreatment(opts ...func(*TreatmentQuery)) *TypetreatmentQuery {
+//  WithEdgesOfTreatment tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfTreatment" edge. The optional arguments used to configure the query builder of the edge.
+func (tq *TypetreatmentQuery) WithEdgesOfTreatment(opts ...func(*TreatmentQuery)) *TypetreatmentQuery {
 	query := &TreatmentQuery{config: tq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	tq.withTreatment = query
+	tq.withEdgesOfTreatment = query
 	return tq
 }
 
@@ -331,7 +331,7 @@ func (tq *TypetreatmentQuery) sqlAll(ctx context.Context) ([]*Typetreatment, err
 		nodes       = []*Typetreatment{}
 		_spec       = tq.querySpec()
 		loadedTypes = [1]bool{
-			tq.withTreatment != nil,
+			tq.withEdgesOfTreatment != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -355,7 +355,7 @@ func (tq *TypetreatmentQuery) sqlAll(ctx context.Context) ([]*Typetreatment, err
 		return nodes, nil
 	}
 
-	if query := tq.withTreatment; query != nil {
+	if query := tq.withEdgesOfTreatment; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Typetreatment)
 		for i := range nodes {
@@ -364,7 +364,7 @@ func (tq *TypetreatmentQuery) sqlAll(ctx context.Context) ([]*Typetreatment, err
 		}
 		query.withFKs = true
 		query.Where(predicate.Treatment(func(s *sql.Selector) {
-			s.Where(sql.InValues(typetreatment.TreatmentColumn, fks...))
+			s.Where(sql.InValues(typetreatment.EdgesOfTreatmentColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -379,7 +379,7 @@ func (tq *TypetreatmentQuery) sqlAll(ctx context.Context) ([]*Typetreatment, err
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "typetreatment_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Treatment = append(node.Edges.Treatment, n)
+			node.Edges.EdgesOfTreatment = append(node.Edges.EdgesOfTreatment, n)
 		}
 	}
 

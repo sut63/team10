@@ -209,25 +209,25 @@ func NameContainsFold(v string) predicate.Financier {
 	})
 }
 
-// HasBills applies the HasEdge predicate on the "bills" edge.
-func HasBills() predicate.Financier {
+// HasEdgesOfBills applies the HasEdge predicate on the "EdgesOfBills" edge.
+func HasEdgesOfBills() predicate.Financier {
 	return predicate.Financier(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(BillsTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, BillsTable, BillsColumn),
+			sqlgraph.To(EdgesOfBillsTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfBillsTable, EdgesOfBillsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasBillsWith applies the HasEdge predicate on the "bills" edge with a given conditions (other predicates).
-func HasBillsWith(preds ...predicate.Bill) predicate.Financier {
+// HasEdgesOfBillsWith applies the HasEdge predicate on the "EdgesOfBills" edge with a given conditions (other predicates).
+func HasEdgesOfBillsWith(preds ...predicate.Bill) predicate.Financier {
 	return predicate.Financier(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(BillsInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, BillsTable, BillsColumn),
+			sqlgraph.To(EdgesOfBillsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfBillsTable, EdgesOfBillsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -237,25 +237,25 @@ func HasBillsWith(preds ...predicate.Bill) predicate.Financier {
 	})
 }
 
-// HasUser applies the HasEdge predicate on the "user" edge.
-func HasUser() predicate.Financier {
+// HasEdgesOfUser applies the HasEdge predicate on the "EdgesOfUser" edge.
+func HasEdgesOfUser() predicate.Financier {
 	return predicate.Financier(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UserTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, UserTable, UserColumn),
+			sqlgraph.To(EdgesOfUserTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, EdgesOfUserTable, EdgesOfUserColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasUserWith applies the HasEdge predicate on the "user" edge with a given conditions (other predicates).
-func HasUserWith(preds ...predicate.User) predicate.Financier {
+// HasEdgesOfUserWith applies the HasEdge predicate on the "EdgesOfUser" edge with a given conditions (other predicates).
+func HasEdgesOfUserWith(preds ...predicate.User) predicate.Financier {
 	return predicate.Financier(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UserInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, UserTable, UserColumn),
+			sqlgraph.To(EdgesOfUserInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, EdgesOfUserTable, EdgesOfUserColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

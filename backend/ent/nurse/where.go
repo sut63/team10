@@ -445,25 +445,25 @@ func PositionContainsFold(v string) predicate.Nurse {
 	})
 }
 
-// HasHistorytaking applies the HasEdge predicate on the "historytaking" edge.
-func HasHistorytaking() predicate.Nurse {
+// HasEdgesOfHistorytaking applies the HasEdge predicate on the "EdgesOfHistorytaking" edge.
+func HasEdgesOfHistorytaking() predicate.Nurse {
 	return predicate.Nurse(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(HistorytakingTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, HistorytakingTable, HistorytakingColumn),
+			sqlgraph.To(EdgesOfHistorytakingTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfHistorytakingTable, EdgesOfHistorytakingColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasHistorytakingWith applies the HasEdge predicate on the "historytaking" edge with a given conditions (other predicates).
-func HasHistorytakingWith(preds ...predicate.Historytaking) predicate.Nurse {
+// HasEdgesOfHistorytakingWith applies the HasEdge predicate on the "EdgesOfHistorytaking" edge with a given conditions (other predicates).
+func HasEdgesOfHistorytakingWith(preds ...predicate.Historytaking) predicate.Nurse {
 	return predicate.Nurse(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(HistorytakingInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, HistorytakingTable, HistorytakingColumn),
+			sqlgraph.To(EdgesOfHistorytakingInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfHistorytakingTable, EdgesOfHistorytakingColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {
@@ -473,25 +473,25 @@ func HasHistorytakingWith(preds ...predicate.Historytaking) predicate.Nurse {
 	})
 }
 
-// HasUser applies the HasEdge predicate on the "user" edge.
-func HasUser() predicate.Nurse {
+// HasEdgesOfUser applies the HasEdge predicate on the "EdgesOfUser" edge.
+func HasEdgesOfUser() predicate.Nurse {
 	return predicate.Nurse(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UserTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, UserTable, UserColumn),
+			sqlgraph.To(EdgesOfUserTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, EdgesOfUserTable, EdgesOfUserColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasUserWith applies the HasEdge predicate on the "user" edge with a given conditions (other predicates).
-func HasUserWith(preds ...predicate.User) predicate.Nurse {
+// HasEdgesOfUserWith applies the HasEdge predicate on the "EdgesOfUser" edge with a given conditions (other predicates).
+func HasEdgesOfUserWith(preds ...predicate.User) predicate.Nurse {
 	return predicate.Nurse(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(UserInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, UserTable, UserColumn),
+			sqlgraph.To(EdgesOfUserInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2O, true, EdgesOfUserTable, EdgesOfUserColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

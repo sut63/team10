@@ -10,18 +10,18 @@ const (
 	// FieldInsurancecompany holds the string denoting the insurancecompany field in the database.
 	FieldInsurancecompany = "insurancecompany"
 
-	// EdgeInsurancePatientrights holds the string denoting the insurancepatientrights edge name in mutations.
-	EdgeInsurancePatientrights = "InsurancePatientrights"
+	// EdgeEdgesOfInsurancePatientrights holds the string denoting the edgesofinsurancepatientrights edge name in mutations.
+	EdgeEdgesOfInsurancePatientrights = "EdgesOfInsurancePatientrights"
 
 	// Table holds the table name of the insurance in the database.
 	Table = "insurances"
-	// InsurancePatientrightsTable is the table the holds the InsurancePatientrights relation/edge.
-	InsurancePatientrightsTable = "patientrights"
-	// InsurancePatientrightsInverseTable is the table name for the Patientrights entity.
+	// EdgesOfInsurancePatientrightsTable is the table the holds the EdgesOfInsurancePatientrights relation/edge.
+	EdgesOfInsurancePatientrightsTable = "patientrights"
+	// EdgesOfInsurancePatientrightsInverseTable is the table name for the Patientrights entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrights" package.
-	InsurancePatientrightsInverseTable = "patientrights"
-	// InsurancePatientrightsColumn is the table column denoting the InsurancePatientrights relation/edge.
-	InsurancePatientrightsColumn = "Insurance_id"
+	EdgesOfInsurancePatientrightsInverseTable = "patientrights"
+	// EdgesOfInsurancePatientrightsColumn is the table column denoting the EdgesOfInsurancePatientrights relation/edge.
+	EdgesOfInsurancePatientrightsColumn = "Insurance_id"
 )
 
 // Columns holds all SQL columns for insurance fields.

@@ -27,34 +27,34 @@ func (pc *PrenameCreate) SetPrefix(s string) *PrenameCreate {
 	return pc
 }
 
-// AddPrename2doctorinfoIDs adds the prename2doctorinfo edge to Doctorinfo by ids.
-func (pc *PrenameCreate) AddPrename2doctorinfoIDs(ids ...int) *PrenameCreate {
-	pc.mutation.AddPrename2doctorinfoIDs(ids...)
+// AddEdgesOfPrename2doctorinfoIDs adds the EdgesOfPrename2doctorinfo edge to Doctorinfo by ids.
+func (pc *PrenameCreate) AddEdgesOfPrename2doctorinfoIDs(ids ...int) *PrenameCreate {
+	pc.mutation.AddEdgesOfPrename2doctorinfoIDs(ids...)
 	return pc
 }
 
-// AddPrename2doctorinfo adds the prename2doctorinfo edges to Doctorinfo.
-func (pc *PrenameCreate) AddPrename2doctorinfo(d ...*Doctorinfo) *PrenameCreate {
+// AddEdgesOfPrename2doctorinfo adds the EdgesOfPrename2doctorinfo edges to Doctorinfo.
+func (pc *PrenameCreate) AddEdgesOfPrename2doctorinfo(d ...*Doctorinfo) *PrenameCreate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return pc.AddPrename2doctorinfoIDs(ids...)
+	return pc.AddEdgesOfPrename2doctorinfoIDs(ids...)
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (pc *PrenameCreate) AddPatientrecordIDs(ids ...int) *PrenameCreate {
-	pc.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (pc *PrenameCreate) AddEdgesOfPatientrecordIDs(ids ...int) *PrenameCreate {
+	pc.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return pc
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (pc *PrenameCreate) AddPatientrecord(p ...*Patientrecord) *PrenameCreate {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (pc *PrenameCreate) AddEdgesOfPatientrecord(p ...*Patientrecord) *PrenameCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return pc.AddPatientrecordIDs(ids...)
+	return pc.AddEdgesOfPatientrecordIDs(ids...)
 }
 
 // Mutation returns the PrenameMutation object of the builder.
@@ -140,12 +140,12 @@ func (pc *PrenameCreate) createSpec() (*Prename, *sqlgraph.CreateSpec) {
 		})
 		pr.Prefix = value
 	}
-	if nodes := pc.mutation.Prename2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfPrename2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.Prename2doctorinfoTable,
-			Columns: []string{prename.Prename2doctorinfoColumn},
+			Table:   prename.EdgesOfPrename2doctorinfoTable,
+			Columns: []string{prename.EdgesOfPrename2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -159,12 +159,12 @@ func (pc *PrenameCreate) createSpec() (*Prename, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := pc.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   prename.PatientrecordTable,
-			Columns: []string{prename.PatientrecordColumn},
+			Table:   prename.EdgesOfPatientrecordTable,
+			Columns: []string{prename.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

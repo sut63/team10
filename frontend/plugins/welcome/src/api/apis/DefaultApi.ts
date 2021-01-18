@@ -33,6 +33,9 @@ import {
     ControllersPatientrights,
     ControllersPatientrightsFromJSON,
     ControllersPatientrightsToJSON,
+    ControllersPatientrightstype,
+    ControllersPatientrightstypeFromJSON,
+    ControllersPatientrightstypeToJSON,
     ControllersTreatment,
     ControllersTreatmentFromJSON,
     ControllersTreatmentToJSON,
@@ -165,7 +168,7 @@ export interface CreatePatientrightsRequest {
 }
 
 export interface CreatePatientrightstypeRequest {
-    patientrightstype: EntPatientrightstype;
+    patientrightstype: ControllersPatientrightstype;
 }
 
 export interface CreatePrenameRequest {
@@ -603,7 +606,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create bill
      * Create bill
      */
-    async createBillRaw(requestParameters: CreateBillRequest): Promise<runtime.ApiResponse<EntBill>> {
+    async createBillRaw(requestParameters: CreateBillRequest): Promise<runtime.ApiResponse<ControllersBill>> {
         if (requestParameters.bill === null || requestParameters.bill === undefined) {
             throw new runtime.RequiredError('bill','Required parameter requestParameters.bill was null or undefined when calling createBill.');
         }
@@ -622,14 +625,14 @@ export class DefaultApi extends runtime.BaseAPI {
             body: ControllersBillToJSON(requestParameters.bill),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntBillFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersBillFromJSON(jsonValue));
     }
 
     /**
      * Create bill
      * Create bill
      */
-    async createBill(requestParameters: CreateBillRequest): Promise<EntBill> {
+    async createBill(requestParameters: CreateBillRequest): Promise<ControllersBill> {
         const response = await this.createBillRaw(requestParameters);
         return await response.value();
     }
@@ -673,7 +676,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create doctor
      * Create doctor
      */
-    async createDoctorRaw(requestParameters: CreateDoctorRequest): Promise<runtime.ApiResponse<EntDoctor>> {
+    async createDoctorRaw(requestParameters: CreateDoctorRequest): Promise<runtime.ApiResponse<ControllersDoctor>> {
         if (requestParameters.doctor === null || requestParameters.doctor === undefined) {
             throw new runtime.RequiredError('doctor','Required parameter requestParameters.doctor was null or undefined when calling createDoctor.');
         }
@@ -692,14 +695,14 @@ export class DefaultApi extends runtime.BaseAPI {
             body: ControllersDoctorToJSON(requestParameters.doctor),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntDoctorFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersDoctorFromJSON(jsonValue));
     }
 
     /**
      * Create doctor
      * Create doctor
      */
-    async createDoctor(requestParameters: CreateDoctorRequest): Promise<EntDoctor> {
+    async createDoctor(requestParameters: CreateDoctorRequest): Promise<ControllersDoctor> {
         const response = await this.createDoctorRaw(requestParameters);
         return await response.value();
     }
@@ -708,7 +711,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create doctorinfo
      * Create doctorinfo
      */
-    async createDoctorinfoRaw(requestParameters: CreateDoctorinfoRequest): Promise<runtime.ApiResponse<EntDoctorinfo>> {
+    async createDoctorinfoRaw(requestParameters: CreateDoctorinfoRequest): Promise<runtime.ApiResponse<ControllersDoctorinfo>> {
         if (requestParameters.doctorinfo === null || requestParameters.doctorinfo === undefined) {
             throw new runtime.RequiredError('doctorinfo','Required parameter requestParameters.doctorinfo was null or undefined when calling createDoctorinfo.');
         }
@@ -727,14 +730,14 @@ export class DefaultApi extends runtime.BaseAPI {
             body: ControllersDoctorinfoToJSON(requestParameters.doctorinfo),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntDoctorinfoFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersDoctorinfoFromJSON(jsonValue));
     }
 
     /**
      * Create doctorinfo
      * Create doctorinfo
      */
-    async createDoctorinfo(requestParameters: CreateDoctorinfoRequest): Promise<EntDoctorinfo> {
+    async createDoctorinfo(requestParameters: CreateDoctorinfoRequest): Promise<ControllersDoctorinfo> {
         const response = await this.createDoctorinfoRaw(requestParameters);
         return await response.value();
     }
@@ -778,7 +781,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create historytaking
      * Create historytaking
      */
-    async createHistorytakingRaw(requestParameters: CreateHistorytakingRequest): Promise<runtime.ApiResponse<EntHistorytaking>> {
+    async createHistorytakingRaw(requestParameters: CreateHistorytakingRequest): Promise<runtime.ApiResponse<ControllersHistorytaking>> {
         if (requestParameters.historytaking === null || requestParameters.historytaking === undefined) {
             throw new runtime.RequiredError('historytaking','Required parameter requestParameters.historytaking was null or undefined when calling createHistorytaking.');
         }
@@ -797,14 +800,14 @@ export class DefaultApi extends runtime.BaseAPI {
             body: ControllersHistorytakingToJSON(requestParameters.historytaking),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntHistorytakingFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersHistorytakingFromJSON(jsonValue));
     }
 
     /**
      * Create historytaking
      * Create historytaking
      */
-    async createHistorytaking(requestParameters: CreateHistorytakingRequest): Promise<EntHistorytaking> {
+    async createHistorytaking(requestParameters: CreateHistorytakingRequest): Promise<ControllersHistorytaking> {
         const response = await this.createHistorytakingRaw(requestParameters);
         return await response.value();
     }
@@ -918,7 +921,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create patientrecord
      * Create patientrecord
      */
-    async createPatientrecordRaw(requestParameters: CreatePatientrecordRequest): Promise<runtime.ApiResponse<EntPatientrecord>> {
+    async createPatientrecordRaw(requestParameters: CreatePatientrecordRequest): Promise<runtime.ApiResponse<ControllersPatientrecord>> {
         if (requestParameters.patientrecord === null || requestParameters.patientrecord === undefined) {
             throw new runtime.RequiredError('patientrecord','Required parameter requestParameters.patientrecord was null or undefined when calling createPatientrecord.');
         }
@@ -937,14 +940,14 @@ export class DefaultApi extends runtime.BaseAPI {
             body: ControllersPatientrecordToJSON(requestParameters.patientrecord),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntPatientrecordFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersPatientrecordFromJSON(jsonValue));
     }
 
     /**
      * Create patientrecord
      * Create patientrecord
      */
-    async createPatientrecord(requestParameters: CreatePatientrecordRequest): Promise<EntPatientrecord> {
+    async createPatientrecord(requestParameters: CreatePatientrecordRequest): Promise<ControllersPatientrecord> {
         const response = await this.createPatientrecordRaw(requestParameters);
         return await response.value();
     }
@@ -988,7 +991,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create patientrightstype
      * Create patientrightstype
      */
-    async createPatientrightstypeRaw(requestParameters: CreatePatientrightstypeRequest): Promise<runtime.ApiResponse<EntPatientrightstype>> {
+    async createPatientrightstypeRaw(requestParameters: CreatePatientrightstypeRequest): Promise<runtime.ApiResponse<ControllersPatientrightstype>> {
         if (requestParameters.patientrightstype === null || requestParameters.patientrightstype === undefined) {
             throw new runtime.RequiredError('patientrightstype','Required parameter requestParameters.patientrightstype was null or undefined when calling createPatientrightstype.');
         }
@@ -1004,17 +1007,17 @@ export class DefaultApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: EntPatientrightstypeToJSON(requestParameters.patientrightstype),
+            body: ControllersPatientrightstypeToJSON(requestParameters.patientrightstype),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntPatientrightstypeFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersPatientrightstypeFromJSON(jsonValue));
     }
 
     /**
      * Create patientrightstype
      * Create patientrightstype
      */
-    async createPatientrightstype(requestParameters: CreatePatientrightstypeRequest): Promise<EntPatientrightstype> {
+    async createPatientrightstype(requestParameters: CreatePatientrightstypeRequest): Promise<ControllersPatientrightstype> {
         const response = await this.createPatientrightstypeRaw(requestParameters);
         return await response.value();
     }
@@ -1128,7 +1131,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create Treatment
      * Create Treatment
      */
-    async createTreatmentRaw(requestParameters: CreateTreatmentRequest): Promise<runtime.ApiResponse<EntTreatment>> {
+    async createTreatmentRaw(requestParameters: CreateTreatmentRequest): Promise<runtime.ApiResponse<ControllersTreatment>> {
         if (requestParameters.treatment === null || requestParameters.treatment === undefined) {
             throw new runtime.RequiredError('treatment','Required parameter requestParameters.treatment was null or undefined when calling createTreatment.');
         }
@@ -1147,14 +1150,14 @@ export class DefaultApi extends runtime.BaseAPI {
             body: ControllersTreatmentToJSON(requestParameters.treatment),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntTreatmentFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersTreatmentFromJSON(jsonValue));
     }
 
     /**
      * Create Treatment
      * Create Treatment
      */
-    async createTreatment(requestParameters: CreateTreatmentRequest): Promise<EntTreatment> {
+    async createTreatment(requestParameters: CreateTreatmentRequest): Promise<ControllersTreatment> {
         const response = await this.createTreatmentRaw(requestParameters);
         return await response.value();
     }
@@ -1198,7 +1201,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * Create user
      * Create user
      */
-    async createUserRaw(requestParameters: CreateUserRequest): Promise<runtime.ApiResponse<EntUser>> {
+    async createUserRaw(requestParameters: CreateUserRequest): Promise<runtime.ApiResponse<ControllersUser>> {
         if (requestParameters.user === null || requestParameters.user === undefined) {
             throw new runtime.RequiredError('user','Required parameter requestParameters.user was null or undefined when calling createUser.');
         }
@@ -1217,14 +1220,14 @@ export class DefaultApi extends runtime.BaseAPI {
             body: ControllersUserToJSON(requestParameters.user),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntUserFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersUserFromJSON(jsonValue));
     }
 
     /**
      * Create user
      * Create user
      */
-    async createUser(requestParameters: CreateUserRequest): Promise<EntUser> {
+    async createUser(requestParameters: CreateUserRequest): Promise<ControllersUser> {
         const response = await this.createUserRaw(requestParameters);
         return await response.value();
     }

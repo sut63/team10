@@ -28,10 +28,10 @@ type DoctorQuery struct {
 	unique     []string
 	predicates []predicate.Doctor
 	// eager-loading edges.
-	withDoctorinfo *DoctorinfoQuery
-	withUser       *UserQuery
-	withTreatment  *TreatmentQuery
-	withFKs        bool
+	withEdgesOfDoctorinfo *DoctorinfoQuery
+	withEdgesOfUser       *UserQuery
+	withEdgesOfTreatment  *TreatmentQuery
+	withFKs               bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -61,8 +61,8 @@ func (dq *DoctorQuery) Order(o ...OrderFunc) *DoctorQuery {
 	return dq
 }
 
-// QueryDoctorinfo chains the current query on the doctorinfo edge.
-func (dq *DoctorQuery) QueryDoctorinfo() *DoctorinfoQuery {
+// QueryEdgesOfDoctorinfo chains the current query on the EdgesOfDoctorinfo edge.
+func (dq *DoctorQuery) QueryEdgesOfDoctorinfo() *DoctorinfoQuery {
 	query := &DoctorinfoQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -71,7 +71,7 @@ func (dq *DoctorQuery) QueryDoctorinfo() *DoctorinfoQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctor.Table, doctor.FieldID, dq.sqlQuery()),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, doctor.DoctorinfoTable, doctor.DoctorinfoColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, doctor.EdgesOfDoctorinfoTable, doctor.EdgesOfDoctorinfoColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -79,8 +79,8 @@ func (dq *DoctorQuery) QueryDoctorinfo() *DoctorinfoQuery {
 	return query
 }
 
-// QueryUser chains the current query on the user edge.
-func (dq *DoctorQuery) QueryUser() *UserQuery {
+// QueryEdgesOfUser chains the current query on the EdgesOfUser edge.
+func (dq *DoctorQuery) QueryEdgesOfUser() *UserQuery {
 	query := &UserQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -89,7 +89,7 @@ func (dq *DoctorQuery) QueryUser() *UserQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctor.Table, doctor.FieldID, dq.sqlQuery()),
 			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, doctor.UserTable, doctor.UserColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, doctor.EdgesOfUserTable, doctor.EdgesOfUserColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -97,8 +97,8 @@ func (dq *DoctorQuery) QueryUser() *UserQuery {
 	return query
 }
 
-// QueryTreatment chains the current query on the treatment edge.
-func (dq *DoctorQuery) QueryTreatment() *TreatmentQuery {
+// QueryEdgesOfTreatment chains the current query on the EdgesOfTreatment edge.
+func (dq *DoctorQuery) QueryEdgesOfTreatment() *TreatmentQuery {
 	query := &TreatmentQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -107,7 +107,7 @@ func (dq *DoctorQuery) QueryTreatment() *TreatmentQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctor.Table, doctor.FieldID, dq.sqlQuery()),
 			sqlgraph.To(treatment.Table, treatment.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, doctor.TreatmentTable, doctor.TreatmentColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, doctor.EdgesOfTreatmentTable, doctor.EdgesOfTreatmentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -294,36 +294,36 @@ func (dq *DoctorQuery) Clone() *DoctorQuery {
 	}
 }
 
-//  WithDoctorinfo tells the query-builder to eager-loads the nodes that are connected to
-// the "doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorQuery) WithDoctorinfo(opts ...func(*DoctorinfoQuery)) *DoctorQuery {
+//  WithEdgesOfDoctorinfo tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfDoctorinfo" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorQuery) WithEdgesOfDoctorinfo(opts ...func(*DoctorinfoQuery)) *DoctorQuery {
 	query := &DoctorinfoQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withDoctorinfo = query
+	dq.withEdgesOfDoctorinfo = query
 	return dq
 }
 
-//  WithUser tells the query-builder to eager-loads the nodes that are connected to
-// the "user" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorQuery) WithUser(opts ...func(*UserQuery)) *DoctorQuery {
+//  WithEdgesOfUser tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUser" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorQuery) WithEdgesOfUser(opts ...func(*UserQuery)) *DoctorQuery {
 	query := &UserQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withUser = query
+	dq.withEdgesOfUser = query
 	return dq
 }
 
-//  WithTreatment tells the query-builder to eager-loads the nodes that are connected to
-// the "treatment" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorQuery) WithTreatment(opts ...func(*TreatmentQuery)) *DoctorQuery {
+//  WithEdgesOfTreatment tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfTreatment" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorQuery) WithEdgesOfTreatment(opts ...func(*TreatmentQuery)) *DoctorQuery {
 	query := &TreatmentQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withTreatment = query
+	dq.withEdgesOfTreatment = query
 	return dq
 }
 
@@ -371,12 +371,12 @@ func (dq *DoctorQuery) sqlAll(ctx context.Context) ([]*Doctor, error) {
 		withFKs     = dq.withFKs
 		_spec       = dq.querySpec()
 		loadedTypes = [3]bool{
-			dq.withDoctorinfo != nil,
-			dq.withUser != nil,
-			dq.withTreatment != nil,
+			dq.withEdgesOfDoctorinfo != nil,
+			dq.withEdgesOfUser != nil,
+			dq.withEdgesOfTreatment != nil,
 		}
 	)
-	if dq.withDoctorinfo != nil || dq.withUser != nil {
+	if dq.withEdgesOfDoctorinfo != nil || dq.withEdgesOfUser != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -406,7 +406,7 @@ func (dq *DoctorQuery) sqlAll(ctx context.Context) ([]*Doctor, error) {
 		return nodes, nil
 	}
 
-	if query := dq.withDoctorinfo; query != nil {
+	if query := dq.withEdgesOfDoctorinfo; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Doctor)
 		for i := range nodes {
@@ -426,12 +426,12 @@ func (dq *DoctorQuery) sqlAll(ctx context.Context) ([]*Doctor, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "doctorinfo_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Doctorinfo = n
+				nodes[i].Edges.EdgesOfDoctorinfo = n
 			}
 		}
 	}
 
-	if query := dq.withUser; query != nil {
+	if query := dq.withEdgesOfUser; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Doctor)
 		for i := range nodes {
@@ -451,12 +451,12 @@ func (dq *DoctorQuery) sqlAll(ctx context.Context) ([]*Doctor, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "user_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.User = n
+				nodes[i].Edges.EdgesOfUser = n
 			}
 		}
 	}
 
-	if query := dq.withTreatment; query != nil {
+	if query := dq.withEdgesOfTreatment; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Doctor)
 		for i := range nodes {
@@ -465,7 +465,7 @@ func (dq *DoctorQuery) sqlAll(ctx context.Context) ([]*Doctor, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Treatment(func(s *sql.Selector) {
-			s.Where(sql.InValues(doctor.TreatmentColumn, fks...))
+			s.Where(sql.InValues(doctor.EdgesOfTreatmentColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -480,7 +480,7 @@ func (dq *DoctorQuery) sqlAll(ctx context.Context) ([]*Doctor, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "doctor_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Treatment = append(node.Edges.Treatment, n)
+			node.Edges.EdgesOfTreatment = append(node.Edges.EdgesOfTreatment, n)
 		}
 	}
 

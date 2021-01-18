@@ -34,19 +34,19 @@ func (eu *EducationlevelUpdate) SetLevel(s string) *EducationlevelUpdate {
 	return eu
 }
 
-// AddEducationlevel2doctorinfoIDs adds the educationlevel2doctorinfo edge to Doctorinfo by ids.
-func (eu *EducationlevelUpdate) AddEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelUpdate {
-	eu.mutation.AddEducationlevel2doctorinfoIDs(ids...)
+// AddEdgesOfEducationlevel2doctorinfoIDs adds the EdgesOfEducationlevel2doctorinfo edge to Doctorinfo by ids.
+func (eu *EducationlevelUpdate) AddEdgesOfEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelUpdate {
+	eu.mutation.AddEdgesOfEducationlevel2doctorinfoIDs(ids...)
 	return eu
 }
 
-// AddEducationlevel2doctorinfo adds the educationlevel2doctorinfo edges to Doctorinfo.
-func (eu *EducationlevelUpdate) AddEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelUpdate {
+// AddEdgesOfEducationlevel2doctorinfo adds the EdgesOfEducationlevel2doctorinfo edges to Doctorinfo.
+func (eu *EducationlevelUpdate) AddEdgesOfEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelUpdate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return eu.AddEducationlevel2doctorinfoIDs(ids...)
+	return eu.AddEdgesOfEducationlevel2doctorinfoIDs(ids...)
 }
 
 // Mutation returns the EducationlevelMutation object of the builder.
@@ -54,19 +54,19 @@ func (eu *EducationlevelUpdate) Mutation() *EducationlevelMutation {
 	return eu.mutation
 }
 
-// RemoveEducationlevel2doctorinfoIDs removes the educationlevel2doctorinfo edge to Doctorinfo by ids.
-func (eu *EducationlevelUpdate) RemoveEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelUpdate {
-	eu.mutation.RemoveEducationlevel2doctorinfoIDs(ids...)
+// RemoveEdgesOfEducationlevel2doctorinfoIDs removes the EdgesOfEducationlevel2doctorinfo edge to Doctorinfo by ids.
+func (eu *EducationlevelUpdate) RemoveEdgesOfEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelUpdate {
+	eu.mutation.RemoveEdgesOfEducationlevel2doctorinfoIDs(ids...)
 	return eu
 }
 
-// RemoveEducationlevel2doctorinfo removes educationlevel2doctorinfo edges to Doctorinfo.
-func (eu *EducationlevelUpdate) RemoveEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelUpdate {
+// RemoveEdgesOfEducationlevel2doctorinfo removes EdgesOfEducationlevel2doctorinfo edges to Doctorinfo.
+func (eu *EducationlevelUpdate) RemoveEdgesOfEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelUpdate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return eu.RemoveEducationlevel2doctorinfoIDs(ids...)
+	return eu.RemoveEdgesOfEducationlevel2doctorinfoIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -151,12 +151,12 @@ func (eu *EducationlevelUpdate) sqlSave(ctx context.Context) (n int, err error) 
 			Column: educationlevel.FieldLevel,
 		})
 	}
-	if nodes := eu.mutation.RemovedEducationlevel2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := eu.mutation.RemovedEdgesOfEducationlevel2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   educationlevel.Educationlevel2doctorinfoTable,
-			Columns: []string{educationlevel.Educationlevel2doctorinfoColumn},
+			Table:   educationlevel.EdgesOfEducationlevel2doctorinfoTable,
+			Columns: []string{educationlevel.EdgesOfEducationlevel2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -170,12 +170,12 @@ func (eu *EducationlevelUpdate) sqlSave(ctx context.Context) (n int, err error) 
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := eu.mutation.Educationlevel2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := eu.mutation.EdgesOfEducationlevel2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   educationlevel.Educationlevel2doctorinfoTable,
-			Columns: []string{educationlevel.Educationlevel2doctorinfoColumn},
+			Table:   educationlevel.EdgesOfEducationlevel2doctorinfoTable,
+			Columns: []string{educationlevel.EdgesOfEducationlevel2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -213,19 +213,19 @@ func (euo *EducationlevelUpdateOne) SetLevel(s string) *EducationlevelUpdateOne 
 	return euo
 }
 
-// AddEducationlevel2doctorinfoIDs adds the educationlevel2doctorinfo edge to Doctorinfo by ids.
-func (euo *EducationlevelUpdateOne) AddEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelUpdateOne {
-	euo.mutation.AddEducationlevel2doctorinfoIDs(ids...)
+// AddEdgesOfEducationlevel2doctorinfoIDs adds the EdgesOfEducationlevel2doctorinfo edge to Doctorinfo by ids.
+func (euo *EducationlevelUpdateOne) AddEdgesOfEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelUpdateOne {
+	euo.mutation.AddEdgesOfEducationlevel2doctorinfoIDs(ids...)
 	return euo
 }
 
-// AddEducationlevel2doctorinfo adds the educationlevel2doctorinfo edges to Doctorinfo.
-func (euo *EducationlevelUpdateOne) AddEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelUpdateOne {
+// AddEdgesOfEducationlevel2doctorinfo adds the EdgesOfEducationlevel2doctorinfo edges to Doctorinfo.
+func (euo *EducationlevelUpdateOne) AddEdgesOfEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelUpdateOne {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return euo.AddEducationlevel2doctorinfoIDs(ids...)
+	return euo.AddEdgesOfEducationlevel2doctorinfoIDs(ids...)
 }
 
 // Mutation returns the EducationlevelMutation object of the builder.
@@ -233,19 +233,19 @@ func (euo *EducationlevelUpdateOne) Mutation() *EducationlevelMutation {
 	return euo.mutation
 }
 
-// RemoveEducationlevel2doctorinfoIDs removes the educationlevel2doctorinfo edge to Doctorinfo by ids.
-func (euo *EducationlevelUpdateOne) RemoveEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelUpdateOne {
-	euo.mutation.RemoveEducationlevel2doctorinfoIDs(ids...)
+// RemoveEdgesOfEducationlevel2doctorinfoIDs removes the EdgesOfEducationlevel2doctorinfo edge to Doctorinfo by ids.
+func (euo *EducationlevelUpdateOne) RemoveEdgesOfEducationlevel2doctorinfoIDs(ids ...int) *EducationlevelUpdateOne {
+	euo.mutation.RemoveEdgesOfEducationlevel2doctorinfoIDs(ids...)
 	return euo
 }
 
-// RemoveEducationlevel2doctorinfo removes educationlevel2doctorinfo edges to Doctorinfo.
-func (euo *EducationlevelUpdateOne) RemoveEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelUpdateOne {
+// RemoveEdgesOfEducationlevel2doctorinfo removes EdgesOfEducationlevel2doctorinfo edges to Doctorinfo.
+func (euo *EducationlevelUpdateOne) RemoveEdgesOfEducationlevel2doctorinfo(d ...*Doctorinfo) *EducationlevelUpdateOne {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return euo.RemoveEducationlevel2doctorinfoIDs(ids...)
+	return euo.RemoveEdgesOfEducationlevel2doctorinfoIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -328,12 +328,12 @@ func (euo *EducationlevelUpdateOne) sqlSave(ctx context.Context) (e *Educationle
 			Column: educationlevel.FieldLevel,
 		})
 	}
-	if nodes := euo.mutation.RemovedEducationlevel2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := euo.mutation.RemovedEdgesOfEducationlevel2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   educationlevel.Educationlevel2doctorinfoTable,
-			Columns: []string{educationlevel.Educationlevel2doctorinfoColumn},
+			Table:   educationlevel.EdgesOfEducationlevel2doctorinfoTable,
+			Columns: []string{educationlevel.EdgesOfEducationlevel2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -347,12 +347,12 @@ func (euo *EducationlevelUpdateOne) sqlSave(ctx context.Context) (e *Educationle
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := euo.mutation.Educationlevel2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := euo.mutation.EdgesOfEducationlevel2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   educationlevel.Educationlevel2doctorinfoTable,
-			Columns: []string{educationlevel.Educationlevel2doctorinfoColumn},
+			Table:   educationlevel.EdgesOfEducationlevel2doctorinfoTable,
+			Columns: []string{educationlevel.EdgesOfEducationlevel2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

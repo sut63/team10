@@ -35,38 +35,38 @@ func (fu *FinancierUpdate) SetName(s string) *FinancierUpdate {
 	return fu
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (fu *FinancierUpdate) AddBillIDs(ids ...int) *FinancierUpdate {
-	fu.mutation.AddBillIDs(ids...)
+// AddEdgesOfBillIDs adds the EdgesOfBills edge to Bill by ids.
+func (fu *FinancierUpdate) AddEdgesOfBillIDs(ids ...int) *FinancierUpdate {
+	fu.mutation.AddEdgesOfBillIDs(ids...)
 	return fu
 }
 
-// AddBills adds the bills edges to Bill.
-func (fu *FinancierUpdate) AddBills(b ...*Bill) *FinancierUpdate {
+// AddEdgesOfBills adds the EdgesOfBills edges to Bill.
+func (fu *FinancierUpdate) AddEdgesOfBills(b ...*Bill) *FinancierUpdate {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return fu.AddBillIDs(ids...)
+	return fu.AddEdgesOfBillIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (fu *FinancierUpdate) SetUserID(id int) *FinancierUpdate {
-	fu.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (fu *FinancierUpdate) SetEdgesOfUserID(id int) *FinancierUpdate {
+	fu.mutation.SetEdgesOfUserID(id)
 	return fu
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (fu *FinancierUpdate) SetNillableUserID(id *int) *FinancierUpdate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (fu *FinancierUpdate) SetNillableEdgesOfUserID(id *int) *FinancierUpdate {
 	if id != nil {
-		fu = fu.SetUserID(*id)
+		fu = fu.SetEdgesOfUserID(*id)
 	}
 	return fu
 }
 
-// SetUser sets the user edge to User.
-func (fu *FinancierUpdate) SetUser(u *User) *FinancierUpdate {
-	return fu.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (fu *FinancierUpdate) SetEdgesOfUser(u *User) *FinancierUpdate {
+	return fu.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the FinancierMutation object of the builder.
@@ -74,24 +74,24 @@ func (fu *FinancierUpdate) Mutation() *FinancierMutation {
 	return fu.mutation
 }
 
-// RemoveBillIDs removes the bills edge to Bill by ids.
-func (fu *FinancierUpdate) RemoveBillIDs(ids ...int) *FinancierUpdate {
-	fu.mutation.RemoveBillIDs(ids...)
+// RemoveEdgesOfBillIDs removes the EdgesOfBills edge to Bill by ids.
+func (fu *FinancierUpdate) RemoveEdgesOfBillIDs(ids ...int) *FinancierUpdate {
+	fu.mutation.RemoveEdgesOfBillIDs(ids...)
 	return fu
 }
 
-// RemoveBills removes bills edges to Bill.
-func (fu *FinancierUpdate) RemoveBills(b ...*Bill) *FinancierUpdate {
+// RemoveEdgesOfBills removes EdgesOfBills edges to Bill.
+func (fu *FinancierUpdate) RemoveEdgesOfBills(b ...*Bill) *FinancierUpdate {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return fu.RemoveBillIDs(ids...)
+	return fu.RemoveEdgesOfBillIDs(ids...)
 }
 
-// ClearUser clears the user edge to User.
-func (fu *FinancierUpdate) ClearUser() *FinancierUpdate {
-	fu.mutation.ClearUser()
+// ClearEdgesOfUser clears the EdgesOfUser edge to User.
+func (fu *FinancierUpdate) ClearEdgesOfUser() *FinancierUpdate {
+	fu.mutation.ClearEdgesOfUser()
 	return fu
 }
 
@@ -177,12 +177,12 @@ func (fu *FinancierUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: financier.FieldName,
 		})
 	}
-	if nodes := fu.mutation.RemovedBillsIDs(); len(nodes) > 0 {
+	if nodes := fu.mutation.RemovedEdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   financier.BillsTable,
-			Columns: []string{financier.BillsColumn},
+			Table:   financier.EdgesOfBillsTable,
+			Columns: []string{financier.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -196,12 +196,12 @@ func (fu *FinancierUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := fu.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := fu.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   financier.BillsTable,
-			Columns: []string{financier.BillsColumn},
+			Table:   financier.EdgesOfBillsTable,
+			Columns: []string{financier.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -215,12 +215,12 @@ func (fu *FinancierUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if fu.mutation.UserCleared() {
+	if fu.mutation.EdgesOfUserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   financier.UserTable,
-			Columns: []string{financier.UserColumn},
+			Table:   financier.EdgesOfUserTable,
+			Columns: []string{financier.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -231,12 +231,12 @@ func (fu *FinancierUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := fu.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := fu.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   financier.UserTable,
-			Columns: []string{financier.UserColumn},
+			Table:   financier.EdgesOfUserTable,
+			Columns: []string{financier.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -274,38 +274,38 @@ func (fuo *FinancierUpdateOne) SetName(s string) *FinancierUpdateOne {
 	return fuo
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (fuo *FinancierUpdateOne) AddBillIDs(ids ...int) *FinancierUpdateOne {
-	fuo.mutation.AddBillIDs(ids...)
+// AddEdgesOfBillIDs adds the EdgesOfBills edge to Bill by ids.
+func (fuo *FinancierUpdateOne) AddEdgesOfBillIDs(ids ...int) *FinancierUpdateOne {
+	fuo.mutation.AddEdgesOfBillIDs(ids...)
 	return fuo
 }
 
-// AddBills adds the bills edges to Bill.
-func (fuo *FinancierUpdateOne) AddBills(b ...*Bill) *FinancierUpdateOne {
+// AddEdgesOfBills adds the EdgesOfBills edges to Bill.
+func (fuo *FinancierUpdateOne) AddEdgesOfBills(b ...*Bill) *FinancierUpdateOne {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return fuo.AddBillIDs(ids...)
+	return fuo.AddEdgesOfBillIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (fuo *FinancierUpdateOne) SetUserID(id int) *FinancierUpdateOne {
-	fuo.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (fuo *FinancierUpdateOne) SetEdgesOfUserID(id int) *FinancierUpdateOne {
+	fuo.mutation.SetEdgesOfUserID(id)
 	return fuo
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (fuo *FinancierUpdateOne) SetNillableUserID(id *int) *FinancierUpdateOne {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (fuo *FinancierUpdateOne) SetNillableEdgesOfUserID(id *int) *FinancierUpdateOne {
 	if id != nil {
-		fuo = fuo.SetUserID(*id)
+		fuo = fuo.SetEdgesOfUserID(*id)
 	}
 	return fuo
 }
 
-// SetUser sets the user edge to User.
-func (fuo *FinancierUpdateOne) SetUser(u *User) *FinancierUpdateOne {
-	return fuo.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (fuo *FinancierUpdateOne) SetEdgesOfUser(u *User) *FinancierUpdateOne {
+	return fuo.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the FinancierMutation object of the builder.
@@ -313,24 +313,24 @@ func (fuo *FinancierUpdateOne) Mutation() *FinancierMutation {
 	return fuo.mutation
 }
 
-// RemoveBillIDs removes the bills edge to Bill by ids.
-func (fuo *FinancierUpdateOne) RemoveBillIDs(ids ...int) *FinancierUpdateOne {
-	fuo.mutation.RemoveBillIDs(ids...)
+// RemoveEdgesOfBillIDs removes the EdgesOfBills edge to Bill by ids.
+func (fuo *FinancierUpdateOne) RemoveEdgesOfBillIDs(ids ...int) *FinancierUpdateOne {
+	fuo.mutation.RemoveEdgesOfBillIDs(ids...)
 	return fuo
 }
 
-// RemoveBills removes bills edges to Bill.
-func (fuo *FinancierUpdateOne) RemoveBills(b ...*Bill) *FinancierUpdateOne {
+// RemoveEdgesOfBills removes EdgesOfBills edges to Bill.
+func (fuo *FinancierUpdateOne) RemoveEdgesOfBills(b ...*Bill) *FinancierUpdateOne {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return fuo.RemoveBillIDs(ids...)
+	return fuo.RemoveEdgesOfBillIDs(ids...)
 }
 
-// ClearUser clears the user edge to User.
-func (fuo *FinancierUpdateOne) ClearUser() *FinancierUpdateOne {
-	fuo.mutation.ClearUser()
+// ClearEdgesOfUser clears the EdgesOfUser edge to User.
+func (fuo *FinancierUpdateOne) ClearEdgesOfUser() *FinancierUpdateOne {
+	fuo.mutation.ClearEdgesOfUser()
 	return fuo
 }
 
@@ -414,12 +414,12 @@ func (fuo *FinancierUpdateOne) sqlSave(ctx context.Context) (f *Financier, err e
 			Column: financier.FieldName,
 		})
 	}
-	if nodes := fuo.mutation.RemovedBillsIDs(); len(nodes) > 0 {
+	if nodes := fuo.mutation.RemovedEdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   financier.BillsTable,
-			Columns: []string{financier.BillsColumn},
+			Table:   financier.EdgesOfBillsTable,
+			Columns: []string{financier.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -433,12 +433,12 @@ func (fuo *FinancierUpdateOne) sqlSave(ctx context.Context) (f *Financier, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := fuo.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := fuo.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   financier.BillsTable,
-			Columns: []string{financier.BillsColumn},
+			Table:   financier.EdgesOfBillsTable,
+			Columns: []string{financier.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -452,12 +452,12 @@ func (fuo *FinancierUpdateOne) sqlSave(ctx context.Context) (f *Financier, err e
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if fuo.mutation.UserCleared() {
+	if fuo.mutation.EdgesOfUserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   financier.UserTable,
-			Columns: []string{financier.UserColumn},
+			Table:   financier.EdgesOfUserTable,
+			Columns: []string{financier.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -468,12 +468,12 @@ func (fuo *FinancierUpdateOne) sqlSave(ctx context.Context) (f *Financier, err e
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := fuo.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := fuo.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   financier.UserTable,
-			Columns: []string{financier.UserColumn},
+			Table:   financier.EdgesOfUserTable,
+			Columns: []string{financier.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

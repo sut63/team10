@@ -27,9 +27,9 @@ type UnpaybillQuery struct {
 	unique     []string
 	predicates []predicate.Unpaybill
 	// eager-loading edges.
-	withTreatment *TreatmentQuery
-	withBills     *BillQuery
-	withFKs       bool
+	withEdgesOfTreatment *TreatmentQuery
+	withEdgesOfBills     *BillQuery
+	withFKs              bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -59,8 +59,8 @@ func (uq *UnpaybillQuery) Order(o ...OrderFunc) *UnpaybillQuery {
 	return uq
 }
 
-// QueryTreatment chains the current query on the treatment edge.
-func (uq *UnpaybillQuery) QueryTreatment() *TreatmentQuery {
+// QueryEdgesOfTreatment chains the current query on the EdgesOfTreatment edge.
+func (uq *UnpaybillQuery) QueryEdgesOfTreatment() *TreatmentQuery {
 	query := &TreatmentQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -69,7 +69,7 @@ func (uq *UnpaybillQuery) QueryTreatment() *TreatmentQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(unpaybill.Table, unpaybill.FieldID, uq.sqlQuery()),
 			sqlgraph.To(treatment.Table, treatment.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, unpaybill.TreatmentTable, unpaybill.TreatmentColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, unpaybill.EdgesOfTreatmentTable, unpaybill.EdgesOfTreatmentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -77,8 +77,8 @@ func (uq *UnpaybillQuery) QueryTreatment() *TreatmentQuery {
 	return query
 }
 
-// QueryBills chains the current query on the bills edge.
-func (uq *UnpaybillQuery) QueryBills() *BillQuery {
+// QueryEdgesOfBills chains the current query on the EdgesOfBills edge.
+func (uq *UnpaybillQuery) QueryEdgesOfBills() *BillQuery {
 	query := &BillQuery{config: uq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := uq.prepareQuery(ctx); err != nil {
@@ -87,7 +87,7 @@ func (uq *UnpaybillQuery) QueryBills() *BillQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(unpaybill.Table, unpaybill.FieldID, uq.sqlQuery()),
 			sqlgraph.To(bill.Table, bill.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, unpaybill.BillsTable, unpaybill.BillsColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, unpaybill.EdgesOfBillsTable, unpaybill.EdgesOfBillsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(uq.driver.Dialect(), step)
 		return fromU, nil
@@ -274,25 +274,25 @@ func (uq *UnpaybillQuery) Clone() *UnpaybillQuery {
 	}
 }
 
-//  WithTreatment tells the query-builder to eager-loads the nodes that are connected to
-// the "treatment" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UnpaybillQuery) WithTreatment(opts ...func(*TreatmentQuery)) *UnpaybillQuery {
+//  WithEdgesOfTreatment tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfTreatment" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UnpaybillQuery) WithEdgesOfTreatment(opts ...func(*TreatmentQuery)) *UnpaybillQuery {
 	query := &TreatmentQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withTreatment = query
+	uq.withEdgesOfTreatment = query
 	return uq
 }
 
-//  WithBills tells the query-builder to eager-loads the nodes that are connected to
-// the "bills" edge. The optional arguments used to configure the query builder of the edge.
-func (uq *UnpaybillQuery) WithBills(opts ...func(*BillQuery)) *UnpaybillQuery {
+//  WithEdgesOfBills tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfBills" edge. The optional arguments used to configure the query builder of the edge.
+func (uq *UnpaybillQuery) WithEdgesOfBills(opts ...func(*BillQuery)) *UnpaybillQuery {
 	query := &BillQuery{config: uq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	uq.withBills = query
+	uq.withEdgesOfBills = query
 	return uq
 }
 
@@ -364,11 +364,11 @@ func (uq *UnpaybillQuery) sqlAll(ctx context.Context) ([]*Unpaybill, error) {
 		withFKs     = uq.withFKs
 		_spec       = uq.querySpec()
 		loadedTypes = [2]bool{
-			uq.withTreatment != nil,
-			uq.withBills != nil,
+			uq.withEdgesOfTreatment != nil,
+			uq.withEdgesOfBills != nil,
 		}
 	)
-	if uq.withTreatment != nil {
+	if uq.withEdgesOfTreatment != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -398,7 +398,7 @@ func (uq *UnpaybillQuery) sqlAll(ctx context.Context) ([]*Unpaybill, error) {
 		return nodes, nil
 	}
 
-	if query := uq.withTreatment; query != nil {
+	if query := uq.withEdgesOfTreatment; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Unpaybill)
 		for i := range nodes {
@@ -418,12 +418,12 @@ func (uq *UnpaybillQuery) sqlAll(ctx context.Context) ([]*Unpaybill, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "treatment_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Treatment = n
+				nodes[i].Edges.EdgesOfTreatment = n
 			}
 		}
 	}
 
-	if query := uq.withBills; query != nil {
+	if query := uq.withEdgesOfBills; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Unpaybill)
 		for i := range nodes {
@@ -432,7 +432,7 @@ func (uq *UnpaybillQuery) sqlAll(ctx context.Context) ([]*Unpaybill, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Bill(func(s *sql.Selector) {
-			s.Where(sql.InValues(unpaybill.BillsColumn, fks...))
+			s.Where(sql.InValues(unpaybill.EdgesOfBillsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -447,7 +447,7 @@ func (uq *UnpaybillQuery) sqlAll(ctx context.Context) ([]*Unpaybill, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "treatment_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Bills = n
+			node.Edges.EdgesOfBills = n
 		}
 	}
 

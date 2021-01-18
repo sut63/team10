@@ -41,7 +41,7 @@ type Doctorinfo struct {
 // @Accept   json
 // @Produce  json
 // @Param doctorinfo body Doctorinfo true "Doctorinfo entity"
-// @Success 200 {object} ent.Doctorinfo
+// @Success 200 {object} Doctorinfo
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /doctorinfos [post]
@@ -107,10 +107,10 @@ func (ctl *DoctorinfoController) CreateDoctorinfo(c *gin.Context) {
 		SetDoctorsurname(obj.Doctorsurname).
 		SetTelephonenumber(obj.Telephonenumber).
 		SetLicensenumber(obj.Licensenumber).
-		SetDepartment(dp).
-		SetEducationlevel(el).
-		SetOfficeroom(or).
-		SetPrename(pn).
+		SetEdgesOfDepartment(dp).
+		SetEdgesOfEducationlevel(el).
+		SetEdgesOfOfficeroom(or).
+		SetEdgesOfPrename(pn).
 		Save(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -145,10 +145,11 @@ func (ctl *DoctorinfoController) GetDoctorinfo(c *gin.Context) {
 
 	u, err := ctl.client.Doctorinfo.
 		Query().
-		WithDepartment().
-		WithEducationlevel().
-		WithOfficeroom().
-		WithPrename().
+		WithEdgesOfDepartment().
+		WithEdgesOfEducationlevel().
+		WithEdgesOfOfficeroom().
+		WithEdgesOfPrename().
+		WithEdgesOfDoctor().
 		Where(doctorinfo.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -193,10 +194,11 @@ func (ctl *DoctorinfoController) ListDoctorinfo(c *gin.Context) {
 
 	doctorinfos, err := ctl.client.Doctorinfo.
 		Query().
-		WithDepartment().
-		WithEducationlevel().
-		WithOfficeroom().
-		WithPrename().
+		WithEdgesOfDepartment().
+		WithEdgesOfEducationlevel().
+		WithEdgesOfOfficeroom().
+		WithEdgesOfPrename().
+		WithEdgesOfDoctor().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

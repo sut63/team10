@@ -34,19 +34,19 @@ func (tu *TypetreatmentUpdate) SetTypetreatment(s string) *TypetreatmentUpdate {
 	return tu
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (tu *TypetreatmentUpdate) AddTreatmentIDs(ids ...int) *TypetreatmentUpdate {
-	tu.mutation.AddTreatmentIDs(ids...)
+// AddEdgesOfTreatmentIDs adds the EdgesOfTreatment edge to Treatment by ids.
+func (tu *TypetreatmentUpdate) AddEdgesOfTreatmentIDs(ids ...int) *TypetreatmentUpdate {
+	tu.mutation.AddEdgesOfTreatmentIDs(ids...)
 	return tu
 }
 
-// AddTreatment adds the treatment edges to Treatment.
-func (tu *TypetreatmentUpdate) AddTreatment(t ...*Treatment) *TypetreatmentUpdate {
+// AddEdgesOfTreatment adds the EdgesOfTreatment edges to Treatment.
+func (tu *TypetreatmentUpdate) AddEdgesOfTreatment(t ...*Treatment) *TypetreatmentUpdate {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return tu.AddTreatmentIDs(ids...)
+	return tu.AddEdgesOfTreatmentIDs(ids...)
 }
 
 // Mutation returns the TypetreatmentMutation object of the builder.
@@ -54,19 +54,19 @@ func (tu *TypetreatmentUpdate) Mutation() *TypetreatmentMutation {
 	return tu.mutation
 }
 
-// RemoveTreatmentIDs removes the treatment edge to Treatment by ids.
-func (tu *TypetreatmentUpdate) RemoveTreatmentIDs(ids ...int) *TypetreatmentUpdate {
-	tu.mutation.RemoveTreatmentIDs(ids...)
+// RemoveEdgesOfTreatmentIDs removes the EdgesOfTreatment edge to Treatment by ids.
+func (tu *TypetreatmentUpdate) RemoveEdgesOfTreatmentIDs(ids ...int) *TypetreatmentUpdate {
+	tu.mutation.RemoveEdgesOfTreatmentIDs(ids...)
 	return tu
 }
 
-// RemoveTreatment removes treatment edges to Treatment.
-func (tu *TypetreatmentUpdate) RemoveTreatment(t ...*Treatment) *TypetreatmentUpdate {
+// RemoveEdgesOfTreatment removes EdgesOfTreatment edges to Treatment.
+func (tu *TypetreatmentUpdate) RemoveEdgesOfTreatment(t ...*Treatment) *TypetreatmentUpdate {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return tu.RemoveTreatmentIDs(ids...)
+	return tu.RemoveEdgesOfTreatmentIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -151,12 +151,12 @@ func (tu *TypetreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: typetreatment.FieldTypetreatment,
 		})
 	}
-	if nodes := tu.mutation.RemovedTreatmentIDs(); len(nodes) > 0 {
+	if nodes := tu.mutation.RemovedEdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   typetreatment.TreatmentTable,
-			Columns: []string{typetreatment.TreatmentColumn},
+			Table:   typetreatment.EdgesOfTreatmentTable,
+			Columns: []string{typetreatment.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -170,12 +170,12 @@ func (tu *TypetreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tu.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := tu.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   typetreatment.TreatmentTable,
-			Columns: []string{typetreatment.TreatmentColumn},
+			Table:   typetreatment.EdgesOfTreatmentTable,
+			Columns: []string{typetreatment.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -213,19 +213,19 @@ func (tuo *TypetreatmentUpdateOne) SetTypetreatment(s string) *TypetreatmentUpda
 	return tuo
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (tuo *TypetreatmentUpdateOne) AddTreatmentIDs(ids ...int) *TypetreatmentUpdateOne {
-	tuo.mutation.AddTreatmentIDs(ids...)
+// AddEdgesOfTreatmentIDs adds the EdgesOfTreatment edge to Treatment by ids.
+func (tuo *TypetreatmentUpdateOne) AddEdgesOfTreatmentIDs(ids ...int) *TypetreatmentUpdateOne {
+	tuo.mutation.AddEdgesOfTreatmentIDs(ids...)
 	return tuo
 }
 
-// AddTreatment adds the treatment edges to Treatment.
-func (tuo *TypetreatmentUpdateOne) AddTreatment(t ...*Treatment) *TypetreatmentUpdateOne {
+// AddEdgesOfTreatment adds the EdgesOfTreatment edges to Treatment.
+func (tuo *TypetreatmentUpdateOne) AddEdgesOfTreatment(t ...*Treatment) *TypetreatmentUpdateOne {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return tuo.AddTreatmentIDs(ids...)
+	return tuo.AddEdgesOfTreatmentIDs(ids...)
 }
 
 // Mutation returns the TypetreatmentMutation object of the builder.
@@ -233,19 +233,19 @@ func (tuo *TypetreatmentUpdateOne) Mutation() *TypetreatmentMutation {
 	return tuo.mutation
 }
 
-// RemoveTreatmentIDs removes the treatment edge to Treatment by ids.
-func (tuo *TypetreatmentUpdateOne) RemoveTreatmentIDs(ids ...int) *TypetreatmentUpdateOne {
-	tuo.mutation.RemoveTreatmentIDs(ids...)
+// RemoveEdgesOfTreatmentIDs removes the EdgesOfTreatment edge to Treatment by ids.
+func (tuo *TypetreatmentUpdateOne) RemoveEdgesOfTreatmentIDs(ids ...int) *TypetreatmentUpdateOne {
+	tuo.mutation.RemoveEdgesOfTreatmentIDs(ids...)
 	return tuo
 }
 
-// RemoveTreatment removes treatment edges to Treatment.
-func (tuo *TypetreatmentUpdateOne) RemoveTreatment(t ...*Treatment) *TypetreatmentUpdateOne {
+// RemoveEdgesOfTreatment removes EdgesOfTreatment edges to Treatment.
+func (tuo *TypetreatmentUpdateOne) RemoveEdgesOfTreatment(t ...*Treatment) *TypetreatmentUpdateOne {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return tuo.RemoveTreatmentIDs(ids...)
+	return tuo.RemoveEdgesOfTreatmentIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -328,12 +328,12 @@ func (tuo *TypetreatmentUpdateOne) sqlSave(ctx context.Context) (t *Typetreatmen
 			Column: typetreatment.FieldTypetreatment,
 		})
 	}
-	if nodes := tuo.mutation.RemovedTreatmentIDs(); len(nodes) > 0 {
+	if nodes := tuo.mutation.RemovedEdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   typetreatment.TreatmentTable,
-			Columns: []string{typetreatment.TreatmentColumn},
+			Table:   typetreatment.EdgesOfTreatmentTable,
+			Columns: []string{typetreatment.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -347,12 +347,12 @@ func (tuo *TypetreatmentUpdateOne) sqlSave(ctx context.Context) (t *Typetreatmen
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := tuo.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := tuo.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   typetreatment.TreatmentTable,
-			Columns: []string{typetreatment.TreatmentColumn},
+			Table:   typetreatment.EdgesOfTreatmentTable,
+			Columns: []string{typetreatment.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

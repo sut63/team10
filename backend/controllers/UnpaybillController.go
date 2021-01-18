@@ -37,7 +37,7 @@ func (ctl *UnpaybillController) GetUnpaybill(c *gin.Context) {
 	}
 	u, err := ctl.client.Unpaybill.
 		Query().
-		WithTreatment().
+		WithEdgesOfTreatment().
 		Where(unpaybill.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -64,7 +64,7 @@ func (ctl *UnpaybillController) ListUnpaybill(c *gin.Context) {
 	unpaybills, err := ctl.client.Unpaybill.
 		Query().
 		Where(unpaybill.StatusEQ("Unpay")).
-		WithTreatment().
+		WithEdgesOfTreatment().
 		All(context.Background())
 
 	if err != nil {

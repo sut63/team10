@@ -35,7 +35,7 @@ type Bill struct {
 // @Accept   json
 // @Produce  json
 // @Param bill body Bill true "Bill entity"
-// @Success 200 {object} ent.Bill
+// @Success 200 {object} Bill
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /bills [post]
@@ -69,7 +69,7 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 	}
 	ub, err := ctl.client.Unpaybill.
 		Query().
-		WithTreatment().
+		WithEdgesOfTreatment().
 		Where(unpaybill.IDEQ(int(obj.Unpaybill))).
 		Only(context.Background())
 	if err != nil {
@@ -84,9 +84,9 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 		Create().
 		SetAmount(obj.Amount).
 		SetDate(t).
-		SetPaytype(pt).
-		SetOfficer(f).
-		SetTreatment(ub).
+		SetEdgesOfPaytype(pt).
+		SetEdgesOfOfficer(f).
+		SetEdgesOfTreatment(ub).
 		Save(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -120,9 +120,9 @@ func (ctl *BillController) GetBill(c *gin.Context) {
 	}
 	u, err := ctl.client.Bill.
 		Query().
-		WithTreatment().
-		WithPaytype().
-		WithOfficer().
+		WithEdgesOfTreatment().
+		WithEdgesOfPaytype().
+		WithEdgesOfOfficer().
 		Where(bill.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -168,9 +168,9 @@ func (ctl *BillController) ListBill(c *gin.Context) {
 
 	bills, err := ctl.client.Bill.
 		Query().
-		WithOfficer().
-		WithPaytype().
-		WithTreatment().
+		WithEdgesOfOfficer().
+		WithEdgesOfPaytype().
+		WithEdgesOfTreatment().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

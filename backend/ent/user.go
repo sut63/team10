@@ -37,121 +37,121 @@ type User struct {
 
 // UserEdges holds the relations/edges for other nodes in the graph.
 type UserEdges struct {
-	// Financier holds the value of the financier edge.
-	Financier *Financier
-	// Nurse holds the value of the Nurse edge.
-	Nurse *Nurse
-	// UserPatientrights holds the value of the UserPatientrights edge.
-	UserPatientrights *Patientrights
-	// Medicalrecordstaff holds the value of the medicalrecordstaff edge.
-	Medicalrecordstaff *Medicalrecordstaff
-	// User2registrar holds the value of the user2registrar edge.
-	User2registrar *Registrar
-	// Doctor holds the value of the doctor edge.
-	Doctor *Doctor
-	// Userstatus holds the value of the userstatus edge.
-	Userstatus *Userstatus
+	// EdgesOfFinancier holds the value of the EdgesOfFinancier edge.
+	EdgesOfFinancier *Financier
+	// EdgesOfNurse holds the value of the EdgesOfNurse edge.
+	EdgesOfNurse *Nurse
+	// EdgesOfUserPatientrights holds the value of the EdgesOfUserPatientrights edge.
+	EdgesOfUserPatientrights *Patientrights
+	// EdgesOfMedicalrecordstaff holds the value of the EdgesOfMedicalrecordstaff edge.
+	EdgesOfMedicalrecordstaff *Medicalrecordstaff
+	// EdgesOfUser2registrar holds the value of the EdgesOfUser2registrar edge.
+	EdgesOfUser2registrar *Registrar
+	// EdgesOfDoctor holds the value of the EdgesOfDoctor edge.
+	EdgesOfDoctor *Doctor
+	// EdgesOfUserstatus holds the value of the EdgesOfUserstatus edge.
+	EdgesOfUserstatus *Userstatus
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [7]bool
 }
 
-// FinancierOrErr returns the Financier value or an error if the edge
+// EdgesOfFinancierOrErr returns the EdgesOfFinancier value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) FinancierOrErr() (*Financier, error) {
+func (e UserEdges) EdgesOfFinancierOrErr() (*Financier, error) {
 	if e.loadedTypes[0] {
-		if e.Financier == nil {
-			// The edge financier was loaded in eager-loading,
+		if e.EdgesOfFinancier == nil {
+			// The edge EdgesOfFinancier was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: financier.Label}
 		}
-		return e.Financier, nil
+		return e.EdgesOfFinancier, nil
 	}
-	return nil, &NotLoadedError{edge: "financier"}
+	return nil, &NotLoadedError{edge: "EdgesOfFinancier"}
 }
 
-// NurseOrErr returns the Nurse value or an error if the edge
+// EdgesOfNurseOrErr returns the EdgesOfNurse value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) NurseOrErr() (*Nurse, error) {
+func (e UserEdges) EdgesOfNurseOrErr() (*Nurse, error) {
 	if e.loadedTypes[1] {
-		if e.Nurse == nil {
-			// The edge Nurse was loaded in eager-loading,
+		if e.EdgesOfNurse == nil {
+			// The edge EdgesOfNurse was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: nurse.Label}
 		}
-		return e.Nurse, nil
+		return e.EdgesOfNurse, nil
 	}
-	return nil, &NotLoadedError{edge: "Nurse"}
+	return nil, &NotLoadedError{edge: "EdgesOfNurse"}
 }
 
-// UserPatientrightsOrErr returns the UserPatientrights value or an error if the edge
+// EdgesOfUserPatientrightsOrErr returns the EdgesOfUserPatientrights value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) UserPatientrightsOrErr() (*Patientrights, error) {
+func (e UserEdges) EdgesOfUserPatientrightsOrErr() (*Patientrights, error) {
 	if e.loadedTypes[2] {
-		if e.UserPatientrights == nil {
-			// The edge UserPatientrights was loaded in eager-loading,
+		if e.EdgesOfUserPatientrights == nil {
+			// The edge EdgesOfUserPatientrights was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: patientrights.Label}
 		}
-		return e.UserPatientrights, nil
+		return e.EdgesOfUserPatientrights, nil
 	}
-	return nil, &NotLoadedError{edge: "UserPatientrights"}
+	return nil, &NotLoadedError{edge: "EdgesOfUserPatientrights"}
 }
 
-// MedicalrecordstaffOrErr returns the Medicalrecordstaff value or an error if the edge
+// EdgesOfMedicalrecordstaffOrErr returns the EdgesOfMedicalrecordstaff value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) MedicalrecordstaffOrErr() (*Medicalrecordstaff, error) {
+func (e UserEdges) EdgesOfMedicalrecordstaffOrErr() (*Medicalrecordstaff, error) {
 	if e.loadedTypes[3] {
-		if e.Medicalrecordstaff == nil {
-			// The edge medicalrecordstaff was loaded in eager-loading,
+		if e.EdgesOfMedicalrecordstaff == nil {
+			// The edge EdgesOfMedicalrecordstaff was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: medicalrecordstaff.Label}
 		}
-		return e.Medicalrecordstaff, nil
+		return e.EdgesOfMedicalrecordstaff, nil
 	}
-	return nil, &NotLoadedError{edge: "medicalrecordstaff"}
+	return nil, &NotLoadedError{edge: "EdgesOfMedicalrecordstaff"}
 }
 
-// User2registrarOrErr returns the User2registrar value or an error if the edge
+// EdgesOfUser2registrarOrErr returns the EdgesOfUser2registrar value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) User2registrarOrErr() (*Registrar, error) {
+func (e UserEdges) EdgesOfUser2registrarOrErr() (*Registrar, error) {
 	if e.loadedTypes[4] {
-		if e.User2registrar == nil {
-			// The edge user2registrar was loaded in eager-loading,
+		if e.EdgesOfUser2registrar == nil {
+			// The edge EdgesOfUser2registrar was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: registrar.Label}
 		}
-		return e.User2registrar, nil
+		return e.EdgesOfUser2registrar, nil
 	}
-	return nil, &NotLoadedError{edge: "user2registrar"}
+	return nil, &NotLoadedError{edge: "EdgesOfUser2registrar"}
 }
 
-// DoctorOrErr returns the Doctor value or an error if the edge
+// EdgesOfDoctorOrErr returns the EdgesOfDoctor value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) DoctorOrErr() (*Doctor, error) {
+func (e UserEdges) EdgesOfDoctorOrErr() (*Doctor, error) {
 	if e.loadedTypes[5] {
-		if e.Doctor == nil {
-			// The edge doctor was loaded in eager-loading,
+		if e.EdgesOfDoctor == nil {
+			// The edge EdgesOfDoctor was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: doctor.Label}
 		}
-		return e.Doctor, nil
+		return e.EdgesOfDoctor, nil
 	}
-	return nil, &NotLoadedError{edge: "doctor"}
+	return nil, &NotLoadedError{edge: "EdgesOfDoctor"}
 }
 
-// UserstatusOrErr returns the Userstatus value or an error if the edge
+// EdgesOfUserstatusOrErr returns the EdgesOfUserstatus value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e UserEdges) UserstatusOrErr() (*Userstatus, error) {
+func (e UserEdges) EdgesOfUserstatusOrErr() (*Userstatus, error) {
 	if e.loadedTypes[6] {
-		if e.Userstatus == nil {
-			// The edge userstatus was loaded in eager-loading,
+		if e.EdgesOfUserstatus == nil {
+			// The edge EdgesOfUserstatus was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: userstatus.Label}
 		}
-		return e.Userstatus, nil
+		return e.EdgesOfUserstatus, nil
 	}
-	return nil, &NotLoadedError{edge: "userstatus"}
+	return nil, &NotLoadedError{edge: "EdgesOfUserstatus"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -217,39 +217,39 @@ func (u *User) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryFinancier queries the financier edge of the User.
-func (u *User) QueryFinancier() *FinancierQuery {
-	return (&UserClient{config: u.config}).QueryFinancier(u)
+// QueryEdgesOfFinancier queries the EdgesOfFinancier edge of the User.
+func (u *User) QueryEdgesOfFinancier() *FinancierQuery {
+	return (&UserClient{config: u.config}).QueryEdgesOfFinancier(u)
 }
 
-// QueryNurse queries the Nurse edge of the User.
-func (u *User) QueryNurse() *NurseQuery {
-	return (&UserClient{config: u.config}).QueryNurse(u)
+// QueryEdgesOfNurse queries the EdgesOfNurse edge of the User.
+func (u *User) QueryEdgesOfNurse() *NurseQuery {
+	return (&UserClient{config: u.config}).QueryEdgesOfNurse(u)
 }
 
-// QueryUserPatientrights queries the UserPatientrights edge of the User.
-func (u *User) QueryUserPatientrights() *PatientrightsQuery {
-	return (&UserClient{config: u.config}).QueryUserPatientrights(u)
+// QueryEdgesOfUserPatientrights queries the EdgesOfUserPatientrights edge of the User.
+func (u *User) QueryEdgesOfUserPatientrights() *PatientrightsQuery {
+	return (&UserClient{config: u.config}).QueryEdgesOfUserPatientrights(u)
 }
 
-// QueryMedicalrecordstaff queries the medicalrecordstaff edge of the User.
-func (u *User) QueryMedicalrecordstaff() *MedicalrecordstaffQuery {
-	return (&UserClient{config: u.config}).QueryMedicalrecordstaff(u)
+// QueryEdgesOfMedicalrecordstaff queries the EdgesOfMedicalrecordstaff edge of the User.
+func (u *User) QueryEdgesOfMedicalrecordstaff() *MedicalrecordstaffQuery {
+	return (&UserClient{config: u.config}).QueryEdgesOfMedicalrecordstaff(u)
 }
 
-// QueryUser2registrar queries the user2registrar edge of the User.
-func (u *User) QueryUser2registrar() *RegistrarQuery {
-	return (&UserClient{config: u.config}).QueryUser2registrar(u)
+// QueryEdgesOfUser2registrar queries the EdgesOfUser2registrar edge of the User.
+func (u *User) QueryEdgesOfUser2registrar() *RegistrarQuery {
+	return (&UserClient{config: u.config}).QueryEdgesOfUser2registrar(u)
 }
 
-// QueryDoctor queries the doctor edge of the User.
-func (u *User) QueryDoctor() *DoctorQuery {
-	return (&UserClient{config: u.config}).QueryDoctor(u)
+// QueryEdgesOfDoctor queries the EdgesOfDoctor edge of the User.
+func (u *User) QueryEdgesOfDoctor() *DoctorQuery {
+	return (&UserClient{config: u.config}).QueryEdgesOfDoctor(u)
 }
 
-// QueryUserstatus queries the userstatus edge of the User.
-func (u *User) QueryUserstatus() *UserstatusQuery {
-	return (&UserClient{config: u.config}).QueryUserstatus(u)
+// QueryEdgesOfUserstatus queries the EdgesOfUserstatus edge of the User.
+func (u *User) QueryEdgesOfUserstatus() *UserstatusQuery {
+	return (&UserClient{config: u.config}).QueryEdgesOfUserstatus(u)
 }
 
 // Update returns a builder for updating this User.

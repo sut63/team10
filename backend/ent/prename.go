@@ -24,31 +24,31 @@ type Prename struct {
 
 // PrenameEdges holds the relations/edges for other nodes in the graph.
 type PrenameEdges struct {
-	// Prename2doctorinfo holds the value of the prename2doctorinfo edge.
-	Prename2doctorinfo []*Doctorinfo
-	// Patientrecord holds the value of the patientrecord edge.
-	Patientrecord []*Patientrecord
+	// EdgesOfPrename2doctorinfo holds the value of the EdgesOfPrename2doctorinfo edge.
+	EdgesOfPrename2doctorinfo []*Doctorinfo
+	// EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.
+	EdgesOfPatientrecord []*Patientrecord
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
 }
 
-// Prename2doctorinfoOrErr returns the Prename2doctorinfo value or an error if the edge
+// EdgesOfPrename2doctorinfoOrErr returns the EdgesOfPrename2doctorinfo value or an error if the edge
 // was not loaded in eager-loading.
-func (e PrenameEdges) Prename2doctorinfoOrErr() ([]*Doctorinfo, error) {
+func (e PrenameEdges) EdgesOfPrename2doctorinfoOrErr() ([]*Doctorinfo, error) {
 	if e.loadedTypes[0] {
-		return e.Prename2doctorinfo, nil
+		return e.EdgesOfPrename2doctorinfo, nil
 	}
-	return nil, &NotLoadedError{edge: "prename2doctorinfo"}
+	return nil, &NotLoadedError{edge: "EdgesOfPrename2doctorinfo"}
 }
 
-// PatientrecordOrErr returns the Patientrecord value or an error if the edge
+// EdgesOfPatientrecordOrErr returns the EdgesOfPatientrecord value or an error if the edge
 // was not loaded in eager-loading.
-func (e PrenameEdges) PatientrecordOrErr() ([]*Patientrecord, error) {
+func (e PrenameEdges) EdgesOfPatientrecordOrErr() ([]*Patientrecord, error) {
 	if e.loadedTypes[1] {
-		return e.Patientrecord, nil
+		return e.EdgesOfPatientrecord, nil
 	}
-	return nil, &NotLoadedError{edge: "patientrecord"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrecord"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -79,14 +79,14 @@ func (pr *Prename) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryPrename2doctorinfo queries the prename2doctorinfo edge of the Prename.
-func (pr *Prename) QueryPrename2doctorinfo() *DoctorinfoQuery {
-	return (&PrenameClient{config: pr.config}).QueryPrename2doctorinfo(pr)
+// QueryEdgesOfPrename2doctorinfo queries the EdgesOfPrename2doctorinfo edge of the Prename.
+func (pr *Prename) QueryEdgesOfPrename2doctorinfo() *DoctorinfoQuery {
+	return (&PrenameClient{config: pr.config}).QueryEdgesOfPrename2doctorinfo(pr)
 }
 
-// QueryPatientrecord queries the patientrecord edge of the Prename.
-func (pr *Prename) QueryPatientrecord() *PatientrecordQuery {
-	return (&PrenameClient{config: pr.config}).QueryPatientrecord(pr)
+// QueryEdgesOfPatientrecord queries the EdgesOfPatientrecord edge of the Prename.
+func (pr *Prename) QueryEdgesOfPatientrecord() *PatientrecordQuery {
+	return (&PrenameClient{config: pr.config}).QueryEdgesOfPatientrecord(pr)
 }
 
 // Update returns a builder for updating this Prename.

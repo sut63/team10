@@ -209,25 +209,25 @@ func GenderstatusContainsFold(v string) predicate.Gender {
 	})
 }
 
-// HasPatientrecord applies the HasEdge predicate on the "patientrecord" edge.
-func HasPatientrecord() predicate.Gender {
+// HasEdgesOfPatientrecord applies the HasEdge predicate on the "EdgesOfPatientrecord" edge.
+func HasEdgesOfPatientrecord() predicate.Gender {
 	return predicate.Gender(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(PatientrecordTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, PatientrecordTable, PatientrecordColumn),
+			sqlgraph.To(EdgesOfPatientrecordTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfPatientrecordTable, EdgesOfPatientrecordColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasPatientrecordWith applies the HasEdge predicate on the "patientrecord" edge with a given conditions (other predicates).
-func HasPatientrecordWith(preds ...predicate.Patientrecord) predicate.Gender {
+// HasEdgesOfPatientrecordWith applies the HasEdge predicate on the "EdgesOfPatientrecord" edge with a given conditions (other predicates).
+func HasEdgesOfPatientrecordWith(preds ...predicate.Patientrecord) predicate.Gender {
 	return predicate.Gender(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(PatientrecordInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, PatientrecordTable, PatientrecordColumn),
+			sqlgraph.To(EdgesOfPatientrecordInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfPatientrecordTable, EdgesOfPatientrecordColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

@@ -27,11 +27,11 @@ import {
  */
 export interface EntGenderEdges {
     /**
-     * Patientrecord holds the value of the patientrecord edge.
+     * EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.
      * @type {Array<EntPatientrecord>}
      * @memberof EntGenderEdges
      */
-    patientrecord?: Array<EntPatientrecord>;
+    edgesOfPatientrecord?: Array<EntPatientrecord>;
 }
 
 export function EntGenderEdgesFromJSON(json: any): EntGenderEdges {
@@ -44,7 +44,7 @@ export function EntGenderEdgesFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'patientrecord': !exists(json, 'Patientrecord') ? undefined : ((json['Patientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
+        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : ((json['EdgesOfPatientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntGenderEdgesToJSON(value?: EntGenderEdges | null): any {
     }
     return {
         
-        'patientrecord': value.patientrecord === undefined ? undefined : ((value.patientrecord as Array<any>).map(EntPatientrecordToJSON)),
+        'EdgesOfPatientrecord': value.edgesOfPatientrecord === undefined ? undefined : ((value.edgesOfPatientrecord as Array<any>).map(EntPatientrecordToJSON)),
     };
 }
 

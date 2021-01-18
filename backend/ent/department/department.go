@@ -10,27 +10,27 @@ const (
 	// FieldDepartment holds the string denoting the department field in the database.
 	FieldDepartment = "department"
 
-	// EdgeDepartment2doctorinfo holds the string denoting the department2doctorinfo edge name in mutations.
-	EdgeDepartment2doctorinfo = "department2doctorinfo"
-	// EdgeHistorytaking holds the string denoting the historytaking edge name in mutations.
-	EdgeHistorytaking = "historytaking"
+	// EdgeEdgesOfDepartment2doctorinfo holds the string denoting the edgesofdepartment2doctorinfo edge name in mutations.
+	EdgeEdgesOfDepartment2doctorinfo = "EdgesOfDepartment2doctorinfo"
+	// EdgeEdgesOfHistorytaking holds the string denoting the edgesofhistorytaking edge name in mutations.
+	EdgeEdgesOfHistorytaking = "EdgesOfHistorytaking"
 
 	// Table holds the table name of the department in the database.
 	Table = "departments"
-	// Department2doctorinfoTable is the table the holds the department2doctorinfo relation/edge.
-	Department2doctorinfoTable = "doctorinfos"
-	// Department2doctorinfoInverseTable is the table name for the Doctorinfo entity.
+	// EdgesOfDepartment2doctorinfoTable is the table the holds the EdgesOfDepartment2doctorinfo relation/edge.
+	EdgesOfDepartment2doctorinfoTable = "doctorinfos"
+	// EdgesOfDepartment2doctorinfoInverseTable is the table name for the Doctorinfo entity.
 	// It exists in this package in order to avoid circular dependency with the "doctorinfo" package.
-	Department2doctorinfoInverseTable = "doctorinfos"
-	// Department2doctorinfoColumn is the table column denoting the department2doctorinfo relation/edge.
-	Department2doctorinfoColumn = "department"
-	// HistorytakingTable is the table the holds the historytaking relation/edge.
-	HistorytakingTable = "historytakings"
-	// HistorytakingInverseTable is the table name for the Historytaking entity.
+	EdgesOfDepartment2doctorinfoInverseTable = "doctorinfos"
+	// EdgesOfDepartment2doctorinfoColumn is the table column denoting the EdgesOfDepartment2doctorinfo relation/edge.
+	EdgesOfDepartment2doctorinfoColumn = "department"
+	// EdgesOfHistorytakingTable is the table the holds the EdgesOfHistorytaking relation/edge.
+	EdgesOfHistorytakingTable = "historytakings"
+	// EdgesOfHistorytakingInverseTable is the table name for the Historytaking entity.
 	// It exists in this package in order to avoid circular dependency with the "historytaking" package.
-	HistorytakingInverseTable = "historytakings"
-	// HistorytakingColumn is the table column denoting the historytaking relation/edge.
-	HistorytakingColumn = "department_id"
+	EdgesOfHistorytakingInverseTable = "historytakings"
+	// EdgesOfHistorytakingColumn is the table column denoting the EdgesOfHistorytaking relation/edge.
+	EdgesOfHistorytakingColumn = "department_id"
 )
 
 // Columns holds all SQL columns for department fields.

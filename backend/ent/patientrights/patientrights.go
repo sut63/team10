@@ -10,45 +10,45 @@ const (
 	// FieldPermissionDate holds the string denoting the permissiondate field in the database.
 	FieldPermissionDate = "permission_date"
 
-	// EdgePatientrightsPatientrightstype holds the string denoting the patientrightspatientrightstype edge name in mutations.
-	EdgePatientrightsPatientrightstype = "PatientrightsPatientrightstype"
-	// EdgePatientrightsInsurance holds the string denoting the patientrightsinsurance edge name in mutations.
-	EdgePatientrightsInsurance = "PatientrightsInsurance"
-	// EdgePatientrightsPatientrecord holds the string denoting the patientrightspatientrecord edge name in mutations.
-	EdgePatientrightsPatientrecord = "PatientrightsPatientrecord"
-	// EdgePatientrightsMedicalrecordstaff holds the string denoting the patientrightsmedicalrecordstaff edge name in mutations.
-	EdgePatientrightsMedicalrecordstaff = "PatientrightsMedicalrecordstaff"
+	// EdgeEdgesOfPatientrightsPatientrightstype holds the string denoting the edgesofpatientrightspatientrightstype edge name in mutations.
+	EdgeEdgesOfPatientrightsPatientrightstype = "EdgesOfPatientrightsPatientrightstype"
+	// EdgeEdgesOfPatientrightsInsurance holds the string denoting the edgesofpatientrightsinsurance edge name in mutations.
+	EdgeEdgesOfPatientrightsInsurance = "EdgesOfPatientrightsInsurance"
+	// EdgeEdgesOfPatientrightsPatientrecord holds the string denoting the edgesofpatientrightspatientrecord edge name in mutations.
+	EdgeEdgesOfPatientrightsPatientrecord = "EdgesOfPatientrightsPatientrecord"
+	// EdgeEdgesOfPatientrightsMedicalrecordstaff holds the string denoting the edgesofpatientrightsmedicalrecordstaff edge name in mutations.
+	EdgeEdgesOfPatientrightsMedicalrecordstaff = "EdgesOfPatientrightsMedicalrecordstaff"
 
 	// Table holds the table name of the patientrights in the database.
 	Table = "patientrights"
-	// PatientrightsPatientrightstypeTable is the table the holds the PatientrightsPatientrightstype relation/edge.
-	PatientrightsPatientrightstypeTable = "patientrights"
-	// PatientrightsPatientrightstypeInverseTable is the table name for the Patientrightstype entity.
+	// EdgesOfPatientrightsPatientrightstypeTable is the table the holds the EdgesOfPatientrightsPatientrightstype relation/edge.
+	EdgesOfPatientrightsPatientrightstypeTable = "patientrights"
+	// EdgesOfPatientrightsPatientrightstypeInverseTable is the table name for the Patientrightstype entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrightstype" package.
-	PatientrightsPatientrightstypeInverseTable = "patientrightstypes"
-	// PatientrightsPatientrightstypeColumn is the table column denoting the PatientrightsPatientrightstype relation/edge.
-	PatientrightsPatientrightstypeColumn = "Patientrightstype_id"
-	// PatientrightsInsuranceTable is the table the holds the PatientrightsInsurance relation/edge.
-	PatientrightsInsuranceTable = "patientrights"
-	// PatientrightsInsuranceInverseTable is the table name for the Insurance entity.
+	EdgesOfPatientrightsPatientrightstypeInverseTable = "patientrightstypes"
+	// EdgesOfPatientrightsPatientrightstypeColumn is the table column denoting the EdgesOfPatientrightsPatientrightstype relation/edge.
+	EdgesOfPatientrightsPatientrightstypeColumn = "Patientrightstype_id"
+	// EdgesOfPatientrightsInsuranceTable is the table the holds the EdgesOfPatientrightsInsurance relation/edge.
+	EdgesOfPatientrightsInsuranceTable = "patientrights"
+	// EdgesOfPatientrightsInsuranceInverseTable is the table name for the Insurance entity.
 	// It exists in this package in order to avoid circular dependency with the "insurance" package.
-	PatientrightsInsuranceInverseTable = "insurances"
-	// PatientrightsInsuranceColumn is the table column denoting the PatientrightsInsurance relation/edge.
-	PatientrightsInsuranceColumn = "Insurance_id"
-	// PatientrightsPatientrecordTable is the table the holds the PatientrightsPatientrecord relation/edge.
-	PatientrightsPatientrecordTable = "patientrights"
-	// PatientrightsPatientrecordInverseTable is the table name for the Patientrecord entity.
+	EdgesOfPatientrightsInsuranceInverseTable = "insurances"
+	// EdgesOfPatientrightsInsuranceColumn is the table column denoting the EdgesOfPatientrightsInsurance relation/edge.
+	EdgesOfPatientrightsInsuranceColumn = "Insurance_id"
+	// EdgesOfPatientrightsPatientrecordTable is the table the holds the EdgesOfPatientrightsPatientrecord relation/edge.
+	EdgesOfPatientrightsPatientrecordTable = "patientrights"
+	// EdgesOfPatientrightsPatientrecordInverseTable is the table name for the Patientrecord entity.
 	// It exists in this package in order to avoid circular dependency with the "patientrecord" package.
-	PatientrightsPatientrecordInverseTable = "patientrecords"
-	// PatientrightsPatientrecordColumn is the table column denoting the PatientrightsPatientrecord relation/edge.
-	PatientrightsPatientrecordColumn = "patientrecord_id"
-	// PatientrightsMedicalrecordstaffTable is the table the holds the PatientrightsMedicalrecordstaff relation/edge.
-	PatientrightsMedicalrecordstaffTable = "patientrights"
-	// PatientrightsMedicalrecordstaffInverseTable is the table name for the Medicalrecordstaff entity.
+	EdgesOfPatientrightsPatientrecordInverseTable = "patientrecords"
+	// EdgesOfPatientrightsPatientrecordColumn is the table column denoting the EdgesOfPatientrightsPatientrecord relation/edge.
+	EdgesOfPatientrightsPatientrecordColumn = "patientrecord_id"
+	// EdgesOfPatientrightsMedicalrecordstaffTable is the table the holds the EdgesOfPatientrightsMedicalrecordstaff relation/edge.
+	EdgesOfPatientrightsMedicalrecordstaffTable = "patientrights"
+	// EdgesOfPatientrightsMedicalrecordstaffInverseTable is the table name for the Medicalrecordstaff entity.
 	// It exists in this package in order to avoid circular dependency with the "medicalrecordstaff" package.
-	PatientrightsMedicalrecordstaffInverseTable = "medicalrecordstaffs"
-	// PatientrightsMedicalrecordstaffColumn is the table column denoting the PatientrightsMedicalrecordstaff relation/edge.
-	PatientrightsMedicalrecordstaffColumn = "medicalrecordstaff_id"
+	EdgesOfPatientrightsMedicalrecordstaffInverseTable = "medicalrecordstaffs"
+	// EdgesOfPatientrightsMedicalrecordstaffColumn is the table column denoting the EdgesOfPatientrightsMedicalrecordstaff relation/edge.
+	EdgesOfPatientrightsMedicalrecordstaffColumn = "medicalrecordstaff_id"
 )
 
 // Columns holds all SQL columns for patientrights fields.

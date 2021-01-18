@@ -34,19 +34,19 @@ func (gu *GenderUpdate) SetGenderstatus(s string) *GenderUpdate {
 	return gu
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (gu *GenderUpdate) AddPatientrecordIDs(ids ...int) *GenderUpdate {
-	gu.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (gu *GenderUpdate) AddEdgesOfPatientrecordIDs(ids ...int) *GenderUpdate {
+	gu.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return gu
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (gu *GenderUpdate) AddPatientrecord(p ...*Patientrecord) *GenderUpdate {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (gu *GenderUpdate) AddEdgesOfPatientrecord(p ...*Patientrecord) *GenderUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return gu.AddPatientrecordIDs(ids...)
+	return gu.AddEdgesOfPatientrecordIDs(ids...)
 }
 
 // Mutation returns the GenderMutation object of the builder.
@@ -54,19 +54,19 @@ func (gu *GenderUpdate) Mutation() *GenderMutation {
 	return gu.mutation
 }
 
-// RemovePatientrecordIDs removes the patientrecord edge to Patientrecord by ids.
-func (gu *GenderUpdate) RemovePatientrecordIDs(ids ...int) *GenderUpdate {
-	gu.mutation.RemovePatientrecordIDs(ids...)
+// RemoveEdgesOfPatientrecordIDs removes the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (gu *GenderUpdate) RemoveEdgesOfPatientrecordIDs(ids ...int) *GenderUpdate {
+	gu.mutation.RemoveEdgesOfPatientrecordIDs(ids...)
 	return gu
 }
 
-// RemovePatientrecord removes patientrecord edges to Patientrecord.
-func (gu *GenderUpdate) RemovePatientrecord(p ...*Patientrecord) *GenderUpdate {
+// RemoveEdgesOfPatientrecord removes EdgesOfPatientrecord edges to Patientrecord.
+func (gu *GenderUpdate) RemoveEdgesOfPatientrecord(p ...*Patientrecord) *GenderUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return gu.RemovePatientrecordIDs(ids...)
+	return gu.RemoveEdgesOfPatientrecordIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -146,12 +146,12 @@ func (gu *GenderUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: gender.FieldGenderstatus,
 		})
 	}
-	if nodes := gu.mutation.RemovedPatientrecordIDs(); len(nodes) > 0 {
+	if nodes := gu.mutation.RemovedEdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   gender.PatientrecordTable,
-			Columns: []string{gender.PatientrecordColumn},
+			Table:   gender.EdgesOfPatientrecordTable,
+			Columns: []string{gender.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -165,12 +165,12 @@ func (gu *GenderUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := gu.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := gu.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   gender.PatientrecordTable,
-			Columns: []string{gender.PatientrecordColumn},
+			Table:   gender.EdgesOfPatientrecordTable,
+			Columns: []string{gender.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -208,19 +208,19 @@ func (guo *GenderUpdateOne) SetGenderstatus(s string) *GenderUpdateOne {
 	return guo
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (guo *GenderUpdateOne) AddPatientrecordIDs(ids ...int) *GenderUpdateOne {
-	guo.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (guo *GenderUpdateOne) AddEdgesOfPatientrecordIDs(ids ...int) *GenderUpdateOne {
+	guo.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return guo
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (guo *GenderUpdateOne) AddPatientrecord(p ...*Patientrecord) *GenderUpdateOne {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (guo *GenderUpdateOne) AddEdgesOfPatientrecord(p ...*Patientrecord) *GenderUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return guo.AddPatientrecordIDs(ids...)
+	return guo.AddEdgesOfPatientrecordIDs(ids...)
 }
 
 // Mutation returns the GenderMutation object of the builder.
@@ -228,19 +228,19 @@ func (guo *GenderUpdateOne) Mutation() *GenderMutation {
 	return guo.mutation
 }
 
-// RemovePatientrecordIDs removes the patientrecord edge to Patientrecord by ids.
-func (guo *GenderUpdateOne) RemovePatientrecordIDs(ids ...int) *GenderUpdateOne {
-	guo.mutation.RemovePatientrecordIDs(ids...)
+// RemoveEdgesOfPatientrecordIDs removes the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (guo *GenderUpdateOne) RemoveEdgesOfPatientrecordIDs(ids ...int) *GenderUpdateOne {
+	guo.mutation.RemoveEdgesOfPatientrecordIDs(ids...)
 	return guo
 }
 
-// RemovePatientrecord removes patientrecord edges to Patientrecord.
-func (guo *GenderUpdateOne) RemovePatientrecord(p ...*Patientrecord) *GenderUpdateOne {
+// RemoveEdgesOfPatientrecord removes EdgesOfPatientrecord edges to Patientrecord.
+func (guo *GenderUpdateOne) RemoveEdgesOfPatientrecord(p ...*Patientrecord) *GenderUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return guo.RemovePatientrecordIDs(ids...)
+	return guo.RemoveEdgesOfPatientrecordIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -318,12 +318,12 @@ func (guo *GenderUpdateOne) sqlSave(ctx context.Context) (ge *Gender, err error)
 			Column: gender.FieldGenderstatus,
 		})
 	}
-	if nodes := guo.mutation.RemovedPatientrecordIDs(); len(nodes) > 0 {
+	if nodes := guo.mutation.RemovedEdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   gender.PatientrecordTable,
-			Columns: []string{gender.PatientrecordColumn},
+			Table:   gender.EdgesOfPatientrecordTable,
+			Columns: []string{gender.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -337,12 +337,12 @@ func (guo *GenderUpdateOne) sqlSave(ctx context.Context) (ge *Gender, err error)
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := guo.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := guo.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   gender.PatientrecordTable,
-			Columns: []string{gender.PatientrecordColumn},
+			Table:   gender.EdgesOfPatientrecordTable,
+			Columns: []string{gender.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

@@ -16,6 +16,7 @@ type UserController struct {
 	client *ent.Client
 	router gin.IRouter
 }
+// User defines the struct for the User entity
 type User struct {
 	Userstatus int
 	Email      string
@@ -30,7 +31,7 @@ type User struct {
 // @Accept   json
 // @Produce  json
 // @Param user body User true "User entity"
-// @Success 200 {object} ent.User
+// @Success 200 {object} User
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /users [post]
@@ -55,7 +56,7 @@ func (ctl *UserController) CreateUser(c *gin.Context) {
 
 	u, err := ctl.client.User.
 		Create().
-		SetUserstatus(us).
+		SetEdgesOfUserstatus(us).
 		SetEmail(obj.Email).
 		SetImages(obj.Images).
 		SetPassword(obj.Password).
@@ -92,13 +93,13 @@ func (ctl *UserController) GetUser(c *gin.Context) {
 	}
 	u, err := ctl.client.User.
 		Query().
-		WithFinancier().
-		WithNurse().
-		WithMedicalrecordstaff().
-		WithUser2registrar().
-		WithUserPatientrights().
-		WithUserstatus().
-		WithDoctor().
+		WithEdgesOfFinancier().
+		WithEdgesOfNurse().
+		WithEdgesOfMedicalrecordstaff().
+		WithEdgesOfUser2registrar().
+		WithEdgesOfUserPatientrights().
+		WithEdgesOfUserstatus().
+		WithEdgesOfDoctor().
 		Where(user.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -144,13 +145,13 @@ func (ctl *UserController) ListUser(c *gin.Context) {
 
 	users, err := ctl.client.User.
 		Query().
-		WithFinancier().
-		WithNurse().
-		WithMedicalrecordstaff().
-		WithUser2registrar().
-		WithUserPatientrights().
-		WithUserstatus().
-		WithDoctor().
+		WithEdgesOfFinancier().
+		WithEdgesOfNurse().
+		WithEdgesOfMedicalrecordstaff().
+		WithEdgesOfUser2registrar().
+		WithEdgesOfUserPatientrights().
+		WithEdgesOfUserstatus().
+		WithEdgesOfDoctor().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

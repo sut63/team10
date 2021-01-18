@@ -43,61 +43,61 @@ func (bu *BillUpdate) SetDate(t time.Time) *BillUpdate {
 	return bu
 }
 
-// SetPaytypeID sets the paytype edge to Paytype by id.
-func (bu *BillUpdate) SetPaytypeID(id int) *BillUpdate {
-	bu.mutation.SetPaytypeID(id)
+// SetEdgesOfPaytypeID sets the EdgesOfPaytype edge to Paytype by id.
+func (bu *BillUpdate) SetEdgesOfPaytypeID(id int) *BillUpdate {
+	bu.mutation.SetEdgesOfPaytypeID(id)
 	return bu
 }
 
-// SetNillablePaytypeID sets the paytype edge to Paytype by id if the given value is not nil.
-func (bu *BillUpdate) SetNillablePaytypeID(id *int) *BillUpdate {
+// SetNillableEdgesOfPaytypeID sets the EdgesOfPaytype edge to Paytype by id if the given value is not nil.
+func (bu *BillUpdate) SetNillableEdgesOfPaytypeID(id *int) *BillUpdate {
 	if id != nil {
-		bu = bu.SetPaytypeID(*id)
+		bu = bu.SetEdgesOfPaytypeID(*id)
 	}
 	return bu
 }
 
-// SetPaytype sets the paytype edge to Paytype.
-func (bu *BillUpdate) SetPaytype(p *Paytype) *BillUpdate {
-	return bu.SetPaytypeID(p.ID)
+// SetEdgesOfPaytype sets the EdgesOfPaytype edge to Paytype.
+func (bu *BillUpdate) SetEdgesOfPaytype(p *Paytype) *BillUpdate {
+	return bu.SetEdgesOfPaytypeID(p.ID)
 }
 
-// SetOfficerID sets the officer edge to Financier by id.
-func (bu *BillUpdate) SetOfficerID(id int) *BillUpdate {
-	bu.mutation.SetOfficerID(id)
+// SetEdgesOfOfficerID sets the EdgesOfOfficer edge to Financier by id.
+func (bu *BillUpdate) SetEdgesOfOfficerID(id int) *BillUpdate {
+	bu.mutation.SetEdgesOfOfficerID(id)
 	return bu
 }
 
-// SetNillableOfficerID sets the officer edge to Financier by id if the given value is not nil.
-func (bu *BillUpdate) SetNillableOfficerID(id *int) *BillUpdate {
+// SetNillableEdgesOfOfficerID sets the EdgesOfOfficer edge to Financier by id if the given value is not nil.
+func (bu *BillUpdate) SetNillableEdgesOfOfficerID(id *int) *BillUpdate {
 	if id != nil {
-		bu = bu.SetOfficerID(*id)
+		bu = bu.SetEdgesOfOfficerID(*id)
 	}
 	return bu
 }
 
-// SetOfficer sets the officer edge to Financier.
-func (bu *BillUpdate) SetOfficer(f *Financier) *BillUpdate {
-	return bu.SetOfficerID(f.ID)
+// SetEdgesOfOfficer sets the EdgesOfOfficer edge to Financier.
+func (bu *BillUpdate) SetEdgesOfOfficer(f *Financier) *BillUpdate {
+	return bu.SetEdgesOfOfficerID(f.ID)
 }
 
-// SetTreatmentID sets the treatment edge to Unpaybill by id.
-func (bu *BillUpdate) SetTreatmentID(id int) *BillUpdate {
-	bu.mutation.SetTreatmentID(id)
+// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id.
+func (bu *BillUpdate) SetEdgesOfTreatmentID(id int) *BillUpdate {
+	bu.mutation.SetEdgesOfTreatmentID(id)
 	return bu
 }
 
-// SetNillableTreatmentID sets the treatment edge to Unpaybill by id if the given value is not nil.
-func (bu *BillUpdate) SetNillableTreatmentID(id *int) *BillUpdate {
+// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id if the given value is not nil.
+func (bu *BillUpdate) SetNillableEdgesOfTreatmentID(id *int) *BillUpdate {
 	if id != nil {
-		bu = bu.SetTreatmentID(*id)
+		bu = bu.SetEdgesOfTreatmentID(*id)
 	}
 	return bu
 }
 
-// SetTreatment sets the treatment edge to Unpaybill.
-func (bu *BillUpdate) SetTreatment(u *Unpaybill) *BillUpdate {
-	return bu.SetTreatmentID(u.ID)
+// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Unpaybill.
+func (bu *BillUpdate) SetEdgesOfTreatment(u *Unpaybill) *BillUpdate {
+	return bu.SetEdgesOfTreatmentID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -105,21 +105,21 @@ func (bu *BillUpdate) Mutation() *BillMutation {
 	return bu.mutation
 }
 
-// ClearPaytype clears the paytype edge to Paytype.
-func (bu *BillUpdate) ClearPaytype() *BillUpdate {
-	bu.mutation.ClearPaytype()
+// ClearEdgesOfPaytype clears the EdgesOfPaytype edge to Paytype.
+func (bu *BillUpdate) ClearEdgesOfPaytype() *BillUpdate {
+	bu.mutation.ClearEdgesOfPaytype()
 	return bu
 }
 
-// ClearOfficer clears the officer edge to Financier.
-func (bu *BillUpdate) ClearOfficer() *BillUpdate {
-	bu.mutation.ClearOfficer()
+// ClearEdgesOfOfficer clears the EdgesOfOfficer edge to Financier.
+func (bu *BillUpdate) ClearEdgesOfOfficer() *BillUpdate {
+	bu.mutation.ClearEdgesOfOfficer()
 	return bu
 }
 
-// ClearTreatment clears the treatment edge to Unpaybill.
-func (bu *BillUpdate) ClearTreatment() *BillUpdate {
-	bu.mutation.ClearTreatment()
+// ClearEdgesOfTreatment clears the EdgesOfTreatment edge to Unpaybill.
+func (bu *BillUpdate) ClearEdgesOfTreatment() *BillUpdate {
+	bu.mutation.ClearEdgesOfTreatment()
 	return bu
 }
 
@@ -212,12 +212,12 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: bill.FieldDate,
 		})
 	}
-	if bu.mutation.PaytypeCleared() {
+	if bu.mutation.EdgesOfPaytypeCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.PaytypeTable,
-			Columns: []string{bill.PaytypeColumn},
+			Table:   bill.EdgesOfPaytypeTable,
+			Columns: []string{bill.EdgesOfPaytypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -228,12 +228,12 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := bu.mutation.PaytypeIDs(); len(nodes) > 0 {
+	if nodes := bu.mutation.EdgesOfPaytypeIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.PaytypeTable,
-			Columns: []string{bill.PaytypeColumn},
+			Table:   bill.EdgesOfPaytypeTable,
+			Columns: []string{bill.EdgesOfPaytypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -247,12 +247,12 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if bu.mutation.OfficerCleared() {
+	if bu.mutation.EdgesOfOfficerCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.OfficerTable,
-			Columns: []string{bill.OfficerColumn},
+			Table:   bill.EdgesOfOfficerTable,
+			Columns: []string{bill.EdgesOfOfficerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -263,12 +263,12 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := bu.mutation.OfficerIDs(); len(nodes) > 0 {
+	if nodes := bu.mutation.EdgesOfOfficerIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.OfficerTable,
-			Columns: []string{bill.OfficerColumn},
+			Table:   bill.EdgesOfOfficerTable,
+			Columns: []string{bill.EdgesOfOfficerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -282,12 +282,12 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if bu.mutation.TreatmentCleared() {
+	if bu.mutation.EdgesOfTreatmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.TreatmentTable,
-			Columns: []string{bill.TreatmentColumn},
+			Table:   bill.EdgesOfTreatmentTable,
+			Columns: []string{bill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -298,12 +298,12 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := bu.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := bu.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.TreatmentTable,
-			Columns: []string{bill.TreatmentColumn},
+			Table:   bill.EdgesOfTreatmentTable,
+			Columns: []string{bill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -347,61 +347,61 @@ func (buo *BillUpdateOne) SetDate(t time.Time) *BillUpdateOne {
 	return buo
 }
 
-// SetPaytypeID sets the paytype edge to Paytype by id.
-func (buo *BillUpdateOne) SetPaytypeID(id int) *BillUpdateOne {
-	buo.mutation.SetPaytypeID(id)
+// SetEdgesOfPaytypeID sets the EdgesOfPaytype edge to Paytype by id.
+func (buo *BillUpdateOne) SetEdgesOfPaytypeID(id int) *BillUpdateOne {
+	buo.mutation.SetEdgesOfPaytypeID(id)
 	return buo
 }
 
-// SetNillablePaytypeID sets the paytype edge to Paytype by id if the given value is not nil.
-func (buo *BillUpdateOne) SetNillablePaytypeID(id *int) *BillUpdateOne {
+// SetNillableEdgesOfPaytypeID sets the EdgesOfPaytype edge to Paytype by id if the given value is not nil.
+func (buo *BillUpdateOne) SetNillableEdgesOfPaytypeID(id *int) *BillUpdateOne {
 	if id != nil {
-		buo = buo.SetPaytypeID(*id)
+		buo = buo.SetEdgesOfPaytypeID(*id)
 	}
 	return buo
 }
 
-// SetPaytype sets the paytype edge to Paytype.
-func (buo *BillUpdateOne) SetPaytype(p *Paytype) *BillUpdateOne {
-	return buo.SetPaytypeID(p.ID)
+// SetEdgesOfPaytype sets the EdgesOfPaytype edge to Paytype.
+func (buo *BillUpdateOne) SetEdgesOfPaytype(p *Paytype) *BillUpdateOne {
+	return buo.SetEdgesOfPaytypeID(p.ID)
 }
 
-// SetOfficerID sets the officer edge to Financier by id.
-func (buo *BillUpdateOne) SetOfficerID(id int) *BillUpdateOne {
-	buo.mutation.SetOfficerID(id)
+// SetEdgesOfOfficerID sets the EdgesOfOfficer edge to Financier by id.
+func (buo *BillUpdateOne) SetEdgesOfOfficerID(id int) *BillUpdateOne {
+	buo.mutation.SetEdgesOfOfficerID(id)
 	return buo
 }
 
-// SetNillableOfficerID sets the officer edge to Financier by id if the given value is not nil.
-func (buo *BillUpdateOne) SetNillableOfficerID(id *int) *BillUpdateOne {
+// SetNillableEdgesOfOfficerID sets the EdgesOfOfficer edge to Financier by id if the given value is not nil.
+func (buo *BillUpdateOne) SetNillableEdgesOfOfficerID(id *int) *BillUpdateOne {
 	if id != nil {
-		buo = buo.SetOfficerID(*id)
+		buo = buo.SetEdgesOfOfficerID(*id)
 	}
 	return buo
 }
 
-// SetOfficer sets the officer edge to Financier.
-func (buo *BillUpdateOne) SetOfficer(f *Financier) *BillUpdateOne {
-	return buo.SetOfficerID(f.ID)
+// SetEdgesOfOfficer sets the EdgesOfOfficer edge to Financier.
+func (buo *BillUpdateOne) SetEdgesOfOfficer(f *Financier) *BillUpdateOne {
+	return buo.SetEdgesOfOfficerID(f.ID)
 }
 
-// SetTreatmentID sets the treatment edge to Unpaybill by id.
-func (buo *BillUpdateOne) SetTreatmentID(id int) *BillUpdateOne {
-	buo.mutation.SetTreatmentID(id)
+// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id.
+func (buo *BillUpdateOne) SetEdgesOfTreatmentID(id int) *BillUpdateOne {
+	buo.mutation.SetEdgesOfTreatmentID(id)
 	return buo
 }
 
-// SetNillableTreatmentID sets the treatment edge to Unpaybill by id if the given value is not nil.
-func (buo *BillUpdateOne) SetNillableTreatmentID(id *int) *BillUpdateOne {
+// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id if the given value is not nil.
+func (buo *BillUpdateOne) SetNillableEdgesOfTreatmentID(id *int) *BillUpdateOne {
 	if id != nil {
-		buo = buo.SetTreatmentID(*id)
+		buo = buo.SetEdgesOfTreatmentID(*id)
 	}
 	return buo
 }
 
-// SetTreatment sets the treatment edge to Unpaybill.
-func (buo *BillUpdateOne) SetTreatment(u *Unpaybill) *BillUpdateOne {
-	return buo.SetTreatmentID(u.ID)
+// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Unpaybill.
+func (buo *BillUpdateOne) SetEdgesOfTreatment(u *Unpaybill) *BillUpdateOne {
+	return buo.SetEdgesOfTreatmentID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -409,21 +409,21 @@ func (buo *BillUpdateOne) Mutation() *BillMutation {
 	return buo.mutation
 }
 
-// ClearPaytype clears the paytype edge to Paytype.
-func (buo *BillUpdateOne) ClearPaytype() *BillUpdateOne {
-	buo.mutation.ClearPaytype()
+// ClearEdgesOfPaytype clears the EdgesOfPaytype edge to Paytype.
+func (buo *BillUpdateOne) ClearEdgesOfPaytype() *BillUpdateOne {
+	buo.mutation.ClearEdgesOfPaytype()
 	return buo
 }
 
-// ClearOfficer clears the officer edge to Financier.
-func (buo *BillUpdateOne) ClearOfficer() *BillUpdateOne {
-	buo.mutation.ClearOfficer()
+// ClearEdgesOfOfficer clears the EdgesOfOfficer edge to Financier.
+func (buo *BillUpdateOne) ClearEdgesOfOfficer() *BillUpdateOne {
+	buo.mutation.ClearEdgesOfOfficer()
 	return buo
 }
 
-// ClearTreatment clears the treatment edge to Unpaybill.
-func (buo *BillUpdateOne) ClearTreatment() *BillUpdateOne {
-	buo.mutation.ClearTreatment()
+// ClearEdgesOfTreatment clears the EdgesOfTreatment edge to Unpaybill.
+func (buo *BillUpdateOne) ClearEdgesOfTreatment() *BillUpdateOne {
+	buo.mutation.ClearEdgesOfTreatment()
 	return buo
 }
 
@@ -514,12 +514,12 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 			Column: bill.FieldDate,
 		})
 	}
-	if buo.mutation.PaytypeCleared() {
+	if buo.mutation.EdgesOfPaytypeCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.PaytypeTable,
-			Columns: []string{bill.PaytypeColumn},
+			Table:   bill.EdgesOfPaytypeTable,
+			Columns: []string{bill.EdgesOfPaytypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -530,12 +530,12 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := buo.mutation.PaytypeIDs(); len(nodes) > 0 {
+	if nodes := buo.mutation.EdgesOfPaytypeIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.PaytypeTable,
-			Columns: []string{bill.PaytypeColumn},
+			Table:   bill.EdgesOfPaytypeTable,
+			Columns: []string{bill.EdgesOfPaytypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -549,12 +549,12 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if buo.mutation.OfficerCleared() {
+	if buo.mutation.EdgesOfOfficerCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.OfficerTable,
-			Columns: []string{bill.OfficerColumn},
+			Table:   bill.EdgesOfOfficerTable,
+			Columns: []string{bill.EdgesOfOfficerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -565,12 +565,12 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := buo.mutation.OfficerIDs(); len(nodes) > 0 {
+	if nodes := buo.mutation.EdgesOfOfficerIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.OfficerTable,
-			Columns: []string{bill.OfficerColumn},
+			Table:   bill.EdgesOfOfficerTable,
+			Columns: []string{bill.EdgesOfOfficerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -584,12 +584,12 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if buo.mutation.TreatmentCleared() {
+	if buo.mutation.EdgesOfTreatmentCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.TreatmentTable,
-			Columns: []string{bill.TreatmentColumn},
+			Table:   bill.EdgesOfTreatmentTable,
+			Columns: []string{bill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -600,12 +600,12 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := buo.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := buo.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.TreatmentTable,
-			Columns: []string{bill.TreatmentColumn},
+			Table:   bill.EdgesOfTreatmentTable,
+			Columns: []string{bill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

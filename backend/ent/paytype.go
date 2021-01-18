@@ -24,20 +24,20 @@ type Paytype struct {
 
 // PaytypeEdges holds the relations/edges for other nodes in the graph.
 type PaytypeEdges struct {
-	// Bills holds the value of the bills edge.
-	Bills []*Bill
+	// EdgesOfBills holds the value of the EdgesOfBills edge.
+	EdgesOfBills []*Bill
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// BillsOrErr returns the Bills value or an error if the edge
+// EdgesOfBillsOrErr returns the EdgesOfBills value or an error if the edge
 // was not loaded in eager-loading.
-func (e PaytypeEdges) BillsOrErr() ([]*Bill, error) {
+func (e PaytypeEdges) EdgesOfBillsOrErr() ([]*Bill, error) {
 	if e.loadedTypes[0] {
-		return e.Bills, nil
+		return e.EdgesOfBills, nil
 	}
-	return nil, &NotLoadedError{edge: "bills"}
+	return nil, &NotLoadedError{edge: "EdgesOfBills"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -68,9 +68,9 @@ func (pa *Paytype) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryBills queries the bills edge of the Paytype.
-func (pa *Paytype) QueryBills() *BillQuery {
-	return (&PaytypeClient{config: pa.config}).QueryBills(pa)
+// QueryEdgesOfBills queries the EdgesOfBills edge of the Paytype.
+func (pa *Paytype) QueryEdgesOfBills() *BillQuery {
+	return (&PaytypeClient{config: pa.config}).QueryEdgesOfBills(pa)
 }
 
 // Update returns a builder for updating this Paytype.

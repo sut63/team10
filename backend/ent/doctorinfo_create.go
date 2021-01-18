@@ -48,99 +48,99 @@ func (dc *DoctorinfoCreate) SetLicensenumber(s string) *DoctorinfoCreate {
 	return dc
 }
 
-// SetDepartmentID sets the department edge to Department by id.
-func (dc *DoctorinfoCreate) SetDepartmentID(id int) *DoctorinfoCreate {
-	dc.mutation.SetDepartmentID(id)
+// SetEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id.
+func (dc *DoctorinfoCreate) SetEdgesOfDepartmentID(id int) *DoctorinfoCreate {
+	dc.mutation.SetEdgesOfDepartmentID(id)
 	return dc
 }
 
-// SetNillableDepartmentID sets the department edge to Department by id if the given value is not nil.
-func (dc *DoctorinfoCreate) SetNillableDepartmentID(id *int) *DoctorinfoCreate {
+// SetNillableEdgesOfDepartmentID sets the EdgesOfDepartment edge to Department by id if the given value is not nil.
+func (dc *DoctorinfoCreate) SetNillableEdgesOfDepartmentID(id *int) *DoctorinfoCreate {
 	if id != nil {
-		dc = dc.SetDepartmentID(*id)
+		dc = dc.SetEdgesOfDepartmentID(*id)
 	}
 	return dc
 }
 
-// SetDepartment sets the department edge to Department.
-func (dc *DoctorinfoCreate) SetDepartment(d *Department) *DoctorinfoCreate {
-	return dc.SetDepartmentID(d.ID)
+// SetEdgesOfDepartment sets the EdgesOfDepartment edge to Department.
+func (dc *DoctorinfoCreate) SetEdgesOfDepartment(d *Department) *DoctorinfoCreate {
+	return dc.SetEdgesOfDepartmentID(d.ID)
 }
 
-// SetEducationlevelID sets the educationlevel edge to Educationlevel by id.
-func (dc *DoctorinfoCreate) SetEducationlevelID(id int) *DoctorinfoCreate {
-	dc.mutation.SetEducationlevelID(id)
+// SetEdgesOfEducationlevelID sets the EdgesOfEducationlevel edge to Educationlevel by id.
+func (dc *DoctorinfoCreate) SetEdgesOfEducationlevelID(id int) *DoctorinfoCreate {
+	dc.mutation.SetEdgesOfEducationlevelID(id)
 	return dc
 }
 
-// SetNillableEducationlevelID sets the educationlevel edge to Educationlevel by id if the given value is not nil.
-func (dc *DoctorinfoCreate) SetNillableEducationlevelID(id *int) *DoctorinfoCreate {
+// SetNillableEdgesOfEducationlevelID sets the EdgesOfEducationlevel edge to Educationlevel by id if the given value is not nil.
+func (dc *DoctorinfoCreate) SetNillableEdgesOfEducationlevelID(id *int) *DoctorinfoCreate {
 	if id != nil {
-		dc = dc.SetEducationlevelID(*id)
+		dc = dc.SetEdgesOfEducationlevelID(*id)
 	}
 	return dc
 }
 
-// SetEducationlevel sets the educationlevel edge to Educationlevel.
-func (dc *DoctorinfoCreate) SetEducationlevel(e *Educationlevel) *DoctorinfoCreate {
-	return dc.SetEducationlevelID(e.ID)
+// SetEdgesOfEducationlevel sets the EdgesOfEducationlevel edge to Educationlevel.
+func (dc *DoctorinfoCreate) SetEdgesOfEducationlevel(e *Educationlevel) *DoctorinfoCreate {
+	return dc.SetEdgesOfEducationlevelID(e.ID)
 }
 
-// SetOfficeroomID sets the officeroom edge to Officeroom by id.
-func (dc *DoctorinfoCreate) SetOfficeroomID(id int) *DoctorinfoCreate {
-	dc.mutation.SetOfficeroomID(id)
+// SetEdgesOfOfficeroomID sets the EdgesOfOfficeroom edge to Officeroom by id.
+func (dc *DoctorinfoCreate) SetEdgesOfOfficeroomID(id int) *DoctorinfoCreate {
+	dc.mutation.SetEdgesOfOfficeroomID(id)
 	return dc
 }
 
-// SetNillableOfficeroomID sets the officeroom edge to Officeroom by id if the given value is not nil.
-func (dc *DoctorinfoCreate) SetNillableOfficeroomID(id *int) *DoctorinfoCreate {
+// SetNillableEdgesOfOfficeroomID sets the EdgesOfOfficeroom edge to Officeroom by id if the given value is not nil.
+func (dc *DoctorinfoCreate) SetNillableEdgesOfOfficeroomID(id *int) *DoctorinfoCreate {
 	if id != nil {
-		dc = dc.SetOfficeroomID(*id)
+		dc = dc.SetEdgesOfOfficeroomID(*id)
 	}
 	return dc
 }
 
-// SetOfficeroom sets the officeroom edge to Officeroom.
-func (dc *DoctorinfoCreate) SetOfficeroom(o *Officeroom) *DoctorinfoCreate {
-	return dc.SetOfficeroomID(o.ID)
+// SetEdgesOfOfficeroom sets the EdgesOfOfficeroom edge to Officeroom.
+func (dc *DoctorinfoCreate) SetEdgesOfOfficeroom(o *Officeroom) *DoctorinfoCreate {
+	return dc.SetEdgesOfOfficeroomID(o.ID)
 }
 
-// SetPrenameID sets the prename edge to Prename by id.
-func (dc *DoctorinfoCreate) SetPrenameID(id int) *DoctorinfoCreate {
-	dc.mutation.SetPrenameID(id)
+// SetEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id.
+func (dc *DoctorinfoCreate) SetEdgesOfPrenameID(id int) *DoctorinfoCreate {
+	dc.mutation.SetEdgesOfPrenameID(id)
 	return dc
 }
 
-// SetNillablePrenameID sets the prename edge to Prename by id if the given value is not nil.
-func (dc *DoctorinfoCreate) SetNillablePrenameID(id *int) *DoctorinfoCreate {
+// SetNillableEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id if the given value is not nil.
+func (dc *DoctorinfoCreate) SetNillableEdgesOfPrenameID(id *int) *DoctorinfoCreate {
 	if id != nil {
-		dc = dc.SetPrenameID(*id)
+		dc = dc.SetEdgesOfPrenameID(*id)
 	}
 	return dc
 }
 
-// SetPrename sets the prename edge to Prename.
-func (dc *DoctorinfoCreate) SetPrename(p *Prename) *DoctorinfoCreate {
-	return dc.SetPrenameID(p.ID)
+// SetEdgesOfPrename sets the EdgesOfPrename edge to Prename.
+func (dc *DoctorinfoCreate) SetEdgesOfPrename(p *Prename) *DoctorinfoCreate {
+	return dc.SetEdgesOfPrenameID(p.ID)
 }
 
-// SetDoctorID sets the doctor edge to Doctor by id.
-func (dc *DoctorinfoCreate) SetDoctorID(id int) *DoctorinfoCreate {
-	dc.mutation.SetDoctorID(id)
+// SetEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id.
+func (dc *DoctorinfoCreate) SetEdgesOfDoctorID(id int) *DoctorinfoCreate {
+	dc.mutation.SetEdgesOfDoctorID(id)
 	return dc
 }
 
-// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
-func (dc *DoctorinfoCreate) SetNillableDoctorID(id *int) *DoctorinfoCreate {
+// SetNillableEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id if the given value is not nil.
+func (dc *DoctorinfoCreate) SetNillableEdgesOfDoctorID(id *int) *DoctorinfoCreate {
 	if id != nil {
-		dc = dc.SetDoctorID(*id)
+		dc = dc.SetEdgesOfDoctorID(*id)
 	}
 	return dc
 }
 
-// SetDoctor sets the doctor edge to Doctor.
-func (dc *DoctorinfoCreate) SetDoctor(d *Doctor) *DoctorinfoCreate {
-	return dc.SetDoctorID(d.ID)
+// SetEdgesOfDoctor sets the EdgesOfDoctor edge to Doctor.
+func (dc *DoctorinfoCreate) SetEdgesOfDoctor(d *Doctor) *DoctorinfoCreate {
+	return dc.SetEdgesOfDoctorID(d.ID)
 }
 
 // Mutation returns the DoctorinfoMutation object of the builder.
@@ -274,12 +274,12 @@ func (dc *DoctorinfoCreate) createSpec() (*Doctorinfo, *sqlgraph.CreateSpec) {
 		})
 		d.Licensenumber = value
 	}
-	if nodes := dc.mutation.DepartmentIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfDepartmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.DepartmentTable,
-			Columns: []string{doctorinfo.DepartmentColumn},
+			Table:   doctorinfo.EdgesOfDepartmentTable,
+			Columns: []string{doctorinfo.EdgesOfDepartmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -293,12 +293,12 @@ func (dc *DoctorinfoCreate) createSpec() (*Doctorinfo, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.EducationlevelIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfEducationlevelIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.EducationlevelTable,
-			Columns: []string{doctorinfo.EducationlevelColumn},
+			Table:   doctorinfo.EdgesOfEducationlevelTable,
+			Columns: []string{doctorinfo.EdgesOfEducationlevelColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -312,12 +312,12 @@ func (dc *DoctorinfoCreate) createSpec() (*Doctorinfo, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.OfficeroomIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfOfficeroomIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.OfficeroomTable,
-			Columns: []string{doctorinfo.OfficeroomColumn},
+			Table:   doctorinfo.EdgesOfOfficeroomTable,
+			Columns: []string{doctorinfo.EdgesOfOfficeroomColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -331,12 +331,12 @@ func (dc *DoctorinfoCreate) createSpec() (*Doctorinfo, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.PrenameIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfPrenameIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   doctorinfo.PrenameTable,
-			Columns: []string{doctorinfo.PrenameColumn},
+			Table:   doctorinfo.EdgesOfPrenameTable,
+			Columns: []string{doctorinfo.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -350,12 +350,12 @@ func (dc *DoctorinfoCreate) createSpec() (*Doctorinfo, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := dc.mutation.DoctorIDs(); len(nodes) > 0 {
+	if nodes := dc.mutation.EdgesOfDoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   doctorinfo.DoctorTable,
-			Columns: []string{doctorinfo.DoctorColumn},
+			Table:   doctorinfo.EdgesOfDoctorTable,
+			Columns: []string{doctorinfo.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

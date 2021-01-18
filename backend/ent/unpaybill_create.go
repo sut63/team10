@@ -27,42 +27,42 @@ func (uc *UnpaybillCreate) SetStatus(s string) *UnpaybillCreate {
 	return uc
 }
 
-// SetTreatmentID sets the treatment edge to Treatment by id.
-func (uc *UnpaybillCreate) SetTreatmentID(id int) *UnpaybillCreate {
-	uc.mutation.SetTreatmentID(id)
+// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Treatment by id.
+func (uc *UnpaybillCreate) SetEdgesOfTreatmentID(id int) *UnpaybillCreate {
+	uc.mutation.SetEdgesOfTreatmentID(id)
 	return uc
 }
 
-// SetNillableTreatmentID sets the treatment edge to Treatment by id if the given value is not nil.
-func (uc *UnpaybillCreate) SetNillableTreatmentID(id *int) *UnpaybillCreate {
+// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Treatment by id if the given value is not nil.
+func (uc *UnpaybillCreate) SetNillableEdgesOfTreatmentID(id *int) *UnpaybillCreate {
 	if id != nil {
-		uc = uc.SetTreatmentID(*id)
+		uc = uc.SetEdgesOfTreatmentID(*id)
 	}
 	return uc
 }
 
-// SetTreatment sets the treatment edge to Treatment.
-func (uc *UnpaybillCreate) SetTreatment(t *Treatment) *UnpaybillCreate {
-	return uc.SetTreatmentID(t.ID)
+// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Treatment.
+func (uc *UnpaybillCreate) SetEdgesOfTreatment(t *Treatment) *UnpaybillCreate {
+	return uc.SetEdgesOfTreatmentID(t.ID)
 }
 
-// SetBillsID sets the bills edge to Bill by id.
-func (uc *UnpaybillCreate) SetBillsID(id int) *UnpaybillCreate {
-	uc.mutation.SetBillsID(id)
+// SetEdgesOfBillsID sets the EdgesOfBills edge to Bill by id.
+func (uc *UnpaybillCreate) SetEdgesOfBillsID(id int) *UnpaybillCreate {
+	uc.mutation.SetEdgesOfBillsID(id)
 	return uc
 }
 
-// SetNillableBillsID sets the bills edge to Bill by id if the given value is not nil.
-func (uc *UnpaybillCreate) SetNillableBillsID(id *int) *UnpaybillCreate {
+// SetNillableEdgesOfBillsID sets the EdgesOfBills edge to Bill by id if the given value is not nil.
+func (uc *UnpaybillCreate) SetNillableEdgesOfBillsID(id *int) *UnpaybillCreate {
 	if id != nil {
-		uc = uc.SetBillsID(*id)
+		uc = uc.SetEdgesOfBillsID(*id)
 	}
 	return uc
 }
 
-// SetBills sets the bills edge to Bill.
-func (uc *UnpaybillCreate) SetBills(b *Bill) *UnpaybillCreate {
-	return uc.SetBillsID(b.ID)
+// SetEdgesOfBills sets the EdgesOfBills edge to Bill.
+func (uc *UnpaybillCreate) SetEdgesOfBills(b *Bill) *UnpaybillCreate {
+	return uc.SetEdgesOfBillsID(b.ID)
 }
 
 // Mutation returns the UnpaybillMutation object of the builder.
@@ -148,12 +148,12 @@ func (uc *UnpaybillCreate) createSpec() (*Unpaybill, *sqlgraph.CreateSpec) {
 		})
 		u.Status = value
 	}
-	if nodes := uc.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   unpaybill.TreatmentTable,
-			Columns: []string{unpaybill.TreatmentColumn},
+			Table:   unpaybill.EdgesOfTreatmentTable,
+			Columns: []string{unpaybill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -167,12 +167,12 @@ func (uc *UnpaybillCreate) createSpec() (*Unpaybill, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := uc.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := uc.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   unpaybill.BillsTable,
-			Columns: []string{unpaybill.BillsColumn},
+			Table:   unpaybill.EdgesOfBillsTable,
+			Columns: []string{unpaybill.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

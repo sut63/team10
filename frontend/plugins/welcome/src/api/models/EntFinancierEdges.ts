@@ -31,17 +31,17 @@ import {
  */
 export interface EntFinancierEdges {
     /**
-     * Bills holds the value of the bills edge.
+     * EdgesOfBills holds the value of the EdgesOfBills edge.
      * @type {Array<EntBill>}
      * @memberof EntFinancierEdges
      */
-    bills?: Array<EntBill>;
+    edgesOfBills?: Array<EntBill>;
     /**
      * 
      * @type {EntUser}
      * @memberof EntFinancierEdges
      */
-    user?: EntUser;
+    edgesOfUser?: EntUser;
 }
 
 export function EntFinancierEdgesFromJSON(json: any): EntFinancierEdges {
@@ -54,8 +54,8 @@ export function EntFinancierEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'bills': !exists(json, 'Bills') ? undefined : ((json['Bills'] as Array<any>).map(EntBillFromJSON)),
-        'user': !exists(json, 'Bser') ? undefined : EntUserFromJSON(json['User']),
+        'edgesOfBills': !exists(json, 'EdgesOfBills') ? undefined : ((json['EdgesOfBills'] as Array<any>).map(EntBillFromJSON)),
+        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
     };
 }
 
@@ -68,8 +68,8 @@ export function EntFinancierEdgesToJSON(value?: EntFinancierEdges | null): any {
     }
     return {
         
-        'bills': value.bills === undefined ? undefined : ((value.bills as Array<any>).map(EntBillToJSON)),
-        'user': EntUserToJSON(value.user),
+        'EdgesOfBills': value.edgesOfBills === undefined ? undefined : ((value.edgesOfBills as Array<any>).map(EntBillToJSON)),
+        'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
     };
 }
 

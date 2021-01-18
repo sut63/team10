@@ -34,19 +34,19 @@ func (ou *OfficeroomUpdate) SetRoomnumber(s string) *OfficeroomUpdate {
 	return ou
 }
 
-// AddOfficeroom2doctorinfoIDs adds the officeroom2doctorinfo edge to Doctorinfo by ids.
-func (ou *OfficeroomUpdate) AddOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomUpdate {
-	ou.mutation.AddOfficeroom2doctorinfoIDs(ids...)
+// AddEdgesOfOfficeroom2doctorinfoIDs adds the EdgesOfOfficeroom2doctorinfo edge to Doctorinfo by ids.
+func (ou *OfficeroomUpdate) AddEdgesOfOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomUpdate {
+	ou.mutation.AddEdgesOfOfficeroom2doctorinfoIDs(ids...)
 	return ou
 }
 
-// AddOfficeroom2doctorinfo adds the officeroom2doctorinfo edges to Doctorinfo.
-func (ou *OfficeroomUpdate) AddOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomUpdate {
+// AddEdgesOfOfficeroom2doctorinfo adds the EdgesOfOfficeroom2doctorinfo edges to Doctorinfo.
+func (ou *OfficeroomUpdate) AddEdgesOfOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomUpdate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return ou.AddOfficeroom2doctorinfoIDs(ids...)
+	return ou.AddEdgesOfOfficeroom2doctorinfoIDs(ids...)
 }
 
 // Mutation returns the OfficeroomMutation object of the builder.
@@ -54,19 +54,19 @@ func (ou *OfficeroomUpdate) Mutation() *OfficeroomMutation {
 	return ou.mutation
 }
 
-// RemoveOfficeroom2doctorinfoIDs removes the officeroom2doctorinfo edge to Doctorinfo by ids.
-func (ou *OfficeroomUpdate) RemoveOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomUpdate {
-	ou.mutation.RemoveOfficeroom2doctorinfoIDs(ids...)
+// RemoveEdgesOfOfficeroom2doctorinfoIDs removes the EdgesOfOfficeroom2doctorinfo edge to Doctorinfo by ids.
+func (ou *OfficeroomUpdate) RemoveEdgesOfOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomUpdate {
+	ou.mutation.RemoveEdgesOfOfficeroom2doctorinfoIDs(ids...)
 	return ou
 }
 
-// RemoveOfficeroom2doctorinfo removes officeroom2doctorinfo edges to Doctorinfo.
-func (ou *OfficeroomUpdate) RemoveOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomUpdate {
+// RemoveEdgesOfOfficeroom2doctorinfo removes EdgesOfOfficeroom2doctorinfo edges to Doctorinfo.
+func (ou *OfficeroomUpdate) RemoveEdgesOfOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomUpdate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return ou.RemoveOfficeroom2doctorinfoIDs(ids...)
+	return ou.RemoveEdgesOfOfficeroom2doctorinfoIDs(ids...)
 }
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
@@ -151,12 +151,12 @@ func (ou *OfficeroomUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: officeroom.FieldRoomnumber,
 		})
 	}
-	if nodes := ou.mutation.RemovedOfficeroom2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := ou.mutation.RemovedEdgesOfOfficeroom2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   officeroom.Officeroom2doctorinfoTable,
-			Columns: []string{officeroom.Officeroom2doctorinfoColumn},
+			Table:   officeroom.EdgesOfOfficeroom2doctorinfoTable,
+			Columns: []string{officeroom.EdgesOfOfficeroom2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -170,12 +170,12 @@ func (ou *OfficeroomUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ou.mutation.Officeroom2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := ou.mutation.EdgesOfOfficeroom2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   officeroom.Officeroom2doctorinfoTable,
-			Columns: []string{officeroom.Officeroom2doctorinfoColumn},
+			Table:   officeroom.EdgesOfOfficeroom2doctorinfoTable,
+			Columns: []string{officeroom.EdgesOfOfficeroom2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -213,19 +213,19 @@ func (ouo *OfficeroomUpdateOne) SetRoomnumber(s string) *OfficeroomUpdateOne {
 	return ouo
 }
 
-// AddOfficeroom2doctorinfoIDs adds the officeroom2doctorinfo edge to Doctorinfo by ids.
-func (ouo *OfficeroomUpdateOne) AddOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomUpdateOne {
-	ouo.mutation.AddOfficeroom2doctorinfoIDs(ids...)
+// AddEdgesOfOfficeroom2doctorinfoIDs adds the EdgesOfOfficeroom2doctorinfo edge to Doctorinfo by ids.
+func (ouo *OfficeroomUpdateOne) AddEdgesOfOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomUpdateOne {
+	ouo.mutation.AddEdgesOfOfficeroom2doctorinfoIDs(ids...)
 	return ouo
 }
 
-// AddOfficeroom2doctorinfo adds the officeroom2doctorinfo edges to Doctorinfo.
-func (ouo *OfficeroomUpdateOne) AddOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomUpdateOne {
+// AddEdgesOfOfficeroom2doctorinfo adds the EdgesOfOfficeroom2doctorinfo edges to Doctorinfo.
+func (ouo *OfficeroomUpdateOne) AddEdgesOfOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomUpdateOne {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return ouo.AddOfficeroom2doctorinfoIDs(ids...)
+	return ouo.AddEdgesOfOfficeroom2doctorinfoIDs(ids...)
 }
 
 // Mutation returns the OfficeroomMutation object of the builder.
@@ -233,19 +233,19 @@ func (ouo *OfficeroomUpdateOne) Mutation() *OfficeroomMutation {
 	return ouo.mutation
 }
 
-// RemoveOfficeroom2doctorinfoIDs removes the officeroom2doctorinfo edge to Doctorinfo by ids.
-func (ouo *OfficeroomUpdateOne) RemoveOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomUpdateOne {
-	ouo.mutation.RemoveOfficeroom2doctorinfoIDs(ids...)
+// RemoveEdgesOfOfficeroom2doctorinfoIDs removes the EdgesOfOfficeroom2doctorinfo edge to Doctorinfo by ids.
+func (ouo *OfficeroomUpdateOne) RemoveEdgesOfOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomUpdateOne {
+	ouo.mutation.RemoveEdgesOfOfficeroom2doctorinfoIDs(ids...)
 	return ouo
 }
 
-// RemoveOfficeroom2doctorinfo removes officeroom2doctorinfo edges to Doctorinfo.
-func (ouo *OfficeroomUpdateOne) RemoveOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomUpdateOne {
+// RemoveEdgesOfOfficeroom2doctorinfo removes EdgesOfOfficeroom2doctorinfo edges to Doctorinfo.
+func (ouo *OfficeroomUpdateOne) RemoveEdgesOfOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomUpdateOne {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return ouo.RemoveOfficeroom2doctorinfoIDs(ids...)
+	return ouo.RemoveEdgesOfOfficeroom2doctorinfoIDs(ids...)
 }
 
 // Save executes the query and returns the updated entity.
@@ -328,12 +328,12 @@ func (ouo *OfficeroomUpdateOne) sqlSave(ctx context.Context) (o *Officeroom, err
 			Column: officeroom.FieldRoomnumber,
 		})
 	}
-	if nodes := ouo.mutation.RemovedOfficeroom2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := ouo.mutation.RemovedEdgesOfOfficeroom2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   officeroom.Officeroom2doctorinfoTable,
-			Columns: []string{officeroom.Officeroom2doctorinfoColumn},
+			Table:   officeroom.EdgesOfOfficeroom2doctorinfoTable,
+			Columns: []string{officeroom.EdgesOfOfficeroom2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -347,12 +347,12 @@ func (ouo *OfficeroomUpdateOne) sqlSave(ctx context.Context) (o *Officeroom, err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := ouo.mutation.Officeroom2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := ouo.mutation.EdgesOfOfficeroom2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   officeroom.Officeroom2doctorinfoTable,
-			Columns: []string{officeroom.Officeroom2doctorinfoColumn},
+			Table:   officeroom.EdgesOfOfficeroom2doctorinfoTable,
+			Columns: []string{officeroom.EdgesOfOfficeroom2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

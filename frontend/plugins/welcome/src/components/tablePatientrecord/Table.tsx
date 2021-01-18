@@ -67,9 +67,9 @@ export default function ComponentsTable() {
          {patientrecord.map(item => (
            <TableRow key={item.id}>
              <TableCell align="center">{item.id}</TableCell>
-             <TableCell align="center">{item.edges?.prename?.prefix}</TableCell>
+             <TableCell align="center">{item.edges?.edgesOfPrename?.prefix}</TableCell>
              <TableCell align="center">{item.name}</TableCell>
-             <TableCell align="center">{item.edges?.gender?.genderstatus}</TableCell>
+             <TableCell align="center">{item.edges?.edgesOfGender?.genderstatus}</TableCell>
              <TableCell align="center">{item.idcardnumber}</TableCell>
              <TableCell align="center">{item.age}</TableCell>
              <TableCell align="center">{item.bloodtype}</TableCell>
@@ -79,7 +79,7 @@ export default function ComponentsTable() {
              <TableCell align="center">{item.email}</TableCell>
              <TableCell align="center">{item.home}</TableCell>
              <TableCell align="center">{item.date}</TableCell>
-            <TableCell align = "center">{item.edges?.medicalrecordstaff?.name}</TableCell>
+            <TableCell align = "center">{item.edges?.edgesOfMedicalrecordstaff?.name}</TableCell>
            </TableRow>
          ))}
        </TableBody>

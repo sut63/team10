@@ -35,61 +35,61 @@ func (bc *BillCreate) SetDate(t time.Time) *BillCreate {
 	return bc
 }
 
-// SetPaytypeID sets the paytype edge to Paytype by id.
-func (bc *BillCreate) SetPaytypeID(id int) *BillCreate {
-	bc.mutation.SetPaytypeID(id)
+// SetEdgesOfPaytypeID sets the EdgesOfPaytype edge to Paytype by id.
+func (bc *BillCreate) SetEdgesOfPaytypeID(id int) *BillCreate {
+	bc.mutation.SetEdgesOfPaytypeID(id)
 	return bc
 }
 
-// SetNillablePaytypeID sets the paytype edge to Paytype by id if the given value is not nil.
-func (bc *BillCreate) SetNillablePaytypeID(id *int) *BillCreate {
+// SetNillableEdgesOfPaytypeID sets the EdgesOfPaytype edge to Paytype by id if the given value is not nil.
+func (bc *BillCreate) SetNillableEdgesOfPaytypeID(id *int) *BillCreate {
 	if id != nil {
-		bc = bc.SetPaytypeID(*id)
+		bc = bc.SetEdgesOfPaytypeID(*id)
 	}
 	return bc
 }
 
-// SetPaytype sets the paytype edge to Paytype.
-func (bc *BillCreate) SetPaytype(p *Paytype) *BillCreate {
-	return bc.SetPaytypeID(p.ID)
+// SetEdgesOfPaytype sets the EdgesOfPaytype edge to Paytype.
+func (bc *BillCreate) SetEdgesOfPaytype(p *Paytype) *BillCreate {
+	return bc.SetEdgesOfPaytypeID(p.ID)
 }
 
-// SetOfficerID sets the officer edge to Financier by id.
-func (bc *BillCreate) SetOfficerID(id int) *BillCreate {
-	bc.mutation.SetOfficerID(id)
+// SetEdgesOfOfficerID sets the EdgesOfOfficer edge to Financier by id.
+func (bc *BillCreate) SetEdgesOfOfficerID(id int) *BillCreate {
+	bc.mutation.SetEdgesOfOfficerID(id)
 	return bc
 }
 
-// SetNillableOfficerID sets the officer edge to Financier by id if the given value is not nil.
-func (bc *BillCreate) SetNillableOfficerID(id *int) *BillCreate {
+// SetNillableEdgesOfOfficerID sets the EdgesOfOfficer edge to Financier by id if the given value is not nil.
+func (bc *BillCreate) SetNillableEdgesOfOfficerID(id *int) *BillCreate {
 	if id != nil {
-		bc = bc.SetOfficerID(*id)
+		bc = bc.SetEdgesOfOfficerID(*id)
 	}
 	return bc
 }
 
-// SetOfficer sets the officer edge to Financier.
-func (bc *BillCreate) SetOfficer(f *Financier) *BillCreate {
-	return bc.SetOfficerID(f.ID)
+// SetEdgesOfOfficer sets the EdgesOfOfficer edge to Financier.
+func (bc *BillCreate) SetEdgesOfOfficer(f *Financier) *BillCreate {
+	return bc.SetEdgesOfOfficerID(f.ID)
 }
 
-// SetTreatmentID sets the treatment edge to Unpaybill by id.
-func (bc *BillCreate) SetTreatmentID(id int) *BillCreate {
-	bc.mutation.SetTreatmentID(id)
+// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id.
+func (bc *BillCreate) SetEdgesOfTreatmentID(id int) *BillCreate {
+	bc.mutation.SetEdgesOfTreatmentID(id)
 	return bc
 }
 
-// SetNillableTreatmentID sets the treatment edge to Unpaybill by id if the given value is not nil.
-func (bc *BillCreate) SetNillableTreatmentID(id *int) *BillCreate {
+// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id if the given value is not nil.
+func (bc *BillCreate) SetNillableEdgesOfTreatmentID(id *int) *BillCreate {
 	if id != nil {
-		bc = bc.SetTreatmentID(*id)
+		bc = bc.SetEdgesOfTreatmentID(*id)
 	}
 	return bc
 }
 
-// SetTreatment sets the treatment edge to Unpaybill.
-func (bc *BillCreate) SetTreatment(u *Unpaybill) *BillCreate {
-	return bc.SetTreatmentID(u.ID)
+// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Unpaybill.
+func (bc *BillCreate) SetEdgesOfTreatment(u *Unpaybill) *BillCreate {
+	return bc.SetEdgesOfTreatmentID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -186,12 +186,12 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 		})
 		b.Date = value
 	}
-	if nodes := bc.mutation.PaytypeIDs(); len(nodes) > 0 {
+	if nodes := bc.mutation.EdgesOfPaytypeIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.PaytypeTable,
-			Columns: []string{bill.PaytypeColumn},
+			Table:   bill.EdgesOfPaytypeTable,
+			Columns: []string{bill.EdgesOfPaytypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -205,12 +205,12 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := bc.mutation.OfficerIDs(); len(nodes) > 0 {
+	if nodes := bc.mutation.EdgesOfOfficerIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   bill.OfficerTable,
-			Columns: []string{bill.OfficerColumn},
+			Table:   bill.EdgesOfOfficerTable,
+			Columns: []string{bill.EdgesOfOfficerColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -224,12 +224,12 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := bc.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := bc.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.TreatmentTable,
-			Columns: []string{bill.TreatmentColumn},
+			Table:   bill.EdgesOfTreatmentTable,
+			Columns: []string{bill.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

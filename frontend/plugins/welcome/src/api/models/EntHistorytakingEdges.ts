@@ -43,25 +43,25 @@ export interface EntHistorytakingEdges {
      * @type {EntDepartment}
      * @memberof EntHistorytakingEdges
      */
-    department?: EntDepartment;
+    edgesOfDepartment?: EntDepartment;
     /**
      * 
      * @type {EntNurse}
      * @memberof EntHistorytakingEdges
      */
-    nurse?: EntNurse;
+    edgesOfNurse?: EntNurse;
     /**
      * 
      * @type {EntPatientrecord}
      * @memberof EntHistorytakingEdges
      */
-    patientrecord?: EntPatientrecord;
+    edgesOfPatientrecord?: EntPatientrecord;
     /**
      * 
      * @type {EntSymptomseverity}
      * @memberof EntHistorytakingEdges
      */
-    symptomseverity?: EntSymptomseverity;
+    edgesOfSymptomseverity?: EntSymptomseverity;
 }
 
 export function EntHistorytakingEdgesFromJSON(json: any): EntHistorytakingEdges {
@@ -74,10 +74,10 @@ export function EntHistorytakingEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'department': !exists(json, 'Department') ? undefined : EntDepartmentFromJSON(json['Department']),
-        'nurse': !exists(json, 'Nurse') ? undefined : EntNurseFromJSON(json['Nurse']),
-        'patientrecord': !exists(json, 'Patientrecord') ? undefined : EntPatientrecordFromJSON(json['Patientrecord']),
-        'symptomseverity': !exists(json, 'Symptomseverity') ? undefined : EntSymptomseverityFromJSON(json['Symptomseverity']),
+        'edgesOfDepartment': !exists(json, 'EdgesOfDepartment') ? undefined : EntDepartmentFromJSON(json['EdgesOfDepartment']),
+        'edgesOfNurse': !exists(json, 'EdgesOfNurse') ? undefined : EntNurseFromJSON(json['EdgesOfNurse']),
+        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : EntPatientrecordFromJSON(json['EdgesOfPatientrecord']),
+        'edgesOfSymptomseverity': !exists(json, 'EdgesOfSymptomseverity') ? undefined : EntSymptomseverityFromJSON(json['EdgesOfSymptomseverity']),
     };
 }
 
@@ -90,10 +90,10 @@ export function EntHistorytakingEdgesToJSON(value?: EntHistorytakingEdges | null
     }
     return {
         
-        'department': EntDepartmentToJSON(value.department),
-        'nurse': EntNurseToJSON(value.nurse),
-        'patientrecord': EntPatientrecordToJSON(value.patientrecord),
-        'symptomseverity': EntSymptomseverityToJSON(value.symptomseverity),
+        'EdgesOfDepartment': EntDepartmentToJSON(value.edgesOfDepartment),
+        'EdgesOfNurse': EntNurseToJSON(value.edgesOfNurse),
+        'EdgesOfPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrecord),
+        'EdgesOfSymptomseverity': EntSymptomseverityToJSON(value.edgesOfSymptomseverity),
     };
 }
 

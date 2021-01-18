@@ -9,6 +9,7 @@ import (
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/doctorinfo"
+	"github.com/team10/app/ent/user"
 )
 
 // DoctorController defines the struct for the doctor controller
@@ -19,7 +20,8 @@ type DoctorController struct {
 
 // Doctor defines the struct for the Bill entity
 type Doctor struct {
-	Doctorinfo      int	
+	Doctorinfo      int
+	User			int
 }
 
 // CreateDoctor handles POST requests for adding doctor entities
@@ -29,7 +31,7 @@ type Doctor struct {
 // @Accept   json
 // @Produce  json
 // @Param doctor body Doctor true "Doctor entity"
-// @Success 200 {object} ent.Doctor
+// @Success 200 {object} Doctor
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /doctors [post]
@@ -52,10 +54,22 @@ func (ctl *DoctorController) CreateDoctor(c *gin.Context) {
 		})
 		return
 	}
+	u, err := ctl.client.User.
+		Query().
+		Where(user.IDEQ(int(obj.User))).
+		Only(context.Background())
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "doctorinfo not found",
+		})
+		return
+	}
 	
 	d, err := ctl.client.Doctor.
 		Create().
-		SetDoctorinfo(di).
+		SetEdgesOfDoctorinfo(di).
+		SetEdgesOfUser(u).
 		Save(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -89,7 +103,9 @@ func (ctl *DoctorController) GetDoctor(c *gin.Context) {
 
 	d, err := ctl.client.Doctor.
 		Query().
-		WithDoctorinfo().
+		WithEdgesOfDoctorinfo().
+		WithEdgesOfTreatment().
+		WithEdgesOfUser().		
 		Where(doctor.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -134,7 +150,9 @@ func (ctl *DoctorController) ListDoctor(c *gin.Context) {
 
 	d, err := ctl.client.Doctor.
 		Query().
-		WithDoctorinfo().
+		WithEdgesOfDoctorinfo().
+		WithEdgesOfTreatment().
+		WithEdgesOfUser().		
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

@@ -55,43 +55,43 @@ export interface EntUserEdges {
      * @type {EntDoctor}
      * @memberof EntUserEdges
      */
-    doctor?: EntDoctor;
+    edgesOfDoctor?: EntDoctor;
     /**
      * 
      * @type {EntFinancier}
      * @memberof EntUserEdges
      */
-    financier?: EntFinancier;
+    edgesOfFinancier?: EntFinancier;
     /**
      * 
      * @type {EntMedicalrecordstaff}
      * @memberof EntUserEdges
      */
-    medicalrecordstaff?: EntMedicalrecordstaff;
+    edgesOfMedicalrecordstaff?: EntMedicalrecordstaff;
     /**
      * 
      * @type {EntNurse}
      * @memberof EntUserEdges
      */
-    nurse?: EntNurse;
+    edgesOfNurse?: EntNurse;
     /**
      * 
      * @type {EntRegistrar}
      * @memberof EntUserEdges
      */
-    user2registrar?: EntRegistrar;
+    edgesOfUser2registrar?: EntRegistrar;
     /**
      * 
      * @type {EntPatientrights}
      * @memberof EntUserEdges
      */
-    userPatientrights?: EntPatientrights;
+    edgesOfUserPatientrights?: EntPatientrights;
     /**
      * 
      * @type {EntUserstatus}
      * @memberof EntUserEdges
      */
-    userstatus?: EntUserstatus;
+    edgesOfUserstatus?: EntUserstatus;
 }
 
 export function EntUserEdgesFromJSON(json: any): EntUserEdges {
@@ -104,13 +104,13 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'doctor': !exists(json, 'Doctor') ? undefined : EntDoctorFromJSON(json['Doctor']),
-        'financier': !exists(json, 'Financier') ? undefined : EntFinancierFromJSON(json['Financier']),
-        'medicalrecordstaff': !exists(json, 'Medicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['Medicalrecordstaff']),
-        'nurse': !exists(json, 'Nurse') ? undefined : EntNurseFromJSON(json['Nurse']),
-        'user2registrar': !exists(json, 'User2registrar') ? undefined : EntRegistrarFromJSON(json['User2registrar']),
-        'userPatientrights': !exists(json, 'UserPatientrights') ? undefined : EntPatientrightsFromJSON(json['UserPatientrights']),
-        'userstatus': !exists(json, 'Userstatus') ? undefined : EntUserstatusFromJSON(json['Userstatus']),
+        'edgesOfDoctor': !exists(json, 'EdgesOfDoctor') ? undefined : EntDoctorFromJSON(json['EdgesOfDoctor']),
+        'edgesOfFinancier': !exists(json, 'EdgesOfFinancier') ? undefined : EntFinancierFromJSON(json['EdgesOfFinancier']),
+        'edgesOfMedicalrecordstaff': !exists(json, 'EdgesOfMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['EdgesOfMedicalrecordstaff']),
+        'edgesOfNurse': !exists(json, 'EdgesOfNurse') ? undefined : EntNurseFromJSON(json['EdgesOfNurse']),
+        'edgesOfUser2registrar': !exists(json, 'EdgesOfUser2registrar') ? undefined : EntRegistrarFromJSON(json['EdgesOfUser2registrar']),
+        'edgesOfUserPatientrights': !exists(json, 'EdgesOfUserPatientrights') ? undefined : EntPatientrightsFromJSON(json['EdgesOfUserPatientrights']),
+        'edgesOfUserstatus': !exists(json, 'EdgesOfUserstatus') ? undefined : EntUserstatusFromJSON(json['EdgesOfUserstatus']),
     };
 }
 
@@ -123,13 +123,13 @@ export function EntUserEdgesToJSON(value?: EntUserEdges | null): any {
     }
     return {
         
-        'doctor': EntDoctorToJSON(value.doctor),
-        'financier': EntFinancierToJSON(value.financier),
-        'medicalrecordstaff': EntMedicalrecordstaffToJSON(value.medicalrecordstaff),
-        'nurse': EntNurseToJSON(value.nurse),
-        'user2registrar': EntRegistrarToJSON(value.user2registrar),
-        'userPatientrights': EntPatientrightsToJSON(value.userPatientrights),
-        'userstatus': EntUserstatusToJSON(value.userstatus),
+        'EdgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
+        'EdgesOfFinancier': EntFinancierToJSON(value.edgesOfFinancier),
+        'EdgesOfMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfMedicalrecordstaff),
+        'EdgesOfNurse': EntNurseToJSON(value.edgesOfNurse),
+        'EdgesOfUser2registrar': EntRegistrarToJSON(value.edgesOfUser2registrar),
+        'EdgesOfUserPatientrights': EntPatientrightsToJSON(value.edgesOfUserPatientrights),
+        'EdgesOfUserstatus': EntUserstatusToJSON(value.edgesOfUserstatus),
     };
 }
 

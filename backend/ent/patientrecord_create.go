@@ -86,106 +86,106 @@ func (pc *PatientrecordCreate) SetDate(t time.Time) *PatientrecordCreate {
 	return pc
 }
 
-// SetGenderID sets the gender edge to Gender by id.
-func (pc *PatientrecordCreate) SetGenderID(id int) *PatientrecordCreate {
-	pc.mutation.SetGenderID(id)
+// SetEdgesOfGenderID sets the EdgesOfGender edge to Gender by id.
+func (pc *PatientrecordCreate) SetEdgesOfGenderID(id int) *PatientrecordCreate {
+	pc.mutation.SetEdgesOfGenderID(id)
 	return pc
 }
 
-// SetNillableGenderID sets the gender edge to Gender by id if the given value is not nil.
-func (pc *PatientrecordCreate) SetNillableGenderID(id *int) *PatientrecordCreate {
+// SetNillableEdgesOfGenderID sets the EdgesOfGender edge to Gender by id if the given value is not nil.
+func (pc *PatientrecordCreate) SetNillableEdgesOfGenderID(id *int) *PatientrecordCreate {
 	if id != nil {
-		pc = pc.SetGenderID(*id)
+		pc = pc.SetEdgesOfGenderID(*id)
 	}
 	return pc
 }
 
-// SetGender sets the gender edge to Gender.
-func (pc *PatientrecordCreate) SetGender(g *Gender) *PatientrecordCreate {
-	return pc.SetGenderID(g.ID)
+// SetEdgesOfGender sets the EdgesOfGender edge to Gender.
+func (pc *PatientrecordCreate) SetEdgesOfGender(g *Gender) *PatientrecordCreate {
+	return pc.SetEdgesOfGenderID(g.ID)
 }
 
-// SetMedicalrecordstaffID sets the medicalrecordstaff edge to Medicalrecordstaff by id.
-func (pc *PatientrecordCreate) SetMedicalrecordstaffID(id int) *PatientrecordCreate {
-	pc.mutation.SetMedicalrecordstaffID(id)
+// SetEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id.
+func (pc *PatientrecordCreate) SetEdgesOfMedicalrecordstaffID(id int) *PatientrecordCreate {
+	pc.mutation.SetEdgesOfMedicalrecordstaffID(id)
 	return pc
 }
 
-// SetNillableMedicalrecordstaffID sets the medicalrecordstaff edge to Medicalrecordstaff by id if the given value is not nil.
-func (pc *PatientrecordCreate) SetNillableMedicalrecordstaffID(id *int) *PatientrecordCreate {
+// SetNillableEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id if the given value is not nil.
+func (pc *PatientrecordCreate) SetNillableEdgesOfMedicalrecordstaffID(id *int) *PatientrecordCreate {
 	if id != nil {
-		pc = pc.SetMedicalrecordstaffID(*id)
+		pc = pc.SetEdgesOfMedicalrecordstaffID(*id)
 	}
 	return pc
 }
 
-// SetMedicalrecordstaff sets the medicalrecordstaff edge to Medicalrecordstaff.
-func (pc *PatientrecordCreate) SetMedicalrecordstaff(m *Medicalrecordstaff) *PatientrecordCreate {
-	return pc.SetMedicalrecordstaffID(m.ID)
+// SetEdgesOfMedicalrecordstaff sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff.
+func (pc *PatientrecordCreate) SetEdgesOfMedicalrecordstaff(m *Medicalrecordstaff) *PatientrecordCreate {
+	return pc.SetEdgesOfMedicalrecordstaffID(m.ID)
 }
 
-// SetPrenameID sets the prename edge to Prename by id.
-func (pc *PatientrecordCreate) SetPrenameID(id int) *PatientrecordCreate {
-	pc.mutation.SetPrenameID(id)
+// SetEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id.
+func (pc *PatientrecordCreate) SetEdgesOfPrenameID(id int) *PatientrecordCreate {
+	pc.mutation.SetEdgesOfPrenameID(id)
 	return pc
 }
 
-// SetNillablePrenameID sets the prename edge to Prename by id if the given value is not nil.
-func (pc *PatientrecordCreate) SetNillablePrenameID(id *int) *PatientrecordCreate {
+// SetNillableEdgesOfPrenameID sets the EdgesOfPrename edge to Prename by id if the given value is not nil.
+func (pc *PatientrecordCreate) SetNillableEdgesOfPrenameID(id *int) *PatientrecordCreate {
 	if id != nil {
-		pc = pc.SetPrenameID(*id)
+		pc = pc.SetEdgesOfPrenameID(*id)
 	}
 	return pc
 }
 
-// SetPrename sets the prename edge to Prename.
-func (pc *PatientrecordCreate) SetPrename(p *Prename) *PatientrecordCreate {
-	return pc.SetPrenameID(p.ID)
+// SetEdgesOfPrename sets the EdgesOfPrename edge to Prename.
+func (pc *PatientrecordCreate) SetEdgesOfPrename(p *Prename) *PatientrecordCreate {
+	return pc.SetEdgesOfPrenameID(p.ID)
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (pc *PatientrecordCreate) AddHistorytakingIDs(ids ...int) *PatientrecordCreate {
-	pc.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (pc *PatientrecordCreate) AddEdgesOfHistorytakingIDs(ids ...int) *PatientrecordCreate {
+	pc.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return pc
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (pc *PatientrecordCreate) AddHistorytaking(h ...*Historytaking) *PatientrecordCreate {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (pc *PatientrecordCreate) AddEdgesOfHistorytaking(h ...*Historytaking) *PatientrecordCreate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return pc.AddHistorytakingIDs(ids...)
+	return pc.AddEdgesOfHistorytakingIDs(ids...)
 }
 
-// AddTreatmentIDs adds the treatment edge to Treatment by ids.
-func (pc *PatientrecordCreate) AddTreatmentIDs(ids ...int) *PatientrecordCreate {
-	pc.mutation.AddTreatmentIDs(ids...)
+// AddEdgesOfTreatmentIDs adds the EdgesOfTreatment edge to Treatment by ids.
+func (pc *PatientrecordCreate) AddEdgesOfTreatmentIDs(ids ...int) *PatientrecordCreate {
+	pc.mutation.AddEdgesOfTreatmentIDs(ids...)
 	return pc
 }
 
-// AddTreatment adds the treatment edges to Treatment.
-func (pc *PatientrecordCreate) AddTreatment(t ...*Treatment) *PatientrecordCreate {
+// AddEdgesOfTreatment adds the EdgesOfTreatment edges to Treatment.
+func (pc *PatientrecordCreate) AddEdgesOfTreatment(t ...*Treatment) *PatientrecordCreate {
 	ids := make([]int, len(t))
 	for i := range t {
 		ids[i] = t[i].ID
 	}
-	return pc.AddTreatmentIDs(ids...)
+	return pc.AddEdgesOfTreatmentIDs(ids...)
 }
 
-// AddPatientrecordPatientrightIDs adds the PatientrecordPatientrights edge to Patientrights by ids.
-func (pc *PatientrecordCreate) AddPatientrecordPatientrightIDs(ids ...int) *PatientrecordCreate {
-	pc.mutation.AddPatientrecordPatientrightIDs(ids...)
+// AddEdgesOfPatientrecordPatientrightIDs adds the EdgesOfPatientrecordPatientrights edge to Patientrights by ids.
+func (pc *PatientrecordCreate) AddEdgesOfPatientrecordPatientrightIDs(ids ...int) *PatientrecordCreate {
+	pc.mutation.AddEdgesOfPatientrecordPatientrightIDs(ids...)
 	return pc
 }
 
-// AddPatientrecordPatientrights adds the PatientrecordPatientrights edges to Patientrights.
-func (pc *PatientrecordCreate) AddPatientrecordPatientrights(p ...*Patientrights) *PatientrecordCreate {
+// AddEdgesOfPatientrecordPatientrights adds the EdgesOfPatientrecordPatientrights edges to Patientrights.
+func (pc *PatientrecordCreate) AddEdgesOfPatientrecordPatientrights(p ...*Patientrights) *PatientrecordCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return pc.AddPatientrecordPatientrightIDs(ids...)
+	return pc.AddEdgesOfPatientrecordPatientrightIDs(ids...)
 }
 
 // Mutation returns the PatientrecordMutation object of the builder.
@@ -365,12 +365,12 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 		})
 		pa.Date = value
 	}
-	if nodes := pc.mutation.GenderIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfGenderIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.GenderTable,
-			Columns: []string{patientrecord.GenderColumn},
+			Table:   patientrecord.EdgesOfGenderTable,
+			Columns: []string{patientrecord.EdgesOfGenderColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -384,12 +384,12 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := pc.mutation.MedicalrecordstaffIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfMedicalrecordstaffIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.MedicalrecordstaffTable,
-			Columns: []string{patientrecord.MedicalrecordstaffColumn},
+			Table:   patientrecord.EdgesOfMedicalrecordstaffTable,
+			Columns: []string{patientrecord.EdgesOfMedicalrecordstaffColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -403,12 +403,12 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := pc.mutation.PrenameIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfPrenameIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrecord.PrenameTable,
-			Columns: []string{patientrecord.PrenameColumn},
+			Table:   patientrecord.EdgesOfPrenameTable,
+			Columns: []string{patientrecord.EdgesOfPrenameColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -422,12 +422,12 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := pc.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.HistorytakingTable,
-			Columns: []string{patientrecord.HistorytakingColumn},
+			Table:   patientrecord.EdgesOfHistorytakingTable,
+			Columns: []string{patientrecord.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -441,12 +441,12 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := pc.mutation.TreatmentIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.TreatmentTable,
-			Columns: []string{patientrecord.TreatmentColumn},
+			Table:   patientrecord.EdgesOfTreatmentTable,
+			Columns: []string{patientrecord.EdgesOfTreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -460,12 +460,12 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := pc.mutation.PatientrecordPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := pc.mutation.EdgesOfPatientrecordPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   patientrecord.PatientrecordPatientrightsTable,
-			Columns: []string{patientrecord.PatientrecordPatientrightsColumn},
+			Table:   patientrecord.EdgesOfPatientrecordPatientrightsTable,
+			Columns: []string{patientrecord.EdgesOfPatientrecordPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

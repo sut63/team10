@@ -26,7 +26,7 @@ type EducationlevelQuery struct {
 	unique     []string
 	predicates []predicate.Educationlevel
 	// eager-loading edges.
-	withEducationlevel2doctorinfo *DoctorinfoQuery
+	withEdgesOfEducationlevel2doctorinfo *DoctorinfoQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,8 +56,8 @@ func (eq *EducationlevelQuery) Order(o ...OrderFunc) *EducationlevelQuery {
 	return eq
 }
 
-// QueryEducationlevel2doctorinfo chains the current query on the educationlevel2doctorinfo edge.
-func (eq *EducationlevelQuery) QueryEducationlevel2doctorinfo() *DoctorinfoQuery {
+// QueryEdgesOfEducationlevel2doctorinfo chains the current query on the EdgesOfEducationlevel2doctorinfo edge.
+func (eq *EducationlevelQuery) QueryEdgesOfEducationlevel2doctorinfo() *DoctorinfoQuery {
 	query := &DoctorinfoQuery{config: eq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := eq.prepareQuery(ctx); err != nil {
@@ -66,7 +66,7 @@ func (eq *EducationlevelQuery) QueryEducationlevel2doctorinfo() *DoctorinfoQuery
 		step := sqlgraph.NewStep(
 			sqlgraph.From(educationlevel.Table, educationlevel.FieldID, eq.sqlQuery()),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, educationlevel.Educationlevel2doctorinfoTable, educationlevel.Educationlevel2doctorinfoColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, educationlevel.EdgesOfEducationlevel2doctorinfoTable, educationlevel.EdgesOfEducationlevel2doctorinfoColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(eq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (eq *EducationlevelQuery) Clone() *EducationlevelQuery {
 	}
 }
 
-//  WithEducationlevel2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
-// the "educationlevel2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
-func (eq *EducationlevelQuery) WithEducationlevel2doctorinfo(opts ...func(*DoctorinfoQuery)) *EducationlevelQuery {
+//  WithEdgesOfEducationlevel2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfEducationlevel2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
+func (eq *EducationlevelQuery) WithEdgesOfEducationlevel2doctorinfo(opts ...func(*DoctorinfoQuery)) *EducationlevelQuery {
 	query := &DoctorinfoQuery{config: eq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	eq.withEducationlevel2doctorinfo = query
+	eq.withEdgesOfEducationlevel2doctorinfo = query
 	return eq
 }
 
@@ -331,7 +331,7 @@ func (eq *EducationlevelQuery) sqlAll(ctx context.Context) ([]*Educationlevel, e
 		nodes       = []*Educationlevel{}
 		_spec       = eq.querySpec()
 		loadedTypes = [1]bool{
-			eq.withEducationlevel2doctorinfo != nil,
+			eq.withEdgesOfEducationlevel2doctorinfo != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -355,7 +355,7 @@ func (eq *EducationlevelQuery) sqlAll(ctx context.Context) ([]*Educationlevel, e
 		return nodes, nil
 	}
 
-	if query := eq.withEducationlevel2doctorinfo; query != nil {
+	if query := eq.withEdgesOfEducationlevel2doctorinfo; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Educationlevel)
 		for i := range nodes {
@@ -364,7 +364,7 @@ func (eq *EducationlevelQuery) sqlAll(ctx context.Context) ([]*Educationlevel, e
 		}
 		query.withFKs = true
 		query.Where(predicate.Doctorinfo(func(s *sql.Selector) {
-			s.Where(sql.InValues(educationlevel.Educationlevel2doctorinfoColumn, fks...))
+			s.Where(sql.InValues(educationlevel.EdgesOfEducationlevel2doctorinfoColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -379,7 +379,7 @@ func (eq *EducationlevelQuery) sqlAll(ctx context.Context) ([]*Educationlevel, e
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "level" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Educationlevel2doctorinfo = append(node.Edges.Educationlevel2doctorinfo, n)
+			node.Edges.EdgesOfEducationlevel2doctorinfo = append(node.Edges.EdgesOfEducationlevel2doctorinfo, n)
 		}
 	}
 

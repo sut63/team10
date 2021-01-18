@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	_"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"

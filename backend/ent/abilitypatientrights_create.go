@@ -38,19 +38,19 @@ func (ac *AbilitypatientrightsCreate) SetExamine(i int) *AbilitypatientrightsCre
 	return ac
 }
 
-// AddAbilitypatientrightsPatientrightstypeIDs adds the AbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
-func (ac *AbilitypatientrightsCreate) AddAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsCreate {
-	ac.mutation.AddAbilitypatientrightsPatientrightstypeIDs(ids...)
+// AddEdgesOfAbilitypatientrightsPatientrightstypeIDs adds the EdgesOfAbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
+func (ac *AbilitypatientrightsCreate) AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsCreate {
+	ac.mutation.AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 	return ac
 }
 
-// AddAbilitypatientrightsPatientrightstype adds the AbilitypatientrightsPatientrightstype edges to Patientrightstype.
-func (ac *AbilitypatientrightsCreate) AddAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsCreate {
+// AddEdgesOfAbilitypatientrightsPatientrightstype adds the EdgesOfAbilitypatientrightsPatientrightstype edges to Patientrightstype.
+func (ac *AbilitypatientrightsCreate) AddEdgesOfAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return ac.AddAbilitypatientrightsPatientrightstypeIDs(ids...)
+	return ac.AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
 }
 
 // Mutation returns the AbilitypatientrightsMutation object of the builder.
@@ -153,12 +153,12 @@ func (ac *AbilitypatientrightsCreate) createSpec() (*Abilitypatientrights, *sqlg
 		})
 		a.Examine = value
 	}
-	if nodes := ac.mutation.AbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if nodes := ac.mutation.EdgesOfAbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   abilitypatientrights.AbilitypatientrightsPatientrightstypeTable,
-			Columns: []string{abilitypatientrights.AbilitypatientrightsPatientrightstypeColumn},
+			Table:   abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeTable,
+			Columns: []string{abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

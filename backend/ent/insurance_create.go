@@ -26,19 +26,19 @@ func (ic *InsuranceCreate) SetInsurancecompany(s string) *InsuranceCreate {
 	return ic
 }
 
-// AddInsurancePatientrightIDs adds the InsurancePatientrights edge to Patientrights by ids.
-func (ic *InsuranceCreate) AddInsurancePatientrightIDs(ids ...int) *InsuranceCreate {
-	ic.mutation.AddInsurancePatientrightIDs(ids...)
+// AddEdgesOfInsurancePatientrightIDs adds the EdgesOfInsurancePatientrights edge to Patientrights by ids.
+func (ic *InsuranceCreate) AddEdgesOfInsurancePatientrightIDs(ids ...int) *InsuranceCreate {
+	ic.mutation.AddEdgesOfInsurancePatientrightIDs(ids...)
 	return ic
 }
 
-// AddInsurancePatientrights adds the InsurancePatientrights edges to Patientrights.
-func (ic *InsuranceCreate) AddInsurancePatientrights(p ...*Patientrights) *InsuranceCreate {
+// AddEdgesOfInsurancePatientrights adds the EdgesOfInsurancePatientrights edges to Patientrights.
+func (ic *InsuranceCreate) AddEdgesOfInsurancePatientrights(p ...*Patientrights) *InsuranceCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return ic.AddInsurancePatientrightIDs(ids...)
+	return ic.AddEdgesOfInsurancePatientrightIDs(ids...)
 }
 
 // Mutation returns the InsuranceMutation object of the builder.
@@ -119,12 +119,12 @@ func (ic *InsuranceCreate) createSpec() (*Insurance, *sqlgraph.CreateSpec) {
 		})
 		i.Insurancecompany = value
 	}
-	if nodes := ic.mutation.InsurancePatientrightsIDs(); len(nodes) > 0 {
+	if nodes := ic.mutation.EdgesOfInsurancePatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   insurance.InsurancePatientrightsTable,
-			Columns: []string{insurance.InsurancePatientrightsColumn},
+			Table:   insurance.EdgesOfInsurancePatientrightsTable,
+			Columns: []string{insurance.EdgesOfInsurancePatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

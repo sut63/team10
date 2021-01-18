@@ -479,7 +479,7 @@ func main() {
 
 		client.User.
 			Create().
-			SetUserstatus(us).
+			SetEdgesOfUserstatus(us).
 			SetEmail(r.Email + "@gmail.com").
 			SetPassword(r.Password).
 			SetImages(string(img)).
@@ -585,7 +585,7 @@ func main() {
 			SetPermission(p.Permission).
 			SetPermissionArea(p.PermissionArea).
 			SetResponsible(p.Responsible).
-			SetPatientrightstypeAbilitypatientrights(a).
+			SetEdgesOfPatientrightstypeAbilitypatientrights(a).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^
@@ -632,7 +632,7 @@ func main() {
 		client.Medicalrecordstaff.
 			Create().
 			SetName(m.Name).
-			SetUser(u).
+			SetEdgesOfUser(u).
 			Save(context.Background())
 	}
 
@@ -677,9 +677,9 @@ func main() {
 
 		client.Patientrecord.
 			Create().
-			SetPrename(p).
+			SetEdgesOfPrename(p).
 			SetName(pr.Name).
-			SetGender(g).
+			SetEdgesOfGender(g).
 			SetIdcardnumber(pr.Idcardnumber).
 			SetAge(pr.Age).
 			SetBloodtype(pr.Bloodtype).
@@ -688,7 +688,7 @@ func main() {
 			SetPhonenumber(pr.Phonenumber).
 			SetEmail(pr.Email).
 			SetHome(pr.Home).
-			SetMedicalrecordstaff(m).
+			SetEdgesOfMedicalrecordstaff(m).
 			SetDate(time.Now().Local()).
 			Save(context.Background())
 	}
@@ -717,7 +717,7 @@ func main() {
 
 		client.Nurse.
 			Create().
-			SetUser(u).
+			SetEdgesOfUser(u).
 			SetName(n.Name).
 			SetNursinglicense(n.Nursinglicense).
 			SetPosition(n.Position).
@@ -834,10 +834,10 @@ func main() {
 			SetDoctorsurname(doc.Doctorsurname).
 			SetTelephonenumber(doc.Telephonenumber).
 			SetLicensenumber(doc.Licensenumber).
-			SetDepartment(dp).
-			SetEducationlevel(el).
-			SetOfficeroom(or).
-			SetPrename(pn).
+			SetEdgesOfDepartment(dp).
+			SetEdgesOfEducationlevel(el).
+			SetEdgesOfOfficeroom(or).
+			SetEdgesOfPrename(pn).
 			Save(context.Background())
 	}
 
@@ -877,8 +877,8 @@ func main() {
 		}
 		client.Doctor.
 			Create().
-			SetDoctorinfo(di).
-			SetUser(u).
+			SetEdgesOfDoctorinfo(di).
+			SetEdgesOfUser(u).
 			Save(context.Background())
 	}
 
@@ -906,7 +906,7 @@ func main() {
 		client.Financier.
 			Create().
 			SetName(f.name).
-			SetUser(u).
+			SetEdgesOfUser(u).
 			Save(context.Background())
 	}
 
@@ -967,10 +967,10 @@ func main() {
 		client.Treatment.
 			Create().
 			SetTreatment(t.Treatment).
-			SetTypetreatment(tt).
-			SetDoctor(d).
+			SetEdgesOfTypetreatment(tt).
+			SetEdgesOfDoctor(d).
 			SetDatetreat(times).
-			SetPatientrecord(m).
+			SetEdgesOfPatientrecord(m).
 			Save(context.Background())
 	}
 	//Set Unpaybill Data
@@ -992,7 +992,7 @@ func main() {
 		client.Unpaybill.
 			Create().
 			SetStatus(ub.status).
-			SetTreatment(t).
+			SetEdgesOfTreatment(t).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^

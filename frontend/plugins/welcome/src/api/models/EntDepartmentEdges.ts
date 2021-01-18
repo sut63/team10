@@ -31,17 +31,17 @@ import {
  */
 export interface EntDepartmentEdges {
     /**
-     * Department2doctorinfo holds the value of the department2doctorinfo edge.
+     * EdgesOfDepartment2doctorinfo holds the value of the EdgesOfDepartment2doctorinfo edge.
      * @type {Array<EntDoctorinfo>}
      * @memberof EntDepartmentEdges
      */
-    department2doctorinfo?: Array<EntDoctorinfo>;
+    edgesOfDepartment2doctorinfo?: Array<EntDoctorinfo>;
     /**
-     * Historytaking holds the value of the historytaking edge.
+     * EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.
      * @type {Array<EntHistorytaking>}
      * @memberof EntDepartmentEdges
      */
-    historytaking?: Array<EntHistorytaking>;
+    edgesOfHistorytaking?: Array<EntHistorytaking>;
 }
 
 export function EntDepartmentEdgesFromJSON(json: any): EntDepartmentEdges {
@@ -54,8 +54,8 @@ export function EntDepartmentEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'department2doctorinfo': !exists(json, 'Department2doctorinfo') ? undefined : ((json['Department2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
-        'historytaking': !exists(json, 'Historytaking') ? undefined : ((json['Historytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
+        'edgesOfDepartment2doctorinfo': !exists(json, 'EdgesOfDepartment2doctorinfo') ? undefined : ((json['EdgesOfDepartment2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'edgesOfHistorytaking': !exists(json, 'EdgesOfHistorytaking') ? undefined : ((json['EdgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
     };
 }
 
@@ -68,8 +68,8 @@ export function EntDepartmentEdgesToJSON(value?: EntDepartmentEdges | null): any
     }
     return {
         
-        'department2doctorinfo': value.department2doctorinfo === undefined ? undefined : ((value.department2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
-        'historytaking': value.historytaking === undefined ? undefined : ((value.historytaking as Array<any>).map(EntHistorytakingToJSON)),
+        'EdgesOfDepartment2doctorinfo': value.edgesOfDepartment2doctorinfo === undefined ? undefined : ((value.edgesOfDepartment2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
+        'EdgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
     };
 }
 

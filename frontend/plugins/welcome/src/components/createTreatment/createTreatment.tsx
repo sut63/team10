@@ -198,7 +198,7 @@ const createTreatment: FC<{}> = () => {
                 <FormControl className={classes.formControl}>
                   <Typography align="center" variant="h6">
                     <br />แพทย์
-                    <br />{doctors?.edges?.doctorinfo?.doctorname} {doctors?.edges?.doctorinfo?.doctorsurname}
+                    <br />{doctors?.edges?.edgesOfdoctorinfo?.doctorname} {doctors?.edges?.edgesOfdoctorinfo?.doctorsurname}
                   </Typography>
 
                 </FormControl>

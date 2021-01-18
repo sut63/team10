@@ -44,7 +44,7 @@ type Historytaking struct {
 // @Accept   json
 // @Produce  json
 // @Param historytaking body Historytaking true "Historytaking entity"
-// @Success 200 {object} ent.Historytaking
+// @Success 200 {object} Historytaking
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /historytaking [post]
@@ -123,10 +123,10 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 
 	ht, err := ctl.client.Historytaking.
 		Create().
-		SetNurse(n).
-		SetDepartment(d).
-		SetSymptomseverity(ss).
-		SetPatientrecord(pt).
+		SetEdgesOfNurse(n).
+		SetEdgesOfDepartment(d).
+		SetEdgesOfSymptomseverity(ss).
+		SetEdgesOfPatientrecord(pt).
 		SetHight(h).
 		SetWeight(w).
 		SetTemp(t).
@@ -169,6 +169,10 @@ func (ctl *HistorytakingController) GetHistorytaking(c *gin.Context) {
 
 	pr, err := ctl.client.Historytaking.
 		Query().
+		WithEdgesOfNurse().
+		WithEdgesOfDepartment().
+		WithEdgesOfSymptomseverity().
+		WithEdgesOfPatientrecord().
 		Where(historytaking.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -213,10 +217,10 @@ func (ctl *HistorytakingController) ListHistorytaking(c *gin.Context) {
 
 	historytaking, err := ctl.client.Historytaking.
 		Query().
-		WithNurse().
-		WithDepartment().
-		WithSymptomseverity().
-		WithPatientrecord().
+		WithEdgesOfNurse().
+		WithEdgesOfDepartment().
+		WithEdgesOfSymptomseverity().
+		WithEdgesOfPatientrecord().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

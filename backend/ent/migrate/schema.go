@@ -38,21 +38,21 @@ var (
 		PrimaryKey: []*schema.Column{BillsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "bills_financiers_bills",
+				Symbol:  "bills_financiers_EdgesOfBills",
 				Columns: []*schema.Column{BillsColumns[3]},
 
 				RefColumns: []*schema.Column{FinanciersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "bills_paytypes_bills",
+				Symbol:  "bills_paytypes_EdgesOfBills",
 				Columns: []*schema.Column{BillsColumns[4]},
 
 				RefColumns: []*schema.Column{PaytypesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "bills_unpaybills_bills",
+				Symbol:  "bills_unpaybills_EdgesOfBills",
 				Columns: []*schema.Column{BillsColumns[5]},
 
 				RefColumns: []*schema.Column{UnpaybillsColumns[0]},
@@ -85,14 +85,14 @@ var (
 		PrimaryKey: []*schema.Column{DoctorsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "doctors_doctorinfos_doctor",
+				Symbol:  "doctors_doctorinfos_EdgesOfDoctor",
 				Columns: []*schema.Column{DoctorsColumns[1]},
 
 				RefColumns: []*schema.Column{DoctorinfosColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "doctors_users_doctor",
+				Symbol:  "doctors_users_EdgesOfDoctor",
 				Columns: []*schema.Column{DoctorsColumns[2]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
@@ -119,28 +119,28 @@ var (
 		PrimaryKey: []*schema.Column{DoctorinfosColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "doctorinfos_departments_department2doctorinfo",
+				Symbol:  "doctorinfos_departments_EdgesOfDepartment2doctorinfo",
 				Columns: []*schema.Column{DoctorinfosColumns[5]},
 
 				RefColumns: []*schema.Column{DepartmentsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "doctorinfos_educationlevels_educationlevel2doctorinfo",
+				Symbol:  "doctorinfos_educationlevels_EdgesOfEducationlevel2doctorinfo",
 				Columns: []*schema.Column{DoctorinfosColumns[6]},
 
 				RefColumns: []*schema.Column{EducationlevelsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "doctorinfos_officerooms_officeroom2doctorinfo",
+				Symbol:  "doctorinfos_officerooms_EdgesOfOfficeroom2doctorinfo",
 				Columns: []*schema.Column{DoctorinfosColumns[7]},
 
 				RefColumns: []*schema.Column{OfficeroomsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "doctorinfos_prenames_prename2doctorinfo",
+				Symbol:  "doctorinfos_prenames_EdgesOfPrename2doctorinfo",
 				Columns: []*schema.Column{DoctorinfosColumns[8]},
 
 				RefColumns: []*schema.Column{PrenamesColumns[0]},
@@ -173,7 +173,7 @@ var (
 		PrimaryKey: []*schema.Column{FinanciersColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "financiers_users_financier",
+				Symbol:  "financiers_users_EdgesOfFinancier",
 				Columns: []*schema.Column{FinanciersColumns[2]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
@@ -217,28 +217,28 @@ var (
 		PrimaryKey: []*schema.Column{HistorytakingsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "historytakings_departments_historytaking",
+				Symbol:  "historytakings_departments_EdgesOfHistorytaking",
 				Columns: []*schema.Column{HistorytakingsColumns[10]},
 
 				RefColumns: []*schema.Column{DepartmentsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "historytakings_nurses_historytaking",
+				Symbol:  "historytakings_nurses_EdgesOfHistorytaking",
 				Columns: []*schema.Column{HistorytakingsColumns[11]},
 
 				RefColumns: []*schema.Column{NursesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "historytakings_patientrecords_historytaking",
+				Symbol:  "historytakings_patientrecords_EdgesOfHistorytaking",
 				Columns: []*schema.Column{HistorytakingsColumns[12]},
 
 				RefColumns: []*schema.Column{PatientrecordsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "historytakings_symptomseverities_historytaking",
+				Symbol:  "historytakings_symptomseverities_EdgesOfHistorytaking",
 				Columns: []*schema.Column{HistorytakingsColumns[13]},
 
 				RefColumns: []*schema.Column{SymptomseveritiesColumns[0]},
@@ -271,7 +271,7 @@ var (
 		PrimaryKey: []*schema.Column{MedicalrecordstaffsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "medicalrecordstaffs_users_medicalrecordstaff",
+				Symbol:  "medicalrecordstaffs_users_EdgesOfMedicalrecordstaff",
 				Columns: []*schema.Column{MedicalrecordstaffsColumns[2]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
@@ -294,7 +294,7 @@ var (
 		PrimaryKey: []*schema.Column{NursesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "nurses_users_Nurse",
+				Symbol:  "nurses_users_EdgesOfNurse",
 				Columns: []*schema.Column{NursesColumns[4]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
@@ -338,21 +338,21 @@ var (
 		PrimaryKey: []*schema.Column{PatientrecordsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "patientrecords_genders_patientrecord",
+				Symbol:  "patientrecords_genders_EdgesOfPatientrecord",
 				Columns: []*schema.Column{PatientrecordsColumns[11]},
 
 				RefColumns: []*schema.Column{GendersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "patientrecords_medicalrecordstaffs_patientrecord",
+				Symbol:  "patientrecords_medicalrecordstaffs_EdgesOfPatientrecord",
 				Columns: []*schema.Column{PatientrecordsColumns[12]},
 
 				RefColumns: []*schema.Column{MedicalrecordstaffsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "patientrecords_prenames_patientrecord",
+				Symbol:  "patientrecords_prenames_EdgesOfPatientrecord",
 				Columns: []*schema.Column{PatientrecordsColumns[13]},
 
 				RefColumns: []*schema.Column{PrenamesColumns[0]},
@@ -376,28 +376,28 @@ var (
 		PrimaryKey: []*schema.Column{PatientrightsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "patientrights_insurances_InsurancePatientrights",
+				Symbol:  "patientrights_insurances_EdgesOfInsurancePatientrights",
 				Columns: []*schema.Column{PatientrightsColumns[2]},
 
 				RefColumns: []*schema.Column{InsurancesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "patientrights_medicalrecordstaffs_MedicalrecordstaffPatientrights",
+				Symbol:  "patientrights_medicalrecordstaffs_EdgesOfMedicalrecordstaffPatientrights",
 				Columns: []*schema.Column{PatientrightsColumns[3]},
 
 				RefColumns: []*schema.Column{MedicalrecordstaffsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "patientrights_patientrecords_PatientrecordPatientrights",
+				Symbol:  "patientrights_patientrecords_EdgesOfPatientrecordPatientrights",
 				Columns: []*schema.Column{PatientrightsColumns[4]},
 
 				RefColumns: []*schema.Column{PatientrecordsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "patientrights_patientrightstypes_PatientrightstypePatientrights",
+				Symbol:  "patientrights_patientrightstypes_EdgesOfPatientrightstypePatientrights",
 				Columns: []*schema.Column{PatientrightsColumns[5]},
 
 				RefColumns: []*schema.Column{PatientrightstypesColumns[0]},
@@ -420,7 +420,7 @@ var (
 		PrimaryKey: []*schema.Column{PatientrightstypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "patientrightstypes_abilitypatientrights_AbilitypatientrightsPatientrightstype",
+				Symbol:  "patientrightstypes_abilitypatientrights_EdgesOfAbilitypatientrightsPatientrightstype",
 				Columns: []*schema.Column{PatientrightstypesColumns[4]},
 
 				RefColumns: []*schema.Column{AbilitypatientrightsColumns[0]},
@@ -465,7 +465,7 @@ var (
 		PrimaryKey: []*schema.Column{RegistrarsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "registrars_users_user2registrar",
+				Symbol:  "registrars_users_EdgesOfUser2registrar",
 				Columns: []*schema.Column{RegistrarsColumns[2]},
 
 				RefColumns: []*schema.Column{UsersColumns[0]},
@@ -501,21 +501,21 @@ var (
 		PrimaryKey: []*schema.Column{TreatmentsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "treatments_doctors_treatment",
+				Symbol:  "treatments_doctors_EdgesOfTreatment",
 				Columns: []*schema.Column{TreatmentsColumns[3]},
 
 				RefColumns: []*schema.Column{DoctorsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "treatments_patientrecords_treatment",
+				Symbol:  "treatments_patientrecords_EdgesOfTreatment",
 				Columns: []*schema.Column{TreatmentsColumns[4]},
 
 				RefColumns: []*schema.Column{PatientrecordsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "treatments_typetreatments_treatment",
+				Symbol:  "treatments_typetreatments_EdgesOfTreatment",
 				Columns: []*schema.Column{TreatmentsColumns[5]},
 
 				RefColumns: []*schema.Column{TypetreatmentsColumns[0]},
@@ -548,7 +548,7 @@ var (
 		PrimaryKey: []*schema.Column{UnpaybillsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "unpaybills_treatments_unpaybills",
+				Symbol:  "unpaybills_treatments_EdgesOfUnpaybills",
 				Columns: []*schema.Column{UnpaybillsColumns[2]},
 
 				RefColumns: []*schema.Column{TreatmentsColumns[0]},
@@ -572,14 +572,14 @@ var (
 		PrimaryKey: []*schema.Column{UsersColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{
 			{
-				Symbol:  "users_patientrights_UserPatientrights",
+				Symbol:  "users_patientrights_EdgesOfUserPatientrights",
 				Columns: []*schema.Column{UsersColumns[4]},
 
 				RefColumns: []*schema.Column{PatientrightsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
-				Symbol:  "users_userstatuses_user",
+				Symbol:  "users_userstatuses_EdgesOfUser",
 				Columns: []*schema.Column{UsersColumns[5]},
 
 				RefColumns: []*schema.Column{UserstatusesColumns[0]},

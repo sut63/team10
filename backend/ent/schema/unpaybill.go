@@ -22,7 +22,7 @@ func (Unpaybill) Fields() []ent.Field {
 // Edges of the Unpaybill.
 func (Unpaybill) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("treatment", Treatment.Type).Ref("unpaybills").Unique(),
-		edge.To("bills",Bill.Type).StorageKey(edge.Column("treatment_id")).Unique(),
+		edge.From("EdgesOfTreatment", Treatment.Type).Ref("EdgesOfUnpaybills").Unique(),
+		edge.To("EdgesOfBills",Bill.Type).StorageKey(edge.Column("treatment_id")).Unique(),
 	}
 }

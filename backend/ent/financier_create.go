@@ -27,38 +27,38 @@ func (fc *FinancierCreate) SetName(s string) *FinancierCreate {
 	return fc
 }
 
-// AddBillIDs adds the bills edge to Bill by ids.
-func (fc *FinancierCreate) AddBillIDs(ids ...int) *FinancierCreate {
-	fc.mutation.AddBillIDs(ids...)
+// AddEdgesOfBillIDs adds the EdgesOfBills edge to Bill by ids.
+func (fc *FinancierCreate) AddEdgesOfBillIDs(ids ...int) *FinancierCreate {
+	fc.mutation.AddEdgesOfBillIDs(ids...)
 	return fc
 }
 
-// AddBills adds the bills edges to Bill.
-func (fc *FinancierCreate) AddBills(b ...*Bill) *FinancierCreate {
+// AddEdgesOfBills adds the EdgesOfBills edges to Bill.
+func (fc *FinancierCreate) AddEdgesOfBills(b ...*Bill) *FinancierCreate {
 	ids := make([]int, len(b))
 	for i := range b {
 		ids[i] = b[i].ID
 	}
-	return fc.AddBillIDs(ids...)
+	return fc.AddEdgesOfBillIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (fc *FinancierCreate) SetUserID(id int) *FinancierCreate {
-	fc.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (fc *FinancierCreate) SetEdgesOfUserID(id int) *FinancierCreate {
+	fc.mutation.SetEdgesOfUserID(id)
 	return fc
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (fc *FinancierCreate) SetNillableUserID(id *int) *FinancierCreate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (fc *FinancierCreate) SetNillableEdgesOfUserID(id *int) *FinancierCreate {
 	if id != nil {
-		fc = fc.SetUserID(*id)
+		fc = fc.SetEdgesOfUserID(*id)
 	}
 	return fc
 }
 
-// SetUser sets the user edge to User.
-func (fc *FinancierCreate) SetUser(u *User) *FinancierCreate {
-	return fc.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (fc *FinancierCreate) SetEdgesOfUser(u *User) *FinancierCreate {
+	return fc.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the FinancierMutation object of the builder.
@@ -144,12 +144,12 @@ func (fc *FinancierCreate) createSpec() (*Financier, *sqlgraph.CreateSpec) {
 		})
 		f.Name = value
 	}
-	if nodes := fc.mutation.BillsIDs(); len(nodes) > 0 {
+	if nodes := fc.mutation.EdgesOfBillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   financier.BillsTable,
-			Columns: []string{financier.BillsColumn},
+			Table:   financier.EdgesOfBillsTable,
+			Columns: []string{financier.EdgesOfBillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -163,12 +163,12 @@ func (fc *FinancierCreate) createSpec() (*Financier, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := fc.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := fc.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   financier.UserTable,
-			Columns: []string{financier.UserColumn},
+			Table:   financier.EdgesOfUserTable,
+			Columns: []string{financier.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

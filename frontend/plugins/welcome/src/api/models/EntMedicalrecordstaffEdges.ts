@@ -35,23 +35,23 @@ import {
  */
 export interface EntMedicalrecordstaffEdges {
     /**
-     * MedicalrecordstaffPatientrights holds the value of the MedicalrecordstaffPatientrights edge.
+     * EdgesOfMedicalrecordstaffPatientrights holds the value of the EdgesOfMedicalrecordstaffPatientrights edge.
      * @type {Array<EntPatientrights>}
      * @memberof EntMedicalrecordstaffEdges
      */
-    medicalrecordstaffPatientrights?: Array<EntPatientrights>;
+    edgesOfMedicalrecordstaffPatientrights?: Array<EntPatientrights>;
     /**
-     * Patientrecord holds the value of the patientrecord edge.
+     * EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.
      * @type {Array<EntPatientrecord>}
      * @memberof EntMedicalrecordstaffEdges
      */
-    patientrecord?: Array<EntPatientrecord>;
+    edgesOfPatientrecord?: Array<EntPatientrecord>;
     /**
      * 
      * @type {EntUser}
      * @memberof EntMedicalrecordstaffEdges
      */
-    user?: EntUser;
+    edgesOfUser?: EntUser;
 }
 
 export function EntMedicalrecordstaffEdgesFromJSON(json: any): EntMedicalrecordstaffEdges {
@@ -64,9 +64,9 @@ export function EntMedicalrecordstaffEdgesFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'medicalrecordstaffPatientrights': !exists(json, 'MedicalrecordstaffPatientrights') ? undefined : ((json['MedicalrecordstaffPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
-        'patientrecord': !exists(json, 'Patientrecord') ? undefined : ((json['Patientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
-        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
+        'edgesOfMedicalrecordstaffPatientrights': !exists(json, 'EdgesOfMedicalrecordstaffPatientrights') ? undefined : ((json['EdgesOfMedicalrecordstaffPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
+        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : ((json['EdgesOfPatientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
+        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
     };
 }
 
@@ -79,9 +79,9 @@ export function EntMedicalrecordstaffEdgesToJSON(value?: EntMedicalrecordstaffEd
     }
     return {
         
-        'medicalrecordstaffPatientrights': value.medicalrecordstaffPatientrights === undefined ? undefined : ((value.medicalrecordstaffPatientrights as Array<any>).map(EntPatientrightsToJSON)),
-        'patientrecord': value.patientrecord === undefined ? undefined : ((value.patientrecord as Array<any>).map(EntPatientrecordToJSON)),
-        'user': EntUserToJSON(value.user),
+        'EdgesOfMedicalrecordstaffPatientrights': value.edgesOfMedicalrecordstaffPatientrights === undefined ? undefined : ((value.edgesOfMedicalrecordstaffPatientrights as Array<any>).map(EntPatientrightsToJSON)),
+        'EdgesOfPatientrecord': value.edgesOfPatientrecord === undefined ? undefined : ((value.edgesOfPatientrecord as Array<any>).map(EntPatientrecordToJSON)),
+        'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
     };
 }
 

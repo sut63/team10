@@ -26,7 +26,7 @@ type SymptomseverityQuery struct {
 	unique     []string
 	predicates []predicate.Symptomseverity
 	// eager-loading edges.
-	withHistorytaking *HistorytakingQuery
+	withEdgesOfHistorytaking *HistorytakingQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,8 +56,8 @@ func (sq *SymptomseverityQuery) Order(o ...OrderFunc) *SymptomseverityQuery {
 	return sq
 }
 
-// QueryHistorytaking chains the current query on the historytaking edge.
-func (sq *SymptomseverityQuery) QueryHistorytaking() *HistorytakingQuery {
+// QueryEdgesOfHistorytaking chains the current query on the EdgesOfHistorytaking edge.
+func (sq *SymptomseverityQuery) QueryEdgesOfHistorytaking() *HistorytakingQuery {
 	query := &HistorytakingQuery{config: sq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := sq.prepareQuery(ctx); err != nil {
@@ -66,7 +66,7 @@ func (sq *SymptomseverityQuery) QueryHistorytaking() *HistorytakingQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(symptomseverity.Table, symptomseverity.FieldID, sq.sqlQuery()),
 			sqlgraph.To(historytaking.Table, historytaking.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, symptomseverity.HistorytakingTable, symptomseverity.HistorytakingColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, symptomseverity.EdgesOfHistorytakingTable, symptomseverity.EdgesOfHistorytakingColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(sq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (sq *SymptomseverityQuery) Clone() *SymptomseverityQuery {
 	}
 }
 
-//  WithHistorytaking tells the query-builder to eager-loads the nodes that are connected to
-// the "historytaking" edge. The optional arguments used to configure the query builder of the edge.
-func (sq *SymptomseverityQuery) WithHistorytaking(opts ...func(*HistorytakingQuery)) *SymptomseverityQuery {
+//  WithEdgesOfHistorytaking tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfHistorytaking" edge. The optional arguments used to configure the query builder of the edge.
+func (sq *SymptomseverityQuery) WithEdgesOfHistorytaking(opts ...func(*HistorytakingQuery)) *SymptomseverityQuery {
 	query := &HistorytakingQuery{config: sq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	sq.withHistorytaking = query
+	sq.withEdgesOfHistorytaking = query
 	return sq
 }
 
@@ -331,7 +331,7 @@ func (sq *SymptomseverityQuery) sqlAll(ctx context.Context) ([]*Symptomseverity,
 		nodes       = []*Symptomseverity{}
 		_spec       = sq.querySpec()
 		loadedTypes = [1]bool{
-			sq.withHistorytaking != nil,
+			sq.withEdgesOfHistorytaking != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -355,7 +355,7 @@ func (sq *SymptomseverityQuery) sqlAll(ctx context.Context) ([]*Symptomseverity,
 		return nodes, nil
 	}
 
-	if query := sq.withHistorytaking; query != nil {
+	if query := sq.withEdgesOfHistorytaking; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Symptomseverity)
 		for i := range nodes {
@@ -364,7 +364,7 @@ func (sq *SymptomseverityQuery) sqlAll(ctx context.Context) ([]*Symptomseverity,
 		}
 		query.withFKs = true
 		query.Where(predicate.Historytaking(func(s *sql.Selector) {
-			s.Where(sql.InValues(symptomseverity.HistorytakingColumn, fks...))
+			s.Where(sql.InValues(symptomseverity.EdgesOfHistorytakingColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -379,7 +379,7 @@ func (sq *SymptomseverityQuery) sqlAll(ctx context.Context) ([]*Symptomseverity,
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "symptomseverity_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Historytaking = append(node.Edges.Historytaking, n)
+			node.Edges.EdgesOfHistorytaking = append(node.Edges.EdgesOfHistorytaking, n)
 		}
 	}
 

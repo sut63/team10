@@ -209,25 +209,25 @@ func InsurancecompanyContainsFold(v string) predicate.Insurance {
 	})
 }
 
-// HasInsurancePatientrights applies the HasEdge predicate on the "InsurancePatientrights" edge.
-func HasInsurancePatientrights() predicate.Insurance {
+// HasEdgesOfInsurancePatientrights applies the HasEdge predicate on the "EdgesOfInsurancePatientrights" edge.
+func HasEdgesOfInsurancePatientrights() predicate.Insurance {
 	return predicate.Insurance(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(InsurancePatientrightsTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, InsurancePatientrightsTable, InsurancePatientrightsColumn),
+			sqlgraph.To(EdgesOfInsurancePatientrightsTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfInsurancePatientrightsTable, EdgesOfInsurancePatientrightsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasInsurancePatientrightsWith applies the HasEdge predicate on the "InsurancePatientrights" edge with a given conditions (other predicates).
-func HasInsurancePatientrightsWith(preds ...predicate.Patientrights) predicate.Insurance {
+// HasEdgesOfInsurancePatientrightsWith applies the HasEdge predicate on the "EdgesOfInsurancePatientrights" edge with a given conditions (other predicates).
+func HasEdgesOfInsurancePatientrightsWith(preds ...predicate.Patientrights) predicate.Insurance {
 	return predicate.Insurance(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(InsurancePatientrightsInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, InsurancePatientrightsTable, InsurancePatientrightsColumn),
+			sqlgraph.To(EdgesOfInsurancePatientrightsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfInsurancePatientrightsTable, EdgesOfInsurancePatientrightsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

@@ -36,53 +36,53 @@ func (mu *MedicalrecordstaffUpdate) SetName(s string) *MedicalrecordstaffUpdate 
 	return mu
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (mu *MedicalrecordstaffUpdate) AddPatientrecordIDs(ids ...int) *MedicalrecordstaffUpdate {
-	mu.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (mu *MedicalrecordstaffUpdate) AddEdgesOfPatientrecordIDs(ids ...int) *MedicalrecordstaffUpdate {
+	mu.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return mu
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (mu *MedicalrecordstaffUpdate) AddPatientrecord(p ...*Patientrecord) *MedicalrecordstaffUpdate {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (mu *MedicalrecordstaffUpdate) AddEdgesOfPatientrecord(p ...*Patientrecord) *MedicalrecordstaffUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return mu.AddPatientrecordIDs(ids...)
+	return mu.AddEdgesOfPatientrecordIDs(ids...)
 }
 
-// AddMedicalrecordstaffPatientrightIDs adds the MedicalrecordstaffPatientrights edge to Patientrights by ids.
-func (mu *MedicalrecordstaffUpdate) AddMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffUpdate {
-	mu.mutation.AddMedicalrecordstaffPatientrightIDs(ids...)
+// AddEdgesOfMedicalrecordstaffPatientrightIDs adds the EdgesOfMedicalrecordstaffPatientrights edge to Patientrights by ids.
+func (mu *MedicalrecordstaffUpdate) AddEdgesOfMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffUpdate {
+	mu.mutation.AddEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 	return mu
 }
 
-// AddMedicalrecordstaffPatientrights adds the MedicalrecordstaffPatientrights edges to Patientrights.
-func (mu *MedicalrecordstaffUpdate) AddMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffUpdate {
+// AddEdgesOfMedicalrecordstaffPatientrights adds the EdgesOfMedicalrecordstaffPatientrights edges to Patientrights.
+func (mu *MedicalrecordstaffUpdate) AddEdgesOfMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return mu.AddMedicalrecordstaffPatientrightIDs(ids...)
+	return mu.AddEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (mu *MedicalrecordstaffUpdate) SetUserID(id int) *MedicalrecordstaffUpdate {
-	mu.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (mu *MedicalrecordstaffUpdate) SetEdgesOfUserID(id int) *MedicalrecordstaffUpdate {
+	mu.mutation.SetEdgesOfUserID(id)
 	return mu
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (mu *MedicalrecordstaffUpdate) SetNillableUserID(id *int) *MedicalrecordstaffUpdate {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (mu *MedicalrecordstaffUpdate) SetNillableEdgesOfUserID(id *int) *MedicalrecordstaffUpdate {
 	if id != nil {
-		mu = mu.SetUserID(*id)
+		mu = mu.SetEdgesOfUserID(*id)
 	}
 	return mu
 }
 
-// SetUser sets the user edge to User.
-func (mu *MedicalrecordstaffUpdate) SetUser(u *User) *MedicalrecordstaffUpdate {
-	return mu.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (mu *MedicalrecordstaffUpdate) SetEdgesOfUser(u *User) *MedicalrecordstaffUpdate {
+	return mu.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the MedicalrecordstaffMutation object of the builder.
@@ -90,39 +90,39 @@ func (mu *MedicalrecordstaffUpdate) Mutation() *MedicalrecordstaffMutation {
 	return mu.mutation
 }
 
-// RemovePatientrecordIDs removes the patientrecord edge to Patientrecord by ids.
-func (mu *MedicalrecordstaffUpdate) RemovePatientrecordIDs(ids ...int) *MedicalrecordstaffUpdate {
-	mu.mutation.RemovePatientrecordIDs(ids...)
+// RemoveEdgesOfPatientrecordIDs removes the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (mu *MedicalrecordstaffUpdate) RemoveEdgesOfPatientrecordIDs(ids ...int) *MedicalrecordstaffUpdate {
+	mu.mutation.RemoveEdgesOfPatientrecordIDs(ids...)
 	return mu
 }
 
-// RemovePatientrecord removes patientrecord edges to Patientrecord.
-func (mu *MedicalrecordstaffUpdate) RemovePatientrecord(p ...*Patientrecord) *MedicalrecordstaffUpdate {
+// RemoveEdgesOfPatientrecord removes EdgesOfPatientrecord edges to Patientrecord.
+func (mu *MedicalrecordstaffUpdate) RemoveEdgesOfPatientrecord(p ...*Patientrecord) *MedicalrecordstaffUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return mu.RemovePatientrecordIDs(ids...)
+	return mu.RemoveEdgesOfPatientrecordIDs(ids...)
 }
 
-// RemoveMedicalrecordstaffPatientrightIDs removes the MedicalrecordstaffPatientrights edge to Patientrights by ids.
-func (mu *MedicalrecordstaffUpdate) RemoveMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffUpdate {
-	mu.mutation.RemoveMedicalrecordstaffPatientrightIDs(ids...)
+// RemoveEdgesOfMedicalrecordstaffPatientrightIDs removes the EdgesOfMedicalrecordstaffPatientrights edge to Patientrights by ids.
+func (mu *MedicalrecordstaffUpdate) RemoveEdgesOfMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffUpdate {
+	mu.mutation.RemoveEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 	return mu
 }
 
-// RemoveMedicalrecordstaffPatientrights removes MedicalrecordstaffPatientrights edges to Patientrights.
-func (mu *MedicalrecordstaffUpdate) RemoveMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffUpdate {
+// RemoveEdgesOfMedicalrecordstaffPatientrights removes EdgesOfMedicalrecordstaffPatientrights edges to Patientrights.
+func (mu *MedicalrecordstaffUpdate) RemoveEdgesOfMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffUpdate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return mu.RemoveMedicalrecordstaffPatientrightIDs(ids...)
+	return mu.RemoveEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 }
 
-// ClearUser clears the user edge to User.
-func (mu *MedicalrecordstaffUpdate) ClearUser() *MedicalrecordstaffUpdate {
-	mu.mutation.ClearUser()
+// ClearEdgesOfUser clears the EdgesOfUser edge to User.
+func (mu *MedicalrecordstaffUpdate) ClearEdgesOfUser() *MedicalrecordstaffUpdate {
+	mu.mutation.ClearEdgesOfUser()
 	return mu
 }
 
@@ -203,12 +203,12 @@ func (mu *MedicalrecordstaffUpdate) sqlSave(ctx context.Context) (n int, err err
 			Column: medicalrecordstaff.FieldName,
 		})
 	}
-	if nodes := mu.mutation.RemovedPatientrecordIDs(); len(nodes) > 0 {
+	if nodes := mu.mutation.RemovedEdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.PatientrecordTable,
-			Columns: []string{medicalrecordstaff.PatientrecordColumn},
+			Table:   medicalrecordstaff.EdgesOfPatientrecordTable,
+			Columns: []string{medicalrecordstaff.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -222,12 +222,12 @@ func (mu *MedicalrecordstaffUpdate) sqlSave(ctx context.Context) (n int, err err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mu.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := mu.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.PatientrecordTable,
-			Columns: []string{medicalrecordstaff.PatientrecordColumn},
+			Table:   medicalrecordstaff.EdgesOfPatientrecordTable,
+			Columns: []string{medicalrecordstaff.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -241,12 +241,12 @@ func (mu *MedicalrecordstaffUpdate) sqlSave(ctx context.Context) (n int, err err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := mu.mutation.RemovedMedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := mu.mutation.RemovedEdgesOfMedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.MedicalrecordstaffPatientrightsTable,
-			Columns: []string{medicalrecordstaff.MedicalrecordstaffPatientrightsColumn},
+			Table:   medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsTable,
+			Columns: []string{medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -260,12 +260,12 @@ func (mu *MedicalrecordstaffUpdate) sqlSave(ctx context.Context) (n int, err err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mu.mutation.MedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := mu.mutation.EdgesOfMedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.MedicalrecordstaffPatientrightsTable,
-			Columns: []string{medicalrecordstaff.MedicalrecordstaffPatientrightsColumn},
+			Table:   medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsTable,
+			Columns: []string{medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -279,12 +279,12 @@ func (mu *MedicalrecordstaffUpdate) sqlSave(ctx context.Context) (n int, err err
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if mu.mutation.UserCleared() {
+	if mu.mutation.EdgesOfUserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   medicalrecordstaff.UserTable,
-			Columns: []string{medicalrecordstaff.UserColumn},
+			Table:   medicalrecordstaff.EdgesOfUserTable,
+			Columns: []string{medicalrecordstaff.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -295,12 +295,12 @@ func (mu *MedicalrecordstaffUpdate) sqlSave(ctx context.Context) (n int, err err
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := mu.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := mu.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   medicalrecordstaff.UserTable,
-			Columns: []string{medicalrecordstaff.UserColumn},
+			Table:   medicalrecordstaff.EdgesOfUserTable,
+			Columns: []string{medicalrecordstaff.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -338,53 +338,53 @@ func (muo *MedicalrecordstaffUpdateOne) SetName(s string) *MedicalrecordstaffUpd
 	return muo
 }
 
-// AddPatientrecordIDs adds the patientrecord edge to Patientrecord by ids.
-func (muo *MedicalrecordstaffUpdateOne) AddPatientrecordIDs(ids ...int) *MedicalrecordstaffUpdateOne {
-	muo.mutation.AddPatientrecordIDs(ids...)
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (muo *MedicalrecordstaffUpdateOne) AddEdgesOfPatientrecordIDs(ids ...int) *MedicalrecordstaffUpdateOne {
+	muo.mutation.AddEdgesOfPatientrecordIDs(ids...)
 	return muo
 }
 
-// AddPatientrecord adds the patientrecord edges to Patientrecord.
-func (muo *MedicalrecordstaffUpdateOne) AddPatientrecord(p ...*Patientrecord) *MedicalrecordstaffUpdateOne {
+// AddEdgesOfPatientrecord adds the EdgesOfPatientrecord edges to Patientrecord.
+func (muo *MedicalrecordstaffUpdateOne) AddEdgesOfPatientrecord(p ...*Patientrecord) *MedicalrecordstaffUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return muo.AddPatientrecordIDs(ids...)
+	return muo.AddEdgesOfPatientrecordIDs(ids...)
 }
 
-// AddMedicalrecordstaffPatientrightIDs adds the MedicalrecordstaffPatientrights edge to Patientrights by ids.
-func (muo *MedicalrecordstaffUpdateOne) AddMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffUpdateOne {
-	muo.mutation.AddMedicalrecordstaffPatientrightIDs(ids...)
+// AddEdgesOfMedicalrecordstaffPatientrightIDs adds the EdgesOfMedicalrecordstaffPatientrights edge to Patientrights by ids.
+func (muo *MedicalrecordstaffUpdateOne) AddEdgesOfMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffUpdateOne {
+	muo.mutation.AddEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 	return muo
 }
 
-// AddMedicalrecordstaffPatientrights adds the MedicalrecordstaffPatientrights edges to Patientrights.
-func (muo *MedicalrecordstaffUpdateOne) AddMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffUpdateOne {
+// AddEdgesOfMedicalrecordstaffPatientrights adds the EdgesOfMedicalrecordstaffPatientrights edges to Patientrights.
+func (muo *MedicalrecordstaffUpdateOne) AddEdgesOfMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return muo.AddMedicalrecordstaffPatientrightIDs(ids...)
+	return muo.AddEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 }
 
-// SetUserID sets the user edge to User by id.
-func (muo *MedicalrecordstaffUpdateOne) SetUserID(id int) *MedicalrecordstaffUpdateOne {
-	muo.mutation.SetUserID(id)
+// SetEdgesOfUserID sets the EdgesOfUser edge to User by id.
+func (muo *MedicalrecordstaffUpdateOne) SetEdgesOfUserID(id int) *MedicalrecordstaffUpdateOne {
+	muo.mutation.SetEdgesOfUserID(id)
 	return muo
 }
 
-// SetNillableUserID sets the user edge to User by id if the given value is not nil.
-func (muo *MedicalrecordstaffUpdateOne) SetNillableUserID(id *int) *MedicalrecordstaffUpdateOne {
+// SetNillableEdgesOfUserID sets the EdgesOfUser edge to User by id if the given value is not nil.
+func (muo *MedicalrecordstaffUpdateOne) SetNillableEdgesOfUserID(id *int) *MedicalrecordstaffUpdateOne {
 	if id != nil {
-		muo = muo.SetUserID(*id)
+		muo = muo.SetEdgesOfUserID(*id)
 	}
 	return muo
 }
 
-// SetUser sets the user edge to User.
-func (muo *MedicalrecordstaffUpdateOne) SetUser(u *User) *MedicalrecordstaffUpdateOne {
-	return muo.SetUserID(u.ID)
+// SetEdgesOfUser sets the EdgesOfUser edge to User.
+func (muo *MedicalrecordstaffUpdateOne) SetEdgesOfUser(u *User) *MedicalrecordstaffUpdateOne {
+	return muo.SetEdgesOfUserID(u.ID)
 }
 
 // Mutation returns the MedicalrecordstaffMutation object of the builder.
@@ -392,39 +392,39 @@ func (muo *MedicalrecordstaffUpdateOne) Mutation() *MedicalrecordstaffMutation {
 	return muo.mutation
 }
 
-// RemovePatientrecordIDs removes the patientrecord edge to Patientrecord by ids.
-func (muo *MedicalrecordstaffUpdateOne) RemovePatientrecordIDs(ids ...int) *MedicalrecordstaffUpdateOne {
-	muo.mutation.RemovePatientrecordIDs(ids...)
+// RemoveEdgesOfPatientrecordIDs removes the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (muo *MedicalrecordstaffUpdateOne) RemoveEdgesOfPatientrecordIDs(ids ...int) *MedicalrecordstaffUpdateOne {
+	muo.mutation.RemoveEdgesOfPatientrecordIDs(ids...)
 	return muo
 }
 
-// RemovePatientrecord removes patientrecord edges to Patientrecord.
-func (muo *MedicalrecordstaffUpdateOne) RemovePatientrecord(p ...*Patientrecord) *MedicalrecordstaffUpdateOne {
+// RemoveEdgesOfPatientrecord removes EdgesOfPatientrecord edges to Patientrecord.
+func (muo *MedicalrecordstaffUpdateOne) RemoveEdgesOfPatientrecord(p ...*Patientrecord) *MedicalrecordstaffUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return muo.RemovePatientrecordIDs(ids...)
+	return muo.RemoveEdgesOfPatientrecordIDs(ids...)
 }
 
-// RemoveMedicalrecordstaffPatientrightIDs removes the MedicalrecordstaffPatientrights edge to Patientrights by ids.
-func (muo *MedicalrecordstaffUpdateOne) RemoveMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffUpdateOne {
-	muo.mutation.RemoveMedicalrecordstaffPatientrightIDs(ids...)
+// RemoveEdgesOfMedicalrecordstaffPatientrightIDs removes the EdgesOfMedicalrecordstaffPatientrights edge to Patientrights by ids.
+func (muo *MedicalrecordstaffUpdateOne) RemoveEdgesOfMedicalrecordstaffPatientrightIDs(ids ...int) *MedicalrecordstaffUpdateOne {
+	muo.mutation.RemoveEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 	return muo
 }
 
-// RemoveMedicalrecordstaffPatientrights removes MedicalrecordstaffPatientrights edges to Patientrights.
-func (muo *MedicalrecordstaffUpdateOne) RemoveMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffUpdateOne {
+// RemoveEdgesOfMedicalrecordstaffPatientrights removes EdgesOfMedicalrecordstaffPatientrights edges to Patientrights.
+func (muo *MedicalrecordstaffUpdateOne) RemoveEdgesOfMedicalrecordstaffPatientrights(p ...*Patientrights) *MedicalrecordstaffUpdateOne {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return muo.RemoveMedicalrecordstaffPatientrightIDs(ids...)
+	return muo.RemoveEdgesOfMedicalrecordstaffPatientrightIDs(ids...)
 }
 
-// ClearUser clears the user edge to User.
-func (muo *MedicalrecordstaffUpdateOne) ClearUser() *MedicalrecordstaffUpdateOne {
-	muo.mutation.ClearUser()
+// ClearEdgesOfUser clears the EdgesOfUser edge to User.
+func (muo *MedicalrecordstaffUpdateOne) ClearEdgesOfUser() *MedicalrecordstaffUpdateOne {
+	muo.mutation.ClearEdgesOfUser()
 	return muo
 }
 
@@ -503,12 +503,12 @@ func (muo *MedicalrecordstaffUpdateOne) sqlSave(ctx context.Context) (m *Medical
 			Column: medicalrecordstaff.FieldName,
 		})
 	}
-	if nodes := muo.mutation.RemovedPatientrecordIDs(); len(nodes) > 0 {
+	if nodes := muo.mutation.RemovedEdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.PatientrecordTable,
-			Columns: []string{medicalrecordstaff.PatientrecordColumn},
+			Table:   medicalrecordstaff.EdgesOfPatientrecordTable,
+			Columns: []string{medicalrecordstaff.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -522,12 +522,12 @@ func (muo *MedicalrecordstaffUpdateOne) sqlSave(ctx context.Context) (m *Medical
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := muo.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := muo.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.PatientrecordTable,
-			Columns: []string{medicalrecordstaff.PatientrecordColumn},
+			Table:   medicalrecordstaff.EdgesOfPatientrecordTable,
+			Columns: []string{medicalrecordstaff.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -541,12 +541,12 @@ func (muo *MedicalrecordstaffUpdateOne) sqlSave(ctx context.Context) (m *Medical
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if nodes := muo.mutation.RemovedMedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := muo.mutation.RemovedEdgesOfMedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.MedicalrecordstaffPatientrightsTable,
-			Columns: []string{medicalrecordstaff.MedicalrecordstaffPatientrightsColumn},
+			Table:   medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsTable,
+			Columns: []string{medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -560,12 +560,12 @@ func (muo *MedicalrecordstaffUpdateOne) sqlSave(ctx context.Context) (m *Medical
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := muo.mutation.MedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
+	if nodes := muo.mutation.EdgesOfMedicalrecordstaffPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   medicalrecordstaff.MedicalrecordstaffPatientrightsTable,
-			Columns: []string{medicalrecordstaff.MedicalrecordstaffPatientrightsColumn},
+			Table:   medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsTable,
+			Columns: []string{medicalrecordstaff.EdgesOfMedicalrecordstaffPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -579,12 +579,12 @@ func (muo *MedicalrecordstaffUpdateOne) sqlSave(ctx context.Context) (m *Medical
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if muo.mutation.UserCleared() {
+	if muo.mutation.EdgesOfUserCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   medicalrecordstaff.UserTable,
-			Columns: []string{medicalrecordstaff.UserColumn},
+			Table:   medicalrecordstaff.EdgesOfUserTable,
+			Columns: []string{medicalrecordstaff.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -595,12 +595,12 @@ func (muo *MedicalrecordstaffUpdateOne) sqlSave(ctx context.Context) (m *Medical
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := muo.mutation.UserIDs(); len(nodes) > 0 {
+	if nodes := muo.mutation.EdgesOfUserIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   medicalrecordstaff.UserTable,
-			Columns: []string{medicalrecordstaff.UserColumn},
+			Table:   medicalrecordstaff.EdgesOfUserTable,
+			Columns: []string{medicalrecordstaff.EdgesOfUserColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

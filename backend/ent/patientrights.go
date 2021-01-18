@@ -33,73 +33,73 @@ type Patientrights struct {
 
 // PatientrightsEdges holds the relations/edges for other nodes in the graph.
 type PatientrightsEdges struct {
-	// PatientrightsPatientrightstype holds the value of the PatientrightsPatientrightstype edge.
-	PatientrightsPatientrightstype *Patientrightstype
-	// PatientrightsInsurance holds the value of the PatientrightsInsurance edge.
-	PatientrightsInsurance *Insurance
-	// PatientrightsPatientrecord holds the value of the PatientrightsPatientrecord edge.
-	PatientrightsPatientrecord *Patientrecord
-	// PatientrightsMedicalrecordstaff holds the value of the PatientrightsMedicalrecordstaff edge.
-	PatientrightsMedicalrecordstaff *Medicalrecordstaff
+	// EdgesOfPatientrightsPatientrightstype holds the value of the EdgesOfPatientrightsPatientrightstype edge.
+	EdgesOfPatientrightsPatientrightstype *Patientrightstype
+	// EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance edge.
+	EdgesOfPatientrightsInsurance *Insurance
+	// EdgesOfPatientrightsPatientrecord holds the value of the EdgesOfPatientrightsPatientrecord edge.
+	EdgesOfPatientrightsPatientrecord *Patientrecord
+	// EdgesOfPatientrightsMedicalrecordstaff holds the value of the EdgesOfPatientrightsMedicalrecordstaff edge.
+	EdgesOfPatientrightsMedicalrecordstaff *Medicalrecordstaff
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [4]bool
 }
 
-// PatientrightsPatientrightstypeOrErr returns the PatientrightsPatientrightstype value or an error if the edge
+// EdgesOfPatientrightsPatientrightstypeOrErr returns the EdgesOfPatientrightsPatientrightstype value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e PatientrightsEdges) PatientrightsPatientrightstypeOrErr() (*Patientrightstype, error) {
+func (e PatientrightsEdges) EdgesOfPatientrightsPatientrightstypeOrErr() (*Patientrightstype, error) {
 	if e.loadedTypes[0] {
-		if e.PatientrightsPatientrightstype == nil {
-			// The edge PatientrightsPatientrightstype was loaded in eager-loading,
+		if e.EdgesOfPatientrightsPatientrightstype == nil {
+			// The edge EdgesOfPatientrightsPatientrightstype was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: patientrightstype.Label}
 		}
-		return e.PatientrightsPatientrightstype, nil
+		return e.EdgesOfPatientrightsPatientrightstype, nil
 	}
-	return nil, &NotLoadedError{edge: "PatientrightsPatientrightstype"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrightsPatientrightstype"}
 }
 
-// PatientrightsInsuranceOrErr returns the PatientrightsInsurance value or an error if the edge
+// EdgesOfPatientrightsInsuranceOrErr returns the EdgesOfPatientrightsInsurance value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e PatientrightsEdges) PatientrightsInsuranceOrErr() (*Insurance, error) {
+func (e PatientrightsEdges) EdgesOfPatientrightsInsuranceOrErr() (*Insurance, error) {
 	if e.loadedTypes[1] {
-		if e.PatientrightsInsurance == nil {
-			// The edge PatientrightsInsurance was loaded in eager-loading,
+		if e.EdgesOfPatientrightsInsurance == nil {
+			// The edge EdgesOfPatientrightsInsurance was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: insurance.Label}
 		}
-		return e.PatientrightsInsurance, nil
+		return e.EdgesOfPatientrightsInsurance, nil
 	}
-	return nil, &NotLoadedError{edge: "PatientrightsInsurance"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrightsInsurance"}
 }
 
-// PatientrightsPatientrecordOrErr returns the PatientrightsPatientrecord value or an error if the edge
+// EdgesOfPatientrightsPatientrecordOrErr returns the EdgesOfPatientrightsPatientrecord value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e PatientrightsEdges) PatientrightsPatientrecordOrErr() (*Patientrecord, error) {
+func (e PatientrightsEdges) EdgesOfPatientrightsPatientrecordOrErr() (*Patientrecord, error) {
 	if e.loadedTypes[2] {
-		if e.PatientrightsPatientrecord == nil {
-			// The edge PatientrightsPatientrecord was loaded in eager-loading,
+		if e.EdgesOfPatientrightsPatientrecord == nil {
+			// The edge EdgesOfPatientrightsPatientrecord was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: patientrecord.Label}
 		}
-		return e.PatientrightsPatientrecord, nil
+		return e.EdgesOfPatientrightsPatientrecord, nil
 	}
-	return nil, &NotLoadedError{edge: "PatientrightsPatientrecord"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrightsPatientrecord"}
 }
 
-// PatientrightsMedicalrecordstaffOrErr returns the PatientrightsMedicalrecordstaff value or an error if the edge
+// EdgesOfPatientrightsMedicalrecordstaffOrErr returns the EdgesOfPatientrightsMedicalrecordstaff value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e PatientrightsEdges) PatientrightsMedicalrecordstaffOrErr() (*Medicalrecordstaff, error) {
+func (e PatientrightsEdges) EdgesOfPatientrightsMedicalrecordstaffOrErr() (*Medicalrecordstaff, error) {
 	if e.loadedTypes[3] {
-		if e.PatientrightsMedicalrecordstaff == nil {
-			// The edge PatientrightsMedicalrecordstaff was loaded in eager-loading,
+		if e.EdgesOfPatientrightsMedicalrecordstaff == nil {
+			// The edge EdgesOfPatientrightsMedicalrecordstaff was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: medicalrecordstaff.Label}
 		}
-		return e.PatientrightsMedicalrecordstaff, nil
+		return e.EdgesOfPatientrightsMedicalrecordstaff, nil
 	}
-	return nil, &NotLoadedError{edge: "PatientrightsMedicalrecordstaff"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrightsMedicalrecordstaff"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -167,24 +167,24 @@ func (pa *Patientrights) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryPatientrightsPatientrightstype queries the PatientrightsPatientrightstype edge of the Patientrights.
-func (pa *Patientrights) QueryPatientrightsPatientrightstype() *PatientrightstypeQuery {
-	return (&PatientrightsClient{config: pa.config}).QueryPatientrightsPatientrightstype(pa)
+// QueryEdgesOfPatientrightsPatientrightstype queries the EdgesOfPatientrightsPatientrightstype edge of the Patientrights.
+func (pa *Patientrights) QueryEdgesOfPatientrightsPatientrightstype() *PatientrightstypeQuery {
+	return (&PatientrightsClient{config: pa.config}).QueryEdgesOfPatientrightsPatientrightstype(pa)
 }
 
-// QueryPatientrightsInsurance queries the PatientrightsInsurance edge of the Patientrights.
-func (pa *Patientrights) QueryPatientrightsInsurance() *InsuranceQuery {
-	return (&PatientrightsClient{config: pa.config}).QueryPatientrightsInsurance(pa)
+// QueryEdgesOfPatientrightsInsurance queries the EdgesOfPatientrightsInsurance edge of the Patientrights.
+func (pa *Patientrights) QueryEdgesOfPatientrightsInsurance() *InsuranceQuery {
+	return (&PatientrightsClient{config: pa.config}).QueryEdgesOfPatientrightsInsurance(pa)
 }
 
-// QueryPatientrightsPatientrecord queries the PatientrightsPatientrecord edge of the Patientrights.
-func (pa *Patientrights) QueryPatientrightsPatientrecord() *PatientrecordQuery {
-	return (&PatientrightsClient{config: pa.config}).QueryPatientrightsPatientrecord(pa)
+// QueryEdgesOfPatientrightsPatientrecord queries the EdgesOfPatientrightsPatientrecord edge of the Patientrights.
+func (pa *Patientrights) QueryEdgesOfPatientrightsPatientrecord() *PatientrecordQuery {
+	return (&PatientrightsClient{config: pa.config}).QueryEdgesOfPatientrightsPatientrecord(pa)
 }
 
-// QueryPatientrightsMedicalrecordstaff queries the PatientrightsMedicalrecordstaff edge of the Patientrights.
-func (pa *Patientrights) QueryPatientrightsMedicalrecordstaff() *MedicalrecordstaffQuery {
-	return (&PatientrightsClient{config: pa.config}).QueryPatientrightsMedicalrecordstaff(pa)
+// QueryEdgesOfPatientrightsMedicalrecordstaff queries the EdgesOfPatientrightsMedicalrecordstaff edge of the Patientrights.
+func (pa *Patientrights) QueryEdgesOfPatientrightsMedicalrecordstaff() *MedicalrecordstaffQuery {
+	return (&PatientrightsClient{config: pa.config}).QueryEdgesOfPatientrightsMedicalrecordstaff(pa)
 }
 
 // Update returns a builder for updating this Patientrights.

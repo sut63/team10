@@ -29,9 +29,9 @@ func (Historytaking) Fields() []ent.Field {
 // Edges of the Historytaking.
 func (Historytaking) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("nurse", Nurse.Type).Ref("historytaking").Unique(),
-		edge.From("department", Department.Type).Ref("historytaking").Unique(),
-		edge.From("symptomseverity", Symptomseverity.Type).Ref("historytaking").Unique(),
-		edge.From("patientrecord", Patientrecord.Type).Ref("historytaking").Unique(),
+		edge.From("EdgesOfNurse", Nurse.Type).Ref("EdgesOfHistorytaking").Unique(),
+		edge.From("EdgesOfDepartment", Department.Type).Ref("EdgesOfHistorytaking").Unique(),
+		edge.From("EdgesOfSymptomseverity", Symptomseverity.Type).Ref("EdgesOfHistorytaking").Unique(),
+		edge.From("EdgesOfPatientrecord", Patientrecord.Type).Ref("EdgesOfHistorytaking").Unique(),
 	}
 }

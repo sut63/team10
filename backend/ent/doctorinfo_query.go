@@ -30,12 +30,12 @@ type DoctorinfoQuery struct {
 	unique     []string
 	predicates []predicate.Doctorinfo
 	// eager-loading edges.
-	withDepartment     *DepartmentQuery
-	withEducationlevel *EducationlevelQuery
-	withOfficeroom     *OfficeroomQuery
-	withPrename        *PrenameQuery
-	withDoctor         *DoctorQuery
-	withFKs            bool
+	withEdgesOfDepartment     *DepartmentQuery
+	withEdgesOfEducationlevel *EducationlevelQuery
+	withEdgesOfOfficeroom     *OfficeroomQuery
+	withEdgesOfPrename        *PrenameQuery
+	withEdgesOfDoctor         *DoctorQuery
+	withFKs                   bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -65,8 +65,8 @@ func (dq *DoctorinfoQuery) Order(o ...OrderFunc) *DoctorinfoQuery {
 	return dq
 }
 
-// QueryDepartment chains the current query on the department edge.
-func (dq *DoctorinfoQuery) QueryDepartment() *DepartmentQuery {
+// QueryEdgesOfDepartment chains the current query on the EdgesOfDepartment edge.
+func (dq *DoctorinfoQuery) QueryEdgesOfDepartment() *DepartmentQuery {
 	query := &DepartmentQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -75,7 +75,7 @@ func (dq *DoctorinfoQuery) QueryDepartment() *DepartmentQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
 			sqlgraph.To(department.Table, department.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.DepartmentTable, doctorinfo.DepartmentColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.EdgesOfDepartmentTable, doctorinfo.EdgesOfDepartmentColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -83,8 +83,8 @@ func (dq *DoctorinfoQuery) QueryDepartment() *DepartmentQuery {
 	return query
 }
 
-// QueryEducationlevel chains the current query on the educationlevel edge.
-func (dq *DoctorinfoQuery) QueryEducationlevel() *EducationlevelQuery {
+// QueryEdgesOfEducationlevel chains the current query on the EdgesOfEducationlevel edge.
+func (dq *DoctorinfoQuery) QueryEdgesOfEducationlevel() *EducationlevelQuery {
 	query := &EducationlevelQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -93,7 +93,7 @@ func (dq *DoctorinfoQuery) QueryEducationlevel() *EducationlevelQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
 			sqlgraph.To(educationlevel.Table, educationlevel.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.EducationlevelTable, doctorinfo.EducationlevelColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.EdgesOfEducationlevelTable, doctorinfo.EdgesOfEducationlevelColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -101,8 +101,8 @@ func (dq *DoctorinfoQuery) QueryEducationlevel() *EducationlevelQuery {
 	return query
 }
 
-// QueryOfficeroom chains the current query on the officeroom edge.
-func (dq *DoctorinfoQuery) QueryOfficeroom() *OfficeroomQuery {
+// QueryEdgesOfOfficeroom chains the current query on the EdgesOfOfficeroom edge.
+func (dq *DoctorinfoQuery) QueryEdgesOfOfficeroom() *OfficeroomQuery {
 	query := &OfficeroomQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -111,7 +111,7 @@ func (dq *DoctorinfoQuery) QueryOfficeroom() *OfficeroomQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
 			sqlgraph.To(officeroom.Table, officeroom.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.OfficeroomTable, doctorinfo.OfficeroomColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.EdgesOfOfficeroomTable, doctorinfo.EdgesOfOfficeroomColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -119,8 +119,8 @@ func (dq *DoctorinfoQuery) QueryOfficeroom() *OfficeroomQuery {
 	return query
 }
 
-// QueryPrename chains the current query on the prename edge.
-func (dq *DoctorinfoQuery) QueryPrename() *PrenameQuery {
+// QueryEdgesOfPrename chains the current query on the EdgesOfPrename edge.
+func (dq *DoctorinfoQuery) QueryEdgesOfPrename() *PrenameQuery {
 	query := &PrenameQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -129,7 +129,7 @@ func (dq *DoctorinfoQuery) QueryPrename() *PrenameQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
 			sqlgraph.To(prename.Table, prename.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.PrenameTable, doctorinfo.PrenameColumn),
+			sqlgraph.Edge(sqlgraph.M2O, true, doctorinfo.EdgesOfPrenameTable, doctorinfo.EdgesOfPrenameColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -137,8 +137,8 @@ func (dq *DoctorinfoQuery) QueryPrename() *PrenameQuery {
 	return query
 }
 
-// QueryDoctor chains the current query on the doctor edge.
-func (dq *DoctorinfoQuery) QueryDoctor() *DoctorQuery {
+// QueryEdgesOfDoctor chains the current query on the EdgesOfDoctor edge.
+func (dq *DoctorinfoQuery) QueryEdgesOfDoctor() *DoctorQuery {
 	query := &DoctorQuery{config: dq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := dq.prepareQuery(ctx); err != nil {
@@ -147,7 +147,7 @@ func (dq *DoctorinfoQuery) QueryDoctor() *DoctorQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(doctorinfo.Table, doctorinfo.FieldID, dq.sqlQuery()),
 			sqlgraph.To(doctor.Table, doctor.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, false, doctorinfo.DoctorTable, doctorinfo.DoctorColumn),
+			sqlgraph.Edge(sqlgraph.O2O, false, doctorinfo.EdgesOfDoctorTable, doctorinfo.EdgesOfDoctorColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(dq.driver.Dialect(), step)
 		return fromU, nil
@@ -334,58 +334,58 @@ func (dq *DoctorinfoQuery) Clone() *DoctorinfoQuery {
 	}
 }
 
-//  WithDepartment tells the query-builder to eager-loads the nodes that are connected to
-// the "department" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorinfoQuery) WithDepartment(opts ...func(*DepartmentQuery)) *DoctorinfoQuery {
+//  WithEdgesOfDepartment tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfDepartment" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorinfoQuery) WithEdgesOfDepartment(opts ...func(*DepartmentQuery)) *DoctorinfoQuery {
 	query := &DepartmentQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withDepartment = query
+	dq.withEdgesOfDepartment = query
 	return dq
 }
 
-//  WithEducationlevel tells the query-builder to eager-loads the nodes that are connected to
-// the "educationlevel" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorinfoQuery) WithEducationlevel(opts ...func(*EducationlevelQuery)) *DoctorinfoQuery {
+//  WithEdgesOfEducationlevel tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfEducationlevel" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorinfoQuery) WithEdgesOfEducationlevel(opts ...func(*EducationlevelQuery)) *DoctorinfoQuery {
 	query := &EducationlevelQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withEducationlevel = query
+	dq.withEdgesOfEducationlevel = query
 	return dq
 }
 
-//  WithOfficeroom tells the query-builder to eager-loads the nodes that are connected to
-// the "officeroom" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorinfoQuery) WithOfficeroom(opts ...func(*OfficeroomQuery)) *DoctorinfoQuery {
+//  WithEdgesOfOfficeroom tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfOfficeroom" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorinfoQuery) WithEdgesOfOfficeroom(opts ...func(*OfficeroomQuery)) *DoctorinfoQuery {
 	query := &OfficeroomQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withOfficeroom = query
+	dq.withEdgesOfOfficeroom = query
 	return dq
 }
 
-//  WithPrename tells the query-builder to eager-loads the nodes that are connected to
-// the "prename" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorinfoQuery) WithPrename(opts ...func(*PrenameQuery)) *DoctorinfoQuery {
+//  WithEdgesOfPrename tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPrename" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorinfoQuery) WithEdgesOfPrename(opts ...func(*PrenameQuery)) *DoctorinfoQuery {
 	query := &PrenameQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withPrename = query
+	dq.withEdgesOfPrename = query
 	return dq
 }
 
-//  WithDoctor tells the query-builder to eager-loads the nodes that are connected to
-// the "doctor" edge. The optional arguments used to configure the query builder of the edge.
-func (dq *DoctorinfoQuery) WithDoctor(opts ...func(*DoctorQuery)) *DoctorinfoQuery {
+//  WithEdgesOfDoctor tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfDoctor" edge. The optional arguments used to configure the query builder of the edge.
+func (dq *DoctorinfoQuery) WithEdgesOfDoctor(opts ...func(*DoctorQuery)) *DoctorinfoQuery {
 	query := &DoctorQuery{config: dq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	dq.withDoctor = query
+	dq.withEdgesOfDoctor = query
 	return dq
 }
 
@@ -457,14 +457,14 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 		withFKs     = dq.withFKs
 		_spec       = dq.querySpec()
 		loadedTypes = [5]bool{
-			dq.withDepartment != nil,
-			dq.withEducationlevel != nil,
-			dq.withOfficeroom != nil,
-			dq.withPrename != nil,
-			dq.withDoctor != nil,
+			dq.withEdgesOfDepartment != nil,
+			dq.withEdgesOfEducationlevel != nil,
+			dq.withEdgesOfOfficeroom != nil,
+			dq.withEdgesOfPrename != nil,
+			dq.withEdgesOfDoctor != nil,
 		}
 	)
-	if dq.withDepartment != nil || dq.withEducationlevel != nil || dq.withOfficeroom != nil || dq.withPrename != nil {
+	if dq.withEdgesOfDepartment != nil || dq.withEdgesOfEducationlevel != nil || dq.withEdgesOfOfficeroom != nil || dq.withEdgesOfPrename != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -494,7 +494,7 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 		return nodes, nil
 	}
 
-	if query := dq.withDepartment; query != nil {
+	if query := dq.withEdgesOfDepartment; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Doctorinfo)
 		for i := range nodes {
@@ -514,12 +514,12 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "department" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Department = n
+				nodes[i].Edges.EdgesOfDepartment = n
 			}
 		}
 	}
 
-	if query := dq.withEducationlevel; query != nil {
+	if query := dq.withEdgesOfEducationlevel; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Doctorinfo)
 		for i := range nodes {
@@ -539,12 +539,12 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "level" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Educationlevel = n
+				nodes[i].Edges.EdgesOfEducationlevel = n
 			}
 		}
 	}
 
-	if query := dq.withOfficeroom; query != nil {
+	if query := dq.withEdgesOfOfficeroom; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Doctorinfo)
 		for i := range nodes {
@@ -564,12 +564,12 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "roomnumber" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Officeroom = n
+				nodes[i].Edges.EdgesOfOfficeroom = n
 			}
 		}
 	}
 
-	if query := dq.withPrename; query != nil {
+	if query := dq.withEdgesOfPrename; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Doctorinfo)
 		for i := range nodes {
@@ -589,12 +589,12 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "prefix" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.Prename = n
+				nodes[i].Edges.EdgesOfPrename = n
 			}
 		}
 	}
 
-	if query := dq.withDoctor; query != nil {
+	if query := dq.withEdgesOfDoctor; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Doctorinfo)
 		for i := range nodes {
@@ -603,7 +603,7 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Doctor(func(s *sql.Selector) {
-			s.Where(sql.InValues(doctorinfo.DoctorColumn, fks...))
+			s.Where(sql.InValues(doctorinfo.EdgesOfDoctorColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -618,7 +618,7 @@ func (dq *DoctorinfoQuery) sqlAll(ctx context.Context) ([]*Doctorinfo, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "doctorinfo_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Doctor = n
+			node.Edges.EdgesOfDoctor = n
 		}
 	}
 

@@ -35,13 +35,13 @@ export interface EntUnpaybillEdges {
      * @type {EntBill}
      * @memberof EntUnpaybillEdges
      */
-    bills?: EntBill;
+    edgesOfBills?: EntBill;
     /**
      * 
      * @type {EntTreatment}
      * @memberof EntUnpaybillEdges
      */
-    treatment?: EntTreatment;
+    edgesOfTreatment?: EntTreatment;
 }
 
 export function EntUnpaybillEdgesFromJSON(json: any): EntUnpaybillEdges {
@@ -54,8 +54,8 @@ export function EntUnpaybillEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'bills': !exists(json, 'Bills') ? undefined : EntBillFromJSON(json['Bills']),
-        'treatment': !exists(json, 'Treatment') ? undefined : EntTreatmentFromJSON(json['Treatment']),
+        'edgesOfBills': !exists(json, 'EdgesOfBills') ? undefined : EntBillFromJSON(json['EdgesOfBills']),
+        'edgesOfTreatment': !exists(json, 'EdgesOfTreatment') ? undefined : EntTreatmentFromJSON(json['EdgesOfTreatment']),
     };
 }
 
@@ -68,8 +68,8 @@ export function EntUnpaybillEdgesToJSON(value?: EntUnpaybillEdges | null): any {
     }
     return {
         
-        'bills': EntBillToJSON(value.bills),
-        'treatment': EntTreatmentToJSON(value.treatment),
+        'EdgesOfBills': EntBillToJSON(value.edgesOfBills),
+        'EdgesOfTreatment': EntTreatmentToJSON(value.edgesOfTreatment),
     };
 }
 

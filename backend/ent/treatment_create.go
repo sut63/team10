@@ -36,80 +36,80 @@ func (tc *TreatmentCreate) SetDatetreat(t time.Time) *TreatmentCreate {
 	return tc
 }
 
-// SetTypetreatmentID sets the typetreatment edge to Typetreatment by id.
-func (tc *TreatmentCreate) SetTypetreatmentID(id int) *TreatmentCreate {
-	tc.mutation.SetTypetreatmentID(id)
+// SetEdgesOfTypetreatmentID sets the EdgesOfTypetreatment edge to Typetreatment by id.
+func (tc *TreatmentCreate) SetEdgesOfTypetreatmentID(id int) *TreatmentCreate {
+	tc.mutation.SetEdgesOfTypetreatmentID(id)
 	return tc
 }
 
-// SetNillableTypetreatmentID sets the typetreatment edge to Typetreatment by id if the given value is not nil.
-func (tc *TreatmentCreate) SetNillableTypetreatmentID(id *int) *TreatmentCreate {
+// SetNillableEdgesOfTypetreatmentID sets the EdgesOfTypetreatment edge to Typetreatment by id if the given value is not nil.
+func (tc *TreatmentCreate) SetNillableEdgesOfTypetreatmentID(id *int) *TreatmentCreate {
 	if id != nil {
-		tc = tc.SetTypetreatmentID(*id)
+		tc = tc.SetEdgesOfTypetreatmentID(*id)
 	}
 	return tc
 }
 
-// SetTypetreatment sets the typetreatment edge to Typetreatment.
-func (tc *TreatmentCreate) SetTypetreatment(t *Typetreatment) *TreatmentCreate {
-	return tc.SetTypetreatmentID(t.ID)
+// SetEdgesOfTypetreatment sets the EdgesOfTypetreatment edge to Typetreatment.
+func (tc *TreatmentCreate) SetEdgesOfTypetreatment(t *Typetreatment) *TreatmentCreate {
+	return tc.SetEdgesOfTypetreatmentID(t.ID)
 }
 
-// SetPatientrecordID sets the patientrecord edge to Patientrecord by id.
-func (tc *TreatmentCreate) SetPatientrecordID(id int) *TreatmentCreate {
-	tc.mutation.SetPatientrecordID(id)
+// SetEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id.
+func (tc *TreatmentCreate) SetEdgesOfPatientrecordID(id int) *TreatmentCreate {
+	tc.mutation.SetEdgesOfPatientrecordID(id)
 	return tc
 }
 
-// SetNillablePatientrecordID sets the patientrecord edge to Patientrecord by id if the given value is not nil.
-func (tc *TreatmentCreate) SetNillablePatientrecordID(id *int) *TreatmentCreate {
+// SetNillableEdgesOfPatientrecordID sets the EdgesOfPatientrecord edge to Patientrecord by id if the given value is not nil.
+func (tc *TreatmentCreate) SetNillableEdgesOfPatientrecordID(id *int) *TreatmentCreate {
 	if id != nil {
-		tc = tc.SetPatientrecordID(*id)
+		tc = tc.SetEdgesOfPatientrecordID(*id)
 	}
 	return tc
 }
 
-// SetPatientrecord sets the patientrecord edge to Patientrecord.
-func (tc *TreatmentCreate) SetPatientrecord(p *Patientrecord) *TreatmentCreate {
-	return tc.SetPatientrecordID(p.ID)
+// SetEdgesOfPatientrecord sets the EdgesOfPatientrecord edge to Patientrecord.
+func (tc *TreatmentCreate) SetEdgesOfPatientrecord(p *Patientrecord) *TreatmentCreate {
+	return tc.SetEdgesOfPatientrecordID(p.ID)
 }
 
-// SetDoctorID sets the doctor edge to Doctor by id.
-func (tc *TreatmentCreate) SetDoctorID(id int) *TreatmentCreate {
-	tc.mutation.SetDoctorID(id)
+// SetEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id.
+func (tc *TreatmentCreate) SetEdgesOfDoctorID(id int) *TreatmentCreate {
+	tc.mutation.SetEdgesOfDoctorID(id)
 	return tc
 }
 
-// SetNillableDoctorID sets the doctor edge to Doctor by id if the given value is not nil.
-func (tc *TreatmentCreate) SetNillableDoctorID(id *int) *TreatmentCreate {
+// SetNillableEdgesOfDoctorID sets the EdgesOfDoctor edge to Doctor by id if the given value is not nil.
+func (tc *TreatmentCreate) SetNillableEdgesOfDoctorID(id *int) *TreatmentCreate {
 	if id != nil {
-		tc = tc.SetDoctorID(*id)
+		tc = tc.SetEdgesOfDoctorID(*id)
 	}
 	return tc
 }
 
-// SetDoctor sets the doctor edge to Doctor.
-func (tc *TreatmentCreate) SetDoctor(d *Doctor) *TreatmentCreate {
-	return tc.SetDoctorID(d.ID)
+// SetEdgesOfDoctor sets the EdgesOfDoctor edge to Doctor.
+func (tc *TreatmentCreate) SetEdgesOfDoctor(d *Doctor) *TreatmentCreate {
+	return tc.SetEdgesOfDoctorID(d.ID)
 }
 
-// SetUnpaybillsID sets the unpaybills edge to Unpaybill by id.
-func (tc *TreatmentCreate) SetUnpaybillsID(id int) *TreatmentCreate {
-	tc.mutation.SetUnpaybillsID(id)
+// SetEdgesOfUnpaybillsID sets the EdgesOfUnpaybills edge to Unpaybill by id.
+func (tc *TreatmentCreate) SetEdgesOfUnpaybillsID(id int) *TreatmentCreate {
+	tc.mutation.SetEdgesOfUnpaybillsID(id)
 	return tc
 }
 
-// SetNillableUnpaybillsID sets the unpaybills edge to Unpaybill by id if the given value is not nil.
-func (tc *TreatmentCreate) SetNillableUnpaybillsID(id *int) *TreatmentCreate {
+// SetNillableEdgesOfUnpaybillsID sets the EdgesOfUnpaybills edge to Unpaybill by id if the given value is not nil.
+func (tc *TreatmentCreate) SetNillableEdgesOfUnpaybillsID(id *int) *TreatmentCreate {
 	if id != nil {
-		tc = tc.SetUnpaybillsID(*id)
+		tc = tc.SetEdgesOfUnpaybillsID(*id)
 	}
 	return tc
 }
 
-// SetUnpaybills sets the unpaybills edge to Unpaybill.
-func (tc *TreatmentCreate) SetUnpaybills(u *Unpaybill) *TreatmentCreate {
-	return tc.SetUnpaybillsID(u.ID)
+// SetEdgesOfUnpaybills sets the EdgesOfUnpaybills edge to Unpaybill.
+func (tc *TreatmentCreate) SetEdgesOfUnpaybills(u *Unpaybill) *TreatmentCreate {
+	return tc.SetEdgesOfUnpaybillsID(u.ID)
 }
 
 // Mutation returns the TreatmentMutation object of the builder.
@@ -206,12 +206,12 @@ func (tc *TreatmentCreate) createSpec() (*Treatment, *sqlgraph.CreateSpec) {
 		})
 		t.Datetreat = value
 	}
-	if nodes := tc.mutation.TypetreatmentIDs(); len(nodes) > 0 {
+	if nodes := tc.mutation.EdgesOfTypetreatmentIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.TypetreatmentTable,
-			Columns: []string{treatment.TypetreatmentColumn},
+			Table:   treatment.EdgesOfTypetreatmentTable,
+			Columns: []string{treatment.EdgesOfTypetreatmentColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -225,12 +225,12 @@ func (tc *TreatmentCreate) createSpec() (*Treatment, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := tc.mutation.PatientrecordIDs(); len(nodes) > 0 {
+	if nodes := tc.mutation.EdgesOfPatientrecordIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.PatientrecordTable,
-			Columns: []string{treatment.PatientrecordColumn},
+			Table:   treatment.EdgesOfPatientrecordTable,
+			Columns: []string{treatment.EdgesOfPatientrecordColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -244,12 +244,12 @@ func (tc *TreatmentCreate) createSpec() (*Treatment, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := tc.mutation.DoctorIDs(); len(nodes) > 0 {
+	if nodes := tc.mutation.EdgesOfDoctorIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   treatment.DoctorTable,
-			Columns: []string{treatment.DoctorColumn},
+			Table:   treatment.EdgesOfDoctorTable,
+			Columns: []string{treatment.EdgesOfDoctorColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -263,12 +263,12 @@ func (tc *TreatmentCreate) createSpec() (*Treatment, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := tc.mutation.UnpaybillsIDs(); len(nodes) > 0 {
+	if nodes := tc.mutation.EdgesOfUnpaybillsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: false,
-			Table:   treatment.UnpaybillsTable,
-			Columns: []string{treatment.UnpaybillsColumn},
+			Table:   treatment.EdgesOfUnpaybillsTable,
+			Columns: []string{treatment.EdgesOfUnpaybillsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

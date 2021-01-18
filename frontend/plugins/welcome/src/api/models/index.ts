@@ -4,6 +4,7 @@ export * from './ControllersDoctorinfo';
 export * from './ControllersHistorytaking';
 export * from './ControllersPatientrecord';
 export * from './ControllersPatientrights';
+export * from './ControllersPatientrightstype';
 export * from './ControllersTreatment';
 export * from './ControllersUser';
 export * from './EntAbilitypatientrights';

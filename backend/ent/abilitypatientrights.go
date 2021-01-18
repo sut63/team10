@@ -28,20 +28,20 @@ type Abilitypatientrights struct {
 
 // AbilitypatientrightsEdges holds the relations/edges for other nodes in the graph.
 type AbilitypatientrightsEdges struct {
-	// AbilitypatientrightsPatientrightstype holds the value of the AbilitypatientrightsPatientrightstype edge.
-	AbilitypatientrightsPatientrightstype []*Patientrightstype
+	// EdgesOfAbilitypatientrightsPatientrightstype holds the value of the EdgesOfAbilitypatientrightsPatientrightstype edge.
+	EdgesOfAbilitypatientrightsPatientrightstype []*Patientrightstype
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// AbilitypatientrightsPatientrightstypeOrErr returns the AbilitypatientrightsPatientrightstype value or an error if the edge
+// EdgesOfAbilitypatientrightsPatientrightstypeOrErr returns the EdgesOfAbilitypatientrightsPatientrightstype value or an error if the edge
 // was not loaded in eager-loading.
-func (e AbilitypatientrightsEdges) AbilitypatientrightsPatientrightstypeOrErr() ([]*Patientrightstype, error) {
+func (e AbilitypatientrightsEdges) EdgesOfAbilitypatientrightsPatientrightstypeOrErr() ([]*Patientrightstype, error) {
 	if e.loadedTypes[0] {
-		return e.AbilitypatientrightsPatientrightstype, nil
+		return e.EdgesOfAbilitypatientrightsPatientrightstype, nil
 	}
-	return nil, &NotLoadedError{edge: "AbilitypatientrightsPatientrightstype"}
+	return nil, &NotLoadedError{edge: "EdgesOfAbilitypatientrightsPatientrightstype"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -84,9 +84,9 @@ func (a *Abilitypatientrights) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryAbilitypatientrightsPatientrightstype queries the AbilitypatientrightsPatientrightstype edge of the Abilitypatientrights.
-func (a *Abilitypatientrights) QueryAbilitypatientrightsPatientrightstype() *PatientrightstypeQuery {
-	return (&AbilitypatientrightsClient{config: a.config}).QueryAbilitypatientrightsPatientrightstype(a)
+// QueryEdgesOfAbilitypatientrightsPatientrightstype queries the EdgesOfAbilitypatientrightsPatientrightstype edge of the Abilitypatientrights.
+func (a *Abilitypatientrights) QueryEdgesOfAbilitypatientrightsPatientrightstype() *PatientrightstypeQuery {
+	return (&AbilitypatientrightsClient{config: a.config}).QueryEdgesOfAbilitypatientrightsPatientrightstype(a)
 }
 
 // Update returns a builder for updating this Abilitypatientrights.

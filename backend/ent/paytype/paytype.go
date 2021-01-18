@@ -10,18 +10,18 @@ const (
 	// FieldPaytype holds the string denoting the paytype field in the database.
 	FieldPaytype = "paytype"
 
-	// EdgeBills holds the string denoting the bills edge name in mutations.
-	EdgeBills = "bills"
+	// EdgeEdgesOfBills holds the string denoting the edgesofbills edge name in mutations.
+	EdgeEdgesOfBills = "EdgesOfBills"
 
 	// Table holds the table name of the paytype in the database.
 	Table = "paytypes"
-	// BillsTable is the table the holds the bills relation/edge.
-	BillsTable = "bills"
-	// BillsInverseTable is the table name for the Bill entity.
+	// EdgesOfBillsTable is the table the holds the EdgesOfBills relation/edge.
+	EdgesOfBillsTable = "bills"
+	// EdgesOfBillsInverseTable is the table name for the Bill entity.
 	// It exists in this package in order to avoid circular dependency with the "bill" package.
-	BillsInverseTable = "bills"
-	// BillsColumn is the table column denoting the bills relation/edge.
-	BillsColumn = "paytype_id"
+	EdgesOfBillsInverseTable = "bills"
+	// EdgesOfBillsColumn is the table column denoting the EdgesOfBills relation/edge.
+	EdgesOfBillsColumn = "paytype_id"
 )
 
 // Columns holds all SQL columns for paytype fields.

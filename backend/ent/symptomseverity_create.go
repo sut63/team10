@@ -26,19 +26,19 @@ func (sc *SymptomseverityCreate) SetSymptomseverity(s string) *SymptomseverityCr
 	return sc
 }
 
-// AddHistorytakingIDs adds the historytaking edge to Historytaking by ids.
-func (sc *SymptomseverityCreate) AddHistorytakingIDs(ids ...int) *SymptomseverityCreate {
-	sc.mutation.AddHistorytakingIDs(ids...)
+// AddEdgesOfHistorytakingIDs adds the EdgesOfHistorytaking edge to Historytaking by ids.
+func (sc *SymptomseverityCreate) AddEdgesOfHistorytakingIDs(ids ...int) *SymptomseverityCreate {
+	sc.mutation.AddEdgesOfHistorytakingIDs(ids...)
 	return sc
 }
 
-// AddHistorytaking adds the historytaking edges to Historytaking.
-func (sc *SymptomseverityCreate) AddHistorytaking(h ...*Historytaking) *SymptomseverityCreate {
+// AddEdgesOfHistorytaking adds the EdgesOfHistorytaking edges to Historytaking.
+func (sc *SymptomseverityCreate) AddEdgesOfHistorytaking(h ...*Historytaking) *SymptomseverityCreate {
 	ids := make([]int, len(h))
 	for i := range h {
 		ids[i] = h[i].ID
 	}
-	return sc.AddHistorytakingIDs(ids...)
+	return sc.AddEdgesOfHistorytakingIDs(ids...)
 }
 
 // Mutation returns the SymptomseverityMutation object of the builder.
@@ -119,12 +119,12 @@ func (sc *SymptomseverityCreate) createSpec() (*Symptomseverity, *sqlgraph.Creat
 		})
 		s.Symptomseverity = value
 	}
-	if nodes := sc.mutation.HistorytakingIDs(); len(nodes) > 0 {
+	if nodes := sc.mutation.EdgesOfHistorytakingIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   symptomseverity.HistorytakingTable,
-			Columns: []string{symptomseverity.HistorytakingColumn},
+			Table:   symptomseverity.EdgesOfHistorytakingTable,
+			Columns: []string{symptomseverity.EdgesOfHistorytakingColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

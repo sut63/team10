@@ -24,31 +24,31 @@ type Department struct {
 
 // DepartmentEdges holds the relations/edges for other nodes in the graph.
 type DepartmentEdges struct {
-	// Department2doctorinfo holds the value of the department2doctorinfo edge.
-	Department2doctorinfo []*Doctorinfo
-	// Historytaking holds the value of the historytaking edge.
-	Historytaking []*Historytaking
+	// EdgesOfDepartment2doctorinfo holds the value of the EdgesOfDepartment2doctorinfo edge.
+	EdgesOfDepartment2doctorinfo []*Doctorinfo
+	// EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.
+	EdgesOfHistorytaking []*Historytaking
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [2]bool
 }
 
-// Department2doctorinfoOrErr returns the Department2doctorinfo value or an error if the edge
+// EdgesOfDepartment2doctorinfoOrErr returns the EdgesOfDepartment2doctorinfo value or an error if the edge
 // was not loaded in eager-loading.
-func (e DepartmentEdges) Department2doctorinfoOrErr() ([]*Doctorinfo, error) {
+func (e DepartmentEdges) EdgesOfDepartment2doctorinfoOrErr() ([]*Doctorinfo, error) {
 	if e.loadedTypes[0] {
-		return e.Department2doctorinfo, nil
+		return e.EdgesOfDepartment2doctorinfo, nil
 	}
-	return nil, &NotLoadedError{edge: "department2doctorinfo"}
+	return nil, &NotLoadedError{edge: "EdgesOfDepartment2doctorinfo"}
 }
 
-// HistorytakingOrErr returns the Historytaking value or an error if the edge
+// EdgesOfHistorytakingOrErr returns the EdgesOfHistorytaking value or an error if the edge
 // was not loaded in eager-loading.
-func (e DepartmentEdges) HistorytakingOrErr() ([]*Historytaking, error) {
+func (e DepartmentEdges) EdgesOfHistorytakingOrErr() ([]*Historytaking, error) {
 	if e.loadedTypes[1] {
-		return e.Historytaking, nil
+		return e.EdgesOfHistorytaking, nil
 	}
-	return nil, &NotLoadedError{edge: "historytaking"}
+	return nil, &NotLoadedError{edge: "EdgesOfHistorytaking"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -79,14 +79,14 @@ func (d *Department) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryDepartment2doctorinfo queries the department2doctorinfo edge of the Department.
-func (d *Department) QueryDepartment2doctorinfo() *DoctorinfoQuery {
-	return (&DepartmentClient{config: d.config}).QueryDepartment2doctorinfo(d)
+// QueryEdgesOfDepartment2doctorinfo queries the EdgesOfDepartment2doctorinfo edge of the Department.
+func (d *Department) QueryEdgesOfDepartment2doctorinfo() *DoctorinfoQuery {
+	return (&DepartmentClient{config: d.config}).QueryEdgesOfDepartment2doctorinfo(d)
 }
 
-// QueryHistorytaking queries the historytaking edge of the Department.
-func (d *Department) QueryHistorytaking() *HistorytakingQuery {
-	return (&DepartmentClient{config: d.config}).QueryHistorytaking(d)
+// QueryEdgesOfHistorytaking queries the EdgesOfHistorytaking edge of the Department.
+func (d *Department) QueryEdgesOfHistorytaking() *HistorytakingQuery {
+	return (&DepartmentClient{config: d.config}).QueryEdgesOfHistorytaking(d)
 }
 
 // Update returns a builder for updating this Department.

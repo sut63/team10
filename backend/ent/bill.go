@@ -33,57 +33,57 @@ type Bill struct {
 
 // BillEdges holds the relations/edges for other nodes in the graph.
 type BillEdges struct {
-	// Paytype holds the value of the paytype edge.
-	Paytype *Paytype
-	// Officer holds the value of the officer edge.
-	Officer *Financier
-	// Treatment holds the value of the treatment edge.
-	Treatment *Unpaybill
+	// EdgesOfPaytype holds the value of the EdgesOfPaytype edge.
+	EdgesOfPaytype *Paytype
+	// EdgesOfOfficer holds the value of the EdgesOfOfficer edge.
+	EdgesOfOfficer *Financier
+	// EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
+	EdgesOfTreatment *Unpaybill
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [3]bool
 }
 
-// PaytypeOrErr returns the Paytype value or an error if the edge
+// EdgesOfPaytypeOrErr returns the EdgesOfPaytype value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e BillEdges) PaytypeOrErr() (*Paytype, error) {
+func (e BillEdges) EdgesOfPaytypeOrErr() (*Paytype, error) {
 	if e.loadedTypes[0] {
-		if e.Paytype == nil {
-			// The edge paytype was loaded in eager-loading,
+		if e.EdgesOfPaytype == nil {
+			// The edge EdgesOfPaytype was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: paytype.Label}
 		}
-		return e.Paytype, nil
+		return e.EdgesOfPaytype, nil
 	}
-	return nil, &NotLoadedError{edge: "paytype"}
+	return nil, &NotLoadedError{edge: "EdgesOfPaytype"}
 }
 
-// OfficerOrErr returns the Officer value or an error if the edge
+// EdgesOfOfficerOrErr returns the EdgesOfOfficer value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e BillEdges) OfficerOrErr() (*Financier, error) {
+func (e BillEdges) EdgesOfOfficerOrErr() (*Financier, error) {
 	if e.loadedTypes[1] {
-		if e.Officer == nil {
-			// The edge officer was loaded in eager-loading,
+		if e.EdgesOfOfficer == nil {
+			// The edge EdgesOfOfficer was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: financier.Label}
 		}
-		return e.Officer, nil
+		return e.EdgesOfOfficer, nil
 	}
-	return nil, &NotLoadedError{edge: "officer"}
+	return nil, &NotLoadedError{edge: "EdgesOfOfficer"}
 }
 
-// TreatmentOrErr returns the Treatment value or an error if the edge
+// EdgesOfTreatmentOrErr returns the EdgesOfTreatment value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e BillEdges) TreatmentOrErr() (*Unpaybill, error) {
+func (e BillEdges) EdgesOfTreatmentOrErr() (*Unpaybill, error) {
 	if e.loadedTypes[2] {
-		if e.Treatment == nil {
-			// The edge treatment was loaded in eager-loading,
+		if e.EdgesOfTreatment == nil {
+			// The edge EdgesOfTreatment was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: unpaybill.Label}
 		}
-		return e.Treatment, nil
+		return e.EdgesOfTreatment, nil
 	}
-	return nil, &NotLoadedError{edge: "treatment"}
+	return nil, &NotLoadedError{edge: "EdgesOfTreatment"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -150,19 +150,19 @@ func (b *Bill) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryPaytype queries the paytype edge of the Bill.
-func (b *Bill) QueryPaytype() *PaytypeQuery {
-	return (&BillClient{config: b.config}).QueryPaytype(b)
+// QueryEdgesOfPaytype queries the EdgesOfPaytype edge of the Bill.
+func (b *Bill) QueryEdgesOfPaytype() *PaytypeQuery {
+	return (&BillClient{config: b.config}).QueryEdgesOfPaytype(b)
 }
 
-// QueryOfficer queries the officer edge of the Bill.
-func (b *Bill) QueryOfficer() *FinancierQuery {
-	return (&BillClient{config: b.config}).QueryOfficer(b)
+// QueryEdgesOfOfficer queries the EdgesOfOfficer edge of the Bill.
+func (b *Bill) QueryEdgesOfOfficer() *FinancierQuery {
+	return (&BillClient{config: b.config}).QueryEdgesOfOfficer(b)
 }
 
-// QueryTreatment queries the treatment edge of the Bill.
-func (b *Bill) QueryTreatment() *UnpaybillQuery {
-	return (&BillClient{config: b.config}).QueryTreatment(b)
+// QueryEdgesOfTreatment queries the EdgesOfTreatment edge of the Bill.
+func (b *Bill) QueryEdgesOfTreatment() *UnpaybillQuery {
+	return (&BillClient{config: b.config}).QueryEdgesOfTreatment(b)
 }
 
 // Update returns a builder for updating this Bill.

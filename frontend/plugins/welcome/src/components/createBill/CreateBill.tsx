@@ -278,16 +278,16 @@ const CreateBill: FC<{}> = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {unpaybills.map(item => (treatments.filter(t => t.id === item.edges?.treatment?.id).map(item2 => (
+                        {unpaybills.map(item => (treatments.filter(t => t.id === item.edges?.edgesOfTreatment?.id).map(item2 => (
                           <TableRow key={item.id}>
                             <TableCell align="center">{item2.id}</TableCell>
-                            <TableCell align="center">{item2.edges?.patientrecord?.name}</TableCell>
-                            <TableCell align="center">{item2.edges?.typetreatment?.typetreatment}</TableCell>
+                            <TableCell align="center">{item2.edges?.edgesOfPatientrecord?.name}</TableCell>
+                            <TableCell align="center">{item2.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
                             <TableCell align="center">
                               <Button
                                 onClick={() => {
                                   setunpayId(item.id as number);
-                                  setPatient(item2.edges?.patientrecord?.name as string);
+                                  setPatient(item2.edges?.edgesOfPatientrecord?.name as string);
                                   setTreatmentID(item2.id as number);
                                 }}
                                 variant="outlined"

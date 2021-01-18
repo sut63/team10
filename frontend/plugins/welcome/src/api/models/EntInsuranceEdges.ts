@@ -27,11 +27,11 @@ import {
  */
 export interface EntInsuranceEdges {
     /**
-     * InsurancePatientrights holds the value of the InsurancePatientrights edge.
+     * EdgesOfInsurancePatientrights holds the value of the EdgesOfInsurancePatientrights edge.
      * @type {Array<EntPatientrights>}
      * @memberof EntInsuranceEdges
      */
-    insurancePatientrights?: Array<EntPatientrights>;
+    edgesOfInsurancePatientrights?: Array<EntPatientrights>;
 }
 
 export function EntInsuranceEdgesFromJSON(json: any): EntInsuranceEdges {
@@ -44,7 +44,7 @@ export function EntInsuranceEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'insurancePatientrights': !exists(json, 'InsurancePatientrights') ? undefined : ((json['InsurancePatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
+        'edgesOfInsurancePatientrights': !exists(json, 'EdgesOfInsurancePatientrights') ? undefined : ((json['EdgesOfInsurancePatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntInsuranceEdgesToJSON(value?: EntInsuranceEdges | null): any {
     }
     return {
         
-        'insurancePatientrights': value.insurancePatientrights === undefined ? undefined : ((value.insurancePatientrights as Array<any>).map(EntPatientrightsToJSON)),
+        'EdgesOfInsurancePatientrights': value.edgesOfInsurancePatientrights === undefined ? undefined : ((value.edgesOfInsurancePatientrights as Array<any>).map(EntPatientrightsToJSON)),
     };
 }
 

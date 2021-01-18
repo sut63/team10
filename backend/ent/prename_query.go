@@ -27,8 +27,8 @@ type PrenameQuery struct {
 	unique     []string
 	predicates []predicate.Prename
 	// eager-loading edges.
-	withPrename2doctorinfo *DoctorinfoQuery
-	withPatientrecord      *PatientrecordQuery
+	withEdgesOfPrename2doctorinfo *DoctorinfoQuery
+	withEdgesOfPatientrecord      *PatientrecordQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -58,8 +58,8 @@ func (pq *PrenameQuery) Order(o ...OrderFunc) *PrenameQuery {
 	return pq
 }
 
-// QueryPrename2doctorinfo chains the current query on the prename2doctorinfo edge.
-func (pq *PrenameQuery) QueryPrename2doctorinfo() *DoctorinfoQuery {
+// QueryEdgesOfPrename2doctorinfo chains the current query on the EdgesOfPrename2doctorinfo edge.
+func (pq *PrenameQuery) QueryEdgesOfPrename2doctorinfo() *DoctorinfoQuery {
 	query := &DoctorinfoQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -68,7 +68,7 @@ func (pq *PrenameQuery) QueryPrename2doctorinfo() *DoctorinfoQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(prename.Table, prename.FieldID, pq.sqlQuery()),
 			sqlgraph.To(doctorinfo.Table, doctorinfo.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, prename.Prename2doctorinfoTable, prename.Prename2doctorinfoColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, prename.EdgesOfPrename2doctorinfoTable, prename.EdgesOfPrename2doctorinfoColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -76,8 +76,8 @@ func (pq *PrenameQuery) QueryPrename2doctorinfo() *DoctorinfoQuery {
 	return query
 }
 
-// QueryPatientrecord chains the current query on the patientrecord edge.
-func (pq *PrenameQuery) QueryPatientrecord() *PatientrecordQuery {
+// QueryEdgesOfPatientrecord chains the current query on the EdgesOfPatientrecord edge.
+func (pq *PrenameQuery) QueryEdgesOfPatientrecord() *PatientrecordQuery {
 	query := &PatientrecordQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
@@ -86,7 +86,7 @@ func (pq *PrenameQuery) QueryPatientrecord() *PatientrecordQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(prename.Table, prename.FieldID, pq.sqlQuery()),
 			sqlgraph.To(patientrecord.Table, patientrecord.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, prename.PatientrecordTable, prename.PatientrecordColumn),
+			sqlgraph.Edge(sqlgraph.O2M, false, prename.EdgesOfPatientrecordTable, prename.EdgesOfPatientrecordColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -273,25 +273,25 @@ func (pq *PrenameQuery) Clone() *PrenameQuery {
 	}
 }
 
-//  WithPrename2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
-// the "prename2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PrenameQuery) WithPrename2doctorinfo(opts ...func(*DoctorinfoQuery)) *PrenameQuery {
+//  WithEdgesOfPrename2doctorinfo tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPrename2doctorinfo" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PrenameQuery) WithEdgesOfPrename2doctorinfo(opts ...func(*DoctorinfoQuery)) *PrenameQuery {
 	query := &DoctorinfoQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withPrename2doctorinfo = query
+	pq.withEdgesOfPrename2doctorinfo = query
 	return pq
 }
 
-//  WithPatientrecord tells the query-builder to eager-loads the nodes that are connected to
-// the "patientrecord" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PrenameQuery) WithPatientrecord(opts ...func(*PatientrecordQuery)) *PrenameQuery {
+//  WithEdgesOfPatientrecord tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPatientrecord" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PrenameQuery) WithEdgesOfPatientrecord(opts ...func(*PatientrecordQuery)) *PrenameQuery {
 	query := &PatientrecordQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withPatientrecord = query
+	pq.withEdgesOfPatientrecord = query
 	return pq
 }
 
@@ -362,8 +362,8 @@ func (pq *PrenameQuery) sqlAll(ctx context.Context) ([]*Prename, error) {
 		nodes       = []*Prename{}
 		_spec       = pq.querySpec()
 		loadedTypes = [2]bool{
-			pq.withPrename2doctorinfo != nil,
-			pq.withPatientrecord != nil,
+			pq.withEdgesOfPrename2doctorinfo != nil,
+			pq.withEdgesOfPatientrecord != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -387,7 +387,7 @@ func (pq *PrenameQuery) sqlAll(ctx context.Context) ([]*Prename, error) {
 		return nodes, nil
 	}
 
-	if query := pq.withPrename2doctorinfo; query != nil {
+	if query := pq.withEdgesOfPrename2doctorinfo; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Prename)
 		for i := range nodes {
@@ -396,7 +396,7 @@ func (pq *PrenameQuery) sqlAll(ctx context.Context) ([]*Prename, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Doctorinfo(func(s *sql.Selector) {
-			s.Where(sql.InValues(prename.Prename2doctorinfoColumn, fks...))
+			s.Where(sql.InValues(prename.EdgesOfPrename2doctorinfoColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -411,11 +411,11 @@ func (pq *PrenameQuery) sqlAll(ctx context.Context) ([]*Prename, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "prefix" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Prename2doctorinfo = append(node.Edges.Prename2doctorinfo, n)
+			node.Edges.EdgesOfPrename2doctorinfo = append(node.Edges.EdgesOfPrename2doctorinfo, n)
 		}
 	}
 
-	if query := pq.withPatientrecord; query != nil {
+	if query := pq.withEdgesOfPatientrecord; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Prename)
 		for i := range nodes {
@@ -424,7 +424,7 @@ func (pq *PrenameQuery) sqlAll(ctx context.Context) ([]*Prename, error) {
 		}
 		query.withFKs = true
 		query.Where(predicate.Patientrecord(func(s *sql.Selector) {
-			s.Where(sql.InValues(prename.PatientrecordColumn, fks...))
+			s.Where(sql.InValues(prename.EdgesOfPatientrecordColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -439,7 +439,7 @@ func (pq *PrenameQuery) sqlAll(ctx context.Context) ([]*Prename, error) {
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "prefix_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.Patientrecord = append(node.Edges.Patientrecord, n)
+			node.Edges.EdgesOfPatientrecord = append(node.Edges.EdgesOfPatientrecord, n)
 		}
 	}
 

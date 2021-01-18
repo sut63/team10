@@ -31,17 +31,17 @@ import {
  */
 export interface EntNurseEdges {
     /**
-     * Historytaking holds the value of the historytaking edge.
+     * EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.
      * @type {Array<EntHistorytaking>}
      * @memberof EntNurseEdges
      */
-    historytaking?: Array<EntHistorytaking>;
+    edgesOfHistorytaking?: Array<EntHistorytaking>;
     /**
      * 
      * @type {EntUser}
      * @memberof EntNurseEdges
      */
-    user?: EntUser;
+    edgesOfUser?: EntUser;
 }
 
 export function EntNurseEdgesFromJSON(json: any): EntNurseEdges {
@@ -54,8 +54,8 @@ export function EntNurseEdgesFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'historytaking': !exists(json, 'Historytaking') ? undefined : ((json['Historytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
-        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
+        'edgesOfHistorytaking': !exists(json, 'EdgesOfHistorytaking') ? undefined : ((json['EdgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
+        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
     };
 }
 
@@ -68,8 +68,8 @@ export function EntNurseEdgesToJSON(value?: EntNurseEdges | null): any {
     }
     return {
         
-        'historytaking': value.historytaking === undefined ? undefined : ((value.historytaking as Array<any>).map(EntHistorytakingToJSON)),
-        'user': EntUserToJSON(value.user),
+        'EdgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
+        'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
     };
 }
 

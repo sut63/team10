@@ -31,7 +31,7 @@ export interface EntRegistrarEdges {
      * @type {EntUser}
      * @memberof EntRegistrarEdges
      */
-    user?: EntUser;
+    edgesOfUser?: EntUser;
 }
 
 export function EntRegistrarEdgesFromJSON(json: any): EntRegistrarEdges {
@@ -44,7 +44,7 @@ export function EntRegistrarEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
+        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntRegistrarEdgesToJSON(value?: EntRegistrarEdges | null): any {
     }
     return {
         
-        'user': EntUserToJSON(value.user),
+        'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
     };
 }
 

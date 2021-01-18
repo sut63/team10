@@ -26,19 +26,19 @@ func (oc *OfficeroomCreate) SetRoomnumber(s string) *OfficeroomCreate {
 	return oc
 }
 
-// AddOfficeroom2doctorinfoIDs adds the officeroom2doctorinfo edge to Doctorinfo by ids.
-func (oc *OfficeroomCreate) AddOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomCreate {
-	oc.mutation.AddOfficeroom2doctorinfoIDs(ids...)
+// AddEdgesOfOfficeroom2doctorinfoIDs adds the EdgesOfOfficeroom2doctorinfo edge to Doctorinfo by ids.
+func (oc *OfficeroomCreate) AddEdgesOfOfficeroom2doctorinfoIDs(ids ...int) *OfficeroomCreate {
+	oc.mutation.AddEdgesOfOfficeroom2doctorinfoIDs(ids...)
 	return oc
 }
 
-// AddOfficeroom2doctorinfo adds the officeroom2doctorinfo edges to Doctorinfo.
-func (oc *OfficeroomCreate) AddOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomCreate {
+// AddEdgesOfOfficeroom2doctorinfo adds the EdgesOfOfficeroom2doctorinfo edges to Doctorinfo.
+func (oc *OfficeroomCreate) AddEdgesOfOfficeroom2doctorinfo(d ...*Doctorinfo) *OfficeroomCreate {
 	ids := make([]int, len(d))
 	for i := range d {
 		ids[i] = d[i].ID
 	}
-	return oc.AddOfficeroom2doctorinfoIDs(ids...)
+	return oc.AddEdgesOfOfficeroom2doctorinfoIDs(ids...)
 }
 
 // Mutation returns the OfficeroomMutation object of the builder.
@@ -124,12 +124,12 @@ func (oc *OfficeroomCreate) createSpec() (*Officeroom, *sqlgraph.CreateSpec) {
 		})
 		o.Roomnumber = value
 	}
-	if nodes := oc.mutation.Officeroom2doctorinfoIDs(); len(nodes) > 0 {
+	if nodes := oc.mutation.EdgesOfOfficeroom2doctorinfoIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   officeroom.Officeroom2doctorinfoTable,
-			Columns: []string{officeroom.Officeroom2doctorinfoColumn},
+			Table:   officeroom.EdgesOfOfficeroom2doctorinfoTable,
+			Columns: []string{officeroom.EdgesOfOfficeroom2doctorinfoColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

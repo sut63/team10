@@ -27,11 +27,11 @@ import {
  */
 export interface EntAbilitypatientrightsEdges {
     /**
-     * AbilitypatientrightsPatientrightstype holds the value of the AbilitypatientrightsPatientrightstype edge.
+     * EdgesOfAbilitypatientrightsPatientrightstype holds the value of the EdgesOfAbilitypatientrightsPatientrightstype edge.
      * @type {Array<EntPatientrightstype>}
      * @memberof EntAbilitypatientrightsEdges
      */
-    abilitypatientrightsPatientrightstype?: Array<EntPatientrightstype>;
+    edgesOfAbilitypatientrightsPatientrightstype?: Array<EntPatientrightstype>;
 }
 
 export function EntAbilitypatientrightsEdgesFromJSON(json: any): EntAbilitypatientrightsEdges {
@@ -44,7 +44,7 @@ export function EntAbilitypatientrightsEdgesFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'abilitypatientrightsPatientrightstype': !exists(json, 'abilitypatientrightsPatientrightstype') ? undefined : ((json['abilitypatientrightsPatientrightstype'] as Array<any>).map(EntPatientrightstypeFromJSON)),
+        'edgesOfAbilitypatientrightsPatientrightstype': !exists(json, 'EdgesOfAbilitypatientrightsPatientrightstype') ? undefined : ((json['EdgesOfAbilitypatientrightsPatientrightstype'] as Array<any>).map(EntPatientrightstypeFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntAbilitypatientrightsEdgesToJSON(value?: EntAbilitypatientrigh
     }
     return {
         
-        'abilitypatientrightsPatientrightstype': value.abilitypatientrightsPatientrightstype === undefined ? undefined : ((value.abilitypatientrightsPatientrightstype as Array<any>).map(EntPatientrightstypeToJSON)),
+        'EdgesOfAbilitypatientrightsPatientrightstype': value.edgesOfAbilitypatientrightsPatientrightstype === undefined ? undefined : ((value.edgesOfAbilitypatientrightsPatientrightstype as Array<any>).map(EntPatientrightstypeToJSON)),
     };
 }
 

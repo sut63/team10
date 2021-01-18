@@ -26,25 +26,25 @@ type Registrar struct {
 
 // RegistrarEdges holds the relations/edges for other nodes in the graph.
 type RegistrarEdges struct {
-	// User holds the value of the user edge.
-	User *User
+	// EdgesOfUser holds the value of the EdgesOfUser edge.
+	EdgesOfUser *User
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// UserOrErr returns the User value or an error if the edge
+// EdgesOfUserOrErr returns the EdgesOfUser value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e RegistrarEdges) UserOrErr() (*User, error) {
+func (e RegistrarEdges) EdgesOfUserOrErr() (*User, error) {
 	if e.loadedTypes[0] {
-		if e.User == nil {
-			// The edge user was loaded in eager-loading,
+		if e.EdgesOfUser == nil {
+			// The edge EdgesOfUser was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: user.Label}
 		}
-		return e.User, nil
+		return e.EdgesOfUser, nil
 	}
-	return nil, &NotLoadedError{edge: "user"}
+	return nil, &NotLoadedError{edge: "EdgesOfUser"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -91,9 +91,9 @@ func (r *Registrar) assignValues(values ...interface{}) error {
 	return nil
 }
 
-// QueryUser queries the user edge of the Registrar.
-func (r *Registrar) QueryUser() *UserQuery {
-	return (&RegistrarClient{config: r.config}).QueryUser(r)
+// QueryEdgesOfUser queries the EdgesOfUser edge of the Registrar.
+func (r *Registrar) QueryEdgesOfUser() *UserQuery {
+	return (&RegistrarClient{config: r.config}).QueryEdgesOfUser(r)
 }
 
 // Update returns a builder for updating this Registrar.

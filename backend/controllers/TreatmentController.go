@@ -37,7 +37,7 @@ type Treatment struct {
 // @Accept   json
 // @Produce  json
 // @Param Treatment body Treatment true "Treatment entity"
-// @Success 200 {object} ent.Treatment
+// @Success 200 {object} Treatment
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /Treatments [post]
@@ -85,9 +85,9 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		Create().
 		SetTreatment(obj.Treatment).
 		SetDatetreat(t).
-		SetTypetreatment(ttm).
-		SetDoctor(d).
-		SetPatientrecord(pr).
+		SetEdgesOfTypetreatment(ttm).
+		SetEdgesOfDoctor(d).
+		SetEdgesOfPatientrecord(pr).
 		Save(context.Background())
 
 	if err != nil {
@@ -99,7 +99,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 // Create Unpaybill
 	ctl.client.Unpaybill.
 		Create().
-		SetTreatment(tm).
+		SetEdgesOfTreatment(tm).
 		SetStatus("Unpay").
 		Save(context.Background())
 
@@ -127,9 +127,9 @@ func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
 	}
 	tm, err := ctl.client.Treatment.
 		Query().
-		WithDoctor().
-		WithTypetreatment().
-		WithPatientrecord().
+		WithEdgesOfDoctor().
+		WithEdgesOfTypetreatment().
+		WithEdgesOfPatientrecord().
 		Where(treatment.IDEQ(int(id))).
 		Only(context.Background())
 
@@ -175,9 +175,9 @@ func (ctl *TreatmentController) ListTreatment(c *gin.Context) {
 
 	Treatment, err := ctl.client.Treatment.
 		Query().
-		WithDoctor().
-		WithTypetreatment().
-		WithPatientrecord().
+		WithEdgesOfDoctor().
+		WithEdgesOfTypetreatment().
+		WithEdgesOfPatientrecord().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

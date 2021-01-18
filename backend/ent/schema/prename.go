@@ -21,7 +21,7 @@ func (Prename) Fields() []ent.Field {
 // Edges of the Prename.
 func (Prename) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.To("prename2doctorinfo", Doctorinfo.Type).StorageKey(edge.Column("prefix")),
-		edge.To("patientrecord", Patientrecord.Type).StorageKey(edge.Column("prefix_id")),
+		edge.To("EdgesOfPrename2doctorinfo", Doctorinfo.Type).StorageKey(edge.Column("prefix")),
+		edge.To("EdgesOfPatientrecord", Patientrecord.Type).StorageKey(edge.Column("prefix_id")),
 	}
 }

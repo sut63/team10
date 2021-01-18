@@ -26,6 +26,6 @@ func (Abilitypatientrights) Fields() []ent.Field {
 func (Abilitypatientrights) Edges() []ent.Edge {
 	return []ent.Edge{
 		
-		edge.To("AbilitypatientrightsPatientrightstype", Patientrightstype.Type).StorageKey(edge.Column("Abilitypatientrights_id")),//เป็นส่วนประกอบของ Patientrightstype
+		edge.To("EdgesOfAbilitypatientrightsPatientrightstype", Patientrightstype.Type).StorageKey(edge.Column("Abilitypatientrights_id")),//เป็นส่วนประกอบของ Patientrightstype
     }
 }
