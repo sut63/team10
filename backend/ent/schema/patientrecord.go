@@ -17,7 +17,6 @@ func (Patientrecord) Fields() []ent.Field {
 		field.String("Name").Unique(),
 		field.Int("Idcardnumber"),
 		field.Int("Age"),
-		field.String("Bloodtype"),
 		field.String("Disease"),
 		field.String("Allergic"),
 		field.String("Phonenumber"),
@@ -31,6 +30,7 @@ func (Patientrecord) Fields() []ent.Field {
 func (Patientrecord) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("EdgesOfGender", Gender.Type).Ref("EdgesOfPatientrecord").Unique(),
+		edge.From("EdgesOfBloodtype", Bloodtype.Type).Ref("EdgesOfPatientrecord").Unique(),
 		edge.From("EdgesOfMedicalrecordstaff", Medicalrecordstaff.Type).Ref("EdgesOfPatientrecord").Unique(),
 		edge.From("EdgesOfPrename", Prename.Type).Ref("EdgesOfPatientrecord").Unique(),
 		edge.To("EdgesOfHistorytaking", Historytaking.Type).StorageKey(edge.Column("patientrecord_id")),

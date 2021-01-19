@@ -10,6 +10,7 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/gender"
 	"github.com/team10/app/ent/historytaking"
 	"github.com/team10/app/ent/medicalrecordstaff"
@@ -41,12 +42,6 @@ func (pc *PatientrecordCreate) SetIdcardnumber(i int) *PatientrecordCreate {
 // SetAge sets the Age field.
 func (pc *PatientrecordCreate) SetAge(i int) *PatientrecordCreate {
 	pc.mutation.SetAge(i)
-	return pc
-}
-
-// SetBloodtype sets the Bloodtype field.
-func (pc *PatientrecordCreate) SetBloodtype(s string) *PatientrecordCreate {
-	pc.mutation.SetBloodtype(s)
 	return pc
 }
 
@@ -103,6 +98,25 @@ func (pc *PatientrecordCreate) SetNillableEdgesOfGenderID(id *int) *Patientrecor
 // SetEdgesOfGender sets the EdgesOfGender edge to Gender.
 func (pc *PatientrecordCreate) SetEdgesOfGender(g *Gender) *PatientrecordCreate {
 	return pc.SetEdgesOfGenderID(g.ID)
+}
+
+// SetEdgesOfBloodtypeID sets the EdgesOfBloodtype edge to Bloodtype by id.
+func (pc *PatientrecordCreate) SetEdgesOfBloodtypeID(id int) *PatientrecordCreate {
+	pc.mutation.SetEdgesOfBloodtypeID(id)
+	return pc
+}
+
+// SetNillableEdgesOfBloodtypeID sets the EdgesOfBloodtype edge to Bloodtype by id if the given value is not nil.
+func (pc *PatientrecordCreate) SetNillableEdgesOfBloodtypeID(id *int) *PatientrecordCreate {
+	if id != nil {
+		pc = pc.SetEdgesOfBloodtypeID(*id)
+	}
+	return pc
+}
+
+// SetEdgesOfBloodtype sets the EdgesOfBloodtype edge to Bloodtype.
+func (pc *PatientrecordCreate) SetEdgesOfBloodtype(b *Bloodtype) *PatientrecordCreate {
+	return pc.SetEdgesOfBloodtypeID(b.ID)
 }
 
 // SetEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id.
@@ -203,9 +217,6 @@ func (pc *PatientrecordCreate) Save(ctx context.Context) (*Patientrecord, error)
 	}
 	if _, ok := pc.mutation.Age(); !ok {
 		return nil, &ValidationError{Name: "Age", err: errors.New("ent: missing required field \"Age\"")}
-	}
-	if _, ok := pc.mutation.Bloodtype(); !ok {
-		return nil, &ValidationError{Name: "Bloodtype", err: errors.New("ent: missing required field \"Bloodtype\"")}
 	}
 	if _, ok := pc.mutation.Disease(); !ok {
 		return nil, &ValidationError{Name: "Disease", err: errors.New("ent: missing required field \"Disease\"")}
@@ -309,14 +320,6 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 		})
 		pa.Age = value
 	}
-	if value, ok := pc.mutation.Bloodtype(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: patientrecord.FieldBloodtype,
-		})
-		pa.Bloodtype = value
-	}
 	if value, ok := pc.mutation.Disease(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -376,6 +379,25 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: gender.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
+	}
+	if nodes := pc.mutation.EdgesOfBloodtypeIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   patientrecord.EdgesOfBloodtypeTable,
+			Columns: []string{patientrecord.EdgesOfBloodtypeColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: bloodtype.FieldID,
 				},
 			},
 		}

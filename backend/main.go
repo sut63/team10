@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"io/ioutil"
+	"log"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -15,13 +15,14 @@ import (
 	_ "github.com/team10/app/docs"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/abilitypatientrights"
+	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/gender"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
 	_ "github.com/team10/app/ent/registrar"
-	"github.com/team10/app/ent/typetreatment"
 	"github.com/team10/app/ent/treatment"
+	"github.com/team10/app/ent/typetreatment"
 	"github.com/team10/app/ent/user"
 	"github.com/team10/app/ent/userstatus"
 
@@ -57,10 +58,10 @@ type Users struct {
 
 // Users defines the struct for the Users
 type User struct {
-	Userstatus 	int
-	Email      	string
-	Password   	string
-	Images		string
+	Userstatus int
+	Email      string
+	Password   string
+	Images     string
 }
 
 //^^^*******************************************************************^^^
@@ -176,6 +177,16 @@ type Medicalrecordstaff struct {
 	User int
 }
 
+// Bloodtypes defines the struct for the Bloodtypes
+type Bloodtypes struct {
+	Bloodtype []Bloodtype
+}
+
+// Bloodtype defines the struct for the Bloodtype
+type Bloodtype struct {
+	bloodtype string
+}
+
 // Patientrecords defines the struct for the Patientrecords
 type Patientrecords struct {
 	Patientrecord []Patientrecord
@@ -188,7 +199,7 @@ type Patientrecord struct {
 	Gender             int
 	Idcardnumber       int
 	Age                int
-	Bloodtype          string
+	Bloodtype          int
 	Disease            string
 	Allergic           string
 	Phonenumber        string
@@ -220,13 +231,15 @@ type Financier struct {
 	name string
 	user int
 }
+
 // Unpaybills defines the struct for the Unpaybills
 type Unpaybills struct {
 	Unpaybill []Unpaybill
 }
+
 // Unpaybill defines the struct for the Unpaybill
 type Unpaybill struct {
-	status string
+	status    string
 	treatment int
 }
 
@@ -394,6 +407,7 @@ func main() {
 	// Controller By Patientrecord System No.2
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewGenderController(v1, client)
+	controllers.NewBloodtypeController(v1, client)
 	controllers.NewMedicalrecordstaffController(v1, client)
 	controllers.NewPatientrecordController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
@@ -446,17 +460,17 @@ func main() {
 	// Set User Data
 	User := Users{
 		User: []User{
-			User{1, "B0", "1234","Images/images1.txt"},
-			User{2, "B1", "1234","Images/images2.txt"},
-			User{3, "B2", "1234","Images/images3.txt"},
-			User{3, "B3", "1234","Images/images4.txt"},
-			User{4, "B4", "1234","Images/images5.txt"},
-			User{5, "B5", "1234","Images/images6.txt"},
-			User{6, "B6", "1234","Images/images7.txt"},
-			User{2, "nara_haru", "1234","Images/images8.txt"},
-			User{3, "morani_rode", "1234","Images/images9.txt"},
-			User{3, "faratell_yova", "1234","Images/images10.txt"},
-			User{3, "pulla_visan", "1234","Images/images11.txt"},
+			User{1, "B0", "1234", "Images/images1.txt"},
+			User{2, "B1", "1234", "Images/images2.txt"},
+			User{3, "B2", "1234", "Images/images3.txt"},
+			User{3, "B3", "1234", "Images/images4.txt"},
+			User{4, "B4", "1234", "Images/images5.txt"},
+			User{5, "B5", "1234", "Images/images6.txt"},
+			User{6, "B6", "1234", "Images/images7.txt"},
+			User{2, "nara_haru", "1234", "Images/images8.txt"},
+			User{3, "morani_rode", "1234", "Images/images9.txt"},
+			User{3, "faratell_yova", "1234", "Images/images10.txt"},
+			User{3, "pulla_visan", "1234", "Images/images11.txt"},
 		},
 	}
 
@@ -475,7 +489,6 @@ func main() {
 		if err != nil {
 			fmt.Println(err.Error())
 		}
-
 
 		client.User.
 			Create().
@@ -608,6 +621,23 @@ func main() {
 			Save(context.Background())
 	}
 
+	// Set Bloodtype Data
+	bloodtypes := Bloodtypes{
+		Bloodtype: []Bloodtype{
+			Bloodtype{"A"},
+			Bloodtype{"B"},
+			Bloodtype{"O"},
+			Bloodtype{"AB"},
+		},
+	}
+
+	for _, bt := range bloodtypes.Bloodtype {
+		client.Bloodtype.
+			Create().
+			SetBloodtype(bt.bloodtype).
+			Save(context.Background())
+	}
+
 	// Set Medicalrecordstaff Data
 	medicalrecordstaffs := Medicalrecordstaffs{
 		Medicalrecordstaff: []Medicalrecordstaff{
@@ -639,9 +669,9 @@ func main() {
 	// Set Patientrecord Data
 	Patientrecords := Patientrecords{
 		Patientrecord: []Patientrecord{
-			Patientrecord{3, "วิลาฬ ชาญชัย", 1, 1300101198146, 21, "A", "-", "-", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิชัย ชาญชัย", 1, 1300101198136, 21, "A", "-", "-", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิลินา ชาญชัย", 1, 1300101198126, 21, "A", "-", "-", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลาฬ ชาญชัย", 1, 1300101198146, 21, 1, "-", "-", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิชัย ชาญชัย", 1, 1300101198136, 21, 1, "-", "-", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลินา ชาญชัย", 1, 1300101198126, 21, 1, "-", "-", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 		},
 	}
 	for _, pr := range Patientrecords.Patientrecord {
@@ -658,6 +688,16 @@ func main() {
 		g, err := client.Gender.
 			Query().
 			Where(gender.IDEQ(int(pr.Gender))).
+			Only(context.Background())
+
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		bt, err := client.Bloodtype.
+			Query().
+			Where(bloodtype.IDEQ(int(pr.Bloodtype))).
 			Only(context.Background())
 
 		if err != nil {
@@ -682,7 +722,7 @@ func main() {
 			SetEdgesOfGender(g).
 			SetIdcardnumber(pr.Idcardnumber).
 			SetAge(pr.Age).
-			SetBloodtype(pr.Bloodtype).
+			SetEdgesOfBloodtype(bt).
 			SetDisease(pr.Disease).
 			SetAllergic(pr.Allergic).
 			SetPhonenumber(pr.Phonenumber).

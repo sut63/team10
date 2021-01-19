@@ -258,6 +258,30 @@ func (f BillMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) 
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.BillMutation", m)
 }
 
+// The BloodtypeQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type BloodtypeQueryRuleFunc func(context.Context, *ent.BloodtypeQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f BloodtypeQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.BloodtypeQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.BloodtypeQuery", q)
+}
+
+// The BloodtypeMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type BloodtypeMutationRuleFunc func(context.Context, *ent.BloodtypeMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f BloodtypeMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.BloodtypeMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.BloodtypeMutation", m)
+}
+
 // The DepartmentQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type DepartmentQueryRuleFunc func(context.Context, *ent.DepartmentQuery) error

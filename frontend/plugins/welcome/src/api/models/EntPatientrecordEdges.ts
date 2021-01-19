@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    EntBloodtype,
+    EntBloodtypeFromJSON,
+    EntBloodtypeFromJSONTyped,
+    EntBloodtypeToJSON,
     EntGender,
     EntGenderFromJSON,
     EntGenderFromJSONTyped,
@@ -46,6 +50,12 @@ import {
  * @interface EntPatientrecordEdges
  */
 export interface EntPatientrecordEdges {
+    /**
+     * 
+     * @type {EntBloodtype}
+     * @memberof EntPatientrecordEdges
+     */
+    edgesOfBloodtype?: EntBloodtype;
     /**
      * 
      * @type {EntGender}
@@ -94,6 +104,7 @@ export function EntPatientrecordEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
+        'edgesOfBloodtype': !exists(json, 'EdgesOfBloodtype') ? undefined : EntBloodtypeFromJSON(json['EdgesOfBloodtype']),
         'edgesOfGender': !exists(json, 'EdgesOfGender') ? undefined : EntGenderFromJSON(json['EdgesOfGender']),
         'edgesOfHistorytaking': !exists(json, 'EdgesOfHistorytaking') ? undefined : ((json['EdgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
         'edgesOfMedicalrecordstaff': !exists(json, 'EdgesOfMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['EdgesOfMedicalrecordstaff']),
@@ -112,6 +123,7 @@ export function EntPatientrecordEdgesToJSON(value?: EntPatientrecordEdges | null
     }
     return {
         
+        'EdgesOfBloodtype': EntBloodtypeToJSON(value.edgesOfBloodtype),
         'EdgesOfGender': EntGenderToJSON(value.edgesOfGender),
         'EdgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
         'EdgesOfMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfMedicalrecordstaff),

@@ -73,7 +73,7 @@ definitions:
       allergic:
         type: string
       bloodtype:
-        type: string
+        type: integer
       date:
         type: string
       disease:
@@ -204,6 +204,30 @@ definitions:
         $ref: '#/definitions/ent.Unpaybill'
         description: EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
         type: object
+    type: object
+  ent.Bloodtype:
+    properties:
+      bloodtype:
+        description: Bloodtype holds the value of the "bloodtype" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.BloodtypeEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the BloodtypeQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.BloodtypeEdges:
+    properties:
+      EdgesOfPatientrecord:
+        description: EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord
+          edge.
+        items:
+          $ref: '#/definitions/ent.Patientrecord'
+        type: array
     type: object
   ent.Department:
     properties:
@@ -570,9 +594,6 @@ definitions:
       Allergic:
         description: Allergic holds the value of the "Allergic" field.
         type: string
-      Bloodtype:
-        description: Bloodtype holds the value of the "Bloodtype" field.
-        type: string
       Date:
         description: Date holds the value of the "Date" field.
         type: string
@@ -606,6 +627,10 @@ definitions:
     type: object
   ent.PatientrecordEdges:
     properties:
+      EdgesOfBloodtype:
+        $ref: '#/definitions/ent.Bloodtype'
+        description: EdgesOfBloodtype holds the value of the EdgesOfBloodtype edge.
+        type: object
       EdgesOfGender:
         $ref: '#/definitions/ent.Gender'
         description: EdgesOfGender holds the value of the EdgesOfGender edge.
@@ -1565,6 +1590,67 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Get a bill entity by ID
+  /bloodtype:
+    get:
+      description: list bloodtype entities
+      operationId: list-bloodtype
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Bloodtype'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List bloodtype entities
+  /bloodtype/{id}:
+    get:
+      description: get bloodtype by ID
+      operationId: get-bloodtype
+      parameters:
+      - description: Bloodtype ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Bloodtype'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a bloodtype entity by ID
   /department:
     get:
       description: list department entities

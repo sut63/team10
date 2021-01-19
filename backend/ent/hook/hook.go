@@ -35,6 +35,19 @@ func (f BillFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	return f(ctx, mv)
 }
 
+// The BloodtypeFunc type is an adapter to allow the use of ordinary
+// function as Bloodtype mutator.
+type BloodtypeFunc func(context.Context, *ent.BloodtypeMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f BloodtypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.BloodtypeMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.BloodtypeMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The DepartmentFunc type is an adapter to allow the use of ordinary
 // function as Department mutator.
 type DepartmentFunc func(context.Context, *ent.DepartmentMutation) (ent.Value, error)

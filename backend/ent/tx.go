@@ -16,6 +16,8 @@ type Tx struct {
 	Abilitypatientrights *AbilitypatientrightsClient
 	// Bill is the client for interacting with the Bill builders.
 	Bill *BillClient
+	// Bloodtype is the client for interacting with the Bloodtype builders.
+	Bloodtype *BloodtypeClient
 	// Department is the client for interacting with the Department builders.
 	Department *DepartmentClient
 	// Doctor is the client for interacting with the Doctor builders.
@@ -199,6 +201,7 @@ func (tx *Tx) Client() *Client {
 func (tx *Tx) init() {
 	tx.Abilitypatientrights = NewAbilitypatientrightsClient(tx.config)
 	tx.Bill = NewBillClient(tx.config)
+	tx.Bloodtype = NewBloodtypeClient(tx.config)
 	tx.Department = NewDepartmentClient(tx.config)
 	tx.Doctor = NewDoctorClient(tx.config)
 	tx.Doctorinfo = NewDoctorinfoClient(tx.config)

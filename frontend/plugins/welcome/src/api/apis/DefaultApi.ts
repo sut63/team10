@@ -48,6 +48,9 @@ import {
     EntBill,
     EntBillFromJSON,
     EntBillToJSON,
+    EntBloodtype,
+    EntBloodtypeFromJSON,
+    EntBloodtypeToJSON,
     EntDepartment,
     EntDepartmentFromJSON,
     EntDepartmentToJSON,
@@ -275,6 +278,10 @@ export interface GetBillRequest {
     id: number;
 }
 
+export interface GetBloodtypeRequest {
+    id: number;
+}
+
 export interface GetDepartmentRequest {
     id: number;
 }
@@ -373,6 +380,11 @@ export interface ListAbilitypatientrightsRequest {
 }
 
 export interface ListBillRequest {
+    limit?: number;
+    offset?: number;
+}
+
+export interface ListBloodtypeRequest {
     limit?: number;
     offset?: number;
 }
@@ -1876,6 +1888,38 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * get bloodtype by ID
+     * Get a bloodtype entity by ID
+     */
+    async getBloodtypeRaw(requestParameters: GetBloodtypeRequest): Promise<runtime.ApiResponse<EntBloodtype>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getBloodtype.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/bloodtype/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => EntBloodtypeFromJSON(jsonValue));
+    }
+
+    /**
+     * get bloodtype by ID
+     * Get a bloodtype entity by ID
+     */
+    async getBloodtype(requestParameters: GetBloodtypeRequest): Promise<EntBloodtype> {
+        const response = await this.getBloodtypeRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
      * get department by ID
      * Get a department entity by ID
      */
@@ -2680,6 +2724,42 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async listBill(requestParameters: ListBillRequest): Promise<Array<EntBill>> {
         const response = await this.listBillRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * list bloodtype entities
+     * List bloodtype entities
+     */
+    async listBloodtypeRaw(requestParameters: ListBloodtypeRequest): Promise<runtime.ApiResponse<Array<EntBloodtype>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/bloodtype`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntBloodtypeFromJSON));
+    }
+
+    /**
+     * list bloodtype entities
+     * List bloodtype entities
+     */
+    async listBloodtype(requestParameters: ListBloodtypeRequest): Promise<Array<EntBloodtype>> {
+        const response = await this.listBloodtypeRaw(requestParameters);
         return await response.value();
     }
 

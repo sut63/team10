@@ -12,6 +12,9 @@ type Abilitypatientrights func(*sql.Selector)
 // Bill is the predicate function for bill builders.
 type Bill func(*sql.Selector)
 
+// Bloodtype is the predicate function for bloodtype builders.
+type Bloodtype func(*sql.Selector)
+
 // Department is the predicate function for department builders.
 type Department func(*sql.Selector)
 

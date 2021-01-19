@@ -10,6 +10,7 @@ import (
 
 	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/bill"
+	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/department"
 	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/doctorinfo"
@@ -48,6 +49,7 @@ const (
 	// Node types.
 	TypeAbilitypatientrights = "Abilitypatientrights"
 	TypeBill                 = "Bill"
+	TypeBloodtype            = "Bloodtype"
 	TypeDepartment           = "Department"
 	TypeDoctor               = "Doctor"
 	TypeDoctorinfo           = "Doctorinfo"
@@ -1186,6 +1188,374 @@ func (m *BillMutation) ResetEdge(name string) error {
 		return nil
 	}
 	return fmt.Errorf("unknown Bill edge %s", name)
+}
+
+// BloodtypeMutation represents an operation that mutate the Bloodtypes
+// nodes in the graph.
+type BloodtypeMutation struct {
+	config
+	op                           Op
+	typ                          string
+	id                           *int
+	bloodtype                    *string
+	clearedFields                map[string]struct{}
+	_EdgesOfPatientrecord        map[int]struct{}
+	removed_EdgesOfPatientrecord map[int]struct{}
+	done                         bool
+	oldValue                     func(context.Context) (*Bloodtype, error)
+}
+
+var _ ent.Mutation = (*BloodtypeMutation)(nil)
+
+// bloodtypeOption allows to manage the mutation configuration using functional options.
+type bloodtypeOption func(*BloodtypeMutation)
+
+// newBloodtypeMutation creates new mutation for $n.Name.
+func newBloodtypeMutation(c config, op Op, opts ...bloodtypeOption) *BloodtypeMutation {
+	m := &BloodtypeMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeBloodtype,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withBloodtypeID sets the id field of the mutation.
+func withBloodtypeID(id int) bloodtypeOption {
+	return func(m *BloodtypeMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Bloodtype
+		)
+		m.oldValue = func(ctx context.Context) (*Bloodtype, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Bloodtype.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withBloodtype sets the old Bloodtype of the mutation.
+func withBloodtype(node *Bloodtype) bloodtypeOption {
+	return func(m *BloodtypeMutation) {
+		m.oldValue = func(context.Context) (*Bloodtype, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m BloodtypeMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m BloodtypeMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *BloodtypeMutation) ID() (id int, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetBloodtype sets the bloodtype field.
+func (m *BloodtypeMutation) SetBloodtype(s string) {
+	m.bloodtype = &s
+}
+
+// Bloodtype returns the bloodtype value in the mutation.
+func (m *BloodtypeMutation) Bloodtype() (r string, exists bool) {
+	v := m.bloodtype
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBloodtype returns the old bloodtype value of the Bloodtype.
+// If the Bloodtype object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *BloodtypeMutation) OldBloodtype(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBloodtype is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBloodtype requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBloodtype: %w", err)
+	}
+	return oldValue.Bloodtype, nil
+}
+
+// ResetBloodtype reset all changes of the "bloodtype" field.
+func (m *BloodtypeMutation) ResetBloodtype() {
+	m.bloodtype = nil
+}
+
+// AddEdgesOfPatientrecordIDs adds the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (m *BloodtypeMutation) AddEdgesOfPatientrecordIDs(ids ...int) {
+	if m._EdgesOfPatientrecord == nil {
+		m._EdgesOfPatientrecord = make(map[int]struct{})
+	}
+	for i := range ids {
+		m._EdgesOfPatientrecord[ids[i]] = struct{}{}
+	}
+}
+
+// RemoveEdgesOfPatientrecordIDs removes the EdgesOfPatientrecord edge to Patientrecord by ids.
+func (m *BloodtypeMutation) RemoveEdgesOfPatientrecordIDs(ids ...int) {
+	if m.removed_EdgesOfPatientrecord == nil {
+		m.removed_EdgesOfPatientrecord = make(map[int]struct{})
+	}
+	for i := range ids {
+		m.removed_EdgesOfPatientrecord[ids[i]] = struct{}{}
+	}
+}
+
+// RemovedEdgesOfPatientrecord returns the removed ids of EdgesOfPatientrecord.
+func (m *BloodtypeMutation) RemovedEdgesOfPatientrecordIDs() (ids []int) {
+	for id := range m.removed_EdgesOfPatientrecord {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// EdgesOfPatientrecordIDs returns the EdgesOfPatientrecord ids in the mutation.
+func (m *BloodtypeMutation) EdgesOfPatientrecordIDs() (ids []int) {
+	for id := range m._EdgesOfPatientrecord {
+		ids = append(ids, id)
+	}
+	return
+}
+
+// ResetEdgesOfPatientrecord reset all changes of the "EdgesOfPatientrecord" edge.
+func (m *BloodtypeMutation) ResetEdgesOfPatientrecord() {
+	m._EdgesOfPatientrecord = nil
+	m.removed_EdgesOfPatientrecord = nil
+}
+
+// Op returns the operation name.
+func (m *BloodtypeMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Bloodtype).
+func (m *BloodtypeMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *BloodtypeMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m.bloodtype != nil {
+		fields = append(fields, bloodtype.FieldBloodtype)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *BloodtypeMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case bloodtype.FieldBloodtype:
+		return m.Bloodtype()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *BloodtypeMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case bloodtype.FieldBloodtype:
+		return m.OldBloodtype(ctx)
+	}
+	return nil, fmt.Errorf("unknown Bloodtype field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *BloodtypeMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case bloodtype.FieldBloodtype:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBloodtype(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Bloodtype field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *BloodtypeMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *BloodtypeMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *BloodtypeMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown Bloodtype numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *BloodtypeMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *BloodtypeMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *BloodtypeMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown Bloodtype nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *BloodtypeMutation) ResetField(name string) error {
+	switch name {
+	case bloodtype.FieldBloodtype:
+		m.ResetBloodtype()
+		return nil
+	}
+	return fmt.Errorf("unknown Bloodtype field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *BloodtypeMutation) AddedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m._EdgesOfPatientrecord != nil {
+		edges = append(edges, bloodtype.EdgeEdgesOfPatientrecord)
+	}
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *BloodtypeMutation) AddedIDs(name string) []ent.Value {
+	switch name {
+	case bloodtype.EdgeEdgesOfPatientrecord:
+		ids := make([]ent.Value, 0, len(m._EdgesOfPatientrecord))
+		for id := range m._EdgesOfPatientrecord {
+			ids = append(ids, id)
+		}
+		return ids
+	}
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *BloodtypeMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 1)
+	if m.removed_EdgesOfPatientrecord != nil {
+		edges = append(edges, bloodtype.EdgeEdgesOfPatientrecord)
+	}
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *BloodtypeMutation) RemovedIDs(name string) []ent.Value {
+	switch name {
+	case bloodtype.EdgeEdgesOfPatientrecord:
+		ids := make([]ent.Value, 0, len(m.removed_EdgesOfPatientrecord))
+		for id := range m.removed_EdgesOfPatientrecord {
+			ids = append(ids, id)
+		}
+		return ids
+	}
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *BloodtypeMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 1)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *BloodtypeMutation) EdgeCleared(name string) bool {
+	switch name {
+	}
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *BloodtypeMutation) ClearEdge(name string) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown Bloodtype unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *BloodtypeMutation) ResetEdge(name string) error {
+	switch name {
+	case bloodtype.EdgeEdgesOfPatientrecord:
+		m.ResetEdgesOfPatientrecord()
+		return nil
+	}
+	return fmt.Errorf("unknown Bloodtype edge %s", name)
 }
 
 // DepartmentMutation represents an operation that mutate the Departments
@@ -6927,7 +7297,6 @@ type PatientrecordMutation struct {
 	add_Idcardnumber                          *int
 	_Age                                      *int
 	add_Age                                   *int
-	_Bloodtype                                *string
 	_Disease                                  *string
 	_Allergic                                 *string
 	_Phonenumber                              *string
@@ -6937,6 +7306,8 @@ type PatientrecordMutation struct {
 	clearedFields                             map[string]struct{}
 	_EdgesOfGender                            *int
 	cleared_EdgesOfGender                     bool
+	_EdgesOfBloodtype                         *int
+	cleared_EdgesOfBloodtype                  bool
 	_EdgesOfMedicalrecordstaff                *int
 	cleared_EdgesOfMedicalrecordstaff         bool
 	_EdgesOfPrename                           *int
@@ -7179,43 +7550,6 @@ func (m *PatientrecordMutation) AddedAge() (r int, exists bool) {
 func (m *PatientrecordMutation) ResetAge() {
 	m._Age = nil
 	m.add_Age = nil
-}
-
-// SetBloodtype sets the Bloodtype field.
-func (m *PatientrecordMutation) SetBloodtype(s string) {
-	m._Bloodtype = &s
-}
-
-// Bloodtype returns the Bloodtype value in the mutation.
-func (m *PatientrecordMutation) Bloodtype() (r string, exists bool) {
-	v := m._Bloodtype
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldBloodtype returns the old Bloodtype value of the Patientrecord.
-// If the Patientrecord object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *PatientrecordMutation) OldBloodtype(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldBloodtype is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldBloodtype requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldBloodtype: %w", err)
-	}
-	return oldValue.Bloodtype, nil
-}
-
-// ResetBloodtype reset all changes of the "Bloodtype" field.
-func (m *PatientrecordMutation) ResetBloodtype() {
-	m._Bloodtype = nil
 }
 
 // SetDisease sets the Disease field.
@@ -7479,6 +7813,45 @@ func (m *PatientrecordMutation) ResetEdgesOfGender() {
 	m.cleared_EdgesOfGender = false
 }
 
+// SetEdgesOfBloodtypeID sets the EdgesOfBloodtype edge to Bloodtype by id.
+func (m *PatientrecordMutation) SetEdgesOfBloodtypeID(id int) {
+	m._EdgesOfBloodtype = &id
+}
+
+// ClearEdgesOfBloodtype clears the EdgesOfBloodtype edge to Bloodtype.
+func (m *PatientrecordMutation) ClearEdgesOfBloodtype() {
+	m.cleared_EdgesOfBloodtype = true
+}
+
+// EdgesOfBloodtypeCleared returns if the edge EdgesOfBloodtype was cleared.
+func (m *PatientrecordMutation) EdgesOfBloodtypeCleared() bool {
+	return m.cleared_EdgesOfBloodtype
+}
+
+// EdgesOfBloodtypeID returns the EdgesOfBloodtype id in the mutation.
+func (m *PatientrecordMutation) EdgesOfBloodtypeID() (id int, exists bool) {
+	if m._EdgesOfBloodtype != nil {
+		return *m._EdgesOfBloodtype, true
+	}
+	return
+}
+
+// EdgesOfBloodtypeIDs returns the EdgesOfBloodtype ids in the mutation.
+// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
+// EdgesOfBloodtypeID instead. It exists only for internal usage by the builders.
+func (m *PatientrecordMutation) EdgesOfBloodtypeIDs() (ids []int) {
+	if id := m._EdgesOfBloodtype; id != nil {
+		ids = append(ids, *id)
+	}
+	return
+}
+
+// ResetEdgesOfBloodtype reset all changes of the "EdgesOfBloodtype" edge.
+func (m *PatientrecordMutation) ResetEdgesOfBloodtype() {
+	m._EdgesOfBloodtype = nil
+	m.cleared_EdgesOfBloodtype = false
+}
+
 // SetEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id.
 func (m *PatientrecordMutation) SetEdgesOfMedicalrecordstaffID(id int) {
 	m._EdgesOfMedicalrecordstaff = &id
@@ -7697,7 +8070,7 @@ func (m *PatientrecordMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *PatientrecordMutation) Fields() []string {
-	fields := make([]string, 0, 10)
+	fields := make([]string, 0, 9)
 	if m._Name != nil {
 		fields = append(fields, patientrecord.FieldName)
 	}
@@ -7706,9 +8079,6 @@ func (m *PatientrecordMutation) Fields() []string {
 	}
 	if m._Age != nil {
 		fields = append(fields, patientrecord.FieldAge)
-	}
-	if m._Bloodtype != nil {
-		fields = append(fields, patientrecord.FieldBloodtype)
 	}
 	if m._Disease != nil {
 		fields = append(fields, patientrecord.FieldDisease)
@@ -7742,8 +8112,6 @@ func (m *PatientrecordMutation) Field(name string) (ent.Value, bool) {
 		return m.Idcardnumber()
 	case patientrecord.FieldAge:
 		return m.Age()
-	case patientrecord.FieldBloodtype:
-		return m.Bloodtype()
 	case patientrecord.FieldDisease:
 		return m.Disease()
 	case patientrecord.FieldAllergic:
@@ -7771,8 +8139,6 @@ func (m *PatientrecordMutation) OldField(ctx context.Context, name string) (ent.
 		return m.OldIdcardnumber(ctx)
 	case patientrecord.FieldAge:
 		return m.OldAge(ctx)
-	case patientrecord.FieldBloodtype:
-		return m.OldBloodtype(ctx)
 	case patientrecord.FieldDisease:
 		return m.OldDisease(ctx)
 	case patientrecord.FieldAllergic:
@@ -7814,13 +8180,6 @@ func (m *PatientrecordMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetAge(v)
-		return nil
-	case patientrecord.FieldBloodtype:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetBloodtype(v)
 		return nil
 	case patientrecord.FieldDisease:
 		v, ok := value.(string)
@@ -7950,9 +8309,6 @@ func (m *PatientrecordMutation) ResetField(name string) error {
 	case patientrecord.FieldAge:
 		m.ResetAge()
 		return nil
-	case patientrecord.FieldBloodtype:
-		m.ResetBloodtype()
-		return nil
 	case patientrecord.FieldDisease:
 		m.ResetDisease()
 		return nil
@@ -7978,9 +8334,12 @@ func (m *PatientrecordMutation) ResetField(name string) error {
 // AddedEdges returns all edge names that were set/added in this
 // mutation.
 func (m *PatientrecordMutation) AddedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m._EdgesOfGender != nil {
 		edges = append(edges, patientrecord.EdgeEdgesOfGender)
+	}
+	if m._EdgesOfBloodtype != nil {
+		edges = append(edges, patientrecord.EdgeEdgesOfBloodtype)
 	}
 	if m._EdgesOfMedicalrecordstaff != nil {
 		edges = append(edges, patientrecord.EdgeEdgesOfMedicalrecordstaff)
@@ -8006,6 +8365,10 @@ func (m *PatientrecordMutation) AddedIDs(name string) []ent.Value {
 	switch name {
 	case patientrecord.EdgeEdgesOfGender:
 		if id := m._EdgesOfGender; id != nil {
+			return []ent.Value{*id}
+		}
+	case patientrecord.EdgeEdgesOfBloodtype:
+		if id := m._EdgesOfBloodtype; id != nil {
 			return []ent.Value{*id}
 		}
 	case patientrecord.EdgeEdgesOfMedicalrecordstaff:
@@ -8041,7 +8404,7 @@ func (m *PatientrecordMutation) AddedIDs(name string) []ent.Value {
 // RemovedEdges returns all edge names that were removed in this
 // mutation.
 func (m *PatientrecordMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.removed_EdgesOfHistorytaking != nil {
 		edges = append(edges, patientrecord.EdgeEdgesOfHistorytaking)
 	}
@@ -8083,9 +8446,12 @@ func (m *PatientrecordMutation) RemovedIDs(name string) []ent.Value {
 // ClearedEdges returns all edge names that were cleared in this
 // mutation.
 func (m *PatientrecordMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 6)
+	edges := make([]string, 0, 7)
 	if m.cleared_EdgesOfGender {
 		edges = append(edges, patientrecord.EdgeEdgesOfGender)
+	}
+	if m.cleared_EdgesOfBloodtype {
+		edges = append(edges, patientrecord.EdgeEdgesOfBloodtype)
 	}
 	if m.cleared_EdgesOfMedicalrecordstaff {
 		edges = append(edges, patientrecord.EdgeEdgesOfMedicalrecordstaff)
@@ -8102,6 +8468,8 @@ func (m *PatientrecordMutation) EdgeCleared(name string) bool {
 	switch name {
 	case patientrecord.EdgeEdgesOfGender:
 		return m.cleared_EdgesOfGender
+	case patientrecord.EdgeEdgesOfBloodtype:
+		return m.cleared_EdgesOfBloodtype
 	case patientrecord.EdgeEdgesOfMedicalrecordstaff:
 		return m.cleared_EdgesOfMedicalrecordstaff
 	case patientrecord.EdgeEdgesOfPrename:
@@ -8116,6 +8484,9 @@ func (m *PatientrecordMutation) ClearEdge(name string) error {
 	switch name {
 	case patientrecord.EdgeEdgesOfGender:
 		m.ClearEdgesOfGender()
+		return nil
+	case patientrecord.EdgeEdgesOfBloodtype:
+		m.ClearEdgesOfBloodtype()
 		return nil
 	case patientrecord.EdgeEdgesOfMedicalrecordstaff:
 		m.ClearEdgesOfMedicalrecordstaff()
@@ -8134,6 +8505,9 @@ func (m *PatientrecordMutation) ResetEdge(name string) error {
 	switch name {
 	case patientrecord.EdgeEdgesOfGender:
 		m.ResetEdgesOfGender()
+		return nil
+	case patientrecord.EdgeEdgesOfBloodtype:
+		m.ResetEdgesOfBloodtype()
 		return nil
 	case patientrecord.EdgeEdgesOfMedicalrecordstaff:
 		m.ResetEdgesOfMedicalrecordstaff()

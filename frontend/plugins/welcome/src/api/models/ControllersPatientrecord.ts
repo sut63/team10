@@ -33,10 +33,10 @@ export interface ControllersPatientrecord {
     allergic?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof ControllersPatientrecord
      */
-    bloodtype?: string;
+    bloodtype?: number;
     /**
      * 
      * @type {string}
