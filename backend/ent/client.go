@@ -11,6 +11,7 @@ import (
 
 	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/bill"
+	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/department"
 	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/doctorinfo"
@@ -49,6 +50,8 @@ type Client struct {
 	Abilitypatientrights *AbilitypatientrightsClient
 	// Bill is the client for interacting with the Bill builders.
 	Bill *BillClient
+	// Bloodtype is the client for interacting with the Bloodtype builders.
+	Bloodtype *BloodtypeClient
 	// Department is the client for interacting with the Department builders.
 	Department *DepartmentClient
 	// Doctor is the client for interacting with the Doctor builders.
@@ -110,6 +113,7 @@ func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
 	c.Abilitypatientrights = NewAbilitypatientrightsClient(c.config)
 	c.Bill = NewBillClient(c.config)
+	c.Bloodtype = NewBloodtypeClient(c.config)
 	c.Department = NewDepartmentClient(c.config)
 	c.Doctor = NewDoctorClient(c.config)
 	c.Doctorinfo = NewDoctorinfoClient(c.config)
@@ -167,6 +171,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		config:               cfg,
 		Abilitypatientrights: NewAbilitypatientrightsClient(cfg),
 		Bill:                 NewBillClient(cfg),
+		Bloodtype:            NewBloodtypeClient(cfg),
 		Department:           NewDepartmentClient(cfg),
 		Doctor:               NewDoctorClient(cfg),
 		Doctorinfo:           NewDoctorinfoClient(cfg),
@@ -207,6 +212,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		config:               cfg,
 		Abilitypatientrights: NewAbilitypatientrightsClient(cfg),
 		Bill:                 NewBillClient(cfg),
+		Bloodtype:            NewBloodtypeClient(cfg),
 		Department:           NewDepartmentClient(cfg),
 		Doctor:               NewDoctorClient(cfg),
 		Doctorinfo:           NewDoctorinfoClient(cfg),
@@ -260,6 +266,7 @@ func (c *Client) Close() error {
 func (c *Client) Use(hooks ...Hook) {
 	c.Abilitypatientrights.Use(hooks...)
 	c.Bill.Use(hooks...)
+	c.Bloodtype.Use(hooks...)
 	c.Department.Use(hooks...)
 	c.Doctor.Use(hooks...)
 	c.Doctorinfo.Use(hooks...)
@@ -513,6 +520,105 @@ func (c *BillClient) QueryEdgesOfTreatment(b *Bill) *UnpaybillQuery {
 // Hooks returns the client hooks.
 func (c *BillClient) Hooks() []Hook {
 	return c.hooks.Bill
+}
+
+// BloodtypeClient is a client for the Bloodtype schema.
+type BloodtypeClient struct {
+	config
+}
+
+// NewBloodtypeClient returns a client for the Bloodtype from the given config.
+func NewBloodtypeClient(c config) *BloodtypeClient {
+	return &BloodtypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `bloodtype.Hooks(f(g(h())))`.
+func (c *BloodtypeClient) Use(hooks ...Hook) {
+	c.hooks.Bloodtype = append(c.hooks.Bloodtype, hooks...)
+}
+
+// Create returns a create builder for Bloodtype.
+func (c *BloodtypeClient) Create() *BloodtypeCreate {
+	mutation := newBloodtypeMutation(c.config, OpCreate)
+	return &BloodtypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Update returns an update builder for Bloodtype.
+func (c *BloodtypeClient) Update() *BloodtypeUpdate {
+	mutation := newBloodtypeMutation(c.config, OpUpdate)
+	return &BloodtypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *BloodtypeClient) UpdateOne(b *Bloodtype) *BloodtypeUpdateOne {
+	mutation := newBloodtypeMutation(c.config, OpUpdateOne, withBloodtype(b))
+	return &BloodtypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *BloodtypeClient) UpdateOneID(id int) *BloodtypeUpdateOne {
+	mutation := newBloodtypeMutation(c.config, OpUpdateOne, withBloodtypeID(id))
+	return &BloodtypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Bloodtype.
+func (c *BloodtypeClient) Delete() *BloodtypeDelete {
+	mutation := newBloodtypeMutation(c.config, OpDelete)
+	return &BloodtypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *BloodtypeClient) DeleteOne(b *Bloodtype) *BloodtypeDeleteOne {
+	return c.DeleteOneID(b.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *BloodtypeClient) DeleteOneID(id int) *BloodtypeDeleteOne {
+	builder := c.Delete().Where(bloodtype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &BloodtypeDeleteOne{builder}
+}
+
+// Create returns a query builder for Bloodtype.
+func (c *BloodtypeClient) Query() *BloodtypeQuery {
+	return &BloodtypeQuery{config: c.config}
+}
+
+// Get returns a Bloodtype entity by its id.
+func (c *BloodtypeClient) Get(ctx context.Context, id int) (*Bloodtype, error) {
+	return c.Query().Where(bloodtype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *BloodtypeClient) GetX(ctx context.Context, id int) *Bloodtype {
+	b, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return b
+}
+
+// QueryEdgesOfPatientrecord queries the EdgesOfPatientrecord edge of a Bloodtype.
+func (c *BloodtypeClient) QueryEdgesOfPatientrecord(b *Bloodtype) *PatientrecordQuery {
+	query := &PatientrecordQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := b.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(bloodtype.Table, bloodtype.FieldID, id),
+			sqlgraph.To(patientrecord.Table, patientrecord.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, bloodtype.EdgesOfPatientrecordTable, bloodtype.EdgesOfPatientrecordColumn),
+		)
+		fromV = sqlgraph.Neighbors(b.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// Hooks returns the client hooks.
+func (c *BloodtypeClient) Hooks() []Hook {
+	return c.hooks.Bloodtype
 }
 
 // DepartmentClient is a client for the Department schema.
@@ -1915,6 +2021,22 @@ func (c *PatientrecordClient) QueryEdgesOfGender(pa *Patientrecord) *GenderQuery
 			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, id),
 			sqlgraph.To(gender.Table, gender.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.EdgesOfGenderTable, patientrecord.EdgesOfGenderColumn),
+		)
+		fromV = sqlgraph.Neighbors(pa.driver.Dialect(), step)
+		return fromV, nil
+	}
+	return query
+}
+
+// QueryEdgesOfBloodtype queries the EdgesOfBloodtype edge of a Patientrecord.
+func (c *PatientrecordClient) QueryEdgesOfBloodtype(pa *Patientrecord) *BloodtypeQuery {
+	query := &BloodtypeQuery{config: c.config}
+	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
+		id := pa.ID
+		step := sqlgraph.NewStep(
+			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, id),
+			sqlgraph.To(bloodtype.Table, bloodtype.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.EdgesOfBloodtypeTable, patientrecord.EdgesOfBloodtypeColumn),
 		)
 		fromV = sqlgraph.Neighbors(pa.driver.Dialect(), step)
 		return fromV, nil

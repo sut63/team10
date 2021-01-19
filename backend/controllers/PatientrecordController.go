@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
+	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/gender"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
@@ -24,10 +25,10 @@ type Patientrecord struct {
 	Gender             int
 	Medicalrecordstaff int
 	Prename            int
+	Bloodtype          int
 	Name               string
 	Idcardnumber       string
 	Age                string
-	Bloodtype          string
 	Disease            string
 	Allergic           string
 	Phonenumber        string
@@ -89,6 +90,17 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		return
 	}
 
+	bt, err := ctl.client.Bloodtype.
+		Query().
+		Where(bloodtype.IDEQ(int(obj.Bloodtype))).
+		Only(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "saving failed",
+		})
+		return
+	}
+
 	timess := time.Now().Local()
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -120,7 +132,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		SetName(obj.Name).
 		SetIdcardnumber(id).
 		SetAge(a).
-		SetBloodtype(obj.Bloodtype).
+		SetEdgesOfBloodtype(bt).
 		SetDisease(obj.Disease).
 		SetAllergic(obj.Allergic).
 		SetPhonenumber(obj.Phonenumber).

@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/gender"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
@@ -25,8 +26,6 @@ type Patientrecord struct {
 	Idcardnumber int `json:"Idcardnumber,omitempty"`
 	// Age holds the value of the "Age" field.
 	Age int `json:"Age,omitempty"`
-	// Bloodtype holds the value of the "Bloodtype" field.
-	Bloodtype string `json:"Bloodtype,omitempty"`
 	// Disease holds the value of the "Disease" field.
 	Disease string `json:"Disease,omitempty"`
 	// Allergic holds the value of the "Allergic" field.
@@ -42,6 +41,7 @@ type Patientrecord struct {
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the PatientrecordQuery when eager-loading is set.
 	Edges                 PatientrecordEdges `json:"edges"`
+	bloodtype_id          *int
 	gender_id             *int
 	medicalrecordstaff_id *int
 	prefix_id             *int
@@ -51,6 +51,8 @@ type Patientrecord struct {
 type PatientrecordEdges struct {
 	// EdgesOfGender holds the value of the EdgesOfGender edge.
 	EdgesOfGender *Gender
+	// EdgesOfBloodtype holds the value of the EdgesOfBloodtype edge.
+	EdgesOfBloodtype *Bloodtype
 	// EdgesOfMedicalrecordstaff holds the value of the EdgesOfMedicalrecordstaff edge.
 	EdgesOfMedicalrecordstaff *Medicalrecordstaff
 	// EdgesOfPrename holds the value of the EdgesOfPrename edge.
@@ -63,7 +65,7 @@ type PatientrecordEdges struct {
 	EdgesOfPatientrecordPatientrights []*Patientrights
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
-	loadedTypes [6]bool
+	loadedTypes [7]bool
 }
 
 // EdgesOfGenderOrErr returns the EdgesOfGender value or an error if the edge
@@ -80,10 +82,24 @@ func (e PatientrecordEdges) EdgesOfGenderOrErr() (*Gender, error) {
 	return nil, &NotLoadedError{edge: "EdgesOfGender"}
 }
 
+// EdgesOfBloodtypeOrErr returns the EdgesOfBloodtype value or an error if the edge
+// was not loaded in eager-loading, or loaded but was not found.
+func (e PatientrecordEdges) EdgesOfBloodtypeOrErr() (*Bloodtype, error) {
+	if e.loadedTypes[1] {
+		if e.EdgesOfBloodtype == nil {
+			// The edge EdgesOfBloodtype was loaded in eager-loading,
+			// but was not found.
+			return nil, &NotFoundError{label: bloodtype.Label}
+		}
+		return e.EdgesOfBloodtype, nil
+	}
+	return nil, &NotLoadedError{edge: "EdgesOfBloodtype"}
+}
+
 // EdgesOfMedicalrecordstaffOrErr returns the EdgesOfMedicalrecordstaff value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e PatientrecordEdges) EdgesOfMedicalrecordstaffOrErr() (*Medicalrecordstaff, error) {
-	if e.loadedTypes[1] {
+	if e.loadedTypes[2] {
 		if e.EdgesOfMedicalrecordstaff == nil {
 			// The edge EdgesOfMedicalrecordstaff was loaded in eager-loading,
 			// but was not found.
@@ -97,7 +113,7 @@ func (e PatientrecordEdges) EdgesOfMedicalrecordstaffOrErr() (*Medicalrecordstaf
 // EdgesOfPrenameOrErr returns the EdgesOfPrename value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
 func (e PatientrecordEdges) EdgesOfPrenameOrErr() (*Prename, error) {
-	if e.loadedTypes[2] {
+	if e.loadedTypes[3] {
 		if e.EdgesOfPrename == nil {
 			// The edge EdgesOfPrename was loaded in eager-loading,
 			// but was not found.
@@ -111,7 +127,7 @@ func (e PatientrecordEdges) EdgesOfPrenameOrErr() (*Prename, error) {
 // EdgesOfHistorytakingOrErr returns the EdgesOfHistorytaking value or an error if the edge
 // was not loaded in eager-loading.
 func (e PatientrecordEdges) EdgesOfHistorytakingOrErr() ([]*Historytaking, error) {
-	if e.loadedTypes[3] {
+	if e.loadedTypes[4] {
 		return e.EdgesOfHistorytaking, nil
 	}
 	return nil, &NotLoadedError{edge: "EdgesOfHistorytaking"}
@@ -120,7 +136,7 @@ func (e PatientrecordEdges) EdgesOfHistorytakingOrErr() ([]*Historytaking, error
 // EdgesOfTreatmentOrErr returns the EdgesOfTreatment value or an error if the edge
 // was not loaded in eager-loading.
 func (e PatientrecordEdges) EdgesOfTreatmentOrErr() ([]*Treatment, error) {
-	if e.loadedTypes[4] {
+	if e.loadedTypes[5] {
 		return e.EdgesOfTreatment, nil
 	}
 	return nil, &NotLoadedError{edge: "EdgesOfTreatment"}
@@ -129,7 +145,7 @@ func (e PatientrecordEdges) EdgesOfTreatmentOrErr() ([]*Treatment, error) {
 // EdgesOfPatientrecordPatientrightsOrErr returns the EdgesOfPatientrecordPatientrights value or an error if the edge
 // was not loaded in eager-loading.
 func (e PatientrecordEdges) EdgesOfPatientrecordPatientrightsOrErr() ([]*Patientrights, error) {
-	if e.loadedTypes[5] {
+	if e.loadedTypes[6] {
 		return e.EdgesOfPatientrecordPatientrights, nil
 	}
 	return nil, &NotLoadedError{edge: "EdgesOfPatientrecordPatientrights"}
@@ -142,7 +158,6 @@ func (*Patientrecord) scanValues() []interface{} {
 		&sql.NullString{}, // Name
 		&sql.NullInt64{},  // Idcardnumber
 		&sql.NullInt64{},  // Age
-		&sql.NullString{}, // Bloodtype
 		&sql.NullString{}, // Disease
 		&sql.NullString{}, // Allergic
 		&sql.NullString{}, // Phonenumber
@@ -155,6 +170,7 @@ func (*Patientrecord) scanValues() []interface{} {
 // fkValues returns the types for scanning foreign-keys values from sql.Rows.
 func (*Patientrecord) fkValues() []interface{} {
 	return []interface{}{
+		&sql.NullInt64{}, // bloodtype_id
 		&sql.NullInt64{}, // gender_id
 		&sql.NullInt64{}, // medicalrecordstaff_id
 		&sql.NullInt64{}, // prefix_id
@@ -189,55 +205,56 @@ func (pa *Patientrecord) assignValues(values ...interface{}) error {
 		pa.Age = int(value.Int64)
 	}
 	if value, ok := values[3].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Bloodtype", values[3])
-	} else if value.Valid {
-		pa.Bloodtype = value.String
-	}
-	if value, ok := values[4].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Disease", values[4])
+		return fmt.Errorf("unexpected type %T for field Disease", values[3])
 	} else if value.Valid {
 		pa.Disease = value.String
 	}
-	if value, ok := values[5].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Allergic", values[5])
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Allergic", values[4])
 	} else if value.Valid {
 		pa.Allergic = value.String
 	}
-	if value, ok := values[6].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Phonenumber", values[6])
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Phonenumber", values[5])
 	} else if value.Valid {
 		pa.Phonenumber = value.String
 	}
-	if value, ok := values[7].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Email", values[7])
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Email", values[6])
 	} else if value.Valid {
 		pa.Email = value.String
 	}
-	if value, ok := values[8].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Home", values[8])
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Home", values[7])
 	} else if value.Valid {
 		pa.Home = value.String
 	}
-	if value, ok := values[9].(*sql.NullTime); !ok {
-		return fmt.Errorf("unexpected type %T for field Date", values[9])
+	if value, ok := values[8].(*sql.NullTime); !ok {
+		return fmt.Errorf("unexpected type %T for field Date", values[8])
 	} else if value.Valid {
 		pa.Date = value.Time
 	}
-	values = values[10:]
+	values = values[9:]
 	if len(values) == len(patientrecord.ForeignKeys) {
 		if value, ok := values[0].(*sql.NullInt64); !ok {
+			return fmt.Errorf("unexpected type %T for edge-field bloodtype_id", value)
+		} else if value.Valid {
+			pa.bloodtype_id = new(int)
+			*pa.bloodtype_id = int(value.Int64)
+		}
+		if value, ok := values[1].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field gender_id", value)
 		} else if value.Valid {
 			pa.gender_id = new(int)
 			*pa.gender_id = int(value.Int64)
 		}
-		if value, ok := values[1].(*sql.NullInt64); !ok {
+		if value, ok := values[2].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field medicalrecordstaff_id", value)
 		} else if value.Valid {
 			pa.medicalrecordstaff_id = new(int)
 			*pa.medicalrecordstaff_id = int(value.Int64)
 		}
-		if value, ok := values[2].(*sql.NullInt64); !ok {
+		if value, ok := values[3].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field prefix_id", value)
 		} else if value.Valid {
 			pa.prefix_id = new(int)
@@ -250,6 +267,11 @@ func (pa *Patientrecord) assignValues(values ...interface{}) error {
 // QueryEdgesOfGender queries the EdgesOfGender edge of the Patientrecord.
 func (pa *Patientrecord) QueryEdgesOfGender() *GenderQuery {
 	return (&PatientrecordClient{config: pa.config}).QueryEdgesOfGender(pa)
+}
+
+// QueryEdgesOfBloodtype queries the EdgesOfBloodtype edge of the Patientrecord.
+func (pa *Patientrecord) QueryEdgesOfBloodtype() *BloodtypeQuery {
+	return (&PatientrecordClient{config: pa.config}).QueryEdgesOfBloodtype(pa)
 }
 
 // QueryEdgesOfMedicalrecordstaff queries the EdgesOfMedicalrecordstaff edge of the Patientrecord.
@@ -306,8 +328,6 @@ func (pa *Patientrecord) String() string {
 	builder.WriteString(fmt.Sprintf("%v", pa.Idcardnumber))
 	builder.WriteString(", Age=")
 	builder.WriteString(fmt.Sprintf("%v", pa.Age))
-	builder.WriteString(", Bloodtype=")
-	builder.WriteString(pa.Bloodtype)
 	builder.WriteString(", Disease=")
 	builder.WriteString(pa.Disease)
 	builder.WriteString(", Allergic=")

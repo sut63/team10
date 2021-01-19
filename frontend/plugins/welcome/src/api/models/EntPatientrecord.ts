@@ -39,12 +39,6 @@ export interface EntPatientrecord {
      */
     allergic?: string;
     /**
-     * Bloodtype holds the value of the "Bloodtype" field.
-     * @type {string}
-     * @memberof EntPatientrecord
-     */
-    bloodtype?: string;
-    /**
      * Date holds the value of the "Date" field.
      * @type {string}
      * @memberof EntPatientrecord
@@ -112,7 +106,6 @@ export function EntPatientrecordFromJSONTyped(json: any, ignoreDiscriminator: bo
         
         'age': !exists(json, 'Age') ? undefined : json['Age'],
         'allergic': !exists(json, 'Allergic') ? undefined : json['Allergic'],
-        'bloodtype': !exists(json, 'Bloodtype') ? undefined : json['Bloodtype'],
         'date': !exists(json, 'Date') ? undefined : json['Date'],
         'disease': !exists(json, 'Disease') ? undefined : json['Disease'],
         'email': !exists(json, 'Email') ? undefined : json['Email'],
@@ -136,7 +129,6 @@ export function EntPatientrecordToJSON(value?: EntPatientrecord | null): any {
         
         'Age': value.age,
         'Allergic': value.allergic,
-        'Bloodtype': value.bloodtype,
         'Date': value.date,
         'Disease': value.disease,
         'Email': value.email,

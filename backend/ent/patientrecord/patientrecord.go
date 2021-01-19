@@ -13,8 +13,6 @@ const (
 	FieldIdcardnumber = "idcardnumber"
 	// FieldAge holds the string denoting the age field in the database.
 	FieldAge = "age"
-	// FieldBloodtype holds the string denoting the bloodtype field in the database.
-	FieldBloodtype = "bloodtype"
 	// FieldDisease holds the string denoting the disease field in the database.
 	FieldDisease = "disease"
 	// FieldAllergic holds the string denoting the allergic field in the database.
@@ -30,6 +28,8 @@ const (
 
 	// EdgeEdgesOfGender holds the string denoting the edgesofgender edge name in mutations.
 	EdgeEdgesOfGender = "EdgesOfGender"
+	// EdgeEdgesOfBloodtype holds the string denoting the edgesofbloodtype edge name in mutations.
+	EdgeEdgesOfBloodtype = "EdgesOfBloodtype"
 	// EdgeEdgesOfMedicalrecordstaff holds the string denoting the edgesofmedicalrecordstaff edge name in mutations.
 	EdgeEdgesOfMedicalrecordstaff = "EdgesOfMedicalrecordstaff"
 	// EdgeEdgesOfPrename holds the string denoting the edgesofprename edge name in mutations.
@@ -50,6 +50,13 @@ const (
 	EdgesOfGenderInverseTable = "genders"
 	// EdgesOfGenderColumn is the table column denoting the EdgesOfGender relation/edge.
 	EdgesOfGenderColumn = "gender_id"
+	// EdgesOfBloodtypeTable is the table the holds the EdgesOfBloodtype relation/edge.
+	EdgesOfBloodtypeTable = "patientrecords"
+	// EdgesOfBloodtypeInverseTable is the table name for the Bloodtype entity.
+	// It exists in this package in order to avoid circular dependency with the "bloodtype" package.
+	EdgesOfBloodtypeInverseTable = "bloodtypes"
+	// EdgesOfBloodtypeColumn is the table column denoting the EdgesOfBloodtype relation/edge.
+	EdgesOfBloodtypeColumn = "bloodtype_id"
 	// EdgesOfMedicalrecordstaffTable is the table the holds the EdgesOfMedicalrecordstaff relation/edge.
 	EdgesOfMedicalrecordstaffTable = "patientrecords"
 	// EdgesOfMedicalrecordstaffInverseTable is the table name for the Medicalrecordstaff entity.
@@ -93,7 +100,6 @@ var Columns = []string{
 	FieldName,
 	FieldIdcardnumber,
 	FieldAge,
-	FieldBloodtype,
 	FieldDisease,
 	FieldAllergic,
 	FieldPhonenumber,
@@ -104,6 +110,7 @@ var Columns = []string{
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the Patientrecord type.
 var ForeignKeys = []string{
+	"bloodtype_id",
 	"gender_id",
 	"medicalrecordstaff_id",
 	"prefix_id",

@@ -10,6 +10,7 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/gender"
 	"github.com/team10/app/ent/historytaking"
 	"github.com/team10/app/ent/medicalrecordstaff"
@@ -66,12 +67,6 @@ func (pu *PatientrecordUpdate) AddAge(i int) *PatientrecordUpdate {
 	return pu
 }
 
-// SetBloodtype sets the Bloodtype field.
-func (pu *PatientrecordUpdate) SetBloodtype(s string) *PatientrecordUpdate {
-	pu.mutation.SetBloodtype(s)
-	return pu
-}
-
 // SetDisease sets the Disease field.
 func (pu *PatientrecordUpdate) SetDisease(s string) *PatientrecordUpdate {
 	pu.mutation.SetDisease(s)
@@ -125,6 +120,25 @@ func (pu *PatientrecordUpdate) SetNillableEdgesOfGenderID(id *int) *Patientrecor
 // SetEdgesOfGender sets the EdgesOfGender edge to Gender.
 func (pu *PatientrecordUpdate) SetEdgesOfGender(g *Gender) *PatientrecordUpdate {
 	return pu.SetEdgesOfGenderID(g.ID)
+}
+
+// SetEdgesOfBloodtypeID sets the EdgesOfBloodtype edge to Bloodtype by id.
+func (pu *PatientrecordUpdate) SetEdgesOfBloodtypeID(id int) *PatientrecordUpdate {
+	pu.mutation.SetEdgesOfBloodtypeID(id)
+	return pu
+}
+
+// SetNillableEdgesOfBloodtypeID sets the EdgesOfBloodtype edge to Bloodtype by id if the given value is not nil.
+func (pu *PatientrecordUpdate) SetNillableEdgesOfBloodtypeID(id *int) *PatientrecordUpdate {
+	if id != nil {
+		pu = pu.SetEdgesOfBloodtypeID(*id)
+	}
+	return pu
+}
+
+// SetEdgesOfBloodtype sets the EdgesOfBloodtype edge to Bloodtype.
+func (pu *PatientrecordUpdate) SetEdgesOfBloodtype(b *Bloodtype) *PatientrecordUpdate {
+	return pu.SetEdgesOfBloodtypeID(b.ID)
 }
 
 // SetEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id.
@@ -218,6 +232,12 @@ func (pu *PatientrecordUpdate) Mutation() *PatientrecordMutation {
 // ClearEdgesOfGender clears the EdgesOfGender edge to Gender.
 func (pu *PatientrecordUpdate) ClearEdgesOfGender() *PatientrecordUpdate {
 	pu.mutation.ClearEdgesOfGender()
+	return pu
+}
+
+// ClearEdgesOfBloodtype clears the EdgesOfBloodtype edge to Bloodtype.
+func (pu *PatientrecordUpdate) ClearEdgesOfBloodtype() *PatientrecordUpdate {
+	pu.mutation.ClearEdgesOfBloodtype()
 	return pu
 }
 
@@ -383,13 +403,6 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: patientrecord.FieldAge,
 		})
 	}
-	if value, ok := pu.mutation.Bloodtype(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: patientrecord.FieldBloodtype,
-		})
-	}
 	if value, ok := pu.mutation.Disease(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -459,6 +472,41 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: gender.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if pu.mutation.EdgesOfBloodtypeCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   patientrecord.EdgesOfBloodtypeTable,
+			Columns: []string{patientrecord.EdgesOfBloodtypeColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: bloodtype.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := pu.mutation.EdgesOfBloodtypeIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   patientrecord.EdgesOfBloodtypeTable,
+			Columns: []string{patientrecord.EdgesOfBloodtypeColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: bloodtype.FieldID,
 				},
 			},
 		}
@@ -701,12 +749,6 @@ func (puo *PatientrecordUpdateOne) AddAge(i int) *PatientrecordUpdateOne {
 	return puo
 }
 
-// SetBloodtype sets the Bloodtype field.
-func (puo *PatientrecordUpdateOne) SetBloodtype(s string) *PatientrecordUpdateOne {
-	puo.mutation.SetBloodtype(s)
-	return puo
-}
-
 // SetDisease sets the Disease field.
 func (puo *PatientrecordUpdateOne) SetDisease(s string) *PatientrecordUpdateOne {
 	puo.mutation.SetDisease(s)
@@ -760,6 +802,25 @@ func (puo *PatientrecordUpdateOne) SetNillableEdgesOfGenderID(id *int) *Patientr
 // SetEdgesOfGender sets the EdgesOfGender edge to Gender.
 func (puo *PatientrecordUpdateOne) SetEdgesOfGender(g *Gender) *PatientrecordUpdateOne {
 	return puo.SetEdgesOfGenderID(g.ID)
+}
+
+// SetEdgesOfBloodtypeID sets the EdgesOfBloodtype edge to Bloodtype by id.
+func (puo *PatientrecordUpdateOne) SetEdgesOfBloodtypeID(id int) *PatientrecordUpdateOne {
+	puo.mutation.SetEdgesOfBloodtypeID(id)
+	return puo
+}
+
+// SetNillableEdgesOfBloodtypeID sets the EdgesOfBloodtype edge to Bloodtype by id if the given value is not nil.
+func (puo *PatientrecordUpdateOne) SetNillableEdgesOfBloodtypeID(id *int) *PatientrecordUpdateOne {
+	if id != nil {
+		puo = puo.SetEdgesOfBloodtypeID(*id)
+	}
+	return puo
+}
+
+// SetEdgesOfBloodtype sets the EdgesOfBloodtype edge to Bloodtype.
+func (puo *PatientrecordUpdateOne) SetEdgesOfBloodtype(b *Bloodtype) *PatientrecordUpdateOne {
+	return puo.SetEdgesOfBloodtypeID(b.ID)
 }
 
 // SetEdgesOfMedicalrecordstaffID sets the EdgesOfMedicalrecordstaff edge to Medicalrecordstaff by id.
@@ -853,6 +914,12 @@ func (puo *PatientrecordUpdateOne) Mutation() *PatientrecordMutation {
 // ClearEdgesOfGender clears the EdgesOfGender edge to Gender.
 func (puo *PatientrecordUpdateOne) ClearEdgesOfGender() *PatientrecordUpdateOne {
 	puo.mutation.ClearEdgesOfGender()
+	return puo
+}
+
+// ClearEdgesOfBloodtype clears the EdgesOfBloodtype edge to Bloodtype.
+func (puo *PatientrecordUpdateOne) ClearEdgesOfBloodtype() *PatientrecordUpdateOne {
+	puo.mutation.ClearEdgesOfBloodtype()
 	return puo
 }
 
@@ -1016,13 +1083,6 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 			Column: patientrecord.FieldAge,
 		})
 	}
-	if value, ok := puo.mutation.Bloodtype(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: patientrecord.FieldBloodtype,
-		})
-	}
 	if value, ok := puo.mutation.Disease(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -1092,6 +1152,41 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: gender.FieldID,
+				},
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges.Add = append(_spec.Edges.Add, edge)
+	}
+	if puo.mutation.EdgesOfBloodtypeCleared() {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   patientrecord.EdgesOfBloodtypeTable,
+			Columns: []string{patientrecord.EdgesOfBloodtypeColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: bloodtype.FieldID,
+				},
+			},
+		}
+		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
+	}
+	if nodes := puo.mutation.EdgesOfBloodtypeIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.M2O,
+			Inverse: true,
+			Table:   patientrecord.EdgesOfBloodtypeTable,
+			Columns: []string{patientrecord.EdgesOfBloodtypeColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: &sqlgraph.FieldSpec{
+					Type:   field.TypeInt,
+					Column: bloodtype.FieldID,
 				},
 			},
 		}

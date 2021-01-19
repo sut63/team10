@@ -15,6 +15,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
+import { EntBloodtype } from '../../api/models/EntBloodtype';
 import { EntGender } from '../../api/models/EntGender';
 import { EntPrename } from '../../api/models/EntPrename';
 import { EntUser } from '../../api/models/EntUser';
@@ -66,14 +67,15 @@ export  default  function Create() {
 
   const [prename, setPrename] = React.useState<EntPrename[]>([]);
   const [gender, setGender] = React.useState<EntGender[]>([]);
+  const [bloodtype, setBloodtype] = React.useState<EntBloodtype[]>([]);
   const [medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
    
   const [prenameid, setprenameId] = React.useState(Number);
   const [genderid, setgenderId] = React.useState(Number);
+  const [bloodtypeid, setbloodtypeId] = React.useState(Number);
   const [name, setname] = React.useState(String);
   const [idcardnumber, setidcardnumber] = React.useState(String);
   const [age, setage] = React.useState(String);
-  const [bloodtype, setbloodtype] = React.useState(String);
   const [disease, setdisease] = React.useState(String);
   const [allergic, setallergic] = React.useState(String);
   const [phonenumber, setphonenumber] = React.useState(String);
@@ -95,6 +97,12 @@ export  default  function Create() {
         setGender(res);
     };
     getGender();
+    const getBloodtype = async () => {
+      const res = await api.listBloodtype({ limit: 4, offset: 0 });
+      setLoading(false);
+      setBloodtype(res);
+    };
+    getBloodtype();
     const getMedicalrecordstaff = async () => {
         const res = await api.getMedicalrecordstaff({ id: Number(MEDID) });
         setLoading(false);
@@ -116,6 +124,9 @@ export  default  function Create() {
       const GenderhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setgenderId(event.target.value as number);
       };
+      const BloodtypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        setbloodtypeId(event.target.value as number);
+      };
       const NamehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setname(event.target.value as string);
       };
@@ -124,9 +135,6 @@ export  default  function Create() {
       };
       const AgehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setage(event.target.value as string);
-      };
-      const BloodtypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setbloodtype(event.target.value as string);
       };
       const DiseasehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         setdisease(event.target.value as string);
@@ -145,16 +153,16 @@ export  default  function Create() {
       };
     
       const CreatePatientrecord = async () => {
-        if((name != '')&&(idcardnumber != '')&&(age != '')&&(bloodtype != '')&&(disease != '')&&(
+        if((name != '')&&(idcardnumber != '')&&(age != '')&&(bloodtypeid != null)&&(disease != '')&&(
           allergic != '')&&(phonenumber != '')&&(email != '')&&(home != '')&&(prenameid != null)&&(genderid != null)){
         const patientrecord = {
           prename : prenameid,
           gender : genderid ,
+          bloodtype : bloodtypeid,
           medicalrecordstaff : medicalrecordstaff?.id,
           name : name,
           idcardnumber : idcardnumber,
           age : age,
-          bloodtype : bloodtype,
           disease : disease,
           allergic : allergic,
           phonenumber : phonenumber,
@@ -257,7 +265,7 @@ export  default  function Create() {
             name="idcardnumber"
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
-            type="number"
+            type="string"
             value={idcardnumber}
             onChange={IdcardnumberhandleChange}
             /> &emsp;
@@ -267,20 +275,29 @@ export  default  function Create() {
             name="age"
             label="อายุ" 
             variant="outlined" 
-            type="number"
+            type="string"
             value={age}
             onChange={AgehandleChange}
             /> &emsp;
             
-            <TextField 
-            autoComplete="off"
-            name="bloodtype"
-            label="กรุ๊ปเลือด" 
-            variant="outlined" 
-            type="string"
-            value={bloodtype}
-            onChange={BloodtypehandleChange}
-            /> 
+            <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel>กรุ๊ปเลือด</InputLabel>
+                  <Select
+                    name="bloodtype"
+                    id="bloodtype"
+                    label="กรุ๊ปเลือด"
+                    value={bloodtypeid}
+                    onChange={BloodtypehandleChange}
+                  >
+                  {bloodtype.map(item => {
+                    return (
+                      <MenuItem value={item.id}>
+                      {item.bloodtype}
+                      </MenuItem>
+                      );
+                    })}
+                  </Select>
+            </FormControl>
             
             <div className={classes.paper}></div>
             <TextField 

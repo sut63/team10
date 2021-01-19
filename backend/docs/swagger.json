@@ -869,6 +869,98 @@
                 }
             }
         },
+        "/bloodtype": {
+            "get": {
+                "description": "list bloodtype entities",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "List bloodtype entities",
+                "operationId": "list-bloodtype",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Bloodtype"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
+        "/bloodtype/{id}": {
+            "get": {
+                "description": "get bloodtype by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get a bloodtype entity by ID",
+                "operationId": "get-bloodtype",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Bloodtype ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/ent.Bloodtype"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
         "/department": {
             "get": {
                 "description": "list department entities",
@@ -4797,7 +4889,7 @@
                     "type": "string"
                 },
                 "bloodtype": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "date": {
                     "type": "string"
@@ -4980,6 +5072,36 @@
                     "description": "EdgesOfTreatment holds the value of the EdgesOfTreatment edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Unpaybill"
+                }
+            }
+        },
+        "ent.Bloodtype": {
+            "type": "object",
+            "properties": {
+                "bloodtype": {
+                    "description": "Bloodtype holds the value of the \"bloodtype\" field.",
+                    "type": "string"
+                },
+                "edges": {
+                    "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the BloodtypeQuery when eager-loading is set.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.BloodtypeEdges"
+                },
+                "id": {
+                    "description": "ID of the ent.",
+                    "type": "integer"
+                }
+            }
+        },
+        "ent.BloodtypeEdges": {
+            "type": "object",
+            "properties": {
+                "EdgesOfPatientrecord": {
+                    "description": "EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ent.Patientrecord"
+                    }
                 }
             }
         },
@@ -5442,10 +5564,6 @@
                     "description": "Allergic holds the value of the \"Allergic\" field.",
                     "type": "string"
                 },
-                "Bloodtype": {
-                    "description": "Bloodtype holds the value of the \"Bloodtype\" field.",
-                    "type": "string"
-                },
                 "Date": {
                     "description": "Date holds the value of the \"Date\" field.",
                     "type": "string"
@@ -5488,6 +5606,11 @@
         "ent.PatientrecordEdges": {
             "type": "object",
             "properties": {
+                "EdgesOfBloodtype": {
+                    "description": "EdgesOfBloodtype holds the value of the EdgesOfBloodtype edge.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.Bloodtype"
+                },
                 "EdgesOfGender": {
                     "description": "EdgesOfGender holds the value of the EdgesOfGender edge.",
                     "type": "object",

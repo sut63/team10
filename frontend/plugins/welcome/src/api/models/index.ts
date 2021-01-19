@@ -11,6 +11,8 @@ export * from './EntAbilitypatientrights';
 export * from './EntAbilitypatientrightsEdges';
 export * from './EntBill';
 export * from './EntBillEdges';
+export * from './EntBloodtype';
+export * from './EntBloodtypeEdges';
 export * from './EntDepartment';
 export * from './EntDepartmentEdges';
 export * from './EntDoctor';

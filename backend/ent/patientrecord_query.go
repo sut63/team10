@@ -12,6 +12,7 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/gender"
 	"github.com/team10/app/ent/historytaking"
 	"github.com/team10/app/ent/medicalrecordstaff"
@@ -32,6 +33,7 @@ type PatientrecordQuery struct {
 	predicates []predicate.Patientrecord
 	// eager-loading edges.
 	withEdgesOfGender                     *GenderQuery
+	withEdgesOfBloodtype                  *BloodtypeQuery
 	withEdgesOfMedicalrecordstaff         *MedicalrecordstaffQuery
 	withEdgesOfPrename                    *PrenameQuery
 	withEdgesOfHistorytaking              *HistorytakingQuery
@@ -78,6 +80,24 @@ func (pq *PatientrecordQuery) QueryEdgesOfGender() *GenderQuery {
 			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, pq.sqlQuery()),
 			sqlgraph.To(gender.Table, gender.FieldID),
 			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.EdgesOfGenderTable, patientrecord.EdgesOfGenderColumn),
+		)
+		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
+		return fromU, nil
+	}
+	return query
+}
+
+// QueryEdgesOfBloodtype chains the current query on the EdgesOfBloodtype edge.
+func (pq *PatientrecordQuery) QueryEdgesOfBloodtype() *BloodtypeQuery {
+	query := &BloodtypeQuery{config: pq.config}
+	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
+		if err := pq.prepareQuery(ctx); err != nil {
+			return nil, err
+		}
+		step := sqlgraph.NewStep(
+			sqlgraph.From(patientrecord.Table, patientrecord.FieldID, pq.sqlQuery()),
+			sqlgraph.To(bloodtype.Table, bloodtype.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, patientrecord.EdgesOfBloodtypeTable, patientrecord.EdgesOfBloodtypeColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -365,6 +385,17 @@ func (pq *PatientrecordQuery) WithEdgesOfGender(opts ...func(*GenderQuery)) *Pat
 	return pq
 }
 
+//  WithEdgesOfBloodtype tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfBloodtype" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PatientrecordQuery) WithEdgesOfBloodtype(opts ...func(*BloodtypeQuery)) *PatientrecordQuery {
+	query := &BloodtypeQuery{config: pq.config}
+	for _, opt := range opts {
+		opt(query)
+	}
+	pq.withEdgesOfBloodtype = query
+	return pq
+}
+
 //  WithEdgesOfMedicalrecordstaff tells the query-builder to eager-loads the nodes that are connected to
 // the "EdgesOfMedicalrecordstaff" edge. The optional arguments used to configure the query builder of the edge.
 func (pq *PatientrecordQuery) WithEdgesOfMedicalrecordstaff(opts ...func(*MedicalrecordstaffQuery)) *PatientrecordQuery {
@@ -487,8 +518,9 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 		nodes       = []*Patientrecord{}
 		withFKs     = pq.withFKs
 		_spec       = pq.querySpec()
-		loadedTypes = [6]bool{
+		loadedTypes = [7]bool{
 			pq.withEdgesOfGender != nil,
+			pq.withEdgesOfBloodtype != nil,
 			pq.withEdgesOfMedicalrecordstaff != nil,
 			pq.withEdgesOfPrename != nil,
 			pq.withEdgesOfHistorytaking != nil,
@@ -496,7 +528,7 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 			pq.withEdgesOfPatientrecordPatientrights != nil,
 		}
 	)
-	if pq.withEdgesOfGender != nil || pq.withEdgesOfMedicalrecordstaff != nil || pq.withEdgesOfPrename != nil {
+	if pq.withEdgesOfGender != nil || pq.withEdgesOfBloodtype != nil || pq.withEdgesOfMedicalrecordstaff != nil || pq.withEdgesOfPrename != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -547,6 +579,31 @@ func (pq *PatientrecordQuery) sqlAll(ctx context.Context) ([]*Patientrecord, err
 			}
 			for i := range nodes {
 				nodes[i].Edges.EdgesOfGender = n
+			}
+		}
+	}
+
+	if query := pq.withEdgesOfBloodtype; query != nil {
+		ids := make([]int, 0, len(nodes))
+		nodeids := make(map[int][]*Patientrecord)
+		for i := range nodes {
+			if fk := nodes[i].bloodtype_id; fk != nil {
+				ids = append(ids, *fk)
+				nodeids[*fk] = append(nodeids[*fk], nodes[i])
+			}
+		}
+		query.Where(bloodtype.IDIn(ids...))
+		neighbors, err := query.All(ctx)
+		if err != nil {
+			return nil, err
+		}
+		for _, n := range neighbors {
+			nodes, ok := nodeids[n.ID]
+			if !ok {
+				return nil, fmt.Errorf(`unexpected foreign-key "bloodtype_id" returned %v`, n.ID)
+			}
+			for i := range nodes {
+				nodes[i].Edges.EdgesOfBloodtype = n
 			}
 		}
 	}
