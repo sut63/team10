@@ -90,10 +90,17 @@ export function EntPatientrightsEdgesToJSON(value?: EntPatientrightsEdges | null
     }
     return {
         
+<<<<<<< HEAD
         'EdgesOfPatientrightsAbilitypatientrights': EntAbilitypatientrightsToJSON(value.edgesOfPatientrightsAbilitypatientrights),
         'EdgesOfPatientrightsInsurance': EntInsuranceToJSON(value.edgesOfPatientrightsInsurance),
         'EdgesOfPatientrightsMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfPatientrightsMedicalrecordstaff),
         'EdgesOfPatientrightsPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrightsPatientrecord),
+=======
+        'EdgesOfPatientrightsInsurance': EntInsuranceToJSON(value.edgesOfPatientrightsInsurance),
+        'EdgesOfPatientrightsMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfPatientrightsMedicalrecordstaff),
+        'EdgesOfPatientrightsPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrightsPatientrecord),
+        'EdgesOfPatientrightsPatientrightstype': EntPatientrightstypeToJSON(value.edgesOfPatientrightsPatientrightstype),
+>>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
     };
 }
 

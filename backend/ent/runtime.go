@@ -82,16 +82,53 @@ func init() {
 	}()
 	billFields := schema.Bill{}.Fields()
 	_ = billFields
+	// billDescPayer is the schema descriptor for Payer field.
+	billDescPayer := billFields[0].Descriptor()
+	// bill.PayerValidator is a validator for the "Payer" field. It is called by the builders before save.
+	bill.PayerValidator = func() func(string) error {
+		validators := billDescPayer.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(_Payer string) error {
+			for _, fn := range fns {
+				if err := fn(_Payer); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// billDescPayercontact is the schema descriptor for Payercontact field.
+	billDescPayercontact := billFields[1].Descriptor()
+	// bill.PayercontactValidator is a validator for the "Payercontact" field. It is called by the builders before save.
+	bill.PayercontactValidator = func() func(string) error {
+		validators := billDescPayercontact.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+			validators[3].(func(string) error),
+		}
+		return func(_Payercontact string) error {
+			for _, fn := range fns {
+				if err := fn(_Payercontact); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// billDescAmount is the schema descriptor for Amount field.
-	billDescAmount := billFields[0].Descriptor()
+	billDescAmount := billFields[2].Descriptor()
 	// bill.AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
 	bill.AmountValidator = func() func(string) error {
 		validators := billDescAmount.Validators
 		fns := [...]func(string) error{
 			validators[0].(func(string) error),
 			validators[1].(func(string) error),
-			validators[2].(func(string) error),
-			validators[3].(func(string) error),
 		}
 		return func(_Amount string) error {
 			for _, fn := range fns {

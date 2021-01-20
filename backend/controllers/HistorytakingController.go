@@ -58,6 +58,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		return
 	}
 
+	if (int(obj.Symptomseverity) + int(obj.Department) + int(obj.Patientrecord) + len(obj.Hight) + len(obj.Weight) + len(obj.Temp) + len(obj.Pulse) + len(obj.Respiration) + len(obj.Bp) + len(obj.Oxygen) + len(obj.Symptom) ) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "บันทึกข้อมูลไม่สำเร็จ",
+		})
+		return
+	}
+
 	n, err := ctl.client.Nurse.
 		Query().
 		Where(nurse.IDEQ(int(obj.Nurse))).
@@ -69,17 +76,6 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		return
 	}
 
-	d, err := ctl.client.Department.
-		Query().
-		Where(department.IDEQ(int(obj.Department))).
-		Only(context.Background())
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "department not found",
-		})
-		return
-	}
-
 	ss, err := ctl.client.Symptomseverity.
 		Query().
 		Where(symptomseverity.IDEQ(int(obj.Symptomseverity))).
@@ -87,6 +83,17 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "symptomseverity not found",
+		})
+		return
+	}
+
+	d, err := ctl.client.Department.
+		Query().
+		Where(department.IDEQ(int(obj.Department))).
+		Only(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "department not found",
 		})
 		return
 	}
@@ -103,11 +110,18 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	}
 
 	times := time.Now().Local()
-
+	
 	var h float32
 	hights, err := strconv.ParseFloat(obj.Hight, 64);
 		h = float32(hights)
-	
+
+	if len(obj.Hight) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "โปรดกรอกค่าส่วนสูง",
+		})
+		return
+	}
+
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าส่วนสูงต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
@@ -118,7 +132,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	var w float32
 	weights, err := strconv.ParseFloat(obj.Weight, 64);
 		w = float32(weights)
-		
+
+	if len(obj.Weight) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "โปรดกรอกค่าน้ำหนัก",
+		})
+		return
+	}
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าน้ำหนักต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
@@ -130,6 +150,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	temps, err := strconv.ParseFloat(obj.Temp, 64); 
 		t = float32(temps)
 
+	if len(obj.Temp) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "โปรดกรอกค่าอุณหภูมิร่างกาย",
+		})
+		return
+	}
+
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าอุณหภูมิร่างกายต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
@@ -138,6 +165,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	}
 	
 	pulses, err := strconv.Atoi(obj.Pulse)
+
+	if len(obj.Pulse) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "โปรดกรอกค่าชีพจร",
+		})
+		return
+	}
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -148,6 +182,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 
 	respirations, err := strconv.Atoi(obj.Respiration)
 	
+	if len(obj.Respiration) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "โปรดกรอกค่าการหายใจ",
+		})
+		return
+	}
+
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าการหายใจต้องเป็นตัวเลขจำนวนเต็มเท่านั้น",
@@ -156,6 +197,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	}
 
 	bps, err := strconv.Atoi(obj.Bp)
+
+	if len(obj.Bp) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "โปรดกรอกค่าความดันโลหิต",
+		})
+		return
+	}
 	
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -168,6 +216,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	oxygens, err := strconv.ParseFloat(obj.Oxygen, 64); 
 		o = float32(oxygens)
 
+	if len(obj.Oxygen) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "โปรดกรอกค่าออกซิเจนในกระแสเลือด",
+		})
+		return
+	}
+
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าออกซิเจนในกระแสเลือดต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
@@ -177,6 +232,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 
 	fmtoxygen := fmt.Sprintf("%.2f", o)
 
+	if len(obj.Symptom) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "โปรดกรอกอาการสำคัญ",
+		})
+		return
+	}
+	
 	ht, err := ctl.client.Historytaking.
 		Create().
 		SetEdgesOfNurse(n).

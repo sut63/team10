@@ -7,6 +7,10 @@ const (
 	Label = "bill"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldPayer holds the string denoting the payer field in the database.
+	FieldPayer = "payer"
+	// FieldPayercontact holds the string denoting the payercontact field in the database.
+	FieldPayercontact = "payercontact"
 	// FieldAmount holds the string denoting the amount field in the database.
 	FieldAmount = "amount"
 	// FieldDate holds the string denoting the date field in the database.
@@ -47,6 +51,8 @@ const (
 // Columns holds all SQL columns for bill fields.
 var Columns = []string{
 	FieldID,
+	FieldPayer,
+	FieldPayercontact,
 	FieldAmount,
 	FieldDate,
 }
@@ -59,6 +65,10 @@ var ForeignKeys = []string{
 }
 
 var (
+	// PayerValidator is a validator for the "Payer" field. It is called by the builders before save.
+	PayerValidator func(string) error
+	// PayercontactValidator is a validator for the "Payercontact" field. It is called by the builders before save.
+	PayercontactValidator func(string) error
 	// AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
 	AmountValidator func(string) error
 )

@@ -25,6 +25,8 @@ import { EntFinancier } from '../../api/models/EntFinancier';
 import { EntTreatment } from '../../api';
 import { EntUser } from '../../api/models/EntUser';
 import { Cookies } from 'react-cookie/cjs';//cookie
+import Swal from 'sweetalert2'; // alert
+import BillTable from '../tableBill';
 
   const cookies = new Cookies();
   const FINID = cookies.get('Fin'); 
@@ -62,6 +64,14 @@ const useStyles = makeStyles((theme: Theme) =>
 const HeaderCustom = {
   minHeight: '50px',
 };
+interface Bill {
+  amount?: string;
+  financier?: number;
+  payer?: string;
+  payercontact?: string;
+  paytype?: number;
+  unpaybill?: number;
+}
 
 const CreateBill: FC<{}> = () => {
   const classes = useStyles();
@@ -76,16 +86,29 @@ const CreateBill: FC<{}> = () => {
 
   const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
   const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
-
   
-  const [amounts, setamount] = React.useState(String);
-  const [paytypeid, setpaytypeId] = React.useState(Number);
-  const [unpayid, setunpayId] = React.useState(Number);
+  const [bill, setBill] = React.useState<Partial<Bill>>({});
+
   const [patientname, setPatient] = React.useState(String);
   const [treatmentid, setTreatmentID] = React.useState(Number);
+  const [upbid, setunpaybill] = React.useState(Number);
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
-
+  const [nameError, setnameError] = React.useState('');
+  const [phoneError, setphoneError] = React.useState('');
+  const [amountError, setamountError] = React.useState('');
+   // alert setting
+ const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 5000,
+  timerProgressBar: true,
+  didOpen: toast => {
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
+  },
+});
   useEffect(() => {
 
     const getPaytype = async () => {
@@ -126,14 +149,65 @@ const CreateBill: FC<{}> = () => {
   const refreshPage = () => {
     window.location.reload();
   }
-
-  const PaytypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setpaytypeId(event.target.value as number);
+  const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown; id?:string}>) => {
+    const name = event.target.name as keyof typeof CreateBill;
+    const { value } = event.target;
+    const id = event.target.id as string
+    const validateValue = value as string
+    checkPattern(id, validateValue)
+    setBill({ ...bill, [name]: value,unpaybill:upbid,financier:financiers?.id });
+    console.log(bill);
   };
-  const AmounthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setamount(event.target.value as string);
-  };
+  const validatename = (val: string) => {
+    return val.charCodeAt(0) >= 65 && val.charCodeAt(0) <= 90 ? true : false;
+  }
+  const validatetelphone = (val: string) => {
+    return val.length == 10 && val.charCodeAt(0) == 48 ? true : false;
+  }
 
+  const validateamount = (val: string) => {
+    return val.charCodeAt(0) != 48 ? true : false ;
+  }
+
+  const checkPattern  = (id: string, value: string) => {
+    switch(id) {
+      case 'payer':
+        validatename(value) ? setnameError('') : setnameError('ชื่อต้องขึ้นต้นด้วยอักษรพิมพ์ใหญ่');
+        return;
+      case 'payercontact':
+        validatetelphone(value) ? setphoneError('') : setphoneError('เบอร์โทรศัพท์ต้องประกอบด้วย 10 ตัวเลข และเริ่มต้นด้วย 0');
+        return;
+      case 'amount':
+        validateamount(value) ? setamountError('') : setamountError('ค่ารักษาต้องเป็นตัวเลข และไม่สามารถเริ่มต้นด้วยเลข 0')
+        return;
+      default:
+        return;
+    }
+  }
+
+  const alertMessage = (icon: any, title: any) => {
+    Toast.fire({
+      icon: icon,
+      title: title,
+    });
+  }
+  const checkCaseSaveError = (field: string) => {
+    switch(field) {
+      case 'Payer':
+        alertMessage("error","ชื่อต้องขึ้นต้นด้วยอักษรพิมพ์ใหญ่");
+        return;
+      case 'Payercontact':
+        alertMessage("error","เบอร์โทรศัพท์ต้องประกอบด้วย 10 ตัวเลข และเริ่มต้นด้วย 0");
+        return;
+      case 'Amount':
+        alertMessage("error","ค่ารักษาต้องเป็นตัวเลข");
+        return;
+      default:
+        alertMessage("error","บันทึกข้อมูลไม่สำเร็จ");
+        return;
+    }
+  }
+/*
   const CreatePayment = async () => {
 
     if((amounts != '')&&(paytypeid != null)&&(unpayid != null)&&(unpayid != 0)){
@@ -170,6 +244,34 @@ const CreateBill: FC<{}> = () => {
     }
    
   };
+  */
+  const Create_Bill = async () => {
+    const apiUrl = 'http://localhost:8080/api/v1/bills';
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bill),
+    };
+  
+    fetch(apiUrl, requestOptions)
+      .then(response => response.json())
+      .then(async data => {
+        console.log(data);
+        if (data.status === true) {
+          Toast.fire({
+            icon: 'success',
+            title: 'บันทึกข้อมูลสำเร็จ',
+          });
+          const upb = {
+            id: bill.unpaybill,
+          }
+          await http.updateUnpaybill({ id: bill.unpaybill as number, unpaybill: upb });
+        } else {
+          checkCaseSaveError(data.error.Name);
+
+        }
+      });
+  };
 
   return (
     
@@ -189,21 +291,6 @@ const CreateBill: FC<{}> = () => {
                       <Typography align="center" variant="h3">
                         <br /> ใบเสร็จรับเงิน
                       </Typography>
-
-                      {status ? (
-                  <div>
-                    {alert ? (
-                        <Alert severity="success">
-                            บันทึกการชำระสำเร็จ
-                        </Alert>
-                        ) : (
-                        <Alert severity="warning" >
-                          <strong>มีข้อผิดพลาด  โปรดกรอกข้อมูลอีกครั้ง</strong>
-                       </Alert>
-                   )}
-                </div>
-                 ) : null}
-
                         <Typography align="center" variant="subtitle1">
                           <br />เลขที่การรักษา : {treatmentid}
                           <br />ผู้ป่วย<br />
@@ -217,11 +304,11 @@ const CreateBill: FC<{}> = () => {
                         <Typography align="center" variant="subtitle1">
                           <br/>รูปแบบการชำระ<br /> 
                             <Select
-                            id = "select-paytype"
+                            id = "Paytype"
                             name="paytype"
-                            value={paytypeid}
+                            value={bill.paytype}
                             className={classes.formControl}
-                            onChange={PaytypehandleChange}
+                            onChange={handleChange}
                             >
                               {paytypes.map(item => {
                             return (
@@ -232,18 +319,36 @@ const CreateBill: FC<{}> = () => {
                             <br/>
                           <br/>ค่ารักษา<br />
                             <TextField
-                            id = "add-amount"
+                            name = "amount"
+                            id = "Amount"
                             className={classes.formControl}
-                            value={amounts}
+                            value={bill.amount}
                             size = "small"
-                            onChange={AmounthandleChange} />
+                            onChange={handleChange} />
+                          <br/><br/>ผู้ชำระค่ารักษา<br />
+                            <TextField
+                            name = "payer"
+                            id = "Payer"
+                            className={classes.formControl}
+                            value={bill.payer}
+                            size = "small"
+                            onChange={handleChange} />
+                          <br/>
+                          <br/>เบอร์โทรติดต่อ<br />
+                            <TextField
+                            name = "payercontact"
+                            id = "Payercontact"
+                            className={classes.formControl}
+                            value={bill.payercontact}
+                            size = "small"
+                            onChange={handleChange} />
                           <br/>
                           <br/> พนักงานการเงิน : {financiers?.name}
                           <br/>
                           <br/>
                           <Button
                             onClick={() => {
-                            CreatePayment();
+                            Create_Bill();
                             }}
                             startIcon={<SaveIcon />}
                             variant="contained"
@@ -286,7 +391,7 @@ const CreateBill: FC<{}> = () => {
                             <TableCell align="center">
                               <Button
                                 onClick={() => {
-                                  setunpayId(item.id as number);
+                                  setunpaybill(item.id as number);   
                                   setPatient(item2.edges?.edgesOfPatientrecord?.name as string);
                                   setTreatmentID(item2.id as number);
                                 }}

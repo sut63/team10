@@ -6,6 +6,10 @@ definitions:
         type: string
       financier:
         type: integer
+      payer:
+        type: string
+      payercontact:
+        type: string
       paytype:
         type: integer
       unpaybill:
@@ -162,9 +166,15 @@ definitions:
     type: object
   ent.AbilitypatientrightsEdges:
     properties:
+<<<<<<< HEAD
       EdgesOfAbilitypatientrightsPatientrights:
         description: EdgesOfAbilitypatientrightsPatientrights holds the value of the
           EdgesOfAbilitypatientrightsPatientrights edge.
+=======
+      EdgesOfAbilitypatientrightsPatientrightstype:
+        description: EdgesOfAbilitypatientrightsPatientrightstype holds the value
+          of the EdgesOfAbilitypatientrightsPatientrightstype edge.
+>>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
         items:
           $ref: '#/definitions/ent.Patientrights'
         type: array
@@ -176,6 +186,12 @@ definitions:
         type: string
       Date:
         description: Date holds the value of the "Date" field.
+        type: string
+      Payer:
+        description: Payer holds the value of the "Payer" field.
+        type: string
+      Payercontact:
+        description: Payercontact holds the value of the "Payercontact" field.
         type: string
       edges:
         $ref: '#/definitions/ent.BillEdges'
@@ -689,11 +705,14 @@ definitions:
     type: object
   ent.PatientrightsEdges:
     properties:
+<<<<<<< HEAD
       EdgesOfPatientrightsAbilitypatientrights:
         $ref: '#/definitions/ent.Abilitypatientrights'
         description: EdgesOfPatientrightsAbilitypatientrights holds the value of the
           EdgesOfPatientrightsAbilitypatientrights edge.
         type: object
+=======
+>>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
       EdgesOfPatientrightsInsurance:
         $ref: '#/definitions/ent.Insurance'
         description: EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance

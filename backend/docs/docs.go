@@ -4576,6 +4576,12 @@ var doc = `{
                 "financier": {
                     "type": "integer"
                 },
+                "payer": {
+                    "type": "string"
+                },
+                "payercontact": {
+                    "type": "string"
+                },
                 "paytype": {
                     "type": "integer"
                 },
@@ -4826,6 +4832,14 @@ var doc = `{
                 },
                 "Date": {
                     "description": "Date holds the value of the \"Date\" field.",
+                    "type": "string"
+                },
+                "Payer": {
+                    "description": "Payer holds the value of the \"Payer\" field.",
+                    "type": "string"
+                },
+                "Payercontact": {
+                    "description": "Payercontact holds the value of the \"Payercontact\" field.",
                     "type": "string"
                 },
                 "edges": {
@@ -5472,11 +5486,14 @@ var doc = `{
         "ent.PatientrightsEdges": {
             "type": "object",
             "properties": {
+<<<<<<< HEAD
                 "EdgesOfPatientrightsAbilitypatientrights": {
                     "description": "EdgesOfPatientrightsAbilitypatientrights holds the value of the EdgesOfPatientrightsAbilitypatientrights edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Abilitypatientrights"
                 },
+=======
+>>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
                 "EdgesOfPatientrightsInsurance": {
                     "description": "EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance edge.",
                     "type": "object",
@@ -5491,6 +5508,60 @@ var doc = `{
                     "description": "EdgesOfPatientrightsPatientrecord holds the value of the EdgesOfPatientrightsPatientrecord edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Patientrecord"
+<<<<<<< HEAD
+=======
+                },
+                "EdgesOfPatientrightsPatientrightstype": {
+                    "description": "EdgesOfPatientrightsPatientrightstype holds the value of the EdgesOfPatientrightsPatientrightstype edge.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.Patientrightstype"
+                }
+            }
+        },
+        "ent.Patientrightstype": {
+            "type": "object",
+            "properties": {
+                "Permission": {
+                    "description": "Permission holds the value of the \"Permission\" field.",
+                    "type": "string"
+                },
+                "PermissionArea": {
+                    "description": "PermissionArea holds the value of the \"PermissionArea\" field.",
+                    "type": "string"
+                },
+                "Responsible": {
+                    "description": "Responsible holds the value of the \"Responsible\" field.",
+                    "type": "string"
+                },
+                "abilitypatientrights_id": {
+                    "type": "integer"
+                },
+                "edges": {
+                    "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the PatientrightstypeQuery when eager-loading is set.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.PatientrightstypeEdges"
+                },
+                "id": {
+                    "description": "ID of the ent.",
+                    "type": "integer"
+                }
+            }
+        },
+        "ent.PatientrightstypeEdges": {
+            "type": "object",
+            "properties": {
+                "EdgesOfPatientrightstypeAbilitypatientrights": {
+                    "description": "EdgesOfPatientrightstypeAbilitypatientrights holds the value of the EdgesOfPatientrightstypeAbilitypatientrights edge.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.Abilitypatientrights"
+                },
+                "EdgesOfPatientrightstypePatientrights": {
+                    "description": "EdgesOfPatientrightstypePatientrights holds the value of the EdgesOfPatientrightstypePatientrights edge.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ent.Patientrights"
+                    }
+>>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
                 }
             }
         },

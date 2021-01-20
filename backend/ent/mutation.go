@@ -715,6 +715,8 @@ type BillMutation struct {
 	op                       Op
 	typ                      string
 	id                       *int
+	_Payer                   *string
+	_Payercontact            *string
 	_Amount                  *string
 	_Date                    *time.Time
 	clearedFields            map[string]struct{}
@@ -805,6 +807,80 @@ func (m *BillMutation) ID() (id int, exists bool) {
 		return
 	}
 	return *m.id, true
+}
+
+// SetPayer sets the Payer field.
+func (m *BillMutation) SetPayer(s string) {
+	m._Payer = &s
+}
+
+// Payer returns the Payer value in the mutation.
+func (m *BillMutation) Payer() (r string, exists bool) {
+	v := m._Payer
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPayer returns the old Payer value of the Bill.
+// If the Bill object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *BillMutation) OldPayer(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPayer is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPayer requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPayer: %w", err)
+	}
+	return oldValue.Payer, nil
+}
+
+// ResetPayer reset all changes of the "Payer" field.
+func (m *BillMutation) ResetPayer() {
+	m._Payer = nil
+}
+
+// SetPayercontact sets the Payercontact field.
+func (m *BillMutation) SetPayercontact(s string) {
+	m._Payercontact = &s
+}
+
+// Payercontact returns the Payercontact value in the mutation.
+func (m *BillMutation) Payercontact() (r string, exists bool) {
+	v := m._Payercontact
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPayercontact returns the old Payercontact value of the Bill.
+// If the Bill object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *BillMutation) OldPayercontact(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPayercontact is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPayercontact requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPayercontact: %w", err)
+	}
+	return oldValue.Payercontact, nil
+}
+
+// ResetPayercontact reset all changes of the "Payercontact" field.
+func (m *BillMutation) ResetPayercontact() {
+	m._Payercontact = nil
 }
 
 // SetAmount sets the Amount field.
@@ -1012,7 +1088,13 @@ func (m *BillMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *BillMutation) Fields() []string {
-	fields := make([]string, 0, 2)
+	fields := make([]string, 0, 4)
+	if m._Payer != nil {
+		fields = append(fields, bill.FieldPayer)
+	}
+	if m._Payercontact != nil {
+		fields = append(fields, bill.FieldPayercontact)
+	}
 	if m._Amount != nil {
 		fields = append(fields, bill.FieldAmount)
 	}
@@ -1027,6 +1109,10 @@ func (m *BillMutation) Fields() []string {
 // not set, or was not define in the schema.
 func (m *BillMutation) Field(name string) (ent.Value, bool) {
 	switch name {
+	case bill.FieldPayer:
+		return m.Payer()
+	case bill.FieldPayercontact:
+		return m.Payercontact()
 	case bill.FieldAmount:
 		return m.Amount()
 	case bill.FieldDate:
@@ -1040,6 +1126,10 @@ func (m *BillMutation) Field(name string) (ent.Value, bool) {
 // or the query to the database was failed.
 func (m *BillMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
+	case bill.FieldPayer:
+		return m.OldPayer(ctx)
+	case bill.FieldPayercontact:
+		return m.OldPayercontact(ctx)
 	case bill.FieldAmount:
 		return m.OldAmount(ctx)
 	case bill.FieldDate:
@@ -1053,6 +1143,20 @@ func (m *BillMutation) OldField(ctx context.Context, name string) (ent.Value, er
 // type mismatch the field type.
 func (m *BillMutation) SetField(name string, value ent.Value) error {
 	switch name {
+	case bill.FieldPayer:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPayer(v)
+		return nil
+	case bill.FieldPayercontact:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPayercontact(v)
+		return nil
 	case bill.FieldAmount:
 		v, ok := value.(string)
 		if !ok {
@@ -1117,6 +1221,12 @@ func (m *BillMutation) ClearField(name string) error {
 // defined in the schema.
 func (m *BillMutation) ResetField(name string) error {
 	switch name {
+	case bill.FieldPayer:
+		m.ResetPayer()
+		return nil
+	case bill.FieldPayercontact:
+		m.ResetPayercontact()
+		return nil
 	case bill.FieldAmount:
 		m.ResetAmount()
 		return nil

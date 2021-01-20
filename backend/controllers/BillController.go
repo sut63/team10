@@ -22,6 +22,8 @@ type BillController struct {
 
 // Bill defines the struct for the Bill entity
 type Bill struct {
+	Payer		string
+	Payercontact string
 	Amount    string
 	Paytype   int
 	Financier int
@@ -82,21 +84,27 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 
 	u, err := ctl.client.Bill.
 		Create().
+		SetPayer(obj.Payer).
+		SetPayercontact(obj.Payercontact).
 		SetAmount(obj.Amount).
 		SetDate(t).
 		SetEdgesOfPaytype(pt).
 		SetEdgesOfOfficer(f).
 		SetEdgesOfTreatment(ub).
 		Save(context.Background())
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "saving failed",
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(400, gin.H{
+				"status": false,
+				"error":  err,
+			})
+			return
+		}
+	
+		c.JSON(200, gin.H{
+			"status": true,
+			"data":   u,
 		})
-		return
-	}
-
-
-	c.JSON(200, u)
 }
 
 // GetBill handles GET requests to retrieve a bill entity
