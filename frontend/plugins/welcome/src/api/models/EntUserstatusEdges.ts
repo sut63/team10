@@ -44,7 +44,7 @@ export function EntUserstatusEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : ((json['EdgesOfUser'] as Array<any>).map(EntUserFromJSON)),
+        'edgesOfUser': !exists(json, 'edgesOfUser') ? undefined : ((json['edgesOfUser'] as Array<any>).map(EntUserFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntUserstatusEdgesToJSON(value?: EntUserstatusEdges | null): any
     }
     return {
         
-        'EdgesOfUser': value.edgesOfUser === undefined ? undefined : ((value.edgesOfUser as Array<any>).map(EntUserToJSON)),
+        'edgesOfUser': value.edgesOfUser === undefined ? undefined : ((value.edgesOfUser as Array<any>).map(EntUserToJSON)),
     };
 }
 

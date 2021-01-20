@@ -44,7 +44,7 @@ export function EntEducationlevelEdgesFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'edgesOfEducationlevel2doctorinfo': !exists(json, 'EdgesOfEducationlevel2doctorinfo') ? undefined : ((json['EdgesOfEducationlevel2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'edgesOfEducationlevel2doctorinfo': !exists(json, 'edgesOfEducationlevel2doctorinfo') ? undefined : ((json['edgesOfEducationlevel2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntEducationlevelEdgesToJSON(value?: EntEducationlevelEdges | nu
     }
     return {
         
-        'EdgesOfEducationlevel2doctorinfo': value.edgesOfEducationlevel2doctorinfo === undefined ? undefined : ((value.edgesOfEducationlevel2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
+        'edgesOfEducationlevel2doctorinfo': value.edgesOfEducationlevel2doctorinfo === undefined ? undefined : ((value.edgesOfEducationlevel2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
     };
 }
 

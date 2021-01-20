@@ -23,6 +23,7 @@ import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { Grid, TextField, Avatar } from '@material-ui/core';
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { EntUser } from '../../api/models/EntUser';
+import Swal from 'sweetalert2';
 
 // header css
 const HeaderCustom = {
@@ -145,6 +146,14 @@ export default function CreateHistorytaking() {
   const [status, setStatus] = useState(false);
   const [alert, setAlert] = useState(true);
 
+  const [hightError, sethightError] = React.useState('');
+  const [weightError, setweightError] = React.useState('');
+  const [tempError, settempError] = React.useState('');
+  const [pulseError, setpulseError] = React.useState('');
+  const [respirationError, setrespirationError] = React.useState('');
+  const [bpError, setbpError] = React.useState('');
+  const [oxygenError, setoxygenError] = React.useState('');
+
   const [nurses, setNurses] = React.useState<Partial<EntNurse>>();
   const [symptomseveritys, setSymptomseveritys] = useState<EntSymptomseverity[]>([]);
   const [departments, setDepartments] = useState<EntDepartment[]>([]);
@@ -154,6 +163,19 @@ export default function CreateHistorytaking() {
 
   const [loading, setLoading] = useState(true);
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
+  // alert setting
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: toast => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
   useEffect(() => {
 
@@ -210,9 +232,109 @@ export default function CreateHistorytaking() {
   ) => {
     const name = event.target.name as keyof typeof CreateHistorytaking;
     const { value } = event.target;
+    const validateValue = value as string
+    checkPattern(name, validateValue)
     setHistorytaking({ ...Historytaking, [name]: value });
   };
 
+
+  // ฟังก์ชั่นสำหรับ validate hightError
+  const validatehight = (val: string) => {
+    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
+  }
+
+  // ฟังก์ชั่นสำหรับ validate weightError
+  const validateweight = (val: string) => {
+    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
+  }
+
+  // ฟังก์ชั่นสำหรับ validate tempError
+  const validatetemp = (val: string) => {
+    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
+  }
+
+  // ฟังก์ชั่นสำหรับ validate pulseError
+  const validatepulse = (val: string) => {
+    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 ? true : false;
+  }
+  
+  // ฟังก์ชั่นสำหรับ validate respirationError
+  const validaterespiration = (val: string) => {
+    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 ? true : false;
+  }
+
+  // ฟังก์ชั่นสำหรับ validate bpError
+  const validatebp = (val: string) => {
+    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 ? true : false;
+  }
+
+  // ฟังก์ชั่นสำหรับ validate oxygenError
+  const validateoxygen = (val: string) => {
+    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
+  }
+
+  // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
+  const checkPattern = (id: string, value: string) => {
+    switch (id) {
+      case 'hight':
+        validatehight(value) ? sethightError('') : sethightError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม');
+        return;
+      case 'weight':
+        validateweight(value) ? setweightError('') : setweightError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม');
+        return;
+      case 'temp':
+        validatetemp(value) ? settempError('') : settempError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม')
+        return;
+      case 'pulse':
+        validatepulse(value) ? setpulseError('') : setpulseError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็ม');
+        return;
+      case 'respiration':
+        validaterespiration(value) ? setrespirationError('') : setrespirationError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็ม');
+        return;
+      case 'bp':
+        validatebp(value) ? setbpError('') : setbpError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็ม')
+        return; 
+      case 'oxygen':
+        validateoxygen(value) ? setoxygenError('') : setoxygenError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม')
+        return;
+      default:
+        return;
+    }
+  }
+  
+  const alertMessage = (icon: any, title: any) => {
+    Toast.fire({
+      icon: icon,
+      title: title,
+    });
+  }
+
+  const CreateHistorytaking = async () => {
+    const apiUrl = 'http://localhost:8080/api/v1/historytaking';
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Historytaking),
+    };
+
+    fetch(apiUrl, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status === true) {
+          Toast.fire({
+            icon: 'success',
+            title: 'บันทึกข้อมูลสำเร็จ',
+          });
+        } else {
+          alertMessage("error",data.error);
+          
+          //console.log(data.error.Name)
+        }
+      });
+  };
+
+  {/* 
   const CreateHistorytaking = async () => {
 
     if ((Historytaking.bp != '') && (Historytaking.datetime != '')
@@ -241,6 +363,7 @@ export default function CreateHistorytaking() {
       }, 3000);
     }
   };
+*/}
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`HISTORYTAKING DEPARTMENT`}>

@@ -74,10 +74,10 @@ export function EntTreatmentEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'edgesOfDoctor': !exists(json, 'EdgesOfDoctor') ? undefined : EntDoctorFromJSON(json['EdgesOfDoctor']),
-        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : EntPatientrecordFromJSON(json['EdgesOfPatientrecord']),
-        'edgesOfTypetreatment': !exists(json, 'EdgesOfTypetreatment') ? undefined : EntTypetreatmentFromJSON(json['EdgesOfTypetreatment']),
-        'edgesOfUnpaybills': !exists(json, 'EdgesOfUnpaybills') ? undefined : EntUnpaybillFromJSON(json['EdgesOfUnpaybills']),
+        'edgesOfDoctor': !exists(json, 'edgesOfDoctor') ? undefined : EntDoctorFromJSON(json['edgesOfDoctor']),
+        'edgesOfPatientrecord': !exists(json, 'edgesOfPatientrecord') ? undefined : EntPatientrecordFromJSON(json['edgesOfPatientrecord']),
+        'edgesOfTypetreatment': !exists(json, 'edgesOfTypetreatment') ? undefined : EntTypetreatmentFromJSON(json['edgesOfTypetreatment']),
+        'edgesOfUnpaybills': !exists(json, 'edgesOfUnpaybills') ? undefined : EntUnpaybillFromJSON(json['edgesOfUnpaybills']),
     };
 }
 
@@ -90,10 +90,10 @@ export function EntTreatmentEdgesToJSON(value?: EntTreatmentEdges | null): any {
     }
     return {
         
-        'EdgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
-        'EdgesOfPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrecord),
-        'EdgesOfTypetreatment': EntTypetreatmentToJSON(value.edgesOfTypetreatment),
-        'EdgesOfUnpaybills': EntUnpaybillToJSON(value.edgesOfUnpaybills),
+        'edgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
+        'edgesOfPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrecord),
+        'edgesOfTypetreatment': EntTypetreatmentToJSON(value.edgesOfTypetreatment),
+        'edgesOfUnpaybills': EntUnpaybillToJSON(value.edgesOfUnpaybills),
     };
 }
 

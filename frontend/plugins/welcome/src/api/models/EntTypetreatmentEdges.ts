@@ -44,7 +44,7 @@ export function EntTypetreatmentEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'edgesOfTreatment': !exists(json, 'EdgesOfTreatment') ? undefined : ((json['EdgesOfTreatment'] as Array<any>).map(EntTreatmentFromJSON)),
+        'edgesOfTreatment': !exists(json, 'edgesOfTreatment') ? undefined : ((json['edgesOfTreatment'] as Array<any>).map(EntTreatmentFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntTypetreatmentEdgesToJSON(value?: EntTypetreatmentEdges | null
     }
     return {
         
-        'EdgesOfTreatment': value.edgesOfTreatment === undefined ? undefined : ((value.edgesOfTreatment as Array<any>).map(EntTreatmentToJSON)),
+        'edgesOfTreatment': value.edgesOfTreatment === undefined ? undefined : ((value.edgesOfTreatment as Array<any>).map(EntTreatmentToJSON)),
     };
 }
 

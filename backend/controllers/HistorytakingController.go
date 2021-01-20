@@ -4,6 +4,7 @@ import (
 	"context"
 	"strconv"
 	"time"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
@@ -63,7 +64,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "nurse not found",
 		})
 		return
 	}
@@ -74,7 +75,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "department not found",
 		})
 		return
 	}
@@ -85,7 +86,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "symptomseverity not found",
 		})
 		return
 	}
@@ -96,7 +97,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "patientrecord not found",
 		})
 		return
 	}
@@ -104,22 +105,77 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	times := time.Now().Local()
 
 	var h float32
-	if hights, err := strconv.ParseFloat(obj.Hight, 64); err == nil {
+	hights, err := strconv.ParseFloat(obj.Hight, 64);
 		h = float32(hights)
+	
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ค่าส่วนสูงต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
+		})
+		return
 	}
 
 	var w float32
-	if weights, err := strconv.ParseFloat(obj.Weight, 64); err == nil {
+	weights, err := strconv.ParseFloat(obj.Weight, 64);
 		w = float32(weights)
-	}
-	var t float32
-	if temps, err := strconv.ParseFloat(obj.Temp, 64); err == nil {
-		t = float32(temps)
+		
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ค่าน้ำหนักต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
+		})
+		return
 	}
 
+	var t float32
+	temps, err := strconv.ParseFloat(obj.Temp, 64); 
+		t = float32(temps)
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ค่าอุณหภูมิร่างกายต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
+		})
+		return
+	}
+	
 	pulses, err := strconv.Atoi(obj.Pulse)
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ค่าชีพจรต้องเป็นตัวเลขจำนวนเต็มเท่านั้น",
+		})
+		return
+	}
+
 	respirations, err := strconv.Atoi(obj.Respiration)
+	
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ค่าการหายใจต้องเป็นตัวเลขจำนวนเต็มเท่านั้น",
+		})
+		return
+	}
+
 	bps, err := strconv.Atoi(obj.Bp)
+	
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ค่าความดันโลหิตต้องเป็นตัวเลขจำนวนเต็มเท่านั้น",
+		})
+		return
+	}
+
+	var o float32
+	oxygens, err := strconv.ParseFloat(obj.Oxygen, 64); 
+		o = float32(oxygens)
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ค่าออกซิเจนในกระแสเลือดต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
+		})
+		return
+	}
+
+	fmtoxygen := fmt.Sprintf("%.2f", o)
 
 	ht, err := ctl.client.Historytaking.
 		Create().
@@ -133,18 +189,23 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		SetPulse(pulses).
 		SetRespiration(respirations).
 		SetBp(bps).
-		SetOxygen(obj.Oxygen+"%").
+		SetOxygen(fmtoxygen+"%").
 		SetSymptom(obj.Symptom).
 		SetDatetime(times).
 		Save(context.Background())
 	if err != nil {
+		fmt.Println(err)
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"status": false,
+			"error":  err,
 		})
 		return
 	}
 
-	c.JSON(200, ht)
+	c.JSON(200, gin.H{
+		"status": true,
+		"data":   ht,
+	})
 }
 
 // GetHistorytaking handles GET requests to retrieve a historytaking entity

@@ -74,10 +74,10 @@ export function EntPatientrightsEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'edgesOfPatientrightsInsurance': !exists(json, 'EdgesOfPatientrightsInsurance') ? undefined : EntInsuranceFromJSON(json['EdgesOfPatientrightsInsurance']),
-        'edgesOfPatientrightsMedicalrecordstaff': !exists(json, 'EdgesOfPatientrightsMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['EdgesOfPatientrightsMedicalrecordstaff']),
-        'edgesOfPatientrightsPatientrecord': !exists(json, 'EdgesOfPatientrightsPatientrecord') ? undefined : EntPatientrecordFromJSON(json['EdgesOfPatientrightsPatientrecord']),
-        'edgesOfPatientrightsPatientrightstype': !exists(json, 'EdgesOfPatientrightsPatientrightstype') ? undefined : EntPatientrightstypeFromJSON(json['EdgesOfPatientrightsPatientrightstype']),
+        'edgesOfPatientrightsInsurance': !exists(json, 'edgesOfPatientrightsInsurance') ? undefined : EntInsuranceFromJSON(json['edgesOfPatientrightsInsurance']),
+        'edgesOfPatientrightsMedicalrecordstaff': !exists(json, 'edgesOfPatientrightsMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['edgesOfPatientrightsMedicalrecordstaff']),
+        'edgesOfPatientrightsPatientrecord': !exists(json, 'edgesOfPatientrightsPatientrecord') ? undefined : EntPatientrecordFromJSON(json['edgesOfPatientrightsPatientrecord']),
+        'edgesOfPatientrightsPatientrightstype': !exists(json, 'edgesOfPatientrightsPatientrightstype') ? undefined : EntPatientrightstypeFromJSON(json['edgesOfPatientrightsPatientrightstype']),
     };
 }
 
@@ -90,10 +90,10 @@ export function EntPatientrightsEdgesToJSON(value?: EntPatientrightsEdges | null
     }
     return {
         
-        'EdgesOfPatientrightsInsurance': EntInsuranceToJSON(value.edgesOfPatientrightsInsurance),
-        'EdgesOfPatientrightsMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfPatientrightsMedicalrecordstaff),
-        'EdgesOfPatientrightsPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrightsPatientrecord),
-        'EdgesOfPatientrightsPatientrightstype': EntPatientrightstypeToJSON(value.edgesOfPatientrightsPatientrightstype),
+        'edgesOfPatientrightsInsurance': EntInsuranceToJSON(value.edgesOfPatientrightsInsurance),
+        'edgesOfPatientrightsMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfPatientrightsMedicalrecordstaff),
+        'edgesOfPatientrightsPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrightsPatientrecord),
+        'edgesOfPatientrightsPatientrightstype': EntPatientrightstypeToJSON(value.edgesOfPatientrightsPatientrightstype),
     };
 }
 

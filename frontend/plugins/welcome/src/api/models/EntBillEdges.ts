@@ -64,9 +64,9 @@ export function EntBillEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'edgesOfOfficer': !exists(json, 'EdgesOfOfficer') ? undefined : EntFinancierFromJSON(json['EdgesOfOfficer']),
-        'edgesOfPaytype': !exists(json, 'EdgesOfPaytype') ? undefined : EntPaytypeFromJSON(json['EdgesOfPaytype']),
-        'edgesOfTreatment': !exists(json, 'EdgesOfTreatment') ? undefined : EntUnpaybillFromJSON(json['EdgesOfTreatment']),
+        'edgesOfOfficer': !exists(json, 'edgesOfOfficer') ? undefined : EntFinancierFromJSON(json['edgesOfOfficer']),
+        'edgesOfPaytype': !exists(json, 'edgesOfPaytype') ? undefined : EntPaytypeFromJSON(json['edgesOfPaytype']),
+        'edgesOfTreatment': !exists(json, 'edgesOfTreatment') ? undefined : EntUnpaybillFromJSON(json['edgesOfTreatment']),
     };
 }
 
@@ -79,9 +79,9 @@ export function EntBillEdgesToJSON(value?: EntBillEdges | null): any {
     }
     return {
         
-        'EdgesOfOfficer': EntFinancierToJSON(value.edgesOfOfficer),
-        'EdgesOfPaytype': EntPaytypeToJSON(value.edgesOfPaytype),
-        'EdgesOfTreatment': EntUnpaybillToJSON(value.edgesOfTreatment),
+        'edgesOfOfficer': EntFinancierToJSON(value.edgesOfOfficer),
+        'edgesOfPaytype': EntPaytypeToJSON(value.edgesOfPaytype),
+        'edgesOfTreatment': EntUnpaybillToJSON(value.edgesOfTreatment),
     };
 }
 
