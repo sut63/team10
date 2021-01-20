@@ -166,15 +166,9 @@ definitions:
     type: object
   ent.AbilitypatientrightsEdges:
     properties:
-<<<<<<< HEAD
       EdgesOfAbilitypatientrightsPatientrights:
         description: EdgesOfAbilitypatientrightsPatientrights holds the value of the
           EdgesOfAbilitypatientrightsPatientrights edge.
-=======
-      EdgesOfAbilitypatientrightsPatientrightstype:
-        description: EdgesOfAbilitypatientrightsPatientrightstype holds the value
-          of the EdgesOfAbilitypatientrightsPatientrightstype edge.
->>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
         items:
           $ref: '#/definitions/ent.Patientrights'
         type: array
@@ -705,14 +699,11 @@ definitions:
     type: object
   ent.PatientrightsEdges:
     properties:
-<<<<<<< HEAD
       EdgesOfPatientrightsAbilitypatientrights:
         $ref: '#/definitions/ent.Abilitypatientrights'
         description: EdgesOfPatientrightsAbilitypatientrights holds the value of the
           EdgesOfPatientrightsAbilitypatientrights edge.
         type: object
-=======
->>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
       EdgesOfPatientrightsInsurance:
         $ref: '#/definitions/ent.Insurance'
         description: EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance

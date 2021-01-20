@@ -57,11 +57,7 @@ export function EntAbilitypatientrightsEdgesToJSON(value?: EntAbilitypatientrigh
     }
     return {
         
-<<<<<<< HEAD
         'EdgesOfAbilitypatientrightsPatientrights': value.edgesOfAbilitypatientrightsPatientrights === undefined ? undefined : ((value.edgesOfAbilitypatientrightsPatientrights as Array<any>).map(EntPatientrightsToJSON)),
-=======
-        'EdgesOfAbilitypatientrightsPatientrightstype': value.edgesOfAbilitypatientrightsPatientrightstype === undefined ? undefined : ((value.edgesOfAbilitypatientrightsPatientrightstype as Array<any>).map(EntPatientrightstypeToJSON)),
->>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
     };
 }
 
