@@ -24,7 +24,6 @@ import (
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrights"
-	"github.com/team10/app/ent/patientrightstype"
 	"github.com/team10/app/ent/paytype"
 	"github.com/team10/app/ent/prename"
 	"github.com/team10/app/ent/registrar"
@@ -63,7 +62,6 @@ const (
 	TypeOfficeroom           = "Officeroom"
 	TypePatientrecord        = "Patientrecord"
 	TypePatientrights        = "Patientrights"
-	TypePatientrightstype    = "Patientrightstype"
 	TypePaytype              = "Paytype"
 	TypePrename              = "Prename"
 	TypeRegistrar            = "Registrar"
@@ -79,20 +77,21 @@ const (
 // nodes in the graph.
 type AbilitypatientrightsMutation struct {
 	config
-	op                                                   Op
-	typ                                                  string
-	id                                                   *int
-	_Operative                                           *int
-	add_Operative                                        *int
-	_MedicalSupplies                                     *int
-	add_MedicalSupplies                                  *int
-	_Examine                                             *int
-	add_Examine                                          *int
-	clearedFields                                        map[string]struct{}
-	_EdgesOfAbilitypatientrightsPatientrightstype        map[int]struct{}
-	removed_EdgesOfAbilitypatientrightsPatientrightstype map[int]struct{}
-	done                                                 bool
-	oldValue                                             func(context.Context) (*Abilitypatientrights, error)
+	op                                               Op
+	typ                                              string
+	id                                               *int
+	_Operative                                       *int
+	add_Operative                                    *int
+	_MedicalSupplies                                 *int
+	add_MedicalSupplies                              *int
+	_Examine                                         *int
+	add_Examine                                      *int
+	check                                            *string
+	clearedFields                                    map[string]struct{}
+	_EdgesOfAbilitypatientrightsPatientrights        map[int]struct{}
+	removed_EdgesOfAbilitypatientrightsPatientrights map[int]struct{}
+	done                                             bool
+	oldValue                                         func(context.Context) (*Abilitypatientrights, error)
 }
 
 var _ ent.Mutation = (*AbilitypatientrightsMutation)(nil)
@@ -345,46 +344,83 @@ func (m *AbilitypatientrightsMutation) ResetExamine() {
 	m.add_Examine = nil
 }
 
-// AddEdgesOfAbilitypatientrightsPatientrightstypeIDs adds the EdgesOfAbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
-func (m *AbilitypatientrightsMutation) AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids ...int) {
-	if m._EdgesOfAbilitypatientrightsPatientrightstype == nil {
-		m._EdgesOfAbilitypatientrightsPatientrightstype = make(map[int]struct{})
+// SetCheck sets the check field.
+func (m *AbilitypatientrightsMutation) SetCheck(s string) {
+	m.check = &s
+}
+
+// Check returns the check value in the mutation.
+func (m *AbilitypatientrightsMutation) Check() (r string, exists bool) {
+	v := m.check
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCheck returns the old check value of the Abilitypatientrights.
+// If the Abilitypatientrights object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbilitypatientrightsMutation) OldCheck(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCheck is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCheck requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCheck: %w", err)
+	}
+	return oldValue.Check, nil
+}
+
+// ResetCheck reset all changes of the "check" field.
+func (m *AbilitypatientrightsMutation) ResetCheck() {
+	m.check = nil
+}
+
+// AddEdgesOfAbilitypatientrightsPatientrightIDs adds the EdgesOfAbilitypatientrightsPatientrights edge to Patientrights by ids.
+func (m *AbilitypatientrightsMutation) AddEdgesOfAbilitypatientrightsPatientrightIDs(ids ...int) {
+	if m._EdgesOfAbilitypatientrightsPatientrights == nil {
+		m._EdgesOfAbilitypatientrightsPatientrights = make(map[int]struct{})
 	}
 	for i := range ids {
-		m._EdgesOfAbilitypatientrightsPatientrightstype[ids[i]] = struct{}{}
+		m._EdgesOfAbilitypatientrightsPatientrights[ids[i]] = struct{}{}
 	}
 }
 
-// RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs removes the EdgesOfAbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
-func (m *AbilitypatientrightsMutation) RemoveEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids ...int) {
-	if m.removed_EdgesOfAbilitypatientrightsPatientrightstype == nil {
-		m.removed_EdgesOfAbilitypatientrightsPatientrightstype = make(map[int]struct{})
+// RemoveEdgesOfAbilitypatientrightsPatientrightIDs removes the EdgesOfAbilitypatientrightsPatientrights edge to Patientrights by ids.
+func (m *AbilitypatientrightsMutation) RemoveEdgesOfAbilitypatientrightsPatientrightIDs(ids ...int) {
+	if m.removed_EdgesOfAbilitypatientrightsPatientrights == nil {
+		m.removed_EdgesOfAbilitypatientrightsPatientrights = make(map[int]struct{})
 	}
 	for i := range ids {
-		m.removed_EdgesOfAbilitypatientrightsPatientrightstype[ids[i]] = struct{}{}
+		m.removed_EdgesOfAbilitypatientrightsPatientrights[ids[i]] = struct{}{}
 	}
 }
 
-// RemovedEdgesOfAbilitypatientrightsPatientrightstype returns the removed ids of EdgesOfAbilitypatientrightsPatientrightstype.
-func (m *AbilitypatientrightsMutation) RemovedEdgesOfAbilitypatientrightsPatientrightstypeIDs() (ids []int) {
-	for id := range m.removed_EdgesOfAbilitypatientrightsPatientrightstype {
+// RemovedEdgesOfAbilitypatientrightsPatientrights returns the removed ids of EdgesOfAbilitypatientrightsPatientrights.
+func (m *AbilitypatientrightsMutation) RemovedEdgesOfAbilitypatientrightsPatientrightsIDs() (ids []int) {
+	for id := range m.removed_EdgesOfAbilitypatientrightsPatientrights {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// EdgesOfAbilitypatientrightsPatientrightstypeIDs returns the EdgesOfAbilitypatientrightsPatientrightstype ids in the mutation.
-func (m *AbilitypatientrightsMutation) EdgesOfAbilitypatientrightsPatientrightstypeIDs() (ids []int) {
-	for id := range m._EdgesOfAbilitypatientrightsPatientrightstype {
+// EdgesOfAbilitypatientrightsPatientrightsIDs returns the EdgesOfAbilitypatientrightsPatientrights ids in the mutation.
+func (m *AbilitypatientrightsMutation) EdgesOfAbilitypatientrightsPatientrightsIDs() (ids []int) {
+	for id := range m._EdgesOfAbilitypatientrightsPatientrights {
 		ids = append(ids, id)
 	}
 	return
 }
 
-// ResetEdgesOfAbilitypatientrightsPatientrightstype reset all changes of the "EdgesOfAbilitypatientrightsPatientrightstype" edge.
-func (m *AbilitypatientrightsMutation) ResetEdgesOfAbilitypatientrightsPatientrightstype() {
-	m._EdgesOfAbilitypatientrightsPatientrightstype = nil
-	m.removed_EdgesOfAbilitypatientrightsPatientrightstype = nil
+// ResetEdgesOfAbilitypatientrightsPatientrights reset all changes of the "EdgesOfAbilitypatientrightsPatientrights" edge.
+func (m *AbilitypatientrightsMutation) ResetEdgesOfAbilitypatientrightsPatientrights() {
+	m._EdgesOfAbilitypatientrightsPatientrights = nil
+	m.removed_EdgesOfAbilitypatientrightsPatientrights = nil
 }
 
 // Op returns the operation name.
@@ -401,7 +437,7 @@ func (m *AbilitypatientrightsMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *AbilitypatientrightsMutation) Fields() []string {
-	fields := make([]string, 0, 3)
+	fields := make([]string, 0, 4)
 	if m._Operative != nil {
 		fields = append(fields, abilitypatientrights.FieldOperative)
 	}
@@ -410,6 +446,9 @@ func (m *AbilitypatientrightsMutation) Fields() []string {
 	}
 	if m._Examine != nil {
 		fields = append(fields, abilitypatientrights.FieldExamine)
+	}
+	if m.check != nil {
+		fields = append(fields, abilitypatientrights.FieldCheck)
 	}
 	return fields
 }
@@ -425,6 +464,8 @@ func (m *AbilitypatientrightsMutation) Field(name string) (ent.Value, bool) {
 		return m.MedicalSupplies()
 	case abilitypatientrights.FieldExamine:
 		return m.Examine()
+	case abilitypatientrights.FieldCheck:
+		return m.Check()
 	}
 	return nil, false
 }
@@ -440,6 +481,8 @@ func (m *AbilitypatientrightsMutation) OldField(ctx context.Context, name string
 		return m.OldMedicalSupplies(ctx)
 	case abilitypatientrights.FieldExamine:
 		return m.OldExamine(ctx)
+	case abilitypatientrights.FieldCheck:
+		return m.OldCheck(ctx)
 	}
 	return nil, fmt.Errorf("unknown Abilitypatientrights field %s", name)
 }
@@ -469,6 +512,13 @@ func (m *AbilitypatientrightsMutation) SetField(name string, value ent.Value) er
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetExamine(v)
+		return nil
+	case abilitypatientrights.FieldCheck:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCheck(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Abilitypatientrights field %s", name)
@@ -568,6 +618,9 @@ func (m *AbilitypatientrightsMutation) ResetField(name string) error {
 	case abilitypatientrights.FieldExamine:
 		m.ResetExamine()
 		return nil
+	case abilitypatientrights.FieldCheck:
+		m.ResetCheck()
+		return nil
 	}
 	return fmt.Errorf("unknown Abilitypatientrights field %s", name)
 }
@@ -576,8 +629,8 @@ func (m *AbilitypatientrightsMutation) ResetField(name string) error {
 // mutation.
 func (m *AbilitypatientrightsMutation) AddedEdges() []string {
 	edges := make([]string, 0, 1)
-	if m._EdgesOfAbilitypatientrightsPatientrightstype != nil {
-		edges = append(edges, abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrightstype)
+	if m._EdgesOfAbilitypatientrightsPatientrights != nil {
+		edges = append(edges, abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrights)
 	}
 	return edges
 }
@@ -586,9 +639,9 @@ func (m *AbilitypatientrightsMutation) AddedEdges() []string {
 // the given edge name.
 func (m *AbilitypatientrightsMutation) AddedIDs(name string) []ent.Value {
 	switch name {
-	case abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrightstype:
-		ids := make([]ent.Value, 0, len(m._EdgesOfAbilitypatientrightsPatientrightstype))
-		for id := range m._EdgesOfAbilitypatientrightsPatientrightstype {
+	case abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrights:
+		ids := make([]ent.Value, 0, len(m._EdgesOfAbilitypatientrightsPatientrights))
+		for id := range m._EdgesOfAbilitypatientrightsPatientrights {
 			ids = append(ids, id)
 		}
 		return ids
@@ -600,8 +653,8 @@ func (m *AbilitypatientrightsMutation) AddedIDs(name string) []ent.Value {
 // mutation.
 func (m *AbilitypatientrightsMutation) RemovedEdges() []string {
 	edges := make([]string, 0, 1)
-	if m.removed_EdgesOfAbilitypatientrightsPatientrightstype != nil {
-		edges = append(edges, abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrightstype)
+	if m.removed_EdgesOfAbilitypatientrightsPatientrights != nil {
+		edges = append(edges, abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrights)
 	}
 	return edges
 }
@@ -610,9 +663,9 @@ func (m *AbilitypatientrightsMutation) RemovedEdges() []string {
 // the given edge name.
 func (m *AbilitypatientrightsMutation) RemovedIDs(name string) []ent.Value {
 	switch name {
-	case abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrightstype:
-		ids := make([]ent.Value, 0, len(m.removed_EdgesOfAbilitypatientrightsPatientrightstype))
-		for id := range m.removed_EdgesOfAbilitypatientrightsPatientrightstype {
+	case abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrights:
+		ids := make([]ent.Value, 0, len(m.removed_EdgesOfAbilitypatientrightsPatientrights))
+		for id := range m.removed_EdgesOfAbilitypatientrightsPatientrights {
 			ids = append(ids, id)
 		}
 		return ids
@@ -648,8 +701,8 @@ func (m *AbilitypatientrightsMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *AbilitypatientrightsMutation) ResetEdge(name string) error {
 	switch name {
-	case abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrightstype:
-		m.ResetEdgesOfAbilitypatientrightsPatientrightstype()
+	case abilitypatientrights.EdgeEdgesOfAbilitypatientrightsPatientrights:
+		m.ResetEdgesOfAbilitypatientrightsPatientrights()
 		return nil
 	}
 	return fmt.Errorf("unknown Abilitypatientrights edge %s", name)
@@ -8642,21 +8695,24 @@ func (m *PatientrecordMutation) ResetEdge(name string) error {
 // nodes in the graph.
 type PatientrightsMutation struct {
 	config
-	op                                             Op
-	typ                                            string
-	id                                             *int
-	_PermissionDate                                *time.Time
-	clearedFields                                  map[string]struct{}
-	_EdgesOfPatientrightsPatientrightstype         *int
-	cleared_EdgesOfPatientrightsPatientrightstype  bool
-	_EdgesOfPatientrightsInsurance                 *int
-	cleared_EdgesOfPatientrightsInsurance          bool
-	_EdgesOfPatientrightsPatientrecord             *int
-	cleared_EdgesOfPatientrightsPatientrecord      bool
-	_EdgesOfPatientrightsMedicalrecordstaff        *int
-	cleared_EdgesOfPatientrightsMedicalrecordstaff bool
-	done                                           bool
-	oldValue                                       func(context.Context) (*Patientrights, error)
+	op                                               Op
+	typ                                              string
+	id                                               *int
+	_PermissionDate                                  *time.Time
+	_Permission                                      *string
+	_PermissionArea                                  *string
+	_Responsible                                     *string
+	clearedFields                                    map[string]struct{}
+	_EdgesOfPatientrightsAbilitypatientrights        *int
+	cleared_EdgesOfPatientrightsAbilitypatientrights bool
+	_EdgesOfPatientrightsInsurance                   *int
+	cleared_EdgesOfPatientrightsInsurance            bool
+	_EdgesOfPatientrightsPatientrecord               *int
+	cleared_EdgesOfPatientrightsPatientrecord        bool
+	_EdgesOfPatientrightsMedicalrecordstaff          *int
+	cleared_EdgesOfPatientrightsMedicalrecordstaff   bool
+	done                                             bool
+	oldValue                                         func(context.Context) (*Patientrights, error)
 }
 
 var _ ent.Mutation = (*PatientrightsMutation)(nil)
@@ -8775,43 +8831,154 @@ func (m *PatientrightsMutation) ResetPermissionDate() {
 	m._PermissionDate = nil
 }
 
-// SetEdgesOfPatientrightsPatientrightstypeID sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype by id.
-func (m *PatientrightsMutation) SetEdgesOfPatientrightsPatientrightstypeID(id int) {
-	m._EdgesOfPatientrightsPatientrightstype = &id
+// SetPermission sets the Permission field.
+func (m *PatientrightsMutation) SetPermission(s string) {
+	m._Permission = &s
 }
 
-// ClearEdgesOfPatientrightsPatientrightstype clears the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype.
-func (m *PatientrightsMutation) ClearEdgesOfPatientrightsPatientrightstype() {
-	m.cleared_EdgesOfPatientrightsPatientrightstype = true
+// Permission returns the Permission value in the mutation.
+func (m *PatientrightsMutation) Permission() (r string, exists bool) {
+	v := m._Permission
+	if v == nil {
+		return
+	}
+	return *v, true
 }
 
-// EdgesOfPatientrightsPatientrightstypeCleared returns if the edge EdgesOfPatientrightsPatientrightstype was cleared.
-func (m *PatientrightsMutation) EdgesOfPatientrightsPatientrightstypeCleared() bool {
-	return m.cleared_EdgesOfPatientrightsPatientrightstype
+// OldPermission returns the old Permission value of the Patientrights.
+// If the Patientrights object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PatientrightsMutation) OldPermission(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPermission is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPermission requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPermission: %w", err)
+	}
+	return oldValue.Permission, nil
 }
 
-// EdgesOfPatientrightsPatientrightstypeID returns the EdgesOfPatientrightsPatientrightstype id in the mutation.
-func (m *PatientrightsMutation) EdgesOfPatientrightsPatientrightstypeID() (id int, exists bool) {
-	if m._EdgesOfPatientrightsPatientrightstype != nil {
-		return *m._EdgesOfPatientrightsPatientrightstype, true
+// ResetPermission reset all changes of the "Permission" field.
+func (m *PatientrightsMutation) ResetPermission() {
+	m._Permission = nil
+}
+
+// SetPermissionArea sets the PermissionArea field.
+func (m *PatientrightsMutation) SetPermissionArea(s string) {
+	m._PermissionArea = &s
+}
+
+// PermissionArea returns the PermissionArea value in the mutation.
+func (m *PatientrightsMutation) PermissionArea() (r string, exists bool) {
+	v := m._PermissionArea
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPermissionArea returns the old PermissionArea value of the Patientrights.
+// If the Patientrights object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PatientrightsMutation) OldPermissionArea(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPermissionArea is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPermissionArea requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPermissionArea: %w", err)
+	}
+	return oldValue.PermissionArea, nil
+}
+
+// ResetPermissionArea reset all changes of the "PermissionArea" field.
+func (m *PatientrightsMutation) ResetPermissionArea() {
+	m._PermissionArea = nil
+}
+
+// SetResponsible sets the Responsible field.
+func (m *PatientrightsMutation) SetResponsible(s string) {
+	m._Responsible = &s
+}
+
+// Responsible returns the Responsible value in the mutation.
+func (m *PatientrightsMutation) Responsible() (r string, exists bool) {
+	v := m._Responsible
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldResponsible returns the old Responsible value of the Patientrights.
+// If the Patientrights object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PatientrightsMutation) OldResponsible(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldResponsible is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldResponsible requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldResponsible: %w", err)
+	}
+	return oldValue.Responsible, nil
+}
+
+// ResetResponsible reset all changes of the "Responsible" field.
+func (m *PatientrightsMutation) ResetResponsible() {
+	m._Responsible = nil
+}
+
+// SetEdgesOfPatientrightsAbilitypatientrightsID sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights by id.
+func (m *PatientrightsMutation) SetEdgesOfPatientrightsAbilitypatientrightsID(id int) {
+	m._EdgesOfPatientrightsAbilitypatientrights = &id
+}
+
+// ClearEdgesOfPatientrightsAbilitypatientrights clears the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights.
+func (m *PatientrightsMutation) ClearEdgesOfPatientrightsAbilitypatientrights() {
+	m.cleared_EdgesOfPatientrightsAbilitypatientrights = true
+}
+
+// EdgesOfPatientrightsAbilitypatientrightsCleared returns if the edge EdgesOfPatientrightsAbilitypatientrights was cleared.
+func (m *PatientrightsMutation) EdgesOfPatientrightsAbilitypatientrightsCleared() bool {
+	return m.cleared_EdgesOfPatientrightsAbilitypatientrights
+}
+
+// EdgesOfPatientrightsAbilitypatientrightsID returns the EdgesOfPatientrightsAbilitypatientrights id in the mutation.
+func (m *PatientrightsMutation) EdgesOfPatientrightsAbilitypatientrightsID() (id int, exists bool) {
+	if m._EdgesOfPatientrightsAbilitypatientrights != nil {
+		return *m._EdgesOfPatientrightsAbilitypatientrights, true
 	}
 	return
 }
 
-// EdgesOfPatientrightsPatientrightstypeIDs returns the EdgesOfPatientrightsPatientrightstype ids in the mutation.
+// EdgesOfPatientrightsAbilitypatientrightsIDs returns the EdgesOfPatientrightsAbilitypatientrights ids in the mutation.
 // Note that ids always returns len(ids) <= 1 for unique edges, and you should use
-// EdgesOfPatientrightsPatientrightstypeID instead. It exists only for internal usage by the builders.
-func (m *PatientrightsMutation) EdgesOfPatientrightsPatientrightstypeIDs() (ids []int) {
-	if id := m._EdgesOfPatientrightsPatientrightstype; id != nil {
+// EdgesOfPatientrightsAbilitypatientrightsID instead. It exists only for internal usage by the builders.
+func (m *PatientrightsMutation) EdgesOfPatientrightsAbilitypatientrightsIDs() (ids []int) {
+	if id := m._EdgesOfPatientrightsAbilitypatientrights; id != nil {
 		ids = append(ids, *id)
 	}
 	return
 }
 
-// ResetEdgesOfPatientrightsPatientrightstype reset all changes of the "EdgesOfPatientrightsPatientrightstype" edge.
-func (m *PatientrightsMutation) ResetEdgesOfPatientrightsPatientrightstype() {
-	m._EdgesOfPatientrightsPatientrightstype = nil
-	m.cleared_EdgesOfPatientrightsPatientrightstype = false
+// ResetEdgesOfPatientrightsAbilitypatientrights reset all changes of the "EdgesOfPatientrightsAbilitypatientrights" edge.
+func (m *PatientrightsMutation) ResetEdgesOfPatientrightsAbilitypatientrights() {
+	m._EdgesOfPatientrightsAbilitypatientrights = nil
+	m.cleared_EdgesOfPatientrightsAbilitypatientrights = false
 }
 
 // SetEdgesOfPatientrightsInsuranceID sets the EdgesOfPatientrightsInsurance edge to Insurance by id.
@@ -8945,9 +9112,18 @@ func (m *PatientrightsMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *PatientrightsMutation) Fields() []string {
-	fields := make([]string, 0, 1)
+	fields := make([]string, 0, 4)
 	if m._PermissionDate != nil {
 		fields = append(fields, patientrights.FieldPermissionDate)
+	}
+	if m._Permission != nil {
+		fields = append(fields, patientrights.FieldPermission)
+	}
+	if m._PermissionArea != nil {
+		fields = append(fields, patientrights.FieldPermissionArea)
+	}
+	if m._Responsible != nil {
+		fields = append(fields, patientrights.FieldResponsible)
 	}
 	return fields
 }
@@ -8959,6 +9135,12 @@ func (m *PatientrightsMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case patientrights.FieldPermissionDate:
 		return m.PermissionDate()
+	case patientrights.FieldPermission:
+		return m.Permission()
+	case patientrights.FieldPermissionArea:
+		return m.PermissionArea()
+	case patientrights.FieldResponsible:
+		return m.Responsible()
 	}
 	return nil, false
 }
@@ -8970,6 +9152,12 @@ func (m *PatientrightsMutation) OldField(ctx context.Context, name string) (ent.
 	switch name {
 	case patientrights.FieldPermissionDate:
 		return m.OldPermissionDate(ctx)
+	case patientrights.FieldPermission:
+		return m.OldPermission(ctx)
+	case patientrights.FieldPermissionArea:
+		return m.OldPermissionArea(ctx)
+	case patientrights.FieldResponsible:
+		return m.OldResponsible(ctx)
 	}
 	return nil, fmt.Errorf("unknown Patientrights field %s", name)
 }
@@ -8985,6 +9173,27 @@ func (m *PatientrightsMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPermissionDate(v)
+		return nil
+	case patientrights.FieldPermission:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPermission(v)
+		return nil
+	case patientrights.FieldPermissionArea:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPermissionArea(v)
+		return nil
+	case patientrights.FieldResponsible:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetResponsible(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Patientrights field %s", name)
@@ -9039,6 +9248,15 @@ func (m *PatientrightsMutation) ResetField(name string) error {
 	case patientrights.FieldPermissionDate:
 		m.ResetPermissionDate()
 		return nil
+	case patientrights.FieldPermission:
+		m.ResetPermission()
+		return nil
+	case patientrights.FieldPermissionArea:
+		m.ResetPermissionArea()
+		return nil
+	case patientrights.FieldResponsible:
+		m.ResetResponsible()
+		return nil
 	}
 	return fmt.Errorf("unknown Patientrights field %s", name)
 }
@@ -9047,8 +9265,8 @@ func (m *PatientrightsMutation) ResetField(name string) error {
 // mutation.
 func (m *PatientrightsMutation) AddedEdges() []string {
 	edges := make([]string, 0, 4)
-	if m._EdgesOfPatientrightsPatientrightstype != nil {
-		edges = append(edges, patientrights.EdgeEdgesOfPatientrightsPatientrightstype)
+	if m._EdgesOfPatientrightsAbilitypatientrights != nil {
+		edges = append(edges, patientrights.EdgeEdgesOfPatientrightsAbilitypatientrights)
 	}
 	if m._EdgesOfPatientrightsInsurance != nil {
 		edges = append(edges, patientrights.EdgeEdgesOfPatientrightsInsurance)
@@ -9066,8 +9284,8 @@ func (m *PatientrightsMutation) AddedEdges() []string {
 // the given edge name.
 func (m *PatientrightsMutation) AddedIDs(name string) []ent.Value {
 	switch name {
-	case patientrights.EdgeEdgesOfPatientrightsPatientrightstype:
-		if id := m._EdgesOfPatientrightsPatientrightstype; id != nil {
+	case patientrights.EdgeEdgesOfPatientrightsAbilitypatientrights:
+		if id := m._EdgesOfPatientrightsAbilitypatientrights; id != nil {
 			return []ent.Value{*id}
 		}
 	case patientrights.EdgeEdgesOfPatientrightsInsurance:
@@ -9105,8 +9323,8 @@ func (m *PatientrightsMutation) RemovedIDs(name string) []ent.Value {
 // mutation.
 func (m *PatientrightsMutation) ClearedEdges() []string {
 	edges := make([]string, 0, 4)
-	if m.cleared_EdgesOfPatientrightsPatientrightstype {
-		edges = append(edges, patientrights.EdgeEdgesOfPatientrightsPatientrightstype)
+	if m.cleared_EdgesOfPatientrightsAbilitypatientrights {
+		edges = append(edges, patientrights.EdgeEdgesOfPatientrightsAbilitypatientrights)
 	}
 	if m.cleared_EdgesOfPatientrightsInsurance {
 		edges = append(edges, patientrights.EdgeEdgesOfPatientrightsInsurance)
@@ -9124,8 +9342,8 @@ func (m *PatientrightsMutation) ClearedEdges() []string {
 // cleared in this mutation.
 func (m *PatientrightsMutation) EdgeCleared(name string) bool {
 	switch name {
-	case patientrights.EdgeEdgesOfPatientrightsPatientrightstype:
-		return m.cleared_EdgesOfPatientrightsPatientrightstype
+	case patientrights.EdgeEdgesOfPatientrightsAbilitypatientrights:
+		return m.cleared_EdgesOfPatientrightsAbilitypatientrights
 	case patientrights.EdgeEdgesOfPatientrightsInsurance:
 		return m.cleared_EdgesOfPatientrightsInsurance
 	case patientrights.EdgeEdgesOfPatientrightsPatientrecord:
@@ -9140,8 +9358,8 @@ func (m *PatientrightsMutation) EdgeCleared(name string) bool {
 // error if the edge name is not defined in the schema.
 func (m *PatientrightsMutation) ClearEdge(name string) error {
 	switch name {
-	case patientrights.EdgeEdgesOfPatientrightsPatientrightstype:
-		m.ClearEdgesOfPatientrightsPatientrightstype()
+	case patientrights.EdgeEdgesOfPatientrightsAbilitypatientrights:
+		m.ClearEdgesOfPatientrightsAbilitypatientrights()
 		return nil
 	case patientrights.EdgeEdgesOfPatientrightsInsurance:
 		m.ClearEdgesOfPatientrightsInsurance()
@@ -9161,8 +9379,8 @@ func (m *PatientrightsMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *PatientrightsMutation) ResetEdge(name string) error {
 	switch name {
-	case patientrights.EdgeEdgesOfPatientrightsPatientrightstype:
-		m.ResetEdgesOfPatientrightsPatientrightstype()
+	case patientrights.EdgeEdgesOfPatientrightsAbilitypatientrights:
+		m.ResetEdgesOfPatientrightsAbilitypatientrights()
 		return nil
 	case patientrights.EdgeEdgesOfPatientrightsInsurance:
 		m.ResetEdgesOfPatientrightsInsurance()
@@ -9175,543 +9393,6 @@ func (m *PatientrightsMutation) ResetEdge(name string) error {
 		return nil
 	}
 	return fmt.Errorf("unknown Patientrights edge %s", name)
-}
-
-// PatientrightstypeMutation represents an operation that mutate the Patientrightstypes
-// nodes in the graph.
-type PatientrightstypeMutation struct {
-	config
-	op                                                   Op
-	typ                                                  string
-	id                                                   *int
-	_Permission                                          *string
-	_PermissionArea                                      *string
-	_Responsible                                         *string
-	clearedFields                                        map[string]struct{}
-	_EdgesOfPatientrightstypePatientrights               map[int]struct{}
-	removed_EdgesOfPatientrightstypePatientrights        map[int]struct{}
-	_EdgesOfPatientrightstypeAbilitypatientrights        *int
-	cleared_EdgesOfPatientrightstypeAbilitypatientrights bool
-	done                                                 bool
-	oldValue                                             func(context.Context) (*Patientrightstype, error)
-}
-
-var _ ent.Mutation = (*PatientrightstypeMutation)(nil)
-
-// patientrightstypeOption allows to manage the mutation configuration using functional options.
-type patientrightstypeOption func(*PatientrightstypeMutation)
-
-// newPatientrightstypeMutation creates new mutation for $n.Name.
-func newPatientrightstypeMutation(c config, op Op, opts ...patientrightstypeOption) *PatientrightstypeMutation {
-	m := &PatientrightstypeMutation{
-		config:        c,
-		op:            op,
-		typ:           TypePatientrightstype,
-		clearedFields: make(map[string]struct{}),
-	}
-	for _, opt := range opts {
-		opt(m)
-	}
-	return m
-}
-
-// withPatientrightstypeID sets the id field of the mutation.
-func withPatientrightstypeID(id int) patientrightstypeOption {
-	return func(m *PatientrightstypeMutation) {
-		var (
-			err   error
-			once  sync.Once
-			value *Patientrightstype
-		)
-		m.oldValue = func(ctx context.Context) (*Patientrightstype, error) {
-			once.Do(func() {
-				if m.done {
-					err = fmt.Errorf("querying old values post mutation is not allowed")
-				} else {
-					value, err = m.Client().Patientrightstype.Get(ctx, id)
-				}
-			})
-			return value, err
-		}
-		m.id = &id
-	}
-}
-
-// withPatientrightstype sets the old Patientrightstype of the mutation.
-func withPatientrightstype(node *Patientrightstype) patientrightstypeOption {
-	return func(m *PatientrightstypeMutation) {
-		m.oldValue = func(context.Context) (*Patientrightstype, error) {
-			return node, nil
-		}
-		m.id = &node.ID
-	}
-}
-
-// Client returns a new `ent.Client` from the mutation. If the mutation was
-// executed in a transaction (ent.Tx), a transactional client is returned.
-func (m PatientrightstypeMutation) Client() *Client {
-	client := &Client{config: m.config}
-	client.init()
-	return client
-}
-
-// Tx returns an `ent.Tx` for mutations that were executed in transactions;
-// it returns an error otherwise.
-func (m PatientrightstypeMutation) Tx() (*Tx, error) {
-	if _, ok := m.driver.(*txDriver); !ok {
-		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
-	}
-	tx := &Tx{config: m.config}
-	tx.init()
-	return tx, nil
-}
-
-// ID returns the id value in the mutation. Note that, the id
-// is available only if it was provided to the builder.
-func (m *PatientrightstypeMutation) ID() (id int, exists bool) {
-	if m.id == nil {
-		return
-	}
-	return *m.id, true
-}
-
-// SetPermission sets the Permission field.
-func (m *PatientrightstypeMutation) SetPermission(s string) {
-	m._Permission = &s
-}
-
-// Permission returns the Permission value in the mutation.
-func (m *PatientrightstypeMutation) Permission() (r string, exists bool) {
-	v := m._Permission
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldPermission returns the old Permission value of the Patientrightstype.
-// If the Patientrightstype object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *PatientrightstypeMutation) OldPermission(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldPermission is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldPermission requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldPermission: %w", err)
-	}
-	return oldValue.Permission, nil
-}
-
-// ResetPermission reset all changes of the "Permission" field.
-func (m *PatientrightstypeMutation) ResetPermission() {
-	m._Permission = nil
-}
-
-// SetPermissionArea sets the PermissionArea field.
-func (m *PatientrightstypeMutation) SetPermissionArea(s string) {
-	m._PermissionArea = &s
-}
-
-// PermissionArea returns the PermissionArea value in the mutation.
-func (m *PatientrightstypeMutation) PermissionArea() (r string, exists bool) {
-	v := m._PermissionArea
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldPermissionArea returns the old PermissionArea value of the Patientrightstype.
-// If the Patientrightstype object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *PatientrightstypeMutation) OldPermissionArea(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldPermissionArea is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldPermissionArea requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldPermissionArea: %w", err)
-	}
-	return oldValue.PermissionArea, nil
-}
-
-// ResetPermissionArea reset all changes of the "PermissionArea" field.
-func (m *PatientrightstypeMutation) ResetPermissionArea() {
-	m._PermissionArea = nil
-}
-
-// SetResponsible sets the Responsible field.
-func (m *PatientrightstypeMutation) SetResponsible(s string) {
-	m._Responsible = &s
-}
-
-// Responsible returns the Responsible value in the mutation.
-func (m *PatientrightstypeMutation) Responsible() (r string, exists bool) {
-	v := m._Responsible
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldResponsible returns the old Responsible value of the Patientrightstype.
-// If the Patientrightstype object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *PatientrightstypeMutation) OldResponsible(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldResponsible is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldResponsible requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldResponsible: %w", err)
-	}
-	return oldValue.Responsible, nil
-}
-
-// ResetResponsible reset all changes of the "Responsible" field.
-func (m *PatientrightstypeMutation) ResetResponsible() {
-	m._Responsible = nil
-}
-
-// AddEdgesOfPatientrightstypePatientrightIDs adds the EdgesOfPatientrightstypePatientrights edge to Patientrights by ids.
-func (m *PatientrightstypeMutation) AddEdgesOfPatientrightstypePatientrightIDs(ids ...int) {
-	if m._EdgesOfPatientrightstypePatientrights == nil {
-		m._EdgesOfPatientrightstypePatientrights = make(map[int]struct{})
-	}
-	for i := range ids {
-		m._EdgesOfPatientrightstypePatientrights[ids[i]] = struct{}{}
-	}
-}
-
-// RemoveEdgesOfPatientrightstypePatientrightIDs removes the EdgesOfPatientrightstypePatientrights edge to Patientrights by ids.
-func (m *PatientrightstypeMutation) RemoveEdgesOfPatientrightstypePatientrightIDs(ids ...int) {
-	if m.removed_EdgesOfPatientrightstypePatientrights == nil {
-		m.removed_EdgesOfPatientrightstypePatientrights = make(map[int]struct{})
-	}
-	for i := range ids {
-		m.removed_EdgesOfPatientrightstypePatientrights[ids[i]] = struct{}{}
-	}
-}
-
-// RemovedEdgesOfPatientrightstypePatientrights returns the removed ids of EdgesOfPatientrightstypePatientrights.
-func (m *PatientrightstypeMutation) RemovedEdgesOfPatientrightstypePatientrightsIDs() (ids []int) {
-	for id := range m.removed_EdgesOfPatientrightstypePatientrights {
-		ids = append(ids, id)
-	}
-	return
-}
-
-// EdgesOfPatientrightstypePatientrightsIDs returns the EdgesOfPatientrightstypePatientrights ids in the mutation.
-func (m *PatientrightstypeMutation) EdgesOfPatientrightstypePatientrightsIDs() (ids []int) {
-	for id := range m._EdgesOfPatientrightstypePatientrights {
-		ids = append(ids, id)
-	}
-	return
-}
-
-// ResetEdgesOfPatientrightstypePatientrights reset all changes of the "EdgesOfPatientrightstypePatientrights" edge.
-func (m *PatientrightstypeMutation) ResetEdgesOfPatientrightstypePatientrights() {
-	m._EdgesOfPatientrightstypePatientrights = nil
-	m.removed_EdgesOfPatientrightstypePatientrights = nil
-}
-
-// SetEdgesOfPatientrightstypeAbilitypatientrightsID sets the EdgesOfPatientrightstypeAbilitypatientrights edge to Abilitypatientrights by id.
-func (m *PatientrightstypeMutation) SetEdgesOfPatientrightstypeAbilitypatientrightsID(id int) {
-	m._EdgesOfPatientrightstypeAbilitypatientrights = &id
-}
-
-// ClearEdgesOfPatientrightstypeAbilitypatientrights clears the EdgesOfPatientrightstypeAbilitypatientrights edge to Abilitypatientrights.
-func (m *PatientrightstypeMutation) ClearEdgesOfPatientrightstypeAbilitypatientrights() {
-	m.cleared_EdgesOfPatientrightstypeAbilitypatientrights = true
-}
-
-// EdgesOfPatientrightstypeAbilitypatientrightsCleared returns if the edge EdgesOfPatientrightstypeAbilitypatientrights was cleared.
-func (m *PatientrightstypeMutation) EdgesOfPatientrightstypeAbilitypatientrightsCleared() bool {
-	return m.cleared_EdgesOfPatientrightstypeAbilitypatientrights
-}
-
-// EdgesOfPatientrightstypeAbilitypatientrightsID returns the EdgesOfPatientrightstypeAbilitypatientrights id in the mutation.
-func (m *PatientrightstypeMutation) EdgesOfPatientrightstypeAbilitypatientrightsID() (id int, exists bool) {
-	if m._EdgesOfPatientrightstypeAbilitypatientrights != nil {
-		return *m._EdgesOfPatientrightstypeAbilitypatientrights, true
-	}
-	return
-}
-
-// EdgesOfPatientrightstypeAbilitypatientrightsIDs returns the EdgesOfPatientrightstypeAbilitypatientrights ids in the mutation.
-// Note that ids always returns len(ids) <= 1 for unique edges, and you should use
-// EdgesOfPatientrightstypeAbilitypatientrightsID instead. It exists only for internal usage by the builders.
-func (m *PatientrightstypeMutation) EdgesOfPatientrightstypeAbilitypatientrightsIDs() (ids []int) {
-	if id := m._EdgesOfPatientrightstypeAbilitypatientrights; id != nil {
-		ids = append(ids, *id)
-	}
-	return
-}
-
-// ResetEdgesOfPatientrightstypeAbilitypatientrights reset all changes of the "EdgesOfPatientrightstypeAbilitypatientrights" edge.
-func (m *PatientrightstypeMutation) ResetEdgesOfPatientrightstypeAbilitypatientrights() {
-	m._EdgesOfPatientrightstypeAbilitypatientrights = nil
-	m.cleared_EdgesOfPatientrightstypeAbilitypatientrights = false
-}
-
-// Op returns the operation name.
-func (m *PatientrightstypeMutation) Op() Op {
-	return m.op
-}
-
-// Type returns the node type of this mutation (Patientrightstype).
-func (m *PatientrightstypeMutation) Type() string {
-	return m.typ
-}
-
-// Fields returns all fields that were changed during
-// this mutation. Note that, in order to get all numeric
-// fields that were in/decremented, call AddedFields().
-func (m *PatientrightstypeMutation) Fields() []string {
-	fields := make([]string, 0, 3)
-	if m._Permission != nil {
-		fields = append(fields, patientrightstype.FieldPermission)
-	}
-	if m._PermissionArea != nil {
-		fields = append(fields, patientrightstype.FieldPermissionArea)
-	}
-	if m._Responsible != nil {
-		fields = append(fields, patientrightstype.FieldResponsible)
-	}
-	return fields
-}
-
-// Field returns the value of a field with the given name.
-// The second boolean value indicates that this field was
-// not set, or was not define in the schema.
-func (m *PatientrightstypeMutation) Field(name string) (ent.Value, bool) {
-	switch name {
-	case patientrightstype.FieldPermission:
-		return m.Permission()
-	case patientrightstype.FieldPermissionArea:
-		return m.PermissionArea()
-	case patientrightstype.FieldResponsible:
-		return m.Responsible()
-	}
-	return nil, false
-}
-
-// OldField returns the old value of the field from the database.
-// An error is returned if the mutation operation is not UpdateOne,
-// or the query to the database was failed.
-func (m *PatientrightstypeMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
-	switch name {
-	case patientrightstype.FieldPermission:
-		return m.OldPermission(ctx)
-	case patientrightstype.FieldPermissionArea:
-		return m.OldPermissionArea(ctx)
-	case patientrightstype.FieldResponsible:
-		return m.OldResponsible(ctx)
-	}
-	return nil, fmt.Errorf("unknown Patientrightstype field %s", name)
-}
-
-// SetField sets the value for the given name. It returns an
-// error if the field is not defined in the schema, or if the
-// type mismatch the field type.
-func (m *PatientrightstypeMutation) SetField(name string, value ent.Value) error {
-	switch name {
-	case patientrightstype.FieldPermission:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetPermission(v)
-		return nil
-	case patientrightstype.FieldPermissionArea:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetPermissionArea(v)
-		return nil
-	case patientrightstype.FieldResponsible:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetResponsible(v)
-		return nil
-	}
-	return fmt.Errorf("unknown Patientrightstype field %s", name)
-}
-
-// AddedFields returns all numeric fields that were incremented
-// or decremented during this mutation.
-func (m *PatientrightstypeMutation) AddedFields() []string {
-	return nil
-}
-
-// AddedField returns the numeric value that was in/decremented
-// from a field with the given name. The second value indicates
-// that this field was not set, or was not define in the schema.
-func (m *PatientrightstypeMutation) AddedField(name string) (ent.Value, bool) {
-	return nil, false
-}
-
-// AddField adds the value for the given name. It returns an
-// error if the field is not defined in the schema, or if the
-// type mismatch the field type.
-func (m *PatientrightstypeMutation) AddField(name string, value ent.Value) error {
-	switch name {
-	}
-	return fmt.Errorf("unknown Patientrightstype numeric field %s", name)
-}
-
-// ClearedFields returns all nullable fields that were cleared
-// during this mutation.
-func (m *PatientrightstypeMutation) ClearedFields() []string {
-	return nil
-}
-
-// FieldCleared returns a boolean indicates if this field was
-// cleared in this mutation.
-func (m *PatientrightstypeMutation) FieldCleared(name string) bool {
-	_, ok := m.clearedFields[name]
-	return ok
-}
-
-// ClearField clears the value for the given name. It returns an
-// error if the field is not defined in the schema.
-func (m *PatientrightstypeMutation) ClearField(name string) error {
-	return fmt.Errorf("unknown Patientrightstype nullable field %s", name)
-}
-
-// ResetField resets all changes in the mutation regarding the
-// given field name. It returns an error if the field is not
-// defined in the schema.
-func (m *PatientrightstypeMutation) ResetField(name string) error {
-	switch name {
-	case patientrightstype.FieldPermission:
-		m.ResetPermission()
-		return nil
-	case patientrightstype.FieldPermissionArea:
-		m.ResetPermissionArea()
-		return nil
-	case patientrightstype.FieldResponsible:
-		m.ResetResponsible()
-		return nil
-	}
-	return fmt.Errorf("unknown Patientrightstype field %s", name)
-}
-
-// AddedEdges returns all edge names that were set/added in this
-// mutation.
-func (m *PatientrightstypeMutation) AddedEdges() []string {
-	edges := make([]string, 0, 2)
-	if m._EdgesOfPatientrightstypePatientrights != nil {
-		edges = append(edges, patientrightstype.EdgeEdgesOfPatientrightstypePatientrights)
-	}
-	if m._EdgesOfPatientrightstypeAbilitypatientrights != nil {
-		edges = append(edges, patientrightstype.EdgeEdgesOfPatientrightstypeAbilitypatientrights)
-	}
-	return edges
-}
-
-// AddedIDs returns all ids (to other nodes) that were added for
-// the given edge name.
-func (m *PatientrightstypeMutation) AddedIDs(name string) []ent.Value {
-	switch name {
-	case patientrightstype.EdgeEdgesOfPatientrightstypePatientrights:
-		ids := make([]ent.Value, 0, len(m._EdgesOfPatientrightstypePatientrights))
-		for id := range m._EdgesOfPatientrightstypePatientrights {
-			ids = append(ids, id)
-		}
-		return ids
-	case patientrightstype.EdgeEdgesOfPatientrightstypeAbilitypatientrights:
-		if id := m._EdgesOfPatientrightstypeAbilitypatientrights; id != nil {
-			return []ent.Value{*id}
-		}
-	}
-	return nil
-}
-
-// RemovedEdges returns all edge names that were removed in this
-// mutation.
-func (m *PatientrightstypeMutation) RemovedEdges() []string {
-	edges := make([]string, 0, 2)
-	if m.removed_EdgesOfPatientrightstypePatientrights != nil {
-		edges = append(edges, patientrightstype.EdgeEdgesOfPatientrightstypePatientrights)
-	}
-	return edges
-}
-
-// RemovedIDs returns all ids (to other nodes) that were removed for
-// the given edge name.
-func (m *PatientrightstypeMutation) RemovedIDs(name string) []ent.Value {
-	switch name {
-	case patientrightstype.EdgeEdgesOfPatientrightstypePatientrights:
-		ids := make([]ent.Value, 0, len(m.removed_EdgesOfPatientrightstypePatientrights))
-		for id := range m.removed_EdgesOfPatientrightstypePatientrights {
-			ids = append(ids, id)
-		}
-		return ids
-	}
-	return nil
-}
-
-// ClearedEdges returns all edge names that were cleared in this
-// mutation.
-func (m *PatientrightstypeMutation) ClearedEdges() []string {
-	edges := make([]string, 0, 2)
-	if m.cleared_EdgesOfPatientrightstypeAbilitypatientrights {
-		edges = append(edges, patientrightstype.EdgeEdgesOfPatientrightstypeAbilitypatientrights)
-	}
-	return edges
-}
-
-// EdgeCleared returns a boolean indicates if this edge was
-// cleared in this mutation.
-func (m *PatientrightstypeMutation) EdgeCleared(name string) bool {
-	switch name {
-	case patientrightstype.EdgeEdgesOfPatientrightstypeAbilitypatientrights:
-		return m.cleared_EdgesOfPatientrightstypeAbilitypatientrights
-	}
-	return false
-}
-
-// ClearEdge clears the value for the given name. It returns an
-// error if the edge name is not defined in the schema.
-func (m *PatientrightstypeMutation) ClearEdge(name string) error {
-	switch name {
-	case patientrightstype.EdgeEdgesOfPatientrightstypeAbilitypatientrights:
-		m.ClearEdgesOfPatientrightstypeAbilitypatientrights()
-		return nil
-	}
-	return fmt.Errorf("unknown Patientrightstype unique edge %s", name)
-}
-
-// ResetEdge resets all changes in the mutation regarding the
-// given edge name. It returns an error if the edge is not
-// defined in the schema.
-func (m *PatientrightstypeMutation) ResetEdge(name string) error {
-	switch name {
-	case patientrightstype.EdgeEdgesOfPatientrightstypePatientrights:
-		m.ResetEdgesOfPatientrightstypePatientrights()
-		return nil
-	case patientrightstype.EdgeEdgesOfPatientrightstypeAbilitypatientrights:
-		m.ResetEdgesOfPatientrightstypeAbilitypatientrights()
-		return nil
-	}
-	return fmt.Errorf("unknown Patientrightstype edge %s", name)
 }
 
 // PaytypeMutation represents an operation that mutate the Paytypes

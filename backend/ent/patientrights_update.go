@@ -10,11 +10,11 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/insurance"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrights"
-	"github.com/team10/app/ent/patientrightstype"
 	"github.com/team10/app/ent/predicate"
 )
 
@@ -38,23 +38,41 @@ func (pu *PatientrightsUpdate) SetPermissionDate(t time.Time) *PatientrightsUpda
 	return pu
 }
 
-// SetEdgesOfPatientrightsPatientrightstypeID sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype by id.
-func (pu *PatientrightsUpdate) SetEdgesOfPatientrightsPatientrightstypeID(id int) *PatientrightsUpdate {
-	pu.mutation.SetEdgesOfPatientrightsPatientrightstypeID(id)
+// SetPermission sets the Permission field.
+func (pu *PatientrightsUpdate) SetPermission(s string) *PatientrightsUpdate {
+	pu.mutation.SetPermission(s)
 	return pu
 }
 
-// SetNillableEdgesOfPatientrightsPatientrightstypeID sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype by id if the given value is not nil.
-func (pu *PatientrightsUpdate) SetNillableEdgesOfPatientrightsPatientrightstypeID(id *int) *PatientrightsUpdate {
+// SetPermissionArea sets the PermissionArea field.
+func (pu *PatientrightsUpdate) SetPermissionArea(s string) *PatientrightsUpdate {
+	pu.mutation.SetPermissionArea(s)
+	return pu
+}
+
+// SetResponsible sets the Responsible field.
+func (pu *PatientrightsUpdate) SetResponsible(s string) *PatientrightsUpdate {
+	pu.mutation.SetResponsible(s)
+	return pu
+}
+
+// SetEdgesOfPatientrightsAbilitypatientrightsID sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights by id.
+func (pu *PatientrightsUpdate) SetEdgesOfPatientrightsAbilitypatientrightsID(id int) *PatientrightsUpdate {
+	pu.mutation.SetEdgesOfPatientrightsAbilitypatientrightsID(id)
+	return pu
+}
+
+// SetNillableEdgesOfPatientrightsAbilitypatientrightsID sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights by id if the given value is not nil.
+func (pu *PatientrightsUpdate) SetNillableEdgesOfPatientrightsAbilitypatientrightsID(id *int) *PatientrightsUpdate {
 	if id != nil {
-		pu = pu.SetEdgesOfPatientrightsPatientrightstypeID(*id)
+		pu = pu.SetEdgesOfPatientrightsAbilitypatientrightsID(*id)
 	}
 	return pu
 }
 
-// SetEdgesOfPatientrightsPatientrightstype sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype.
-func (pu *PatientrightsUpdate) SetEdgesOfPatientrightsPatientrightstype(p *Patientrightstype) *PatientrightsUpdate {
-	return pu.SetEdgesOfPatientrightsPatientrightstypeID(p.ID)
+// SetEdgesOfPatientrightsAbilitypatientrights sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights.
+func (pu *PatientrightsUpdate) SetEdgesOfPatientrightsAbilitypatientrights(a *Abilitypatientrights) *PatientrightsUpdate {
+	return pu.SetEdgesOfPatientrightsAbilitypatientrightsID(a.ID)
 }
 
 // SetEdgesOfPatientrightsInsuranceID sets the EdgesOfPatientrightsInsurance edge to Insurance by id.
@@ -119,9 +137,9 @@ func (pu *PatientrightsUpdate) Mutation() *PatientrightsMutation {
 	return pu.mutation
 }
 
-// ClearEdgesOfPatientrightsPatientrightstype clears the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype.
-func (pu *PatientrightsUpdate) ClearEdgesOfPatientrightsPatientrightstype() *PatientrightsUpdate {
-	pu.mutation.ClearEdgesOfPatientrightsPatientrightstype()
+// ClearEdgesOfPatientrightsAbilitypatientrights clears the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights.
+func (pu *PatientrightsUpdate) ClearEdgesOfPatientrightsAbilitypatientrights() *PatientrightsUpdate {
+	pu.mutation.ClearEdgesOfPatientrightsAbilitypatientrights()
 	return pu
 }
 
@@ -145,6 +163,21 @@ func (pu *PatientrightsUpdate) ClearEdgesOfPatientrightsMedicalrecordstaff() *Pa
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
 func (pu *PatientrightsUpdate) Save(ctx context.Context) (int, error) {
+	if v, ok := pu.mutation.Permission(); ok {
+		if err := patientrights.PermissionValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Permission", err: fmt.Errorf("ent: validator failed for field \"Permission\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.PermissionArea(); ok {
+		if err := patientrights.PermissionAreaValidator(v); err != nil {
+			return 0, &ValidationError{Name: "PermissionArea", err: fmt.Errorf("ent: validator failed for field \"PermissionArea\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.Responsible(); ok {
+		if err := patientrights.ResponsibleValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Responsible", err: fmt.Errorf("ent: validator failed for field \"Responsible\": %w", err)}
+		}
+	}
 
 	var (
 		err      error
@@ -220,33 +253,54 @@ func (pu *PatientrightsUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: patientrights.FieldPermissionDate,
 		})
 	}
-	if pu.mutation.EdgesOfPatientrightsPatientrightstypeCleared() {
+	if value, ok := pu.mutation.Permission(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldPermission,
+		})
+	}
+	if value, ok := pu.mutation.PermissionArea(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldPermissionArea,
+		})
+	}
+	if value, ok := pu.mutation.Responsible(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldResponsible,
+		})
+	}
+	if pu.mutation.EdgesOfPatientrightsAbilitypatientrightsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrights.EdgesOfPatientrightsPatientrightstypeTable,
-			Columns: []string{patientrights.EdgesOfPatientrightsPatientrightstypeColumn},
+			Table:   patientrights.EdgesOfPatientrightsAbilitypatientrightsTable,
+			Columns: []string{patientrights.EdgesOfPatientrightsAbilitypatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: patientrightstype.FieldID,
+					Column: abilitypatientrights.FieldID,
 				},
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := pu.mutation.EdgesOfPatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if nodes := pu.mutation.EdgesOfPatientrightsAbilitypatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrights.EdgesOfPatientrightsPatientrightstypeTable,
-			Columns: []string{patientrights.EdgesOfPatientrightsPatientrightstypeColumn},
+			Table:   patientrights.EdgesOfPatientrightsAbilitypatientrightsTable,
+			Columns: []string{patientrights.EdgesOfPatientrightsAbilitypatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: patientrightstype.FieldID,
+					Column: abilitypatientrights.FieldID,
 				},
 			},
 		}
@@ -384,23 +438,41 @@ func (puo *PatientrightsUpdateOne) SetPermissionDate(t time.Time) *Patientrights
 	return puo
 }
 
-// SetEdgesOfPatientrightsPatientrightstypeID sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype by id.
-func (puo *PatientrightsUpdateOne) SetEdgesOfPatientrightsPatientrightstypeID(id int) *PatientrightsUpdateOne {
-	puo.mutation.SetEdgesOfPatientrightsPatientrightstypeID(id)
+// SetPermission sets the Permission field.
+func (puo *PatientrightsUpdateOne) SetPermission(s string) *PatientrightsUpdateOne {
+	puo.mutation.SetPermission(s)
 	return puo
 }
 
-// SetNillableEdgesOfPatientrightsPatientrightstypeID sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype by id if the given value is not nil.
-func (puo *PatientrightsUpdateOne) SetNillableEdgesOfPatientrightsPatientrightstypeID(id *int) *PatientrightsUpdateOne {
+// SetPermissionArea sets the PermissionArea field.
+func (puo *PatientrightsUpdateOne) SetPermissionArea(s string) *PatientrightsUpdateOne {
+	puo.mutation.SetPermissionArea(s)
+	return puo
+}
+
+// SetResponsible sets the Responsible field.
+func (puo *PatientrightsUpdateOne) SetResponsible(s string) *PatientrightsUpdateOne {
+	puo.mutation.SetResponsible(s)
+	return puo
+}
+
+// SetEdgesOfPatientrightsAbilitypatientrightsID sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights by id.
+func (puo *PatientrightsUpdateOne) SetEdgesOfPatientrightsAbilitypatientrightsID(id int) *PatientrightsUpdateOne {
+	puo.mutation.SetEdgesOfPatientrightsAbilitypatientrightsID(id)
+	return puo
+}
+
+// SetNillableEdgesOfPatientrightsAbilitypatientrightsID sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights by id if the given value is not nil.
+func (puo *PatientrightsUpdateOne) SetNillableEdgesOfPatientrightsAbilitypatientrightsID(id *int) *PatientrightsUpdateOne {
 	if id != nil {
-		puo = puo.SetEdgesOfPatientrightsPatientrightstypeID(*id)
+		puo = puo.SetEdgesOfPatientrightsAbilitypatientrightsID(*id)
 	}
 	return puo
 }
 
-// SetEdgesOfPatientrightsPatientrightstype sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype.
-func (puo *PatientrightsUpdateOne) SetEdgesOfPatientrightsPatientrightstype(p *Patientrightstype) *PatientrightsUpdateOne {
-	return puo.SetEdgesOfPatientrightsPatientrightstypeID(p.ID)
+// SetEdgesOfPatientrightsAbilitypatientrights sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights.
+func (puo *PatientrightsUpdateOne) SetEdgesOfPatientrightsAbilitypatientrights(a *Abilitypatientrights) *PatientrightsUpdateOne {
+	return puo.SetEdgesOfPatientrightsAbilitypatientrightsID(a.ID)
 }
 
 // SetEdgesOfPatientrightsInsuranceID sets the EdgesOfPatientrightsInsurance edge to Insurance by id.
@@ -465,9 +537,9 @@ func (puo *PatientrightsUpdateOne) Mutation() *PatientrightsMutation {
 	return puo.mutation
 }
 
-// ClearEdgesOfPatientrightsPatientrightstype clears the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype.
-func (puo *PatientrightsUpdateOne) ClearEdgesOfPatientrightsPatientrightstype() *PatientrightsUpdateOne {
-	puo.mutation.ClearEdgesOfPatientrightsPatientrightstype()
+// ClearEdgesOfPatientrightsAbilitypatientrights clears the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights.
+func (puo *PatientrightsUpdateOne) ClearEdgesOfPatientrightsAbilitypatientrights() *PatientrightsUpdateOne {
+	puo.mutation.ClearEdgesOfPatientrightsAbilitypatientrights()
 	return puo
 }
 
@@ -491,6 +563,21 @@ func (puo *PatientrightsUpdateOne) ClearEdgesOfPatientrightsMedicalrecordstaff()
 
 // Save executes the query and returns the updated entity.
 func (puo *PatientrightsUpdateOne) Save(ctx context.Context) (*Patientrights, error) {
+	if v, ok := puo.mutation.Permission(); ok {
+		if err := patientrights.PermissionValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Permission", err: fmt.Errorf("ent: validator failed for field \"Permission\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.PermissionArea(); ok {
+		if err := patientrights.PermissionAreaValidator(v); err != nil {
+			return nil, &ValidationError{Name: "PermissionArea", err: fmt.Errorf("ent: validator failed for field \"PermissionArea\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.Responsible(); ok {
+		if err := patientrights.ResponsibleValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Responsible", err: fmt.Errorf("ent: validator failed for field \"Responsible\": %w", err)}
+		}
+	}
 
 	var (
 		err  error
@@ -564,33 +651,54 @@ func (puo *PatientrightsUpdateOne) sqlSave(ctx context.Context) (pa *Patientrigh
 			Column: patientrights.FieldPermissionDate,
 		})
 	}
-	if puo.mutation.EdgesOfPatientrightsPatientrightstypeCleared() {
+	if value, ok := puo.mutation.Permission(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldPermission,
+		})
+	}
+	if value, ok := puo.mutation.PermissionArea(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldPermissionArea,
+		})
+	}
+	if value, ok := puo.mutation.Responsible(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldResponsible,
+		})
+	}
+	if puo.mutation.EdgesOfPatientrightsAbilitypatientrightsCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrights.EdgesOfPatientrightsPatientrightstypeTable,
-			Columns: []string{patientrights.EdgesOfPatientrightsPatientrightstypeColumn},
+			Table:   patientrights.EdgesOfPatientrightsAbilitypatientrightsTable,
+			Columns: []string{patientrights.EdgesOfPatientrightsAbilitypatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: patientrightstype.FieldID,
+					Column: abilitypatientrights.FieldID,
 				},
 			},
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := puo.mutation.EdgesOfPatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if nodes := puo.mutation.EdgesOfPatientrightsAbilitypatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrights.EdgesOfPatientrightsPatientrightstypeTable,
-			Columns: []string{patientrights.EdgesOfPatientrightsPatientrightstypeColumn},
+			Table:   patientrights.EdgesOfPatientrightsAbilitypatientrightsTable,
+			Columns: []string{patientrights.EdgesOfPatientrightsAbilitypatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: patientrightstype.FieldID,
+					Column: abilitypatientrights.FieldID,
 				},
 			},
 		}

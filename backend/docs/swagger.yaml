@@ -101,19 +101,13 @@ definitions:
     type: object
   controllers.Patientrights:
     properties:
+      abilitypatientrights:
+        type: integer
       insurance:
         type: integer
       medicalrecordstaff:
         type: integer
       patientrecord:
-        type: integer
-      patientrightstype:
-        description: Abilitypatientrights int
-        type: integer
-    type: object
-  controllers.Patientrightstype:
-    properties:
-      abilitypatientrights:
         type: integer
       permission:
         type: string
@@ -157,6 +151,9 @@ definitions:
       Operative:
         description: Operative holds the value of the "Operative" field.
         type: integer
+      check:
+        description: Check holds the value of the "check" field.
+        type: string
       edges:
         $ref: '#/definitions/ent.AbilitypatientrightsEdges'
         description: |-
@@ -169,11 +166,17 @@ definitions:
     type: object
   ent.AbilitypatientrightsEdges:
     properties:
+<<<<<<< HEAD
+      EdgesOfAbilitypatientrightsPatientrights:
+        description: EdgesOfAbilitypatientrightsPatientrights holds the value of the
+          EdgesOfAbilitypatientrightsPatientrights edge.
+=======
       EdgesOfAbilitypatientrightsPatientrightstype:
         description: EdgesOfAbilitypatientrightsPatientrightstype holds the value
           of the EdgesOfAbilitypatientrightsPatientrightstype edge.
+>>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
         items:
-          $ref: '#/definitions/ent.Patientrightstype'
+          $ref: '#/definitions/ent.Patientrights'
         type: array
     type: object
   ent.Bill:
@@ -674,9 +677,20 @@ definitions:
     type: object
   ent.Patientrights:
     properties:
+      Permission:
+        description: Permission holds the value of the "Permission" field.
+        type: string
+      PermissionArea:
+        description: PermissionArea holds the value of the "PermissionArea" field.
+        type: string
       PermissionDate:
         description: PermissionDate holds the value of the "PermissionDate" field.
         type: string
+      Responsible:
+        description: Responsible holds the value of the "Responsible" field.
+        type: string
+      abilitypatientrights_id:
+        type: integer
       edges:
         $ref: '#/definitions/ent.PatientrightsEdges'
         description: |-
@@ -688,11 +702,17 @@ definitions:
         type: integer
       insurance_id:
         type: integer
-      patientrightstype_id:
-        type: integer
     type: object
   ent.PatientrightsEdges:
     properties:
+<<<<<<< HEAD
+      EdgesOfPatientrightsAbilitypatientrights:
+        $ref: '#/definitions/ent.Abilitypatientrights'
+        description: EdgesOfPatientrightsAbilitypatientrights holds the value of the
+          EdgesOfPatientrightsAbilitypatientrights edge.
+        type: object
+=======
+>>>>>>> c3bfba4bb9f0810f315258603ec89bf487da66e9
       EdgesOfPatientrightsInsurance:
         $ref: '#/definitions/ent.Insurance'
         description: EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance
@@ -708,48 +728,6 @@ definitions:
         description: EdgesOfPatientrightsPatientrecord holds the value of the EdgesOfPatientrightsPatientrecord
           edge.
         type: object
-      EdgesOfPatientrightsPatientrightstype:
-        $ref: '#/definitions/ent.Patientrightstype'
-        description: EdgesOfPatientrightsPatientrightstype holds the value of the
-          EdgesOfPatientrightsPatientrightstype edge.
-        type: object
-    type: object
-  ent.Patientrightstype:
-    properties:
-      Permission:
-        description: Permission holds the value of the "Permission" field.
-        type: string
-      PermissionArea:
-        description: PermissionArea holds the value of the "PermissionArea" field.
-        type: string
-      Responsible:
-        description: Responsible holds the value of the "Responsible" field.
-        type: string
-      abilitypatientrights_id:
-        type: integer
-      edges:
-        $ref: '#/definitions/ent.PatientrightstypeEdges'
-        description: |-
-          Edges holds the relations/edges for other nodes in the graph.
-          The values are being populated by the PatientrightstypeQuery when eager-loading is set.
-        type: object
-      id:
-        description: ID of the ent.
-        type: integer
-    type: object
-  ent.PatientrightstypeEdges:
-    properties:
-      EdgesOfPatientrightstypeAbilitypatientrights:
-        $ref: '#/definitions/ent.Abilitypatientrights'
-        description: EdgesOfPatientrightstypeAbilitypatientrights holds the value
-          of the EdgesOfPatientrightstypeAbilitypatientrights edge.
-        type: object
-      EdgesOfPatientrightstypePatientrights:
-        description: EdgesOfPatientrightstypePatientrights holds the value of the
-          EdgesOfPatientrightstypePatientrights edge.
-        items:
-          $ref: '#/definitions/ent.Patientrights'
-        type: array
     type: object
   ent.Paytype:
     properties:
@@ -3164,157 +3142,6 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a patientrights entity by ID
-  /patientrightstypes:
-    get:
-      description: list patientrightstype entities
-      operationId: list-patientrightstype
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/ent.Patientrightstype'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: List patientrightstype entities
-    post:
-      consumes:
-      - application/json
-      description: Create patientrightstype
-      operationId: create-patientrightstype
-      parameters:
-      - description: Patientrightstype entity
-        in: body
-        name: patientrightstype
-        required: true
-        schema:
-          $ref: '#/definitions/controllers.Patientrightstype'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/controllers.Patientrightstype'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Create patientrightstype
-  /patientrightstypes/{id}:
-    delete:
-      description: get patientrightstype by ID
-      operationId: delete-patientrightstype
-      parameters:
-      - description: Patientrightstype ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/gin.H'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Delete a patientrightstype entity by ID
-    get:
-      description: get patientrightstype by ID
-      operationId: get-patientrightstype
-      parameters:
-      - description: Patientrightstype ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Patientrightstype'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Get a patientrightstype entity by ID
-    put:
-      consumes:
-      - application/json
-      description: update patientrightstype by ID
-      operationId: update-patientrightstype
-      parameters:
-      - description: Patientrightstype ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Patientrightstype entity
-        in: body
-        name: patientrightstype
-        required: true
-        schema:
-          $ref: '#/definitions/ent.Patientrightstype'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Patientrightstype'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Update a patientrightstype entity by ID
   /paytypes:
     get:
       description: list paytype entities

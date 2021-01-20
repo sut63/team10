@@ -6,16 +6,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/team10/app/ent"
-
-	"github.com/team10/app/ent/patientrights"
-
 	"github.com/gin-gonic/gin"
-
+	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/insurance"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
-	"github.com/team10/app/ent/patientrightstype"
+	"github.com/team10/app/ent/patientrights"
 )
 
 // PatientrightsController defines the struct for the Patientrights controller
@@ -29,10 +25,14 @@ type Patientrights struct {
 	//PermissionDate string
 
 	//Abilitypatientrights int
-	Patientrightstype  int
-	Patientrecord      int
-	Insurance          int
-	Medicalrecordstaff int
+
+	Patientrecord        int
+	Insurance            int
+	Medicalrecordstaff   int
+	Abilitypatientrights int
+	Permission           string
+	PermissionArea       string
+	Responsible         string
 }
 
 // CreatePatientrights handles POST requests for adding Patientrights entities
@@ -48,21 +48,10 @@ type Patientrights struct {
 // @Router /patientrightss [post]
 func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 	obj := Patientrights{}
+
 	if err := c.ShouldBind(&obj); err != nil {
 		c.JSON(400, gin.H{
-			"error": "patientrights binding failed",
-		})
-		return
-	}
-
-	Patientrightstype, err := ctl.client.Patientrightstype.
-		Query().
-		Where(patientrightstype.IDEQ(int(obj.Patientrightstype))).
-		Only(context.Background())
-
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "Patientrightstype not found",
+			"error": "ไม่สามารถสร้าง Patientrights",
 		})
 		return
 	}
@@ -102,11 +91,37 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 		})
 		return
 	}
+	
+		if obj.Permission == "" {
+			c.JSON(400, gin.H{
+				"error": "Permission ไม่ถูกต้อง",
+			})
+			return
+		}
+		if obj.PermissionArea == "" {
+			c.JSON(400, gin.H{
+				"error": "PermissionArea ไม่ถูกต้อง",
+			})
+			return
+		}
+
+		if obj.Responsible == "" {
+			c.JSON(400, gin.H{
+				"error": "Responsibles ไม่ถูกต้อง",
+			})
+			return
+		}
+	
+
+	
+
 	t := time.Now().Local()
 	u, err := ctl.client.Patientrights.
 		Create().
 		SetPermissionDate(t).
-		SetEdgesOfPatientrightsPatientrightstype(Patientrightstype).
+		SetPermission(obj.Permission).
+		SetPermissionArea(obj.PermissionArea).
+		SetResponsible(obj.Responsible).
 		SetEdgesOfPatientrightsPatientrecord(Patientrecord).
 		SetEdgesOfPatientrightsMedicalrecordstaff(Medicalrecordstaff).
 		SetEdgesOfPatientrightsInsurance(Insurance).
@@ -114,12 +129,16 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"status": false,
+			"error":  err,
 		})
 		return
 	}
 
-	c.JSON(200, u)
+	c.JSON(200, gin.H{
+		"status": true,
+		"data":   u,
+	})
 }
 
 // GetPatientrights handles GET requests to retrieve a patientrights entity
@@ -145,7 +164,7 @@ func (ctl *PatientrightsController) GetPatientrights(c *gin.Context) {
 	u, err := ctl.client.Patientrights.
 		Query().
 		WithEdgesOfPatientrightsInsurance().
-		WithEdgesOfPatientrightsPatientrightstype().
+		WithEdgesOfPatientrightsAbilitypatientrights().
 		WithEdgesOfPatientrightsPatientrecord().
 		WithEdgesOfPatientrightsMedicalrecordstaff().
 		Where(patientrights.IDEQ(int(id))).
@@ -226,7 +245,7 @@ func (ctl *PatientrightsController) ListPatientrights(c *gin.Context) {
 	patientrightss, err := ctl.client.Patientrights.
 		Query().
 		WithEdgesOfPatientrightsInsurance().
-		WithEdgesOfPatientrightsPatientrightstype().
+		WithEdgesOfPatientrightsAbilitypatientrights().
 		WithEdgesOfPatientrightsPatientrecord().
 		WithEdgesOfPatientrightsMedicalrecordstaff().
 		Limit(limit).

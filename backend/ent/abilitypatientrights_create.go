@@ -10,7 +10,7 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
 	"github.com/team10/app/ent/abilitypatientrights"
-	"github.com/team10/app/ent/patientrightstype"
+	"github.com/team10/app/ent/patientrights"
 )
 
 // AbilitypatientrightsCreate is the builder for creating a Abilitypatientrights entity.
@@ -38,19 +38,25 @@ func (ac *AbilitypatientrightsCreate) SetExamine(i int) *AbilitypatientrightsCre
 	return ac
 }
 
-// AddEdgesOfAbilitypatientrightsPatientrightstypeIDs adds the EdgesOfAbilitypatientrightsPatientrightstype edge to Patientrightstype by ids.
-func (ac *AbilitypatientrightsCreate) AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids ...int) *AbilitypatientrightsCreate {
-	ac.mutation.AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
+// SetCheck sets the check field.
+func (ac *AbilitypatientrightsCreate) SetCheck(s string) *AbilitypatientrightsCreate {
+	ac.mutation.SetCheck(s)
 	return ac
 }
 
-// AddEdgesOfAbilitypatientrightsPatientrightstype adds the EdgesOfAbilitypatientrightsPatientrightstype edges to Patientrightstype.
-func (ac *AbilitypatientrightsCreate) AddEdgesOfAbilitypatientrightsPatientrightstype(p ...*Patientrightstype) *AbilitypatientrightsCreate {
+// AddEdgesOfAbilitypatientrightsPatientrightIDs adds the EdgesOfAbilitypatientrightsPatientrights edge to Patientrights by ids.
+func (ac *AbilitypatientrightsCreate) AddEdgesOfAbilitypatientrightsPatientrightIDs(ids ...int) *AbilitypatientrightsCreate {
+	ac.mutation.AddEdgesOfAbilitypatientrightsPatientrightIDs(ids...)
+	return ac
+}
+
+// AddEdgesOfAbilitypatientrightsPatientrights adds the EdgesOfAbilitypatientrightsPatientrights edges to Patientrights.
+func (ac *AbilitypatientrightsCreate) AddEdgesOfAbilitypatientrightsPatientrights(p ...*Patientrights) *AbilitypatientrightsCreate {
 	ids := make([]int, len(p))
 	for i := range p {
 		ids[i] = p[i].ID
 	}
-	return ac.AddEdgesOfAbilitypatientrightsPatientrightstypeIDs(ids...)
+	return ac.AddEdgesOfAbilitypatientrightsPatientrightIDs(ids...)
 }
 
 // Mutation returns the AbilitypatientrightsMutation object of the builder.
@@ -63,11 +69,29 @@ func (ac *AbilitypatientrightsCreate) Save(ctx context.Context) (*Abilitypatient
 	if _, ok := ac.mutation.Operative(); !ok {
 		return nil, &ValidationError{Name: "Operative", err: errors.New("ent: missing required field \"Operative\"")}
 	}
+	if v, ok := ac.mutation.Operative(); ok {
+		if err := abilitypatientrights.OperativeValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Operative", err: fmt.Errorf("ent: validator failed for field \"Operative\": %w", err)}
+		}
+	}
 	if _, ok := ac.mutation.MedicalSupplies(); !ok {
 		return nil, &ValidationError{Name: "MedicalSupplies", err: errors.New("ent: missing required field \"MedicalSupplies\"")}
 	}
+	if v, ok := ac.mutation.MedicalSupplies(); ok {
+		if err := abilitypatientrights.MedicalSuppliesValidator(v); err != nil {
+			return nil, &ValidationError{Name: "MedicalSupplies", err: fmt.Errorf("ent: validator failed for field \"MedicalSupplies\": %w", err)}
+		}
+	}
 	if _, ok := ac.mutation.Examine(); !ok {
 		return nil, &ValidationError{Name: "Examine", err: errors.New("ent: missing required field \"Examine\"")}
+	}
+	if v, ok := ac.mutation.Examine(); ok {
+		if err := abilitypatientrights.ExamineValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Examine", err: fmt.Errorf("ent: validator failed for field \"Examine\": %w", err)}
+		}
+	}
+	if _, ok := ac.mutation.Check(); !ok {
+		return nil, &ValidationError{Name: "check", err: errors.New("ent: missing required field \"check\"")}
 	}
 	var (
 		err  error
@@ -153,17 +177,25 @@ func (ac *AbilitypatientrightsCreate) createSpec() (*Abilitypatientrights, *sqlg
 		})
 		a.Examine = value
 	}
-	if nodes := ac.mutation.EdgesOfAbilitypatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if value, ok := ac.mutation.Check(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abilitypatientrights.FieldCheck,
+		})
+		a.Check = value
+	}
+	if nodes := ac.mutation.EdgesOfAbilitypatientrightsPatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2M,
 			Inverse: false,
-			Table:   abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeTable,
-			Columns: []string{abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn},
+			Table:   abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightsTable,
+			Columns: []string{abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: patientrightstype.FieldID,
+					Column: patientrights.FieldID,
 				},
 			},
 		}

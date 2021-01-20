@@ -10,11 +10,11 @@ import (
 
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/insurance"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrights"
-	"github.com/team10/app/ent/patientrightstype"
 )
 
 // PatientrightsCreate is the builder for creating a Patientrights entity.
@@ -30,23 +30,41 @@ func (pc *PatientrightsCreate) SetPermissionDate(t time.Time) *PatientrightsCrea
 	return pc
 }
 
-// SetEdgesOfPatientrightsPatientrightstypeID sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype by id.
-func (pc *PatientrightsCreate) SetEdgesOfPatientrightsPatientrightstypeID(id int) *PatientrightsCreate {
-	pc.mutation.SetEdgesOfPatientrightsPatientrightstypeID(id)
+// SetPermission sets the Permission field.
+func (pc *PatientrightsCreate) SetPermission(s string) *PatientrightsCreate {
+	pc.mutation.SetPermission(s)
 	return pc
 }
 
-// SetNillableEdgesOfPatientrightsPatientrightstypeID sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype by id if the given value is not nil.
-func (pc *PatientrightsCreate) SetNillableEdgesOfPatientrightsPatientrightstypeID(id *int) *PatientrightsCreate {
+// SetPermissionArea sets the PermissionArea field.
+func (pc *PatientrightsCreate) SetPermissionArea(s string) *PatientrightsCreate {
+	pc.mutation.SetPermissionArea(s)
+	return pc
+}
+
+// SetResponsible sets the Responsible field.
+func (pc *PatientrightsCreate) SetResponsible(s string) *PatientrightsCreate {
+	pc.mutation.SetResponsible(s)
+	return pc
+}
+
+// SetEdgesOfPatientrightsAbilitypatientrightsID sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights by id.
+func (pc *PatientrightsCreate) SetEdgesOfPatientrightsAbilitypatientrightsID(id int) *PatientrightsCreate {
+	pc.mutation.SetEdgesOfPatientrightsAbilitypatientrightsID(id)
+	return pc
+}
+
+// SetNillableEdgesOfPatientrightsAbilitypatientrightsID sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights by id if the given value is not nil.
+func (pc *PatientrightsCreate) SetNillableEdgesOfPatientrightsAbilitypatientrightsID(id *int) *PatientrightsCreate {
 	if id != nil {
-		pc = pc.SetEdgesOfPatientrightsPatientrightstypeID(*id)
+		pc = pc.SetEdgesOfPatientrightsAbilitypatientrightsID(*id)
 	}
 	return pc
 }
 
-// SetEdgesOfPatientrightsPatientrightstype sets the EdgesOfPatientrightsPatientrightstype edge to Patientrightstype.
-func (pc *PatientrightsCreate) SetEdgesOfPatientrightsPatientrightstype(p *Patientrightstype) *PatientrightsCreate {
-	return pc.SetEdgesOfPatientrightsPatientrightstypeID(p.ID)
+// SetEdgesOfPatientrightsAbilitypatientrights sets the EdgesOfPatientrightsAbilitypatientrights edge to Abilitypatientrights.
+func (pc *PatientrightsCreate) SetEdgesOfPatientrightsAbilitypatientrights(a *Abilitypatientrights) *PatientrightsCreate {
+	return pc.SetEdgesOfPatientrightsAbilitypatientrightsID(a.ID)
 }
 
 // SetEdgesOfPatientrightsInsuranceID sets the EdgesOfPatientrightsInsurance edge to Insurance by id.
@@ -116,6 +134,30 @@ func (pc *PatientrightsCreate) Save(ctx context.Context) (*Patientrights, error)
 	if _, ok := pc.mutation.PermissionDate(); !ok {
 		return nil, &ValidationError{Name: "PermissionDate", err: errors.New("ent: missing required field \"PermissionDate\"")}
 	}
+	if _, ok := pc.mutation.Permission(); !ok {
+		return nil, &ValidationError{Name: "Permission", err: errors.New("ent: missing required field \"Permission\"")}
+	}
+	if v, ok := pc.mutation.Permission(); ok {
+		if err := patientrights.PermissionValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Permission", err: fmt.Errorf("ent: validator failed for field \"Permission\": %w", err)}
+		}
+	}
+	if _, ok := pc.mutation.PermissionArea(); !ok {
+		return nil, &ValidationError{Name: "PermissionArea", err: errors.New("ent: missing required field \"PermissionArea\"")}
+	}
+	if v, ok := pc.mutation.PermissionArea(); ok {
+		if err := patientrights.PermissionAreaValidator(v); err != nil {
+			return nil, &ValidationError{Name: "PermissionArea", err: fmt.Errorf("ent: validator failed for field \"PermissionArea\": %w", err)}
+		}
+	}
+	if _, ok := pc.mutation.Responsible(); !ok {
+		return nil, &ValidationError{Name: "Responsible", err: errors.New("ent: missing required field \"Responsible\"")}
+	}
+	if v, ok := pc.mutation.Responsible(); ok {
+		if err := patientrights.ResponsibleValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Responsible", err: fmt.Errorf("ent: validator failed for field \"Responsible\": %w", err)}
+		}
+	}
 	var (
 		err  error
 		node *Patientrights
@@ -184,17 +226,41 @@ func (pc *PatientrightsCreate) createSpec() (*Patientrights, *sqlgraph.CreateSpe
 		})
 		pa.PermissionDate = value
 	}
-	if nodes := pc.mutation.EdgesOfPatientrightsPatientrightstypeIDs(); len(nodes) > 0 {
+	if value, ok := pc.mutation.Permission(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldPermission,
+		})
+		pa.Permission = value
+	}
+	if value, ok := pc.mutation.PermissionArea(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldPermissionArea,
+		})
+		pa.PermissionArea = value
+	}
+	if value, ok := pc.mutation.Responsible(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: patientrights.FieldResponsible,
+		})
+		pa.Responsible = value
+	}
+	if nodes := pc.mutation.EdgesOfPatientrightsAbilitypatientrightsIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.M2O,
 			Inverse: true,
-			Table:   patientrights.EdgesOfPatientrightsPatientrightstypeTable,
-			Columns: []string{patientrights.EdgesOfPatientrightsPatientrightstypeColumn},
+			Table:   patientrights.EdgesOfPatientrightsAbilitypatientrightsTable,
+			Columns: []string{patientrights.EdgesOfPatientrightsAbilitypatientrightsColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
-					Column: patientrightstype.FieldID,
+					Column: abilitypatientrights.FieldID,
 				},
 			},
 		}

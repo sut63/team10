@@ -11,11 +11,11 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql"
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
+	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/insurance"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrights"
-	"github.com/team10/app/ent/patientrightstype"
 	"github.com/team10/app/ent/predicate"
 )
 
@@ -28,11 +28,11 @@ type PatientrightsQuery struct {
 	unique     []string
 	predicates []predicate.Patientrights
 	// eager-loading edges.
-	withEdgesOfPatientrightsPatientrightstype  *PatientrightstypeQuery
-	withEdgesOfPatientrightsInsurance          *InsuranceQuery
-	withEdgesOfPatientrightsPatientrecord      *PatientrecordQuery
-	withEdgesOfPatientrightsMedicalrecordstaff *MedicalrecordstaffQuery
-	withFKs                                    bool
+	withEdgesOfPatientrightsAbilitypatientrights *AbilitypatientrightsQuery
+	withEdgesOfPatientrightsInsurance            *InsuranceQuery
+	withEdgesOfPatientrightsPatientrecord        *PatientrecordQuery
+	withEdgesOfPatientrightsMedicalrecordstaff   *MedicalrecordstaffQuery
+	withFKs                                      bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -62,17 +62,17 @@ func (pq *PatientrightsQuery) Order(o ...OrderFunc) *PatientrightsQuery {
 	return pq
 }
 
-// QueryEdgesOfPatientrightsPatientrightstype chains the current query on the EdgesOfPatientrightsPatientrightstype edge.
-func (pq *PatientrightsQuery) QueryEdgesOfPatientrightsPatientrightstype() *PatientrightstypeQuery {
-	query := &PatientrightstypeQuery{config: pq.config}
+// QueryEdgesOfPatientrightsAbilitypatientrights chains the current query on the EdgesOfPatientrightsAbilitypatientrights edge.
+func (pq *PatientrightsQuery) QueryEdgesOfPatientrightsAbilitypatientrights() *AbilitypatientrightsQuery {
+	query := &AbilitypatientrightsQuery{config: pq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := pq.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(patientrights.Table, patientrights.FieldID, pq.sqlQuery()),
-			sqlgraph.To(patientrightstype.Table, patientrightstype.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, patientrights.EdgesOfPatientrightsPatientrightstypeTable, patientrights.EdgesOfPatientrightsPatientrightstypeColumn),
+			sqlgraph.To(abilitypatientrights.Table, abilitypatientrights.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, patientrights.EdgesOfPatientrightsAbilitypatientrightsTable, patientrights.EdgesOfPatientrightsAbilitypatientrightsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(pq.driver.Dialect(), step)
 		return fromU, nil
@@ -313,14 +313,14 @@ func (pq *PatientrightsQuery) Clone() *PatientrightsQuery {
 	}
 }
 
-//  WithEdgesOfPatientrightsPatientrightstype tells the query-builder to eager-loads the nodes that are connected to
-// the "EdgesOfPatientrightsPatientrightstype" edge. The optional arguments used to configure the query builder of the edge.
-func (pq *PatientrightsQuery) WithEdgesOfPatientrightsPatientrightstype(opts ...func(*PatientrightstypeQuery)) *PatientrightsQuery {
-	query := &PatientrightstypeQuery{config: pq.config}
+//  WithEdgesOfPatientrightsAbilitypatientrights tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfPatientrightsAbilitypatientrights" edge. The optional arguments used to configure the query builder of the edge.
+func (pq *PatientrightsQuery) WithEdgesOfPatientrightsAbilitypatientrights(opts ...func(*AbilitypatientrightsQuery)) *PatientrightsQuery {
+	query := &AbilitypatientrightsQuery{config: pq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	pq.withEdgesOfPatientrightsPatientrightstype = query
+	pq.withEdgesOfPatientrightsAbilitypatientrights = query
 	return pq
 }
 
@@ -425,13 +425,13 @@ func (pq *PatientrightsQuery) sqlAll(ctx context.Context) ([]*Patientrights, err
 		withFKs     = pq.withFKs
 		_spec       = pq.querySpec()
 		loadedTypes = [4]bool{
-			pq.withEdgesOfPatientrightsPatientrightstype != nil,
+			pq.withEdgesOfPatientrightsAbilitypatientrights != nil,
 			pq.withEdgesOfPatientrightsInsurance != nil,
 			pq.withEdgesOfPatientrightsPatientrecord != nil,
 			pq.withEdgesOfPatientrightsMedicalrecordstaff != nil,
 		}
 	)
-	if pq.withEdgesOfPatientrightsPatientrightstype != nil || pq.withEdgesOfPatientrightsInsurance != nil || pq.withEdgesOfPatientrightsPatientrecord != nil || pq.withEdgesOfPatientrightsMedicalrecordstaff != nil {
+	if pq.withEdgesOfPatientrightsAbilitypatientrights != nil || pq.withEdgesOfPatientrightsInsurance != nil || pq.withEdgesOfPatientrightsPatientrecord != nil || pq.withEdgesOfPatientrightsMedicalrecordstaff != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -461,16 +461,16 @@ func (pq *PatientrightsQuery) sqlAll(ctx context.Context) ([]*Patientrights, err
 		return nodes, nil
 	}
 
-	if query := pq.withEdgesOfPatientrightsPatientrightstype; query != nil {
+	if query := pq.withEdgesOfPatientrightsAbilitypatientrights; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Patientrights)
 		for i := range nodes {
-			if fk := nodes[i].Patientrightstype_id; fk != nil {
+			if fk := nodes[i].Abilitypatientrights_id; fk != nil {
 				ids = append(ids, *fk)
 				nodeids[*fk] = append(nodeids[*fk], nodes[i])
 			}
 		}
-		query.Where(patientrightstype.IDIn(ids...))
+		query.Where(abilitypatientrights.IDIn(ids...))
 		neighbors, err := query.All(ctx)
 		if err != nil {
 			return nil, err
@@ -478,10 +478,10 @@ func (pq *PatientrightsQuery) sqlAll(ctx context.Context) ([]*Patientrights, err
 		for _, n := range neighbors {
 			nodes, ok := nodeids[n.ID]
 			if !ok {
-				return nil, fmt.Errorf(`unexpected foreign-key "Patientrightstype_id" returned %v`, n.ID)
+				return nil, fmt.Errorf(`unexpected foreign-key "Abilitypatientrights_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.EdgesOfPatientrightsPatientrightstype = n
+				nodes[i].Edges.EdgesOfPatientrightsAbilitypatientrights = n
 			}
 		}
 	}
