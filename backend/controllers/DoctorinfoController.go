@@ -12,7 +12,6 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
-	
 )
 
 // DoctorinfoController defines the struct for the doctorinfo controller
@@ -31,7 +30,6 @@ type Doctorinfo struct {
 	Educationlevel  int
 	Officeroom      int
 	Prename         int
-	
 }
 
 // CreateDoctorinfo handles POST requests for adding doctorinfo entities
@@ -100,7 +98,7 @@ func (ctl *DoctorinfoController) CreateDoctorinfo(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	u, err := ctl.client.Doctorinfo.
 		Create().
 		SetDoctorname(obj.Doctorname).
@@ -113,15 +111,19 @@ func (ctl *DoctorinfoController) CreateDoctorinfo(c *gin.Context) {
 		SetEdgesOfPrename(pn).
 		Save(context.Background())
 	if err != nil {
+		fmt.Println(err)
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"status": false,
+			"error":  err,
 		})
 		return
 	}
 
-	c.JSON(200, u)
+	c.JSON(200, gin.H{
+		"status": true,
+		"data":   u,
+	})
 }
-
 
 // GetDoctorinfo handles GET requests to retrieve a doctorinfo entity
 // @Summary Get a doctorinfo entity by ID
