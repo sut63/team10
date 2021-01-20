@@ -54,8 +54,8 @@ export function EntPatientrightstypeEdgesFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'edgesOfPatientrightstypeAbilitypatientrights': !exists(json, 'edgesOfPatientrightstypeAbilitypatientrights') ? undefined : EntAbilitypatientrightsFromJSON(json['edgesOfPatientrightstypeAbilitypatientrights']),
-        'edgesOfPatientrightstypePatientrights': !exists(json, 'edgesOfPatientrightstypePatientrights') ? undefined : ((json['edgesOfPatientrightstypePatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
+        'edgesOfPatientrightstypeAbilitypatientrights': !exists(json, 'EdgesOfPatientrightstypeAbilitypatientrights') ? undefined : EntAbilitypatientrightsFromJSON(json['EdgesOfPatientrightstypeAbilitypatientrights']),
+        'edgesOfPatientrightstypePatientrights': !exists(json, 'EdgesOfPatientrightstypePatientrights') ? undefined : ((json['EdgesOfPatientrightstypePatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
     };
 }
 
@@ -68,8 +68,8 @@ export function EntPatientrightstypeEdgesToJSON(value?: EntPatientrightstypeEdge
     }
     return {
         
-        'edgesOfPatientrightstypeAbilitypatientrights': EntAbilitypatientrightsToJSON(value.edgesOfPatientrightstypeAbilitypatientrights),
-        'edgesOfPatientrightstypePatientrights': value.edgesOfPatientrightstypePatientrights === undefined ? undefined : ((value.edgesOfPatientrightstypePatientrights as Array<any>).map(EntPatientrightsToJSON)),
+        'EdgesOfPatientrightstypeAbilitypatientrights': EntAbilitypatientrightsToJSON(value.edgesOfPatientrightstypeAbilitypatientrights),
+        'EdgesOfPatientrightstypePatientrights': value.edgesOfPatientrightstypePatientrights === undefined ? undefined : ((value.edgesOfPatientrightstypePatientrights as Array<any>).map(EntPatientrightsToJSON)),
     };
 }
 
