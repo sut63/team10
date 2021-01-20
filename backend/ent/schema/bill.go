@@ -19,12 +19,27 @@ type Bill struct {
 // Fields of the Bill.
 func (Bill) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Amount").NotEmpty().MinLen(1).Match(regexp.MustCompile("[0-9]+$")).
+		field.String("Payer").NotEmpty().Match(regexp.MustCompile("[a-zA-Z_]+$")).
 		Validate(func(s string) error {
-			if strings.HasPrefix(s,"0") {
-				return errors.New("First letter of amount can not be 0")
+			if strings.ToLower(s) == s {
+				return errors.New("Payer name must begin with uppercase")
 			}
-
+			return nil
+		}),
+		field.String("Payercontact").NotEmpty().MinLen(10).MaxLen(10).
+		Validate(func(s string) error {
+			match, _ := regexp.MatchString("[0]\\d",s)  
+			if !match {
+				return errors.New("Phone number must be Number and start with 0")
+			}
+			return nil
+		}),
+		field.String("Amount").NotEmpty().
+		Validate(func(s string) error {
+			match, _ := regexp.MatchString("\\d",s)  
+			if !match{
+				return errors.New("Amount must be Number")
+			}
 			return nil
 		}),
 		field.Time("Date"),

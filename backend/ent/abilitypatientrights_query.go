@@ -13,7 +13,7 @@ import (
 	"github.com/facebookincubator/ent/dialect/sql/sqlgraph"
 	"github.com/facebookincubator/ent/schema/field"
 	"github.com/team10/app/ent/abilitypatientrights"
-	"github.com/team10/app/ent/patientrightstype"
+	"github.com/team10/app/ent/patientrights"
 	"github.com/team10/app/ent/predicate"
 )
 
@@ -26,7 +26,7 @@ type AbilitypatientrightsQuery struct {
 	unique     []string
 	predicates []predicate.Abilitypatientrights
 	// eager-loading edges.
-	withEdgesOfAbilitypatientrightsPatientrightstype *PatientrightstypeQuery
+	withEdgesOfAbilitypatientrightsPatientrights *PatientrightsQuery
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -56,17 +56,17 @@ func (aq *AbilitypatientrightsQuery) Order(o ...OrderFunc) *Abilitypatientrights
 	return aq
 }
 
-// QueryEdgesOfAbilitypatientrightsPatientrightstype chains the current query on the EdgesOfAbilitypatientrightsPatientrightstype edge.
-func (aq *AbilitypatientrightsQuery) QueryEdgesOfAbilitypatientrightsPatientrightstype() *PatientrightstypeQuery {
-	query := &PatientrightstypeQuery{config: aq.config}
+// QueryEdgesOfAbilitypatientrightsPatientrights chains the current query on the EdgesOfAbilitypatientrightsPatientrights edge.
+func (aq *AbilitypatientrightsQuery) QueryEdgesOfAbilitypatientrightsPatientrights() *PatientrightsQuery {
+	query := &PatientrightsQuery{config: aq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := aq.prepareQuery(ctx); err != nil {
 			return nil, err
 		}
 		step := sqlgraph.NewStep(
 			sqlgraph.From(abilitypatientrights.Table, abilitypatientrights.FieldID, aq.sqlQuery()),
-			sqlgraph.To(patientrightstype.Table, patientrightstype.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeTable, abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn),
+			sqlgraph.To(patientrights.Table, patientrights.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightsTable, abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightsColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(aq.driver.Dialect(), step)
 		return fromU, nil
@@ -253,14 +253,14 @@ func (aq *AbilitypatientrightsQuery) Clone() *AbilitypatientrightsQuery {
 	}
 }
 
-//  WithEdgesOfAbilitypatientrightsPatientrightstype tells the query-builder to eager-loads the nodes that are connected to
-// the "EdgesOfAbilitypatientrightsPatientrightstype" edge. The optional arguments used to configure the query builder of the edge.
-func (aq *AbilitypatientrightsQuery) WithEdgesOfAbilitypatientrightsPatientrightstype(opts ...func(*PatientrightstypeQuery)) *AbilitypatientrightsQuery {
-	query := &PatientrightstypeQuery{config: aq.config}
+//  WithEdgesOfAbilitypatientrightsPatientrights tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfAbilitypatientrightsPatientrights" edge. The optional arguments used to configure the query builder of the edge.
+func (aq *AbilitypatientrightsQuery) WithEdgesOfAbilitypatientrightsPatientrights(opts ...func(*PatientrightsQuery)) *AbilitypatientrightsQuery {
+	query := &PatientrightsQuery{config: aq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	aq.withEdgesOfAbilitypatientrightsPatientrightstype = query
+	aq.withEdgesOfAbilitypatientrightsPatientrights = query
 	return aq
 }
 
@@ -331,7 +331,7 @@ func (aq *AbilitypatientrightsQuery) sqlAll(ctx context.Context) ([]*Abilitypati
 		nodes       = []*Abilitypatientrights{}
 		_spec       = aq.querySpec()
 		loadedTypes = [1]bool{
-			aq.withEdgesOfAbilitypatientrightsPatientrightstype != nil,
+			aq.withEdgesOfAbilitypatientrightsPatientrights != nil,
 		}
 	)
 	_spec.ScanValues = func() []interface{} {
@@ -355,7 +355,7 @@ func (aq *AbilitypatientrightsQuery) sqlAll(ctx context.Context) ([]*Abilitypati
 		return nodes, nil
 	}
 
-	if query := aq.withEdgesOfAbilitypatientrightsPatientrightstype; query != nil {
+	if query := aq.withEdgesOfAbilitypatientrightsPatientrights; query != nil {
 		fks := make([]driver.Value, 0, len(nodes))
 		nodeids := make(map[int]*Abilitypatientrights)
 		for i := range nodes {
@@ -363,8 +363,8 @@ func (aq *AbilitypatientrightsQuery) sqlAll(ctx context.Context) ([]*Abilitypati
 			nodeids[nodes[i].ID] = nodes[i]
 		}
 		query.withFKs = true
-		query.Where(predicate.Patientrightstype(func(s *sql.Selector) {
-			s.Where(sql.InValues(abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn, fks...))
+		query.Where(predicate.Patientrights(func(s *sql.Selector) {
+			s.Where(sql.InValues(abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightsColumn, fks...))
 		}))
 		neighbors, err := query.All(ctx)
 		if err != nil {
@@ -379,7 +379,7 @@ func (aq *AbilitypatientrightsQuery) sqlAll(ctx context.Context) ([]*Abilitypati
 			if !ok {
 				return nil, fmt.Errorf(`unexpected foreign-key "Abilitypatientrights_id" returned %v for node %v`, *fk, n.ID)
 			}
-			node.Edges.EdgesOfAbilitypatientrightsPatientrightstype = append(node.Edges.EdgesOfAbilitypatientrightsPatientrightstype, n)
+			node.Edges.EdgesOfAbilitypatientrightsPatientrights = append(node.Edges.EdgesOfAbilitypatientrightsPatientrights, n)
 		}
 	}
 

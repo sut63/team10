@@ -3229,232 +3229,6 @@ var doc = `{
                 }
             }
         },
-        "/patientrightstypes": {
-            "get": {
-                "description": "list patientrightstype entities",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "List patientrightstype entities",
-                "operationId": "list-patientrightstype",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/ent.Patientrightstype"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "Create patientrightstype",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Create patientrightstype",
-                "operationId": "create-patientrightstype",
-                "parameters": [
-                    {
-                        "description": "Patientrightstype entity",
-                        "name": "patientrightstype",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/controllers.Patientrightstype"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/controllers.Patientrightstype"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            }
-        },
-        "/patientrightstypes/{id}": {
-            "get": {
-                "description": "get patientrightstype by ID",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Get a patientrightstype entity by ID",
-                "operationId": "get-patientrightstype",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Patientrightstype ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/ent.Patientrightstype"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "update patientrightstype by ID",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Update a patientrightstype entity by ID",
-                "operationId": "update-patientrightstype",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Patientrightstype ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "Patientrightstype entity",
-                        "name": "patientrightstype",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/ent.Patientrightstype"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/ent.Patientrightstype"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "get patientrightstype by ID",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Delete a patientrightstype entity by ID",
-                "operationId": "delete-patientrightstype",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Patientrightstype ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/gin.H"
-                        }
-                    }
-                }
-            }
-        },
         "/paytypes": {
             "get": {
                 "description": "list paytype entities",
@@ -4802,6 +4576,12 @@ var doc = `{
                 "financier": {
                     "type": "integer"
                 },
+                "payer": {
+                    "type": "string"
+                },
+                "payercontact": {
+                    "type": "string"
+                },
                 "paytype": {
                     "type": "integer"
                 },
@@ -4941,6 +4721,9 @@ var doc = `{
         "controllers.Patientrights": {
             "type": "object",
             "properties": {
+                "abilitypatientrights": {
+                    "type": "integer"
+                },
                 "insurance": {
                     "type": "integer"
                 },
@@ -4948,18 +4731,6 @@ var doc = `{
                     "type": "integer"
                 },
                 "patientrecord": {
-                    "type": "integer"
-                },
-                "patientrightstype": {
-                    "description": "Abilitypatientrights int",
-                    "type": "integer"
-                }
-            }
-        },
-        "controllers.Patientrightstype": {
-            "type": "object",
-            "properties": {
-                "abilitypatientrights": {
                     "type": "integer"
                 },
                 "permission": {
@@ -5025,6 +4796,10 @@ var doc = `{
                     "description": "Operative holds the value of the \"Operative\" field.",
                     "type": "integer"
                 },
+                "check": {
+                    "description": "Check holds the value of the \"check\" field.",
+                    "type": "string"
+                },
                 "edges": {
                     "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the AbilitypatientrightsQuery when eager-loading is set.",
                     "type": "object",
@@ -5039,11 +4814,11 @@ var doc = `{
         "ent.AbilitypatientrightsEdges": {
             "type": "object",
             "properties": {
-                "EdgesOfAbilitypatientrightsPatientrightstype": {
-                    "description": "EdgesOfAbilitypatientrightsPatientrightstype holds the value of the EdgesOfAbilitypatientrightsPatientrightstype edge.",
+                "EdgesOfAbilitypatientrightsPatientrights": {
+                    "description": "EdgesOfAbilitypatientrightsPatientrights holds the value of the EdgesOfAbilitypatientrightsPatientrights edge.",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/ent.Patientrightstype"
+                        "$ref": "#/definitions/ent.Patientrights"
                     }
                 }
             }
@@ -5057,6 +4832,14 @@ var doc = `{
                 },
                 "Date": {
                     "description": "Date holds the value of the \"Date\" field.",
+                    "type": "string"
+                },
+                "Payer": {
+                    "description": "Payer holds the value of the \"Payer\" field.",
+                    "type": "string"
+                },
+                "Payercontact": {
+                    "description": "Payercontact holds the value of the \"Payercontact\" field.",
                     "type": "string"
                 },
                 "edges": {
@@ -5667,9 +5450,24 @@ var doc = `{
         "ent.Patientrights": {
             "type": "object",
             "properties": {
+                "Permission": {
+                    "description": "Permission holds the value of the \"Permission\" field.",
+                    "type": "string"
+                },
+                "PermissionArea": {
+                    "description": "PermissionArea holds the value of the \"PermissionArea\" field.",
+                    "type": "string"
+                },
                 "PermissionDate": {
                     "description": "PermissionDate holds the value of the \"PermissionDate\" field.",
                     "type": "string"
+                },
+                "Responsible": {
+                    "description": "Responsible holds the value of the \"Responsible\" field.",
+                    "type": "string"
+                },
+                "abilitypatientrights_id": {
+                    "type": "integer"
                 },
                 "edges": {
                     "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the PatientrightsQuery when eager-loading is set.",
@@ -5682,15 +5480,17 @@ var doc = `{
                 },
                 "insurance_id": {
                     "type": "integer"
-                },
-                "patientrightstype_id": {
-                    "type": "integer"
                 }
             }
         },
         "ent.PatientrightsEdges": {
             "type": "object",
             "properties": {
+                "EdgesOfPatientrightsAbilitypatientrights": {
+                    "description": "EdgesOfPatientrightsAbilitypatientrights holds the value of the EdgesOfPatientrightsAbilitypatientrights edge.",
+                    "type": "object",
+                    "$ref": "#/definitions/ent.Abilitypatientrights"
+                },
                 "EdgesOfPatientrightsInsurance": {
                     "description": "EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance edge.",
                     "type": "object",
@@ -5705,57 +5505,6 @@ var doc = `{
                     "description": "EdgesOfPatientrightsPatientrecord holds the value of the EdgesOfPatientrightsPatientrecord edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Patientrecord"
-                },
-                "EdgesOfPatientrightsPatientrightstype": {
-                    "description": "EdgesOfPatientrightsPatientrightstype holds the value of the EdgesOfPatientrightsPatientrightstype edge.",
-                    "type": "object",
-                    "$ref": "#/definitions/ent.Patientrightstype"
-                }
-            }
-        },
-        "ent.Patientrightstype": {
-            "type": "object",
-            "properties": {
-                "Permission": {
-                    "description": "Permission holds the value of the \"Permission\" field.",
-                    "type": "string"
-                },
-                "PermissionArea": {
-                    "description": "PermissionArea holds the value of the \"PermissionArea\" field.",
-                    "type": "string"
-                },
-                "Responsible": {
-                    "description": "Responsible holds the value of the \"Responsible\" field.",
-                    "type": "string"
-                },
-                "abilitypatientrights_id": {
-                    "type": "integer"
-                },
-                "edges": {
-                    "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the PatientrightstypeQuery when eager-loading is set.",
-                    "type": "object",
-                    "$ref": "#/definitions/ent.PatientrightstypeEdges"
-                },
-                "id": {
-                    "description": "ID of the ent.",
-                    "type": "integer"
-                }
-            }
-        },
-        "ent.PatientrightstypeEdges": {
-            "type": "object",
-            "properties": {
-                "EdgesOfPatientrightstypeAbilitypatientrights": {
-                    "description": "EdgesOfPatientrightstypeAbilitypatientrights holds the value of the EdgesOfPatientrightstypeAbilitypatientrights edge.",
-                    "type": "object",
-                    "$ref": "#/definitions/ent.Abilitypatientrights"
-                },
-                "EdgesOfPatientrightstypePatientrights": {
-                    "description": "EdgesOfPatientrightstypePatientrights holds the value of the EdgesOfPatientrightstypePatientrights edge.",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ent.Patientrights"
-                    }
                 }
             }
         },

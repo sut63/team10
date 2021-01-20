@@ -100,6 +100,27 @@ func PermissionDate(v time.Time) predicate.Patientrights {
 	})
 }
 
+// Permission applies equality check predicate on the "Permission" field. It's identical to PermissionEQ.
+func Permission(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionArea applies equality check predicate on the "PermissionArea" field. It's identical to PermissionAreaEQ.
+func PermissionArea(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldPermissionArea), v))
+	})
+}
+
+// Responsible applies equality check predicate on the "Responsible" field. It's identical to ResponsibleEQ.
+func Responsible(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldResponsible), v))
+	})
+}
+
 // PermissionDateEQ applies the EQ predicate on the "PermissionDate" field.
 func PermissionDateEQ(v time.Time) predicate.Patientrights {
 	return predicate.Patientrights(func(s *sql.Selector) {
@@ -176,25 +197,358 @@ func PermissionDateLTE(v time.Time) predicate.Patientrights {
 	})
 }
 
-// HasEdgesOfPatientrightsPatientrightstype applies the HasEdge predicate on the "EdgesOfPatientrightsPatientrightstype" edge.
-func HasEdgesOfPatientrightsPatientrightstype() predicate.Patientrights {
+// PermissionEQ applies the EQ predicate on the "Permission" field.
+func PermissionEQ(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionNEQ applies the NEQ predicate on the "Permission" field.
+func PermissionNEQ(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionIn applies the In predicate on the "Permission" field.
+func PermissionIn(vs ...string) predicate.Patientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Patientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldPermission), v...))
+	})
+}
+
+// PermissionNotIn applies the NotIn predicate on the "Permission" field.
+func PermissionNotIn(vs ...string) predicate.Patientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Patientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldPermission), v...))
+	})
+}
+
+// PermissionGT applies the GT predicate on the "Permission" field.
+func PermissionGT(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionGTE applies the GTE predicate on the "Permission" field.
+func PermissionGTE(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionLT applies the LT predicate on the "Permission" field.
+func PermissionLT(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionLTE applies the LTE predicate on the "Permission" field.
+func PermissionLTE(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionContains applies the Contains predicate on the "Permission" field.
+func PermissionContains(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionHasPrefix applies the HasPrefix predicate on the "Permission" field.
+func PermissionHasPrefix(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionHasSuffix applies the HasSuffix predicate on the "Permission" field.
+func PermissionHasSuffix(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionEqualFold applies the EqualFold predicate on the "Permission" field.
+func PermissionEqualFold(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionContainsFold applies the ContainsFold predicate on the "Permission" field.
+func PermissionContainsFold(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldPermission), v))
+	})
+}
+
+// PermissionAreaEQ applies the EQ predicate on the "PermissionArea" field.
+func PermissionAreaEQ(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaNEQ applies the NEQ predicate on the "PermissionArea" field.
+func PermissionAreaNEQ(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaIn applies the In predicate on the "PermissionArea" field.
+func PermissionAreaIn(vs ...string) predicate.Patientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Patientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldPermissionArea), v...))
+	})
+}
+
+// PermissionAreaNotIn applies the NotIn predicate on the "PermissionArea" field.
+func PermissionAreaNotIn(vs ...string) predicate.Patientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Patientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldPermissionArea), v...))
+	})
+}
+
+// PermissionAreaGT applies the GT predicate on the "PermissionArea" field.
+func PermissionAreaGT(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaGTE applies the GTE predicate on the "PermissionArea" field.
+func PermissionAreaGTE(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaLT applies the LT predicate on the "PermissionArea" field.
+func PermissionAreaLT(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaLTE applies the LTE predicate on the "PermissionArea" field.
+func PermissionAreaLTE(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaContains applies the Contains predicate on the "PermissionArea" field.
+func PermissionAreaContains(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaHasPrefix applies the HasPrefix predicate on the "PermissionArea" field.
+func PermissionAreaHasPrefix(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaHasSuffix applies the HasSuffix predicate on the "PermissionArea" field.
+func PermissionAreaHasSuffix(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaEqualFold applies the EqualFold predicate on the "PermissionArea" field.
+func PermissionAreaEqualFold(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldPermissionArea), v))
+	})
+}
+
+// PermissionAreaContainsFold applies the ContainsFold predicate on the "PermissionArea" field.
+func PermissionAreaContainsFold(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldPermissionArea), v))
+	})
+}
+
+// ResponsibleEQ applies the EQ predicate on the "Responsible" field.
+func ResponsibleEQ(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleNEQ applies the NEQ predicate on the "Responsible" field.
+func ResponsibleNEQ(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleIn applies the In predicate on the "Responsible" field.
+func ResponsibleIn(vs ...string) predicate.Patientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Patientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldResponsible), v...))
+	})
+}
+
+// ResponsibleNotIn applies the NotIn predicate on the "Responsible" field.
+func ResponsibleNotIn(vs ...string) predicate.Patientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Patientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldResponsible), v...))
+	})
+}
+
+// ResponsibleGT applies the GT predicate on the "Responsible" field.
+func ResponsibleGT(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleGTE applies the GTE predicate on the "Responsible" field.
+func ResponsibleGTE(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleLT applies the LT predicate on the "Responsible" field.
+func ResponsibleLT(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleLTE applies the LTE predicate on the "Responsible" field.
+func ResponsibleLTE(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleContains applies the Contains predicate on the "Responsible" field.
+func ResponsibleContains(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleHasPrefix applies the HasPrefix predicate on the "Responsible" field.
+func ResponsibleHasPrefix(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleHasSuffix applies the HasSuffix predicate on the "Responsible" field.
+func ResponsibleHasSuffix(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleEqualFold applies the EqualFold predicate on the "Responsible" field.
+func ResponsibleEqualFold(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldResponsible), v))
+	})
+}
+
+// ResponsibleContainsFold applies the ContainsFold predicate on the "Responsible" field.
+func ResponsibleContainsFold(v string) predicate.Patientrights {
+	return predicate.Patientrights(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldResponsible), v))
+	})
+}
+
+// HasEdgesOfPatientrightsAbilitypatientrights applies the HasEdge predicate on the "EdgesOfPatientrightsAbilitypatientrights" edge.
+func HasEdgesOfPatientrightsAbilitypatientrights() predicate.Patientrights {
 	return predicate.Patientrights(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(EdgesOfPatientrightsPatientrightstypeTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfPatientrightsPatientrightstypeTable, EdgesOfPatientrightsPatientrightstypeColumn),
+			sqlgraph.To(EdgesOfPatientrightsAbilitypatientrightsTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfPatientrightsAbilitypatientrightsTable, EdgesOfPatientrightsAbilitypatientrightsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasEdgesOfPatientrightsPatientrightstypeWith applies the HasEdge predicate on the "EdgesOfPatientrightsPatientrightstype" edge with a given conditions (other predicates).
-func HasEdgesOfPatientrightsPatientrightstypeWith(preds ...predicate.Patientrightstype) predicate.Patientrights {
+// HasEdgesOfPatientrightsAbilitypatientrightsWith applies the HasEdge predicate on the "EdgesOfPatientrightsAbilitypatientrights" edge with a given conditions (other predicates).
+func HasEdgesOfPatientrightsAbilitypatientrightsWith(preds ...predicate.Abilitypatientrights) predicate.Patientrights {
 	return predicate.Patientrights(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(EdgesOfPatientrightsPatientrightstypeInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfPatientrightsPatientrightstypeTable, EdgesOfPatientrightsPatientrightstypeColumn),
+			sqlgraph.To(EdgesOfPatientrightsAbilitypatientrightsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, EdgesOfPatientrightsAbilitypatientrightsTable, EdgesOfPatientrightsAbilitypatientrightsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

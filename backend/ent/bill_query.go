@@ -332,12 +332,12 @@ func (bq *BillQuery) WithEdgesOfTreatment(opts ...func(*UnpaybillQuery)) *BillQu
 // Example:
 //
 //	var v []struct {
-//		Amount string `json:"Amount,omitempty"`
+//		Payer string `json:"Payer,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Bill.Query().
-//		GroupBy(bill.FieldAmount).
+//		GroupBy(bill.FieldPayer).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -358,11 +358,11 @@ func (bq *BillQuery) GroupBy(field string, fields ...string) *BillGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Amount string `json:"Amount,omitempty"`
+//		Payer string `json:"Payer,omitempty"`
 //	}
 //
 //	client.Bill.Query().
-//		Select(bill.FieldAmount).
+//		Select(bill.FieldPayer).
 //		Scan(ctx, &v)
 //
 func (bq *BillQuery) Select(field string, fields ...string) *BillSelect {

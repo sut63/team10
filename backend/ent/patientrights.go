@@ -8,11 +8,11 @@ import (
 	"time"
 
 	"github.com/facebookincubator/ent/dialect/sql"
+	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/insurance"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrights"
-	"github.com/team10/app/ent/patientrightstype"
 )
 
 // Patientrights is the model entity for the Patientrights schema.
@@ -22,19 +22,25 @@ type Patientrights struct {
 	ID int `json:"id,omitempty"`
 	// PermissionDate holds the value of the "PermissionDate" field.
 	PermissionDate time.Time `json:"PermissionDate,omitempty"`
+	// Permission holds the value of the "Permission" field.
+	Permission string `json:"Permission,omitempty"`
+	// PermissionArea holds the value of the "PermissionArea" field.
+	PermissionArea string `json:"PermissionArea,omitempty"`
+	// Responsible holds the value of the "Responsible" field.
+	Responsible string `json:"Responsible,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the PatientrightsQuery when eager-loading is set.
-	Edges                 PatientrightsEdges `json:"edges"`
-	Insurance_id          *int
-	medicalrecordstaff_id *int
-	patientrecord_id      *int
-	Patientrightstype_id  *int
+	Edges                   PatientrightsEdges `json:"edges"`
+	Abilitypatientrights_id *int
+	Insurance_id            *int
+	medicalrecordstaff_id   *int
+	patientrecord_id        *int
 }
 
 // PatientrightsEdges holds the relations/edges for other nodes in the graph.
 type PatientrightsEdges struct {
-	// EdgesOfPatientrightsPatientrightstype holds the value of the EdgesOfPatientrightsPatientrightstype edge.
-	EdgesOfPatientrightsPatientrightstype *Patientrightstype
+	// EdgesOfPatientrightsAbilitypatientrights holds the value of the EdgesOfPatientrightsAbilitypatientrights edge.
+	EdgesOfPatientrightsAbilitypatientrights *Abilitypatientrights
 	// EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance edge.
 	EdgesOfPatientrightsInsurance *Insurance
 	// EdgesOfPatientrightsPatientrecord holds the value of the EdgesOfPatientrightsPatientrecord edge.
@@ -46,18 +52,18 @@ type PatientrightsEdges struct {
 	loadedTypes [4]bool
 }
 
-// EdgesOfPatientrightsPatientrightstypeOrErr returns the EdgesOfPatientrightsPatientrightstype value or an error if the edge
+// EdgesOfPatientrightsAbilitypatientrightsOrErr returns the EdgesOfPatientrightsAbilitypatientrights value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e PatientrightsEdges) EdgesOfPatientrightsPatientrightstypeOrErr() (*Patientrightstype, error) {
+func (e PatientrightsEdges) EdgesOfPatientrightsAbilitypatientrightsOrErr() (*Abilitypatientrights, error) {
 	if e.loadedTypes[0] {
-		if e.EdgesOfPatientrightsPatientrightstype == nil {
-			// The edge EdgesOfPatientrightsPatientrightstype was loaded in eager-loading,
+		if e.EdgesOfPatientrightsAbilitypatientrights == nil {
+			// The edge EdgesOfPatientrightsAbilitypatientrights was loaded in eager-loading,
 			// but was not found.
-			return nil, &NotFoundError{label: patientrightstype.Label}
+			return nil, &NotFoundError{label: abilitypatientrights.Label}
 		}
-		return e.EdgesOfPatientrightsPatientrightstype, nil
+		return e.EdgesOfPatientrightsAbilitypatientrights, nil
 	}
-	return nil, &NotLoadedError{edge: "EdgesOfPatientrightsPatientrightstype"}
+	return nil, &NotLoadedError{edge: "EdgesOfPatientrightsAbilitypatientrights"}
 }
 
 // EdgesOfPatientrightsInsuranceOrErr returns the EdgesOfPatientrightsInsurance value or an error if the edge
@@ -105,18 +111,21 @@ func (e PatientrightsEdges) EdgesOfPatientrightsMedicalrecordstaffOrErr() (*Medi
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Patientrights) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{}, // id
-		&sql.NullTime{},  // PermissionDate
+		&sql.NullInt64{},  // id
+		&sql.NullTime{},   // PermissionDate
+		&sql.NullString{}, // Permission
+		&sql.NullString{}, // PermissionArea
+		&sql.NullString{}, // Responsible
 	}
 }
 
 // fkValues returns the types for scanning foreign-keys values from sql.Rows.
 func (*Patientrights) fkValues() []interface{} {
 	return []interface{}{
+		&sql.NullInt64{}, // Abilitypatientrights_id
 		&sql.NullInt64{}, // Insurance_id
 		&sql.NullInt64{}, // medicalrecordstaff_id
 		&sql.NullInt64{}, // patientrecord_id
-		&sql.NullInt64{}, // Patientrightstype_id
 	}
 }
 
@@ -137,39 +146,54 @@ func (pa *Patientrights) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		pa.PermissionDate = value.Time
 	}
-	values = values[1:]
+	if value, ok := values[1].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Permission", values[1])
+	} else if value.Valid {
+		pa.Permission = value.String
+	}
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field PermissionArea", values[2])
+	} else if value.Valid {
+		pa.PermissionArea = value.String
+	}
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Responsible", values[3])
+	} else if value.Valid {
+		pa.Responsible = value.String
+	}
+	values = values[4:]
 	if len(values) == len(patientrights.ForeignKeys) {
 		if value, ok := values[0].(*sql.NullInt64); !ok {
+			return fmt.Errorf("unexpected type %T for edge-field Abilitypatientrights_id", value)
+		} else if value.Valid {
+			pa.Abilitypatientrights_id = new(int)
+			*pa.Abilitypatientrights_id = int(value.Int64)
+		}
+		if value, ok := values[1].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field Insurance_id", value)
 		} else if value.Valid {
 			pa.Insurance_id = new(int)
 			*pa.Insurance_id = int(value.Int64)
 		}
-		if value, ok := values[1].(*sql.NullInt64); !ok {
+		if value, ok := values[2].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field medicalrecordstaff_id", value)
 		} else if value.Valid {
 			pa.medicalrecordstaff_id = new(int)
 			*pa.medicalrecordstaff_id = int(value.Int64)
 		}
-		if value, ok := values[2].(*sql.NullInt64); !ok {
+		if value, ok := values[3].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field patientrecord_id", value)
 		} else if value.Valid {
 			pa.patientrecord_id = new(int)
 			*pa.patientrecord_id = int(value.Int64)
 		}
-		if value, ok := values[3].(*sql.NullInt64); !ok {
-			return fmt.Errorf("unexpected type %T for edge-field Patientrightstype_id", value)
-		} else if value.Valid {
-			pa.Patientrightstype_id = new(int)
-			*pa.Patientrightstype_id = int(value.Int64)
-		}
 	}
 	return nil
 }
 
-// QueryEdgesOfPatientrightsPatientrightstype queries the EdgesOfPatientrightsPatientrightstype edge of the Patientrights.
-func (pa *Patientrights) QueryEdgesOfPatientrightsPatientrightstype() *PatientrightstypeQuery {
-	return (&PatientrightsClient{config: pa.config}).QueryEdgesOfPatientrightsPatientrightstype(pa)
+// QueryEdgesOfPatientrightsAbilitypatientrights queries the EdgesOfPatientrightsAbilitypatientrights edge of the Patientrights.
+func (pa *Patientrights) QueryEdgesOfPatientrightsAbilitypatientrights() *AbilitypatientrightsQuery {
+	return (&PatientrightsClient{config: pa.config}).QueryEdgesOfPatientrightsAbilitypatientrights(pa)
 }
 
 // QueryEdgesOfPatientrightsInsurance queries the EdgesOfPatientrightsInsurance edge of the Patientrights.
@@ -212,6 +236,12 @@ func (pa *Patientrights) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", pa.ID))
 	builder.WriteString(", PermissionDate=")
 	builder.WriteString(pa.PermissionDate.Format(time.ANSIC))
+	builder.WriteString(", Permission=")
+	builder.WriteString(pa.Permission)
+	builder.WriteString(", PermissionArea=")
+	builder.WriteString(pa.PermissionArea)
+	builder.WriteString(", Responsible=")
+	builder.WriteString(pa.Responsible)
 	builder.WriteByte(')')
 	return builder.String()
 }

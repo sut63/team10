@@ -25,7 +25,6 @@ import (
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrights"
-	"github.com/team10/app/ent/patientrightstype"
 	"github.com/team10/app/ent/paytype"
 	"github.com/team10/app/ent/prename"
 	"github.com/team10/app/ent/registrar"
@@ -78,8 +77,6 @@ type Client struct {
 	Patientrecord *PatientrecordClient
 	// Patientrights is the client for interacting with the Patientrights builders.
 	Patientrights *PatientrightsClient
-	// Patientrightstype is the client for interacting with the Patientrightstype builders.
-	Patientrightstype *PatientrightstypeClient
 	// Paytype is the client for interacting with the Paytype builders.
 	Paytype *PaytypeClient
 	// Prename is the client for interacting with the Prename builders.
@@ -127,7 +124,6 @@ func (c *Client) init() {
 	c.Officeroom = NewOfficeroomClient(c.config)
 	c.Patientrecord = NewPatientrecordClient(c.config)
 	c.Patientrights = NewPatientrightsClient(c.config)
-	c.Patientrightstype = NewPatientrightstypeClient(c.config)
 	c.Paytype = NewPaytypeClient(c.config)
 	c.Prename = NewPrenameClient(c.config)
 	c.Registrar = NewRegistrarClient(c.config)
@@ -185,7 +181,6 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Officeroom:           NewOfficeroomClient(cfg),
 		Patientrecord:        NewPatientrecordClient(cfg),
 		Patientrights:        NewPatientrightsClient(cfg),
-		Patientrightstype:    NewPatientrightstypeClient(cfg),
 		Paytype:              NewPaytypeClient(cfg),
 		Prename:              NewPrenameClient(cfg),
 		Registrar:            NewRegistrarClient(cfg),
@@ -226,7 +221,6 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Officeroom:           NewOfficeroomClient(cfg),
 		Patientrecord:        NewPatientrecordClient(cfg),
 		Patientrights:        NewPatientrightsClient(cfg),
-		Patientrightstype:    NewPatientrightstypeClient(cfg),
 		Paytype:              NewPaytypeClient(cfg),
 		Prename:              NewPrenameClient(cfg),
 		Registrar:            NewRegistrarClient(cfg),
@@ -280,7 +274,6 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Officeroom.Use(hooks...)
 	c.Patientrecord.Use(hooks...)
 	c.Patientrights.Use(hooks...)
-	c.Patientrightstype.Use(hooks...)
 	c.Paytype.Use(hooks...)
 	c.Prename.Use(hooks...)
 	c.Registrar.Use(hooks...)
@@ -370,15 +363,15 @@ func (c *AbilitypatientrightsClient) GetX(ctx context.Context, id int) *Abilityp
 	return a
 }
 
-// QueryEdgesOfAbilitypatientrightsPatientrightstype queries the EdgesOfAbilitypatientrightsPatientrightstype edge of a Abilitypatientrights.
-func (c *AbilitypatientrightsClient) QueryEdgesOfAbilitypatientrightsPatientrightstype(a *Abilitypatientrights) *PatientrightstypeQuery {
-	query := &PatientrightstypeQuery{config: c.config}
+// QueryEdgesOfAbilitypatientrightsPatientrights queries the EdgesOfAbilitypatientrightsPatientrights edge of a Abilitypatientrights.
+func (c *AbilitypatientrightsClient) QueryEdgesOfAbilitypatientrightsPatientrights(a *Abilitypatientrights) *PatientrightsQuery {
+	query := &PatientrightsQuery{config: c.config}
 	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
 		id := a.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(abilitypatientrights.Table, abilitypatientrights.FieldID, id),
-			sqlgraph.To(patientrightstype.Table, patientrightstype.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeTable, abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightstypeColumn),
+			sqlgraph.To(patientrights.Table, patientrights.FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightsTable, abilitypatientrights.EdgesOfAbilitypatientrightsPatientrightsColumn),
 		)
 		fromV = sqlgraph.Neighbors(a.driver.Dialect(), step)
 		return fromV, nil
@@ -2207,15 +2200,15 @@ func (c *PatientrightsClient) GetX(ctx context.Context, id int) *Patientrights {
 	return pa
 }
 
-// QueryEdgesOfPatientrightsPatientrightstype queries the EdgesOfPatientrightsPatientrightstype edge of a Patientrights.
-func (c *PatientrightsClient) QueryEdgesOfPatientrightsPatientrightstype(pa *Patientrights) *PatientrightstypeQuery {
-	query := &PatientrightstypeQuery{config: c.config}
+// QueryEdgesOfPatientrightsAbilitypatientrights queries the EdgesOfPatientrightsAbilitypatientrights edge of a Patientrights.
+func (c *PatientrightsClient) QueryEdgesOfPatientrightsAbilitypatientrights(pa *Patientrights) *AbilitypatientrightsQuery {
+	query := &AbilitypatientrightsQuery{config: c.config}
 	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
 		id := pa.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(patientrights.Table, patientrights.FieldID, id),
-			sqlgraph.To(patientrightstype.Table, patientrightstype.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, patientrights.EdgesOfPatientrightsPatientrightstypeTable, patientrights.EdgesOfPatientrightsPatientrightstypeColumn),
+			sqlgraph.To(abilitypatientrights.Table, abilitypatientrights.FieldID),
+			sqlgraph.Edge(sqlgraph.M2O, true, patientrights.EdgesOfPatientrightsAbilitypatientrightsTable, patientrights.EdgesOfPatientrightsAbilitypatientrightsColumn),
 		)
 		fromV = sqlgraph.Neighbors(pa.driver.Dialect(), step)
 		return fromV, nil
@@ -2274,121 +2267,6 @@ func (c *PatientrightsClient) QueryEdgesOfPatientrightsMedicalrecordstaff(pa *Pa
 // Hooks returns the client hooks.
 func (c *PatientrightsClient) Hooks() []Hook {
 	return c.hooks.Patientrights
-}
-
-// PatientrightstypeClient is a client for the Patientrightstype schema.
-type PatientrightstypeClient struct {
-	config
-}
-
-// NewPatientrightstypeClient returns a client for the Patientrightstype from the given config.
-func NewPatientrightstypeClient(c config) *PatientrightstypeClient {
-	return &PatientrightstypeClient{config: c}
-}
-
-// Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `patientrightstype.Hooks(f(g(h())))`.
-func (c *PatientrightstypeClient) Use(hooks ...Hook) {
-	c.hooks.Patientrightstype = append(c.hooks.Patientrightstype, hooks...)
-}
-
-// Create returns a create builder for Patientrightstype.
-func (c *PatientrightstypeClient) Create() *PatientrightstypeCreate {
-	mutation := newPatientrightstypeMutation(c.config, OpCreate)
-	return &PatientrightstypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Update returns an update builder for Patientrightstype.
-func (c *PatientrightstypeClient) Update() *PatientrightstypeUpdate {
-	mutation := newPatientrightstypeMutation(c.config, OpUpdate)
-	return &PatientrightstypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOne returns an update builder for the given entity.
-func (c *PatientrightstypeClient) UpdateOne(pa *Patientrightstype) *PatientrightstypeUpdateOne {
-	mutation := newPatientrightstypeMutation(c.config, OpUpdateOne, withPatientrightstype(pa))
-	return &PatientrightstypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOneID returns an update builder for the given id.
-func (c *PatientrightstypeClient) UpdateOneID(id int) *PatientrightstypeUpdateOne {
-	mutation := newPatientrightstypeMutation(c.config, OpUpdateOne, withPatientrightstypeID(id))
-	return &PatientrightstypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Delete returns a delete builder for Patientrightstype.
-func (c *PatientrightstypeClient) Delete() *PatientrightstypeDelete {
-	mutation := newPatientrightstypeMutation(c.config, OpDelete)
-	return &PatientrightstypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// DeleteOne returns a delete builder for the given entity.
-func (c *PatientrightstypeClient) DeleteOne(pa *Patientrightstype) *PatientrightstypeDeleteOne {
-	return c.DeleteOneID(pa.ID)
-}
-
-// DeleteOneID returns a delete builder for the given id.
-func (c *PatientrightstypeClient) DeleteOneID(id int) *PatientrightstypeDeleteOne {
-	builder := c.Delete().Where(patientrightstype.ID(id))
-	builder.mutation.id = &id
-	builder.mutation.op = OpDeleteOne
-	return &PatientrightstypeDeleteOne{builder}
-}
-
-// Create returns a query builder for Patientrightstype.
-func (c *PatientrightstypeClient) Query() *PatientrightstypeQuery {
-	return &PatientrightstypeQuery{config: c.config}
-}
-
-// Get returns a Patientrightstype entity by its id.
-func (c *PatientrightstypeClient) Get(ctx context.Context, id int) (*Patientrightstype, error) {
-	return c.Query().Where(patientrightstype.ID(id)).Only(ctx)
-}
-
-// GetX is like Get, but panics if an error occurs.
-func (c *PatientrightstypeClient) GetX(ctx context.Context, id int) *Patientrightstype {
-	pa, err := c.Get(ctx, id)
-	if err != nil {
-		panic(err)
-	}
-	return pa
-}
-
-// QueryEdgesOfPatientrightstypePatientrights queries the EdgesOfPatientrightstypePatientrights edge of a Patientrightstype.
-func (c *PatientrightstypeClient) QueryEdgesOfPatientrightstypePatientrights(pa *Patientrightstype) *PatientrightsQuery {
-	query := &PatientrightsQuery{config: c.config}
-	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
-		id := pa.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(patientrightstype.Table, patientrightstype.FieldID, id),
-			sqlgraph.To(patientrights.Table, patientrights.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, patientrightstype.EdgesOfPatientrightstypePatientrightsTable, patientrightstype.EdgesOfPatientrightstypePatientrightsColumn),
-		)
-		fromV = sqlgraph.Neighbors(pa.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// QueryEdgesOfPatientrightstypeAbilitypatientrights queries the EdgesOfPatientrightstypeAbilitypatientrights edge of a Patientrightstype.
-func (c *PatientrightstypeClient) QueryEdgesOfPatientrightstypeAbilitypatientrights(pa *Patientrightstype) *AbilitypatientrightsQuery {
-	query := &AbilitypatientrightsQuery{config: c.config}
-	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
-		id := pa.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(patientrightstype.Table, patientrightstype.FieldID, id),
-			sqlgraph.To(abilitypatientrights.Table, abilitypatientrights.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, patientrightstype.EdgesOfPatientrightstypeAbilitypatientrightsTable, patientrightstype.EdgesOfPatientrightstypeAbilitypatientrightsColumn),
-		)
-		fromV = sqlgraph.Neighbors(pa.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// Hooks returns the client hooks.
-func (c *PatientrightstypeClient) Hooks() []Hook {
-	return c.hooks.Patientrightstype
 }
 
 // PaytypeClient is a client for the Paytype schema.

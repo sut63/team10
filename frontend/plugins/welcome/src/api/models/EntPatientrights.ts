@@ -27,11 +27,35 @@ import {
  */
 export interface EntPatientrights {
     /**
+     * Permission holds the value of the "Permission" field.
+     * @type {string}
+     * @memberof EntPatientrights
+     */
+    permission?: string;
+    /**
+     * PermissionArea holds the value of the "PermissionArea" field.
+     * @type {string}
+     * @memberof EntPatientrights
+     */
+    permissionArea?: string;
+    /**
      * PermissionDate holds the value of the "PermissionDate" field.
      * @type {string}
      * @memberof EntPatientrights
      */
     permissionDate?: string;
+    /**
+     * Responsible holds the value of the "Responsible" field.
+     * @type {string}
+     * @memberof EntPatientrights
+     */
+    responsible?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EntPatientrights
+     */
+    abilitypatientrightsId?: number;
     /**
      * 
      * @type {EntPatientrightsEdges}
@@ -50,12 +74,6 @@ export interface EntPatientrights {
      * @memberof EntPatientrights
      */
     insuranceId?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof EntPatientrights
-     */
-    patientrightstypeId?: number;
 }
 
 export function EntPatientrightsFromJSON(json: any): EntPatientrights {
@@ -68,11 +86,14 @@ export function EntPatientrightsFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         
+        'permission': !exists(json, 'Permission') ? undefined : json['Permission'],
+        'permissionArea': !exists(json, 'PermissionArea') ? undefined : json['PermissionArea'],
         'permissionDate': !exists(json, 'PermissionDate') ? undefined : json['PermissionDate'],
+        'responsible': !exists(json, 'Responsible') ? undefined : json['Responsible'],
+        'abilitypatientrightsId': !exists(json, 'abilitypatientrights_id') ? undefined : json['abilitypatientrights_id'],
         'edges': !exists(json, 'edges') ? undefined : EntPatientrightsEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
         'insuranceId': !exists(json, 'insurance_id') ? undefined : json['insurance_id'],
-        'patientrightstypeId': !exists(json, 'patientrightstype_id') ? undefined : json['patientrightstype_id'],
     };
 }
 
@@ -85,11 +106,14 @@ export function EntPatientrightsToJSON(value?: EntPatientrights | null): any {
     }
     return {
         
+        'Permission': value.permission,
+        'PermissionArea': value.permissionArea,
         'PermissionDate': value.permissionDate,
+        'Responsible': value.responsible,
+        'abilitypatientrights_id': value.abilitypatientrightsId,
         'edges': EntPatientrightsEdgesToJSON(value.edges),
         'id': value.id,
         'insurance_id': value.insuranceId,
-        'patientrightstype_id': value.patientrightstypeId,
     };
 }
 

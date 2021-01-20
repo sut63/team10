@@ -13,19 +13,21 @@ const (
 	FieldMedicalSupplies = "medical_supplies"
 	// FieldExamine holds the string denoting the examine field in the database.
 	FieldExamine = "examine"
+	// FieldCheck holds the string denoting the check field in the database.
+	FieldCheck = "check"
 
-	// EdgeEdgesOfAbilitypatientrightsPatientrightstype holds the string denoting the edgesofabilitypatientrightspatientrightstype edge name in mutations.
-	EdgeEdgesOfAbilitypatientrightsPatientrightstype = "EdgesOfAbilitypatientrightsPatientrightstype"
+	// EdgeEdgesOfAbilitypatientrightsPatientrights holds the string denoting the edgesofabilitypatientrightspatientrights edge name in mutations.
+	EdgeEdgesOfAbilitypatientrightsPatientrights = "EdgesOfAbilitypatientrightsPatientrights"
 
 	// Table holds the table name of the abilitypatientrights in the database.
 	Table = "abilitypatientrights"
-	// EdgesOfAbilitypatientrightsPatientrightstypeTable is the table the holds the EdgesOfAbilitypatientrightsPatientrightstype relation/edge.
-	EdgesOfAbilitypatientrightsPatientrightstypeTable = "patientrightstypes"
-	// EdgesOfAbilitypatientrightsPatientrightstypeInverseTable is the table name for the Patientrightstype entity.
-	// It exists in this package in order to avoid circular dependency with the "patientrightstype" package.
-	EdgesOfAbilitypatientrightsPatientrightstypeInverseTable = "patientrightstypes"
-	// EdgesOfAbilitypatientrightsPatientrightstypeColumn is the table column denoting the EdgesOfAbilitypatientrightsPatientrightstype relation/edge.
-	EdgesOfAbilitypatientrightsPatientrightstypeColumn = "Abilitypatientrights_id"
+	// EdgesOfAbilitypatientrightsPatientrightsTable is the table the holds the EdgesOfAbilitypatientrightsPatientrights relation/edge.
+	EdgesOfAbilitypatientrightsPatientrightsTable = "patientrights"
+	// EdgesOfAbilitypatientrightsPatientrightsInverseTable is the table name for the Patientrights entity.
+	// It exists in this package in order to avoid circular dependency with the "patientrights" package.
+	EdgesOfAbilitypatientrightsPatientrightsInverseTable = "patientrights"
+	// EdgesOfAbilitypatientrightsPatientrightsColumn is the table column denoting the EdgesOfAbilitypatientrightsPatientrights relation/edge.
+	EdgesOfAbilitypatientrightsPatientrightsColumn = "Abilitypatientrights_id"
 )
 
 // Columns holds all SQL columns for abilitypatientrights fields.
@@ -34,4 +36,14 @@ var Columns = []string{
 	FieldOperative,
 	FieldMedicalSupplies,
 	FieldExamine,
+	FieldCheck,
 }
+
+var (
+	// OperativeValidator is a validator for the "Operative" field. It is called by the builders before save.
+	OperativeValidator func(int) error
+	// MedicalSuppliesValidator is a validator for the "MedicalSupplies" field. It is called by the builders before save.
+	MedicalSuppliesValidator func(int) error
+	// ExamineValidator is a validator for the "Examine" field. It is called by the builders before save.
+	ExamineValidator func(int) error
+)

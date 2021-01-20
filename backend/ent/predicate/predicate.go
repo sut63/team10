@@ -54,9 +54,6 @@ type Patientrecord func(*sql.Selector)
 // Patientrights is the predicate function for patientrights builders.
 type Patientrights func(*sql.Selector)
 
-// Patientrightstype is the predicate function for patientrightstype builders.
-type Patientrightstype func(*sql.Selector)
-
 // Paytype is the predicate function for paytype builders.
 type Paytype func(*sql.Selector)
 
