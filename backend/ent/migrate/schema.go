@@ -25,6 +25,8 @@ var (
 	// BillsColumns holds the columns for the "bills" table.
 	BillsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "payer", Type: field.TypeString},
+		{Name: "payercontact", Type: field.TypeString, Size: 10},
 		{Name: "amount", Type: field.TypeString},
 		{Name: "date", Type: field.TypeTime},
 		{Name: "officer_id", Type: field.TypeInt, Nullable: true},
@@ -39,21 +41,21 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:  "bills_financiers_EdgesOfBills",
-				Columns: []*schema.Column{BillsColumns[3]},
+				Columns: []*schema.Column{BillsColumns[5]},
 
 				RefColumns: []*schema.Column{FinanciersColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "bills_paytypes_EdgesOfBills",
-				Columns: []*schema.Column{BillsColumns[4]},
+				Columns: []*schema.Column{BillsColumns[6]},
 
 				RefColumns: []*schema.Column{PaytypesColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "bills_unpaybills_EdgesOfBills",
-				Columns: []*schema.Column{BillsColumns[5]},
+				Columns: []*schema.Column{BillsColumns[7]},
 
 				RefColumns: []*schema.Column{UnpaybillsColumns[0]},
 				OnDelete:   schema.SetNull,

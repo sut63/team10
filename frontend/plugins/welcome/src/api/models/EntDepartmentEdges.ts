@@ -54,8 +54,8 @@ export function EntDepartmentEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'edgesOfDepartment2doctorinfo': !exists(json, 'edgesOfDepartment2doctorinfo') ? undefined : ((json['edgesOfDepartment2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
-        'edgesOfHistorytaking': !exists(json, 'edgesOfHistorytaking') ? undefined : ((json['edgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
+        'edgesOfDepartment2doctorinfo': !exists(json, 'EdgesOfDepartment2doctorinfo') ? undefined : ((json['EdgesOfDepartment2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'edgesOfHistorytaking': !exists(json, 'EdgesOfHistorytaking') ? undefined : ((json['EdgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
     };
 }
 
@@ -68,8 +68,8 @@ export function EntDepartmentEdgesToJSON(value?: EntDepartmentEdges | null): any
     }
     return {
         
-        'edgesOfDepartment2doctorinfo': value.edgesOfDepartment2doctorinfo === undefined ? undefined : ((value.edgesOfDepartment2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
-        'edgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
+        'EdgesOfDepartment2doctorinfo': value.edgesOfDepartment2doctorinfo === undefined ? undefined : ((value.edgesOfDepartment2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
+        'EdgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
     };
 }
 

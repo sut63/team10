@@ -153,6 +153,7 @@ export default function CreateHistorytaking() {
   const [respirationError, setrespirationError] = React.useState('');
   const [bpError, setbpError] = React.useState('');
   const [oxygenError, setoxygenError] = React.useState('');
+  const [symptomError, setsymptomError] = React.useState('');
 
   const [nurses, setNurses] = React.useState<Partial<EntNurse>>();
   const [symptomseveritys, setSymptomseveritys] = useState<EntSymptomseverity[]>([]);
@@ -273,6 +274,11 @@ export default function CreateHistorytaking() {
     return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
   }
 
+  // ฟังก์ชั่นสำหรับ validate symptomError
+  const validatesymptom = (val: string) => {
+    return (!val || 0 === val.length) ? true : false;
+  }
+
   // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
   const checkPattern = (id: string, value: string) => {
     switch (id) {
@@ -296,6 +302,9 @@ export default function CreateHistorytaking() {
         return; 
       case 'oxygen':
         validateoxygen(value) ? setoxygenError('') : setoxygenError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม')
+        return;
+      case 'symptom':
+        validatesymptom(value) ? setsymptomError('') : setsymptomError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม')
         return;
       default:
         return;
@@ -331,7 +340,7 @@ export default function CreateHistorytaking() {
         }
       });
   };
-  
+
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`HISTORYTAKING DEPARTMENT`}>
