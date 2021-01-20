@@ -231,7 +231,7 @@ const NewPatientright: FC<{}> = () => {
             <FormControl variant="outlined" className={classes.formControl}>
               <TextField
                 name="permission"
-                label="permission"
+                label="ชื่อสิทธิ์"
                 variant="outlined"
                 type="string"
                 size="medium"
@@ -248,7 +248,7 @@ const NewPatientright: FC<{}> = () => {
             <FormControl variant="outlined" className={classes.formControl}>
               <TextField
                 name="permissionArea"
-                label="permissionArea"
+                label="พื้นที่ที่ใช้สิทธิ์ได้"
                 variant="outlined"
                 type="string"
                 size="medium"
@@ -265,7 +265,7 @@ const NewPatientright: FC<{}> = () => {
             <FormControl variant="outlined" className={classes.formControl}>
               <TextField
                 name="responsible"
-                label="responsible"
+                label="ผู้รับผิดชอบดูแลสิทธิ์"
                 variant="outlined"
                 type="string"
                 size="medium"
