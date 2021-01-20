@@ -1,6 +1,10 @@
 package schema
 
 import (
+	"errors"
+	"regexp"
+	"strings"
+
 	"github.com/facebookincubator/ent"
 	"github.com/facebookincubator/ent/schema/field"
 	"github.com/facebookincubator/ent/schema/edge"
@@ -15,7 +19,14 @@ type Bill struct {
 // Fields of the Bill.
 func (Bill) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Amount").NotEmpty(),
+		field.String("Amount").NotEmpty().MinLen(1).Match(regexp.MustCompile("[0-9]+$")).
+		Validate(func(s string) error {
+			if strings.HasPrefix(s,"0") {
+				return errors.New("First letter of amount can not be 0")
+			}
+
+			return nil
+		}),
 		field.Time("Date"),
 	}
 }
