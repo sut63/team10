@@ -217,19 +217,6 @@ func (f PatientrightsFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Valu
 	return f(ctx, mv)
 }
 
-// The PatientrightstypeFunc type is an adapter to allow the use of ordinary
-// function as Patientrightstype mutator.
-type PatientrightstypeFunc func(context.Context, *ent.PatientrightstypeMutation) (ent.Value, error)
-
-// Mutate calls f(ctx, m).
-func (f PatientrightstypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
-	mv, ok := m.(*ent.PatientrightstypeMutation)
-	if !ok {
-		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PatientrightstypeMutation", m)
-	}
-	return f(ctx, mv)
-}
-
 // The PaytypeFunc type is an adapter to allow the use of ordinary
 // function as Paytype mutator.
 type PaytypeFunc func(context.Context, *ent.PaytypeMutation) (ent.Value, error)

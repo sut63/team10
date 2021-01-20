@@ -14,7 +14,7 @@ import (
 	"github.com/team10/app/controllers"
 	_ "github.com/team10/app/docs"
 	"github.com/team10/app/ent"
-	"github.com/team10/app/ent/abilitypatientrights"
+
 	"github.com/team10/app/ent/bloodtype"
 	"github.com/team10/app/ent/doctor"
 	"github.com/team10/app/ent/gender"
@@ -51,12 +51,13 @@ import (
 
 // Struct By team10 System
 //vvv*******************************************************************vvv
+
 // Users defines the struct for the Users
 type Users struct {
 	User []User
 }
 
-// Users defines the struct for the Users
+// User defines the struct for the User
 type User struct {
 	Userstatus int
 	Email      string
@@ -113,19 +114,6 @@ type Department struct {
 
 // Struct By Patientrights System No.3
 //*******************************************************************
-
-// Patientrightstypes defines the struct for the Patientrightstypes
-type Patientrightstypes struct {
-	Patientrightstype []Patientrightstype
-}
-
-// Patientrightstype defines the struct for the Patientrightstype
-type Patientrightstype struct {
-	Permission           string
-	PermissionArea       string
-	Responsible          string
-	Abilitypatientrights int
-}
 
 // Abilitypatientrightss defines the struct for the Abilitypatientrightss
 type Abilitypatientrightss struct {
@@ -315,7 +303,7 @@ type Typetreatments struct {
 	Typetreatment []Typetreatment
 }
 
-//  Typetreatment defines the struct for the  Typetreatment
+// Typetreatment defines the struct for the  Typetreatment
 type Typetreatment struct {
 	Typetreatment string
 }
@@ -399,7 +387,7 @@ func main() {
 	// Controller By Patientrights System  No.3
 	//vvv+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++vvv
 	controllers.NewPatientrightsController(v1, client)
-	controllers.NewPatientrightstypeController(v1, client)
+	
 	controllers.NewAbilitypatientrightsController(v1, client)
 	controllers.NewInsuranceController(v1, client)
 	//^^^+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++^^^
@@ -563,44 +551,20 @@ func main() {
 	}
 
 	for _, a := range Abilitypatientrights.Abilitypatientrights {
+		o := fmt.Sprintf("%d", int(a.Operative))
+	m := fmt.Sprintf("%d", int(a.MedicalSupplies))
+	e := fmt.Sprintf("%d", int(a.Examine))
+	var ck string
+	ck = o+m+e
 		client.Abilitypatientrights.
 			Create().
 			SetOperative(a.Operative).
 			SetMedicalSupplies(a.MedicalSupplies).
 			SetExamine(a.Examine).
+			SetCheck(ck).
 			Save(context.Background())
 	}
 
-	// Set Patientrightstypes Data
-	patientrightstypes := Patientrightstypes{
-		Patientrightstype: []Patientrightstype{
-			Patientrightstype{"จ่ายตรง", "ทั่วประเทศ", "ราชการ", 1},
-			Patientrightstype{"ผู้สูงอายุ", "ทั่วประเทศ", "นาย แหวง", 2},
-			Patientrightstype{"สุขภาพถ้วนหน้า", "โคราช", "ราชการ", 2},
-			Patientrightstype{"อุบัติเหตุสบายใจ", "ทั่วประเทศ", "นาย มา", 2},
-		},
-	}
-
-	for _, p := range patientrightstypes.Patientrightstype {
-
-		a, err := client.Abilitypatientrights.
-			Query().
-			Where(abilitypatientrights.IDEQ(int(p.Abilitypatientrights))).
-			Only(context.Background())
-
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		client.Patientrightstype.
-			Create().
-			SetPermission(p.Permission).
-			SetPermissionArea(p.PermissionArea).
-			SetResponsible(p.Responsible).
-			SetEdgesOfPatientrightstypeAbilitypatientrights(a).
-			Save(context.Background())
-	}
 	//^^^*******************************************************************^^^
 
 	// Set Postman By Patientrecord System No.2
@@ -820,10 +784,10 @@ func main() {
 	//vvv...................................................................vvv
 	Doctorinfos := Doctorinfos{
 		Doctorinfo: []Doctorinfo{
-			Doctorinfo{"Thanawat", "Srikaewsiew", "0800740864", "BEN10UT100", 1, 1, 1, 1},
-			Doctorinfo{"Paonrat", "Tangtong", "0810740864", "BEN20UT100", 1, 1, 1, 1},
-			Doctorinfo{"Watcharaphong", "Taramol", "0809757643", "BEN20UT100", 1, 1, 1, 1},
-			Doctorinfo{"Payut", "Jundara", "0899654444", "BEN20UT100", 1, 1, 1, 1},
+			Doctorinfo{"Thanawat", "Srikaewsiew", "0800740864", "BEN10UT1000", 1, 1, 1, 1},
+			Doctorinfo{"Paonrat", "Tangtong", "0810740864", "BEN20UT1000", 1, 1, 1, 1},
+			Doctorinfo{"Watcharaphong", "Taramol", "0809757643", "BEN20UT1000", 1, 1, 1, 1},
+			Doctorinfo{"Payut", "Jundara", "0899654444", "BEN20UT1000", 1, 1, 1, 1},
 		},
 	}
 	for _, doc := range Doctorinfos.Doctorinfo {
@@ -868,7 +832,7 @@ func main() {
 			return
 		}
 
-		client.Doctorinfo.
+		_ , err = client.Doctorinfo.
 			Create().
 			SetDoctorname(doc.Doctorname).
 			SetDoctorsurname(doc.Doctorsurname).
@@ -879,6 +843,11 @@ func main() {
 			SetEdgesOfOfficeroom(or).
 			SetEdgesOfPrename(pn).
 			Save(context.Background())
+
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
 	}
 
 	//^^^...................................................................^^^

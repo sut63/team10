@@ -40,7 +40,6 @@ type hooks struct {
 	Officeroom           []ent.Hook
 	Patientrecord        []ent.Hook
 	Patientrights        []ent.Hook
-	Patientrightstype    []ent.Hook
 	Paytype              []ent.Hook
 	Prename              []ent.Hook
 	Registrar            []ent.Hook

@@ -33,9 +33,6 @@ import {
     ControllersPatientrights,
     ControllersPatientrightsFromJSON,
     ControllersPatientrightsToJSON,
-    ControllersPatientrightstype,
-    ControllersPatientrightstypeFromJSON,
-    ControllersPatientrightstypeToJSON,
     ControllersTreatment,
     ControllersTreatmentFromJSON,
     ControllersTreatmentToJSON,
@@ -90,9 +87,6 @@ import {
     EntPatientrights,
     EntPatientrightsFromJSON,
     EntPatientrightsToJSON,
-    EntPatientrightstype,
-    EntPatientrightstypeFromJSON,
-    EntPatientrightstypeToJSON,
     EntPaytype,
     EntPaytypeFromJSON,
     EntPaytypeToJSON,
@@ -170,10 +164,6 @@ export interface CreatePatientrightsRequest {
     patientrights: ControllersPatientrights;
 }
 
-export interface CreatePatientrightstypeRequest {
-    patientrightstype: ControllersPatientrightstype;
-}
-
 export interface CreatePrenameRequest {
     prename: EntPrename;
 }
@@ -235,10 +225,6 @@ export interface DeleteOfficeroomRequest {
 }
 
 export interface DeletePatientrightsRequest {
-    id: number;
-}
-
-export interface DeletePatientrightstypeRequest {
     id: number;
 }
 
@@ -331,10 +317,6 @@ export interface GetPatientrecordRequest {
 }
 
 export interface GetPatientrightsRequest {
-    id: number;
-}
-
-export interface GetPatientrightstypeRequest {
     id: number;
 }
 
@@ -449,11 +431,6 @@ export interface ListPatientrightsRequest {
     offset?: number;
 }
 
-export interface ListPatientrightstypeRequest {
-    limit?: number;
-    offset?: number;
-}
-
 export interface ListPrenameRequest {
     limit?: number;
     offset?: number;
@@ -532,11 +509,6 @@ export interface UpdateOfficeroomRequest {
 export interface UpdatePatientrightsRequest {
     id: number;
     patientrights: EntPatientrights;
-}
-
-export interface UpdatePatientrightstypeRequest {
-    id: number;
-    patientrightstype: EntPatientrightstype;
 }
 
 export interface UpdatePrenameRequest {
@@ -996,41 +968,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async createPatientrights(requestParameters: CreatePatientrightsRequest): Promise<ControllersPatientrights> {
         const response = await this.createPatientrightsRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * Create patientrightstype
-     * Create patientrightstype
-     */
-    async createPatientrightstypeRaw(requestParameters: CreatePatientrightstypeRequest): Promise<runtime.ApiResponse<ControllersPatientrightstype>> {
-        if (requestParameters.patientrightstype === null || requestParameters.patientrightstype === undefined) {
-            throw new runtime.RequiredError('patientrightstype','Required parameter requestParameters.patientrightstype was null or undefined when calling createPatientrightstype.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/patientrightstypes`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: ControllersPatientrightstypeToJSON(requestParameters.patientrightstype),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ControllersPatientrightstypeFromJSON(jsonValue));
-    }
-
-    /**
-     * Create patientrightstype
-     * Create patientrightstype
-     */
-    async createPatientrightstype(requestParameters: CreatePatientrightstypeRequest): Promise<ControllersPatientrightstype> {
-        const response = await this.createPatientrightstypeRaw(requestParameters);
         return await response.value();
     }
 
@@ -1564,38 +1501,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async deletePatientrights(requestParameters: DeletePatientrightsRequest): Promise<object> {
         const response = await this.deletePatientrightsRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * get patientrightstype by ID
-     * Delete a patientrightstype entity by ID
-     */
-    async deletePatientrightstypeRaw(requestParameters: DeletePatientrightstypeRequest): Promise<runtime.ApiResponse<object>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deletePatientrightstype.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/patientrightstypes/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse<any>(response);
-    }
-
-    /**
-     * get patientrightstype by ID
-     * Delete a patientrightstype entity by ID
-     */
-    async deletePatientrightstype(requestParameters: DeletePatientrightstypeRequest): Promise<object> {
-        const response = await this.deletePatientrightstypeRaw(requestParameters);
         return await response.value();
     }
 
@@ -2332,38 +2237,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getPatientrights(requestParameters: GetPatientrightsRequest): Promise<EntPatientrights> {
         const response = await this.getPatientrightsRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * get patientrightstype by ID
-     * Get a patientrightstype entity by ID
-     */
-    async getPatientrightstypeRaw(requestParameters: GetPatientrightstypeRequest): Promise<runtime.ApiResponse<EntPatientrightstype>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getPatientrightstype.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/patientrightstypes/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntPatientrightstypeFromJSON(jsonValue));
-    }
-
-    /**
-     * get patientrightstype by ID
-     * Get a patientrightstype entity by ID
-     */
-    async getPatientrightstype(requestParameters: GetPatientrightstypeRequest): Promise<EntPatientrightstype> {
-        const response = await this.getPatientrightstypeRaw(requestParameters);
         return await response.value();
     }
 
@@ -3224,42 +3097,6 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * list patientrightstype entities
-     * List patientrightstype entities
-     */
-    async listPatientrightstypeRaw(requestParameters: ListPatientrightstypeRequest): Promise<runtime.ApiResponse<Array<EntPatientrightstype>>> {
-        const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/patientrightstypes`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntPatientrightstypeFromJSON));
-    }
-
-    /**
-     * list patientrightstype entities
-     * List patientrightstype entities
-     */
-    async listPatientrightstype(requestParameters: ListPatientrightstypeRequest): Promise<Array<EntPatientrightstype>> {
-        const response = await this.listPatientrightstypeRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
      * list paytype entities
      * List paytype entities
      */
@@ -3915,45 +3752,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updatePatientrights(requestParameters: UpdatePatientrightsRequest): Promise<EntPatientrights> {
         const response = await this.updatePatientrightsRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * update patientrightstype by ID
-     * Update a patientrightstype entity by ID
-     */
-    async updatePatientrightstypeRaw(requestParameters: UpdatePatientrightstypeRequest): Promise<runtime.ApiResponse<EntPatientrightstype>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updatePatientrightstype.');
-        }
-
-        if (requestParameters.patientrightstype === null || requestParameters.patientrightstype === undefined) {
-            throw new runtime.RequiredError('patientrightstype','Required parameter requestParameters.patientrightstype was null or undefined when calling updatePatientrightstype.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/patientrightstypes/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: EntPatientrightstypeToJSON(requestParameters.patientrightstype),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntPatientrightstypeFromJSON(jsonValue));
-    }
-
-    /**
-     * update patientrightstype by ID
-     * Update a patientrightstype entity by ID
-     */
-    async updatePatientrightstype(requestParameters: UpdatePatientrightstypeRequest): Promise<EntPatientrightstype> {
-        const response = await this.updatePatientrightstypeRaw(requestParameters);
         return await response.value();
     }
 
