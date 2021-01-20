@@ -328,42 +328,10 @@ export default function CreateHistorytaking() {
           });
         } else {
           alertMessage("error",data.error);
-          
-          //console.log(data.error.Name)
         }
       });
   };
-
-  {/* 
-  const CreateHistorytaking = async () => {
-
-    if ((Historytaking.bp != '') && (Historytaking.datetime != '')
-      && (Historytaking.hight != '') && (Historytaking.oxygen != '')
-      && (Historytaking.pulse != '') && (Historytaking.symptom != '')
-      && (Historytaking.temp != '') && (Historytaking.weight != '')
-      && (Historytaking.bp != '') && (Historytaking.symptomseverity != null)
-      && (Historytaking.patientrecord != null) && (Historytaking.nurse != null)
-      && (Historytaking.department != null)) {
-
-      const res: any = await api.createHistorytaking({
-        historytaking: Historytaking
-      });
-      console.log(Historytaking);
-
-      setStatus(true);
-      if (res.id != '') {
-        setAlert(true);
-      }
-    }
-    else {
-      setStatus(true);
-      setAlert(false);
-      setTimeout(() => {
-        setStatus(false);
-      }, 3000);
-    }
-  };
-*/}
+  
   return (
     <Page theme={pageTheme.home}>
       <Header style={HeaderCustom} title={`HISTORYTAKING DEPARTMENT`}>
@@ -563,23 +531,7 @@ export default function CreateHistorytaking() {
                     ))}
                   </Select>
                 </Typography>
-              </Typography><br />
-              <Grid container justify="center">
-                {status ? (
-                  <div>
-                    {alert ? (
-                      <Alert severity="success">
-                        success!
-                      </Alert>
-                    ) : (
-                        <Alert severity="error" style={{ marginTop: 40 }}>
-                          This is a error alert — check it out!
-                        </Alert>
-                      )}
-                  </div>
-                ) : null}
-              </Grid> <br />
-
+              </Typography>
               <div className={classes.margin}>
                 <Typography variant="h6" gutterBottom align="center">
                   <Button
