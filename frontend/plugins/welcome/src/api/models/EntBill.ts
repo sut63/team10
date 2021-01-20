@@ -39,6 +39,18 @@ export interface EntBill {
      */
     date?: string;
     /**
+     * Payer holds the value of the "Payer" field.
+     * @type {string}
+     * @memberof EntBill
+     */
+    payer?: string;
+    /**
+     * Payercontact holds the value of the "Payercontact" field.
+     * @type {string}
+     * @memberof EntBill
+     */
+    payercontact?: string;
+    /**
      * 
      * @type {EntBillEdges}
      * @memberof EntBill
@@ -64,6 +76,8 @@ export function EntBillFromJSONTyped(json: any, ignoreDiscriminator: boolean): E
         
         'amount': !exists(json, 'Amount') ? undefined : json['Amount'],
         'date': !exists(json, 'Date') ? undefined : json['Date'],
+        'payer': !exists(json, 'Payer') ? undefined : json['Payer'],
+        'payercontact': !exists(json, 'Payercontact') ? undefined : json['Payercontact'],
         'edges': !exists(json, 'edges') ? undefined : EntBillEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
     };
@@ -80,6 +94,8 @@ export function EntBillToJSON(value?: EntBill | null): any {
         
         'Amount': value.amount,
         'Date': value.date,
+        'Payer': value.payer,
+        'Payercontact': value.payercontact,
         'edges': EntBillEdgesToJSON(value.edges),
         'id': value.id,
     };

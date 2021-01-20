@@ -31,6 +31,18 @@ func (bu *BillUpdate) Where(ps ...predicate.Bill) *BillUpdate {
 	return bu
 }
 
+// SetPayer sets the Payer field.
+func (bu *BillUpdate) SetPayer(s string) *BillUpdate {
+	bu.mutation.SetPayer(s)
+	return bu
+}
+
+// SetPayercontact sets the Payercontact field.
+func (bu *BillUpdate) SetPayercontact(s string) *BillUpdate {
+	bu.mutation.SetPayercontact(s)
+	return bu
+}
+
 // SetAmount sets the Amount field.
 func (bu *BillUpdate) SetAmount(s string) *BillUpdate {
 	bu.mutation.SetAmount(s)
@@ -125,6 +137,16 @@ func (bu *BillUpdate) ClearEdgesOfTreatment() *BillUpdate {
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
 func (bu *BillUpdate) Save(ctx context.Context) (int, error) {
+	if v, ok := bu.mutation.Payer(); ok {
+		if err := bill.PayerValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Payer", err: fmt.Errorf("ent: validator failed for field \"Payer\": %w", err)}
+		}
+	}
+	if v, ok := bu.mutation.Payercontact(); ok {
+		if err := bill.PayercontactValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Payercontact", err: fmt.Errorf("ent: validator failed for field \"Payercontact\": %w", err)}
+		}
+	}
 	if v, ok := bu.mutation.Amount(); ok {
 		if err := bill.AmountValidator(v); err != nil {
 			return 0, &ValidationError{Name: "Amount", err: fmt.Errorf("ent: validator failed for field \"Amount\": %w", err)}
@@ -197,6 +219,20 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := bu.mutation.Payer(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: bill.FieldPayer,
+		})
+	}
+	if value, ok := bu.mutation.Payercontact(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: bill.FieldPayercontact,
+		})
 	}
 	if value, ok := bu.mutation.Amount(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
@@ -335,6 +371,18 @@ type BillUpdateOne struct {
 	mutation *BillMutation
 }
 
+// SetPayer sets the Payer field.
+func (buo *BillUpdateOne) SetPayer(s string) *BillUpdateOne {
+	buo.mutation.SetPayer(s)
+	return buo
+}
+
+// SetPayercontact sets the Payercontact field.
+func (buo *BillUpdateOne) SetPayercontact(s string) *BillUpdateOne {
+	buo.mutation.SetPayercontact(s)
+	return buo
+}
+
 // SetAmount sets the Amount field.
 func (buo *BillUpdateOne) SetAmount(s string) *BillUpdateOne {
 	buo.mutation.SetAmount(s)
@@ -429,6 +477,16 @@ func (buo *BillUpdateOne) ClearEdgesOfTreatment() *BillUpdateOne {
 
 // Save executes the query and returns the updated entity.
 func (buo *BillUpdateOne) Save(ctx context.Context) (*Bill, error) {
+	if v, ok := buo.mutation.Payer(); ok {
+		if err := bill.PayerValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Payer", err: fmt.Errorf("ent: validator failed for field \"Payer\": %w", err)}
+		}
+	}
+	if v, ok := buo.mutation.Payercontact(); ok {
+		if err := bill.PayercontactValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Payercontact", err: fmt.Errorf("ent: validator failed for field \"Payercontact\": %w", err)}
+		}
+	}
 	if v, ok := buo.mutation.Amount(); ok {
 		if err := bill.AmountValidator(v); err != nil {
 			return nil, &ValidationError{Name: "Amount", err: fmt.Errorf("ent: validator failed for field \"Amount\": %w", err)}
@@ -500,6 +558,20 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Bill.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := buo.mutation.Payer(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: bill.FieldPayer,
+		})
+	}
+	if value, ok := buo.mutation.Payercontact(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: bill.FieldPayercontact,
+		})
+	}
 	if value, ok := buo.mutation.Amount(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,

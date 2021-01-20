@@ -23,6 +23,18 @@ type BillCreate struct {
 	hooks    []Hook
 }
 
+// SetPayer sets the Payer field.
+func (bc *BillCreate) SetPayer(s string) *BillCreate {
+	bc.mutation.SetPayer(s)
+	return bc
+}
+
+// SetPayercontact sets the Payercontact field.
+func (bc *BillCreate) SetPayercontact(s string) *BillCreate {
+	bc.mutation.SetPayercontact(s)
+	return bc
+}
+
 // SetAmount sets the Amount field.
 func (bc *BillCreate) SetAmount(s string) *BillCreate {
 	bc.mutation.SetAmount(s)
@@ -99,6 +111,22 @@ func (bc *BillCreate) Mutation() *BillMutation {
 
 // Save creates the Bill in the database.
 func (bc *BillCreate) Save(ctx context.Context) (*Bill, error) {
+	if _, ok := bc.mutation.Payer(); !ok {
+		return nil, &ValidationError{Name: "Payer", err: errors.New("ent: missing required field \"Payer\"")}
+	}
+	if v, ok := bc.mutation.Payer(); ok {
+		if err := bill.PayerValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Payer", err: fmt.Errorf("ent: validator failed for field \"Payer\": %w", err)}
+		}
+	}
+	if _, ok := bc.mutation.Payercontact(); !ok {
+		return nil, &ValidationError{Name: "Payercontact", err: errors.New("ent: missing required field \"Payercontact\"")}
+	}
+	if v, ok := bc.mutation.Payercontact(); ok {
+		if err := bill.PayercontactValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Payercontact", err: fmt.Errorf("ent: validator failed for field \"Payercontact\": %w", err)}
+		}
+	}
 	if _, ok := bc.mutation.Amount(); !ok {
 		return nil, &ValidationError{Name: "Amount", err: errors.New("ent: missing required field \"Amount\"")}
 	}
@@ -170,6 +198,22 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := bc.mutation.Payer(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: bill.FieldPayer,
+		})
+		b.Payer = value
+	}
+	if value, ok := bc.mutation.Payercontact(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: bill.FieldPayercontact,
+		})
+		b.Payercontact = value
+	}
 	if value, ok := bc.mutation.Amount(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,

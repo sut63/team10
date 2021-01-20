@@ -64,9 +64,9 @@ export function EntMedicalrecordstaffEdgesFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'edgesOfMedicalrecordstaffPatientrights': !exists(json, 'edgesOfMedicalrecordstaffPatientrights') ? undefined : ((json['edgesOfMedicalrecordstaffPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
-        'edgesOfPatientrecord': !exists(json, 'edgesOfPatientrecord') ? undefined : ((json['edgesOfPatientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
-        'edgesOfUser': !exists(json, 'edgesOfUser') ? undefined : EntUserFromJSON(json['edgesOfUser']),
+        'edgesOfMedicalrecordstaffPatientrights': !exists(json, 'EdgesOfMedicalrecordstaffPatientrights') ? undefined : ((json['EdgesOfMedicalrecordstaffPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
+        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : ((json['EdgesOfPatientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
+        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
     };
 }
 
@@ -79,9 +79,9 @@ export function EntMedicalrecordstaffEdgesToJSON(value?: EntMedicalrecordstaffEd
     }
     return {
         
-        'edgesOfMedicalrecordstaffPatientrights': value.edgesOfMedicalrecordstaffPatientrights === undefined ? undefined : ((value.edgesOfMedicalrecordstaffPatientrights as Array<any>).map(EntPatientrightsToJSON)),
-        'edgesOfPatientrecord': value.edgesOfPatientrecord === undefined ? undefined : ((value.edgesOfPatientrecord as Array<any>).map(EntPatientrecordToJSON)),
-        'edgesOfUser': EntUserToJSON(value.edgesOfUser),
+        'EdgesOfMedicalrecordstaffPatientrights': value.edgesOfMedicalrecordstaffPatientrights === undefined ? undefined : ((value.edgesOfMedicalrecordstaffPatientrights as Array<any>).map(EntPatientrightsToJSON)),
+        'EdgesOfPatientrecord': value.edgesOfPatientrecord === undefined ? undefined : ((value.edgesOfPatientrecord as Array<any>).map(EntPatientrecordToJSON)),
+        'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
     };
 }
 
