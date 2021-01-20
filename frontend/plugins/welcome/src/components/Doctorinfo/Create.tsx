@@ -11,6 +11,8 @@ import FormControl from '@material-ui/core/FormControl';
 import { Alert } from '@material-ui/lab';
 import { DefaultApi } from '../../api/apis';
 import { Cookies } from 'react-cookie/cjs';//cookie
+import SaveIcon from '@material-ui/icons/Save'; // icon save
+import Swal from 'sweetalert2'; // alert
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -22,6 +24,7 @@ import { EntDepartment} from '../../api/models/EntDepartment';
 import { EntOfficeroom } from '../../api/models/EntOfficeroom';
 import { EntUser } from '../../api/models/EntUser';
 import { Grid,TextField, Avatar } from '@material-ui/core';
+//import CreateDoctorinfo from './Create';
 
 // header css
 const HeaderCustom = {
@@ -113,17 +116,30 @@ export default function CreateDoctorinfo() {
   //const [deceased, setDeceased] = useState(String);
   const [status, setStatus] = useState(false);
   const [alert, setAlert] = useState(true);
-
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
-
   const [prenames, setPrenames] = useState<EntPrename[]>([]);
+  const [doctornameError, setdoctornameError] = React.useState('');
+  const [doctorsurnameError, setdoctorsurnameError] = React.useState('');
+  const [telphonenumberError, settelphonenumberError] = React.useState('');
+  const [doctornumberError, setdoctornumberError] = React.useState('');
   const [educationlevels, setEducationlevels] = useState<EntEducationlevel[]>([]);
   const [departments, setDepartments] = useState<EntDepartment[]>([]);
   const [officerooms, setOfficerooms] = useState<EntOfficeroom[]>([]);
-
   const [Doctorinfo, setDoctorinfo] = React.useState<Partial<Doctorinfo_Type>>({});
-
   const [loading, setLoading] = useState(true);
+
+    // alert setting
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: toast => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+      },
+    });
 
   useEffect(() => {
     const getPrenames = async () => {
@@ -164,46 +180,132 @@ export default function CreateDoctorinfo() {
 
   }, [loading]);
 
-const handleChange = (
-
-  event: React.ChangeEvent<{ name?: string; value: unknown }>,
-) => {
+const handleChange = (event: React.ChangeEvent<{ name?: string; value: any }>) => {
   const name = event.target.name as keyof typeof CreateDoctorinfo;
   const { value } = event.target;
+  const validateValue = value.toString()
+  checkPattern(name, validateValue)
   setDoctorinfo({ ...Doctorinfo, [name]: value });
 };
 
-  const Create_Doctorinfo = async () => {
-   
-    if ((Doctorinfo.department != null) && (Doctorinfo.doctorname != '')
-      && (Doctorinfo.doctorsurname != '') && (Doctorinfo.educationlevel != null)
-      && (Doctorinfo.licensenumber != '')&& (Doctorinfo.officeroom != null)
-      && (Doctorinfo.prename != null)&& (Doctorinfo.telephonenumber != '')) {
+const validateDoctorName = (val: string) => {
+  return val.charCodeAt(0) >= 65 && val.charCodeAt(0) <= 91 ? true : false;
+}
 
-    const res: any = await api.createDoctorinfo({ 
-      doctorinfo:Doctorinfo
-    
-    
-    });
-    console.log(Doctorinfo);
-    
-    if (res.id != '') {
-      setStatus(true);
-      setAlert(true);
-      setTimeout(() => {
-        setStatus(false);
-      }, 5000);
-      }
-      
-    }
-    else {
-      setStatus(true);
-      setAlert(false);
-      setTimeout(() => {
-        setStatus(false);
-      }, 5000);
-    }
+const validateDoctorSurName = (val: string) => {
+  return val.charCodeAt(0) >= 65 && val.charCodeAt(0) <= 91 ? true : false;
+}
+
+const validateTelphoneNumber = (val: string) => {
+  return val.length == 10 ? true : false;
+}
+
+const validateDoctorNumber = (val: string) => {
+  return val.length == 11 ? true : false;
+}
+
+// สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
+const checkPattern  = (id: string, value: string) => {
+  switch(id) {
+    case 'doctorname':
+      validateDoctorName(value) ? setdoctornameError('') : setdoctornameError('ชื่อต้นต้องขึ้นต้นด้วยอักษรตัวใหญ่');
+      return;
+    case 'doctorsurname':
+      validateDoctorSurName(value) ? setdoctorsurnameError('') : setdoctorsurnameError('นามสกุลต้องขึ้นต้นด้วยอักษรตัวใหญ่');
+      return;
+    case 'telephonenumber':
+      validateTelphoneNumber(value) ? settelphonenumberError('') : settelphonenumberError('หมายเลขโทรศัพท์ 10 หลัก');
+      return;
+    case 'licensenumber':
+      validateDoctorNumber(value) ? setdoctornumberError('') : setdoctornumberError('หมายเลขใบประกอบวิชาชีพ 11 หลัก');
+      return;
+    default:
+      return;
+  }
+}
+
+const alertMessage = (icon: any, title: any) => {
+  Toast.fire({
+    icon: icon,
+    title: title,
+  });
+}
+
+const checkCaseSaveError = (field: string) => {
+  switch(field) {
+    case 'doctorname':
+      alertMessage("error","ชื่อต้นต้องขึ้นต้นด้วยอักษรตัวใหญ่");
+      return;
+    case 'doctorsurname':
+      alertMessage("error","นามสกุลต้องขึ้นต้นด้วยอักษรตัวใหญ่");
+      return;
+    case 'telephonenumber':
+      alertMessage("error","หมายเลขโทรศัพท์ 10 หลัก");
+      return;
+    case 'licensenumber':
+      alertMessage("error","หมายเลขใบประกอบวิชาชีพ 11 หลัก");
+      return;
+    default:
+      alertMessage("error","บันทึกข้อมูลไม่สำเร็จ");
+      return;
+  }
+}
+
+const Create_Doctorinfo = async () => {
+  const apiUrl = 'http://localhost:8080/api/v1/doctorinfos';
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(Doctorinfo),
   };
+
+  fetch(apiUrl, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      if (data.status === true) {
+        Toast.fire({
+          icon: 'success',
+          title: 'บันทึกข้อมูลสำเร็จ',
+        });
+      } else {
+        checkCaseSaveError(data.error.Name)
+      }
+    });
+};
+
+
+ // const Create_Doctorinfo = async () => {
+   
+ //   if ((Doctorinfo.department != null) && (Doctorinfo.doctorname != '')
+  //    && (Doctorinfo.doctorsurname != '') && (Doctorinfo.educationlevel != null)
+ //     && (Doctorinfo.licensenumber != '')&& (Doctorinfo.officeroom != null)
+//      && (Doctorinfo.prename != null)&& (Doctorinfo.telephonenumber != '')) {
+
+//    const res: any = await api.createDoctorinfo({ 
+ //     doctorinfo:Doctorinfo
+    
+    
+//    });
+//    console.log(Doctorinfo);
+    
+//    if (res.id != '') {
+//      setStatus(true);
+ //     setAlert(true);
+//      setTimeout(() => {
+//        setStatus(false);
+ //     }, 5000);
+ //     }
+      
+ //   }
+ //   else {
+ //     setStatus(true);
+ //     setAlert(false);
+  //    setTimeout(() => {
+  ///    setStatus(false);
+  //    }, 5000);
+ //   }
+ // };
 
   const profile = { givenName: '' };
   return (

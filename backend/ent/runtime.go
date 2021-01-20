@@ -39,19 +39,79 @@ func init() {
 	// doctorinfoDescDoctorname is the schema descriptor for doctorname field.
 	doctorinfoDescDoctorname := doctorinfoFields[0].Descriptor()
 	// doctorinfo.DoctornameValidator is a validator for the "doctorname" field. It is called by the builders before save.
-	doctorinfo.DoctornameValidator = doctorinfoDescDoctorname.Validators[0].(func(string) error)
+	doctorinfo.DoctornameValidator = func() func(string) error {
+		validators := doctorinfoDescDoctorname.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(doctorname string) error {
+			for _, fn := range fns {
+				if err := fn(doctorname); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// doctorinfoDescDoctorsurname is the schema descriptor for doctorsurname field.
 	doctorinfoDescDoctorsurname := doctorinfoFields[1].Descriptor()
 	// doctorinfo.DoctorsurnameValidator is a validator for the "doctorsurname" field. It is called by the builders before save.
-	doctorinfo.DoctorsurnameValidator = doctorinfoDescDoctorsurname.Validators[0].(func(string) error)
+	doctorinfo.DoctorsurnameValidator = func() func(string) error {
+		validators := doctorinfoDescDoctorsurname.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(doctorsurname string) error {
+			for _, fn := range fns {
+				if err := fn(doctorsurname); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// doctorinfoDescTelephonenumber is the schema descriptor for telephonenumber field.
 	doctorinfoDescTelephonenumber := doctorinfoFields[2].Descriptor()
 	// doctorinfo.TelephonenumberValidator is a validator for the "telephonenumber" field. It is called by the builders before save.
-	doctorinfo.TelephonenumberValidator = doctorinfoDescTelephonenumber.Validators[0].(func(string) error)
+	doctorinfo.TelephonenumberValidator = func() func(string) error {
+		validators := doctorinfoDescTelephonenumber.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(telephonenumber string) error {
+			for _, fn := range fns {
+				if err := fn(telephonenumber); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// doctorinfoDescLicensenumber is the schema descriptor for licensenumber field.
 	doctorinfoDescLicensenumber := doctorinfoFields[3].Descriptor()
 	// doctorinfo.LicensenumberValidator is a validator for the "licensenumber" field. It is called by the builders before save.
-	doctorinfo.LicensenumberValidator = doctorinfoDescLicensenumber.Validators[0].(func(string) error)
+	doctorinfo.LicensenumberValidator = func() func(string) error {
+		validators := doctorinfoDescLicensenumber.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(licensenumber string) error {
+			for _, fn := range fns {
+				if err := fn(licensenumber); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	educationlevelFields := schema.Educationlevel{}.Fields()
 	_ = educationlevelFields
 	// educationlevelDescLevel is the schema descriptor for level field.
