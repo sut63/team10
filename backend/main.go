@@ -1016,7 +1016,7 @@ func main() {
 	//Set Unpaybill Data
 	unpaybills := Unpaybills{
 		Unpaybill: []Unpaybill{
-			Unpaybill{"Unapay", 1},
+			Unpaybill{"Unpay", 1},
 			Unpaybill{"Unpay", 2},
 		},
 	}
