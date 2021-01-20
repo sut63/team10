@@ -11,11 +11,11 @@ import FormControl from '@material-ui/core/FormControl';
 import { Alert } from '@material-ui/lab';
 import { DefaultApi } from '../../api/apis';
 import { Cookies } from 'react-cookie/cjs';//cookie
-
+import SaveIcon from '@material-ui/icons/Save'; // icon save
+import Swal from 'sweetalert2'; // alert
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
-
 import { EntPrename } from '../../api/models/EntPrename';
 import { EntEducationlevel } from '../../api/models/EntEducationlevel';
 import { EntDepartment} from '../../api/models/EntDepartment';
@@ -117,13 +117,28 @@ export default function CreateDoctorinfo() {
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
   const [prenames, setPrenames] = useState<EntPrename[]>([]);
+  const [nameError, setnameError] = React.useState('');
+  const [lastnameError, setlastnameError] = React.useState('');
+  const [telphonenumberError, settelphonenumberError] = React.useState('');
+  const [doctornumberError, setdoctornumberError] = React.useState('');
   const [educationlevels, setEducationlevels] = useState<EntEducationlevel[]>([]);
   const [departments, setDepartments] = useState<EntDepartment[]>([]);
   const [officerooms, setOfficerooms] = useState<EntOfficeroom[]>([]);
-
   const [Doctorinfo, setDoctorinfo] = React.useState<Partial<Doctorinfo_Type>>({});
-
   const [loading, setLoading] = useState(true);
+
+ // alert setting
+ const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 5000,
+  timerProgressBar: true,
+  didOpen: toast => {
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
+  },
+});
 
   useEffect(() => {
     const getPrenames = async () => {
@@ -166,21 +181,113 @@ export default function CreateDoctorinfo() {
 
 const handleChange = (
 
-  event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  event: React.ChangeEvent<{ name?: string; value: any }>,
 ) => {
   const name = event.target.name as keyof typeof CreateDoctorinfo;
   const { value } = event.target;
+  const validateValue = value.toString()
+  checkPattern(name, validateValue)
   setDoctorinfo({ ...Doctorinfo, [name]: value });
 };
 
-  const Create_Doctorinfo = async () => {
-   
-    if ((Doctorinfo.department != null) && (Doctorinfo.doctorname != '')
-      && (Doctorinfo.doctorsurname != '') && (Doctorinfo.educationlevel != null)
-      && (Doctorinfo.licensenumber != '')&& (Doctorinfo.officeroom != null)
-      && (Doctorinfo.prename != null)&& (Doctorinfo.telephonenumber != '')) {
+// ฟังก์ชั่นสำหรับ validate ชื่อต้น
+const validatename = (val: string) => {
+  return val.charCodeAt(0) >= 65 && val.charCodeAt(0) <= 90 ? true : false;
+}
 
-    const res: any = await api.createDoctorinfo({ 
+// ฟังก์ชั่นสำหรับ validate นามสกุล
+const validatesurname = (val: string) => {
+  return val.charCodeAt(0) >= 65 && val.charCodeAt(0) <= 90 ? true : false;
+}
+
+// ฟังก์ชั่นสำหรับ validate เลขโทรศัพท์
+const validatetelphoneNumber = (val: string) => {
+  return val.length == 10 ? true : false;
+}
+
+// ฟังก์ชั่นสำหรับ validate เลขใบอนุญาติ
+const validatedoctorNumber = (val: string) => {
+  return val.length == 11 ? true : false;
+}
+
+// สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
+const checkPattern  = (id: string, value: string) => {
+  switch(id) {
+    case 'doctorname':
+      validatename(value) ? setnameError('') : setnameError('ชื่อต้องขึ้นต้นด้วยอักษรพิมพ์ใหญ่');
+      return;
+    case 'doctorsurname':
+      validatesurname(value) ? setlastnameError('') : setlastnameError('นามสกุลต้องขึ้นต้นด้วยอักษรพิมพ์ใหญ่');
+      return;
+    case 'telephonenumber':
+      validatetelphoneNumber(value) ? settelphonenumberError('') : settelphonenumberError('หมายเลขโทรศัพท์ 10 หลัก')
+      return;
+    case 'licensenumber':
+      validatedoctorNumber(value) ? setdoctornumberError('') : setdoctornumberError('หมายเลขใบประกอบวิชาชีพ 11 หลัก')
+      return;
+    default:
+      return;
+  }
+}
+
+const alertMessage = (icon: any, title: any) => {
+  Toast.fire({
+    icon: icon,
+    title: title,
+  });
+}
+
+const checkCaseSaveError = (field: string) => {
+  switch(field) {
+    case 'doctorname':
+      alertMessage("error","ชื่อต้องขึ้นต้นด้วยอักษรพิมพ์ใหญ่");
+      return;
+    case 'doctorsurname':
+      alertMessage("error","นามสกุลต้องขึ้นต้นด้วยอักษรพิมพ์ใหญ่");
+      return;
+    case 'telephonenumber':
+      alertMessage("error","หมายเลขโทรศัพท์ 10 หลัก");
+      return;
+    case 'licensenumber':
+      alertMessage("error","หมายเลขใบประกอบวิชาชีพ 11 หลัก");
+      return;
+    default:
+      alertMessage("error","บันทึกข้อมูลไม่สำเร็จ");
+      return;
+  }
+}
+
+const Create_Doctorinfo = async () => {
+  const apiUrl = 'http://localhost:8080/api/v1/doctorinfos';
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(Doctorinfo),
+  };
+
+  fetch(apiUrl, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      if (data.status === true) {
+        Toast.fire({
+          icon: 'success',
+          title: 'บันทึกข้อมูลสำเร็จ',
+        });
+      } else {
+        checkCaseSaveError(data.error.Name)
+      }
+    });
+};
+
+  {/*const Create_Doctorinfo = async () => {
+   
+   if ((Doctorinfo.department != null) && (Doctorinfo.doctorname != '')
+     && (Doctorinfo.doctorsurname != '') && (Doctorinfo.educationlevel != null)
+     && (Doctorinfo.licensenumber != '')&& (Doctorinfo.officeroom != null)
+     && (Doctorinfo.prename != null)&& (Doctorinfo.telephonenumber != '')) {
+
+   const res: any = await api.createDoctorinfo({ 
       doctorinfo:Doctorinfo
     
     
@@ -203,7 +310,7 @@ const handleChange = (
         setStatus(false);
       }, 5000);
     }
-  };
+  }; */}
 
   const profile = { givenName: '' };
   return (
