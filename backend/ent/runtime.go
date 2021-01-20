@@ -27,7 +27,23 @@ func init() {
 	// billDescAmount is the schema descriptor for Amount field.
 	billDescAmount := billFields[0].Descriptor()
 	// bill.AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
-	bill.AmountValidator = billDescAmount.Validators[0].(func(string) error)
+	bill.AmountValidator = func() func(string) error {
+		validators := billDescAmount.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+			validators[3].(func(string) error),
+		}
+		return func(_Amount string) error {
+			for _, fn := range fns {
+				if err := fn(_Amount); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	departmentFields := schema.Department{}.Fields()
 	_ = departmentFields
 	// departmentDescDepartment is the schema descriptor for department field.
