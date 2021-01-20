@@ -13,6 +13,7 @@ import UndoIcon from '@material-ui/icons/Undo';
 import { Alert } from '@material-ui/lab';
 import { Link as RouterLink } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
+import Swal from 'sweetalert2';
 
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
 import { EntBloodtype } from '../../api/models/EntBloodtype';
@@ -57,33 +58,118 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
   );
 
+  interface Patientrecord_Type {
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    age?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    allergic?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllersPatientrecord
+     */
+    bloodtype?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    disease?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    email?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllersPatientrecord
+     */
+    gender?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    home?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    idcardnumber?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllersPatientrecord
+     */
+    medicalrecordstaff?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersPatientrecord
+     */
+    phonenumber?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ControllersPatientrecord
+     */
+    prename?: number;
+}
+
 export  default  function Create() {
     
   const classes = useStyles();
   const api = new DefaultApi();
 
-  const [status, setStatus] = React.useState(false);
-  const [alert, setAlert] = React.useState(true);
+  const [idcardnumberError, setidcardnumberError] = React.useState('');
+  const [phonenumberError, setphonenumberError] = React.useState('');
 
   const [prename, setPrename] = React.useState<EntPrename[]>([]);
   const [gender, setGender] = React.useState<EntGender[]>([]);
   const [bloodtype, setBloodtype] = React.useState<EntBloodtype[]>([]);
   const [medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
+
+  const [Patientrecord, setPatientrecord] = React.useState<Partial<Patientrecord_Type>>({});
    
-  const [prenameid, setprenameId] = React.useState(Number);
-  const [genderid, setgenderId] = React.useState(Number);
-  const [bloodtypeid, setbloodtypeId] = React.useState(Number);
-  const [name, setname] = React.useState(String);
-  const [idcardnumber, setidcardnumber] = React.useState(String);
-  const [age, setage] = React.useState(String);
-  const [disease, setdisease] = React.useState(String);
-  const [allergic, setallergic] = React.useState(String);
-  const [phonenumber, setphonenumber] = React.useState(String);
-  const [email, setemail] = React.useState(String);
-  const [home, sethome] = React.useState(String);
   const [loading, setLoading] = React.useState(true);
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
-
+  
+  // alert setting
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: toast => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+  
   useEffect(() => {
     const getPrename = async () => {
         const res = await api.listPrename({ limit: 5, offset: 2 });
@@ -118,75 +204,83 @@ export  default  function Create() {
     }, [loading]);
     
     //handle
-    const PrenamehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setprenameId(event.target.value as number);
-      };
-      const GenderhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setgenderId(event.target.value as number);
-      };
-      const BloodtypehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setbloodtypeId(event.target.value as number);
-      };
-      const NamehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setname(event.target.value as string);
-      };
-      const IdcardnumberhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setidcardnumber(event.target.value as string);
-      };
-      const AgehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setage(event.target.value as string);
-      };
-      const DiseasehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setdisease(event.target.value as string);
-      };
-      const AllergichandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setallergic(event.target.value as string);
-      };
-      const PhonenumberhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setphonenumber(event.target.value as string);
-      };
-      const EmailhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setemail(event.target.value as string);
-      };
-      const HomehandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        sethome(event.target.value as string);
-      };
-    
-      const CreatePatientrecord = async () => {
-        if((name != '')&&(idcardnumber != '')&&(age != '')&&(bloodtypeid != null)&&(disease != '')&&(
-          allergic != '')&&(phonenumber != '')&&(email != '')&&(home != '')&&(prenameid != null)&&(genderid != null)){
-        const patientrecord = {
-          prename : prenameid,
-          gender : genderid ,
-          bloodtype : bloodtypeid,
-          medicalrecordstaff : medicalrecordstaff?.id,
-          name : name,
-          idcardnumber : idcardnumber,
-          age : age,
-          disease : disease,
-          allergic : allergic,
-          phonenumber : phonenumber,
-          email : email,
-          home : home,
-        };
-        console.log(patientrecord);
-        const res: any = await api.createPatientrecord({ patientrecord : patientrecord });
-        setStatus(true);
-        if (res.id != '') {
-          setAlert(true);
-          setTimeout(() => {
-            setStatus(false);
-          }, 5000);
+    const handleChange = (
+
+      event: React.ChangeEvent<{ name?: string; value: unknown }>,
+    ) => {
+      const name = event.target.name as keyof typeof CreatePatientrecord;
+      const { value } = event.target;
+      const validateValue = value as string
+      checkPattern(name, validateValue)
+      setPatientrecord({ ...Patientrecord, [name]: value,medicalrecordstaff:medicalrecordstaff?.id  });
+    };
+
+    // ฟังก์ชั่นสำหรับ validate idcardnumberError
+  const validateidcardnumber = (val: string) => {
+    return val.length == 13 ? true : false;
+  }
+
+  // ฟังก์ชั่นสำหรับ validate phonenumberError
+  const validatephonenumber = (val: string) => {
+    return val.length == 10 ? true : false;
+  }
+
+  // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
+  const checkPattern = (id: string, value: string) => {
+    switch (id) {
+      case 'Idcardnumber':
+        validateidcardnumber(value) ? setidcardnumberError('') : setidcardnumberError('หมายเลยบัตรประชาชน 13 หลัก');
+        return;
+      case 'Phonenumber':
+        validatephonenumber(value) ? setphonenumberError('') : setphonenumberError('หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลัก');
+        return;
+      default:
+        return;
+    }
+  }
+  
+  const alertMessage = (icon: any, title: any) => {
+    Toast.fire({
+      icon: icon,
+      title: title,
+    });
+  }
+  const checkCaseSaveError = (field: string) => {
+    switch(field) {
+      case 'Idcardnumber':
+        alertMessage("error","หมายเลยบัตรประชาชน 13 หลัก");
+        return;
+      case 'Phonenumber':
+        alertMessage("error","หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลัก");
+        return;
+      default:
+        alertMessage("error","บันทึกข้อมูลไม่สำเร็จ");
+        return;
+    }
+  }
+
+  const CreatePatientrecord = async () => {
+    const apiUrl = 'http://localhost:8080/api/v1/patientrecord';
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Patientrecord),
+    };
+
+    fetch(apiUrl, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status === true) {
+          Toast.fire({
+            icon: 'success',
+            title: 'บันทึกข้อมูลสำเร็จ',
+          });
+        } else {
+          checkCaseSaveError(data.error.Name);
         }
-       } 
-       else {
-        setStatus(true);
-        setAlert(false);
-        setTimeout(() => {
-          setStatus(false);
-        }, 5000);
-        }
-      };
+      });
+  };
 
     return(
         <Page theme={pageTheme.home}>
@@ -195,21 +289,6 @@ export  default  function Create() {
             <div style={{ marginLeft: 10 }}>{Name}</div>
           </Header>
             <Content>
-            <br />
-            <br />
-            {status ? (
-                <div>
-                {alert ? (
-                  <Alert severity="success">
-                    บันทึกสำเร็จ !
-                  </Alert>
-                  ) : (
-                  <Alert severity="error" style={{ marginTop: 20 }}>
-                    บันทึกไม่สำเร็จ โปรดกรอกข้อมูลอีกครั้ง
-                  </Alert>
-                )}
-                </div>
-              ) : null}
             <Typography variant="h6" gutterBottom align="center">
               <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>คำนำหน้าชื่อ</InputLabel>
@@ -217,8 +296,8 @@ export  default  function Create() {
                 name="prename"
                 id="prename"
                 label="คำนำหน้าชื่อ"
-                value={prenameid}
-                onChange={PrenamehandleChange}
+                value={Patientrecord.prename}
+                onChange={handleChange}
               >
               {prename.map(item => {
                 return (
@@ -236,8 +315,8 @@ export  default  function Create() {
             label="ชื่อ-นามสกุล" 
             variant="outlined" 
             type="string"
-            value={name}
-            onChange={NamehandleChange}
+            value={Patientrecord.name}
+            onChange={handleChange}
             /> &emsp;
 
               <FormControl variant="outlined" className={classes.formControl}>
@@ -246,8 +325,8 @@ export  default  function Create() {
                     name="gender"
                     id="gender"
                     label="เพศ"
-                    value={genderid}
-                    onChange={GenderhandleChange}
+                    value={Patientrecord.gender}
+                    onChange={handleChange}
                   >
                   {gender.map(item => {
                     return (
@@ -266,8 +345,8 @@ export  default  function Create() {
             label="เลขบัตรประจำตัวประชาชน" 
             variant="outlined" 
             type="string"
-            value={idcardnumber}
-            onChange={IdcardnumberhandleChange}
+            value={Patientrecord.idcardnumber}
+            onChange={handleChange}
             /> &emsp;
 
             <TextField 
@@ -276,8 +355,8 @@ export  default  function Create() {
             label="อายุ" 
             variant="outlined" 
             type="string"
-            value={age}
-            onChange={AgehandleChange}
+            value={Patientrecord.age}
+            onChange={handleChange}
             /> &emsp;
             
             <FormControl variant="outlined" className={classes.formControl}>
@@ -286,8 +365,8 @@ export  default  function Create() {
                     name="bloodtype"
                     id="bloodtype"
                     label="กรุ๊ปเลือด"
-                    value={bloodtypeid}
-                    onChange={BloodtypehandleChange}
+                    value={Patientrecord.bloodtype}
+                    onChange={handleChange}
                   >
                   {bloodtype.map(item => {
                     return (
@@ -307,8 +386,8 @@ export  default  function Create() {
             variant="outlined" 
             type="string"
             style={{ width: "25ch"}}
-            value={disease}
-            onChange={DiseasehandleChange}
+            value={Patientrecord.disease}
+            onChange={handleChange}
             /> &emsp;
             
             <TextField
@@ -318,8 +397,8 @@ export  default  function Create() {
             variant="outlined" 
             type="string"
             style={{ width: "25ch"}}
-            value={allergic}
-            onChange={AllergichandleChange}
+            value={Patientrecord.allergic}
+            onChange={handleChange}
             /> 
             
             <div className={classes.paper}></div>
@@ -330,8 +409,8 @@ export  default  function Create() {
             variant="outlined"
             type="string"
             style={{ width: "25ch"}} 
-            value={phonenumber}
-            onChange={PhonenumberhandleChange}
+            value={Patientrecord.phonenumber}
+            onChange={handleChange}
             /> &emsp;
             
             <TextField 
@@ -341,8 +420,8 @@ export  default  function Create() {
             variant="outlined"
             type="string"
             style={{ width: "25ch"}} 
-            value={email}
-            onChange={EmailhandleChange}
+            value={Patientrecord.email}
+            onChange={handleChange}
             /> 
 
             <div className={classes.paper}></div>
@@ -355,8 +434,8 @@ export  default  function Create() {
             type="string"
             style={{ width: "67ch"}}
             rows={3}
-            value={home}
-            onChange={HomehandleChange}
+            value={Patientrecord.home}
+            onChange={handleChange}
             />
               <br />
               <br /> พนักงานเวชระเบียน : {medicalrecordstaff?.name}

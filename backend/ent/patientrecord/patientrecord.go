@@ -115,3 +115,12 @@ var ForeignKeys = []string{
 	"medicalrecordstaff_id",
 	"prefix_id",
 }
+
+var (
+	// IdcardnumberValidator is a validator for the "Idcardnumber" field. It is called by the builders before save.
+	IdcardnumberValidator func(string) error
+	// AgeValidator is a validator for the "Age" field. It is called by the builders before save.
+	AgeValidator func(int) error
+	// PhonenumberValidator is a validator for the "Phonenumber" field. It is called by the builders before save.
+	PhonenumberValidator func(string) error
+)

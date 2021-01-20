@@ -332,12 +332,12 @@ var (
 	// PatientrecordsColumns holds the columns for the "patientrecords" table.
 	PatientrecordsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString, Unique: true},
-		{Name: "idcardnumber", Type: field.TypeInt},
+		{Name: "name", Type: field.TypeString},
+		{Name: "idcardnumber", Type: field.TypeString, Size: 13},
 		{Name: "age", Type: field.TypeInt},
 		{Name: "disease", Type: field.TypeString},
 		{Name: "allergic", Type: field.TypeString},
-		{Name: "phonenumber", Type: field.TypeString},
+		{Name: "phonenumber", Type: field.TypeString, Size: 10},
 		{Name: "email", Type: field.TypeString},
 		{Name: "home", Type: field.TypeString},
 		{Name: "date", Type: field.TypeTime},
