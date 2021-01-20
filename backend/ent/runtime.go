@@ -10,6 +10,7 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/officeroom"
+	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrights"
 	"github.com/team10/app/ent/paytype"
 	"github.com/team10/app/ent/prename"
@@ -241,6 +242,48 @@ func init() {
 	officeroomDescRoomnumber := officeroomFields[0].Descriptor()
 	// officeroom.RoomnumberValidator is a validator for the "roomnumber" field. It is called by the builders before save.
 	officeroom.RoomnumberValidator = officeroomDescRoomnumber.Validators[0].(func(string) error)
+	patientrecordFields := schema.Patientrecord{}.Fields()
+	_ = patientrecordFields
+	// patientrecordDescIdcardnumber is the schema descriptor for Idcardnumber field.
+	patientrecordDescIdcardnumber := patientrecordFields[1].Descriptor()
+	// patientrecord.IdcardnumberValidator is a validator for the "Idcardnumber" field. It is called by the builders before save.
+	patientrecord.IdcardnumberValidator = func() func(string) error {
+		validators := patientrecordDescIdcardnumber.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_Idcardnumber string) error {
+			for _, fn := range fns {
+				if err := fn(_Idcardnumber); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// patientrecordDescAge is the schema descriptor for Age field.
+	patientrecordDescAge := patientrecordFields[2].Descriptor()
+	// patientrecord.AgeValidator is a validator for the "Age" field. It is called by the builders before save.
+	patientrecord.AgeValidator = patientrecordDescAge.Validators[0].(func(int) error)
+	// patientrecordDescPhonenumber is the schema descriptor for Phonenumber field.
+	patientrecordDescPhonenumber := patientrecordFields[5].Descriptor()
+	// patientrecord.PhonenumberValidator is a validator for the "Phonenumber" field. It is called by the builders before save.
+	patientrecord.PhonenumberValidator = func() func(string) error {
+		validators := patientrecordDescPhonenumber.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_Phonenumber string) error {
+			for _, fn := range fns {
+				if err := fn(_Phonenumber); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	patientrightsFields := schema.Patientrights{}.Fields()
 	_ = patientrightsFields
 	// patientrightsDescPermission is the schema descriptor for Permission field.

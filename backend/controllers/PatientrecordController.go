@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -63,7 +64,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "Gender saving failed",
 		})
 		return
 	}
@@ -74,7 +75,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "Medicalrecordstaff saving failed",
 		})
 		return
 	}
@@ -85,7 +86,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "Prename saving failed",
 		})
 		return
 	}
@@ -96,7 +97,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "Bloodtype saving failed",
 		})
 		return
 	}
@@ -104,22 +105,15 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 	timess := time.Now().Local()
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "Time saving failed",
 		})
 		return
 	}
 
-	id, err := strconv.Atoi(obj.Idcardnumber)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "saving failed",
-		})
-		return
-	}
 	a, err := strconv.Atoi(obj.Age)
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"error": "Age saving failed",
 		})
 		return
 	}
@@ -130,7 +124,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		SetEdgesOfMedicalrecordstaff(m).
 		SetEdgesOfPrename(p).
 		SetName(obj.Name).
-		SetIdcardnumber(id).
+		SetIdcardnumber(obj.Idcardnumber).
 		SetAge(a).
 		SetEdgesOfBloodtype(bt).
 		SetDisease(obj.Disease).
@@ -141,13 +135,18 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 		SetDate(timess).
 		Save(context.Background())
 	if err != nil {
+		fmt.Println(err)
 		c.JSON(400, gin.H{
-			"error": "saving failed",
+			"status": false,
+			"error":  err,
 		})
 		return
 	}
 
-	c.JSON(200, pr)
+	c.JSON(200, gin.H{
+		"status": true,
+		"data":   pr,
+	})
 }
 
 // GetPatientrecord handles GET requests to retrieve a patientrecord entity
@@ -172,6 +171,10 @@ func (ctl *PatientrecordController) GetPatientrecord(c *gin.Context) {
 
 	pr, err := ctl.client.Patientrecord.
 		Query().
+		WithEdgesOfGender().
+		WithEdgesOfMedicalrecordstaff().
+		WithEdgesOfBloodtype().
+		WithEdgesOfPrename().
 		Where(patientrecord.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -218,6 +221,7 @@ func (ctl *PatientrecordController) ListPatientrecord(c *gin.Context) {
 		Query().
 		WithEdgesOfGender().
 		WithEdgesOfMedicalrecordstaff().
+		WithEdgesOfBloodtype().
 		WithEdgesOfPrename().
 		Limit(limit).
 		Offset(offset).

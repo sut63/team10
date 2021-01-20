@@ -34,8 +34,8 @@ func (pc *PatientrecordCreate) SetName(s string) *PatientrecordCreate {
 }
 
 // SetIdcardnumber sets the Idcardnumber field.
-func (pc *PatientrecordCreate) SetIdcardnumber(i int) *PatientrecordCreate {
-	pc.mutation.SetIdcardnumber(i)
+func (pc *PatientrecordCreate) SetIdcardnumber(s string) *PatientrecordCreate {
+	pc.mutation.SetIdcardnumber(s)
 	return pc
 }
 
@@ -215,8 +215,18 @@ func (pc *PatientrecordCreate) Save(ctx context.Context) (*Patientrecord, error)
 	if _, ok := pc.mutation.Idcardnumber(); !ok {
 		return nil, &ValidationError{Name: "Idcardnumber", err: errors.New("ent: missing required field \"Idcardnumber\"")}
 	}
+	if v, ok := pc.mutation.Idcardnumber(); ok {
+		if err := patientrecord.IdcardnumberValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Idcardnumber", err: fmt.Errorf("ent: validator failed for field \"Idcardnumber\": %w", err)}
+		}
+	}
 	if _, ok := pc.mutation.Age(); !ok {
 		return nil, &ValidationError{Name: "Age", err: errors.New("ent: missing required field \"Age\"")}
+	}
+	if v, ok := pc.mutation.Age(); ok {
+		if err := patientrecord.AgeValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Age", err: fmt.Errorf("ent: validator failed for field \"Age\": %w", err)}
+		}
 	}
 	if _, ok := pc.mutation.Disease(); !ok {
 		return nil, &ValidationError{Name: "Disease", err: errors.New("ent: missing required field \"Disease\"")}
@@ -226,6 +236,11 @@ func (pc *PatientrecordCreate) Save(ctx context.Context) (*Patientrecord, error)
 	}
 	if _, ok := pc.mutation.Phonenumber(); !ok {
 		return nil, &ValidationError{Name: "Phonenumber", err: errors.New("ent: missing required field \"Phonenumber\"")}
+	}
+	if v, ok := pc.mutation.Phonenumber(); ok {
+		if err := patientrecord.PhonenumberValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Phonenumber", err: fmt.Errorf("ent: validator failed for field \"Phonenumber\": %w", err)}
+		}
 	}
 	if _, ok := pc.mutation.Email(); !ok {
 		return nil, &ValidationError{Name: "Email", err: errors.New("ent: missing required field \"Email\"")}
@@ -306,7 +321,7 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 	}
 	if value, ok := pc.mutation.Idcardnumber(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldIdcardnumber,
 		})

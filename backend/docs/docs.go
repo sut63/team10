@@ -5380,7 +5380,7 @@ var doc = `{
                 },
                 "Idcardnumber": {
                     "description": "Idcardnumber holds the value of the \"Idcardnumber\" field.",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "Name": {
                     "description": "Name holds the value of the \"Name\" field.",

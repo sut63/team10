@@ -7456,8 +7456,7 @@ type PatientrecordMutation struct {
 	typ                                       string
 	id                                        *int
 	_Name                                     *string
-	_Idcardnumber                             *int
-	add_Idcardnumber                          *int
+	_Idcardnumber                             *string
 	_Age                                      *int
 	add_Age                                   *int
 	_Disease                                  *string
@@ -7602,13 +7601,12 @@ func (m *PatientrecordMutation) ResetName() {
 }
 
 // SetIdcardnumber sets the Idcardnumber field.
-func (m *PatientrecordMutation) SetIdcardnumber(i int) {
-	m._Idcardnumber = &i
-	m.add_Idcardnumber = nil
+func (m *PatientrecordMutation) SetIdcardnumber(s string) {
+	m._Idcardnumber = &s
 }
 
 // Idcardnumber returns the Idcardnumber value in the mutation.
-func (m *PatientrecordMutation) Idcardnumber() (r int, exists bool) {
+func (m *PatientrecordMutation) Idcardnumber() (r string, exists bool) {
 	v := m._Idcardnumber
 	if v == nil {
 		return
@@ -7620,7 +7618,7 @@ func (m *PatientrecordMutation) Idcardnumber() (r int, exists bool) {
 // If the Patientrecord object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *PatientrecordMutation) OldIdcardnumber(ctx context.Context) (v int, err error) {
+func (m *PatientrecordMutation) OldIdcardnumber(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldIdcardnumber is allowed only on UpdateOne operations")
 	}
@@ -7634,28 +7632,9 @@ func (m *PatientrecordMutation) OldIdcardnumber(ctx context.Context) (v int, err
 	return oldValue.Idcardnumber, nil
 }
 
-// AddIdcardnumber adds i to Idcardnumber.
-func (m *PatientrecordMutation) AddIdcardnumber(i int) {
-	if m.add_Idcardnumber != nil {
-		*m.add_Idcardnumber += i
-	} else {
-		m.add_Idcardnumber = &i
-	}
-}
-
-// AddedIdcardnumber returns the value that was added to the Idcardnumber field in this mutation.
-func (m *PatientrecordMutation) AddedIdcardnumber() (r int, exists bool) {
-	v := m.add_Idcardnumber
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
 // ResetIdcardnumber reset all changes of the "Idcardnumber" field.
 func (m *PatientrecordMutation) ResetIdcardnumber() {
 	m._Idcardnumber = nil
-	m.add_Idcardnumber = nil
 }
 
 // SetAge sets the Age field.
@@ -8331,7 +8310,7 @@ func (m *PatientrecordMutation) SetField(name string, value ent.Value) error {
 		m.SetName(v)
 		return nil
 	case patientrecord.FieldIdcardnumber:
-		v, ok := value.(int)
+		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -8394,9 +8373,6 @@ func (m *PatientrecordMutation) SetField(name string, value ent.Value) error {
 // or decremented during this mutation.
 func (m *PatientrecordMutation) AddedFields() []string {
 	var fields []string
-	if m.add_Idcardnumber != nil {
-		fields = append(fields, patientrecord.FieldIdcardnumber)
-	}
 	if m.add_Age != nil {
 		fields = append(fields, patientrecord.FieldAge)
 	}
@@ -8408,8 +8384,6 @@ func (m *PatientrecordMutation) AddedFields() []string {
 // that this field was not set, or was not define in the schema.
 func (m *PatientrecordMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
-	case patientrecord.FieldIdcardnumber:
-		return m.AddedIdcardnumber()
 	case patientrecord.FieldAge:
 		return m.AddedAge()
 	}
@@ -8421,13 +8395,6 @@ func (m *PatientrecordMutation) AddedField(name string) (ent.Value, bool) {
 // type mismatch the field type.
 func (m *PatientrecordMutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case patientrecord.FieldIdcardnumber:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddIdcardnumber(v)
-		return nil
 	case patientrecord.FieldAge:
 		v, ok := value.(int)
 		if !ok {
