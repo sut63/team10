@@ -333,7 +333,7 @@ const NewPatientright: FC<{}> = () => {
                 {Abilitypatientrights.map(item => {
                   return (
                     <MenuItem key={item.id} value={item.id}>
-                      {item.check}
+                      ตรวจสุขภาพ และ ค่า แลป : {item.examine} หัตถการ  : {item.operative} เวชภัณฑ์  : {item.medicalSupplies}
                     </MenuItem>
                   );
                 })}
