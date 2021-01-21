@@ -291,6 +291,7 @@ export  default  function Create() {
             autoComplete="off"
             name="idcardnumber"
             label="เลขบัตรประจำตัวประชาชน" 
+            inputProps={{ maxLength: 13 }}
             variant="outlined" 
             type="string"
             value={Patientrecord.idcardnumber}
@@ -354,6 +355,7 @@ export  default  function Create() {
             autoComplete="off" 
             name="phonenumber"
             label="เบอร์โทรที่ติดต่อได้" 
+            inputProps={{ maxLength: 10 }}
             variant="outlined"
             type="string"
             style={{ width: "25ch"}} 
