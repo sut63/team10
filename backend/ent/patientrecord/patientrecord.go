@@ -117,10 +117,20 @@ var ForeignKeys = []string{
 }
 
 var (
+	// NameValidator is a validator for the "Name" field. It is called by the builders before save.
+	NameValidator func(string) error
 	// IdcardnumberValidator is a validator for the "Idcardnumber" field. It is called by the builders before save.
 	IdcardnumberValidator func(string) error
 	// AgeValidator is a validator for the "Age" field. It is called by the builders before save.
 	AgeValidator func(int) error
+	// DiseaseValidator is a validator for the "Disease" field. It is called by the builders before save.
+	DiseaseValidator func(string) error
+	// AllergicValidator is a validator for the "Allergic" field. It is called by the builders before save.
+	AllergicValidator func(string) error
 	// PhonenumberValidator is a validator for the "Phonenumber" field. It is called by the builders before save.
 	PhonenumberValidator func(string) error
+	// EmailValidator is a validator for the "Email" field. It is called by the builders before save.
+	EmailValidator func(string) error
+	// HomeValidator is a validator for the "Home" field. It is called by the builders before save.
+	HomeValidator func(string) error
 )
