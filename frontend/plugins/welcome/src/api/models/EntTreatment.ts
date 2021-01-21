@@ -33,11 +33,23 @@ export interface EntTreatment {
      */
     datetreat?: string;
     /**
-     * Treatment holds the value of the "Treatment" field.
+     * Medicine holds the value of the "Medicine" field.
      * @type {string}
      * @memberof EntTreatment
      */
-    treatment?: string;
+    medicine?: string;
+    /**
+     * Symptom holds the value of the "Symptom" field.
+     * @type {string}
+     * @memberof EntTreatment
+     */
+    symptom?: string;
+    /**
+     * Treat holds the value of the "Treat" field.
+     * @type {string}
+     * @memberof EntTreatment
+     */
+    treat?: string;
     /**
      * 
      * @type {EntTreatmentEdges}
@@ -63,7 +75,9 @@ export function EntTreatmentFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'datetreat': !exists(json, 'Datetreat') ? undefined : json['Datetreat'],
-        'treatment': !exists(json, 'Treatment') ? undefined : json['Treatment'],
+        'medicine': !exists(json, 'Medicine') ? undefined : json['Medicine'],
+        'symptom': !exists(json, 'Symptom') ? undefined : json['Symptom'],
+        'treat': !exists(json, 'Treat') ? undefined : json['Treat'],
         'edges': !exists(json, 'edges') ? undefined : EntTreatmentEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
     };
@@ -79,7 +93,9 @@ export function EntTreatmentToJSON(value?: EntTreatment | null): any {
     return {
         
         'Datetreat': value.datetreat,
-        'Treatment': value.treatment,
+        'Medicine': value.medicine,
+        'Symptom': value.symptom,
+        'Treat': value.treat,
         'edges': EntTreatmentEdgesToJSON(value.edges),
         'id': value.id,
     };

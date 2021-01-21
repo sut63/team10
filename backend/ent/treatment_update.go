@@ -32,9 +32,21 @@ func (tu *TreatmentUpdate) Where(ps ...predicate.Treatment) *TreatmentUpdate {
 	return tu
 }
 
-// SetTreatment sets the Treatment field.
-func (tu *TreatmentUpdate) SetTreatment(s string) *TreatmentUpdate {
-	tu.mutation.SetTreatment(s)
+// SetSymptom sets the Symptom field.
+func (tu *TreatmentUpdate) SetSymptom(s string) *TreatmentUpdate {
+	tu.mutation.SetSymptom(s)
+	return tu
+}
+
+// SetTreat sets the Treat field.
+func (tu *TreatmentUpdate) SetTreat(s string) *TreatmentUpdate {
+	tu.mutation.SetTreat(s)
+	return tu
+}
+
+// SetMedicine sets the Medicine field.
+func (tu *TreatmentUpdate) SetMedicine(s string) *TreatmentUpdate {
+	tu.mutation.SetMedicine(s)
 	return tu
 }
 
@@ -151,9 +163,19 @@ func (tu *TreatmentUpdate) ClearEdgesOfUnpaybills() *TreatmentUpdate {
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
 func (tu *TreatmentUpdate) Save(ctx context.Context) (int, error) {
-	if v, ok := tu.mutation.Treatment(); ok {
-		if err := treatment.TreatmentValidator(v); err != nil {
-			return 0, &ValidationError{Name: "Treatment", err: fmt.Errorf("ent: validator failed for field \"Treatment\": %w", err)}
+	if v, ok := tu.mutation.Symptom(); ok {
+		if err := treatment.SymptomValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Symptom", err: fmt.Errorf("ent: validator failed for field \"Symptom\": %w", err)}
+		}
+	}
+	if v, ok := tu.mutation.Treat(); ok {
+		if err := treatment.TreatValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Treat", err: fmt.Errorf("ent: validator failed for field \"Treat\": %w", err)}
+		}
+	}
+	if v, ok := tu.mutation.Medicine(); ok {
+		if err := treatment.MedicineValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Medicine", err: fmt.Errorf("ent: validator failed for field \"Medicine\": %w", err)}
 		}
 	}
 
@@ -224,11 +246,25 @@ func (tu *TreatmentUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := tu.mutation.Treatment(); ok {
+	if value, ok := tu.mutation.Symptom(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: treatment.FieldTreatment,
+			Column: treatment.FieldSymptom,
+		})
+	}
+	if value, ok := tu.mutation.Treat(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: treatment.FieldTreat,
+		})
+	}
+	if value, ok := tu.mutation.Medicine(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: treatment.FieldMedicine,
 		})
 	}
 	if value, ok := tu.mutation.Datetreat(); ok {
@@ -396,9 +432,21 @@ type TreatmentUpdateOne struct {
 	mutation *TreatmentMutation
 }
 
-// SetTreatment sets the Treatment field.
-func (tuo *TreatmentUpdateOne) SetTreatment(s string) *TreatmentUpdateOne {
-	tuo.mutation.SetTreatment(s)
+// SetSymptom sets the Symptom field.
+func (tuo *TreatmentUpdateOne) SetSymptom(s string) *TreatmentUpdateOne {
+	tuo.mutation.SetSymptom(s)
+	return tuo
+}
+
+// SetTreat sets the Treat field.
+func (tuo *TreatmentUpdateOne) SetTreat(s string) *TreatmentUpdateOne {
+	tuo.mutation.SetTreat(s)
+	return tuo
+}
+
+// SetMedicine sets the Medicine field.
+func (tuo *TreatmentUpdateOne) SetMedicine(s string) *TreatmentUpdateOne {
+	tuo.mutation.SetMedicine(s)
 	return tuo
 }
 
@@ -515,9 +563,19 @@ func (tuo *TreatmentUpdateOne) ClearEdgesOfUnpaybills() *TreatmentUpdateOne {
 
 // Save executes the query and returns the updated entity.
 func (tuo *TreatmentUpdateOne) Save(ctx context.Context) (*Treatment, error) {
-	if v, ok := tuo.mutation.Treatment(); ok {
-		if err := treatment.TreatmentValidator(v); err != nil {
-			return nil, &ValidationError{Name: "Treatment", err: fmt.Errorf("ent: validator failed for field \"Treatment\": %w", err)}
+	if v, ok := tuo.mutation.Symptom(); ok {
+		if err := treatment.SymptomValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Symptom", err: fmt.Errorf("ent: validator failed for field \"Symptom\": %w", err)}
+		}
+	}
+	if v, ok := tuo.mutation.Treat(); ok {
+		if err := treatment.TreatValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Treat", err: fmt.Errorf("ent: validator failed for field \"Treat\": %w", err)}
+		}
+	}
+	if v, ok := tuo.mutation.Medicine(); ok {
+		if err := treatment.MedicineValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Medicine", err: fmt.Errorf("ent: validator failed for field \"Medicine\": %w", err)}
 		}
 	}
 
@@ -586,11 +644,25 @@ func (tuo *TreatmentUpdateOne) sqlSave(ctx context.Context) (t *Treatment, err e
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Treatment.ID for update")}
 	}
 	_spec.Node.ID.Value = id
-	if value, ok := tuo.mutation.Treatment(); ok {
+	if value, ok := tuo.mutation.Symptom(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: treatment.FieldTreatment,
+			Column: treatment.FieldSymptom,
+		})
+	}
+	if value, ok := tuo.mutation.Treat(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: treatment.FieldTreat,
+		})
+	}
+	if value, ok := tuo.mutation.Medicine(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: treatment.FieldMedicine,
 		})
 	}
 	if value, ok := tuo.mutation.Datetreat(); ok {

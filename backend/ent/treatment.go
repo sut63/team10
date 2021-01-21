@@ -20,8 +20,12 @@ type Treatment struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// Treatment holds the value of the "Treatment" field.
-	Treatment string `json:"Treatment,omitempty"`
+	// Symptom holds the value of the "Symptom" field.
+	Symptom string `json:"Symptom,omitempty"`
+	// Treat holds the value of the "Treat" field.
+	Treat string `json:"Treat,omitempty"`
+	// Medicine holds the value of the "Medicine" field.
+	Medicine string `json:"Medicine,omitempty"`
 	// Datetreat holds the value of the "Datetreat" field.
 	Datetreat time.Time `json:"Datetreat,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -107,7 +111,9 @@ func (e TreatmentEdges) EdgesOfUnpaybillsOrErr() (*Unpaybill, error) {
 func (*Treatment) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullString{}, // Treatment
+		&sql.NullString{}, // Symptom
+		&sql.NullString{}, // Treat
+		&sql.NullString{}, // Medicine
 		&sql.NullTime{},   // Datetreat
 	}
 }
@@ -134,16 +140,26 @@ func (t *Treatment) assignValues(values ...interface{}) error {
 	t.ID = int(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Treatment", values[0])
+		return fmt.Errorf("unexpected type %T for field Symptom", values[0])
 	} else if value.Valid {
-		t.Treatment = value.String
+		t.Symptom = value.String
 	}
-	if value, ok := values[1].(*sql.NullTime); !ok {
-		return fmt.Errorf("unexpected type %T for field Datetreat", values[1])
+	if value, ok := values[1].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Treat", values[1])
+	} else if value.Valid {
+		t.Treat = value.String
+	}
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Medicine", values[2])
+	} else if value.Valid {
+		t.Medicine = value.String
+	}
+	if value, ok := values[3].(*sql.NullTime); !ok {
+		return fmt.Errorf("unexpected type %T for field Datetreat", values[3])
 	} else if value.Valid {
 		t.Datetreat = value.Time
 	}
-	values = values[2:]
+	values = values[4:]
 	if len(values) == len(treatment.ForeignKeys) {
 		if value, ok := values[0].(*sql.NullInt64); !ok {
 			return fmt.Errorf("unexpected type %T for edge-field doctor_id", value)
@@ -210,8 +226,12 @@ func (t *Treatment) String() string {
 	var builder strings.Builder
 	builder.WriteString("Treatment(")
 	builder.WriteString(fmt.Sprintf("id=%v", t.ID))
-	builder.WriteString(", Treatment=")
-	builder.WriteString(t.Treatment)
+	builder.WriteString(", Symptom=")
+	builder.WriteString(t.Symptom)
+	builder.WriteString(", Treat=")
+	builder.WriteString(t.Treat)
+	builder.WriteString(", Medicine=")
+	builder.WriteString(t.Medicine)
 	builder.WriteString(", Datetreat=")
 	builder.WriteString(t.Datetreat.Format(time.ANSIC))
 	builder.WriteByte(')')

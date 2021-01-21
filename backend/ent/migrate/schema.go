@@ -490,7 +490,9 @@ var (
 	// TreatmentsColumns holds the columns for the "treatments" table.
 	TreatmentsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "treatment", Type: field.TypeString},
+		{Name: "symptom", Type: field.TypeString},
+		{Name: "treat", Type: field.TypeString},
+		{Name: "medicine", Type: field.TypeString},
 		{Name: "datetreat", Type: field.TypeTime},
 		{Name: "doctor_id", Type: field.TypeInt, Nullable: true},
 		{Name: "patientrecord_id", Type: field.TypeInt, Nullable: true},
@@ -504,21 +506,21 @@ var (
 		ForeignKeys: []*schema.ForeignKey{
 			{
 				Symbol:  "treatments_doctors_EdgesOfTreatment",
-				Columns: []*schema.Column{TreatmentsColumns[3]},
+				Columns: []*schema.Column{TreatmentsColumns[5]},
 
 				RefColumns: []*schema.Column{DoctorsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "treatments_patientrecords_EdgesOfTreatment",
-				Columns: []*schema.Column{TreatmentsColumns[4]},
+				Columns: []*schema.Column{TreatmentsColumns[6]},
 
 				RefColumns: []*schema.Column{PatientrecordsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
 			{
 				Symbol:  "treatments_typetreatments_EdgesOfTreatment",
-				Columns: []*schema.Column{TreatmentsColumns[5]},
+				Columns: []*schema.Column{TreatmentsColumns[7]},
 
 				RefColumns: []*schema.Column{TypetreatmentsColumns[0]},
 				OnDelete:   schema.SetNull,
