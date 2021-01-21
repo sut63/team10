@@ -277,7 +277,22 @@ func init() {
 	// patientrecordDescAllergic is the schema descriptor for Allergic field.
 	patientrecordDescAllergic := patientrecordFields[4].Descriptor()
 	// patientrecord.AllergicValidator is a validator for the "Allergic" field. It is called by the builders before save.
-	patientrecord.AllergicValidator = patientrecordDescAllergic.Validators[0].(func(string) error)
+	patientrecord.AllergicValidator = func() func(string) error {
+		validators := patientrecordDescAllergic.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(_Allergic string) error {
+			for _, fn := range fns {
+				if err := fn(_Allergic); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// patientrecordDescPhonenumber is the schema descriptor for Phonenumber field.
 	patientrecordDescPhonenumber := patientrecordFields[5].Descriptor()
 	// patientrecord.PhonenumberValidator is a validator for the "Phonenumber" field. It is called by the builders before save.

@@ -1,6 +1,10 @@
 package schema
 
 import (
+	"errors"
+	"regexp"
+	"strings"
+
 	"github.com/facebookincubator/ent"
 	"github.com/facebookincubator/ent/schema/edge"
 	"github.com/facebookincubator/ent/schema/field"
@@ -18,7 +22,13 @@ func (Patientrecord) Fields() []ent.Field {
 		field.String("Idcardnumber").MinLen(13).MaxLen(13),
 		field.Int("Age").Min(0),
 		field.String("Disease").NotEmpty(),
-		field.String("Allergic").NotEmpty(),
+		field.String("Allergic").NotEmpty().Match(regexp.MustCompile("[a-zA-Z_]+$")).
+			Validate(func(s string) error {
+				if strings.ToLower(s) == s {
+					return errors.New("Allergic must begin with uppercase")
+				}
+				return nil
+			}),
 		field.String("Phonenumber").MinLen(10).MaxLen(10),
 		field.String("Email").NotEmpty(),
 		field.String("Home").NotEmpty(),
