@@ -23,10 +23,12 @@ type TreatmentController struct {
 
 // Treatment defines the struct for the Treatment entity
 type Treatment struct {
-	Treatment     string
+	Symptom       string
+	Treat     string
+	Medicine      string
 	Datetreat     string
 	Typetreatment int
-	Doctor    int
+	Doctor        int
 	Patientrecord int
 }
 
@@ -80,22 +82,47 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		return
 	}
 	t := time.Now().Local()
-
+	if obj.Symptom == "" {
+		c.JSON(400, gin.H{
+			"error": "Symptom ไม่ถูกต้อง",
+		})
+		return
+	}
+	 
+	if  obj.Treat == ""{
+		c.JSON(400, gin.H{
+			"error": "Treat ไม่ถูกต้อง",
+		})
+		return
+	}
+	if obj.Medicine == ""{
+		c.JSON(400, gin.H{
+			"error": "Medicine ไม่ถูกต้อง",
+		})
+		return
+	}
 	tm, err := ctl.client.Treatment.
 		Create().
-		SetTreatment(obj.Treatment).
+		SetSymptom(obj.Symptom).
+		SetTreat(obj.Treat).		
+		SetMedicine(obj.Medicine).
 		SetDatetreat(t).
 		SetEdgesOfTypetreatment(ttm).
 		SetEdgesOfDoctor(d).
 		SetEdgesOfPatientrecord(pr).
 		Save(context.Background())
 
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "saving failed",
-		})
-		return
-	}
+		if err != nil {
+			fmt.Println(err)
+			c.JSON(400, gin.H{
+				"status": false,
+				"error":  err,
+			})
+			return
+		}else {
+		
+		
+		
 // Create Unpaybill
 	ctl.client.Unpaybill.
 		Create().
@@ -103,7 +130,12 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		SetStatus("Unpay").
 		Save(context.Background())
 
-	c.JSON(200, tm)
+		c.JSON(200, gin.H{
+			"status": true,
+			"data":   tm,
+		})
+	return
+	}
 }
 
 // GetTreatment handles GET requests to retrieve a Treatment entity

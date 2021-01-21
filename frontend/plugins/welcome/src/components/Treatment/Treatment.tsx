@@ -121,7 +121,7 @@ export default function ComponentsTable() {
                                             <br />เลขที่การรักษา : {treatmentid}
                                             <br />รายละเอียดการรักษา<br />
                                             <TableCell align="center">{treatment}</TableCell>
-                                        </Typography>
+                                        </Typography>                                        
                                     </Typography>
                                     <br />
                                     <Typography align="center">

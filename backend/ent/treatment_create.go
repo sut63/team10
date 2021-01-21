@@ -24,9 +24,21 @@ type TreatmentCreate struct {
 	hooks    []Hook
 }
 
-// SetTreatment sets the Treatment field.
-func (tc *TreatmentCreate) SetTreatment(s string) *TreatmentCreate {
-	tc.mutation.SetTreatment(s)
+// SetSymptom sets the Symptom field.
+func (tc *TreatmentCreate) SetSymptom(s string) *TreatmentCreate {
+	tc.mutation.SetSymptom(s)
+	return tc
+}
+
+// SetTreat sets the Treat field.
+func (tc *TreatmentCreate) SetTreat(s string) *TreatmentCreate {
+	tc.mutation.SetTreat(s)
+	return tc
+}
+
+// SetMedicine sets the Medicine field.
+func (tc *TreatmentCreate) SetMedicine(s string) *TreatmentCreate {
+	tc.mutation.SetMedicine(s)
 	return tc
 }
 
@@ -119,12 +131,28 @@ func (tc *TreatmentCreate) Mutation() *TreatmentMutation {
 
 // Save creates the Treatment in the database.
 func (tc *TreatmentCreate) Save(ctx context.Context) (*Treatment, error) {
-	if _, ok := tc.mutation.Treatment(); !ok {
-		return nil, &ValidationError{Name: "Treatment", err: errors.New("ent: missing required field \"Treatment\"")}
+	if _, ok := tc.mutation.Symptom(); !ok {
+		return nil, &ValidationError{Name: "Symptom", err: errors.New("ent: missing required field \"Symptom\"")}
 	}
-	if v, ok := tc.mutation.Treatment(); ok {
-		if err := treatment.TreatmentValidator(v); err != nil {
-			return nil, &ValidationError{Name: "Treatment", err: fmt.Errorf("ent: validator failed for field \"Treatment\": %w", err)}
+	if v, ok := tc.mutation.Symptom(); ok {
+		if err := treatment.SymptomValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Symptom", err: fmt.Errorf("ent: validator failed for field \"Symptom\": %w", err)}
+		}
+	}
+	if _, ok := tc.mutation.Treat(); !ok {
+		return nil, &ValidationError{Name: "Treat", err: errors.New("ent: missing required field \"Treat\"")}
+	}
+	if v, ok := tc.mutation.Treat(); ok {
+		if err := treatment.TreatValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Treat", err: fmt.Errorf("ent: validator failed for field \"Treat\": %w", err)}
+		}
+	}
+	if _, ok := tc.mutation.Medicine(); !ok {
+		return nil, &ValidationError{Name: "Medicine", err: errors.New("ent: missing required field \"Medicine\"")}
+	}
+	if v, ok := tc.mutation.Medicine(); ok {
+		if err := treatment.MedicineValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Medicine", err: fmt.Errorf("ent: validator failed for field \"Medicine\": %w", err)}
 		}
 	}
 	if _, ok := tc.mutation.Datetreat(); !ok {
@@ -190,13 +218,29 @@ func (tc *TreatmentCreate) createSpec() (*Treatment, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
-	if value, ok := tc.mutation.Treatment(); ok {
+	if value, ok := tc.mutation.Symptom(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: treatment.FieldTreatment,
+			Column: treatment.FieldSymptom,
 		})
-		t.Treatment = value
+		t.Symptom = value
+	}
+	if value, ok := tc.mutation.Treat(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: treatment.FieldTreat,
+		})
+		t.Treat = value
+	}
+	if value, ok := tc.mutation.Medicine(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: treatment.FieldMedicine,
+		})
+		t.Medicine = value
 	}
 	if value, ok := tc.mutation.Datetreat(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

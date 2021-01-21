@@ -292,7 +292,9 @@ type Treatments struct {
 
 // Treatment defines the struct for the Treatment
 type Treatment struct {
-	Treatment     string
+	Treat     string
+	Symptom       string
+	Medicine      string
 	Typetreatment int
 	Doctor        int
 	Patientrecord int
@@ -633,9 +635,9 @@ func main() {
 	// Set Patientrecord Data
 	Patientrecords := Patientrecords{
 		Patientrecord: []Patientrecord{
-			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198146", 21, 1, "-", "-", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิชัย ชาญชัย", 1, "1300101198136", 21, 1, "-", "-", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิลินา ชาญชัย", 1, "1300101198126", 21, 1, "-", "-", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198146", 21, 1, "-", "Caa", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิชัย ชาญชัย", 1, "1300101198136", 21, 1, "-", "Caa", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลินา ชาญชัย", 1, "1300101198126", 21, 1, "-", "Caa", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 		},
 	}
 	for _, pr := range Patientrecords.Patientrecord {
@@ -938,8 +940,8 @@ func main() {
 
 	treatments := Treatments{
 		Treatment: []Treatment{
-			Treatment{"ตรวจขั้นพื้นฐาน", 1, 1, 1},
-			Treatment{"ตรวจโควิด19", 3, 2, 1},
+			Treatment{"Acc","Acc","Acc", 1, 1, 1},
+			Treatment{"Acc","Acc","Acc", 3, 2, 1},
 		},
 	}
 	for _, t := range treatments.Treatment {
@@ -973,14 +975,20 @@ func main() {
 			return
 		}
 		times := time.Now().Local()
-		client.Treatment.
+		_, err = client.Treatment.
 			Create().
-			SetTreatment(t.Treatment).
+			SetSymptom(t.Symptom).
+			SetTreat(t.Treat).
+			SetMedicine(t.Medicine).
 			SetEdgesOfTypetreatment(tt).
 			SetEdgesOfDoctor(d).
 			SetDatetreat(times).
 			SetEdgesOfPatientrecord(m).
 			Save(context.Background())
+			if err != nil {
+				fmt.Println(err.Error())
+				return
+			}
 	}
 	//Set Unpaybill Data
 	unpaybills := Unpaybills{

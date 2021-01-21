@@ -10900,7 +10900,9 @@ type TreatmentMutation struct {
 	op                           Op
 	typ                          string
 	id                           *int
-	_Treatment                   *string
+	_Symptom                     *string
+	_Treat                       *string
+	_Medicine                    *string
 	_Datetreat                   *time.Time
 	clearedFields                map[string]struct{}
 	_EdgesOfTypetreatment        *int
@@ -10994,41 +10996,115 @@ func (m *TreatmentMutation) ID() (id int, exists bool) {
 	return *m.id, true
 }
 
-// SetTreatment sets the Treatment field.
-func (m *TreatmentMutation) SetTreatment(s string) {
-	m._Treatment = &s
+// SetSymptom sets the Symptom field.
+func (m *TreatmentMutation) SetSymptom(s string) {
+	m._Symptom = &s
 }
 
-// Treatment returns the Treatment value in the mutation.
-func (m *TreatmentMutation) Treatment() (r string, exists bool) {
-	v := m._Treatment
+// Symptom returns the Symptom value in the mutation.
+func (m *TreatmentMutation) Symptom() (r string, exists bool) {
+	v := m._Symptom
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldTreatment returns the old Treatment value of the Treatment.
+// OldSymptom returns the old Symptom value of the Treatment.
 // If the Treatment object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *TreatmentMutation) OldTreatment(ctx context.Context) (v string, err error) {
+func (m *TreatmentMutation) OldSymptom(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldTreatment is allowed only on UpdateOne operations")
+		return v, fmt.Errorf("OldSymptom is allowed only on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldTreatment requires an ID field in the mutation")
+		return v, fmt.Errorf("OldSymptom requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldTreatment: %w", err)
+		return v, fmt.Errorf("querying old value for OldSymptom: %w", err)
 	}
-	return oldValue.Treatment, nil
+	return oldValue.Symptom, nil
 }
 
-// ResetTreatment reset all changes of the "Treatment" field.
-func (m *TreatmentMutation) ResetTreatment() {
-	m._Treatment = nil
+// ResetSymptom reset all changes of the "Symptom" field.
+func (m *TreatmentMutation) ResetSymptom() {
+	m._Symptom = nil
+}
+
+// SetTreat sets the Treat field.
+func (m *TreatmentMutation) SetTreat(s string) {
+	m._Treat = &s
+}
+
+// Treat returns the Treat value in the mutation.
+func (m *TreatmentMutation) Treat() (r string, exists bool) {
+	v := m._Treat
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTreat returns the old Treat value of the Treatment.
+// If the Treatment object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *TreatmentMutation) OldTreat(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTreat is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTreat requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTreat: %w", err)
+	}
+	return oldValue.Treat, nil
+}
+
+// ResetTreat reset all changes of the "Treat" field.
+func (m *TreatmentMutation) ResetTreat() {
+	m._Treat = nil
+}
+
+// SetMedicine sets the Medicine field.
+func (m *TreatmentMutation) SetMedicine(s string) {
+	m._Medicine = &s
+}
+
+// Medicine returns the Medicine value in the mutation.
+func (m *TreatmentMutation) Medicine() (r string, exists bool) {
+	v := m._Medicine
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMedicine returns the old Medicine value of the Treatment.
+// If the Treatment object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *TreatmentMutation) OldMedicine(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldMedicine is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldMedicine requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMedicine: %w", err)
+	}
+	return oldValue.Medicine, nil
+}
+
+// ResetMedicine reset all changes of the "Medicine" field.
+func (m *TreatmentMutation) ResetMedicine() {
+	m._Medicine = nil
 }
 
 // SetDatetreat sets the Datetreat field.
@@ -11238,9 +11314,15 @@ func (m *TreatmentMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *TreatmentMutation) Fields() []string {
-	fields := make([]string, 0, 2)
-	if m._Treatment != nil {
-		fields = append(fields, treatment.FieldTreatment)
+	fields := make([]string, 0, 4)
+	if m._Symptom != nil {
+		fields = append(fields, treatment.FieldSymptom)
+	}
+	if m._Treat != nil {
+		fields = append(fields, treatment.FieldTreat)
+	}
+	if m._Medicine != nil {
+		fields = append(fields, treatment.FieldMedicine)
 	}
 	if m._Datetreat != nil {
 		fields = append(fields, treatment.FieldDatetreat)
@@ -11253,8 +11335,12 @@ func (m *TreatmentMutation) Fields() []string {
 // not set, or was not define in the schema.
 func (m *TreatmentMutation) Field(name string) (ent.Value, bool) {
 	switch name {
-	case treatment.FieldTreatment:
-		return m.Treatment()
+	case treatment.FieldSymptom:
+		return m.Symptom()
+	case treatment.FieldTreat:
+		return m.Treat()
+	case treatment.FieldMedicine:
+		return m.Medicine()
 	case treatment.FieldDatetreat:
 		return m.Datetreat()
 	}
@@ -11266,8 +11352,12 @@ func (m *TreatmentMutation) Field(name string) (ent.Value, bool) {
 // or the query to the database was failed.
 func (m *TreatmentMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
-	case treatment.FieldTreatment:
-		return m.OldTreatment(ctx)
+	case treatment.FieldSymptom:
+		return m.OldSymptom(ctx)
+	case treatment.FieldTreat:
+		return m.OldTreat(ctx)
+	case treatment.FieldMedicine:
+		return m.OldMedicine(ctx)
 	case treatment.FieldDatetreat:
 		return m.OldDatetreat(ctx)
 	}
@@ -11279,12 +11369,26 @@ func (m *TreatmentMutation) OldField(ctx context.Context, name string) (ent.Valu
 // type mismatch the field type.
 func (m *TreatmentMutation) SetField(name string, value ent.Value) error {
 	switch name {
-	case treatment.FieldTreatment:
+	case treatment.FieldSymptom:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetTreatment(v)
+		m.SetSymptom(v)
+		return nil
+	case treatment.FieldTreat:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTreat(v)
+		return nil
+	case treatment.FieldMedicine:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMedicine(v)
 		return nil
 	case treatment.FieldDatetreat:
 		v, ok := value.(time.Time)
@@ -11343,8 +11447,14 @@ func (m *TreatmentMutation) ClearField(name string) error {
 // defined in the schema.
 func (m *TreatmentMutation) ResetField(name string) error {
 	switch name {
-	case treatment.FieldTreatment:
-		m.ResetTreatment()
+	case treatment.FieldSymptom:
+		m.ResetSymptom()
+		return nil
+	case treatment.FieldTreat:
+		m.ResetTreat()
+		return nil
+	case treatment.FieldMedicine:
+		m.ResetMedicine()
 		return nil
 	case treatment.FieldDatetreat:
 		m.ResetDatetreat()

@@ -6,6 +6,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import { Alert } from '@material-ui/lab';
 import Paper from '@material-ui/core/Paper';
+import Swal from 'sweetalert2'; // alert
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -24,14 +25,9 @@ import { EntDoctor } from '../../api/models/EntDoctor';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntTreatment } from '../../api/models/EntTreatment';
 
+import { ControllersTreatment } from '../../api/models/ControllersTreatment';
 
-
-
-
-// header css
-const HeaderCustom = {
-  minHeight: '50px',
-};
+import Treatment from '../Treatment';
 
 const cookies = new Cookies();
 const Name = cookies.get('Name');
@@ -60,6 +56,20 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
+
+// header css
+const HeaderCustom = {
+  minHeight: '50px',
+};
+interface Treatments {
+  symptom: string,
+  treat: string,
+  medicine: string,
+  typetreatment: number,
+  doctor: number,
+  patientrecord: number,
+}
+
 const createTreatment: FC<{}> = () => {
   const classes = useStyles();
   const http = new DefaultApi();
@@ -68,17 +78,38 @@ const createTreatment: FC<{}> = () => {
   const [alert, setAlert] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
 
+  const [symptomError, setsymptomError] = React.useState('');
+  const [treatError, settreatError] = React.useState('');
+  const [medicineError, setmedicineError] = React.useState('');
+
+  const [treatment, setTreatment] = React.useState<Partial<ControllersTreatment>>({});
+
   const [typetreatments, setTypetreatments] = React.useState<EntTypetreatment[]>([]);
   const [doctors, setDoctors] = React.useState<Partial<EntDoctor>>();
   const [patientrecords, setPatientrecords] = React.useState<EntPatientrecord[]>([]);
   const [treatments, setTreatments] = React.useState<EntTreatment[]>([]);
 
-  const [treatmentes, settreatment] = React.useState(String);
+  const [treates, settreat] = React.useState(String);
+  const [symptomes, setsymptom] = React.useState(String);
+  const [medicinees, setmedicine] = React.useState(String);
   const [datetreat, setDatetreat] = React.useState(String);
   const [doctorid, setdoctorId] = React.useState(Number);
   const [patientrecordid, setpatientrecordId] = React.useState(Number);
   const [typetreatmentid, settypetreatmentId] = React.useState(Number);
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
+
+  // alert setting
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: toast => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
   useEffect(() => {
     const getDocdor = async () => {
@@ -87,17 +118,17 @@ const createTreatment: FC<{}> = () => {
       setDoctors(res);
     };
     const getTypetreatment = async () => {
-      const res = await http.listTypetreatment({ limit: 3, offset: 0 });
+      const res = await http.listTypetreatment({ offset: 0 });
       setLoading(false);
       setTypetreatments(res);
     };
     const getPatientrecord = async () => {
-      const res = await http.listPatientrecord({ limit: 2, offset: 0 });
+      const res = await http.listPatientrecord({ offset: 0 });
       setLoading(false);
       setPatientrecords(res);
     };
     const getTreatment = async () => {
-      const res = await http.listTreatment({ limit: 100, offset: 0 });
+      const res = await http.listTreatment({ offset: 0 });
       setLoading(false);
       setTreatments(res);
     };
@@ -116,54 +147,45 @@ const createTreatment: FC<{}> = () => {
   const refreshPage = () => {
     window.location.reload();
   }
+  const handleChange = (
 
-  const TypetreatmenthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    settypetreatmentId(event.target.value as number);
+    event: React.ChangeEvent<{ name?: string; value: any }>,
+  ) => {
+    const name = event.target.name as keyof typeof Create_Treatment;
+    const { value } = event.target;
+    const validateValue = value.toString()
+    //checkPattern(name, validateValue)
+    setTreatment({ ...treatment, [name]: value, doctor: doctors?.id });    
   };
-  const DoctorhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setdoctorId(event.target.value as number);
-  };
-  const TreatmenthandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    settreatment(event.target.value as string);
-  };
-  const PatientrecordhandleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setpatientrecordId(event.target.value as number);
-  };
-  const handleDatetimeChange = (event: any) => {
-    setDatetreat(event.target.value as string);
-  };
-
-  const createTreatment = async () => {
-  if ((treatmentes != '')
-      && (typetreatmentid != null) && (patientrecordid != null)) {
   
-    const tm = {
-      treatment: treatmentes,
-      
-      typetreatment: typetreatmentid,
-      doctor: Number(Doc),
-      patientrecord: patientrecordid,
+ 
+  const Create_Treatment = async () => {
+    const apiUrl = 'http://localhost:8080/api/v1/Treatments';
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(treatment),
     };
-    console.log(tm);
-    const res: any = await http.createTreatment({ treatment: tm });
-        
-    if (res.id != '') {
-      setStatus(true);
-      setAlert(true);
-      setTimeout(() => {
-        setStatus(false);
-      }, 5000);
-    }
-
-  }
-  else {
-    setStatus(true);
-    setAlert(false);
-    setTimeout(() => {
-      setStatus(false);
-    }, 5000);
-  }
-};
+    console.log(treatment);
+    fetch(apiUrl, requestOptions)
+      .then(response => response.json())
+      .then(async data => {
+        console.log(data);
+        console.log(data.error);
+        console.log(data.status);
+        if (data.status === true) {
+          Toast.fire({
+            icon: 'success',
+            title: 'บันทึกข้อมูลสำเร็จ',
+          });
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: data.error,
+          });
+        }
+      });
+  };
 
   return (
     <div>
@@ -192,72 +214,110 @@ const createTreatment: FC<{}> = () => {
             <Grid item xs={12}>
               <Typography align="center">
                 <Typography align="center" variant="h3">
-                  <br />----  Create Traetment  ----
+                  <br />----  Create Treatment  ----
+                    </Typography>
+                <form noValidate autoComplete="off">
+                  <FormControl className={classes.formControl}>
+                    <Typography align="center" variant="h6">
+                      <br />แพทย์
+                    <br />{doctors?.edges?.edgesOfDoctorinfo?.doctorname} {doctors?.edges?.edgesOfDoctorinfo?.doctorsurname}
                     </Typography>
 
-                <FormControl className={classes.formControl}>
-                  <Typography align="center" variant="h6">
-                    <br />แพทย์
-                    <br />{doctors?.edges?.edgesOfdoctorinfo?.doctorname} {doctors?.edges?.edgesOfdoctorinfo?.doctorsurname}
-                  </Typography>
-
-                </FormControl>
+                  </FormControl>
+                </form>
                 <br />
-                <FormControl className={classes.formControl}>
-                  <Typography align="center" variant="h6">
-                    <br />ผู้ป่วย
+                <form noValidate autoComplete="off">
+                  <FormControl className={classes.formControl}>
+                    <Typography align="center" variant="h6">
+                      <br />ผู้ป่วย
                         </Typography>
-                  <Select
-                    name="patientrecord"
-                    value={patientrecordid}
-                    onChange={PatientrecordhandleChange}
-                  >
-                    {patientrecords.map(item => {
-                      return (
-                        <MenuItem value={item.id}>
-                          {item.name}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
+                    <Select
+                      name="patientrecord"
+                      value={treatment.patientrecord}
+                      onChange={handleChange}
+                    >
+                      {patientrecords.map(item => {
+                        return (
+                          <MenuItem value={item.id}>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </form>
                 <br />
-                <FormControl className={classes.formControl}>
-                  <Typography align="center" variant="h6">
-                    <br />รูปแบบการรักษา
+                <form noValidate autoComplete="off">
+                  <FormControl className={classes.formControl}>
+                    <Typography align="center" variant="h6">
+                      <br />รูปแบบการรักษา
                         </Typography>
-                  <Select
-                    name="typetreatment"
-                    value={typetreatmentid}
-                    onChange={TypetreatmenthandleChange}
-                  >
-                    {typetreatments.map(item => {
-                      return (
-                        <MenuItem value={item.id}>
-                          {item.typetreatment}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
-                <Typography align="center" variant="h6">
-                  <br />รายละเอียดการรักษา<br />
-                  <TextField
-                    className={classes.formControl}
-                    value={treatmentes}
-                    multiline
-                    onChange={TreatmenthandleChange} />
-                </Typography>
-
-
-
+                    <Select
+                      name="typetreatment"
+                      value={treatment.typetreatment}
+                      onChange={handleChange}
+                    >
+                      {typetreatments.map(item => {
+                        return (
+                          <MenuItem value={item.id}>
+                            {item.typetreatment}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </form>
+                <form noValidate autoComplete="off">
+                  <FormControl className={classes.formControl}>
+                    <Typography align="center" variant="h6">
+                      <br />อาการ<br />
+                      <TextField
+                        name="symptom"
+                        id="Symptom"
+                        className={classes.formControl}
+                        value={treatment.symptom}
+                        multiline
+                        onChange={handleChange} />
+                    </Typography>
+                  </FormControl>
+                </form>
+                <br />
+                <form noValidate autoComplete="off">
+                  <FormControl className={classes.formControl}>
+                    <Typography align="center" variant="h6">
+                      <br />รายละเอียดการรักษา<br />
+                      <TextField
+                        name="treat"
+                        id="Treat"
+                        className={classes.formControl}
+                        value={treatment.treat}
+                        multiline
+                        onChange={handleChange} />
+                    </Typography>
+                  </FormControl>
+                </form>
+                <br />
+                <form noValidate autoComplete="off">
+                  <FormControl className={classes.formControl}>
+                    <Typography align="center" variant="h6">
+                      <br />ยารักษา<br />
+                      <TextField
+                        name="medicine"
+                        id="Medicine"
+                        className={classes.formControl}
+                        value={treatment.medicine}
+                        multiline
+                        onChange={handleChange} />
+                    </Typography>
+                  </FormControl>
+                </form>
                 <br />
 
                 <Typography align="center">
                   <br />
                   <Button
                     onClick={() => {
-                      createTreatment();
+                      Create_Treatment();
                     }}
 
                     variant="contained"
