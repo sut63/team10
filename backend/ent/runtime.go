@@ -244,6 +244,10 @@ func init() {
 	officeroom.RoomnumberValidator = officeroomDescRoomnumber.Validators[0].(func(string) error)
 	patientrecordFields := schema.Patientrecord{}.Fields()
 	_ = patientrecordFields
+	// patientrecordDescName is the schema descriptor for Name field.
+	patientrecordDescName := patientrecordFields[0].Descriptor()
+	// patientrecord.NameValidator is a validator for the "Name" field. It is called by the builders before save.
+	patientrecord.NameValidator = patientrecordDescName.Validators[0].(func(string) error)
 	// patientrecordDescIdcardnumber is the schema descriptor for Idcardnumber field.
 	patientrecordDescIdcardnumber := patientrecordFields[1].Descriptor()
 	// patientrecord.IdcardnumberValidator is a validator for the "Idcardnumber" field. It is called by the builders before save.
@@ -266,6 +270,14 @@ func init() {
 	patientrecordDescAge := patientrecordFields[2].Descriptor()
 	// patientrecord.AgeValidator is a validator for the "Age" field. It is called by the builders before save.
 	patientrecord.AgeValidator = patientrecordDescAge.Validators[0].(func(int) error)
+	// patientrecordDescDisease is the schema descriptor for Disease field.
+	patientrecordDescDisease := patientrecordFields[3].Descriptor()
+	// patientrecord.DiseaseValidator is a validator for the "Disease" field. It is called by the builders before save.
+	patientrecord.DiseaseValidator = patientrecordDescDisease.Validators[0].(func(string) error)
+	// patientrecordDescAllergic is the schema descriptor for Allergic field.
+	patientrecordDescAllergic := patientrecordFields[4].Descriptor()
+	// patientrecord.AllergicValidator is a validator for the "Allergic" field. It is called by the builders before save.
+	patientrecord.AllergicValidator = patientrecordDescAllergic.Validators[0].(func(string) error)
 	// patientrecordDescPhonenumber is the schema descriptor for Phonenumber field.
 	patientrecordDescPhonenumber := patientrecordFields[5].Descriptor()
 	// patientrecord.PhonenumberValidator is a validator for the "Phonenumber" field. It is called by the builders before save.
@@ -284,6 +296,14 @@ func init() {
 			return nil
 		}
 	}()
+	// patientrecordDescEmail is the schema descriptor for Email field.
+	patientrecordDescEmail := patientrecordFields[6].Descriptor()
+	// patientrecord.EmailValidator is a validator for the "Email" field. It is called by the builders before save.
+	patientrecord.EmailValidator = patientrecordDescEmail.Validators[0].(func(string) error)
+	// patientrecordDescHome is the schema descriptor for Home field.
+	patientrecordDescHome := patientrecordFields[7].Descriptor()
+	// patientrecord.HomeValidator is a validator for the "Home" field. It is called by the builders before save.
+	patientrecord.HomeValidator = patientrecordDescHome.Validators[0].(func(string) error)
 	patientrightsFields := schema.Patientrights{}.Fields()
 	_ = patientrightsFields
 	// patientrightsDescPermission is the schema descriptor for Permission field.

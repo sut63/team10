@@ -59,83 +59,18 @@ const useStyles = makeStyles((theme: Theme) =>
   );
 
   interface Patientrecord_Type {
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     age?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     allergic?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ControllersPatientrecord
-     */
     bloodtype?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     date?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     disease?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     email?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ControllersPatientrecord
-     */
     gender?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     home?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     idcardnumber?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ControllersPatientrecord
-     */
     medicalrecordstaff?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     name?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ControllersPatientrecord
-     */
     phonenumber?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ControllersPatientrecord
-     */
     prename?: number;
 }
 
@@ -146,6 +81,7 @@ export  default  function Create() {
 
   const [idcardnumberError, setidcardnumberError] = React.useState('');
   const [phonenumberError, setphonenumberError] = React.useState('');
+  const [emailError, setemailError] = React.useState('');
 
   const [prename, setPrename] = React.useState<EntPrename[]>([]);
   const [gender, setGender] = React.useState<EntGender[]>([]);
@@ -225,6 +161,12 @@ export  default  function Create() {
     return val.length == 10 ? true : false;
   }
 
+  // ฟังก์ชั่นสำหรับ validate emailError
+  const validateemail = (email: string) => {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email) ? true : false;
+  }
+
   // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
   const checkPattern = (id: string, value: string) => {
     switch (id) {
@@ -233,6 +175,9 @@ export  default  function Create() {
         return;
       case 'Phonenumber':
         validatephonenumber(value) ? setphonenumberError('') : setphonenumberError('หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลัก');
+        return;
+      case 'Email':
+        validateemail(value) ? setemailError('') : setemailError('รูปแบบอีเมลไม่ถูกต้อง')
         return;
       default:
         return;
@@ -252,6 +197,9 @@ export  default  function Create() {
         return;
       case 'Phonenumber':
         alertMessage("error","หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลัก");
+        return;
+      case 'Email':
+        alertMessage("error","รูปแบบอีเมลไม่ถูกต้อง");
         return;
       default:
         alertMessage("error","บันทึกข้อมูลไม่สำเร็จ");

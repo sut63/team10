@@ -14,14 +14,14 @@ type Patientrecord struct {
 // Fields of the Patientrecord.
 func (Patientrecord) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Name"),
+		field.String("Name").NotEmpty(),
 		field.String("Idcardnumber").MinLen(13).MaxLen(13),
 		field.Int("Age").Min(0),
-		field.String("Disease"),
-		field.String("Allergic"),
+		field.String("Disease").NotEmpty(),
+		field.String("Allergic").NotEmpty(),
 		field.String("Phonenumber").MinLen(10).MaxLen(10),
-		field.String("Email"),
-		field.String("Home"),
+		field.String("Email").NotEmpty(),
+		field.String("Home").NotEmpty(),
 		field.Time("Date"),
 	}
 }
