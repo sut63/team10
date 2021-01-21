@@ -59,19 +59,19 @@ const useStyles = makeStyles((theme: Theme) =>
   );
 
   interface Patientrecord_Type {
-    age?: string;
-    allergic?: string;
-    bloodtype?: number;
-    date?: string;
-    disease?: string;
-    email?: string;
-    gender?: number;
-    home?: string;
-    idcardnumber?: string;
-    medicalrecordstaff?: number;
-    name?: string;
-    phonenumber?: string;
-    prename?: number;
+    age: string;
+    allergic: string;
+    bloodtype: number;
+    date: string;
+    disease: string;
+    email: string;
+    gender: number;
+    home: string;
+    idcardnumber: string;
+    medicalrecordstaff: number;
+    name: string;
+    phonenumber: string;
+    prename: number;
 }
 
 export  default  function Create() {
@@ -80,8 +80,8 @@ export  default  function Create() {
   const api = new DefaultApi();
 
   const [idcardnumberError, setidcardnumberError] = React.useState('');
+  const [AllergicError, setAllergicError] = React.useState('');
   const [phonenumberError, setphonenumberError] = React.useState('');
-  const [emailError, setemailError] = React.useState('');
 
   const [prename, setPrename] = React.useState<EntPrename[]>([]);
   const [gender, setGender] = React.useState<EntGender[]>([]);
@@ -156,15 +156,14 @@ export  default  function Create() {
     return val.length == 13 ? true : false;
   }
 
+    // ฟังก์ชั่นสำหรับ validate AllergicError
+  const validateAllergic = (val: string) => {
+    return val.charCodeAt(0) >= 65 && val.charCodeAt(0) <= 90 ? true : false;
+  }
+
   // ฟังก์ชั่นสำหรับ validate phonenumberError
   const validatephonenumber = (val: string) => {
     return val.length == 10 ? true : false;
-  }
-
-  // ฟังก์ชั่นสำหรับ validate emailError
-  const validateemail = (email: string) => {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email) ? true : false;
   }
 
   // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
@@ -173,11 +172,11 @@ export  default  function Create() {
       case 'Idcardnumber':
         validateidcardnumber(value) ? setidcardnumberError('') : setidcardnumberError('หมายเลยบัตรประชาชน 13 หลัก');
         return;
+      case 'Allergic':
+        validateAllergic(value) ? setAllergicError('') : setAllergicError('ชื่อยาตัวแรกต้องเป็นภาษาอังกฤษพิมพ์ใหญ่');
+        return;
       case 'Phonenumber':
         validatephonenumber(value) ? setphonenumberError('') : setphonenumberError('หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลัก');
-        return;
-      case 'Email':
-        validateemail(value) ? setemailError('') : setemailError('รูปแบบอีเมลไม่ถูกต้อง')
         return;
       default:
         return;
@@ -195,11 +194,11 @@ export  default  function Create() {
       case 'Idcardnumber':
         alertMessage("error","หมายเลยบัตรประชาชน 13 หลัก");
         return;
+      case 'Allergic':
+        alertMessage("error","ชื่อยาตัวแรกต้องเป็นภาษาอังกฤษพิมพ์ใหญ่");
+        return;
       case 'Phonenumber':
         alertMessage("error","หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลัก");
-        return;
-      case 'Email':
-        alertMessage("error","รูปแบบอีเมลไม่ถูกต้อง");
         return;
       default:
         alertMessage("error","บันทึกข้อมูลไม่สำเร็จ");
