@@ -101,7 +101,7 @@ func Name(v string) predicate.Patientrecord {
 }
 
 // Idcardnumber applies equality check predicate on the "Idcardnumber" field. It's identical to IdcardnumberEQ.
-func Idcardnumber(v int) predicate.Patientrecord {
+func Idcardnumber(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldIdcardnumber), v))
 	})
@@ -268,21 +268,21 @@ func NameContainsFold(v string) predicate.Patientrecord {
 }
 
 // IdcardnumberEQ applies the EQ predicate on the "Idcardnumber" field.
-func IdcardnumberEQ(v int) predicate.Patientrecord {
+func IdcardnumberEQ(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldIdcardnumber), v))
 	})
 }
 
 // IdcardnumberNEQ applies the NEQ predicate on the "Idcardnumber" field.
-func IdcardnumberNEQ(v int) predicate.Patientrecord {
+func IdcardnumberNEQ(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldIdcardnumber), v))
 	})
 }
 
 // IdcardnumberIn applies the In predicate on the "Idcardnumber" field.
-func IdcardnumberIn(vs ...int) predicate.Patientrecord {
+func IdcardnumberIn(vs ...string) predicate.Patientrecord {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -299,7 +299,7 @@ func IdcardnumberIn(vs ...int) predicate.Patientrecord {
 }
 
 // IdcardnumberNotIn applies the NotIn predicate on the "Idcardnumber" field.
-func IdcardnumberNotIn(vs ...int) predicate.Patientrecord {
+func IdcardnumberNotIn(vs ...string) predicate.Patientrecord {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -316,30 +316,65 @@ func IdcardnumberNotIn(vs ...int) predicate.Patientrecord {
 }
 
 // IdcardnumberGT applies the GT predicate on the "Idcardnumber" field.
-func IdcardnumberGT(v int) predicate.Patientrecord {
+func IdcardnumberGT(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldIdcardnumber), v))
 	})
 }
 
 // IdcardnumberGTE applies the GTE predicate on the "Idcardnumber" field.
-func IdcardnumberGTE(v int) predicate.Patientrecord {
+func IdcardnumberGTE(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldIdcardnumber), v))
 	})
 }
 
 // IdcardnumberLT applies the LT predicate on the "Idcardnumber" field.
-func IdcardnumberLT(v int) predicate.Patientrecord {
+func IdcardnumberLT(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldIdcardnumber), v))
 	})
 }
 
 // IdcardnumberLTE applies the LTE predicate on the "Idcardnumber" field.
-func IdcardnumberLTE(v int) predicate.Patientrecord {
+func IdcardnumberLTE(v string) predicate.Patientrecord {
 	return predicate.Patientrecord(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldIdcardnumber), v))
+	})
+}
+
+// IdcardnumberContains applies the Contains predicate on the "Idcardnumber" field.
+func IdcardnumberContains(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldIdcardnumber), v))
+	})
+}
+
+// IdcardnumberHasPrefix applies the HasPrefix predicate on the "Idcardnumber" field.
+func IdcardnumberHasPrefix(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldIdcardnumber), v))
+	})
+}
+
+// IdcardnumberHasSuffix applies the HasSuffix predicate on the "Idcardnumber" field.
+func IdcardnumberHasSuffix(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldIdcardnumber), v))
+	})
+}
+
+// IdcardnumberEqualFold applies the EqualFold predicate on the "Idcardnumber" field.
+func IdcardnumberEqualFold(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldIdcardnumber), v))
+	})
+}
+
+// IdcardnumberContainsFold applies the ContainsFold predicate on the "Idcardnumber" field.
+func IdcardnumberContainsFold(v string) predicate.Patientrecord {
+	return predicate.Patientrecord(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldIdcardnumber), v))
 	})
 }
 

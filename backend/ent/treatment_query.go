@@ -364,12 +364,12 @@ func (tq *TreatmentQuery) WithEdgesOfUnpaybills(opts ...func(*UnpaybillQuery)) *
 // Example:
 //
 //	var v []struct {
-//		Treatment string `json:"Treatment,omitempty"`
+//		Symptom string `json:"Symptom,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Treatment.Query().
-//		GroupBy(treatment.FieldTreatment).
+//		GroupBy(treatment.FieldSymptom).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -390,11 +390,11 @@ func (tq *TreatmentQuery) GroupBy(field string, fields ...string) *TreatmentGrou
 // Example:
 //
 //	var v []struct {
-//		Treatment string `json:"Treatment,omitempty"`
+//		Symptom string `json:"Symptom,omitempty"`
 //	}
 //
 //	client.Treatment.Query().
-//		Select(treatment.FieldTreatment).
+//		Select(treatment.FieldSymptom).
 //		Scan(ctx, &v)
 //
 func (tq *TreatmentQuery) Select(field string, fields ...string) *TreatmentSelect {

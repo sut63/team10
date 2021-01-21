@@ -4753,10 +4753,16 @@ var doc = `{
                 "doctor": {
                     "type": "integer"
                 },
+                "medicine": {
+                    "type": "string"
+                },
                 "patientrecord": {
                     "type": "integer"
                 },
-                "treatment": {
+                "symptom": {
+                    "type": "string"
+                },
+                "treat": {
                     "type": "string"
                 },
                 "typetreatment": {
@@ -5380,7 +5386,7 @@ var doc = `{
                 },
                 "Idcardnumber": {
                     "description": "Idcardnumber holds the value of the \"Idcardnumber\" field.",
-                    "type": "integer"
+                    "type": "string"
                 },
                 "Name": {
                     "description": "Name holds the value of the \"Name\" field.",
@@ -5640,8 +5646,16 @@ var doc = `{
                     "description": "Datetreat holds the value of the \"Datetreat\" field.",
                     "type": "string"
                 },
-                "Treatment": {
-                    "description": "Treatment holds the value of the \"Treatment\" field.",
+                "Medicine": {
+                    "description": "Medicine holds the value of the \"Medicine\" field.",
+                    "type": "string"
+                },
+                "Symptom": {
+                    "description": "Symptom holds the value of the \"Symptom\" field.",
+                    "type": "string"
+                },
+                "Treat": {
+                    "description": "Treat holds the value of the \"Treat\" field.",
                     "type": "string"
                 },
                 "edges": {

@@ -10,6 +10,7 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/officeroom"
+	"github.com/team10/app/ent/patientrecord"
 	"github.com/team10/app/ent/patientrights"
 	"github.com/team10/app/ent/paytype"
 	"github.com/team10/app/ent/prename"
@@ -241,6 +242,83 @@ func init() {
 	officeroomDescRoomnumber := officeroomFields[0].Descriptor()
 	// officeroom.RoomnumberValidator is a validator for the "roomnumber" field. It is called by the builders before save.
 	officeroom.RoomnumberValidator = officeroomDescRoomnumber.Validators[0].(func(string) error)
+	patientrecordFields := schema.Patientrecord{}.Fields()
+	_ = patientrecordFields
+	// patientrecordDescName is the schema descriptor for Name field.
+	patientrecordDescName := patientrecordFields[0].Descriptor()
+	// patientrecord.NameValidator is a validator for the "Name" field. It is called by the builders before save.
+	patientrecord.NameValidator = patientrecordDescName.Validators[0].(func(string) error)
+	// patientrecordDescIdcardnumber is the schema descriptor for Idcardnumber field.
+	patientrecordDescIdcardnumber := patientrecordFields[1].Descriptor()
+	// patientrecord.IdcardnumberValidator is a validator for the "Idcardnumber" field. It is called by the builders before save.
+	patientrecord.IdcardnumberValidator = func() func(string) error {
+		validators := patientrecordDescIdcardnumber.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_Idcardnumber string) error {
+			for _, fn := range fns {
+				if err := fn(_Idcardnumber); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// patientrecordDescAge is the schema descriptor for Age field.
+	patientrecordDescAge := patientrecordFields[2].Descriptor()
+	// patientrecord.AgeValidator is a validator for the "Age" field. It is called by the builders before save.
+	patientrecord.AgeValidator = patientrecordDescAge.Validators[0].(func(int) error)
+	// patientrecordDescDisease is the schema descriptor for Disease field.
+	patientrecordDescDisease := patientrecordFields[3].Descriptor()
+	// patientrecord.DiseaseValidator is a validator for the "Disease" field. It is called by the builders before save.
+	patientrecord.DiseaseValidator = patientrecordDescDisease.Validators[0].(func(string) error)
+	// patientrecordDescAllergic is the schema descriptor for Allergic field.
+	patientrecordDescAllergic := patientrecordFields[4].Descriptor()
+	// patientrecord.AllergicValidator is a validator for the "Allergic" field. It is called by the builders before save.
+	patientrecord.AllergicValidator = func() func(string) error {
+		validators := patientrecordDescAllergic.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(_Allergic string) error {
+			for _, fn := range fns {
+				if err := fn(_Allergic); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// patientrecordDescPhonenumber is the schema descriptor for Phonenumber field.
+	patientrecordDescPhonenumber := patientrecordFields[5].Descriptor()
+	// patientrecord.PhonenumberValidator is a validator for the "Phonenumber" field. It is called by the builders before save.
+	patientrecord.PhonenumberValidator = func() func(string) error {
+		validators := patientrecordDescPhonenumber.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_Phonenumber string) error {
+			for _, fn := range fns {
+				if err := fn(_Phonenumber); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// patientrecordDescEmail is the schema descriptor for Email field.
+	patientrecordDescEmail := patientrecordFields[6].Descriptor()
+	// patientrecord.EmailValidator is a validator for the "Email" field. It is called by the builders before save.
+	patientrecord.EmailValidator = patientrecordDescEmail.Validators[0].(func(string) error)
+	// patientrecordDescHome is the schema descriptor for Home field.
+	patientrecordDescHome := patientrecordFields[7].Descriptor()
+	// patientrecord.HomeValidator is a validator for the "Home" field. It is called by the builders before save.
+	patientrecord.HomeValidator = patientrecordDescHome.Validators[0].(func(string) error)
 	patientrightsFields := schema.Patientrights{}.Fields()
 	_ = patientrightsFields
 	// patientrightsDescPermission is the schema descriptor for Permission field.
@@ -269,10 +347,63 @@ func init() {
 	prename.PrefixValidator = prenameDescPrefix.Validators[0].(func(string) error)
 	treatmentFields := schema.Treatment{}.Fields()
 	_ = treatmentFields
-	// treatmentDescTreatment is the schema descriptor for Treatment field.
-	treatmentDescTreatment := treatmentFields[0].Descriptor()
-	// treatment.TreatmentValidator is a validator for the "Treatment" field. It is called by the builders before save.
-	treatment.TreatmentValidator = treatmentDescTreatment.Validators[0].(func(string) error)
+	// treatmentDescSymptom is the schema descriptor for Symptom field.
+	treatmentDescSymptom := treatmentFields[0].Descriptor()
+	// treatment.SymptomValidator is a validator for the "Symptom" field. It is called by the builders before save.
+	treatment.SymptomValidator = func() func(string) error {
+		validators := treatmentDescSymptom.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(_Symptom string) error {
+			for _, fn := range fns {
+				if err := fn(_Symptom); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// treatmentDescTreat is the schema descriptor for Treat field.
+	treatmentDescTreat := treatmentFields[1].Descriptor()
+	// treatment.TreatValidator is a validator for the "Treat" field. It is called by the builders before save.
+	treatment.TreatValidator = func() func(string) error {
+		validators := treatmentDescTreat.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(_Treat string) error {
+			for _, fn := range fns {
+				if err := fn(_Treat); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// treatmentDescMedicine is the schema descriptor for Medicine field.
+	treatmentDescMedicine := treatmentFields[2].Descriptor()
+	// treatment.MedicineValidator is a validator for the "Medicine" field. It is called by the builders before save.
+	treatment.MedicineValidator = func() func(string) error {
+		validators := treatmentDescMedicine.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+			validators[2].(func(string) error),
+		}
+		return func(_Medicine string) error {
+			for _, fn := range fns {
+				if err := fn(_Medicine); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	typetreatmentFields := schema.Typetreatment{}.Fields()
 	_ = typetreatmentFields
 	// typetreatmentDescTypetreatment is the schema descriptor for Typetreatment field.

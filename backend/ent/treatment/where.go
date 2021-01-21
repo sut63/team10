@@ -93,10 +93,24 @@ func IDLTE(id int) predicate.Treatment {
 	})
 }
 
-// Treatment applies equality check predicate on the "Treatment" field. It's identical to TreatmentEQ.
-func Treatment(v string) predicate.Treatment {
+// Symptom applies equality check predicate on the "Symptom" field. It's identical to SymptomEQ.
+func Symptom(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTreatment), v))
+		s.Where(sql.EQ(s.C(FieldSymptom), v))
+	})
+}
+
+// Treat applies equality check predicate on the "Treat" field. It's identical to TreatEQ.
+func Treat(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTreat), v))
+	})
+}
+
+// Medicine applies equality check predicate on the "Medicine" field. It's identical to MedicineEQ.
+func Medicine(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMedicine), v))
 	})
 }
 
@@ -107,22 +121,22 @@ func Datetreat(v time.Time) predicate.Treatment {
 	})
 }
 
-// TreatmentEQ applies the EQ predicate on the "Treatment" field.
-func TreatmentEQ(v string) predicate.Treatment {
+// SymptomEQ applies the EQ predicate on the "Symptom" field.
+func SymptomEQ(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTreatment), v))
+		s.Where(sql.EQ(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentNEQ applies the NEQ predicate on the "Treatment" field.
-func TreatmentNEQ(v string) predicate.Treatment {
+// SymptomNEQ applies the NEQ predicate on the "Symptom" field.
+func SymptomNEQ(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldTreatment), v))
+		s.Where(sql.NEQ(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentIn applies the In predicate on the "Treatment" field.
-func TreatmentIn(vs ...string) predicate.Treatment {
+// SymptomIn applies the In predicate on the "Symptom" field.
+func SymptomIn(vs ...string) predicate.Treatment {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -134,12 +148,12 @@ func TreatmentIn(vs ...string) predicate.Treatment {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldTreatment), v...))
+		s.Where(sql.In(s.C(FieldSymptom), v...))
 	})
 }
 
-// TreatmentNotIn applies the NotIn predicate on the "Treatment" field.
-func TreatmentNotIn(vs ...string) predicate.Treatment {
+// SymptomNotIn applies the NotIn predicate on the "Symptom" field.
+func SymptomNotIn(vs ...string) predicate.Treatment {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -151,70 +165,292 @@ func TreatmentNotIn(vs ...string) predicate.Treatment {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldTreatment), v...))
+		s.Where(sql.NotIn(s.C(FieldSymptom), v...))
 	})
 }
 
-// TreatmentGT applies the GT predicate on the "Treatment" field.
-func TreatmentGT(v string) predicate.Treatment {
+// SymptomGT applies the GT predicate on the "Symptom" field.
+func SymptomGT(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldTreatment), v))
+		s.Where(sql.GT(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentGTE applies the GTE predicate on the "Treatment" field.
-func TreatmentGTE(v string) predicate.Treatment {
+// SymptomGTE applies the GTE predicate on the "Symptom" field.
+func SymptomGTE(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldTreatment), v))
+		s.Where(sql.GTE(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentLT applies the LT predicate on the "Treatment" field.
-func TreatmentLT(v string) predicate.Treatment {
+// SymptomLT applies the LT predicate on the "Symptom" field.
+func SymptomLT(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldTreatment), v))
+		s.Where(sql.LT(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentLTE applies the LTE predicate on the "Treatment" field.
-func TreatmentLTE(v string) predicate.Treatment {
+// SymptomLTE applies the LTE predicate on the "Symptom" field.
+func SymptomLTE(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldTreatment), v))
+		s.Where(sql.LTE(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentContains applies the Contains predicate on the "Treatment" field.
-func TreatmentContains(v string) predicate.Treatment {
+// SymptomContains applies the Contains predicate on the "Symptom" field.
+func SymptomContains(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldTreatment), v))
+		s.Where(sql.Contains(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentHasPrefix applies the HasPrefix predicate on the "Treatment" field.
-func TreatmentHasPrefix(v string) predicate.Treatment {
+// SymptomHasPrefix applies the HasPrefix predicate on the "Symptom" field.
+func SymptomHasPrefix(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldTreatment), v))
+		s.Where(sql.HasPrefix(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentHasSuffix applies the HasSuffix predicate on the "Treatment" field.
-func TreatmentHasSuffix(v string) predicate.Treatment {
+// SymptomHasSuffix applies the HasSuffix predicate on the "Symptom" field.
+func SymptomHasSuffix(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldTreatment), v))
+		s.Where(sql.HasSuffix(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentEqualFold applies the EqualFold predicate on the "Treatment" field.
-func TreatmentEqualFold(v string) predicate.Treatment {
+// SymptomEqualFold applies the EqualFold predicate on the "Symptom" field.
+func SymptomEqualFold(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldTreatment), v))
+		s.Where(sql.EqualFold(s.C(FieldSymptom), v))
 	})
 }
 
-// TreatmentContainsFold applies the ContainsFold predicate on the "Treatment" field.
-func TreatmentContainsFold(v string) predicate.Treatment {
+// SymptomContainsFold applies the ContainsFold predicate on the "Symptom" field.
+func SymptomContainsFold(v string) predicate.Treatment {
 	return predicate.Treatment(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldTreatment), v))
+		s.Where(sql.ContainsFold(s.C(FieldSymptom), v))
+	})
+}
+
+// TreatEQ applies the EQ predicate on the "Treat" field.
+func TreatEQ(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTreat), v))
+	})
+}
+
+// TreatNEQ applies the NEQ predicate on the "Treat" field.
+func TreatNEQ(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTreat), v))
+	})
+}
+
+// TreatIn applies the In predicate on the "Treat" field.
+func TreatIn(vs ...string) predicate.Treatment {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Treatment(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTreat), v...))
+	})
+}
+
+// TreatNotIn applies the NotIn predicate on the "Treat" field.
+func TreatNotIn(vs ...string) predicate.Treatment {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Treatment(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTreat), v...))
+	})
+}
+
+// TreatGT applies the GT predicate on the "Treat" field.
+func TreatGT(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTreat), v))
+	})
+}
+
+// TreatGTE applies the GTE predicate on the "Treat" field.
+func TreatGTE(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTreat), v))
+	})
+}
+
+// TreatLT applies the LT predicate on the "Treat" field.
+func TreatLT(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTreat), v))
+	})
+}
+
+// TreatLTE applies the LTE predicate on the "Treat" field.
+func TreatLTE(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTreat), v))
+	})
+}
+
+// TreatContains applies the Contains predicate on the "Treat" field.
+func TreatContains(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldTreat), v))
+	})
+}
+
+// TreatHasPrefix applies the HasPrefix predicate on the "Treat" field.
+func TreatHasPrefix(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldTreat), v))
+	})
+}
+
+// TreatHasSuffix applies the HasSuffix predicate on the "Treat" field.
+func TreatHasSuffix(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldTreat), v))
+	})
+}
+
+// TreatEqualFold applies the EqualFold predicate on the "Treat" field.
+func TreatEqualFold(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldTreat), v))
+	})
+}
+
+// TreatContainsFold applies the ContainsFold predicate on the "Treat" field.
+func TreatContainsFold(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldTreat), v))
+	})
+}
+
+// MedicineEQ applies the EQ predicate on the "Medicine" field.
+func MedicineEQ(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineNEQ applies the NEQ predicate on the "Medicine" field.
+func MedicineNEQ(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineIn applies the In predicate on the "Medicine" field.
+func MedicineIn(vs ...string) predicate.Treatment {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Treatment(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldMedicine), v...))
+	})
+}
+
+// MedicineNotIn applies the NotIn predicate on the "Medicine" field.
+func MedicineNotIn(vs ...string) predicate.Treatment {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Treatment(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldMedicine), v...))
+	})
+}
+
+// MedicineGT applies the GT predicate on the "Medicine" field.
+func MedicineGT(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineGTE applies the GTE predicate on the "Medicine" field.
+func MedicineGTE(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineLT applies the LT predicate on the "Medicine" field.
+func MedicineLT(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineLTE applies the LTE predicate on the "Medicine" field.
+func MedicineLTE(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineContains applies the Contains predicate on the "Medicine" field.
+func MedicineContains(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineHasPrefix applies the HasPrefix predicate on the "Medicine" field.
+func MedicineHasPrefix(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineHasSuffix applies the HasSuffix predicate on the "Medicine" field.
+func MedicineHasSuffix(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineEqualFold applies the EqualFold predicate on the "Medicine" field.
+func MedicineEqualFold(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldMedicine), v))
+	})
+}
+
+// MedicineContainsFold applies the ContainsFold predicate on the "Medicine" field.
+func MedicineContainsFold(v string) predicate.Treatment {
+	return predicate.Treatment(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldMedicine), v))
 	})
 }
 
