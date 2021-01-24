@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
 
 const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
-  const profile = { givenName: 'สิทธ์' };
+ 
   const http = new DefaultApi();
   const cookies = new Cookies();
 
