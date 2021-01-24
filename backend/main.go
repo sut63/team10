@@ -557,7 +557,7 @@ func main() {
 		m := fmt.Sprintf("%d", int(a.MedicalSupplies))
 		e := fmt.Sprintf("%d", int(a.Examine))
 		var ck string
-		ck = o + m + e
+		ck = o+"-"+m+"-"+e
 		client.Abilitypatientrights.
 			Create().
 			SetOperative(a.Operative).

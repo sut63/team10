@@ -39,7 +39,7 @@ func (ctl *AbilitypatientrightsController) CreateAbilitypatientrights(c *gin.Con
 	m := fmt.Sprintf("%d", int(obj.MedicalSupplies))
 	e := fmt.Sprintf("%d", int(obj.Examine))
 	var ck string
-	ck = o+m+e
+	ck = o+"-"+m+"-"+e
 
 	
 
