@@ -52,6 +52,9 @@ const useStyles = makeStyles(theme => ({
   section1: {
     margin: theme.spacing(3, 2),
   },
+  section3: {
+    margin: theme.spacing(3, 1, 1),
+  },
 }));
 
 
@@ -80,7 +83,7 @@ export default function ComponentsTable(sim: any) {
 
 
   const Show = async (i: any) => {
-    var o = (await api.getBill({id: i.id})).date;
+    
     setno(i);
     setnc(false);
     
@@ -208,19 +211,9 @@ export default function ComponentsTable(sim: any) {
 
         <Divider variant="inset" component="li" />
         <ListItem>
-        <div className={classes.div}>
-        <Button
-                        onClick={() => {
-                          setnc(true);
-                          setLoading(true);
-                        }}
-                        style={{ marginLeft: 10 }}
-                        variant="contained"
-                        color="secondary"
-                      >
-                        กลับ
-               </Button>
-               </div>
+        <div className={classes.section3}>
+        <Button color="primary" onClick={() => {setnc(true)}}>กลับ</Button>
+      </div>
         </ListItem>
 
       </List>
