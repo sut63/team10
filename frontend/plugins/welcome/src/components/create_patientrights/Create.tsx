@@ -10,8 +10,6 @@ import {
   InputLabel,
   MenuItem,
   Avatar,
-
-  Link,
   Button,
 } from '@material-ui/core';
 import Timer from '../Timer';
