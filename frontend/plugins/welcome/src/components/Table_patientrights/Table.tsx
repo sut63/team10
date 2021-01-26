@@ -120,7 +120,7 @@ const Table: FC<{}> = () => {
                </Alert>
              ) : (
                <Alert severity="warning" style={{ marginTop: 20 }}>
-                 This is a warning alert — check it out!
+                 ไม่พบสิทธ์
                </Alert>
              )}
            </div>
