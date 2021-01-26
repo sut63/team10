@@ -175,6 +175,7 @@ func (ctl *PatientrecordController) GetPatientrecord(c *gin.Context) {
 		WithEdgesOfMedicalrecordstaff().
 		WithEdgesOfBloodtype().
 		WithEdgesOfPrename().
+		WithEdgesOfPatientrecordPatientrights().
 		Where(patientrecord.IDEQ(int(id))).
 		Only(context.Background())
 	if err != nil {
@@ -223,6 +224,7 @@ func (ctl *PatientrecordController) ListPatientrecord(c *gin.Context) {
 		WithEdgesOfMedicalrecordstaff().
 		WithEdgesOfBloodtype().
 		WithEdgesOfPrename().
+		WithEdgesOfPatientrecordPatientrights().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

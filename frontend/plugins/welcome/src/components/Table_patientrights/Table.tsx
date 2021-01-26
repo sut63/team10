@@ -8,6 +8,8 @@ import { Cookies } from 'react-cookie/cjs';//cookie
 import { useEffect } from 'react';
 import { Avatar } from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
+import { EntPatientrights } from '../../api/models/EntPatientrights';
+import { Alert } from '@material-ui/lab';
 import {
   Content,
   Header,
@@ -29,7 +31,6 @@ const Name = cookies.get('Name');
 const Img = cookies.get('Img');
 
 const Table: FC<{}> = () => {
-  const profile = { givenName: 'ระบบ ลงทะเบียนสิทธิ์' };
   const http = new DefaultApi();
   const useStyles = makeStyles(theme => ({
     table: {
@@ -39,10 +40,19 @@ const Table: FC<{}> = () => {
       margin: theme.spacing(3),
       width: 350,
     },
+    root: {
+      flexGrow: 1,
+      display: 'flex',
+      justifyContent: 'center',
+    },
   }));
   const [Pat, setPat] = React.useState<number>(0);
+  const [Se, setSe] = React.useState<number>(0);
   const classes = useStyles();
-  const [loading, setLoading] = React.useState(true);
+  const [alert, setAlert] =                             React.useState(true);
+  const [loading, setLoading] =                         React.useState(true);
+  const [status, setStatus] =                           React.useState(false);
+  
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
@@ -55,33 +65,75 @@ const Table: FC<{}> = () => {
     setPat(event.target.value as number);
 
   };
+  
+
+  const Sc = async () => {
+   setSe(Pat)
+
+   
+   //setStatus(true);
+   var p = (await http.getPatientrecord({id:Pat})).edges?.edgesOfPatientrecordPatientrights
+   console.log("ผู้ป่วย = ",Pat)
+   console.log("p = ",p)
+   
+    if (p != undefined){
+      setStatus(true);
+      setAlert(true);
+    } else {
+      setStatus(true);
+      setAlert(false);
+    }
+
+    setTimeout(() => {
+      setStatus(false);
+    }, 1000);
+    
+  };
 
   useEffect(() => {
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
-      setLoading(false);
+      
       setUsers(res);
     };
     getImg();
     getPatientrecord();
+    setLoading(false);
   }, [loading]);
 
   return (
     <Page theme={pageTheme.home}>
       <Header
-        title={`ยินดีต้อนรับ เข้าสู่ ${profile.givenName || 'to Backstage'}`}
+        title={`ยินดีต้อนรับ เข้าสู่ ระบบ ลงทะเบียนสิทธิ์`}
         subtitle="ของโรงบาล">
         <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
-        <ContentHeader title="ลงทะเบียนสิทธิ์">
+        <ContentHeader title="ค้นหาสิทธิ์">
+
+        {status ? (
+           <div>
+             {alert ? (
+               <Alert severity="success">
+                 พบสิทธิ์
+               </Alert>
+             ) : (
+               <Alert severity="warning" style={{ marginTop: 20 }}>
+                 This is a warning alert — check it out!
+               </Alert>
+             )}
+           </div>
+         ) : null}
+
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel>ผู้ป่วย</InputLabel>
             <Select
               name="patientrecord"
               value={Pat}
+              
               onChange={handleChange}
+            
             >
               {Patientrecord.map((item: any) => {
                 return (
@@ -94,7 +146,7 @@ const Table: FC<{}> = () => {
           </FormControl>
           <Button
             onClick={() => {
-              //Sc();
+              Sc();
             }}
             style={{ marginLeft: 10 }}
             variant="contained"
@@ -116,9 +168,11 @@ const Table: FC<{}> = () => {
 
 
         </ContentHeader>
-
-        <ComponanceTable sim={Pat}></ComponanceTable>
-
+        <div className={classes.root}>
+          
+        <ComponanceTable sim={Se}></ComponanceTable>
+        
+        </div>
 
       </Content>
     </Page>
