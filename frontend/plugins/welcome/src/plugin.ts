@@ -7,7 +7,7 @@ import Table_patientrights from './components/Table_patientrights';
 import tableHistorytaking from './components/tableHistorytaking';
 import createHistorytaking from './components/createHistorytaking';
 import CreateBill from './components/createBill'
-import BillTable from './components/tableBill'
+import BillSearch from './components/tableBill'
 import createTreatment from './components/createTreatment';
 import Treatment from './components/Treatment';
 import findTreatment from './components/findTreatment';
@@ -46,7 +46,7 @@ export const plugin = createPlugin({
         router.registerRoute('/reg', reg);
       }
       if (Status == 'Fin' || Status == 'Root' ) {
-        router.registerRoute('/BillTable', BillTable);
+        router.registerRoute('/BillSearch', BillSearch);
         router.registerRoute('/createBill', CreateBill);
       }
       if (Status == 'Med' || Status == 'Root' ) {
