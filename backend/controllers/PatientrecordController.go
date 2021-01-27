@@ -225,6 +225,7 @@ func (ctl *PatientrecordController) ListPatientrecord(c *gin.Context) {
 		WithEdgesOfMedicalrecordstaff().
 		WithEdgesOfBloodtype().
 		WithEdgesOfPrename().
+		WithEdgesOfHistorytaking().
 		WithEdgesOfPatientrecordPatientrights().
 		Limit(limit).
 		Offset(offset).
