@@ -191,7 +191,7 @@ console.log("sim",sim.sim)
               </Grid>
             </Grid>
             <Typography color="textSecondary" variant="body2">
-              รหัสประจำตัวประชาชน : {no.edges?.edgesOfPatientrightsPatientrecord?.idcardnumber}
+             
             </Typography>
           </div>
           <Divider variant="inset" component="li" />
@@ -204,6 +204,20 @@ console.log("sim",sim.sim)
             <ListItemText primary="ที่อยู่ : " secondary={no.edges?.edgesOfPatientrightsPatientrecord?.home} />
           </ListItem>
           <Divider variant="inset" component="li" />
+
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <PhoneIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="รหัสประจำตัวประชาชน" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.idcardnumber} />
+          </ListItem>
+
+
+          <Divider variant="inset" component="li" />
+         
+
           <ListItem>
             <ListItemAvatar>
               <Avatar>
@@ -212,16 +226,6 @@ console.log("sim",sim.sim)
             </ListItemAvatar>
             <ListItemText primary="เบอร์โทร" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.phonenumber} />
           </ListItem>
-
-
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <div className={classes.section3}>
-              <Button color="primary" onClick={() => { setnc(true) }}>กลับ</Button>
-            </div>
-          </ListItem>
-
-
 
 
 
@@ -243,7 +247,7 @@ console.log("sim",sim.sim)
               </Grid>
               <Grid item>
                 <Typography gutterBottom variant="h6">
-                : {no.permission}
+                 {no.permission}
                 </Typography>
               </Grid>
             </Grid>
