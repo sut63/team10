@@ -1,1 +1,1 @@
-export { default } from './sheachHistorytaking';
+export { default } from './searchHistorytaking';
