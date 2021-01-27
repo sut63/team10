@@ -333,7 +333,7 @@ var (
 	PatientrecordsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
-		{Name: "idcardnumber", Type: field.TypeString, Size: 13},
+		{Name: "idcardnumber", Type: field.TypeString, Unique: true, Size: 13},
 		{Name: "age", Type: field.TypeInt},
 		{Name: "disease", Type: field.TypeString},
 		{Name: "allergic", Type: field.TypeString},
