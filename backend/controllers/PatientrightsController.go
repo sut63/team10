@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
+	"github.com/team10/app/ent/abilitypatientrights"
 	"github.com/team10/app/ent/insurance"
 	"github.com/team10/app/ent/medicalrecordstaff"
 	"github.com/team10/app/ent/patientrecord"
@@ -32,7 +33,7 @@ type Patientrights struct {
 	Abilitypatientrights int
 	Permission           string
 	PermissionArea       string
-	Responsible         string
+	Responsible          string
 }
 
 // CreatePatientrights handles POST requests for adding Patientrights entities
@@ -91,37 +92,48 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 		})
 		return
 	}
-	
-		if obj.Permission == "" {
-			c.JSON(400, gin.H{
-				"error": "Permission ไม่ถูกต้อง",
-			})
-			return
-		}
-		if obj.PermissionArea == "" {
-			c.JSON(400, gin.H{
-				"error": "PermissionArea ไม่ถูกต้อง",
-			})
-			return
-		}
+	Abilitypatientrights, err := ctl.client.Abilitypatientrights.
+		Query().
+		Where(abilitypatientrights.IDEQ(int(obj.Abilitypatientrights))).
+		Only(context.Background())
 
-		if obj.Responsible == "" {
-			c.JSON(400, gin.H{
-				"error": "Responsibles ไม่ถูกต้อง",
-			})
-			return
-		}
-	
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "Abilitypatientrights not found",
+		})
+		return
+	}
 
-	
+	if obj.Permission == "" {
+		c.JSON(400, gin.H{
+			"error": "Permission ไม่ถูกต้อง",
+		})
+		return
+	}
+	if obj.PermissionArea == "" {
+		c.JSON(400, gin.H{
+			"error": "PermissionArea ไม่ถูกต้อง",
+		})
+		return
+	}
 
-	t := time.Now().Local()
+	if obj.Responsible == "" {
+		c.JSON(400, gin.H{
+			"error": "Responsibles ไม่ถูกต้อง",
+		})
+		return
+	}
+
+	settime := time.Now().Format("2006-01-02T15:04:05Z07:00")
+	t, err := time.Parse(time.RFC3339, settime)
+
 	u, err := ctl.client.Patientrights.
 		Create().
 		SetPermissionDate(t).
 		SetPermission(obj.Permission).
 		SetPermissionArea(obj.PermissionArea).
 		SetResponsible(obj.Responsible).
+		SetEdgesOfPatientrightsAbilitypatientrights(Abilitypatientrights).
 		SetEdgesOfPatientrightsPatientrecord(Patientrecord).
 		SetEdgesOfPatientrightsMedicalrecordstaff(Medicalrecordstaff).
 		SetEdgesOfPatientrightsInsurance(Insurance).

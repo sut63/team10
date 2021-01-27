@@ -10,8 +10,6 @@ import {
   InputLabel,
   MenuItem,
   Avatar,
-
-  Link,
   Button,
 } from '@material-ui/core';
 import Timer from '../Timer';
@@ -77,7 +75,7 @@ const useStyles = makeStyles(theme => ({
 
 const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
-  const profile = { givenName: 'สิทธ์' };
+ 
   const http = new DefaultApi();
   const cookies = new Cookies();
 
@@ -333,7 +331,7 @@ const NewPatientright: FC<{}> = () => {
                 {Abilitypatientrights.map(item => {
                   return (
                     <MenuItem key={item.id} value={item.id}>
-                      {item.check}
+                      ตรวจสุขภาพ และ ค่า แลป : {item.examine} หัตถการ  : {item.operative} เวชภัณฑ์  : {item.medicalSupplies}
                     </MenuItem>
                   );
                 })}
