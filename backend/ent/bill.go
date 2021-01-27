@@ -19,12 +19,12 @@ type Bill struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
+	// Amount holds the value of the "Amount" field.
+	Amount string `json:"Amount,omitempty"`
 	// Payer holds the value of the "Payer" field.
 	Payer string `json:"Payer,omitempty"`
 	// Payercontact holds the value of the "Payercontact" field.
 	Payercontact string `json:"Payercontact,omitempty"`
-	// Amount holds the value of the "Amount" field.
-	Amount string `json:"Amount,omitempty"`
 	// Date holds the value of the "Date" field.
 	Date time.Time `json:"Date,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -94,9 +94,9 @@ func (e BillEdges) EdgesOfTreatmentOrErr() (*Unpaybill, error) {
 func (*Bill) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
+		&sql.NullString{}, // Amount
 		&sql.NullString{}, // Payer
 		&sql.NullString{}, // Payercontact
-		&sql.NullString{}, // Amount
 		&sql.NullTime{},   // Date
 	}
 }
@@ -123,19 +123,19 @@ func (b *Bill) assignValues(values ...interface{}) error {
 	b.ID = int(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Payer", values[0])
+		return fmt.Errorf("unexpected type %T for field Amount", values[0])
+	} else if value.Valid {
+		b.Amount = value.String
+	}
+	if value, ok := values[1].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Payer", values[1])
 	} else if value.Valid {
 		b.Payer = value.String
 	}
-	if value, ok := values[1].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Payercontact", values[1])
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Payercontact", values[2])
 	} else if value.Valid {
 		b.Payercontact = value.String
-	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Amount", values[2])
-	} else if value.Valid {
-		b.Amount = value.String
 	}
 	if value, ok := values[3].(*sql.NullTime); !ok {
 		return fmt.Errorf("unexpected type %T for field Date", values[3])
@@ -204,12 +204,12 @@ func (b *Bill) String() string {
 	var builder strings.Builder
 	builder.WriteString("Bill(")
 	builder.WriteString(fmt.Sprintf("id=%v", b.ID))
+	builder.WriteString(", Amount=")
+	builder.WriteString(b.Amount)
 	builder.WriteString(", Payer=")
 	builder.WriteString(b.Payer)
 	builder.WriteString(", Payercontact=")
 	builder.WriteString(b.Payercontact)
-	builder.WriteString(", Amount=")
-	builder.WriteString(b.Amount)
 	builder.WriteString(", Date=")
 	builder.WriteString(b.Date.Format(time.ANSIC))
 	builder.WriteByte(')')

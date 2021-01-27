@@ -7,7 +7,7 @@ import { EntUser } from '../../api/models/EntUser';
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { useEffect } from 'react';
 import { Avatar,TextField } from '@material-ui/core';
-import { EntPatientrecord } from '../../api/models/EntPatientrecord';
+import { EntDoctorinfo } from '../../api/models/EntDoctorinfo';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Alert } from '@material-ui/lab';
 import {
@@ -18,7 +18,12 @@ import {
   ContentHeader,
   Link,
 } from '@backstage/core';
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import {
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const cookies = new Cookies();
@@ -50,11 +55,11 @@ const Table: FC<{}> = () => {
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
  
-  const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
+  const [Doctorinfo, setDoctorinfo] = React.useState<EntDoctorinfo[]>([]);
 
-  const getPatientrecord = async () => {
-    const res = await http.listPatientrecord({ limit: 110, offset: 0 });
-    setPatientrecord(res);
+  const getDoctorinfo = async () => {
+    const res = await http.listDoctorinfo({ limit: 110, offset: 0 });
+    setDoctorinfo(res);
   };
   const handleChange = (event : any, value : unknown) => {
     setPat(value as string);
@@ -62,13 +67,15 @@ const Table: FC<{}> = () => {
   const sc = async () => {
     
 setSe(Pat);
-    var p = await http.listPatientrecord({ limit: 10, offset: 0 })
+    var p = await http.listDoctorinfo({ limit: 1000000000, offset: 0 })
     let i = 0
     for (let u of p){
-    if( u.name === Pat && u.id !== undefined)
+      
+    if( u.licensenumber === Pat && u !== undefined)
     i = i+1
+    
     }
-    console.log("ผู้ป่วย = ", Pat)
+    console.log("เเพทย์ = ", Pat)
 
     if (i != 0) {
       setStatus(true);
@@ -77,10 +84,16 @@ setSe(Pat);
       setStatus(true);
       setAlert(false);
     }
+
     setTimeout(() => {
       setStatus(false);
     }, 5000);
+
+    
   };
+
+
+
 
   useEffect(() => {
     const getImg = async () => {
@@ -89,41 +102,46 @@ setSe(Pat);
       setUsers(res);
     };
     getImg();
-    getPatientrecord();
+    getDoctorinfo();
     setLoading(false);
   }, [loading]);
 
   return (
     <Page theme={pageTheme.home}>
       <Header
-        title={`Patientrecord`}
->
+        title={`ยินดีต้อนรับเข้าสู่ระบบค้นหาข้อมูลเเพทย์`}
+        subtitle="">
         <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
-        <ContentHeader title="ค้นหาข้อมูลผู้ป่วย">
+        <ContentHeader title="ค้นหาข้อมูลเเพทย์">
+
           {status ? (
             <div>
               {alert ? (
                 <Alert severity="success">
-                  พบข้อมูลผู้ป่วย
+                  พบข้อมูล
                 </Alert>
               ) : (
                   <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบข้อมูลผู้ป่วย
+                    ไม่พบข้อมูล
                   </Alert>
                 )}
             </div>
           ) : null}
+
+          <FormControl variant="outlined" className={classes.formControl}>
             <Autocomplete
-              id="patientname" 
-              options={Patientrecord.map((option) => option.name)}
+              id="licensenumber"
+             
+              options={Doctorinfo.map((option) => option.licensenumber)}
               onChange={handleChange}
               renderInput={(params) => (
-                <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" style={{ width: "50ch"}} />
+                <TextField {...params} label="เลขใบประกอบวิชาชีพ" margin="normal" variant="outlined" />
               )}
             />
+            </FormControl>
             <Button
               onClick={() => {
                sc();
@@ -134,20 +152,28 @@ setSe(Pat);
             >
               ค้นหา
                </Button>&emsp;
+          
+
           <Link component={RouterLink} to="/">
-            <Button variant="contained" color="primary" style={{backgroundColor: "#d500f9"}}>
+            <Button variant="contained" color="primary">
               Home
            </Button>
           </Link>&emsp;
-          <Link component={RouterLink} to="/createPatientrecord">
-            <Button variant="contained" color="primary" style={{backgroundColor: "#9500ae"}} startIcon={<AddBoxIcon />} size="large">
-              ลงทะเบียนผู้ป่วยนอก
-            </Button>
+
+         <Link component={RouterLink} to="/Doctorinfo">
+            <Button variant="contained" color="primary">
+              เพิ่มข้อมูลเเพทย์
+           </Button>
           </Link>
+
+
         </ContentHeader>
         <div className={classes.root}>
+
           <ComponanceTable sim={Se}></ComponanceTable>
+
         </div>
+
       </Content>
     </Page>
   );

@@ -83,8 +83,26 @@ func init() {
 	}()
 	billFields := schema.Bill{}.Fields()
 	_ = billFields
+	// billDescAmount is the schema descriptor for Amount field.
+	billDescAmount := billFields[0].Descriptor()
+	// bill.AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
+	bill.AmountValidator = func() func(string) error {
+		validators := billDescAmount.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_Amount string) error {
+			for _, fn := range fns {
+				if err := fn(_Amount); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// billDescPayer is the schema descriptor for Payer field.
-	billDescPayer := billFields[0].Descriptor()
+	billDescPayer := billFields[1].Descriptor()
 	// bill.PayerValidator is a validator for the "Payer" field. It is called by the builders before save.
 	bill.PayerValidator = func() func(string) error {
 		validators := billDescPayer.Validators
@@ -103,7 +121,7 @@ func init() {
 		}
 	}()
 	// billDescPayercontact is the schema descriptor for Payercontact field.
-	billDescPayercontact := billFields[1].Descriptor()
+	billDescPayercontact := billFields[2].Descriptor()
 	// bill.PayercontactValidator is a validator for the "Payercontact" field. It is called by the builders before save.
 	bill.PayercontactValidator = func() func(string) error {
 		validators := billDescPayercontact.Validators
@@ -116,24 +134,6 @@ func init() {
 		return func(_Payercontact string) error {
 			for _, fn := range fns {
 				if err := fn(_Payercontact); err != nil {
-					return err
-				}
-			}
-			return nil
-		}
-	}()
-	// billDescAmount is the schema descriptor for Amount field.
-	billDescAmount := billFields[2].Descriptor()
-	// bill.AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
-	bill.AmountValidator = func() func(string) error {
-		validators := billDescAmount.Validators
-		fns := [...]func(string) error{
-			validators[0].(func(string) error),
-			validators[1].(func(string) error),
-		}
-		return func(_Amount string) error {
-			for _, fn := range fns {
-				if err := fn(_Amount); err != nil {
 					return err
 				}
 			}

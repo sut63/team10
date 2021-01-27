@@ -7,13 +7,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import MoreInfo from './prinfo'
 import { DefaultApi } from '../../api/apis';
-import {
-  Grid,
-  Typography,
-  Avatar,
-  Button,
-} from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 
 const useStyles = makeStyles(theme => ({
@@ -91,6 +86,7 @@ export default function ComponanceTable(sim: any) {
               <TableCell align="center">ที่อยู่</TableCell>
               <TableCell align="center">วันเวลาที่ลงทะเบียนผู้ป่วยนอก</TableCell>
               <TableCell align="center">พนักงานเวชระเบียนที่ทำการลงบันทึก</TableCell>
+              <TableCell align = "center">Manage</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -112,6 +108,9 @@ export default function ComponanceTable(sim: any) {
                 <TableCell align="center">{item.home}</TableCell>
                 <TableCell align="center">{item.date}</TableCell>
                 <TableCell align = "center">{item.edges?.edgesOfMedicalrecordstaff?.name}</TableCell>
+                <TableCell align = "center">
+                  <MoreInfo id ={item.id}></MoreInfo>
+                </TableCell>
                   </TableRow>
                 ))}
             </TableBody>
