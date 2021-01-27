@@ -12,6 +12,7 @@ import createTreatment from './components/createTreatment';
 import Treatment from './components/Treatment';
 import findTreatment from './components/findTreatment';
 import CreateDoctorinfo from './components/Doctorinfo';
+import Table_Doctors from './components/Table_Doctors';
 import create_Doctor from './components/create_Doctor';
 import createPatientrecord from './components/createPatientrecord';
 import tablePatientrecord from './components/tablePatientrecord';
@@ -69,6 +70,7 @@ export const plugin = createPlugin({
       if (Status == 'Reg' || Status == 'Root' ) {
         
         router.registerRoute('/Doctorinfo', CreateDoctorinfo);
+        router.registerRoute('/Table_Doctors', Table_Doctors);
         router.registerRoute('/create_Doctor', create_Doctor);
       }
 
