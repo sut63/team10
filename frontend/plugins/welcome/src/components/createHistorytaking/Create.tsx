@@ -241,37 +241,37 @@ export default function CreateHistorytaking() {
 
   // ฟังก์ชั่นสำหรับ validate hightError
   const validatehight = (val: string) => {
-    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
+    return val.charCodeAt(0) >= 48  && val.charCodeAt(0) <= 57 || val.charCodeAt(0) == 46 ? true : false;
   }
 
   // ฟังก์ชั่นสำหรับ validate weightError
   const validateweight = (val: string) => {
-    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
+    return val.charCodeAt(0) >= 48  && val.charCodeAt(0) <= 57 || val.charCodeAt(0) == 46 ? true : false;
   }
 
   // ฟังก์ชั่นสำหรับ validate tempError
   const validatetemp = (val: string) => {
-    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
+    return val.charCodeAt(0) >= 48  && val.charCodeAt(0) <= 57 || val.charCodeAt(0) == 46 ? true : false;
   }
 
   // ฟังก์ชั่นสำหรับ validate pulseError
   const validatepulse = (val: string) => {
-    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 ? true : false;
+    return val.charCodeAt(0) >= 48  && val.charCodeAt(0) <= 57 ? true : false;
   }
   
   // ฟังก์ชั่นสำหรับ validate respirationError
   const validaterespiration = (val: string) => {
-    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 ? true : false;
+    return val.charCodeAt(0) >= 48  && val.charCodeAt(0) <= 57 ? true : false;
   }
 
   // ฟังก์ชั่นสำหรับ validate bpError
   const validatebp = (val: string) => {
-    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 ? true : false;
+    return val.charCodeAt(0) >= 48  && val.charCodeAt(0) <= 57 ? true : false;
   }
 
   // ฟังก์ชั่นสำหรับ validate oxygenError
   const validateoxygen = (val: string) => {
-    return val.charCodeAt(0) >= 57 && val.charCodeAt(0) <= 48 || val.charCodeAt(0) == 46 ? true : false;
+    return val.charCodeAt(0) >= 48  && val.charCodeAt(0) <= 57 || val.charCodeAt(0) == 46 ? true : false;
   }
 
   // ฟังก์ชั่นสำหรับ validate symptomError

@@ -114,14 +114,13 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	var h float32
 	hights, err := strconv.ParseFloat(obj.Hight, 64);
 		h = float32(hights)
-
+		
 	if len(obj.Hight) <= 0 {
 		c.JSON(400, gin.H{
 			"error": "โปรดกรอกค่าส่วนสูง",
 		})
 		return
 	}
-
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าส่วนสูงต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
