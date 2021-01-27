@@ -70,7 +70,7 @@ setSe(Pat);
     var p = await http.listPatientrecord({ limit: 10, offset: 0 })
     let i = 0
     for (let u of p){
-    if( u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined)
+    if( (u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined)||(Pat === null||u.edges?.edgesOfPatientrecordPatientrights !== undefined))
     i = i+1
     
     }
@@ -133,7 +133,7 @@ setSe(Pat);
           <FormControl variant="outlined" className={classes.formControl}>
             <Autocomplete
               id="patientname"
-             
+                freeSolo
               options={Patientrecord.map((option) => option.name)}
               onChange={handleChange}
               renderInput={(params) => (
