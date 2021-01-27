@@ -22,6 +22,7 @@ import { EntDepartment} from '../../api/models/EntDepartment';
 import { EntOfficeroom } from '../../api/models/EntOfficeroom';
 import { EntUser } from '../../api/models/EntUser';
 import { Grid,TextField, Avatar } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
 
 // header css
 const HeaderCustom = {
@@ -286,7 +287,6 @@ const Create_Doctorinfo = async () => {
      && (Doctorinfo.doctorsurname != '') && (Doctorinfo.educationlevel != null)
      && (Doctorinfo.licensenumber != '')&& (Doctorinfo.officeroom != null)
      && (Doctorinfo.prename != null)&& (Doctorinfo.telephonenumber != '')) {
-
    const res: any = await api.createDoctorinfo({ 
       doctorinfo:Doctorinfo
     
@@ -494,6 +494,20 @@ const Create_Doctorinfo = async () => {
                     color="primary"
                 >
                     Submit
+                </Button>
+                </Typography> <br/>
+                </div>
+
+                <div className={classes.margin}>
+                <Typography variant="h6" gutterBottom  align="center">
+                <Button
+                style={{ marginLeft: 40 }}
+                component={RouterLink}
+                to="/Table_Doctors"
+                variant="contained"
+                color="secondary"
+              >
+                SHOW
                 </Button>
                 </Typography> <br/>
                 </div>

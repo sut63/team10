@@ -1,1 +1,1 @@
-export { default } from './BillTable';
+export { default } from './BillSearch';

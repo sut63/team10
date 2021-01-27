@@ -26,9 +26,9 @@ var (
 	// BillsColumns holds the columns for the "bills" table.
 	BillsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "amount", Type: field.TypeString},
 		{Name: "payer", Type: field.TypeString},
 		{Name: "payercontact", Type: field.TypeString, Size: 10},
-		{Name: "amount", Type: field.TypeString},
 		{Name: "date", Type: field.TypeTime},
 		{Name: "officer_id", Type: field.TypeInt, Nullable: true},
 		{Name: "paytype_id", Type: field.TypeInt, Nullable: true},

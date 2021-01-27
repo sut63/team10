@@ -46,7 +46,7 @@ export const AppSidebar = () => (
     />
     <SidebarItem
             icon={CreateComponentIcon}
-      to="Treatment"
+      to="findTreatment"
       text="บันทึกการรักษา"
     />
     <SidebarItem

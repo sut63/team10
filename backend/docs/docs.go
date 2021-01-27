@@ -817,7 +817,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Bill"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Bill"
+                            }
                         }
                     },
                     "400": {

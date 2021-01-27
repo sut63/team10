@@ -8,27 +8,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-
+import MoreInfo from './Table_info'
 import { DefaultApi } from '../../api/apis';
 import { EntPatientrights } from '../../api/models/EntPatientrights';
 
-
-import {
-  Grid,
-  Typography,
-  Avatar,
-  Button,
-} from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-
-
-import HomeIcon from '@material-ui/icons/Home';
-import PhoneIcon from '@material-ui/icons/Phone';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import Divider from '@material-ui/core/Divider';
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,8 +23,10 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
   root: {
-    width: '100%',
+   // width: '100%',
     maxWidth: 360,
+    minWidth: 360,
+
     backgroundColor: theme.palette.background.paper,
 
   },
@@ -65,8 +50,8 @@ export default function ComponentsTable(sim: any) {
   const api = new DefaultApi();
   const [Patientrightss, setPatientrightss] = useState<EntPatientrights[]>(Array);
   const [loading, setLoading] = useState(true);
-  const [nc, setnc] = useState(true);
-  const [no, setno] = useState<EntPatientrights>({});
+
+
 
   const getPatientrightss = async () => {
     const res = await api.listPatientrights({ limit: 100, offset: 0 });
@@ -78,17 +63,11 @@ export default function ComponentsTable(sim: any) {
   useEffect(() => {
 
     getPatientrightss();
-    setnc(true);
+    
   }, [loading]);
 
 
 
-  const Show = async (i: any) => {
-
-    setno(i);
-    setnc(false);
-
-  };
   var p = 0;
 console.log("sim",sim.sim)
   for (var val of Patientrightss) {
@@ -97,7 +76,7 @@ console.log("sim",sim.sim)
     }
 
   }
-  if (nc) {
+
 
 
     if (p !== 0) {
@@ -132,16 +111,7 @@ console.log("sim",sim.sim)
                     <TableCell align="center">{item.responsible}</TableCell>
                     <TableCell align="center">{item.permissionDate}</TableCell>
                     <TableCell align="center">
-                      <Button
-                        onClick={() => {
-                          Show(item);
-                        }}
-                        style={{ marginLeft: 10 }}
-                        variant="contained"
-                        color="secondary"
-                      >
-                        ดูข้อมูล
-               </Button>
+                    <MoreInfo id={item}></MoreInfo>
                     </TableCell>
 
 
@@ -168,122 +138,9 @@ console.log("sim",sim.sim)
         </TableContainer>
       );
     }
-  } else {
-    return (
-      <Grid container alignItems="center">
-        <div>
-        <List className={classes.root}>
-          <div className={classes.section1}>
-            <Grid container alignItems="center">
-              <Grid item xs>
-                <Typography gutterBottom variant="h4">
-                  ประวัติผู้ป่วย
-            </Typography>
-              </Grid>
-              <Grid item>
-                <Typography gutterBottom variant="h6">
-                  {no.edges?.edgesOfPatientrightsPatientrecord?.name}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Typography color="textSecondary" variant="body2">
-              ที่อยู่ : {no.edges?.edgesOfPatientrightsPatientrecord?.home}
-            </Typography>
-          </div>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <HomeIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="ที่อยู่ : " secondary={no.edges?.edgesOfPatientrightsPatientrecord?.home} />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <PhoneIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="เบอร์โทร" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.phonenumber} />
-          </ListItem>
-
-
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <div className={classes.section3}>
-              <Button color="primary" onClick={() => { setnc(true) }}>กลับ</Button>
-            </div>
-          </ListItem>
-
-
-
-
-
-        </List>
-        </div>&emsp;
-
-        <div>
-        <List className={classes.root}>
-          <div className={classes.section1}>
-            <Grid container alignItems="center">
-              <Grid item xs>
-                <Typography gutterBottom variant="h4">
-                  สิทผู้ป่วย
-            </Typography>
-              </Grid>
-              <Grid item>
-                <Typography gutterBottom variant="h6">
-                  {no.edges?.edgesOfPatientrightsPatientrecord?.name}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Typography color="textSecondary" variant="body2">
-              ที่อยู่ : {no.edges?.edgesOfPatientrightsPatientrecord?.home}
-            </Typography>
-          </div>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <HomeIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="ที่อยู่ : " secondary={no.edges?.edgesOfPatientrightsPatientrecord?.home} />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <PhoneIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary="เบอร์โทร" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.phonenumber} />
-          </ListItem>
-
-
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <div className={classes.section3}>
-              <Button color="primary" onClick={() => { setnc(true) }}>กลับ</Button>
-            </div>
-          </ListItem>
-
-
-
-
-
-        </List>
-        </div>
-      </Grid>
-
-
-
-
-    );
+  
   }
 
 
-}
+
 
