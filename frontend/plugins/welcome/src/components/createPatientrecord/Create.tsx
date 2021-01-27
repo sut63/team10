@@ -79,10 +79,6 @@ export  default  function Create() {
   const classes = useStyles();
   const api = new DefaultApi();
 
-  const [idcardnumberError, setidcardnumberError] = React.useState('');
-  const [AllergicError, setAllergicError] = React.useState('');
-  const [phonenumberError, setphonenumberError] = React.useState('');
-
   const [prename, setPrename] = React.useState<EntPrename[]>([]);
   const [gender, setGender] = React.useState<EntGender[]>([]);
   const [bloodtype, setBloodtype] = React.useState<EntBloodtype[]>([]);
@@ -146,42 +142,8 @@ export  default  function Create() {
     ) => {
       const name = event.target.name as keyof typeof CreatePatientrecord;
       const { value } = event.target;
-      const validateValue = value as string
-      checkPattern(name, validateValue)
       setPatientrecord({ ...Patientrecord, [name]: value,medicalrecordstaff:medicalrecordstaff?.id  });
     };
-
-    // ฟังก์ชั่นสำหรับ validate idcardnumberError
-  const validateidcardnumber = (val: string) => {
-    return val.length == 13 ? true : false;
-  }
-
-    // ฟังก์ชั่นสำหรับ validate AllergicError
-  const validateAllergic = (val: string) => {
-    return val.charCodeAt(0) >= 65 && val.charCodeAt(0) <= 90 ? true : false;
-  }
-
-  // ฟังก์ชั่นสำหรับ validate phonenumberError
-  const validatephonenumber = (val: string) => {
-    return val.length == 10 ? true : false;
-  }
-
-  // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
-  const checkPattern = (id: string, value: string) => {
-    switch (id) {
-      case 'Idcardnumber':
-        validateidcardnumber(value) ? setidcardnumberError('') : setidcardnumberError('หมายเลยบัตรประชาชน 13 หลัก');
-        return;
-      case 'Allergic':
-        validateAllergic(value) ? setAllergicError('') : setAllergicError('ชื่อยาตัวแรกต้องเป็นภาษาอังกฤษพิมพ์ใหญ่');
-        return;
-      case 'Phonenumber':
-        validatephonenumber(value) ? setphonenumberError('') : setphonenumberError('หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลัก');
-        return;
-      default:
-        return;
-    }
-  }
   
   const alertMessage = (icon: any, title: any) => {
     Toast.fire({
@@ -191,14 +153,23 @@ export  default  function Create() {
   }
   const checkCaseSaveError = (field: string) => {
     switch(field) {
+      case 'Name':
+        alertMessage("error","ชื่อต้องเป็นภาษาไทย");
+        return;
       case 'Idcardnumber':
-        alertMessage("error","หมายเลยบัตรประชาชน 13 หลัก");
+        alertMessage("error","หมายเลยบัตรประชาชนต้องเป็นตัวเลข 13 หลัก");
+        return;
+      case 'Age':
+        alertMessage("error","กรุณากรอกอายุ");
         return;
       case 'Allergic':
-        alertMessage("error","ชื่อยาตัวแรกต้องเป็นภาษาอังกฤษพิมพ์ใหญ่");
+        alertMessage("error","กรุณาระบุว่าไม่แพ้ยาหรือกรอกชื่อยาที่แพ้");
         return;
       case 'Phonenumber':
-        alertMessage("error","หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลัก");
+        alertMessage("error","หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลักและขึ้นต้นด้วย 0");
+        return;
+      case 'Email':
+        alertMessage("error","รูปแบบอีเมล์ไม่ถูกต้อง");
         return;
       default:
         alertMessage("error","บันทึกข้อมูลไม่สำเร็จ");
@@ -414,7 +385,7 @@ export  default  function Create() {
                 <Button
                     style={{ marginLeft: 40 }}
                     component={RouterLink}
-                    to="/Patientrecord"
+                    to="/tablePatientrecord"
                     variant="contained"
                     color="secondary"
                 >

@@ -116,7 +116,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 			fmt.Println(err)
 			c.JSON(400, gin.H{
 				"status": false,
-				"error":  err,
+				"error":  err.Error(),
 			})
 			return
 		}else {
