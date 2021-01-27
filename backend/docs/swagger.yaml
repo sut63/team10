@@ -1565,7 +1565,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Bill'
+            items:
+              $ref: '#/definitions/ent.Bill'
+            type: array
         "400":
           description: Bad Request
           schema:
