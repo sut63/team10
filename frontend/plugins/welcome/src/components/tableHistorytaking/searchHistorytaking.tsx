@@ -88,7 +88,7 @@ const Table: FC<{}> = () => {
 
     setTimeout(() => {
       setStatus(false);
-    }, 1000);
+    }, 5000);
 
   };
 
