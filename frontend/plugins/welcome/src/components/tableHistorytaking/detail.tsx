@@ -71,15 +71,16 @@ export default function MoreInfo(id: any) {
                                 รายละเอียด<br />
                             </Typography>
                             <Typography variant='subtitle1'>
-                                Patientname:&emsp;{historytaking.edges?.edgesOfPatientrecord?.name}&emsp;by&emsp;{historytaking.edges?.edgesOfNurse?.name}<br/>
+                                Patientname:&emsp;{historytaking.edges?.edgesOfPatientrecord?.name}<br/>
+                                Nurse:&emsp;{historytaking.edges?.edgesOfNurse?.name}<br/>
                                 Department:&emsp;{historytaking.edges?.edgesOfDepartment?.department}<br/>
                                 Symptomseverity:&emsp;{historytaking.edges?.edgesOfSymptomseverity?.symptomseverity}<br/>
-                                Hight:&emsp;{historytaking.hight}&emsp;<br />
-                                Weight:&emsp;{historytaking.weight}&emsp;<br />
-                                Temperature:&emsp;{historytaking.temp}&emsp;<br />
-                                Pulse:&emsp;{historytaking.pulse}&emsp;<br />
-                                Respiration:&emsp;{historytaking.respiration}&emsp;<br />
-                                Blood pressure:&emsp;{historytaking.bp}&emsp;<br />
+                                Hight:&emsp;{historytaking.hight}&emsp;cm<br />
+                                Weight:&emsp;{historytaking.weight}&emsp;kg<br />
+                                Temperature:&emsp;{historytaking.temp}&emsp;°C <br />
+                                Pulse:&emsp;{historytaking.pulse}&emsp;times/min<br />
+                                Respiration:&emsp;{historytaking.respiration}&emsp;times/min<br />
+                                Blood pressure:&emsp;{historytaking.bp}&emsp;mm/Hg<br />
                                 %Oxygen:&emsp;{historytaking.oxygen}<br />
                                 Sympton:&emsp;{historytaking.symptom}<br />
                                 Datetime:&emsp;{historytaking.datetime}<br />

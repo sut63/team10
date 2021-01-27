@@ -18,12 +18,7 @@ import {
   ContentHeader,
   Link,
 } from '@backstage/core';
-import {
-  FormControl,
-  Select,
-  InputLabel,
-  MenuItem,
-} from '@material-ui/core';
+import { FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const cookies = new Cookies();

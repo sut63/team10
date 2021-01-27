@@ -8,8 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import MoreInfo from './detail';
-import { Grid, Typography, Button, Link } from '@material-ui/core';
-import { Link as RouterLink } from 'react-router-dom';
 import { DefaultApi } from '../../api/apis';
 import { EntHistorytaking } from '../../api';
 
@@ -41,17 +39,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const refreshPage = () => {
-  window.location.reload();
-}
-
 export default function ComponentsTable(sim: any) {
   const classes = useStyles();
   const api = new DefaultApi();
   const [Historytakings, setHistorytakings] = useState<EntHistorytaking[]>(Array);
   const [loading, setLoading] = useState(true);
   const [nc, setnc] = useState(true);
-  const [no, setno] = useState<EntHistorytaking>({});
 
   const getHistorytakings = async () => {
     const res = await api.listHistorytaking({ limit: 100, offset: 0 });
@@ -66,14 +59,6 @@ export default function ComponentsTable(sim: any) {
     setnc(true);
   }, [loading]);
 
-
-
-  const Show = async (i: any) => {
-
-    setno(i);
-    setnc(false);
-
-  };
   var p = 0;
 
   for (var val of Historytakings) {
