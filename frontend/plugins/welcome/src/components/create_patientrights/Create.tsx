@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+
 import { Content, Header, Page, pageTheme, ContentHeader, } from '@backstage/core';
 
 import {
-
+  TextField,
   FormControl,
   Select,
   InputLabel,
@@ -12,7 +12,7 @@ import {
   Avatar,
   Button,
 } from '@material-ui/core';
-import Timer from '../Timer';
+
 import { DefaultApi } from '../../api/apis'; // Api Gennerate From Command
 import { ControllersPatientrights } from '../../api/models/ControllersPatientrights';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
