@@ -75,7 +75,7 @@ export default function MoreInfo( id : any) {
                         ยาที่แพ้ : &emsp;{patientrecord.allergic}<br/>
                         เบอร์โทรที่ติดต่อได้ : &emsp;{patientrecord.phonenumber}<br/>
                         อีเมล์ : &emsp;{patientrecord.email}<br/>
-                        อีเมล์ : &emsp;{patientrecord.home}<br/>
+                        ที่อยู่ : &emsp;{patientrecord.home}<br/>
                         วันเวลาที่จ่าย : &emsp;{patientrecord.date}<br/>
                         ผู้รับเงิน : &emsp;{patientrecord.edges?.edgesOfMedicalrecordstaff?.name}<br/>
                     </Typography>
