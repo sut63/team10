@@ -6,7 +6,6 @@ import { EntBill,EntTreatment,EntUnpaybill } from '../../api/models';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {Grid, Modal,Typography} from '@material-ui/core';
 import Fade from '@material-ui/core/Fade';
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
@@ -22,15 +21,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 );
-
 export default function MoreInfo( id : any) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
   const handleOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -39,7 +35,6 @@ export default function MoreInfo( id : any) {
   const [bills, setBills] = useState<EntBill[]>(Array);
   const [unpaybills, setUnpayBills] = useState<EntUnpaybill[]>(Array);
   const [treatments, setTreatments] = useState<EntTreatment[]>(Array);
-  
   const getUnpayBills = async () => {
     const res = await http.listUnpaybill();
     setLoading(false);

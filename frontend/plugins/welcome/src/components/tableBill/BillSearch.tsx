@@ -168,7 +168,7 @@ const BillSearch: FC<{}> = () => {
             ค้นหา
                </Button>&emsp;
             <Link component={RouterLink} to="/creatbill">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color='secondary'>
               กลับ
            </Button>
           </Link>
