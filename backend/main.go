@@ -293,7 +293,7 @@ type Treatments struct {
 // Treatment defines the struct for the Treatment
 type Treatment struct {
 	Symptom       string
-	Treat       string
+	Treat         string
 	Medicine      string
 	Typetreatment int
 	Doctor        int
@@ -557,7 +557,7 @@ func main() {
 		m := fmt.Sprintf("%d", int(a.MedicalSupplies))
 		e := fmt.Sprintf("%d", int(a.Examine))
 		var ck string
-		ck = o+"-"+m+"-"+e
+		ck = o + "-" + m + "-" + e
 		client.Abilitypatientrights.
 			Create().
 			SetOperative(a.Operative).
@@ -635,9 +635,9 @@ func main() {
 	// Set Patientrecord Data
 	Patientrecords := Patientrecords{
 		Patientrecord: []Patientrecord{
-			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198146", 21, 1, "-", "A", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิชัย ชาญชัย", 1, "1300101198136", 21, 1, "-", "Caa", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิลินา ชาญชัย", 1, "1300101198126", 21, 1, "-", "Caa", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198146", 21, 1, "ไม่มี", "tetracyclines", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิชัย ชาญชัย", 1, "1300101198136", 21, 1, "ไม่มี", "penicillin", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลินา ชาญชัย", 1, "1300101198126", 21, 1, "ไม่มี", "aspirin", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 		},
 	}
 	for _, pr := range Patientrecords.Patientrecord {
@@ -940,8 +940,8 @@ func main() {
 
 	treatments := Treatments{
 		Treatment: []Treatment{
-			Treatment{"ปวดหัว","ไมเกรน","ยาแก้ปวด ยาลดความเครียด", 2, 1, 1},
-			Treatment{"เจ็บขา","กล้ามเนื้ออักเสพ","ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 2},
+			Treatment{"ปวดหัว", "ไมเกรน", "ยาแก้ปวด ยาลดความเครียด", 2, 1, 1},
+			Treatment{"เจ็บขา", "กล้ามเนื้ออักเสพ", "ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 2},
 		},
 	}
 	for _, t := range treatments.Treatment {
@@ -985,10 +985,10 @@ func main() {
 			SetDatetreat(times).
 			SetEdgesOfPatientrecord(m).
 			Save(context.Background())
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 	}
 	//Set Unpaybill Data
 	unpaybills := Unpaybills{

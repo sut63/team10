@@ -79,7 +79,7 @@ setSe(Pat);
     }
     setTimeout(() => {
       setStatus(false);
-    }, 1000);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -135,12 +135,12 @@ setSe(Pat);
               ค้นหา
                </Button>&emsp;
           <Link component={RouterLink} to="/">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" style={{backgroundColor: "#d500f9"}}>
               Home
            </Button>
           </Link>&emsp;
           <Link component={RouterLink} to="/createPatientrecord">
-            <Button variant="contained" color="primary" style={{backgroundColor: "#b388ff"}} startIcon={<AddBoxIcon />} size="large">
+            <Button variant="contained" color="primary" style={{backgroundColor: "#9500ae"}} startIcon={<AddBoxIcon />} size="large">
               ลงทะเบียนผู้ป่วยนอก
             </Button>
           </Link>
