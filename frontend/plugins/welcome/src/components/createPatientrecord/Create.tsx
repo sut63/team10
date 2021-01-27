@@ -154,16 +154,16 @@ export  default  function Create() {
   const checkCaseSaveError = (field: string) => {
     switch(field) {
       case 'Name':
-        alertMessage("error","ชื่อต้องเป็นภาษาไทย");
+        alertMessage("error","ชื่อและนามสกุลต้องเป็นภาษาไทย");
         return;
       case 'Idcardnumber':
         alertMessage("error","หมายเลยบัตรประชาชนต้องเป็นตัวเลข 13 หลัก");
         return;
-      case 'Age':
-        alertMessage("error","กรุณากรอกอายุ");
+      case 'Disease':
+        alertMessage("error","ชื่อโรคต้องเป็นภาษาไทย");
         return;
       case 'Allergic':
-        alertMessage("error","กรุณาระบุว่าไม่แพ้ยาหรือกรอกชื่อยาที่แพ้");
+        alertMessage("error","ชื่อยาต้องเป็นภาษาอังกฤษ");
         return;
       case 'Phonenumber':
         alertMessage("error","หมายเลขโทรศัพท์ต้องเป็นตัวเลข 10 หลักและขึ้นต้นด้วย 0");
