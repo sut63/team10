@@ -4,13 +4,13 @@ import WelcomePage from './components/WelcomePage';
 
 import create_Patientrights from './components/create_patientrights';
 import Table_patientrights from './components/Table_patientrights';
-import Historytaking from './components/Historytaking';
 import tableHistorytaking from './components/tableHistorytaking';
 import createHistorytaking from './components/createHistorytaking';
 import CreateBill from './components/createBill'
 import BillTable from './components/tableBill'
 import createTreatment from './components/createTreatment';
 import Treatment from './components/Treatment';
+import findTreatment from './components/findTreatment';
 import CreateDoctorinfo from './components/Doctorinfo';
 import create_Doctor from './components/create_Doctor';
 import createPatientrecord from './components/createPatientrecord';
@@ -56,12 +56,12 @@ export const plugin = createPlugin({
       }
       if (Status == 'Nur' || Status == 'Root' ) {
         router.registerRoute('/createHistorytaking', createHistorytaking);
-        router.registerRoute('/Historytaking', Historytaking);
         router.registerRoute('/tableHistorytaking', tableHistorytaking);
       }
       if (Status == 'Doc' || Status == 'Root' ) {
         router.registerRoute('/Treatment', Treatment);
         router.registerRoute('/createTreatment', createTreatment);
+        router.registerRoute('/findTreatment', findTreatment);
         router.registerRoute('/tableHistorytaking', tableHistorytaking);
 
       }
