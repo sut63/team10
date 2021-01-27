@@ -15,7 +15,8 @@ pids
 *.seed
 *.pid.lock
 
-# db & exe
+# db & exe & .DS_Store
+**/.DS_Store*
 **/main.exe
 **/ent.db
 
