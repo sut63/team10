@@ -14,7 +14,6 @@ import Treatment from './components/Treatment';
 import CreateDoctorinfo from './components/Doctorinfo';
 import create_Doctor from './components/create_Doctor';
 import createPatientrecord from './components/createPatientrecord';
-import Patientrecord from './components/Patientrecord';
 import tablePatientrecord from './components/tablePatientrecord';
 import Login from './components/Login';
 import Logout from './components/Logout';
@@ -53,7 +52,6 @@ export const plugin = createPlugin({
         router.registerRoute('/create_Patientrights', create_Patientrights);
         router.registerRoute('/Table_patientrights', Table_patientrights);
         router.registerRoute('/createPatientrecord', createPatientrecord);
-        router.registerRoute('/Patientrecord', Patientrecord);
         router.registerRoute('/tablePatientrecord', tablePatientrecord);
       }
       if (Status == 'Nur' || Status == 'Root' ) {

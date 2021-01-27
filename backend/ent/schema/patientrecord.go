@@ -1,6 +1,9 @@
 package schema
 
 import (
+	"errors"
+	"regexp"
+
 	"github.com/facebookincubator/ent"
 	"github.com/facebookincubator/ent/schema/edge"
 	"github.com/facebookincubator/ent/schema/field"
@@ -14,13 +17,20 @@ type Patientrecord struct {
 // Fields of the Patientrecord.
 func (Patientrecord) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Name").NotEmpty(),
+		field.String("Name").NotEmpty().Match(regexp.MustCompile("[ก-ฮ]")),
 		field.String("Idcardnumber").MinLen(13).MaxLen(13).Unique(),
 		field.Int("Age").Min(0),
 		field.String("Disease").NotEmpty(),
 		field.String("Allergic").NotEmpty(),
-		field.String("Phonenumber").MinLen(10).MaxLen(10),
-		field.String("Email").NotEmpty(),
+		field.String("Phonenumber").MinLen(10).MaxLen(10).
+			Validate(func(s string) error {
+				match, _ := regexp.MatchString("[0]\\d", s)
+				if !match {
+					return errors.New("เบอร์โทรต้องเป็นตัวเลขและขึ้นต้นด้วย 0")
+				}
+				return nil
+			}),
+		field.String("Email").NotEmpty().Match(regexp.MustCompile("[a-zA-Z0-9]+@([a-zA-Z0-9]+.)+[A-Za-z]")),
 		field.String("Home").NotEmpty(),
 		field.Time("Date"),
 	}
