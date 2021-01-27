@@ -151,5 +151,3 @@ export default function ComponentsTable(sim: any) {
 }
 
 
-
-
