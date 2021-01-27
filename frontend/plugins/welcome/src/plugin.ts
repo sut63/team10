@@ -70,7 +70,7 @@ export const plugin = createPlugin({
       if (Status == 'Reg' || Status == 'Root' ) {
         
         router.registerRoute('/Doctorinfo', CreateDoctorinfo);
-        router.registerRoute('/Table_Doctors ', Table_Doctors);
+        router.registerRoute('/Table_Doctors', Table_Doctors);
         router.registerRoute('/create_Doctor', create_Doctor);
       }
 
