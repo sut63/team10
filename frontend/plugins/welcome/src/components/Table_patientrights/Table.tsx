@@ -55,6 +55,7 @@ const Table: FC<{}> = () => {
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
  
+
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const getPatientrecord = async () => {
@@ -92,12 +93,9 @@ setSe(Pat);
   };
 
 
-
-
   useEffect(() => {
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
-
       setUsers(res);
     };
     getImg();
