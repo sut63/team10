@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { ContentHeader, Content, Header, Page, pageTheme } from '@backstage/core';
-import { FormControl, Select, InputLabel, MenuItem, TextField, Button, InputAdornment, Grid } from '@material-ui/core';
+import { ContentHeader, Content, Header, Page, pageTheme, Link, ItemCard } from '@backstage/core';
+import { FormControl, Select, InputLabel, MenuItem, TextField, Button, InputAdornment, Grid, Typography } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 //api
 import { DefaultApi } from '../../api/apis';
@@ -13,6 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Textinfo from './textTreat';
 //entity
 import { EntTreatment } from '../../api/models/EntTreatment';
 import { EntUser } from '../../api/models/EntUser';
@@ -81,8 +82,12 @@ export default function ComponentsTable() {
   const http = new DefaultApi();
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState(false);
-  
+
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
+  const [treatmentid, setTreatmentId] = React.useState(Number);
+  const [treat, setTreat] = React.useState(String);
+  const [symptom, setSymptom] = React.useState(String);
+  const [medicine, setMedicine] = React.useState(String);
 
   const [checkname, setcheckname] = useState(false);
   const [treatment, setTreatment] = useState<EntTreatment[]>([])
@@ -114,7 +119,7 @@ export default function ComponentsTable() {
       const res = await http.listPatientrecord({ limit: 2, offset: 0 });
       setLoading(false);
       setPatientrecord(res);
-  };
+    };
     getTreatment();
     getDocdor();
     getPatientrecord();
@@ -147,7 +152,7 @@ export default function ComponentsTable() {
       }
     })
     if (!check) {
-      alertMessage("error", "ค้นหาข้อมูลบันทึกการรักษาไม่สำเร็จ");
+      alertMessage("error", "ไม่พบชื่อผู้ป่วยในระบบ");
     }
     console.log(checkname)
     if (name == "") {
@@ -158,10 +163,10 @@ export default function ComponentsTable() {
   return (
 
     <Page theme={pageTheme.home}>
-        <Header style={HeaderCustom} title={`Treatment Department`}>
-          <Avatar alt="Remy Sharp" src={Users?.images as string} />
-          <div style={{ marginLeft: 10 }}>{Name}</div>
-        </Header>
+      <Header style={HeaderCustom} title={`Treatment Department`}>
+        <Avatar alt="Remy Sharp" src={Users?.images as string} />
+        <div style={{ marginLeft: 10 }}>{Name}</div>
+      </Header>
       <Content>
         <ContentHeader title="ค้นหาบันทึกการรักษา">
           <div>&nbsp;&nbsp;&nbsp;</div>
@@ -188,12 +193,24 @@ export default function ComponentsTable() {
           </Button>
           <div>&nbsp;&nbsp;&nbsp;</div>
           <Button
+<<<<<<< HEAD
+            href="/createTreatment"
+            variant="contained"
+            style={{ backgroundColor: "#21b6ae" }}
+            color="primary"
+          >
+            สร้างบันทึกการรักษา
+            </Button>
+          <div>&nbsp;&nbsp;&nbsp;</div>
+          <Button
+            href="/"
+=======
             href="/treatment"
+>>>>>>> 500672c87d37443cc1f0a9d6480b1870a43735de
             variant="contained"
             color="primary"
-            startIcon={<CancelTwoToneIcon />}
           >
-            ย้อนกลับ
+            กลับสู่หน้าหลัก
           </Button>
         </ContentHeader>
 
@@ -217,75 +234,81 @@ export default function ComponentsTable() {
             </FormControl>
           </form>
         </div>
-
-        <Grid container justify="center">
-          <Grid item xs={12} md={10}>
-            <Paper>
-              {search ? (
-                <div>
-                  {  checkname ? (
-                    <TableContainer component={Paper}>
-                      <Table className={classes.table} aria-label="simple table">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell align="center">เลขที่การรักษา</TableCell>
-                            <TableCell align="center">แพทย์</TableCell>
-                            <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
-                            <TableCell align="center">รูปแบบการรักษา</TableCell>
-                            <TableCell align="center">วันเวลาที่รักษา</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-
-                        {treatment.filter((filter: any) => filter.edges?.edgesOfPatientrecord?.name.includes(name)).map((item: any) => (doctor.filter(t => t.id === item.edges?.edgesOfDoctor?.id).map((item2: any) =>(
-                            <TableRow key={item.id}>
-                              <TableCell align="center">{item.id}</TableCell>
-                              <TableCell align="center">{item2.edges?.edgesOfDoctorinfo?.doctorname} {item2.edges?.edgesOfDoctorinfo?.doctorsurname}</TableCell>
-                              <TableCell align="center">{item.edges?.edgesOfPatientrecord?.name}</TableCell>
-                              <TableCell align="center">{item.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
-                              <TableCell align="center">{item.datetreat}</TableCell>
+        <Content>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={12}>            
+            <Grid item xs={12}>
+              <Paper>
+                {search ? (
+                  <div>
+                    {  checkname ? (
+                      <TableContainer component={Paper}>
+                        <Table className={classes.table} aria-label="simple table">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell align="center">เลขที่การรักษา</TableCell>
+                              <TableCell align="center">แพทย์</TableCell>
+                              <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
+                              <TableCell align="center">รูปแบบการรักษา</TableCell>
+                              <TableCell align="center">วันเวลาที่รักษา</TableCell>
+                              <TableCell align="center"></TableCell>
                             </TableRow>
-                          ))))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  )
-                    : name == "" ? (
-                      <div>
-                        <TableContainer component={Paper}>
-                          <Table className={classes.table} aria-label="simple table">
-                            <TableHead>
-                              <TableRow>
-                                <TableCell align="center">เลขที่การรักษา</TableCell>
-                                <TableCell align="center">แพทย์</TableCell>
-                                <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
-                                <TableCell align="center">รูปแบบการรักษา</TableCell>
-                                <TableCell align="center">วันเวลาที่รักษา</TableCell>
+                          </TableHead>
+                          <TableBody>
+
+                            {treatment.filter((filter: any) => filter.edges?.edgesOfPatientrecord?.name.includes(name)).map((item: any) => (doctor.filter(t => t.id === item.edges?.edgesOfDoctor?.id).map((item2: any) => (
+                              <TableRow key={item.id}>
+                                <TableCell align="center">{item.id}</TableCell>
+                                <TableCell align="center">{item2.edges?.edgesOfDoctorinfo?.doctorname} {item2.edges?.edgesOfDoctorinfo?.doctorsurname}</TableCell>
+                                <TableCell align="center">{item.edges?.edgesOfPatientrecord?.name}</TableCell>
+                                <TableCell align="center">{item.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
+                                <TableCell align="center">{item.datetreat}</TableCell>
+                                <TableCell align="center"><Textinfo id={item.id}></Textinfo></TableCell>  
                               </TableRow>
-                            </TableHead>
-                            <TableBody>
-
-                            
-                            {treatment.map((item: any) => (doctor.filter(t => t.id === item.edges?.edgesOfDoctor?.id).map((item2: any) => (
-                                <TableRow key={item.id}>
-                                  <TableCell align="center">{item.id}</TableCell>
-                                  <TableCell align="center">{item2.edges?.edgesOfDoctorinfo?.doctorname} {item2.edges?.edgesOfDoctorinfo?.doctorsurname}</TableCell>
-                                  <TableCell align="center">{item.edges?.edgesOfPatientrecord?.name}</TableCell>
-                                  <TableCell align="center">{item.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
-                                  <TableCell align="center">{item.datetreat}</TableCell>
-                                </TableRow>
                             ))))}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    )
+                      : name == "" ? (
+                        <div>
+                          <TableContainer component={Paper}>
+                            <Table className={classes.table} aria-label="simple table">
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell align="center">เลขที่การรักษา</TableCell>
+                                  <TableCell align="center">แพทย์</TableCell>
+                                  <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
+                                  <TableCell align="center">รูปแบบการรักษา</TableCell>
+                                  <TableCell align="center">วันเวลาที่รักษา</TableCell>
+                                  <TableCell align="center"></TableCell>
+                                </TableRow>
+                              </TableHead>
 
-                      </div>
-                    ) : null}
-                </div>
-              ) : null}
-            </Paper>
+                              <TableBody>
+                                {treatment.map((item: any) => (doctor.filter(t => t.id === item.edges?.edgesOfDoctor?.id).map((item2: any) => (
+                                  <TableRow key={item.id}>
+                                    <TableCell align="center">{item.id}</TableCell>
+                                    <TableCell align="center">{item2.edges?.edgesOfDoctorinfo?.doctorname} {item2.edges?.edgesOfDoctorinfo?.doctorsurname}</TableCell>
+                                    <TableCell align="center">{item.edges?.edgesOfPatientrecord?.name}</TableCell>
+                                    <TableCell align="center">{item.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
+                                    <TableCell align="center">{item.datetreat}</TableCell>
+                                    <TableCell align="center"><Textinfo id={item.id}></Textinfo></TableCell>                          
+                                  </TableRow>
+                                ))))}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+
+                        </div>
+                      ) : null}
+                  </div>
+                ) : null}
+              </Paper>
+            </Grid>
           </Grid>
         </Grid>
+      </Content>
       </Content>
     </Page>
   );
