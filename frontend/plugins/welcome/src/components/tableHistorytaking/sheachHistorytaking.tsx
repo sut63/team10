@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import ComponanceTable from './Tables';
+import ComponentsTable from './Table';
 import Button from '@material-ui/core/Button';
 import { DefaultApi } from '../../api/apis';
 import { EntUser } from '../../api/models/EntUser';
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { useEffect } from 'react';
-import { Avatar,TextField } from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Alert } from '@material-ui/lab';
+import { Avatar,TextField } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
   Content,
   Header,
@@ -18,7 +18,12 @@ import {
   ContentHeader,
   Link,
 } from '@backstage/core';
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import {
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const cookies = new Cookies();
@@ -42,33 +47,36 @@ const Table: FC<{}> = () => {
     },
   }));
   const [Pat, setPat] = React.useState<string>();
-  const [Se, setSe] = React.useState<string>();
+  const [SE, setSE] = React.useState<string>();
   const classes = useStyles();
   const [alert, setAlert] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
   const [status, setStatus] = React.useState(false);
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
- 
+
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const getPatientrecord = async () => {
-    const res = await http.listPatientrecord({ limit: 110, offset: 0 });
+    const res = await http.listPatientrecord({ limit: 3, offset: 0 });
     setPatientrecord(res);
   };
   const handleChange = (event : any, value : unknown) => {
     setPat(value as string);
   };
-  const sc = async () => {
-    
-setSe(Pat);
+
+  const SearchHistorytaking = async () => {
+    setSE(Pat)
     var p = await http.listPatientrecord({ limit: 10, offset: 0 })
     let i = 0
     for (let u of p){
-    if( u.name === Pat && u.id !== undefined)
-    i = i+1
+    if( u.name === Pat && u.edges?.edgesOfHistorytaking !== undefined){
+      i = i+1
     }
-    console.log("ผู้ป่วย = ", Pat)
+    
+    
+    }
+    
 
     if (i != 0) {
       setStatus(true);
@@ -77,9 +85,11 @@ setSe(Pat);
       setStatus(true);
       setAlert(false);
     }
+
     setTimeout(() => {
       setStatus(false);
     }, 1000);
+
   };
 
   useEffect(() => {
@@ -96,57 +106,61 @@ setSe(Pat);
   return (
     <Page theme={pageTheme.home}>
       <Header
-        title={`Patientrecord`}
->
+        title={`HISTORYTAKING DEPARTMENT`}>
         <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
-        <ContentHeader title="ค้นหาข้อมูลผู้ป่วย">
+        <ContentHeader title="SHEACH HISTORYTAKING">
           {status ? (
             <div>
               {alert ? (
                 <Alert severity="success">
-                  พบข้อมูลผู้ป่วย
+                  พบบันทึกการซักประวัติผู้ป่วยนอก
                 </Alert>
               ) : (
                   <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบข้อมูลผู้ป่วย
+                    ไม่พบบันทึกการซักประวัติผู้ป่วยนอก
                   </Alert>
                 )}
             </div>
           ) : null}
-            <Autocomplete
-              id="patientname" 
+
+          <FormControl variant="outlined" className={classes.formControl}>
+          <Autocomplete
+              id="patientname"
+              freeSolo
               options={Patientrecord.map((option) => option.name)}
               onChange={handleChange}
               renderInput={(params) => (
-                <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" style={{ width: "50ch"}} />
+                <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" />
               )}
             />
-            <Button
-              onClick={() => {
-               sc();
-              }}
-              style={{ marginLeft: 10 }}
-              variant="contained"
-              color="primary"
-            >
-              ค้นหา
-               </Button>&emsp;
-          <Link component={RouterLink} to="/">
-            <Button variant="contained" color="primary">
-              Home
+          </FormControl>
+          <Button
+            onClick={() => {
+              SearchHistorytaking();
+            }}
+            style={{ backgroundColor: "#00acc1" }}
+            variant="contained"
+            color="primary"
+          >
+            SEARCH
+         </Button>&emsp;
+         <Link component={RouterLink} to="/">
+            <Button variant="contained" color="primary" style={{ backgroundColor: "#00838f" }}>
+              HOME
            </Button>
           </Link>&emsp;
-          <Link component={RouterLink} to="/createPatientrecord">
-            <Button variant="contained" color="primary" style={{backgroundColor: "#b388ff"}} startIcon={<AddBoxIcon />} size="large">
-              ลงทะเบียนผู้ป่วยนอก
-            </Button>
+
+         <Link component={RouterLink} to="/createHistorytaking">
+            <Button variant="contained" color="primary" style={{ backgroundColor: "#006064" }}>
+              ADD DATA
+           </Button>
           </Link>
         </ContentHeader>
         <div className={classes.root}>
-          <ComponanceTable sim={Se}></ComponanceTable>
+          <ComponentsTable sim={SE}></ComponentsTable>
         </div>
       </Content>
     </Page>
