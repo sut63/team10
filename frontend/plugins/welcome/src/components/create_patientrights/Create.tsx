@@ -19,7 +19,7 @@ import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntAbilitypatientrights } from '../../api/models/EntAbilitypatientrights';
 import { EntInsurance } from '../../api/models/EntInsurance';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
-import { Alert } from '@material-ui/lab';
+
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { EntUser } from '../../api/models/EntUser';
 
@@ -86,8 +86,7 @@ const NewPatientright: FC<{}> = () => {
 
   const [Insurance, setInsurance] = React.useState<EntInsurance[]>([]);
   const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
-  const [status, setStatus] = React.useState(false);
-  const [alert, setAlert] = React.useState(true);
+
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
   const med = cookies.get('Med');
@@ -209,19 +208,6 @@ const NewPatientright: FC<{}> = () => {
       <Content>
         <ContentHeader title="ข้อมูล">
 
-          {status ? (
-            <div>
-              {alert ? (
-                <Alert severity="success">
-                  บันทึกสำเร็จ
-                </Alert>
-              ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
-                    บันทึกไม่สำเร็จ
-                  </Alert>
-                )}
-            </div>
-          ) : null}
         </ContentHeader>
 
         <div className={classes.root}>
