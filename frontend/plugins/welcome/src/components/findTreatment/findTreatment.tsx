@@ -188,7 +188,7 @@ export default function ComponentsTable() {
           </Button>
           <div>&nbsp;&nbsp;&nbsp;</div>
           <Button
-            href="/Personalwelcome"
+            href="/treatment"
             variant="contained"
             color="primary"
             startIcon={<CancelTwoToneIcon />}
