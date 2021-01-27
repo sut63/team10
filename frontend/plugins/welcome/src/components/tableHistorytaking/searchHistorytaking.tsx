@@ -133,7 +133,7 @@ const Table: FC<{}> = () => {
               options={Patientrecord.map((option) => option.name)}
               onChange={handleChange}
               renderInput={(params) => (
-                <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" />
+                <TextField {...params} label="ชื่อผู้ป่วย" name="patientname" margin="normal" variant="outlined" />
               )}
             />
           </FormControl>
