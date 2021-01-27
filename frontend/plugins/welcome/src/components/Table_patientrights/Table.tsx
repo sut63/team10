@@ -67,10 +67,10 @@ const Table: FC<{}> = () => {
   const sc = async () => {
     
 setSe(Pat);
-    var p = await http.listPatientrecord({ limit: 10, offset: 0 })
+    var p = await http.listPatientrecord({ limit: 100, offset: 0 })
     let i = 0
     for (let u of p){
-    if( u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined)
+    if( (u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined))
     i = i+1
     
     }
@@ -86,7 +86,7 @@ setSe(Pat);
 
     setTimeout(() => {
       setStatus(false);
-    }, 1000);
+    }, 5000);
 
     
   };
@@ -94,13 +94,10 @@ setSe(Pat);
 
 
 
-  
-
-   
-
   useEffect(() => {
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
+
       setUsers(res);
     };
     getImg();
@@ -111,7 +108,7 @@ setSe(Pat);
   return (
     <Page theme={pageTheme.home}>
       <Header
-        title={`ยินดีต้อนรับ เข้าสู่ ระบบ ลงทะเบียนสิทธิ์`}
+        title={`ยินดีต้อนรับ เข้าสู่ ระบบ ค้นหาเบียนสิทธิ์`}
         subtitle="ของโรงบาล">
         <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
@@ -136,7 +133,7 @@ setSe(Pat);
           <FormControl variant="outlined" className={classes.formControl}>
             <Autocomplete
               id="patientname"
-             
+                freeSolo
               options={Patientrecord.map((option) => option.name)}
               onChange={handleChange}
               renderInput={(params) => (
