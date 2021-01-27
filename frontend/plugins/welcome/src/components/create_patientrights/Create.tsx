@@ -1,8 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import { Content, Header, Page, pageTheme, ContentHeader, } from '@backstage/core';
-
 import {
   TextField,
   FormControl,
@@ -12,21 +10,16 @@ import {
   Avatar,
   Button,
 } from '@material-ui/core';
-
 import { DefaultApi } from '../../api/apis'; // Api Gennerate From Command
 import { ControllersPatientrights } from '../../api/models/ControllersPatientrights';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntAbilitypatientrights } from '../../api/models/EntAbilitypatientrights';
 import { EntInsurance } from '../../api/models/EntInsurance';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
-
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { EntUser } from '../../api/models/EntUser';
-
-
 import { Link as RouterLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
-
 
 // header css
 const HeaderCustom = {
@@ -75,20 +68,14 @@ const useStyles = makeStyles(theme => ({
 
 const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
- 
   const http = new DefaultApi();
   const cookies = new Cookies();
-
   const [Patientrights, setPatientrights] = React.useState<Partial<ControllersPatientrights>>({});
-
   const [Abilitypatientrights, setAbilitypatientrights] = React.useState<EntAbilitypatientrights[]>([]);
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
-
   const [Insurance, setInsurance] = React.useState<EntInsurance[]>([]);
   const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
-
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
-
   const med = cookies.get('Med');
   const Img = cookies.get('Img');
 
@@ -107,7 +94,6 @@ const NewPatientright: FC<{}> = () => {
   });
 
   const getChangeOfUser = async () => {
-
     const name = "medicalrecordstaff";
     const value = parseInt(med, 10);
     setPatientrights({ ...Patientrights, [name]: value });
@@ -116,7 +102,6 @@ const NewPatientright: FC<{}> = () => {
 
 
   const getMedicalrecordstaffs = async () => {
-
     const res = await http.getMedicalrecordstaff({ id: Number(med) });
     setMedicalrecordstaff(res);
   };
@@ -141,8 +126,6 @@ const NewPatientright: FC<{}> = () => {
     setUsers(res);
   };
 
-
-
   // Lifecycle Hooks
   useEffect(() => {
     getChangeOfUser();
@@ -156,15 +139,12 @@ const NewPatientright: FC<{}> = () => {
 
   // set data to object Patientright
   const handleChange = (
-
     event: React.ChangeEvent<{ name?: string; value: unknown }>,
   ) => {
     const name = event.target.name as keyof typeof NewPatientright;
     const { value } = event.target;
-
     setPatientrights({ ...Patientrights, [name]: value });
   };
-
 
   const alertMessage = (icon: any, title: any) => {
     Toast.fire({
@@ -172,7 +152,6 @@ const NewPatientright: FC<{}> = () => {
       title: title,
     });
   }
-
 
   const CreatePatientright = async () => {
 
@@ -207,7 +186,6 @@ const NewPatientright: FC<{}> = () => {
       </Header>
       <Content>
         <ContentHeader title="ข้อมูล">
-
         </ContentHeader>
 
         <div className={classes.root}>
@@ -236,7 +214,6 @@ const NewPatientright: FC<{}> = () => {
                 variant="outlined"
                 type="string"
                 size="medium"
-
                 value={Patientrights.permissionArea}
                 onChange={handleChange}
               />
@@ -253,7 +230,6 @@ const NewPatientright: FC<{}> = () => {
                 variant="outlined"
                 type="string"
                 size="medium"
-
                 value={Patientrights.responsible}
                 onChange={handleChange}
               />
@@ -282,7 +258,6 @@ const NewPatientright: FC<{}> = () => {
           </form>
         </div>
 
-
         <div className={classes.root}>
           <form noValidate autoComplete="off">
             <FormControl variant="outlined" className={classes.formControl}>
@@ -303,7 +278,6 @@ const NewPatientright: FC<{}> = () => {
             </FormControl>
           </form>
         </div>
-
 
         <div className={classes.root}>
           <form noValidate autoComplete="off">
@@ -326,8 +300,6 @@ const NewPatientright: FC<{}> = () => {
           </form>
         </div>
 
-
-
         <div className={classes.root}>
           <form noValidate autoComplete="off">
             <FormControl variant="outlined" className={classes.formControl}>
@@ -342,7 +314,6 @@ const NewPatientright: FC<{}> = () => {
             </FormControl>
           </form>
         </div>
-
 
         <div className={classes.root}>
           <form noValidate autoComplete="off">
@@ -375,9 +346,8 @@ const NewPatientright: FC<{}> = () => {
                 </Button>
             </div>
           </form>
-
-
         </div>
+        
       </Content>
     </Page>
   );
