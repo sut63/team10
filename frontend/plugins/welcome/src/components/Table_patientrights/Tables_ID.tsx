@@ -29,6 +29,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import PhoneIcon from '@material-ui/icons/Phone';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Divider from '@material-ui/core/Divider';
+import { Content } from '@backstage/core';
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,8 +41,10 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
   root: {
-    width: '100%',
+   // width: '100%',
     maxWidth: 360,
+    minWidth: 360,
+
     backgroundColor: theme.palette.background.paper,
 
   },
@@ -171,6 +174,7 @@ console.log("sim",sim.sim)
   } else {
     return (
       <Grid container alignItems="center">
+        <Content>
         <div>
         <List className={classes.root}>
           <div className={classes.section1}>
@@ -187,7 +191,7 @@ console.log("sim",sim.sim)
               </Grid>
             </Grid>
             <Typography color="textSecondary" variant="body2">
-              ที่อยู่ : {no.edges?.edgesOfPatientrightsPatientrecord?.home}
+             
             </Typography>
           </div>
           <Divider variant="inset" component="li" />
@@ -200,6 +204,20 @@ console.log("sim",sim.sim)
             <ListItemText primary="ที่อยู่ : " secondary={no.edges?.edgesOfPatientrightsPatientrecord?.home} />
           </ListItem>
           <Divider variant="inset" component="li" />
+
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <PhoneIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary="รหัสประจำตัวประชาชน" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.idcardnumber} />
+          </ListItem>
+
+
+          <Divider variant="inset" component="li" />
+         
+
           <ListItem>
             <ListItemAvatar>
               <Avatar>
@@ -210,21 +228,15 @@ console.log("sim",sim.sim)
           </ListItem>
 
 
-          <Divider variant="inset" component="li" />
-          <ListItem>
-            <div className={classes.section3}>
-              <Button color="primary" onClick={() => { setnc(true) }}>กลับ</Button>
-            </div>
-          </ListItem>
-
-
-
-
 
         </List>
-        </div>&emsp;
 
+        </div>
+        </Content>
+        &emsp;
+        <Content>
         <div>
+        
         <List className={classes.root}>
           <div className={classes.section1}>
             <Grid container alignItems="center">
@@ -235,12 +247,12 @@ console.log("sim",sim.sim)
               </Grid>
               <Grid item>
                 <Typography gutterBottom variant="h6">
-                  {no.edges?.edgesOfPatientrightsPatientrecord?.name}
+                 {no.permission}
                 </Typography>
               </Grid>
             </Grid>
             <Typography color="textSecondary" variant="body2">
-              ที่อยู่ : {no.edges?.edgesOfPatientrightsPatientrecord?.home}
+            
             </Typography>
           </div>
           <Divider variant="inset" component="li" />
@@ -250,7 +262,7 @@ console.log("sim",sim.sim)
                 <HomeIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="ที่อยู่ : " secondary={no.edges?.edgesOfPatientrightsPatientrecord?.home} />
+            <ListItemText primary=" บริษัทประกันภัย : " secondary={no.edges?.edgesOfPatientrightsInsurance?.insurancecompany} />
           </ListItem>
           <Divider variant="inset" component="li" />
           <ListItem>
@@ -259,7 +271,7 @@ console.log("sim",sim.sim)
                 <PhoneIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="เบอร์โทร" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.phonenumber} />
+            <ListItemText primary="เลขประกัน : " secondary= {no.permission} />
           </ListItem>
 
 
@@ -276,6 +288,7 @@ console.log("sim",sim.sim)
 
         </List>
         </div>
+        </Content>
       </Grid>
 
 
