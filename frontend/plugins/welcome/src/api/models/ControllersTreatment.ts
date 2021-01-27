@@ -33,6 +33,12 @@ export interface ControllersTreatment {
     doctor?: number;
     /**
      * 
+     * @type {string}
+     * @memberof ControllersTreatment
+     */
+    medicine?: string;
+    /**
+     * 
      * @type {number}
      * @memberof ControllersTreatment
      */
@@ -42,7 +48,13 @@ export interface ControllersTreatment {
      * @type {string}
      * @memberof ControllersTreatment
      */
-    treatment?: string;
+    symptom?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ControllersTreatment
+     */
+    treat?: string;
     /**
      * 
      * @type {number}
@@ -63,8 +75,10 @@ export function ControllersTreatmentFromJSONTyped(json: any, ignoreDiscriminator
         
         'datetreat': !exists(json, 'datetreat') ? undefined : json['datetreat'],
         'doctor': !exists(json, 'doctor') ? undefined : json['doctor'],
+        'medicine': !exists(json, 'medicine') ? undefined : json['medicine'],
         'patientrecord': !exists(json, 'patientrecord') ? undefined : json['patientrecord'],
-        'treatment': !exists(json, 'treatment') ? undefined : json['treatment'],
+        'symptom': !exists(json, 'symptom') ? undefined : json['symptom'],
+        'treat': !exists(json, 'treat') ? undefined : json['treat'],
         'typetreatment': !exists(json, 'typetreatment') ? undefined : json['typetreatment'],
     };
 }
@@ -80,8 +94,10 @@ export function ControllersTreatmentToJSON(value?: ControllersTreatment | null):
         
         'datetreat': value.datetreat,
         'doctor': value.doctor,
+        'medicine': value.medicine,
         'patientrecord': value.patientrecord,
-        'treatment': value.treatment,
+        'symptom': value.symptom,
+        'treat': value.treat,
         'typetreatment': value.typetreatment,
     };
 }

@@ -10,15 +10,13 @@ import {
   InputLabel,
   MenuItem,
   Avatar,
-
-  Link,
   Button,
 } from '@material-ui/core';
 import Timer from '../Timer';
 import { DefaultApi } from '../../api/apis'; // Api Gennerate From Command
 import { ControllersPatientrights } from '../../api/models/ControllersPatientrights';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
-import { EntPatientrightstype } from '../../api/models/EntPatientrightstype';
+import { EntAbilitypatientrights } from '../../api/models/EntAbilitypatientrights';
 import { EntInsurance } from '../../api/models/EntInsurance';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
 import { Alert } from '@material-ui/lab';
@@ -27,8 +25,8 @@ import { EntUser } from '../../api/models/EntUser';
 
 
 import { Link as RouterLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
-import { Image3Base64Function } from '../../image/Image3';
 
 // header css
 const HeaderCustom = {
@@ -77,13 +75,13 @@ const useStyles = makeStyles(theme => ({
 
 const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
-  const profile = { givenName: 'สิทธ์' };
+ 
   const http = new DefaultApi();
   const cookies = new Cookies();
 
   const [Patientrights, setPatientrights] = React.useState<Partial<ControllersPatientrights>>({});
 
-  const [Patientrightstype, setPatientrightstype] = React.useState<EntPatientrightstype[]>([]);
+  const [Abilitypatientrights, setAbilitypatientrights] = React.useState<EntAbilitypatientrights[]>([]);
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const [Insurance, setInsurance] = React.useState<EntInsurance[]>([]);
@@ -95,6 +93,19 @@ const NewPatientright: FC<{}> = () => {
   const med = cookies.get('Med');
   const Img = cookies.get('Img');
 
+
+  // alert setting
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: toast => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
   const getChangeOfUser = async () => {
 
@@ -111,9 +122,9 @@ const NewPatientright: FC<{}> = () => {
     setMedicalrecordstaff(res);
   };
 
-  const getPatientrightstype = async () => {
-    const res = await http.listPatientrightstype({ limit: 10, offset: 0 });
-    setPatientrightstype(res);
+  const getAbilitypatientrights = async () => {
+    const res = await http.listAbilitypatientrights({ limit: 10, offset: 0 });
+    setAbilitypatientrights(res);
   };
 
   const getPatientrecord = async () => {
@@ -137,7 +148,7 @@ const NewPatientright: FC<{}> = () => {
   useEffect(() => {
     getChangeOfUser();
     getMedicalrecordstaffs();
-    getPatientrightstype();
+    getAbilitypatientrights();
     getPatientrecord();
     getInsurance();
     getChangeOfUser();
@@ -151,45 +162,42 @@ const NewPatientright: FC<{}> = () => {
   ) => {
     const name = event.target.name as keyof typeof NewPatientright;
     const { value } = event.target;
+
     setPatientrights({ ...Patientrights, [name]: value });
   };
 
 
-
+  const alertMessage = (icon: any, title: any) => {
+    Toast.fire({
+      icon: icon,
+      title: title,
+    });
+  }
 
 
   const CreatePatientright = async () => {
 
-    if ((Patientrights.insurance != null) && (Patientrights.medicalrecordstaff != null)
-      && (Patientrights.patientrecord != null) && (Patientrights.patientrightstype != null)) {
+    const apiUrl = 'http://localhost:8080/api/v1/patientrightss';
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Patientrights),
+    };
 
-      const res: any = await http.createPatientrights({
-        patientrights: Patientrights
-
-
+    fetch(apiUrl, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        if (data.status === true) {
+          Toast.fire({
+            icon: 'success',
+            title: 'บันทึกข้อมูลสำเร็จ',
+          });
+        } else {
+          alertMessage("error", data.error);
+        }
       });
-      console.log(Patientrights);
-
-
-
-      if (res.id != '') {
-        setStatus(true);
-        setAlert(true);
-        setTimeout(() => {
-          setStatus(false);
-        }, 2000);
-      }
-
-    }
-    else {
-      setStatus(true);
-      setAlert(false);
-      setTimeout(() => {
-        setStatus(false);
-      }, 2000);
-    }
   };
-
 
 
   return (
@@ -216,14 +224,59 @@ const NewPatientright: FC<{}> = () => {
           ) : null}
         </ContentHeader>
 
+        <div className={classes.root}>
+          <form noValidate autoComplete="off">
+            <FormControl variant="outlined" className={classes.formControl}>
+              <TextField
+                name="permission"
+                label="ชื่อสิทธิ์"
+                variant="outlined"
+                type="string"
+                size="medium"
+
+                value={Patientrights.permission}
+                onChange={handleChange}
+              />
+            </FormControl>
+          </form>
+        </div>
 
         <div className={classes.root}>
-
-
           <form noValidate autoComplete="off">
+            <FormControl variant="outlined" className={classes.formControl}>
+              <TextField
+                name="permissionArea"
+                label="พื้นที่ที่ใช้สิทธิ์ได้"
+                variant="outlined"
+                type="string"
+                size="medium"
 
+                value={Patientrights.permissionArea}
+                onChange={handleChange}
+              />
+            </FormControl>
+          </form>
+        </div>
 
+        <div className={classes.root}>
+          <form noValidate autoComplete="off">
+            <FormControl variant="outlined" className={classes.formControl}>
+              <TextField
+                name="responsible"
+                label="ผู้รับผิดชอบดูแลสิทธิ์"
+                variant="outlined"
+                type="string"
+                size="medium"
 
+                value={Patientrights.responsible}
+                onChange={handleChange}
+              />
+            </FormControl>
+          </form>
+        </div>
+
+        <div className={classes.root}>
+          <form noValidate autoComplete="off">
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>ผู้ป่วย</InputLabel>
               <Select
@@ -240,14 +293,12 @@ const NewPatientright: FC<{}> = () => {
                 })}
               </Select>
             </FormControl>
-
-
           </form>
         </div>
 
+
         <div className={classes.root}>
           <form noValidate autoComplete="off">
-
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>ประกัน</InputLabel>
               <Select
@@ -264,33 +315,28 @@ const NewPatientright: FC<{}> = () => {
                 })}
               </Select>
             </FormControl>
-
-
-
           </form>
         </div>
 
+
         <div className={classes.root}>
           <form noValidate autoComplete="off">
-
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel>รูปแบบสิทธิ์</InputLabel>
               <Select
-                name="patientrightstype"
-                value={Patientrights.patientrightstype}
+                name="abilitypatientrights"
+                value={Patientrights.abilitypatientrights}
                 onChange={handleChange}
               >
-                {Patientrightstype.map(item => {
+                {Abilitypatientrights.map(item => {
                   return (
                     <MenuItem key={item.id} value={item.id}>
-                      {item.permission}
+                      ตรวจสุขภาพ และ ค่า แลป : {item.examine} หัตถการ  : {item.operative} เวชภัณฑ์  : {item.medicalSupplies}
                     </MenuItem>
                   );
                 })}
               </Select>
             </FormControl>
-
-
           </form>
         </div>
 
@@ -298,45 +344,22 @@ const NewPatientright: FC<{}> = () => {
 
         <div className={classes.root}>
           <form noValidate autoComplete="off">
-
             <FormControl variant="outlined" className={classes.formControl}>
-
               <TextField
                 disabled
                 id="outlined-disabled"
                 label="พนักงานเวชระเบียง"
                 defaultValue=" "
                 value={Medicalrecordstaff?.name as string}
-
                 variant="outlined"
               />
-
             </FormControl>
-
-
-
-
-
-
-
           </form>
-
         </div>
-
-
-
-
-
-
-
-
-
 
 
         <div className={classes.root}>
           <form noValidate autoComplete="off">
-
-
             <div className={classes.margin}>
               <Button
                 onClick={() => {
@@ -364,11 +387,11 @@ const NewPatientright: FC<{}> = () => {
               >
                 SHOW
                 </Button>
-
             </div>
           </form>
-        </div>
 
+
+        </div>
       </Content>
     </Page>
   );

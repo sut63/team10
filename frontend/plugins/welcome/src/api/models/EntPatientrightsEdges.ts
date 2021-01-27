@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    EntAbilitypatientrights,
+    EntAbilitypatientrightsFromJSON,
+    EntAbilitypatientrightsFromJSONTyped,
+    EntAbilitypatientrightsToJSON,
     EntInsurance,
     EntInsuranceFromJSON,
     EntInsuranceFromJSONTyped,
@@ -26,10 +30,6 @@ import {
     EntPatientrecordFromJSON,
     EntPatientrecordFromJSONTyped,
     EntPatientrecordToJSON,
-    EntPatientrightstype,
-    EntPatientrightstypeFromJSON,
-    EntPatientrightstypeFromJSONTyped,
-    EntPatientrightstypeToJSON,
 } from './';
 
 /**
@@ -38,6 +38,12 @@ import {
  * @interface EntPatientrightsEdges
  */
 export interface EntPatientrightsEdges {
+    /**
+     * 
+     * @type {EntAbilitypatientrights}
+     * @memberof EntPatientrightsEdges
+     */
+    edgesOfPatientrightsAbilitypatientrights?: EntAbilitypatientrights;
     /**
      * 
      * @type {EntInsurance}
@@ -56,12 +62,6 @@ export interface EntPatientrightsEdges {
      * @memberof EntPatientrightsEdges
      */
     edgesOfPatientrightsPatientrecord?: EntPatientrecord;
-    /**
-     * 
-     * @type {EntPatientrightstype}
-     * @memberof EntPatientrightsEdges
-     */
-    edgesOfPatientrightsPatientrightstype?: EntPatientrightstype;
 }
 
 export function EntPatientrightsEdgesFromJSON(json: any): EntPatientrightsEdges {
@@ -74,10 +74,10 @@ export function EntPatientrightsEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
+        'edgesOfPatientrightsAbilitypatientrights': !exists(json, 'EdgesOfPatientrightsAbilitypatientrights') ? undefined : EntAbilitypatientrightsFromJSON(json['EdgesOfPatientrightsAbilitypatientrights']),
         'edgesOfPatientrightsInsurance': !exists(json, 'EdgesOfPatientrightsInsurance') ? undefined : EntInsuranceFromJSON(json['EdgesOfPatientrightsInsurance']),
         'edgesOfPatientrightsMedicalrecordstaff': !exists(json, 'EdgesOfPatientrightsMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['EdgesOfPatientrightsMedicalrecordstaff']),
         'edgesOfPatientrightsPatientrecord': !exists(json, 'EdgesOfPatientrightsPatientrecord') ? undefined : EntPatientrecordFromJSON(json['EdgesOfPatientrightsPatientrecord']),
-        'edgesOfPatientrightsPatientrightstype': !exists(json, 'EdgesOfPatientrightsPatientrightstype') ? undefined : EntPatientrightstypeFromJSON(json['EdgesOfPatientrightsPatientrightstype']),
     };
 }
 
@@ -90,10 +90,10 @@ export function EntPatientrightsEdgesToJSON(value?: EntPatientrightsEdges | null
     }
     return {
         
+        'EdgesOfPatientrightsAbilitypatientrights': EntAbilitypatientrightsToJSON(value.edgesOfPatientrightsAbilitypatientrights),
         'EdgesOfPatientrightsInsurance': EntInsuranceToJSON(value.edgesOfPatientrightsInsurance),
         'EdgesOfPatientrightsMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfPatientrightsMedicalrecordstaff),
         'EdgesOfPatientrightsPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrightsPatientrecord),
-        'EdgesOfPatientrightsPatientrightstype': EntPatientrightstypeToJSON(value.edgesOfPatientrightsPatientrightstype),
     };
 }
 

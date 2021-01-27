@@ -14,10 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    EntPatientrightstype,
-    EntPatientrightstypeFromJSON,
-    EntPatientrightstypeFromJSONTyped,
-    EntPatientrightstypeToJSON,
+    EntPatientrights,
+    EntPatientrightsFromJSON,
+    EntPatientrightsFromJSONTyped,
+    EntPatientrightsToJSON,
 } from './';
 
 /**
@@ -27,11 +27,11 @@ import {
  */
 export interface EntAbilitypatientrightsEdges {
     /**
-     * EdgesOfAbilitypatientrightsPatientrightstype holds the value of the EdgesOfAbilitypatientrightsPatientrightstype edge.
-     * @type {Array<EntPatientrightstype>}
+     * EdgesOfAbilitypatientrightsPatientrights holds the value of the EdgesOfAbilitypatientrightsPatientrights edge.
+     * @type {Array<EntPatientrights>}
      * @memberof EntAbilitypatientrightsEdges
      */
-    edgesOfAbilitypatientrightsPatientrightstype?: Array<EntPatientrightstype>;
+    edgesOfAbilitypatientrightsPatientrights?: Array<EntPatientrights>;
 }
 
 export function EntAbilitypatientrightsEdgesFromJSON(json: any): EntAbilitypatientrightsEdges {
@@ -44,7 +44,7 @@ export function EntAbilitypatientrightsEdgesFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'edgesOfAbilitypatientrightsPatientrightstype': !exists(json, 'EdgesOfAbilitypatientrightsPatientrightstype') ? undefined : ((json['EdgesOfAbilitypatientrightsPatientrightstype'] as Array<any>).map(EntPatientrightstypeFromJSON)),
+        'edgesOfAbilitypatientrightsPatientrights': !exists(json, 'EdgesOfAbilitypatientrightsPatientrights') ? undefined : ((json['EdgesOfAbilitypatientrightsPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntAbilitypatientrightsEdgesToJSON(value?: EntAbilitypatientrigh
     }
     return {
         
-        'EdgesOfAbilitypatientrightsPatientrightstype': value.edgesOfAbilitypatientrightsPatientrightstype === undefined ? undefined : ((value.edgesOfAbilitypatientrightsPatientrightstype as Array<any>).map(EntPatientrightstypeToJSON)),
+        'EdgesOfAbilitypatientrightsPatientrights': value.edgesOfAbilitypatientrightsPatientrights === undefined ? undefined : ((value.edgesOfAbilitypatientrightsPatientrights as Array<any>).map(EntPatientrightsToJSON)),
     };
 }
 

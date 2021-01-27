@@ -64,10 +64,10 @@ export interface EntPatientrecord {
     home?: string;
     /**
      * Idcardnumber holds the value of the "Idcardnumber" field.
-     * @type {number}
+     * @type {string}
      * @memberof EntPatientrecord
      */
-    idcardnumber?: number;
+    idcardnumber?: string;
     /**
      * Name holds the value of the "Name" field.
      * @type {string}

@@ -112,6 +112,13 @@ func Examine(v int) predicate.Abilitypatientrights {
 	})
 }
 
+// Check applies equality check predicate on the "check" field. It's identical to CheckEQ.
+func Check(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCheck), v))
+	})
+}
+
 // OperativeEQ applies the EQ predicate on the "Operative" field.
 func OperativeEQ(v int) predicate.Abilitypatientrights {
 	return predicate.Abilitypatientrights(func(s *sql.Selector) {
@@ -340,25 +347,136 @@ func ExamineLTE(v int) predicate.Abilitypatientrights {
 	})
 }
 
-// HasEdgesOfAbilitypatientrightsPatientrightstype applies the HasEdge predicate on the "EdgesOfAbilitypatientrightsPatientrightstype" edge.
-func HasEdgesOfAbilitypatientrightsPatientrightstype() predicate.Abilitypatientrights {
+// CheckEQ applies the EQ predicate on the "check" field.
+func CheckEQ(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCheck), v))
+	})
+}
+
+// CheckNEQ applies the NEQ predicate on the "check" field.
+func CheckNEQ(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCheck), v))
+	})
+}
+
+// CheckIn applies the In predicate on the "check" field.
+func CheckIn(vs ...string) predicate.Abilitypatientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCheck), v...))
+	})
+}
+
+// CheckNotIn applies the NotIn predicate on the "check" field.
+func CheckNotIn(vs ...string) predicate.Abilitypatientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCheck), v...))
+	})
+}
+
+// CheckGT applies the GT predicate on the "check" field.
+func CheckGT(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCheck), v))
+	})
+}
+
+// CheckGTE applies the GTE predicate on the "check" field.
+func CheckGTE(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCheck), v))
+	})
+}
+
+// CheckLT applies the LT predicate on the "check" field.
+func CheckLT(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCheck), v))
+	})
+}
+
+// CheckLTE applies the LTE predicate on the "check" field.
+func CheckLTE(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCheck), v))
+	})
+}
+
+// CheckContains applies the Contains predicate on the "check" field.
+func CheckContains(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldCheck), v))
+	})
+}
+
+// CheckHasPrefix applies the HasPrefix predicate on the "check" field.
+func CheckHasPrefix(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldCheck), v))
+	})
+}
+
+// CheckHasSuffix applies the HasSuffix predicate on the "check" field.
+func CheckHasSuffix(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldCheck), v))
+	})
+}
+
+// CheckEqualFold applies the EqualFold predicate on the "check" field.
+func CheckEqualFold(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldCheck), v))
+	})
+}
+
+// CheckContainsFold applies the ContainsFold predicate on the "check" field.
+func CheckContainsFold(v string) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldCheck), v))
+	})
+}
+
+// HasEdgesOfAbilitypatientrightsPatientrights applies the HasEdge predicate on the "EdgesOfAbilitypatientrightsPatientrights" edge.
+func HasEdgesOfAbilitypatientrightsPatientrights() predicate.Abilitypatientrights {
 	return predicate.Abilitypatientrights(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(EdgesOfAbilitypatientrightsPatientrightstypeTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfAbilitypatientrightsPatientrightstypeTable, EdgesOfAbilitypatientrightsPatientrightstypeColumn),
+			sqlgraph.To(EdgesOfAbilitypatientrightsPatientrightsTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfAbilitypatientrightsPatientrightsTable, EdgesOfAbilitypatientrightsPatientrightsColumn),
 		)
 		sqlgraph.HasNeighbors(s, step)
 	})
 }
 
-// HasEdgesOfAbilitypatientrightsPatientrightstypeWith applies the HasEdge predicate on the "EdgesOfAbilitypatientrightsPatientrightstype" edge with a given conditions (other predicates).
-func HasEdgesOfAbilitypatientrightsPatientrightstypeWith(preds ...predicate.Patientrightstype) predicate.Abilitypatientrights {
+// HasEdgesOfAbilitypatientrightsPatientrightsWith applies the HasEdge predicate on the "EdgesOfAbilitypatientrightsPatientrights" edge with a given conditions (other predicates).
+func HasEdgesOfAbilitypatientrightsPatientrightsWith(preds ...predicate.Patientrights) predicate.Abilitypatientrights {
 	return predicate.Abilitypatientrights(func(s *sql.Selector) {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(Table, FieldID),
-			sqlgraph.To(EdgesOfAbilitypatientrightsPatientrightstypeInverseTable, FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfAbilitypatientrightsPatientrightstypeTable, EdgesOfAbilitypatientrightsPatientrightstypeColumn),
+			sqlgraph.To(EdgesOfAbilitypatientrightsPatientrightsInverseTable, FieldID),
+			sqlgraph.Edge(sqlgraph.O2M, false, EdgesOfAbilitypatientrightsPatientrightsTable, EdgesOfAbilitypatientrightsPatientrightsColumn),
 		)
 		sqlgraph.HasNeighborsWith(s, step, func(s *sql.Selector) {
 			for _, p := range preds {

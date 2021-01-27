@@ -35,12 +35,20 @@ func (ctl *AbilitypatientrightsController) CreateAbilitypatientrights(c *gin.Con
 		})
 		return
 	}
+	o := fmt.Sprintf("%d", int(obj.Operative))
+	m := fmt.Sprintf("%d", int(obj.MedicalSupplies))
+	e := fmt.Sprintf("%d", int(obj.Examine))
+	var ck string
+	ck = o+"-"+m+"-"+e
+
+	
 
 	u, err := ctl.client.Abilitypatientrights.
 		Create().
 		SetOperative(int(obj.Operative)).
 		SetMedicalSupplies(int(obj.MedicalSupplies)).
 		SetExamine(int(obj.Examine)).
+		SetCheck(ck).
 		Save(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{

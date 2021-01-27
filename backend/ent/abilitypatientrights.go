@@ -21,6 +21,8 @@ type Abilitypatientrights struct {
 	MedicalSupplies int `json:"MedicalSupplies,omitempty"`
 	// Examine holds the value of the "Examine" field.
 	Examine int `json:"Examine,omitempty"`
+	// Check holds the value of the "check" field.
+	Check string `json:"check,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the AbilitypatientrightsQuery when eager-loading is set.
 	Edges AbilitypatientrightsEdges `json:"edges"`
@@ -28,29 +30,30 @@ type Abilitypatientrights struct {
 
 // AbilitypatientrightsEdges holds the relations/edges for other nodes in the graph.
 type AbilitypatientrightsEdges struct {
-	// EdgesOfAbilitypatientrightsPatientrightstype holds the value of the EdgesOfAbilitypatientrightsPatientrightstype edge.
-	EdgesOfAbilitypatientrightsPatientrightstype []*Patientrightstype
+	// EdgesOfAbilitypatientrightsPatientrights holds the value of the EdgesOfAbilitypatientrightsPatientrights edge.
+	EdgesOfAbilitypatientrightsPatientrights []*Patientrights
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [1]bool
 }
 
-// EdgesOfAbilitypatientrightsPatientrightstypeOrErr returns the EdgesOfAbilitypatientrightsPatientrightstype value or an error if the edge
+// EdgesOfAbilitypatientrightsPatientrightsOrErr returns the EdgesOfAbilitypatientrightsPatientrights value or an error if the edge
 // was not loaded in eager-loading.
-func (e AbilitypatientrightsEdges) EdgesOfAbilitypatientrightsPatientrightstypeOrErr() ([]*Patientrightstype, error) {
+func (e AbilitypatientrightsEdges) EdgesOfAbilitypatientrightsPatientrightsOrErr() ([]*Patientrights, error) {
 	if e.loadedTypes[0] {
-		return e.EdgesOfAbilitypatientrightsPatientrightstype, nil
+		return e.EdgesOfAbilitypatientrightsPatientrights, nil
 	}
-	return nil, &NotLoadedError{edge: "EdgesOfAbilitypatientrightsPatientrightstype"}
+	return nil, &NotLoadedError{edge: "EdgesOfAbilitypatientrightsPatientrights"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Abilitypatientrights) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{}, // id
-		&sql.NullInt64{}, // Operative
-		&sql.NullInt64{}, // MedicalSupplies
-		&sql.NullInt64{}, // Examine
+		&sql.NullInt64{},  // id
+		&sql.NullInt64{},  // Operative
+		&sql.NullInt64{},  // MedicalSupplies
+		&sql.NullInt64{},  // Examine
+		&sql.NullString{}, // check
 	}
 }
 
@@ -81,12 +84,17 @@ func (a *Abilitypatientrights) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		a.Examine = int(value.Int64)
 	}
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field check", values[3])
+	} else if value.Valid {
+		a.Check = value.String
+	}
 	return nil
 }
 
-// QueryEdgesOfAbilitypatientrightsPatientrightstype queries the EdgesOfAbilitypatientrightsPatientrightstype edge of the Abilitypatientrights.
-func (a *Abilitypatientrights) QueryEdgesOfAbilitypatientrightsPatientrightstype() *PatientrightstypeQuery {
-	return (&AbilitypatientrightsClient{config: a.config}).QueryEdgesOfAbilitypatientrightsPatientrightstype(a)
+// QueryEdgesOfAbilitypatientrightsPatientrights queries the EdgesOfAbilitypatientrightsPatientrights edge of the Abilitypatientrights.
+func (a *Abilitypatientrights) QueryEdgesOfAbilitypatientrightsPatientrights() *PatientrightsQuery {
+	return (&AbilitypatientrightsClient{config: a.config}).QueryEdgesOfAbilitypatientrightsPatientrights(a)
 }
 
 // Update returns a builder for updating this Abilitypatientrights.
@@ -118,6 +126,8 @@ func (a *Abilitypatientrights) String() string {
 	builder.WriteString(fmt.Sprintf("%v", a.MedicalSupplies))
 	builder.WriteString(", Examine=")
 	builder.WriteString(fmt.Sprintf("%v", a.Examine))
+	builder.WriteString(", check=")
+	builder.WriteString(a.Check)
 	builder.WriteByte(')')
 	return builder.String()
 }

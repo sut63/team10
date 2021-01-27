@@ -45,6 +45,12 @@ export interface EntAbilitypatientrights {
      */
     operative?: number;
     /**
+     * Check holds the value of the "check" field.
+     * @type {string}
+     * @memberof EntAbilitypatientrights
+     */
+    check?: string;
+    /**
      * 
      * @type {EntAbilitypatientrightsEdges}
      * @memberof EntAbilitypatientrights
@@ -71,6 +77,7 @@ export function EntAbilitypatientrightsFromJSONTyped(json: any, ignoreDiscrimina
         'examine': !exists(json, 'Examine') ? undefined : json['Examine'],
         'medicalSupplies': !exists(json, 'MedicalSupplies') ? undefined : json['MedicalSupplies'],
         'operative': !exists(json, 'Operative') ? undefined : json['Operative'],
+        'check': !exists(json, 'check') ? undefined : json['check'],
         'edges': !exists(json, 'edges') ? undefined : EntAbilitypatientrightsEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
     };
@@ -88,6 +95,7 @@ export function EntAbilitypatientrightsToJSON(value?: EntAbilitypatientrights | 
         'Examine': value.examine,
         'MedicalSupplies': value.medicalSupplies,
         'Operative': value.operative,
+        'check': value.check,
         'edges': EntAbilitypatientrightsEdgesToJSON(value.edges),
         'id': value.id,
     };

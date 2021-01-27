@@ -42,15 +42,8 @@ func (pu *PatientrecordUpdate) SetName(s string) *PatientrecordUpdate {
 }
 
 // SetIdcardnumber sets the Idcardnumber field.
-func (pu *PatientrecordUpdate) SetIdcardnumber(i int) *PatientrecordUpdate {
-	pu.mutation.ResetIdcardnumber()
-	pu.mutation.SetIdcardnumber(i)
-	return pu
-}
-
-// AddIdcardnumber adds i to Idcardnumber.
-func (pu *PatientrecordUpdate) AddIdcardnumber(i int) *PatientrecordUpdate {
-	pu.mutation.AddIdcardnumber(i)
+func (pu *PatientrecordUpdate) SetIdcardnumber(s string) *PatientrecordUpdate {
+	pu.mutation.SetIdcardnumber(s)
 	return pu
 }
 
@@ -300,6 +293,46 @@ func (pu *PatientrecordUpdate) RemoveEdgesOfPatientrecordPatientrights(p ...*Pat
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
 func (pu *PatientrecordUpdate) Save(ctx context.Context) (int, error) {
+	if v, ok := pu.mutation.Name(); ok {
+		if err := patientrecord.NameValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Name", err: fmt.Errorf("ent: validator failed for field \"Name\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.Idcardnumber(); ok {
+		if err := patientrecord.IdcardnumberValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Idcardnumber", err: fmt.Errorf("ent: validator failed for field \"Idcardnumber\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.Age(); ok {
+		if err := patientrecord.AgeValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Age", err: fmt.Errorf("ent: validator failed for field \"Age\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.Disease(); ok {
+		if err := patientrecord.DiseaseValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Disease", err: fmt.Errorf("ent: validator failed for field \"Disease\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.Allergic(); ok {
+		if err := patientrecord.AllergicValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Allergic", err: fmt.Errorf("ent: validator failed for field \"Allergic\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.Phonenumber(); ok {
+		if err := patientrecord.PhonenumberValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Phonenumber", err: fmt.Errorf("ent: validator failed for field \"Phonenumber\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.Email(); ok {
+		if err := patientrecord.EmailValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Email", err: fmt.Errorf("ent: validator failed for field \"Email\": %w", err)}
+		}
+	}
+	if v, ok := pu.mutation.Home(); ok {
+		if err := patientrecord.HomeValidator(v); err != nil {
+			return 0, &ValidationError{Name: "Home", err: fmt.Errorf("ent: validator failed for field \"Home\": %w", err)}
+		}
+	}
 
 	var (
 		err      error
@@ -377,14 +410,7 @@ func (pu *PatientrecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := pu.mutation.Idcardnumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: patientrecord.FieldIdcardnumber,
-		})
-	}
-	if value, ok := pu.mutation.AddedIdcardnumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldIdcardnumber,
 		})
@@ -724,15 +750,8 @@ func (puo *PatientrecordUpdateOne) SetName(s string) *PatientrecordUpdateOne {
 }
 
 // SetIdcardnumber sets the Idcardnumber field.
-func (puo *PatientrecordUpdateOne) SetIdcardnumber(i int) *PatientrecordUpdateOne {
-	puo.mutation.ResetIdcardnumber()
-	puo.mutation.SetIdcardnumber(i)
-	return puo
-}
-
-// AddIdcardnumber adds i to Idcardnumber.
-func (puo *PatientrecordUpdateOne) AddIdcardnumber(i int) *PatientrecordUpdateOne {
-	puo.mutation.AddIdcardnumber(i)
+func (puo *PatientrecordUpdateOne) SetIdcardnumber(s string) *PatientrecordUpdateOne {
+	puo.mutation.SetIdcardnumber(s)
 	return puo
 }
 
@@ -982,6 +1001,46 @@ func (puo *PatientrecordUpdateOne) RemoveEdgesOfPatientrecordPatientrights(p ...
 
 // Save executes the query and returns the updated entity.
 func (puo *PatientrecordUpdateOne) Save(ctx context.Context) (*Patientrecord, error) {
+	if v, ok := puo.mutation.Name(); ok {
+		if err := patientrecord.NameValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Name", err: fmt.Errorf("ent: validator failed for field \"Name\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.Idcardnumber(); ok {
+		if err := patientrecord.IdcardnumberValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Idcardnumber", err: fmt.Errorf("ent: validator failed for field \"Idcardnumber\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.Age(); ok {
+		if err := patientrecord.AgeValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Age", err: fmt.Errorf("ent: validator failed for field \"Age\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.Disease(); ok {
+		if err := patientrecord.DiseaseValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Disease", err: fmt.Errorf("ent: validator failed for field \"Disease\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.Allergic(); ok {
+		if err := patientrecord.AllergicValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Allergic", err: fmt.Errorf("ent: validator failed for field \"Allergic\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.Phonenumber(); ok {
+		if err := patientrecord.PhonenumberValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Phonenumber", err: fmt.Errorf("ent: validator failed for field \"Phonenumber\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.Email(); ok {
+		if err := patientrecord.EmailValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Email", err: fmt.Errorf("ent: validator failed for field \"Email\": %w", err)}
+		}
+	}
+	if v, ok := puo.mutation.Home(); ok {
+		if err := patientrecord.HomeValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Home", err: fmt.Errorf("ent: validator failed for field \"Home\": %w", err)}
+		}
+	}
 
 	var (
 		err  error
@@ -1057,14 +1116,7 @@ func (puo *PatientrecordUpdateOne) sqlSave(ctx context.Context) (pa *Patientreco
 	}
 	if value, ok := puo.mutation.Idcardnumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: patientrecord.FieldIdcardnumber,
-		})
-	}
-	if value, ok := puo.mutation.AddedIdcardnumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldIdcardnumber,
 		})

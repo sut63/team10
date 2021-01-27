@@ -9,9 +9,15 @@ const (
 	FieldID = "id"
 	// FieldPermissionDate holds the string denoting the permissiondate field in the database.
 	FieldPermissionDate = "permission_date"
+	// FieldPermission holds the string denoting the permission field in the database.
+	FieldPermission = "permission"
+	// FieldPermissionArea holds the string denoting the permissionarea field in the database.
+	FieldPermissionArea = "permission_area"
+	// FieldResponsible holds the string denoting the responsible field in the database.
+	FieldResponsible = "responsible"
 
-	// EdgeEdgesOfPatientrightsPatientrightstype holds the string denoting the edgesofpatientrightspatientrightstype edge name in mutations.
-	EdgeEdgesOfPatientrightsPatientrightstype = "EdgesOfPatientrightsPatientrightstype"
+	// EdgeEdgesOfPatientrightsAbilitypatientrights holds the string denoting the edgesofpatientrightsabilitypatientrights edge name in mutations.
+	EdgeEdgesOfPatientrightsAbilitypatientrights = "EdgesOfPatientrightsAbilitypatientrights"
 	// EdgeEdgesOfPatientrightsInsurance holds the string denoting the edgesofpatientrightsinsurance edge name in mutations.
 	EdgeEdgesOfPatientrightsInsurance = "EdgesOfPatientrightsInsurance"
 	// EdgeEdgesOfPatientrightsPatientrecord holds the string denoting the edgesofpatientrightspatientrecord edge name in mutations.
@@ -21,13 +27,13 @@ const (
 
 	// Table holds the table name of the patientrights in the database.
 	Table = "patientrights"
-	// EdgesOfPatientrightsPatientrightstypeTable is the table the holds the EdgesOfPatientrightsPatientrightstype relation/edge.
-	EdgesOfPatientrightsPatientrightstypeTable = "patientrights"
-	// EdgesOfPatientrightsPatientrightstypeInverseTable is the table name for the Patientrightstype entity.
-	// It exists in this package in order to avoid circular dependency with the "patientrightstype" package.
-	EdgesOfPatientrightsPatientrightstypeInverseTable = "patientrightstypes"
-	// EdgesOfPatientrightsPatientrightstypeColumn is the table column denoting the EdgesOfPatientrightsPatientrightstype relation/edge.
-	EdgesOfPatientrightsPatientrightstypeColumn = "Patientrightstype_id"
+	// EdgesOfPatientrightsAbilitypatientrightsTable is the table the holds the EdgesOfPatientrightsAbilitypatientrights relation/edge.
+	EdgesOfPatientrightsAbilitypatientrightsTable = "patientrights"
+	// EdgesOfPatientrightsAbilitypatientrightsInverseTable is the table name for the Abilitypatientrights entity.
+	// It exists in this package in order to avoid circular dependency with the "abilitypatientrights" package.
+	EdgesOfPatientrightsAbilitypatientrightsInverseTable = "abilitypatientrights"
+	// EdgesOfPatientrightsAbilitypatientrightsColumn is the table column denoting the EdgesOfPatientrightsAbilitypatientrights relation/edge.
+	EdgesOfPatientrightsAbilitypatientrightsColumn = "Abilitypatientrights_id"
 	// EdgesOfPatientrightsInsuranceTable is the table the holds the EdgesOfPatientrightsInsurance relation/edge.
 	EdgesOfPatientrightsInsuranceTable = "patientrights"
 	// EdgesOfPatientrightsInsuranceInverseTable is the table name for the Insurance entity.
@@ -55,12 +61,24 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldPermissionDate,
+	FieldPermission,
+	FieldPermissionArea,
+	FieldResponsible,
 }
 
 // ForeignKeys holds the SQL foreign-keys that are owned by the Patientrights type.
 var ForeignKeys = []string{
+	"Abilitypatientrights_id",
 	"Insurance_id",
 	"medicalrecordstaff_id",
 	"patientrecord_id",
-	"Patientrightstype_id",
 }
+
+var (
+	// PermissionValidator is a validator for the "Permission" field. It is called by the builders before save.
+	PermissionValidator func(string) error
+	// PermissionAreaValidator is a validator for the "PermissionArea" field. It is called by the builders before save.
+	PermissionAreaValidator func(string) error
+	// ResponsibleValidator is a validator for the "Responsible" field. It is called by the builders before save.
+	ResponsibleValidator func(string) error
+)

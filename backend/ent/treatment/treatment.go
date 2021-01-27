@@ -7,8 +7,12 @@ const (
 	Label = "treatment"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldTreatment holds the string denoting the treatment field in the database.
-	FieldTreatment = "treatment"
+	// FieldSymptom holds the string denoting the symptom field in the database.
+	FieldSymptom = "symptom"
+	// FieldTreat holds the string denoting the treat field in the database.
+	FieldTreat = "treat"
+	// FieldMedicine holds the string denoting the medicine field in the database.
+	FieldMedicine = "medicine"
 	// FieldDatetreat holds the string denoting the datetreat field in the database.
 	FieldDatetreat = "datetreat"
 
@@ -56,7 +60,9 @@ const (
 // Columns holds all SQL columns for treatment fields.
 var Columns = []string{
 	FieldID,
-	FieldTreatment,
+	FieldSymptom,
+	FieldTreat,
+	FieldMedicine,
 	FieldDatetreat,
 }
 
@@ -68,6 +74,10 @@ var ForeignKeys = []string{
 }
 
 var (
-	// TreatmentValidator is a validator for the "Treatment" field. It is called by the builders before save.
-	TreatmentValidator func(string) error
+	// SymptomValidator is a validator for the "Symptom" field. It is called by the builders before save.
+	SymptomValidator func(string) error
+	// TreatValidator is a validator for the "Treat" field. It is called by the builders before save.
+	TreatValidator func(string) error
+	// MedicineValidator is a validator for the "Medicine" field. It is called by the builders before save.
+	MedicineValidator func(string) error
 )

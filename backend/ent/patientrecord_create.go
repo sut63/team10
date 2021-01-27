@@ -34,8 +34,8 @@ func (pc *PatientrecordCreate) SetName(s string) *PatientrecordCreate {
 }
 
 // SetIdcardnumber sets the Idcardnumber field.
-func (pc *PatientrecordCreate) SetIdcardnumber(i int) *PatientrecordCreate {
-	pc.mutation.SetIdcardnumber(i)
+func (pc *PatientrecordCreate) SetIdcardnumber(s string) *PatientrecordCreate {
+	pc.mutation.SetIdcardnumber(s)
 	return pc
 }
 
@@ -212,26 +212,66 @@ func (pc *PatientrecordCreate) Save(ctx context.Context) (*Patientrecord, error)
 	if _, ok := pc.mutation.Name(); !ok {
 		return nil, &ValidationError{Name: "Name", err: errors.New("ent: missing required field \"Name\"")}
 	}
+	if v, ok := pc.mutation.Name(); ok {
+		if err := patientrecord.NameValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Name", err: fmt.Errorf("ent: validator failed for field \"Name\": %w", err)}
+		}
+	}
 	if _, ok := pc.mutation.Idcardnumber(); !ok {
 		return nil, &ValidationError{Name: "Idcardnumber", err: errors.New("ent: missing required field \"Idcardnumber\"")}
+	}
+	if v, ok := pc.mutation.Idcardnumber(); ok {
+		if err := patientrecord.IdcardnumberValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Idcardnumber", err: fmt.Errorf("ent: validator failed for field \"Idcardnumber\": %w", err)}
+		}
 	}
 	if _, ok := pc.mutation.Age(); !ok {
 		return nil, &ValidationError{Name: "Age", err: errors.New("ent: missing required field \"Age\"")}
 	}
+	if v, ok := pc.mutation.Age(); ok {
+		if err := patientrecord.AgeValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Age", err: fmt.Errorf("ent: validator failed for field \"Age\": %w", err)}
+		}
+	}
 	if _, ok := pc.mutation.Disease(); !ok {
 		return nil, &ValidationError{Name: "Disease", err: errors.New("ent: missing required field \"Disease\"")}
+	}
+	if v, ok := pc.mutation.Disease(); ok {
+		if err := patientrecord.DiseaseValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Disease", err: fmt.Errorf("ent: validator failed for field \"Disease\": %w", err)}
+		}
 	}
 	if _, ok := pc.mutation.Allergic(); !ok {
 		return nil, &ValidationError{Name: "Allergic", err: errors.New("ent: missing required field \"Allergic\"")}
 	}
+	if v, ok := pc.mutation.Allergic(); ok {
+		if err := patientrecord.AllergicValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Allergic", err: fmt.Errorf("ent: validator failed for field \"Allergic\": %w", err)}
+		}
+	}
 	if _, ok := pc.mutation.Phonenumber(); !ok {
 		return nil, &ValidationError{Name: "Phonenumber", err: errors.New("ent: missing required field \"Phonenumber\"")}
+	}
+	if v, ok := pc.mutation.Phonenumber(); ok {
+		if err := patientrecord.PhonenumberValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Phonenumber", err: fmt.Errorf("ent: validator failed for field \"Phonenumber\": %w", err)}
+		}
 	}
 	if _, ok := pc.mutation.Email(); !ok {
 		return nil, &ValidationError{Name: "Email", err: errors.New("ent: missing required field \"Email\"")}
 	}
+	if v, ok := pc.mutation.Email(); ok {
+		if err := patientrecord.EmailValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Email", err: fmt.Errorf("ent: validator failed for field \"Email\": %w", err)}
+		}
+	}
 	if _, ok := pc.mutation.Home(); !ok {
 		return nil, &ValidationError{Name: "Home", err: errors.New("ent: missing required field \"Home\"")}
+	}
+	if v, ok := pc.mutation.Home(); ok {
+		if err := patientrecord.HomeValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Home", err: fmt.Errorf("ent: validator failed for field \"Home\": %w", err)}
+		}
 	}
 	if _, ok := pc.mutation.Date(); !ok {
 		return nil, &ValidationError{Name: "Date", err: errors.New("ent: missing required field \"Date\"")}
@@ -306,7 +346,7 @@ func (pc *PatientrecordCreate) createSpec() (*Patientrecord, *sqlgraph.CreateSpe
 	}
 	if value, ok := pc.mutation.Idcardnumber(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: patientrecord.FieldIdcardnumber,
 		})

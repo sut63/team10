@@ -1,6 +1,10 @@
 package schema
 
 import (
+	"errors"
+	"regexp"
+	"strings"
+
 	"github.com/facebookincubator/ent"
 	"github.com/facebookincubator/ent/schema/edge"
 	"github.com/facebookincubator/ent/schema/field"
@@ -14,7 +18,27 @@ type Treatment struct {
 // Fields of the Treatment.
 func (Treatment) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Treatment").NotEmpty(),
+		field.String("Symptom").NotEmpty().Match(regexp.MustCompile("[a-zA-Z_]+$")).
+		Validate(func(s string) error {
+			if strings.ToLower(s) == s {
+				return errors.New("Payer name must begin with uppercase")
+			}
+			return nil
+		}),
+		field.String("Treat").NotEmpty().Match(regexp.MustCompile("[a-zA-Z_]+$")).
+		Validate(func(s string) error {
+			if strings.ToLower(s) == s {
+				return errors.New("Payer name must begin with uppercase")
+			}
+			return nil
+		}),
+		field.String("Medicine").NotEmpty().Match(regexp.MustCompile("[a-zA-Z_]+$")).
+		Validate(func(s string) error {
+			if strings.ToLower(s) == s {
+				return errors.New("Payer name must begin with uppercase")
+			}
+			return nil
+		}),
 		field.Time("Datetreat"),
 	}
 }

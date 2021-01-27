@@ -44,8 +44,6 @@ type Tx struct {
 	Patientrecord *PatientrecordClient
 	// Patientrights is the client for interacting with the Patientrights builders.
 	Patientrights *PatientrightsClient
-	// Patientrightstype is the client for interacting with the Patientrightstype builders.
-	Patientrightstype *PatientrightstypeClient
 	// Paytype is the client for interacting with the Paytype builders.
 	Paytype *PaytypeClient
 	// Prename is the client for interacting with the Prename builders.
@@ -215,7 +213,6 @@ func (tx *Tx) init() {
 	tx.Officeroom = NewOfficeroomClient(tx.config)
 	tx.Patientrecord = NewPatientrecordClient(tx.config)
 	tx.Patientrights = NewPatientrightsClient(tx.config)
-	tx.Patientrightstype = NewPatientrightstypeClient(tx.config)
 	tx.Paytype = NewPaytypeClient(tx.config)
 	tx.Prename = NewPrenameClient(tx.config)
 	tx.Registrar = NewRegistrarClient(tx.config)
