@@ -167,7 +167,7 @@ const BillSearch: FC<{}> = () => {
           >
             ค้นหา
                </Button>&emsp;
-            <Link component={RouterLink} to="/creatbill">
+            <Link component={RouterLink} to="/createbill">
             <Button variant="contained" color='secondary'>
               กลับ
            </Button>
@@ -186,8 +186,8 @@ const BillSearch: FC<{}> = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {bills.map(bill => (unpaybills.filter(i => i.id === bill.edges?.edgesOfTreatment?.id).map(up => (
-                  treatments.filter(j => j.id === up.edges?.edgesOfTreatment?.id).map(t =>(                  
+              {bills.map(bill => (
+                  treatments.filter(j => bill.edges?.edgesOfTreatment?.id === j.id).map(t =>(                  
                     <TableRow>
                     <TableCell align="center">{bill.id}</TableCell>
                     <TableCell align="center">{t.id}</TableCell>
@@ -198,7 +198,7 @@ const BillSearch: FC<{}> = () => {
                       <MoreInfo id={bill.id}></MoreInfo>
                     </TableCell>
                   </TableRow>
-                ))))))}
+                ))))}
             </TableBody>
           </Table>
         </TableContainer>

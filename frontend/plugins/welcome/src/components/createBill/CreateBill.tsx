@@ -207,44 +207,7 @@ const CreateBill: FC<{}> = () => {
         return;
     }
   }
-/*
-  const CreatePayment = async () => {
 
-    if((amounts != '')&&(paytypeid != null)&&(unpayid != null)&&(unpayid != 0)){
-    const b = {
-      amount: amounts,
-      financier: financiers?.id,
-      paytype: paytypeid,
-      unpaybill: unpayid,
-    };
-    const upb = {
-      id: unpayid,
-    }
-    console.log(b);
-    const res: any = await http.createBill({ bill: b });
-
-    setStatus(true);
-    if (res.id != '') {
-      setAlert(true);
-      await http.updateUnpaybill({ id: unpayid, unpaybill: upb });
-      setTimeout(() => {
-        setStatus(false);
-        refreshPage();
-      }, 5000);
-
-    }
-  }
-    else {
-      setStatus(true);
-      setAlert(false);
-      setTimeout(() => {
-        setStatus(false);
-      }, 5000);
-  
-    }
-   
-  };
-  */
   const Create_Bill = async () => {
     const apiUrl = 'http://localhost:8080/api/v1/bills';
     const requestOptions = {
@@ -360,7 +323,7 @@ const CreateBill: FC<{}> = () => {
                           <Button
                           variant = "contained"
                           color ="inherit"
-                          href = "/billtable"
+                          href = "/BillSearch"
                           >
                             ประวัติการรับเงิน
                           </Button>

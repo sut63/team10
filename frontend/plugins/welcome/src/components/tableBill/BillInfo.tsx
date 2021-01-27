@@ -74,8 +74,8 @@ export default function MoreInfo( id : any) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-              {bills.filter(b=> b.id === id.id).map(bill => (unpaybills.filter(i => i.id === bill.edges?.edgesOfTreatment?.id).map(up => (
-                  treatments.filter(j => j.id === up.edges?.edgesOfTreatment?.id).map(t =>( 
+          {bills.filter(b => b.id === id.id).map(bill => (
+                  treatments.filter(j => bill.edges?.edgesOfTreatment?.id === j.id).map(t =>( 
                     <Grid>
                     <Typography variant = 'h4'>
                         ใบเสร็จรับเงิน<br/>
@@ -96,7 +96,7 @@ export default function MoreInfo( id : any) {
                         ผู้รับเงิน : &emsp;{bill.edges?.edgesOfOfficer?.name}<br/>
                     </Typography>
                     </Grid>
-                       ))))))}
+                       ))))}
           </div>
         </Fade>
       </Modal>

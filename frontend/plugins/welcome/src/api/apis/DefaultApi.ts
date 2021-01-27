@@ -1764,7 +1764,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * get bill by ID
      * Get a bill entity by ID
      */
-    async getBillRaw(requestParameters: GetBillRequest): Promise<runtime.ApiResponse<EntBill>> {
+    async getBillRaw(requestParameters: GetBillRequest): Promise<runtime.ApiResponse<Array<EntBill>>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getBill.');
         }
@@ -1780,14 +1780,14 @@ export class DefaultApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntBillFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntBillFromJSON));
     }
 
     /**
      * get bill by ID
      * Get a bill entity by ID
      */
-    async getBill(requestParameters: GetBillRequest): Promise<EntBill> {
+    async getBill(requestParameters: GetBillRequest): Promise<Array<EntBill>> {
         const response = await this.getBillRaw(requestParameters);
         return await response.value();
     }
