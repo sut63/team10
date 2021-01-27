@@ -23,6 +23,12 @@ type BillCreate struct {
 	hooks    []Hook
 }
 
+// SetAmount sets the Amount field.
+func (bc *BillCreate) SetAmount(s string) *BillCreate {
+	bc.mutation.SetAmount(s)
+	return bc
+}
+
 // SetPayer sets the Payer field.
 func (bc *BillCreate) SetPayer(s string) *BillCreate {
 	bc.mutation.SetPayer(s)
@@ -32,12 +38,6 @@ func (bc *BillCreate) SetPayer(s string) *BillCreate {
 // SetPayercontact sets the Payercontact field.
 func (bc *BillCreate) SetPayercontact(s string) *BillCreate {
 	bc.mutation.SetPayercontact(s)
-	return bc
-}
-
-// SetAmount sets the Amount field.
-func (bc *BillCreate) SetAmount(s string) *BillCreate {
-	bc.mutation.SetAmount(s)
 	return bc
 }
 
@@ -111,6 +111,14 @@ func (bc *BillCreate) Mutation() *BillMutation {
 
 // Save creates the Bill in the database.
 func (bc *BillCreate) Save(ctx context.Context) (*Bill, error) {
+	if _, ok := bc.mutation.Amount(); !ok {
+		return nil, &ValidationError{Name: "Amount", err: errors.New("ent: missing required field \"Amount\"")}
+	}
+	if v, ok := bc.mutation.Amount(); ok {
+		if err := bill.AmountValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Amount", err: fmt.Errorf("ent: validator failed for field \"Amount\": %w", err)}
+		}
+	}
 	if _, ok := bc.mutation.Payer(); !ok {
 		return nil, &ValidationError{Name: "Payer", err: errors.New("ent: missing required field \"Payer\"")}
 	}
@@ -125,14 +133,6 @@ func (bc *BillCreate) Save(ctx context.Context) (*Bill, error) {
 	if v, ok := bc.mutation.Payercontact(); ok {
 		if err := bill.PayercontactValidator(v); err != nil {
 			return nil, &ValidationError{Name: "Payercontact", err: fmt.Errorf("ent: validator failed for field \"Payercontact\": %w", err)}
-		}
-	}
-	if _, ok := bc.mutation.Amount(); !ok {
-		return nil, &ValidationError{Name: "Amount", err: errors.New("ent: missing required field \"Amount\"")}
-	}
-	if v, ok := bc.mutation.Amount(); ok {
-		if err := bill.AmountValidator(v); err != nil {
-			return nil, &ValidationError{Name: "Amount", err: fmt.Errorf("ent: validator failed for field \"Amount\": %w", err)}
 		}
 	}
 	if _, ok := bc.mutation.Date(); !ok {
@@ -198,6 +198,14 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := bc.mutation.Amount(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: bill.FieldAmount,
+		})
+		b.Amount = value
+	}
 	if value, ok := bc.mutation.Payer(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -213,14 +221,6 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 			Column: bill.FieldPayercontact,
 		})
 		b.Payercontact = value
-	}
-	if value, ok := bc.mutation.Amount(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: bill.FieldAmount,
-		})
-		b.Amount = value
 	}
 	if value, ok := bc.mutation.Date(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
