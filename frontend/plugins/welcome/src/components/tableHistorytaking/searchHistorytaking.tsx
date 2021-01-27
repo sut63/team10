@@ -18,12 +18,7 @@ import {
   ContentHeader,
   Link,
 } from '@backstage/core';
-import {
-  FormControl,
-  Select,
-  InputLabel,
-  MenuItem,
-} from '@material-ui/core';
+import { FormControl } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const cookies = new Cookies();
@@ -88,7 +83,7 @@ const Table: FC<{}> = () => {
 
     setTimeout(() => {
       setStatus(false);
-    }, 1000);
+    }, 5000);
 
   };
 
@@ -133,7 +128,7 @@ const Table: FC<{}> = () => {
               options={Patientrecord.map((option) => option.name)}
               onChange={handleChange}
               renderInput={(params) => (
-                <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" />
+                <TextField {...params} label="ชื่อผู้ป่วย" name="patientname" margin="normal" variant="outlined" />
               )}
             />
           </FormControl>
