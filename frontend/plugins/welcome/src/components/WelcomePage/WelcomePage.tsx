@@ -124,7 +124,7 @@ const [Users, setUsers] = React.useState<Partial<EntUser>>();
           <CardTeam name={"นางสาวณัชพร กลิ่นรอด"} id={"B6102845"} system={"ระบบการเงิน"} imgsut = {Image1Base64Function} linkto = "/createBill"></CardTeam>
           <CardTeam name={"นางสาวพรรวินท์ กุดแถลง"} id={"B6103217"} system={"ระบบลงทะเบียนผู้ป่วยนอก"} imgsut = {Image2Base64Function}linkto = "/createPatientrecord"></CardTeam>
           <CardTeam name={"นายคฑาเดช เขียนชัยนาจ"} id={"B6103866"} system={"ระบบสิทธิ์ผู้ป่วย"} imgsut = {Image3Base64Function}linkto = "/create_Patientrights"></CardTeam>
-          <CardTeam name={"นายวัชระพงศ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut = {Image4Base64Function}linkto = "/Treatment"></CardTeam>
+          <CardTeam name={"นายวัชระพงศ์ ทาระมล"} id={"B6107505"} system={"ระบบการรักษาผู้ป่วย"} imgsut = {Image4Base64Function}linkto = "/findTreatment"></CardTeam>
           <CardTeam name={"นางสาวปอรรัชม์ ปานใจนาม"} id={"B6109868"} system={"ระบบซักประวัติ"} imgsut = {Image5Base64Function}linkto = "/createHistorytaking"></CardTeam>
           <CardTeam name={"นายธนวรรต สีแก้วสิ่ว"} id={"B6115586"} system={"ระบบข้อมูลแพทย์"} imgsut = {Image6Base64Function}linkto = "/Doctorinfo"></CardTeam>
          

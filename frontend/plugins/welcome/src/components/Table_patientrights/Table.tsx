@@ -6,15 +6,9 @@ import { DefaultApi } from '../../api/apis';
 import { EntUser } from '../../api/models/EntUser';
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { useEffect } from 'react';
-<<<<<<< HEAD
-import { Avatar } from '@material-ui/core';
-import { EntPatientrecord } from '../../api/models/EntPatientrecord';
-import { EntPatientrights } from '../../api/models/EntPatientrights';
-=======
 import { Avatar,TextField } from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import Autocomplete from '@material-ui/lab/Autocomplete';
->>>>>>> 6e7cb6f7cc3ac6b7d6d99f6bfdf6f5c88304e9d2
 import { Alert } from '@material-ui/lab';
 import {
   Content,
@@ -52,15 +46,6 @@ const Table: FC<{}> = () => {
       justifyContent: 'center',
     },
   }));
-<<<<<<< HEAD
-  const [Pat, setPat] = React.useState<number>(0);
-  const [Se, setSe] = React.useState<number>(0);
-  const classes = useStyles();
-  const [alert, setAlert] =                             React.useState(true);
-  const [loading, setLoading] =                         React.useState(true);
-  const [status, setStatus] =                           React.useState(false);
-  
-=======
   const [Pat, setPat] = React.useState<string>();
   const [Se, setSe] = React.useState<string>();
   const classes = useStyles();
@@ -68,9 +53,9 @@ const Table: FC<{}> = () => {
   const [loading, setLoading] = React.useState(true);
   const [status, setStatus] = React.useState(false);
 
->>>>>>> 6e7cb6f7cc3ac6b7d6d99f6bfdf6f5c88304e9d2
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
  
+
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const getPatientrecord = async () => {
@@ -108,51 +93,9 @@ setSe(Pat);
   };
 
 
-
-
-  const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
-
-  const getPatientrecord = async () => {
-    const res = await http.listPatientrecord({ limit: 110, offset: 0 });
-    setPatientrecord(res);
-  };
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setPat(event.target.value as number);
-
-  };
-  
-
-  const Sc = async () => {
-   setSe(Pat)
-
-   
-   //setStatus(true);
-   var p = (await http.getPatientrecord({id:Pat})).edges?.edgesOfPatientrecordPatientrights
-   console.log("ผู้ป่วย = ",Pat)
-   console.log("p = ",p)
-   
-    if (p != undefined){
-      setStatus(true);
-      setAlert(true);
-    } else {
-      setStatus(true);
-      setAlert(false);
-    }
-
-    setTimeout(() => {
-      setStatus(false);
-    }, 1000);
-    
-  };
-
   useEffect(() => {
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
-<<<<<<< HEAD
-      
-=======
-
->>>>>>> 6e7cb6f7cc3ac6b7d6d99f6bfdf6f5c88304e9d2
       setUsers(res);
     };
     getImg();
@@ -171,51 +114,6 @@ setSe(Pat);
       <Content>
         <ContentHeader title="ค้นหาสิทธิ์">
 
-<<<<<<< HEAD
-        {status ? (
-           <div>
-             {alert ? (
-               <Alert severity="success">
-                 พบสิทธิ์
-               </Alert>
-             ) : (
-               <Alert severity="warning" style={{ marginTop: 20 }}>
-                 ไม่พบสิทธ์
-               </Alert>
-             )}
-           </div>
-         ) : null}
-
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel>ผู้ป่วย</InputLabel>
-            <Select
-              name="patientrecord"
-              value={Pat}
-              
-              onChange={handleChange}
-            
-            >
-              {Patientrecord.map((item: any) => {
-                return (
-                  <MenuItem key={item.id} value={item.id}>
-                    {item.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-          <Button
-            onClick={() => {
-              Sc();
-            }}
-            style={{ marginLeft: 10 }}
-            variant="contained"
-            color="primary"
-          >
-            ค้นหา
-               </Button>&emsp;
-         <Link component={RouterLink} to="/">
-=======
           {status ? (
             <div>
               {alert ? (
@@ -254,7 +152,6 @@ setSe(Pat);
           
 
           <Link component={RouterLink} to="/">
->>>>>>> 6e7cb6f7cc3ac6b7d6d99f6bfdf6f5c88304e9d2
             <Button variant="contained" color="primary">
               Home
            </Button>
@@ -269,15 +166,9 @@ setSe(Pat);
 
         </ContentHeader>
         <div className={classes.root}>
-<<<<<<< HEAD
-          
-        <ComponanceTable sim={Se}></ComponanceTable>
-        
-=======
 
           <ComponanceTable sim={Se}></ComponanceTable>
 
->>>>>>> 6e7cb6f7cc3ac6b7d6d99f6bfdf6f5c88304e9d2
         </div>
 
       </Content>
