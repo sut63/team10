@@ -563,7 +563,7 @@ export default function CreateHistorytaking() {
                   <Button
                     style={{ marginLeft: 40 }}
                     component={RouterLink}
-                    to="/Historytaking"
+                    to="/tableHistorytaking"
                     variant="contained"
                     color="secondary"
                   >

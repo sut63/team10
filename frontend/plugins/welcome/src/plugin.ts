@@ -4,7 +4,6 @@ import WelcomePage from './components/WelcomePage';
 
 import create_Patientrights from './components/create_patientrights';
 import Table_patientrights from './components/Table_patientrights';
-import Historytaking from './components/Historytaking';
 import tableHistorytaking from './components/tableHistorytaking';
 import createHistorytaking from './components/createHistorytaking';
 import CreateBill from './components/createBill'
@@ -58,7 +57,6 @@ export const plugin = createPlugin({
       }
       if (Status == 'Nur' || Status == 'Root' ) {
         router.registerRoute('/createHistorytaking', createHistorytaking);
-        router.registerRoute('/Historytaking', Historytaking);
         router.registerRoute('/tableHistorytaking', tableHistorytaking);
       }
       if (Status == 'Doc' || Status == 'Root' ) {
