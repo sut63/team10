@@ -141,17 +141,17 @@ export default function ComponentsTable() {
       if (name != "") {
         if (item.edges?.edgesOfPatientrecord?.name?.includes(name)) {
           setcheckname(true);
-          alertMessage("success", "ค้นหาข้อมูลบุคลากรสำเร็จ");
+          alertMessage("success", "ค้นหาข้อมูลบันทึกการรักษาสำเร็จ");
           check = true;
         }
       }
     })
     if (!check) {
-      alertMessage("error", "ค้นหาข้อมูลบุคลากรไม่สำเร็จ");
+      alertMessage("error", "ค้นหาข้อมูลบันทึกการรักษาไม่สำเร็จ");
     }
     console.log(checkname)
     if (name == "") {
-      alertMessage("info", "แสดงข้อมูลบุคลากรทั้งหมดทั้งหมดในระบบ");
+      alertMessage("info", "แสดงข้อมูลบันทึกการรักษาทั้งหมดทั้งหมดในระบบ");
     }
   };
 
@@ -204,7 +204,7 @@ export default function ComponentsTable() {
               variant="outlined"
               size="small"
             >
-              <div ><strong>กรอก "ชื่อ" เพื่อทำการค้นหา</strong></div>
+              <div ><strong>กรอก "ชื่อผู้ป่วย" เพื่อทำการค้นหา</strong></div>
               <TextField
                 id="name"
                 variant="outlined"
