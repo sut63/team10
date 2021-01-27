@@ -19,6 +19,14 @@ type Bill struct {
 // Fields of the Bill.
 func (Bill) Fields() []ent.Field {
 	return []ent.Field{
+		field.String("Amount").NotEmpty().
+		Validate(func(s string) error {
+			match, _ := regexp.MatchString("\\d",s)  
+			if !match{
+				return errors.New("Amount must be Number")
+			}
+			return nil
+		}),
 		field.String("Payer").NotEmpty().Match(regexp.MustCompile("[a-zA-Z_]+$")).
 		Validate(func(s string) error {
 			if strings.ToLower(s) == s {
@@ -34,14 +42,7 @@ func (Bill) Fields() []ent.Field {
 			}
 			return nil
 		}),
-		field.String("Amount").NotEmpty().
-		Validate(func(s string) error {
-			match, _ := regexp.MatchString("\\d",s)  
-			if !match{
-				return errors.New("Amount must be Number")
-			}
-			return nil
-		}),
+		
 		field.Time("Date"),
 	}
 }

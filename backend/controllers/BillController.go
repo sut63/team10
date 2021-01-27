@@ -11,7 +11,9 @@ import (
 	"github.com/team10/app/ent/bill"
 	"github.com/team10/app/ent/financier"
 	"github.com/team10/app/ent/paytype"
+	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/unpaybill"
+	"github.com/team10/app/ent/patientrecord"
 )
 
 // BillController defines the struct for the bill controller
@@ -22,12 +24,12 @@ type BillController struct {
 
 // Bill defines the struct for the Bill entity
 type Bill struct {
-	Payer		string
+	Payer        string
 	Payercontact string
-	Amount    string
-	Paytype   int
-	Financier int
-	Unpaybill int
+	Amount       string
+	Paytype      int
+	Financier    int
+	Unpaybill    int
 }
 
 // CreateBill handles POST requests for adding bill entities
@@ -92,19 +94,19 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 		SetEdgesOfOfficer(f).
 		SetEdgesOfTreatment(ub).
 		Save(context.Background())
-		if err != nil {
-			fmt.Println(err)
-			c.JSON(400, gin.H{
-				"status": false,
-				"error":  err,
-			})
-			return
-		}
-	
-		c.JSON(200, gin.H{
-			"status": true,
-			"data":   u,
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(400, gin.H{
+			"status": false,
+			"error":  err,
 		})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"status": true,
+		"data":   u,
+	})
 }
 
 // GetBill handles GET requests to retrieve a bill entity
@@ -113,7 +115,7 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 // @ID get-bill
 // @Produce  json
 // @Param id path int true "Bill ID"
-// @Success 200 {object} ent.Bill
+// @Success 200 {array} ent.Bill
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -131,8 +133,8 @@ func (ctl *BillController) GetBill(c *gin.Context) {
 		WithEdgesOfTreatment().
 		WithEdgesOfPaytype().
 		WithEdgesOfOfficer().
-		Where(bill.IDEQ(int(id))).
-		Only(context.Background())
+		Where(bill.HasEdgesOfTreatmentWith(unpaybill.HasEdgesOfTreatmentWith(treatment.HasEdgesOfPatientrecordWith(patientrecord.IDEQ(int(id)))))).
+		All(context.Background())
 
 	if err != nil {
 		c.JSON(404, gin.H{
