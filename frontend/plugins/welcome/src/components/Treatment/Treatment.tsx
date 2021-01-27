@@ -68,7 +68,9 @@ export default function ComponentsTable() {
     const [patientrecords, setPatientrecords] = React.useState<EntPatientrecord[]>([]);
     const [treatments, setTreatments] = React.useState<EntTreatment[]>([]);
     const [treatmentid, setTreatmentId] = React.useState(Number);
-    const [treatment, setTreatment] = React.useState(String);
+    const [treat, setTreat] = React.useState(String);
+    const [symptom, setSymptom] = React.useState(String);
+    const [medicine, setMedicine] = React.useState(String);
     const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
     useEffect(() => {
@@ -119,9 +121,13 @@ export default function ComponentsTable() {
                                     <Typography align="center">
                                         <Typography align="center" variant="subtitle1">
                                             <br />เลขที่การรักษา : {treatmentid}
-                                            <br />รายละเอียดการรักษา<br />
-                                            <TableCell align="center">{treatment}</TableCell>
-                                        </Typography>                                        
+                                            <br />อาการ<br />
+                                            <TableCell align="center">{symptom}</TableCell>
+                                            รายละเอียดการรักษา<br />
+                                            <TableCell align="center">{treat}</TableCell>
+                                            ยารักษา<br />
+                                            <TableCell align="center">{medicine}</TableCell>
+                                        </Typography>
                                     </Typography>
                                     <br />
                                     <Typography align="center">
@@ -149,7 +155,7 @@ export default function ComponentsTable() {
                                                     <TableCell align="center">วันเวลาที่รักษา</TableCell>                                                <TableCell align="center">
                                                         <Link component={RouterLink} to="/createTreatment">
                                                             <Button variant="contained" color="primary" style={{ backgroundColor: "#21b6ae" }}>
-                                                                บันทึกการรักษา
+                                                                สร้างบันทึกการรักษา
             </Button>
                                                         </Link></TableCell>
                                                 </TableRow>
@@ -165,7 +171,9 @@ export default function ComponentsTable() {
                                                         <TableCell align="center">
                                                             <Button
                                                                 onClick={() => {
-                                                                    setTreatment(item.treatment as string);
+                                                                    setTreat(item.treat as string);
+                                                                    setSymptom(item.symptom as string);
+                                                                    setMedicine(item.medicine as string);
                                                                     setTreatmentId(item.id as number);
                                                                 }}
                                                                 variant="outlined"
