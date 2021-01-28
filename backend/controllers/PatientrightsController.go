@@ -52,7 +52,27 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err := c.ShouldBind(&obj); err != nil {
 		c.JSON(400, gin.H{
-			"error": "ไม่สามารถสร้าง Patientrights",
+			"error": "ไม่สามารถสร้าง สิทธิ์ได้",
+		})
+		return
+	}
+
+	if obj.Permission == "" {
+		c.JSON(400, gin.H{
+			"error": "เลขสิทธิ์ ไม่ถูกต้อง",
+		})
+		return
+	}
+	if obj.PermissionArea == "" {
+		c.JSON(400, gin.H{
+			"error": "พื้นที่ที่ใช้สิทธิ์ ไม่ถูกต้อง",
+		})
+		return
+	}
+
+	if obj.Responsible == "" {
+		c.JSON(400, gin.H{
+			"error": "ผู้รับผิดชอบดูแลสิทธิ์ ไม่ถูกต้อง",
 		})
 		return
 	}
@@ -64,7 +84,7 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Patientrightstype not found",
+			"error": "ไม่พบผู้ป่วย",
 		})
 		return
 	}
@@ -76,7 +96,7 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Room not found",
+			"error": "ไม่สามารถระบุพนักงานเวชระเบียงได้",
 		})
 		return
 	}
@@ -88,10 +108,11 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Insurance not found",
+			"error": "ไม่พบประกัน",
 		})
 		return
 	}
+
 	Abilitypatientrights, err := ctl.client.Abilitypatientrights.
 		Query().
 		Where(abilitypatientrights.IDEQ(int(obj.Abilitypatientrights))).
@@ -99,33 +120,22 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Abilitypatientrights not found",
+			"error": "ไม่พบความสามารถสิทธิ์",
 		})
 		return
 	}
 
-	if obj.Permission == "" {
-		c.JSON(400, gin.H{
-			"error": "Permission ไม่ถูกต้อง",
-		})
-		return
-	}
-	if obj.PermissionArea == "" {
-		c.JSON(400, gin.H{
-			"error": "PermissionArea ไม่ถูกต้อง",
-		})
-		return
-	}
-
-	if obj.Responsible == "" {
-		c.JSON(400, gin.H{
-			"error": "Responsibles ไม่ถูกต้อง",
-		})
-		return
-	}
+	
 
 	settime := time.Now().Format("2006-01-02T15:04:05Z07:00")
 	t, err := time.Parse(time.RFC3339, settime)
+	
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": "ระบบบันทึกเวลาผิดพลาด",
+		})
+		return
+	}
 
 	u, err := ctl.client.Patientrights.
 		Create().
