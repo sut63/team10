@@ -638,6 +638,9 @@ func main() {
 			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198146", 21, 1, "ไม่มี", "tetracyclines", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 			Patientrecord{3, "วิชัย ชาญชัย", 1, "1300101198136", 21, 1, "ไม่มี", "penicillin", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 			Patientrecord{3, "วิลินา ชาญชัย", 1, "1300101198126", 21, 1, "ไม่มี", "aspirin", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "ตฤนชัย บังเกิด", 1, "1300101198186", 22, 1, "ไม่มี", "tetracyclines", "0957252978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "กรรรชัย โสภา", 1, "1300101198836", 36, 1, "ไม่มี", "penicillin", "0857212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "อลัน พันตา", 1, "1300101198826", 27, 1, "ไม่มี", "aspirin", "0957212179", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 		},
 	}
 	for _, pr := range Patientrecords.Patientrecord {
@@ -901,8 +904,8 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod", 2},
-			Financier{"Name Surname", 1},
+			Financier{"นางไอริณ อารัญย์", 2},
+			Financier{"นางดังฝัน พ่วงดี", 1},
 		},
 	}
 	for _, f := range financiers.Financier {
@@ -924,9 +927,9 @@ func main() {
 	//Set Paytype data
 	paytypes := Paytypes{
 		Paytype: []Paytype{
-			Paytype{"Online Banking"},
-			Paytype{"Credit / Debit Card"},
-			Paytype{"Cash"},
+			Paytype{"ชำระผ่านธนาคารออนไลน์"},
+			Paytype{"ชำระผ่านบัตรเครดิต"},
+			Paytype{"เงินสด"},
 		},
 	}
 	for _, pt := range paytypes.Paytype {
@@ -942,6 +945,17 @@ func main() {
 		Treatment: []Treatment{
 			Treatment{"ปวดหัว", "ไมเกรน", "ยาแก้ปวด ยาลดความเครียด", 2, 1, 1},
 			Treatment{"เจ็บขา", "กล้ามเนื้ออักเสพ", "ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 2},
+			Treatment{"มีอาการใจสั่น", "เลือดไปเลี้ยงหัวใจไม่พอ", "ยาบำรุงเลือด", 2, 2, 3},
+			Treatment{"มีผดผื่นขึ้นตามตัว", "ภูมิแพ้", "ยาแก้แพ้", 3, 2, 4},
+			Treatment{"ผ่าตัดตามนัด", "ผ่าตัดไส้ติ่ง", "ยาฆ่าเชื้อ", 1, 2, 5},
+			Treatment{"ปวดคอ", "กล้ามเนื้ออักเสพ", "ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 6},
+			Treatment{"หน้ามืด ใจสั่น", "ความดันสูง", "ยาลดความดัน", 3, 2, 1},
+			Treatment{"ชาปลายมือปลายเท้า", "ปลายประสาทอักเสบ", "อาหารเสริมวิตามินบี", 3, 2, 2},
+			Treatment{"ไข้สูง ไอเป็นเลือด", "ปอดอักเสบ", "ยาแก้อักเสพ", 2, 2, 3},
+			Treatment{"ไม่สามารถขยับใบหน้าได้", "กล้ามเนื้ออ่อนแรง", "ไม่มี", 3, 2, 3},
+			Treatment{"เป็นลม", "ขาดสารอาหาร", "อาหารเสริม", 2, 2, 3},
+			Treatment{"มีอาการหน้ามืดบ่อยครั้ง", "เลือดไปเลี้ยงสมองไม่พอ ออฟฟิสซินโดรม", "ยาคลายกล้ามเนื้อ", 3, 2, 3},
+			Treatment{"เจ็บขา", "กล้ามเนื้ออักเสพ", "ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 5},
 		},
 	}
 	for _, t := range treatments.Treatment {
@@ -995,6 +1009,18 @@ func main() {
 		Unpaybill: []Unpaybill{
 			Unpaybill{"Unpay", 1},
 			Unpaybill{"Unpay", 2},
+			Unpaybill{"Unpay", 3},
+			Unpaybill{"Unpay", 4},
+			Unpaybill{"Unpay", 5},
+			Unpaybill{"Unpay", 6},
+			Unpaybill{"Unpay", 7},
+			Unpaybill{"Unpay", 8},
+			Unpaybill{"Unpay", 9},
+			Unpaybill{"Unpay", 10},
+			Unpaybill{"Unpay", 11},
+			Unpaybill{"Unpay", 12},
+			Unpaybill{"Unpay", 13},
+
 		},
 	}
 	for _, ub := range unpaybills.Unpaybill {
