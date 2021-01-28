@@ -193,7 +193,7 @@ const NewPatientright: FC<{}> = () => {
             <FormControl variant="outlined" className={classes.formControl}>
               <TextField
                 name="permission"
-                label="ชื่อสิทธิ์"
+                label="เลขสิทธิ์"
                 variant="outlined"
                 type="string"
                 size="medium"
@@ -347,7 +347,7 @@ const NewPatientright: FC<{}> = () => {
             </div>
           </form>
         </div>
-        
+
       </Content>
     </Page>
   );
