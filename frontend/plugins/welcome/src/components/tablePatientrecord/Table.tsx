@@ -1,156 +1,133 @@
-import React, { FC } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import ComponanceTable from './Tables';
-import Button from '@material-ui/core/Button';
+import React, { useState, useEffect } from 'react';
+import {  makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import MoreInfo from './prinfo'
 import { DefaultApi } from '../../api/apis';
-import { EntUser } from '../../api/models/EntUser';
-import { Cookies } from 'react-cookie/cjs';//cookie
-import { useEffect } from 'react';
-import { Avatar,TextField } from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Alert } from '@material-ui/lab';
-import {
-  Content,
-  Header,
-  Page,
-  pageTheme,
-  ContentHeader,
-  Link,
-} from '@backstage/core';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import { makeStyles } from '@material-ui/core/styles';
 
-const cookies = new Cookies();
-const Name = cookies.get('Name');
-const Img = cookies.get('Img');
+const useStyles = makeStyles(theme => ({
+  table: {
+    minWidth: 650,
+  },
+  formControl: {
+    margin: theme.spacing(3),
+    width: 200,
+  },
+  root: {
+    '& > *': {
+      borderBottom: 'unset',
+    },
+  },
+  div: {
+    flexGrow: 1,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  section1: {
+    margin: theme.spacing(3, 2),
+  },
+  section3: {
+    margin: theme.spacing(3, 1, 1),
+  },
+}));
 
-const Table: FC<{}> = () => {
-  const http = new DefaultApi();
-  const useStyles = makeStyles(theme => ({
-    table: {
-      minWidth: 650,
-    },
-    formControl: {
-      margin: theme.spacing(3),
-      width: 350,
-    },
-    root: {
-      flexGrow: 1,
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  }));
-  const [Pat, setPat] = React.useState<string>();
-  const [Se, setSe] = React.useState<string>();
+export default function ComponanceTable(sim: any) {
   const classes = useStyles();
-  const [alert, setAlert] = React.useState(true);
-  const [loading, setLoading] = React.useState(true);
-  const [status, setStatus] = React.useState(false);
-
-  const [Users, setUsers] = React.useState<Partial<EntUser>>();
- 
-  const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
+  const api = new DefaultApi();
+  const [Patientrecord, setPatientrecord] = useState<EntPatientrecord[]>(Array);
+  const [loading, setLoading] = useState(true);
+  const [nc, setnc] = useState(true);
+  const [no, setno] = useState<EntPatientrecord>({});
 
   const getPatientrecord = async () => {
-    const res = await http.listPatientrecord({ limit: 110, offset: 0 });
+    const res = await api.listPatientrecord({ limit: 100, offset: 0 });
+    setLoading(false);
     setPatientrecord(res);
   };
-  const handleChange = (event : any, value : unknown) => {
-    setPat(value as string);
-  };
-  const sc = async () => {
-    
-setSe(Pat);
-    var p = await http.listPatientrecord({ limit: 10, offset: 0 })
-    let i = 0
-    for (let u of p){
-    if( u.name === Pat && u.id !== undefined)
-    i = i+1
-    }
-    console.log("ผู้ป่วย = ", Pat)
-
-    if (i != 0) {
-      setStatus(true);
-      setAlert(true);
-    } else {
-      setStatus(true);
-      setAlert(false);
-    }
-    setTimeout(() => {
-      setStatus(false);
-    }, 5000);
-  };
-
   useEffect(() => {
-    const getImg = async () => {
-      const res = await http.getUser({ id: Number(Img) });
-
-      setUsers(res);
-    };
-    getImg();
     getPatientrecord();
-    setLoading(false);
+    setnc(true);
   }, [loading]);
 
-  return (
-    <Page theme={pageTheme.home}>
-      <Header
-        title={`Patientrecord`}
->
-        <Avatar alt="Remy Sharp" src={Users?.images as string} />
-        <div style={{ marginLeft: 10 }}>{Name}</div>
-      </Header>
-      <Content>
-        <ContentHeader title="ค้นหาข้อมูลผู้ป่วย">
-          {status ? (
-            <div>
-              {alert ? (
-                <Alert severity="success">
-                  พบข้อมูลผู้ป่วย
-                </Alert>
-              ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบข้อมูลผู้ป่วย
-                  </Alert>
-                )}
-            </div>
-          ) : null}
-            <Autocomplete
-              id="patientname" 
-              options={Patientrecord.map((option) => option.name)}
-              onChange={handleChange}
-              renderInput={(params) => (
-                <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" style={{ width: "50ch"}} />
-              )}
-            />
-            <Button
-              onClick={() => {
-               sc();
-              }}
-              style={{ marginLeft: 10 }}
-              variant="contained"
-              color="primary"
-            >
-              ค้นหา
-               </Button>&emsp;
-          <Link component={RouterLink} to="/">
-            <Button variant="contained" color="primary" style={{backgroundColor: "#d500f9"}}>
-              Home
-           </Button>
-          </Link>&emsp;
-          <Link component={RouterLink} to="/createPatientrecord">
-            <Button variant="contained" color="primary" style={{backgroundColor: "#9500ae"}} startIcon={<AddBoxIcon />} size="large">
-              ลงทะเบียนผู้ป่วยนอก
-            </Button>
-          </Link>
-        </ContentHeader>
-        <div className={classes.root}>
-          <ComponanceTable sim={Se}></ComponanceTable>
-        </div>
-      </Content>
-    </Page>
-  );
-};
+  const Show = async (i: any) => {
+    setno(i);
+    setnc(false);
+  };
+  var p = 0;
 
-export default Table;
+  for (var val of Patientrecord) {
+    if (val.name === sim.sim || sim.sim === undefined || sim.sim === null) {
+      p = p + 1
+    }
+  }
+    if (p !== 0) {
+      return (
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+              <TableCell align="center">รหัสผู้ป่วย</TableCell>
+              <TableCell align="center">คำนำหน้าชื่อ</TableCell>
+              <TableCell align="center">ชื่อ-นามสกุล</TableCell>
+              <TableCell align="center">เพศ</TableCell>
+              <TableCell align="center">เลขบัตรประจำตัวประชาชน</TableCell>
+              <TableCell align="center">อายุ</TableCell>
+              <TableCell align="center">กรุ๊ปเลือด</TableCell>
+              <TableCell align="center">โรคประจำตัว</TableCell>
+              <TableCell align="center">แพ้ยา</TableCell>
+              <TableCell align="center">เบอร์โทรที่ติดต่อได้</TableCell>
+              <TableCell align="center">อีเมล์</TableCell>
+              <TableCell align="center">ที่อยู่</TableCell>
+              <TableCell align="center">วันเวลาที่ลงทะเบียนผู้ป่วยนอก</TableCell>
+              <TableCell align="center">พนักงานเวชระเบียนที่ทำการลงบันทึก</TableCell>
+              <TableCell align = "center">Manage</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {Patientrecord === undefined
+                ? null
+                : Patientrecord.filter(i => i.name === sim.sim || sim.sim === undefined || sim.sim === null).map((item: any) => (
+                <TableRow key={item.id}>
+                <TableCell align="center">{item.id}</TableCell>
+                <TableCell align="center">{item.edges?.edgesOfPrename?.prefix}</TableCell>
+                <TableCell align="center">{item.name}</TableCell>
+                <TableCell align="center">{item.edges?.edgesOfGender?.genderstatus}</TableCell>
+                <TableCell align="center">{item.idcardnumber}</TableCell>
+                <TableCell align="center">{item.age}</TableCell>
+                <TableCell align="center">{item.edges?.edgesOfBloodtype?.bloodtype}</TableCell>
+                <TableCell align="center">{item.disease}</TableCell>
+                <TableCell align="center">{item.allergic}</TableCell>
+                <TableCell align="center">{item.phonenumber}</TableCell>
+                <TableCell align="center">{item.email}</TableCell>
+                <TableCell align="center">{item.home}</TableCell>
+                <TableCell align="center">{item.date}</TableCell>
+                <TableCell align = "center">{item.edges?.edgesOfMedicalrecordstaff?.name}</TableCell>
+                <TableCell align = "center">
+                  <MoreInfo id ={item.id}></MoreInfo>
+                </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      );
+    } else {
+      return (
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">ไม่พบข้อมูลผู้ป่วย</TableCell>
+              </TableRow>
+            </TableHead>
+          </Table>
+        </TableContainer>
+      );
+    } 
+}
