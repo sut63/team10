@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import { DefaultApi } from '../../api/apis';
-import { EntBill,EntTreatment,EntUnpaybill } from '../../api/models';
+import { EntBill,EntTreatment } from '../../api/models';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {Grid, Modal,Typography} from '@material-ui/core';
 import Fade from '@material-ui/core/Fade';
@@ -33,19 +33,13 @@ export default function MoreInfo( id : any) {
   const http = new DefaultApi();
   const [loading, setLoading] = React.useState(true);
   const [bills, setBills] = useState<EntBill[]>(Array);
-  const [unpaybills, setUnpayBills] = useState<EntUnpaybill[]>(Array);
   const [treatments, setTreatments] = useState<EntTreatment[]>(Array);
-  const getUnpayBills = async () => {
-    const res = await http.listUnpaybill();
-    setLoading(false);
-    setUnpayBills(res);
-  };
+
   const getTreatments = async () => {
     const res = await http.listTreatment({offset : 0});
     setLoading(false);
     setTreatments(res);
   };
-
   const getBills = async () => {
     const res = await http.listBill({offset : 0})
     setLoading(false);
@@ -53,7 +47,6 @@ export default function MoreInfo( id : any) {
   };
   useEffect(() => {
     getBills();
-    getUnpayBills();
     getTreatments();
   
   }, [loading]);
