@@ -146,13 +146,7 @@ const NewPatientright: FC<{}> = () => {
     setPatientrights({ ...Patientrights, [name]: value });
   };
 
-  const alertMessage = (icon: any, title: any) => {
-    Toast.fire({
-      icon: icon,
-      title: title,
-    });
-  }
-
+  
   const CreatePatientright = async () => {
 
     const apiUrl = 'http://localhost:8080/api/v1/patientrightss';
@@ -172,7 +166,10 @@ const NewPatientright: FC<{}> = () => {
             title: 'บันทึกข้อมูลสำเร็จ',
           });
         } else {
-          alertMessage("error", data.error);
+          Toast.fire({
+            icon: "error",
+            title: data.error,
+          });
         }
       });
   };
