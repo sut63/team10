@@ -4,33 +4,32 @@ import (
 	"errors"
 	"regexp"
 	"strings"
+	"strconv"
 
 	"github.com/facebookincubator/ent"
 	"github.com/facebookincubator/ent/schema/field"
 	"github.com/facebookincubator/ent/schema/edge"
 
 )
-
 // Bill holds the schema definition for the Bill entity.
 type Bill struct {
 	ent.Schema
 }
-
 // Fields of the Bill.
 func (Bill) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("Amount").NotEmpty().
 		Validate(func(s string) error {
-			match, _ := regexp.MatchString("\\d",s)  
-			if !match{
+			_, err := strconv.ParseFloat(s, 64)
+				if (err != nil) {
 				return errors.New("Amount must be Number")
 			}
 			return nil
 		}),
-		field.String("Payer").NotEmpty().Match(regexp.MustCompile("[a-zA-Z_]+$")).
+		field.String("Payer").NotEmpty().
 		Validate(func(s string) error {
-			if strings.ToLower(s) == s {
-				return errors.New("Payer name must begin with uppercase")
+			if (strings.ContainsAny(s,"1234567890")) {
+				return errors.New("Payer name can not have number init")
 			}
 			return nil
 		}),

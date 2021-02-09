@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import { DefaultApi } from '../../api/apis';
-import { EntPatientrecord, EntPrename ,EntGender, EntBloodtype, EntMedicalrecordstaff } from '../../api/models';
+import { EntPatientrecord } from '../../api/models';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {Grid, Modal,Typography} from '@material-ui/core';
 import Fade from '@material-ui/core/Fade';
@@ -75,9 +75,9 @@ export default function MoreInfo( id : any) {
                         ยาที่แพ้ : &emsp;{patientrecord.allergic}<br/>
                         เบอร์โทรที่ติดต่อได้ : &emsp;{patientrecord.phonenumber}<br/>
                         อีเมล์ : &emsp;{patientrecord.email}<br/>
-                        อีเมล์ : &emsp;{patientrecord.home}<br/>
-                        วันเวลาที่จ่าย : &emsp;{patientrecord.date}<br/>
-                        ผู้รับเงิน : &emsp;{patientrecord.edges?.edgesOfMedicalrecordstaff?.name}<br/>
+                        ที่อยู่ : &emsp;{patientrecord.home}<br/>
+                        วันเวลาที่ลงทะเบียน : &emsp;{patientrecord.date}<br/>
+                        พนักงานเวชระเบียนที่ลงบันทึก : &emsp;{patientrecord.edges?.edgesOfMedicalrecordstaff?.name}<br/>
                     </Typography>
                     </Grid>
                        ))}
