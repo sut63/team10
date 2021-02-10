@@ -4,7 +4,6 @@ import (
 	"errors"
 	"regexp"
 	"strings"
-	"strconv"
 
 	"github.com/facebookincubator/ent"
 	"github.com/facebookincubator/ent/schema/field"
@@ -18,11 +17,9 @@ type Bill struct {
 // Fields of the Bill.
 func (Bill) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Amount").NotEmpty().
-		Validate(func(s string) error {
-			_, err := strconv.ParseFloat(s, 64)
-				if (err != nil) {
-				return errors.New("Amount must be Number")
+		field.Int("Amount").Validate(func(s int) error{
+			if (s < 0) {
+				return errors.New("Amount have to be Positive")
 			}
 			return nil
 		}),
@@ -51,6 +48,6 @@ func (Bill) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("EdgesOfPaytype", Paytype.Type).Ref("EdgesOfBills").Unique(),
 		edge.From("EdgesOfOfficer", Financier.Type).Ref("EdgesOfBills").Unique(),
-		edge.From("EdgesOfTreatment", Unpaybill.Type).Ref("EdgesOfBills").Unique(),
+		edge.From("EdgesOfUnpaybill", Unpaybill.Type).Ref("EdgesOfBills").Unique(),
 	}
 }

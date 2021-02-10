@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import { DefaultApi } from '../../api/apis';
-import { EntBill,EntTreatment } from '../../api/models';
+import { EntBill } from '../../api/models';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {Grid, Modal,Typography} from '@material-ui/core';
 import Fade from '@material-ui/core/Fade';
@@ -33,22 +33,14 @@ export default function MoreInfo( id : any) {
   const http = new DefaultApi();
   const [loading, setLoading] = React.useState(true);
   const [bills, setBills] = useState<EntBill[]>(Array);
-  const [treatments, setTreatments] = useState<EntTreatment[]>(Array);
-
-  const getTreatments = async () => {
-    const res = await http.listTreatment({offset : 0});
-    setLoading(false);
-    setTreatments(res);
-  };
   const getBills = async () => {
-    const res = await http.listBill({offset : 0})
+    const res = await http.listBill({})
     setLoading(false);
     setBills(res);
   };
+
   useEffect(() => {
     getBills();
-    getTreatments();
-  
   }, [loading]);
 
   return (
@@ -67,8 +59,7 @@ export default function MoreInfo( id : any) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-          {bills.filter(b => b.id === id.id).map(bill => (
-                  treatments.filter(j => bill.edges?.edgesOfTreatment?.id === j.id).map(t =>( 
+          {bills.filter(b => b.id == id.id).map(bill => (
                     <Grid>
                     <Typography variant = 'h4'>
                         ใบเสร็จรับเงิน<br/>
@@ -76,11 +67,11 @@ export default function MoreInfo( id : any) {
                     <Typography variant = 'subtitle1'> 
                         เลขที่ใบเสร็จ : &emsp;{bill.id}<br/>
                         เลขที่บันทึกการรักษา : &emsp;{bill.id}<br/>
-                        แพทย์ผู้ดูแล :&emsp;{t.edges?.edgesOfDoctor?.edges?.edgesOfDoctorinfo?.doctorname}<br/>
-                        ผู้ป่วย : &emsp;{t.edges?.edgesOfPatientrecord?.name}<br/>
-                        อาการ : &emsp;{t.symptom}<br/>
-                        การรักษา : &emsp;{t.treat}<br/>
-                        ยาที่จ่าย : &emsp;{t.medicine}<br/>
+                        แพทย์ผู้ดูแล :&emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.id}<br/>
+                        ผู้ป่วย : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.edges?.edgesOfPatientrecord?.name}<br/>
+                        อาการ : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.symptom}<br/>
+                        การรักษา : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.treat}<br/>
+                        ยาที่จ่าย : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.medicine}<br/>
                         ค่ารักษาทั้งหมด : &emsp;{bill.amount}<br/>
                         รูปแบบการชำระ : &emsp;{bill.edges?.edgesOfPaytype?.paytype}&emsp;
                         ผู้จ่ายเงิน : &emsp;{bill.payer}<br/>
@@ -89,7 +80,7 @@ export default function MoreInfo( id : any) {
                         ผู้รับเงิน : &emsp;{bill.edges?.edgesOfOfficer?.name}<br/>
                     </Typography>
                     </Grid>
-                       ))))}
+                       ))}
           </div>
         </Fade>
       </Modal>

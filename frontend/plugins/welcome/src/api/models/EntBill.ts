@@ -28,10 +28,10 @@ import {
 export interface EntBill {
     /**
      * Amount holds the value of the "Amount" field.
-     * @type {string}
+     * @type {number}
      * @memberof EntBill
      */
-    amount?: string;
+    amount?: number;
     /**
      * Date holds the value of the "Date" field.
      * @type {string}

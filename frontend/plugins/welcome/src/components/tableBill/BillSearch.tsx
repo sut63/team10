@@ -17,7 +17,6 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { DefaultApi } from '../../api/apis';
 import { EntUser } from '../../api/models/EntUser';
-import { EntTreatment } from '../../api/models/EntTreatment';
 import { EntBill } from '../../api/models/EntBill';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 
@@ -48,22 +47,15 @@ const BillSearch: FC<{}> = () => {
   const [loading, setLoading] = React.useState(true);
   const [status, setStatus] = React.useState(false);
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
-  const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
   const [bills, setBills] = useState<EntBill[]>(Array);
-  const [treatments, setTreatments] = useState<EntTreatment[]>(Array);
+  const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const getPatientrecord = async () => {
     const res = await http.listPatientrecord({ limit: 110, offset: 0 });
     setPatientrecord(res);
   };
-  const getTreatments = async () => {
-    const res = await http.listTreatment({ offset: 0 });
-    setLoading(false);
-    setTreatments(res);
-  };
 
   const getBills = async () => {
-
     const res = await http.getBill({ id: PatID })
     setLoading(false);
     setBills(res);
@@ -90,6 +82,7 @@ const BillSearch: FC<{}> = () => {
       }
     })
   };
+
   const TexthandleChang = (event: React.ChangeEvent<{ value: unknown; }>) => {
     console.log(event.target.value as string)
     Patientrecord.map(item => {
@@ -108,7 +101,6 @@ const BillSearch: FC<{}> = () => {
     };
     getImg();
     getPatientrecord();
-    getTreatments();
 
   }, [loading]);
   const SearchBill = async () => {
@@ -148,18 +140,19 @@ const BillSearch: FC<{}> = () => {
               <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" onChange={TexthandleChang} style={{ width: "100ch" }} />
             )}
           />
+          &emsp;
           <Button
             onClick={() => {
               SearchBill();
             }}
-            style={{ marginLeft: 10 }}
             variant="contained"
             color="primary"
+            style={{backgroundColor: "#00af91",padding: '6px 12px',}}
           >
             ค้นหา
                </Button>&emsp;
             <Link component={RouterLink} to="/createbill">
-            <Button variant="contained" color='secondary'>
+            <Button variant="contained">
               กลับ
            </Button>
           </Link>
@@ -169,7 +162,6 @@ const BillSearch: FC<{}> = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="center">เลขที่ใบเสร็จ</TableCell>
-                <TableCell align="center">เลขที่บันทึกการรักษา</TableCell>
                 <TableCell align="center">ผู้ป่วย</TableCell>
                 <TableCell align="center">ผู้รับเงิน</TableCell>
                 <TableCell align="center">วันที่ชำระ</TableCell>
@@ -178,18 +170,16 @@ const BillSearch: FC<{}> = () => {
             </TableHead>
             <TableBody>
               {bills.map(bill => (
-                treatments.filter(j => bill.edges?.edgesOfTreatment?.id === j.id).map(t => (
                   <TableRow>
                     <TableCell align="center">{bill.id}</TableCell>
-                    <TableCell align="center">{t.id}</TableCell>
-                    <TableCell align="center">{t.edges?.edgesOfPatientrecord?.name}</TableCell>
+                    <TableCell align="center">{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.edges?.edgesOfPatientrecord?.name}</TableCell>
                     <TableCell align="center">{bill.edges?.edgesOfOfficer?.name}</TableCell>
                     <TableCell align="center">{bill.date}</TableCell>
                     <TableCell align="center">
                       <MoreInfo id={bill.id}></MoreInfo>
                     </TableCell>
                   </TableRow>
-                ))))}
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

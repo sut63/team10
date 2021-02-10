@@ -24,8 +24,8 @@ type BillCreate struct {
 }
 
 // SetAmount sets the Amount field.
-func (bc *BillCreate) SetAmount(s string) *BillCreate {
-	bc.mutation.SetAmount(s)
+func (bc *BillCreate) SetAmount(i int) *BillCreate {
+	bc.mutation.SetAmount(i)
 	return bc
 }
 
@@ -85,23 +85,23 @@ func (bc *BillCreate) SetEdgesOfOfficer(f *Financier) *BillCreate {
 	return bc.SetEdgesOfOfficerID(f.ID)
 }
 
-// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id.
-func (bc *BillCreate) SetEdgesOfTreatmentID(id int) *BillCreate {
-	bc.mutation.SetEdgesOfTreatmentID(id)
+// SetEdgesOfUnpaybillID sets the EdgesOfUnpaybill edge to Unpaybill by id.
+func (bc *BillCreate) SetEdgesOfUnpaybillID(id int) *BillCreate {
+	bc.mutation.SetEdgesOfUnpaybillID(id)
 	return bc
 }
 
-// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id if the given value is not nil.
-func (bc *BillCreate) SetNillableEdgesOfTreatmentID(id *int) *BillCreate {
+// SetNillableEdgesOfUnpaybillID sets the EdgesOfUnpaybill edge to Unpaybill by id if the given value is not nil.
+func (bc *BillCreate) SetNillableEdgesOfUnpaybillID(id *int) *BillCreate {
 	if id != nil {
-		bc = bc.SetEdgesOfTreatmentID(*id)
+		bc = bc.SetEdgesOfUnpaybillID(*id)
 	}
 	return bc
 }
 
-// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Unpaybill.
-func (bc *BillCreate) SetEdgesOfTreatment(u *Unpaybill) *BillCreate {
-	return bc.SetEdgesOfTreatmentID(u.ID)
+// SetEdgesOfUnpaybill sets the EdgesOfUnpaybill edge to Unpaybill.
+func (bc *BillCreate) SetEdgesOfUnpaybill(u *Unpaybill) *BillCreate {
+	return bc.SetEdgesOfUnpaybillID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -200,7 +200,7 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 	)
 	if value, ok := bc.mutation.Amount(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
 			Value:  value,
 			Column: bill.FieldAmount,
 		})
@@ -268,12 +268,12 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 		}
 		_spec.Edges = append(_spec.Edges, edge)
 	}
-	if nodes := bc.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
+	if nodes := bc.mutation.EdgesOfUnpaybillIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.EdgesOfTreatmentTable,
-			Columns: []string{bill.EdgesOfTreatmentColumn},
+			Table:   bill.EdgesOfUnpaybillTable,
+			Columns: []string{bill.EdgesOfUnpaybillColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
