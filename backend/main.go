@@ -43,11 +43,11 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
-	//^^^...............................^^^
-	"github.com/team10/app/ent/unpaybill"
-	"github.com/team10/app/ent/paytype"
-	"github.com/team10/app/ent/financier"
 
+	//^^^...............................^^^
+	"github.com/team10/app/ent/financier"
+	"github.com/team10/app/ent/paytype"
+	"github.com/team10/app/ent/unpaybill"
 )
 
 // struct By team 10
@@ -654,12 +654,12 @@ func main() {
 	// Set Patientrecord Data
 	Patientrecords := Patientrecords{
 		Patientrecord: []Patientrecord{
-			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198146", 21, 1, "ไม่มี", "tetracyclines", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิชัย ชาญชัย", 1, "1300101198136", 21, 1, "ไม่มี", "penicillin", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิลินา ชาญชัย", 1, "1300101198126", 21, 1, "ไม่มี", "aspirin", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "ตฤนชัย บังเกิด", 1, "1300101198186", 22, 1, "ไม่มี", "tetracyclines", "0957252978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "กรรรชัย โสภา", 1, "1300101198836", 36, 1, "ไม่มี", "penicillin", "0857212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "อลัน พันตา", 1, "1300101198826", 27, 1, "ไม่มี", "aspirin", "0957212179", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198147", 21, 1, "ไม่มี", "tetracyclines", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "นิรันดร์ จินตรเมธร", 1, "1300101198136", 40, 1, "ไม่มี", "penicillin", "0957212976", "bb@gmail.com", "บ้านเลขที่ 407 ถนนสุรนารี อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{5, "วิภาวี รื่นสุขสันต์", 2, "1300101198126", 20, 4, "ไม่มี", "aspirin", "0957212979", "juny@gmail.com", "บ้านเลขที่ 9 หมู่ 6 ถนนนกแก้ว อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "ตฤนชัย บังเกิด", 1, "1300101198186", 22, 2, "ไม่มี", "tetracyclines", "0957252978", "cat@gmail.com", "บ้านเลขที่ 42 ถนนรื่นฤดี อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "กรรรชัย โสภา", 1, "1300101198836", 36, 2, "ไม่มี", "penicillin", "0857212976", "jaja@gmail.com", "บ้านเลขที่ 2234/1 ถนนกลางเมือง อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "อลัน พันตา", 1, "1300101198826", 39, 3, "ไม่มี", "aspirin", "0957212179", "oho@gmail.com", "บ้านเลขที่ 72/9 ถนนแยกคำแหง อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 		},
 	}
 	for _, pr := range Patientrecords.Patientrecord {
@@ -1038,7 +1038,6 @@ func main() {
 			Unpaybill{"Unpay", 11},
 			Unpaybill{"Unpay", 12},
 			Unpaybill{"Unpay", 13},
-
 		},
 	}
 	for _, ub := range unpaybills.Unpaybill {
@@ -1105,6 +1104,7 @@ func main() {
 		SetEdgesOfOfficer(f).
 		SetEdgesOfUnpaybill(unpay).
 		Save(context.Background())	
+
 	}
 	//^^^*******************************************************************^^^
 
