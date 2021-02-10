@@ -93,18 +93,9 @@ setSe(Pat);
   };
 
 
-<<<<<<< HEAD
   useEffect(() => {
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
-=======
-
-
-  useEffect(() => {
-    const getImg = async () => {
-      const res = await http.getUser({ id: Number(Img) });
-
->>>>>>> 500672c87d37443cc1f0a9d6480b1870a43735de
       setUsers(res);
     };
     getImg();

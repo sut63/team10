@@ -193,7 +193,6 @@ export default function ComponentsTable() {
           </Button>
           <div>&nbsp;&nbsp;&nbsp;</div>
           <Button
-<<<<<<< HEAD
             href="/createTreatment"
             variant="contained"
             style={{ backgroundColor: "#21b6ae" }}
@@ -204,9 +203,6 @@ export default function ComponentsTable() {
           <div>&nbsp;&nbsp;&nbsp;</div>
           <Button
             href="/"
-=======
-            href="/treatment"
->>>>>>> 500672c87d37443cc1f0a9d6480b1870a43735de
             variant="contained"
             color="primary"
           >
