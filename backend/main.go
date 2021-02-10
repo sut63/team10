@@ -571,6 +571,7 @@ Abilitypatientrights := Abilitypatientrightss{
 	},
 }
 
+
 for _, a := range Abilitypatientrights.Abilitypatientrights {
 	o := fmt.Sprintf("%d", int(a.Operative))
 	m := fmt.Sprintf("%d", int(a.MedicalSupplies))
