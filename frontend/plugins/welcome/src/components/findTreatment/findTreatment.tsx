@@ -193,7 +193,20 @@ export default function ComponentsTable() {
           </Button>
           <div>&nbsp;&nbsp;&nbsp;</div>
           <Button
+<<<<<<< HEAD
+            href="/createTreatment"
+            variant="contained"
+            style={{ backgroundColor: "#21b6ae" }}
+            color="primary"
+          >
+            สร้างบันทึกการรักษา
+            </Button>
+          <div>&nbsp;&nbsp;&nbsp;</div>
+          <Button
+            href="/"
+=======
             href="/treatment"
+>>>>>>> a78a3bb62a1beff8d41cc9f748ac5de9cd42e29f
             variant="contained"
             color="primary"
           >
