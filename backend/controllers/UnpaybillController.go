@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/unpaybill"
+	_"github.com/team10/app/ent/treatment"
 	"github.com/gin-gonic/gin"
 )
 
@@ -64,7 +65,10 @@ func (ctl *UnpaybillController) ListUnpaybill(c *gin.Context) {
 	unpaybills, err := ctl.client.Unpaybill.
 		Query().
 		Where(unpaybill.StatusEQ("Unpay")).
-		WithEdgesOfTreatment().
+		WithEdgesOfTreatment(func (t *ent.TreatmentQuery){
+			t.QueryEdgesOfPatientrecord()
+			t.WithEdgesOfPatientrecord()
+		}).
 		All(context.Background())
 
 	if err != nil {

@@ -20,7 +20,7 @@ type Bill struct {
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
 	// Amount holds the value of the "Amount" field.
-	Amount string `json:"Amount,omitempty"`
+	Amount int `json:"Amount,omitempty"`
 	// Payer holds the value of the "Payer" field.
 	Payer string `json:"Payer,omitempty"`
 	// Payercontact holds the value of the "Payercontact" field.
@@ -41,8 +41,8 @@ type BillEdges struct {
 	EdgesOfPaytype *Paytype
 	// EdgesOfOfficer holds the value of the EdgesOfOfficer edge.
 	EdgesOfOfficer *Financier
-	// EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
-	EdgesOfTreatment *Unpaybill
+	// EdgesOfUnpaybill holds the value of the EdgesOfUnpaybill edge.
+	EdgesOfUnpaybill *Unpaybill
 	// loadedTypes holds the information for reporting if a
 	// type was loaded (or requested) in eager-loading or not.
 	loadedTypes [3]bool
@@ -76,25 +76,25 @@ func (e BillEdges) EdgesOfOfficerOrErr() (*Financier, error) {
 	return nil, &NotLoadedError{edge: "EdgesOfOfficer"}
 }
 
-// EdgesOfTreatmentOrErr returns the EdgesOfTreatment value or an error if the edge
+// EdgesOfUnpaybillOrErr returns the EdgesOfUnpaybill value or an error if the edge
 // was not loaded in eager-loading, or loaded but was not found.
-func (e BillEdges) EdgesOfTreatmentOrErr() (*Unpaybill, error) {
+func (e BillEdges) EdgesOfUnpaybillOrErr() (*Unpaybill, error) {
 	if e.loadedTypes[2] {
-		if e.EdgesOfTreatment == nil {
-			// The edge EdgesOfTreatment was loaded in eager-loading,
+		if e.EdgesOfUnpaybill == nil {
+			// The edge EdgesOfUnpaybill was loaded in eager-loading,
 			// but was not found.
 			return nil, &NotFoundError{label: unpaybill.Label}
 		}
-		return e.EdgesOfTreatment, nil
+		return e.EdgesOfUnpaybill, nil
 	}
-	return nil, &NotLoadedError{edge: "EdgesOfTreatment"}
+	return nil, &NotLoadedError{edge: "EdgesOfUnpaybill"}
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Bill) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullString{}, // Amount
+		&sql.NullInt64{},  // Amount
 		&sql.NullString{}, // Payer
 		&sql.NullString{}, // Payercontact
 		&sql.NullTime{},   // Date
@@ -122,10 +122,10 @@ func (b *Bill) assignValues(values ...interface{}) error {
 	}
 	b.ID = int(value.Int64)
 	values = values[1:]
-	if value, ok := values[0].(*sql.NullString); !ok {
+	if value, ok := values[0].(*sql.NullInt64); !ok {
 		return fmt.Errorf("unexpected type %T for field Amount", values[0])
 	} else if value.Valid {
-		b.Amount = value.String
+		b.Amount = int(value.Int64)
 	}
 	if value, ok := values[1].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field Payer", values[1])
@@ -176,9 +176,9 @@ func (b *Bill) QueryEdgesOfOfficer() *FinancierQuery {
 	return (&BillClient{config: b.config}).QueryEdgesOfOfficer(b)
 }
 
-// QueryEdgesOfTreatment queries the EdgesOfTreatment edge of the Bill.
-func (b *Bill) QueryEdgesOfTreatment() *UnpaybillQuery {
-	return (&BillClient{config: b.config}).QueryEdgesOfTreatment(b)
+// QueryEdgesOfUnpaybill queries the EdgesOfUnpaybill edge of the Bill.
+func (b *Bill) QueryEdgesOfUnpaybill() *UnpaybillQuery {
+	return (&BillClient{config: b.config}).QueryEdgesOfUnpaybill(b)
 }
 
 // Update returns a builder for updating this Bill.
@@ -205,7 +205,7 @@ func (b *Bill) String() string {
 	builder.WriteString("Bill(")
 	builder.WriteString(fmt.Sprintf("id=%v", b.ID))
 	builder.WriteString(", Amount=")
-	builder.WriteString(b.Amount)
+	builder.WriteString(fmt.Sprintf("%v", b.Amount))
 	builder.WriteString(", Payer=")
 	builder.WriteString(b.Payer)
 	builder.WriteString(", Payercontact=")

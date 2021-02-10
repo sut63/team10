@@ -181,7 +181,7 @@ definitions:
     properties:
       Amount:
         description: Amount holds the value of the "Amount" field.
-        type: string
+        type: integer
       Date:
         description: Date holds the value of the "Date" field.
         type: string
@@ -211,9 +211,9 @@ definitions:
         $ref: '#/definitions/ent.Paytype'
         description: EdgesOfPaytype holds the value of the EdgesOfPaytype edge.
         type: object
-      EdgesOfTreatment:
+      EdgesOfUnpaybill:
         $ref: '#/definitions/ent.Unpaybill'
-        description: EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
+        description: EdgesOfUnpaybill holds the value of the EdgesOfUnpaybill edge.
         type: object
     type: object
   ent.Bloodtype:

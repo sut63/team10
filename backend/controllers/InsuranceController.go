@@ -2,7 +2,6 @@ package controllers
 
 import (
    "context"
-   
    "strconv"
    "github.com/team10/app/ent"
    "github.com/team10/app/ent/insurance"
