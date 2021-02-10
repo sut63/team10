@@ -112,6 +112,13 @@ func Examine(v int) predicate.Abilitypatientrights {
 	})
 }
 
+// StayInHospital applies equality check predicate on the "StayInHospital" field. It's identical to StayInHospitalEQ.
+func StayInHospital(v int) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldStayInHospital), v))
+	})
+}
+
 // Check applies equality check predicate on the "check" field. It's identical to CheckEQ.
 func Check(v string) predicate.Abilitypatientrights {
 	return predicate.Abilitypatientrights(func(s *sql.Selector) {
@@ -344,6 +351,82 @@ func ExamineLT(v int) predicate.Abilitypatientrights {
 func ExamineLTE(v int) predicate.Abilitypatientrights {
 	return predicate.Abilitypatientrights(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldExamine), v))
+	})
+}
+
+// StayInHospitalEQ applies the EQ predicate on the "StayInHospital" field.
+func StayInHospitalEQ(v int) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldStayInHospital), v))
+	})
+}
+
+// StayInHospitalNEQ applies the NEQ predicate on the "StayInHospital" field.
+func StayInHospitalNEQ(v int) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldStayInHospital), v))
+	})
+}
+
+// StayInHospitalIn applies the In predicate on the "StayInHospital" field.
+func StayInHospitalIn(vs ...int) predicate.Abilitypatientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldStayInHospital), v...))
+	})
+}
+
+// StayInHospitalNotIn applies the NotIn predicate on the "StayInHospital" field.
+func StayInHospitalNotIn(vs ...int) predicate.Abilitypatientrights {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldStayInHospital), v...))
+	})
+}
+
+// StayInHospitalGT applies the GT predicate on the "StayInHospital" field.
+func StayInHospitalGT(v int) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldStayInHospital), v))
+	})
+}
+
+// StayInHospitalGTE applies the GTE predicate on the "StayInHospital" field.
+func StayInHospitalGTE(v int) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldStayInHospital), v))
+	})
+}
+
+// StayInHospitalLT applies the LT predicate on the "StayInHospital" field.
+func StayInHospitalLT(v int) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldStayInHospital), v))
+	})
+}
+
+// StayInHospitalLTE applies the LTE predicate on the "StayInHospital" field.
+func StayInHospitalLTE(v int) predicate.Abilitypatientrights {
+	return predicate.Abilitypatientrights(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldStayInHospital), v))
 	})
 }
 

@@ -14,6 +14,7 @@ var (
 		{Name: "operative", Type: field.TypeInt},
 		{Name: "medical_supplies", Type: field.TypeInt},
 		{Name: "examine", Type: field.TypeInt},
+		{Name: "stay_in_hospital", Type: field.TypeInt},
 		{Name: "check", Type: field.TypeString, Unique: true},
 	}
 	// AbilitypatientrightsTable holds the schema information for the "abilitypatientrights" table.
