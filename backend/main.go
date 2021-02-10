@@ -129,6 +129,7 @@ type Abilitypatientrights struct {
 	Operative       int
 	MedicalSupplies int
 	Examine         int
+	StayInHospital	int
 }
 
 // Patientrightss defines the struct for the Patientrightss
@@ -561,30 +562,32 @@ func main() {
 			SetInsurancecompany(r).
 			Save(context.Background())
 	}
+// Set Abilitypatientrights Data
+Abilitypatientrights := Abilitypatientrightss{
+	Abilitypatientrights: []Abilitypatientrights{
+		Abilitypatientrights{100, 100, 100,100},
+		Abilitypatientrights{50, 100, 100,20},
+		Abilitypatientrights{50, 100, 50,30},
+	},
+}
 
-	// Set Abilitypatientrights Data
-	Abilitypatientrights := Abilitypatientrightss{
-		Abilitypatientrights: []Abilitypatientrights{
-			Abilitypatientrights{100, 100, 100},
-			Abilitypatientrights{50, 100, 100},
-			Abilitypatientrights{50, 100, 50},
-		},
-	}
+for _, a := range Abilitypatientrights.Abilitypatientrights {
+	o := fmt.Sprintf("%d", int(a.Operative))
+	m := fmt.Sprintf("%d", int(a.MedicalSupplies))
+	e := fmt.Sprintf("%d", int(a.Examine))
+	s := fmt.Sprintf("%d", int(a.StayInHospital))
+	var ck string
+	ck = o+"-"+m+"-"+e+"-"+s
+	client.Abilitypatientrights.
+		Create().
+		SetOperative(a.Operative).
+		SetMedicalSupplies(a.MedicalSupplies).
+		SetExamine(a.Examine).
+		SetStayInHospital(int(a.StayInHospital)).
+		SetCheck(ck).
+		Save(context.Background())
+}
 
-	for _, a := range Abilitypatientrights.Abilitypatientrights {
-		o := fmt.Sprintf("%d", int(a.Operative))
-		m := fmt.Sprintf("%d", int(a.MedicalSupplies))
-		e := fmt.Sprintf("%d", int(a.Examine))
-		var ck string
-		ck = o + "-" + m + "-" + e
-		client.Abilitypatientrights.
-			Create().
-			SetOperative(a.Operative).
-			SetMedicalSupplies(a.MedicalSupplies).
-			SetExamine(a.Examine).
-			SetCheck(ck).
-			Save(context.Background())
-	}
 
 	//^^^*******************************************************************^^^
 
