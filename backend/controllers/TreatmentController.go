@@ -210,6 +210,7 @@ func (ctl *TreatmentController) ListTreatment(c *gin.Context) {
 		WithEdgesOfDoctor().
 		WithEdgesOfTypetreatment().
 		WithEdgesOfPatientrecord().
+		WithEdgesOfUnpaybills().
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

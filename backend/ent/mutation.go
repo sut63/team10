@@ -86,6 +86,8 @@ type AbilitypatientrightsMutation struct {
 	add_MedicalSupplies                              *int
 	_Examine                                         *int
 	add_Examine                                      *int
+	_StayInHospital                                  *int
+	add_StayInHospital                               *int
 	check                                            *string
 	clearedFields                                    map[string]struct{}
 	_EdgesOfAbilitypatientrightsPatientrights        map[int]struct{}
@@ -344,6 +346,63 @@ func (m *AbilitypatientrightsMutation) ResetExamine() {
 	m.add_Examine = nil
 }
 
+// SetStayInHospital sets the StayInHospital field.
+func (m *AbilitypatientrightsMutation) SetStayInHospital(i int) {
+	m._StayInHospital = &i
+	m.add_StayInHospital = nil
+}
+
+// StayInHospital returns the StayInHospital value in the mutation.
+func (m *AbilitypatientrightsMutation) StayInHospital() (r int, exists bool) {
+	v := m._StayInHospital
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStayInHospital returns the old StayInHospital value of the Abilitypatientrights.
+// If the Abilitypatientrights object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbilitypatientrightsMutation) OldStayInHospital(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStayInHospital is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStayInHospital requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStayInHospital: %w", err)
+	}
+	return oldValue.StayInHospital, nil
+}
+
+// AddStayInHospital adds i to StayInHospital.
+func (m *AbilitypatientrightsMutation) AddStayInHospital(i int) {
+	if m.add_StayInHospital != nil {
+		*m.add_StayInHospital += i
+	} else {
+		m.add_StayInHospital = &i
+	}
+}
+
+// AddedStayInHospital returns the value that was added to the StayInHospital field in this mutation.
+func (m *AbilitypatientrightsMutation) AddedStayInHospital() (r int, exists bool) {
+	v := m.add_StayInHospital
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetStayInHospital reset all changes of the "StayInHospital" field.
+func (m *AbilitypatientrightsMutation) ResetStayInHospital() {
+	m._StayInHospital = nil
+	m.add_StayInHospital = nil
+}
+
 // SetCheck sets the check field.
 func (m *AbilitypatientrightsMutation) SetCheck(s string) {
 	m.check = &s
@@ -437,7 +496,7 @@ func (m *AbilitypatientrightsMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *AbilitypatientrightsMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 5)
 	if m._Operative != nil {
 		fields = append(fields, abilitypatientrights.FieldOperative)
 	}
@@ -446,6 +505,9 @@ func (m *AbilitypatientrightsMutation) Fields() []string {
 	}
 	if m._Examine != nil {
 		fields = append(fields, abilitypatientrights.FieldExamine)
+	}
+	if m._StayInHospital != nil {
+		fields = append(fields, abilitypatientrights.FieldStayInHospital)
 	}
 	if m.check != nil {
 		fields = append(fields, abilitypatientrights.FieldCheck)
@@ -464,6 +526,8 @@ func (m *AbilitypatientrightsMutation) Field(name string) (ent.Value, bool) {
 		return m.MedicalSupplies()
 	case abilitypatientrights.FieldExamine:
 		return m.Examine()
+	case abilitypatientrights.FieldStayInHospital:
+		return m.StayInHospital()
 	case abilitypatientrights.FieldCheck:
 		return m.Check()
 	}
@@ -481,6 +545,8 @@ func (m *AbilitypatientrightsMutation) OldField(ctx context.Context, name string
 		return m.OldMedicalSupplies(ctx)
 	case abilitypatientrights.FieldExamine:
 		return m.OldExamine(ctx)
+	case abilitypatientrights.FieldStayInHospital:
+		return m.OldStayInHospital(ctx)
 	case abilitypatientrights.FieldCheck:
 		return m.OldCheck(ctx)
 	}
@@ -513,6 +579,13 @@ func (m *AbilitypatientrightsMutation) SetField(name string, value ent.Value) er
 		}
 		m.SetExamine(v)
 		return nil
+	case abilitypatientrights.FieldStayInHospital:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStayInHospital(v)
+		return nil
 	case abilitypatientrights.FieldCheck:
 		v, ok := value.(string)
 		if !ok {
@@ -537,6 +610,9 @@ func (m *AbilitypatientrightsMutation) AddedFields() []string {
 	if m.add_Examine != nil {
 		fields = append(fields, abilitypatientrights.FieldExamine)
 	}
+	if m.add_StayInHospital != nil {
+		fields = append(fields, abilitypatientrights.FieldStayInHospital)
+	}
 	return fields
 }
 
@@ -551,6 +627,8 @@ func (m *AbilitypatientrightsMutation) AddedField(name string) (ent.Value, bool)
 		return m.AddedMedicalSupplies()
 	case abilitypatientrights.FieldExamine:
 		return m.AddedExamine()
+	case abilitypatientrights.FieldStayInHospital:
+		return m.AddedStayInHospital()
 	}
 	return nil, false
 }
@@ -580,6 +658,13 @@ func (m *AbilitypatientrightsMutation) AddField(name string, value ent.Value) er
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddExamine(v)
+		return nil
+	case abilitypatientrights.FieldStayInHospital:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStayInHospital(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Abilitypatientrights numeric field %s", name)
@@ -617,6 +702,9 @@ func (m *AbilitypatientrightsMutation) ResetField(name string) error {
 		return nil
 	case abilitypatientrights.FieldExamine:
 		m.ResetExamine()
+		return nil
+	case abilitypatientrights.FieldStayInHospital:
+		m.ResetStayInHospital()
 		return nil
 	case abilitypatientrights.FieldCheck:
 		m.ResetCheck()
@@ -715,7 +803,8 @@ type BillMutation struct {
 	op                       Op
 	typ                      string
 	id                       *int
-	_Amount                  *string
+	_Amount                  *int
+	add_Amount               *int
 	_Payer                   *string
 	_Payercontact            *string
 	_Date                    *time.Time
@@ -724,8 +813,8 @@ type BillMutation struct {
 	cleared_EdgesOfPaytype   bool
 	_EdgesOfOfficer          *int
 	cleared_EdgesOfOfficer   bool
-	_EdgesOfTreatment        *int
-	cleared_EdgesOfTreatment bool
+	_EdgesOfUnpaybill        *int
+	cleared_EdgesOfUnpaybill bool
 	done                     bool
 	oldValue                 func(context.Context) (*Bill, error)
 }
@@ -810,12 +899,13 @@ func (m *BillMutation) ID() (id int, exists bool) {
 }
 
 // SetAmount sets the Amount field.
-func (m *BillMutation) SetAmount(s string) {
-	m._Amount = &s
+func (m *BillMutation) SetAmount(i int) {
+	m._Amount = &i
+	m.add_Amount = nil
 }
 
 // Amount returns the Amount value in the mutation.
-func (m *BillMutation) Amount() (r string, exists bool) {
+func (m *BillMutation) Amount() (r int, exists bool) {
 	v := m._Amount
 	if v == nil {
 		return
@@ -827,7 +917,7 @@ func (m *BillMutation) Amount() (r string, exists bool) {
 // If the Bill object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *BillMutation) OldAmount(ctx context.Context) (v string, err error) {
+func (m *BillMutation) OldAmount(ctx context.Context) (v int, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldAmount is allowed only on UpdateOne operations")
 	}
@@ -841,9 +931,28 @@ func (m *BillMutation) OldAmount(ctx context.Context) (v string, err error) {
 	return oldValue.Amount, nil
 }
 
+// AddAmount adds i to Amount.
+func (m *BillMutation) AddAmount(i int) {
+	if m.add_Amount != nil {
+		*m.add_Amount += i
+	} else {
+		m.add_Amount = &i
+	}
+}
+
+// AddedAmount returns the value that was added to the Amount field in this mutation.
+func (m *BillMutation) AddedAmount() (r int, exists bool) {
+	v := m.add_Amount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetAmount reset all changes of the "Amount" field.
 func (m *BillMutation) ResetAmount() {
 	m._Amount = nil
+	m.add_Amount = nil
 }
 
 // SetPayer sets the Payer field.
@@ -1035,43 +1144,43 @@ func (m *BillMutation) ResetEdgesOfOfficer() {
 	m.cleared_EdgesOfOfficer = false
 }
 
-// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id.
-func (m *BillMutation) SetEdgesOfTreatmentID(id int) {
-	m._EdgesOfTreatment = &id
+// SetEdgesOfUnpaybillID sets the EdgesOfUnpaybill edge to Unpaybill by id.
+func (m *BillMutation) SetEdgesOfUnpaybillID(id int) {
+	m._EdgesOfUnpaybill = &id
 }
 
-// ClearEdgesOfTreatment clears the EdgesOfTreatment edge to Unpaybill.
-func (m *BillMutation) ClearEdgesOfTreatment() {
-	m.cleared_EdgesOfTreatment = true
+// ClearEdgesOfUnpaybill clears the EdgesOfUnpaybill edge to Unpaybill.
+func (m *BillMutation) ClearEdgesOfUnpaybill() {
+	m.cleared_EdgesOfUnpaybill = true
 }
 
-// EdgesOfTreatmentCleared returns if the edge EdgesOfTreatment was cleared.
-func (m *BillMutation) EdgesOfTreatmentCleared() bool {
-	return m.cleared_EdgesOfTreatment
+// EdgesOfUnpaybillCleared returns if the edge EdgesOfUnpaybill was cleared.
+func (m *BillMutation) EdgesOfUnpaybillCleared() bool {
+	return m.cleared_EdgesOfUnpaybill
 }
 
-// EdgesOfTreatmentID returns the EdgesOfTreatment id in the mutation.
-func (m *BillMutation) EdgesOfTreatmentID() (id int, exists bool) {
-	if m._EdgesOfTreatment != nil {
-		return *m._EdgesOfTreatment, true
+// EdgesOfUnpaybillID returns the EdgesOfUnpaybill id in the mutation.
+func (m *BillMutation) EdgesOfUnpaybillID() (id int, exists bool) {
+	if m._EdgesOfUnpaybill != nil {
+		return *m._EdgesOfUnpaybill, true
 	}
 	return
 }
 
-// EdgesOfTreatmentIDs returns the EdgesOfTreatment ids in the mutation.
+// EdgesOfUnpaybillIDs returns the EdgesOfUnpaybill ids in the mutation.
 // Note that ids always returns len(ids) <= 1 for unique edges, and you should use
-// EdgesOfTreatmentID instead. It exists only for internal usage by the builders.
-func (m *BillMutation) EdgesOfTreatmentIDs() (ids []int) {
-	if id := m._EdgesOfTreatment; id != nil {
+// EdgesOfUnpaybillID instead. It exists only for internal usage by the builders.
+func (m *BillMutation) EdgesOfUnpaybillIDs() (ids []int) {
+	if id := m._EdgesOfUnpaybill; id != nil {
 		ids = append(ids, *id)
 	}
 	return
 }
 
-// ResetEdgesOfTreatment reset all changes of the "EdgesOfTreatment" edge.
-func (m *BillMutation) ResetEdgesOfTreatment() {
-	m._EdgesOfTreatment = nil
-	m.cleared_EdgesOfTreatment = false
+// ResetEdgesOfUnpaybill reset all changes of the "EdgesOfUnpaybill" edge.
+func (m *BillMutation) ResetEdgesOfUnpaybill() {
+	m._EdgesOfUnpaybill = nil
+	m.cleared_EdgesOfUnpaybill = false
 }
 
 // Op returns the operation name.
@@ -1144,7 +1253,7 @@ func (m *BillMutation) OldField(ctx context.Context, name string) (ent.Value, er
 func (m *BillMutation) SetField(name string, value ent.Value) error {
 	switch name {
 	case bill.FieldAmount:
-		v, ok := value.(string)
+		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -1178,13 +1287,21 @@ func (m *BillMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented
 // or decremented during this mutation.
 func (m *BillMutation) AddedFields() []string {
-	return nil
+	var fields []string
+	if m.add_Amount != nil {
+		fields = append(fields, bill.FieldAmount)
+	}
+	return fields
 }
 
 // AddedField returns the numeric value that was in/decremented
 // from a field with the given name. The second value indicates
 // that this field was not set, or was not define in the schema.
 func (m *BillMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case bill.FieldAmount:
+		return m.AddedAmount()
+	}
 	return nil, false
 }
 
@@ -1193,6 +1310,13 @@ func (m *BillMutation) AddedField(name string) (ent.Value, bool) {
 // type mismatch the field type.
 func (m *BillMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case bill.FieldAmount:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAmount(v)
+		return nil
 	}
 	return fmt.Errorf("unknown Bill numeric field %s", name)
 }
@@ -1247,8 +1371,8 @@ func (m *BillMutation) AddedEdges() []string {
 	if m._EdgesOfOfficer != nil {
 		edges = append(edges, bill.EdgeEdgesOfOfficer)
 	}
-	if m._EdgesOfTreatment != nil {
-		edges = append(edges, bill.EdgeEdgesOfTreatment)
+	if m._EdgesOfUnpaybill != nil {
+		edges = append(edges, bill.EdgeEdgesOfUnpaybill)
 	}
 	return edges
 }
@@ -1265,8 +1389,8 @@ func (m *BillMutation) AddedIDs(name string) []ent.Value {
 		if id := m._EdgesOfOfficer; id != nil {
 			return []ent.Value{*id}
 		}
-	case bill.EdgeEdgesOfTreatment:
-		if id := m._EdgesOfTreatment; id != nil {
+	case bill.EdgeEdgesOfUnpaybill:
+		if id := m._EdgesOfUnpaybill; id != nil {
 			return []ent.Value{*id}
 		}
 	}
@@ -1298,8 +1422,8 @@ func (m *BillMutation) ClearedEdges() []string {
 	if m.cleared_EdgesOfOfficer {
 		edges = append(edges, bill.EdgeEdgesOfOfficer)
 	}
-	if m.cleared_EdgesOfTreatment {
-		edges = append(edges, bill.EdgeEdgesOfTreatment)
+	if m.cleared_EdgesOfUnpaybill {
+		edges = append(edges, bill.EdgeEdgesOfUnpaybill)
 	}
 	return edges
 }
@@ -1312,8 +1436,8 @@ func (m *BillMutation) EdgeCleared(name string) bool {
 		return m.cleared_EdgesOfPaytype
 	case bill.EdgeEdgesOfOfficer:
 		return m.cleared_EdgesOfOfficer
-	case bill.EdgeEdgesOfTreatment:
-		return m.cleared_EdgesOfTreatment
+	case bill.EdgeEdgesOfUnpaybill:
+		return m.cleared_EdgesOfUnpaybill
 	}
 	return false
 }
@@ -1328,8 +1452,8 @@ func (m *BillMutation) ClearEdge(name string) error {
 	case bill.EdgeEdgesOfOfficer:
 		m.ClearEdgesOfOfficer()
 		return nil
-	case bill.EdgeEdgesOfTreatment:
-		m.ClearEdgesOfTreatment()
+	case bill.EdgeEdgesOfUnpaybill:
+		m.ClearEdgesOfUnpaybill()
 		return nil
 	}
 	return fmt.Errorf("unknown Bill unique edge %s", name)
@@ -1346,8 +1470,8 @@ func (m *BillMutation) ResetEdge(name string) error {
 	case bill.EdgeEdgesOfOfficer:
 		m.ResetEdgesOfOfficer()
 		return nil
-	case bill.EdgeEdgesOfTreatment:
-		m.ResetEdgesOfTreatment()
+	case bill.EdgeEdgesOfUnpaybill:
+		m.ResetEdgesOfUnpaybill()
 		return nil
 	}
 	return fmt.Errorf("unknown Bill edge %s", name)

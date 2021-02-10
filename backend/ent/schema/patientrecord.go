@@ -18,10 +18,10 @@ type Patientrecord struct {
 func (Patientrecord) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("Name").NotEmpty().Match(regexp.MustCompile("[ก-ฮ]")),
-		field.String("Idcardnumber").MinLen(13).MaxLen(13).Unique(),
+		field.String("Idcardnumber").MinLen(13).MaxLen(13).Unique().Match(regexp.MustCompile("[0-9]")),
 		field.Int("Age").Min(0),
-		field.String("Disease").NotEmpty(),
-		field.String("Allergic").NotEmpty(),
+		field.String("Disease").NotEmpty().Match(regexp.MustCompile("[ก-ฮ]")),
+		field.String("Allergic").NotEmpty().Match(regexp.MustCompile("[a-z]")),
 		field.String("Phonenumber").MinLen(10).MaxLen(10).
 			Validate(func(s string) error {
 				match, _ := regexp.MatchString("[0]\\d", s)

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-
+	
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
@@ -43,7 +43,11 @@ import (
 	"github.com/team10/app/ent/educationlevel"
 	"github.com/team10/app/ent/officeroom"
 	"github.com/team10/app/ent/prename"
+
 	//^^^...............................^^^
+	"github.com/team10/app/ent/financier"
+	"github.com/team10/app/ent/paytype"
+	"github.com/team10/app/ent/unpaybill"
 )
 
 // struct By team 10
@@ -125,6 +129,7 @@ type Abilitypatientrights struct {
 	Operative       int
 	MedicalSupplies int
 	Examine         int
+	StayInHospital	int
 }
 
 // Patientrightss defines the struct for the Patientrightss
@@ -231,6 +236,21 @@ type Unpaybill struct {
 	treatment int
 }
 
+// Bills defines the struct for theBills
+type Bills struct {
+	Bill []Bill
+}
+
+// Bill defines the struct for the Bill
+type Bill struct {
+	Amount    int
+	Payer    string
+	Payercontact    string
+	Unpaybill int
+	Paytype int
+	Financier int
+}
+
 //*******************************************************************
 
 // Struct By Historytaking System  No.5
@@ -293,7 +313,7 @@ type Treatments struct {
 // Treatment defines the struct for the Treatment
 type Treatment struct {
 	Symptom       string
-	Treat       string
+	Treat         string
 	Medicine      string
 	Typetreatment int
 	Doctor        int
@@ -542,30 +562,33 @@ func main() {
 			SetInsurancecompany(r).
 			Save(context.Background())
 	}
+// Set Abilitypatientrights Data
+Abilitypatientrights := Abilitypatientrightss{
+	Abilitypatientrights: []Abilitypatientrights{
+		Abilitypatientrights{100, 100, 100,100},
+		Abilitypatientrights{50, 100, 100,20},
+		Abilitypatientrights{50, 100, 50,30},
+	},
+}
 
-	// Set Abilitypatientrights Data
-	Abilitypatientrights := Abilitypatientrightss{
-		Abilitypatientrights: []Abilitypatientrights{
-			Abilitypatientrights{100, 100, 100},
-			Abilitypatientrights{50, 100, 100},
-			Abilitypatientrights{50, 100, 50},
-		},
-	}
 
-	for _, a := range Abilitypatientrights.Abilitypatientrights {
-		o := fmt.Sprintf("%d", int(a.Operative))
-		m := fmt.Sprintf("%d", int(a.MedicalSupplies))
-		e := fmt.Sprintf("%d", int(a.Examine))
-		var ck string
-		ck = o+"-"+m+"-"+e
-		client.Abilitypatientrights.
-			Create().
-			SetOperative(a.Operative).
-			SetMedicalSupplies(a.MedicalSupplies).
-			SetExamine(a.Examine).
-			SetCheck(ck).
-			Save(context.Background())
-	}
+for _, a := range Abilitypatientrights.Abilitypatientrights {
+	o := fmt.Sprintf("%d", int(a.Operative))
+	m := fmt.Sprintf("%d", int(a.MedicalSupplies))
+	e := fmt.Sprintf("%d", int(a.Examine))
+	s := fmt.Sprintf("%d", int(a.StayInHospital))
+	var ck string
+	ck = o+"-"+m+"-"+e+"-"+s
+	client.Abilitypatientrights.
+		Create().
+		SetOperative(a.Operative).
+		SetMedicalSupplies(a.MedicalSupplies).
+		SetExamine(a.Examine).
+		SetStayInHospital(int(a.StayInHospital)).
+		SetCheck(ck).
+		Save(context.Background())
+}
+
 
 	//^^^*******************************************************************^^^
 
@@ -635,9 +658,12 @@ func main() {
 	// Set Patientrecord Data
 	Patientrecords := Patientrecords{
 		Patientrecord: []Patientrecord{
-			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198146", 21, 1, "-", "A", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิชัย ชาญชัย", 1, "1300101198136", 21, 1, "-", "Caa", "0957212976", "api2@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
-			Patientrecord{3, "วิลินา ชาญชัย", 1, "1300101198126", 21, 1, "-", "Caa", "0957212979", "api3@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "วิลาฬ ชาญชัย", 1, "1300101198147", 21, 1, "ไม่มี", "tetracyclines", "0957212978", "api1@gmail.com", "บ้านเลขที่ 35/6 ถนนสายไหม อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "นิรันดร์ จินตรเมธร", 1, "1300101198136", 40, 1, "ไม่มี", "penicillin", "0957212976", "bb@gmail.com", "บ้านเลขที่ 407 ถนนสุรนารี อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{5, "วิภาวี รื่นสุขสันต์", 2, "1300101198126", 20, 4, "ไม่มี", "aspirin", "0957212979", "juny@gmail.com", "บ้านเลขที่ 9 หมู่ 6 ถนนนกแก้ว อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "ตฤนชัย บังเกิด", 1, "1300101198186", 22, 2, "ไม่มี", "tetracyclines", "0957252978", "cat@gmail.com", "บ้านเลขที่ 42 ถนนรื่นฤดี อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "กรรรชัย โสภา", 1, "1300101198836", 36, 2, "ไม่มี", "penicillin", "0857212976", "jaja@gmail.com", "บ้านเลขที่ 2234/1 ถนนกลางเมือง อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
+			Patientrecord{3, "อลัน พันตา", 1, "1300101198826", 39, 3, "ไม่มี", "aspirin", "0957212179", "oho@gmail.com", "บ้านเลขที่ 72/9 ถนนแยกคำแหง อำเภอเมือง ตำบลในเมือง จังหวัดนครราชสีมา 30000", 1},
 		},
 	}
 	for _, pr := range Patientrecords.Patientrecord {
@@ -901,8 +927,8 @@ func main() {
 	//Set Financier data
 	financiers := Financiers{
 		Financier: []Financier{
-			Financier{"Nutchaporn Klinrod", 2},
-			Financier{"Name Surname", 1},
+			Financier{"นางไอริณ อารัญย์", 2},
+			Financier{"นางดังฝัน พ่วงดี", 1},
 		},
 	}
 	for _, f := range financiers.Financier {
@@ -924,9 +950,9 @@ func main() {
 	//Set Paytype data
 	paytypes := Paytypes{
 		Paytype: []Paytype{
-			Paytype{"Online Banking"},
-			Paytype{"Credit / Debit Card"},
-			Paytype{"Cash"},
+			Paytype{"ชำระผ่านธนาคารออนไลน์"},
+			Paytype{"ชำระผ่านบัตรเครดิต"},
+			Paytype{"เงินสด"},
 		},
 	}
 	for _, pt := range paytypes.Paytype {
@@ -940,8 +966,19 @@ func main() {
 
 	treatments := Treatments{
 		Treatment: []Treatment{
-			Treatment{"ปวดหัว","ไมเกรน","ยาแก้ปวด ยาลดความเครียด", 2, 1, 1},
-			Treatment{"เจ็บขา","กล้ามเนื้ออักเสพ","ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 2},
+			Treatment{"ปวดหัว", "ไมเกรน", "ยาแก้ปวด ยาลดความเครียด", 2, 1, 1},
+			Treatment{"เจ็บขา", "กล้ามเนื้ออักเสพ", "ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 2},
+			Treatment{"มีอาการใจสั่น", "เลือดไปเลี้ยงหัวใจไม่พอ", "ยาบำรุงเลือด", 2, 2, 3},
+			Treatment{"มีผดผื่นขึ้นตามตัว", "ภูมิแพ้", "ยาแก้แพ้", 3, 2, 4},
+			Treatment{"ผ่าตัดตามนัด", "ผ่าตัดไส้ติ่ง", "ยาฆ่าเชื้อ", 1, 2, 5},
+			Treatment{"ปวดคอ", "กล้ามเนื้ออักเสพ", "ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 6},
+			Treatment{"หน้ามืด ใจสั่น", "ความดันสูง", "ยาลดความดัน", 3, 2, 1},
+			Treatment{"ชาปลายมือปลายเท้า", "ปลายประสาทอักเสบ", "อาหารเสริมวิตามินบี", 3, 2, 2},
+			Treatment{"ไข้สูง ไอเป็นเลือด", "ปอดอักเสบ", "ยาแก้อักเสพ", 2, 2, 3},
+			Treatment{"ไม่สามารถขยับใบหน้าได้", "กล้ามเนื้ออ่อนแรง", "ไม่มี", 3, 2, 3},
+			Treatment{"เป็นลม", "ขาดสารอาหาร", "อาหารเสริม", 2, 2, 3},
+			Treatment{"มีอาการหน้ามืดบ่อยครั้ง", "เลือดไปเลี้ยงสมองไม่พอ ออฟฟิสซินโดรม", "ยาคลายกล้ามเนื้อ", 3, 2, 3},
+			Treatment{"เจ็บขา", "กล้ามเนื้ออักเสพ", "ยาแก้ปวด ยาแก้อักเสพ", 2, 2, 5},
 		},
 	}
 	for _, t := range treatments.Treatment {
@@ -985,16 +1022,26 @@ func main() {
 			SetDatetreat(times).
 			SetEdgesOfPatientrecord(m).
 			Save(context.Background())
-			if err != nil {
-				fmt.Println(err.Error())
-				return
-			}
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
 	}
 	//Set Unpaybill Data
 	unpaybills := Unpaybills{
 		Unpaybill: []Unpaybill{
-			Unpaybill{"Unpay", 1},
-			Unpaybill{"Unpay", 2},
+			Unpaybill{"Paid", 1},
+			Unpaybill{"Paid", 2},
+			Unpaybill{"Paid", 3},
+			Unpaybill{"Paid", 4},
+			Unpaybill{"Paid", 5},
+			Unpaybill{"Paid", 7},
+			Unpaybill{"Paid", 8},
+			Unpaybill{"Unpay", 9},
+			Unpaybill{"Unpay", 10},
+			Unpaybill{"Unpay", 11},
+			Unpaybill{"Unpay", 12},
+			Unpaybill{"Unpay", 13},
 		},
 	}
 	for _, ub := range unpaybills.Unpaybill {
@@ -1011,6 +1058,57 @@ func main() {
 			SetStatus(ub.status).
 			SetEdgesOfTreatment(t).
 			Save(context.Background())
+	}
+
+	//Set Bill Data for search bill
+	bills := Bills{
+		Bill: []Bill{
+			Bill{159,"นายพงษ์นรินทร์ จันทร์สุข","0912345678",1,3,1},
+			Bill{999,"นางอ่านค่ำ นอนเช้า","0912300678",2,2,1},
+			Bill{4500,"นายหมองตัน สงสัย","0812345678",3,1,1},
+			Bill{963,"นายตาช่ำ แสงแยง","0987654321",4,1,1},
+			Bill{2580,"นางสาวญักกิรมุทะ มากโข","0999999999",5,2,1},
+			Bill{2452,"นางเห็นใจ ผู้เรียน","0654987123",7,3,1},
+			Bill{8090,"นายอ่ำ อึ้ง","0682145369",8,3,1},
+		},
+	}
+	for _, b := range bills.Bill {
+		unpay, err := client.Unpaybill.
+			Query().
+			Where(unpaybill.IDEQ(b.Unpaybill)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		paytype, err := client.Paytype.
+			Query().
+			Where(paytype.IDEQ(b.Paytype)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		f, err := client.Financier.
+			Query().
+			Where(financier.IDEQ(b.Financier)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+		times := time.Now().Local()
+		client.Bill.
+		Create().
+		SetPayer(b.Payer).
+		SetPayercontact(b.Payercontact).
+		SetAmount(b.Amount).
+		SetDate(times).
+		SetEdgesOfPaytype(paytype).
+		SetEdgesOfOfficer(f).
+		SetEdgesOfUnpaybill(unpay).
+		Save(context.Background())	
+
 	}
 	//^^^*******************************************************************^^^
 

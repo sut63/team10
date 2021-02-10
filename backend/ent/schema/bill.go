@@ -10,27 +10,23 @@ import (
 	"github.com/facebookincubator/ent/schema/edge"
 
 )
-
 // Bill holds the schema definition for the Bill entity.
 type Bill struct {
 	ent.Schema
 }
-
 // Fields of the Bill.
 func (Bill) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("Amount").NotEmpty().
-		Validate(func(s string) error {
-			match, _ := regexp.MatchString("\\d",s)  
-			if !match{
-				return errors.New("Amount must be Number")
+		field.Int("Amount").Validate(func(s int) error{
+			if (s < 0) {
+				return errors.New("Amount have to be Positive")
 			}
 			return nil
 		}),
-		field.String("Payer").NotEmpty().Match(regexp.MustCompile("[a-zA-Z_]+$")).
+		field.String("Payer").NotEmpty().
 		Validate(func(s string) error {
-			if strings.ToLower(s) == s {
-				return errors.New("Payer name must begin with uppercase")
+			if (strings.ContainsAny(s,"1234567890")) {
+				return errors.New("Payer name can not have number init")
 			}
 			return nil
 		}),
@@ -52,6 +48,6 @@ func (Bill) Edges() []ent.Edge {
 	return []ent.Edge{
 		edge.From("EdgesOfPaytype", Paytype.Type).Ref("EdgesOfBills").Unique(),
 		edge.From("EdgesOfOfficer", Financier.Type).Ref("EdgesOfBills").Unique(),
-		edge.From("EdgesOfTreatment", Unpaybill.Type).Ref("EdgesOfBills").Unique(),
+		edge.From("EdgesOfUnpaybill", Unpaybill.Type).Ref("EdgesOfBills").Unique(),
 	}
 }

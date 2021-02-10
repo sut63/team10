@@ -4837,7 +4837,7 @@ var doc = `{
             "properties": {
                 "Amount": {
                     "description": "Amount holds the value of the \"Amount\" field.",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "Date": {
                     "description": "Date holds the value of the \"Date\" field.",
@@ -4875,8 +4875,8 @@ var doc = `{
                     "type": "object",
                     "$ref": "#/definitions/ent.Paytype"
                 },
-                "EdgesOfTreatment": {
-                    "description": "EdgesOfTreatment holds the value of the EdgesOfTreatment edge.",
+                "EdgesOfUnpaybill": {
+                    "description": "EdgesOfUnpaybill holds the value of the EdgesOfUnpaybill edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Unpaybill"
                 }

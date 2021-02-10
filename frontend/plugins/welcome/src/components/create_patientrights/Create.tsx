@@ -1,8 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import { Content, Header, Page, pageTheme, ContentHeader, } from '@backstage/core';
-
 import {
   TextField,
   FormControl,
@@ -12,21 +10,16 @@ import {
   Avatar,
   Button,
 } from '@material-ui/core';
-
 import { DefaultApi } from '../../api/apis'; // Api Gennerate From Command
 import { ControllersPatientrights } from '../../api/models/ControllersPatientrights';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntAbilitypatientrights } from '../../api/models/EntAbilitypatientrights';
 import { EntInsurance } from '../../api/models/EntInsurance';
 import { EntMedicalrecordstaff } from '../../api/models/EntMedicalrecordstaff';
-import { Alert } from '@material-ui/lab';
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { EntUser } from '../../api/models/EntUser';
-
-
 import { Link as RouterLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
-
 
 // header css
 const HeaderCustom = {
@@ -75,21 +68,14 @@ const useStyles = makeStyles(theme => ({
 
 const NewPatientright: FC<{}> = () => {
   const classes = useStyles();
- 
   const http = new DefaultApi();
   const cookies = new Cookies();
-
   const [Patientrights, setPatientrights] = React.useState<Partial<ControllersPatientrights>>({});
-
   const [Abilitypatientrights, setAbilitypatientrights] = React.useState<EntAbilitypatientrights[]>([]);
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
-
   const [Insurance, setInsurance] = React.useState<EntInsurance[]>([]);
   const [Medicalrecordstaff, setMedicalrecordstaff] = React.useState<Partial<EntMedicalrecordstaff>>();
-  const [status, setStatus] = React.useState(false);
-  const [alert, setAlert] = React.useState(true);
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
-
   const med = cookies.get('Med');
   const Img = cookies.get('Img');
 
@@ -108,7 +94,6 @@ const NewPatientright: FC<{}> = () => {
   });
 
   const getChangeOfUser = async () => {
-
     const name = "medicalrecordstaff";
     const value = parseInt(med, 10);
     setPatientrights({ ...Patientrights, [name]: value });
@@ -117,7 +102,6 @@ const NewPatientright: FC<{}> = () => {
 
 
   const getMedicalrecordstaffs = async () => {
-
     const res = await http.getMedicalrecordstaff({ id: Number(med) });
     setMedicalrecordstaff(res);
   };
@@ -142,8 +126,6 @@ const NewPatientright: FC<{}> = () => {
     setUsers(res);
   };
 
-
-
   // Lifecycle Hooks
   useEffect(() => {
     getChangeOfUser();
@@ -157,24 +139,14 @@ const NewPatientright: FC<{}> = () => {
 
   // set data to object Patientright
   const handleChange = (
-
     event: React.ChangeEvent<{ name?: string; value: unknown }>,
   ) => {
     const name = event.target.name as keyof typeof NewPatientright;
     const { value } = event.target;
-
     setPatientrights({ ...Patientrights, [name]: value });
   };
 
-
-  const alertMessage = (icon: any, title: any) => {
-    Toast.fire({
-      icon: icon,
-      title: title,
-    });
-  }
-
-
+  
   const CreatePatientright = async () => {
 
     const apiUrl = 'http://localhost:8080/api/v1/patientrightss';
@@ -194,7 +166,10 @@ const NewPatientright: FC<{}> = () => {
             title: 'บันทึกข้อมูลสำเร็จ',
           });
         } else {
-          alertMessage("error", data.error);
+          Toast.fire({
+            icon: "error",
+            title: data.error,
+          });
         }
       });
   };
@@ -208,20 +183,6 @@ const NewPatientright: FC<{}> = () => {
       </Header>
       <Content>
         <ContentHeader title="ข้อมูล">
-
-          {status ? (
-            <div>
-              {alert ? (
-                <Alert severity="success">
-                  บันทึกสำเร็จ
-                </Alert>
-              ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
-                    บันทึกไม่สำเร็จ
-                  </Alert>
-                )}
-            </div>
-          ) : null}
         </ContentHeader>
 
         <div className={classes.root}>
@@ -229,7 +190,7 @@ const NewPatientright: FC<{}> = () => {
             <FormControl variant="outlined" className={classes.formControl}>
               <TextField
                 name="permission"
-                label="ชื่อสิทธิ์"
+                label="เลขสิทธิ์"
                 variant="outlined"
                 type="string"
                 size="medium"
@@ -250,7 +211,6 @@ const NewPatientright: FC<{}> = () => {
                 variant="outlined"
                 type="string"
                 size="medium"
-
                 value={Patientrights.permissionArea}
                 onChange={handleChange}
               />
@@ -267,7 +227,6 @@ const NewPatientright: FC<{}> = () => {
                 variant="outlined"
                 type="string"
                 size="medium"
-
                 value={Patientrights.responsible}
                 onChange={handleChange}
               />
@@ -296,7 +255,6 @@ const NewPatientright: FC<{}> = () => {
           </form>
         </div>
 
-
         <div className={classes.root}>
           <form noValidate autoComplete="off">
             <FormControl variant="outlined" className={classes.formControl}>
@@ -317,7 +275,6 @@ const NewPatientright: FC<{}> = () => {
             </FormControl>
           </form>
         </div>
-
 
         <div className={classes.root}>
           <form noValidate autoComplete="off">
@@ -340,8 +297,6 @@ const NewPatientright: FC<{}> = () => {
           </form>
         </div>
 
-
-
         <div className={classes.root}>
           <form noValidate autoComplete="off">
             <FormControl variant="outlined" className={classes.formControl}>
@@ -356,7 +311,6 @@ const NewPatientright: FC<{}> = () => {
             </FormControl>
           </form>
         </div>
-
 
         <div className={classes.root}>
           <form noValidate autoComplete="off">
@@ -389,9 +343,8 @@ const NewPatientright: FC<{}> = () => {
                 </Button>
             </div>
           </form>
-
-
         </div>
+
       </Content>
     </Page>
   );

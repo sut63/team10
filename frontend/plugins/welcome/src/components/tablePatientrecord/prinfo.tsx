@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import { DefaultApi } from '../../api/apis';
-import { EntBill } from '../../api/models';
+import { EntPatientrecord } from '../../api/models';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {Grid, Modal,Typography} from '@material-ui/core';
 import Fade from '@material-ui/core/Fade';
@@ -32,15 +32,14 @@ export default function MoreInfo( id : any) {
   };
   const http = new DefaultApi();
   const [loading, setLoading] = React.useState(true);
-  const [bills, setBills] = useState<EntBill[]>(Array);
-  const getBills = async () => {
-    const res = await http.listBill({})
+  const [Patientrecord, setPatientrecord] = useState<EntPatientrecord[]>(Array);
+  const getPatientrecord = async () => {
+    const res = await http.listPatientrecord({offset : 0})
     setLoading(false);
-    setBills(res);
+    setPatientrecord(res);
   };
-
   useEffect(() => {
-    getBills();
+    getPatientrecord();
   }, [loading]);
 
   return (
@@ -59,25 +58,26 @@ export default function MoreInfo( id : any) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-          {bills.filter(b => b.id == id.id).map(bill => (
+              {Patientrecord.filter(p => p.id === id.id).map(patientrecord => ( 
                     <Grid>
                     <Typography variant = 'h4'>
-                        ใบเสร็จรับเงิน<br/>
+                        ข้อมูลผู้ป่วย<br/>
                     </Typography>
                     <Typography variant = 'subtitle1'> 
-                        เลขที่ใบเสร็จ : &emsp;{bill.id}<br/>
-                        เลขที่บันทึกการรักษา : &emsp;{bill.id}<br/>
-                        แพทย์ผู้ดูแล :&emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.id}<br/>
-                        ผู้ป่วย : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.edges?.edgesOfPatientrecord?.name}<br/>
-                        อาการ : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.symptom}<br/>
-                        การรักษา : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.treat}<br/>
-                        ยาที่จ่าย : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.medicine}<br/>
-                        ค่ารักษาทั้งหมด : &emsp;{bill.amount}<br/>
-                        รูปแบบการชำระ : &emsp;{bill.edges?.edgesOfPaytype?.paytype}&emsp;
-                        ผู้จ่ายเงิน : &emsp;{bill.payer}<br/>
-                        เบอร์ติดต่อผู้จ่าย : &emsp;{bill.payercontact}<br/>
-                        วันเวลาที่จ่าย : &emsp;{bill.date}<br/>
-                        ผู้รับเงิน : &emsp;{bill.edges?.edgesOfOfficer?.name}<br/>
+                        รหัสผู้ป่วย : &emsp;{patientrecord.id}<br/>
+                        คำนำหน้าชื่อ : &emsp;{patientrecord.edges?.edgesOfPrename?.prefix}<br/>
+                        ชื่อ-นามสกุล :&emsp;{patientrecord.name}<br/>
+                        เพศ : &emsp;{patientrecord.edges?.edgesOfGender?.genderstatus}<br/>
+                        เลขบัตรประจำตัวประชาชน : &emsp;{patientrecord.idcardnumber}<br/>
+                        อายุ : &emsp;{patientrecord.age}<br/>
+                        กรุ๊ปเลือด : &emsp;{patientrecord.edges?.edgesOfBloodtype?.bloodtype}<br/>
+                        โรคประจำตัว : &emsp;{patientrecord.disease}<br/>
+                        ยาที่แพ้ : &emsp;{patientrecord.allergic}<br/>
+                        เบอร์โทรที่ติดต่อได้ : &emsp;{patientrecord.phonenumber}<br/>
+                        อีเมล์ : &emsp;{patientrecord.email}<br/>
+                        ที่อยู่ : &emsp;{patientrecord.home}<br/>
+                        วันเวลาที่ลงทะเบียน : &emsp;{patientrecord.date}<br/>
+                        พนักงานเวชระเบียนที่ลงบันทึก : &emsp;{patientrecord.edges?.edgesOfMedicalrecordstaff?.name}<br/>
                     </Typography>
                     </Grid>
                        ))}

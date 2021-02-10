@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import ComponanceTable from './Tables_ID';
+import ComponanceTable from './Table';
 import Button from '@material-ui/core/Button';
 import { DefaultApi } from '../../api/apis';
 import { EntUser } from '../../api/models/EntUser';
@@ -18,9 +18,7 @@ import {
   ContentHeader,
   Link,
 } from '@backstage/core';
-import {
-  FormControl,
-} from '@material-ui/core';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import { makeStyles } from '@material-ui/core/styles';
 
 const cookies = new Cookies();
@@ -52,7 +50,6 @@ const Table: FC<{}> = () => {
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
  
-
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const getPatientrecord = async () => {
@@ -65,12 +62,11 @@ const Table: FC<{}> = () => {
   const sc = async () => {
     
 setSe(Pat);
-    var p = await http.listPatientrecord({ limit: 100, offset: 0 })
+    var p = await http.listPatientrecord({ limit: 10, offset: 0 })
     let i = 0
     for (let u of p){
-    if( (u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined))
+    if( u.name === Pat && u.id !== undefined)
     i = i+1
-    
     }
     console.log("ผู้ป่วย = ", Pat)
 
@@ -81,18 +77,15 @@ setSe(Pat);
       setStatus(true);
       setAlert(false);
     }
-
     setTimeout(() => {
       setStatus(false);
     }, 5000);
-
-    
   };
-
 
   useEffect(() => {
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
+
       setUsers(res);
     };
     getImg();
@@ -103,39 +96,34 @@ setSe(Pat);
   return (
     <Page theme={pageTheme.home}>
       <Header
-        title={`ยินดีต้อนรับ เข้าสู่ ระบบ ค้นหาเบียนสิทธิ์`}
-        subtitle="ของโรงบาล">
+        title={`Patientrecord`}
+>
         <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
-        <ContentHeader title="ค้นหาสิทธิ์">
-
+        <ContentHeader title="ค้นหาข้อมูลผู้ป่วย">
           {status ? (
             <div>
               {alert ? (
                 <Alert severity="success">
-                  พบสิทธิ์
+                  พบข้อมูลผู้ป่วย
                 </Alert>
               ) : (
                   <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบสิทธ์
+                    ไม่พบข้อมูลผู้ป่วย
                   </Alert>
                 )}
             </div>
           ) : null}
-
-          <FormControl variant="outlined" className={classes.formControl}>
             <Autocomplete
-              id="patientname"
-                freeSolo
+              id="patientname" 
               options={Patientrecord.map((option) => option.name)}
               onChange={handleChange}
               renderInput={(params) => (
-                <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" />
+                <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" style={{ width: "50ch"}} />
               )}
             />
-            </FormControl>
             <Button
               onClick={() => {
                sc();
@@ -146,28 +134,20 @@ setSe(Pat);
             >
               ค้นหา
                </Button>&emsp;
-          
-
           <Link component={RouterLink} to="/">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" style={{backgroundColor: "#d500f9"}}>
               Home
            </Button>
           </Link>&emsp;
-
-         <Link component={RouterLink} to="/create_Patientrights">
-            <Button variant="contained" color="primary">
-              ลงทะเบียนสิทธิ์
-           </Button>
+          <Link component={RouterLink} to="/createPatientrecord">
+            <Button variant="contained" color="primary" style={{backgroundColor: "#9500ae"}} startIcon={<AddBoxIcon />} size="large">
+              ลงทะเบียนผู้ป่วยนอก
+            </Button>
           </Link>
-
-
         </ContentHeader>
         <div className={classes.root}>
-
           <ComponanceTable sim={Se}></ComponanceTable>
-
         </div>
-
       </Content>
     </Page>
   );

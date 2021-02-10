@@ -29,7 +29,7 @@ type BillQuery struct {
 	// eager-loading edges.
 	withEdgesOfPaytype   *PaytypeQuery
 	withEdgesOfOfficer   *FinancierQuery
-	withEdgesOfTreatment *UnpaybillQuery
+	withEdgesOfUnpaybill *UnpaybillQuery
 	withFKs              bool
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
@@ -96,8 +96,8 @@ func (bq *BillQuery) QueryEdgesOfOfficer() *FinancierQuery {
 	return query
 }
 
-// QueryEdgesOfTreatment chains the current query on the EdgesOfTreatment edge.
-func (bq *BillQuery) QueryEdgesOfTreatment() *UnpaybillQuery {
+// QueryEdgesOfUnpaybill chains the current query on the EdgesOfUnpaybill edge.
+func (bq *BillQuery) QueryEdgesOfUnpaybill() *UnpaybillQuery {
 	query := &UnpaybillQuery{config: bq.config}
 	query.path = func(ctx context.Context) (fromU *sql.Selector, err error) {
 		if err := bq.prepareQuery(ctx); err != nil {
@@ -106,7 +106,7 @@ func (bq *BillQuery) QueryEdgesOfTreatment() *UnpaybillQuery {
 		step := sqlgraph.NewStep(
 			sqlgraph.From(bill.Table, bill.FieldID, bq.sqlQuery()),
 			sqlgraph.To(unpaybill.Table, unpaybill.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, bill.EdgesOfTreatmentTable, bill.EdgesOfTreatmentColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, bill.EdgesOfUnpaybillTable, bill.EdgesOfUnpaybillColumn),
 		)
 		fromU = sqlgraph.SetNeighbors(bq.driver.Dialect(), step)
 		return fromU, nil
@@ -315,14 +315,14 @@ func (bq *BillQuery) WithEdgesOfOfficer(opts ...func(*FinancierQuery)) *BillQuer
 	return bq
 }
 
-//  WithEdgesOfTreatment tells the query-builder to eager-loads the nodes that are connected to
-// the "EdgesOfTreatment" edge. The optional arguments used to configure the query builder of the edge.
-func (bq *BillQuery) WithEdgesOfTreatment(opts ...func(*UnpaybillQuery)) *BillQuery {
+//  WithEdgesOfUnpaybill tells the query-builder to eager-loads the nodes that are connected to
+// the "EdgesOfUnpaybill" edge. The optional arguments used to configure the query builder of the edge.
+func (bq *BillQuery) WithEdgesOfUnpaybill(opts ...func(*UnpaybillQuery)) *BillQuery {
 	query := &UnpaybillQuery{config: bq.config}
 	for _, opt := range opts {
 		opt(query)
 	}
-	bq.withEdgesOfTreatment = query
+	bq.withEdgesOfUnpaybill = query
 	return bq
 }
 
@@ -332,7 +332,7 @@ func (bq *BillQuery) WithEdgesOfTreatment(opts ...func(*UnpaybillQuery)) *BillQu
 // Example:
 //
 //	var v []struct {
-//		Amount string `json:"Amount,omitempty"`
+//		Amount int `json:"Amount,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -358,7 +358,7 @@ func (bq *BillQuery) GroupBy(field string, fields ...string) *BillGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Amount string `json:"Amount,omitempty"`
+//		Amount int `json:"Amount,omitempty"`
 //	}
 //
 //	client.Bill.Query().
@@ -396,10 +396,10 @@ func (bq *BillQuery) sqlAll(ctx context.Context) ([]*Bill, error) {
 		loadedTypes = [3]bool{
 			bq.withEdgesOfPaytype != nil,
 			bq.withEdgesOfOfficer != nil,
-			bq.withEdgesOfTreatment != nil,
+			bq.withEdgesOfUnpaybill != nil,
 		}
 	)
-	if bq.withEdgesOfPaytype != nil || bq.withEdgesOfOfficer != nil || bq.withEdgesOfTreatment != nil {
+	if bq.withEdgesOfPaytype != nil || bq.withEdgesOfOfficer != nil || bq.withEdgesOfUnpaybill != nil {
 		withFKs = true
 	}
 	if withFKs {
@@ -479,7 +479,7 @@ func (bq *BillQuery) sqlAll(ctx context.Context) ([]*Bill, error) {
 		}
 	}
 
-	if query := bq.withEdgesOfTreatment; query != nil {
+	if query := bq.withEdgesOfUnpaybill; query != nil {
 		ids := make([]int, 0, len(nodes))
 		nodeids := make(map[int][]*Bill)
 		for i := range nodes {
@@ -499,7 +499,7 @@ func (bq *BillQuery) sqlAll(ctx context.Context) ([]*Bill, error) {
 				return nil, fmt.Errorf(`unexpected foreign-key "treatment_id" returned %v`, n.ID)
 			}
 			for i := range nodes {
-				nodes[i].Edges.EdgesOfTreatment = n
+				nodes[i].Edges.EdgesOfUnpaybill = n
 			}
 		}
 	}

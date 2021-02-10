@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -52,10 +53,12 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err := c.ShouldBind(&obj); err != nil {
 		c.JSON(400, gin.H{
-			"error": "ไม่สามารถสร้าง Patientrights",
+			"error": "ไม่สามารถสร้าง สิทธิ์ได้",
 		})
 		return
 	}
+
+
 
 	Patientrecord, err := ctl.client.Patientrecord.
 		Query().
@@ -64,7 +67,7 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Patientrightstype not found",
+			"error": "ไม่พบผู้ป่วย",
 		})
 		return
 	}
@@ -76,7 +79,7 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Room not found",
+			"error": "ไม่สามารถระบุพนักงานเวชระเบียงได้",
 		})
 		return
 	}
@@ -88,10 +91,11 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Insurance not found",
+			"error": "ไม่พบประกัน",
 		})
 		return
 	}
+
 	Abilitypatientrights, err := ctl.client.Abilitypatientrights.
 		Query().
 		Where(abilitypatientrights.IDEQ(int(obj.Abilitypatientrights))).
@@ -99,33 +103,20 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "Abilitypatientrights not found",
-		})
-		return
-	}
-
-	if obj.Permission == "" {
-		c.JSON(400, gin.H{
-			"error": "Permission ไม่ถูกต้อง",
-		})
-		return
-	}
-	if obj.PermissionArea == "" {
-		c.JSON(400, gin.H{
-			"error": "PermissionArea ไม่ถูกต้อง",
-		})
-		return
-	}
-
-	if obj.Responsible == "" {
-		c.JSON(400, gin.H{
-			"error": "Responsibles ไม่ถูกต้อง",
+			"error": "ไม่พบความสามารถสิทธิ์",
 		})
 		return
 	}
 
 	settime := time.Now().Format("2006-01-02T15:04:05Z07:00")
 	t, err := time.Parse(time.RFC3339, settime)
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"error": "ระบบบันทึกเวลาผิดพลาด",
+		})
+		return
+	}
 
 	u, err := ctl.client.Patientrights.
 		Create().
@@ -140,9 +131,10 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 		Save(context.Background())
 
 	if err != nil {
+		e := strings.Split(err.Error(), ":")
 		c.JSON(400, gin.H{
 			"status": false,
-			"error":  err,
+			"error":  e[2],
 		})
 		return
 	}
