@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	_"errors"
 	"time"
-
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/bill"
@@ -76,23 +76,29 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 		WithEdgesOfTreatment().
 		Where(unpaybill.IDEQ(int(obj.Unpaybill))).
 		Only(context.Background())
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "bill not found",
-		})
-		return
+		if err != nil {
+			c.JSON(400, gin.H{
+				"error": "bill not found",
+			})
+			return
 	}
 	t := time.Now().Local()
-
+	am, err := strconv.Atoi(obj.Amount)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "Amount have to be number",
+		})
+		return
+}
 	u, err := ctl.client.Bill.
 		Create().
 		SetPayer(obj.Payer).
 		SetPayercontact(obj.Payercontact).
-		SetAmount(obj.Amount).
+		SetAmount(am).
 		SetDate(t).
 		SetEdgesOfPaytype(pt).
 		SetEdgesOfOfficer(f).
-		SetEdgesOfTreatment(ub).
+		SetEdgesOfUnpaybill(ub).
 		Save(context.Background())
 	if err != nil {
 		fmt.Println(err)
@@ -130,10 +136,16 @@ func (ctl *BillController) GetBill(c *gin.Context) {
 	}
 	u, err := ctl.client.Bill.
 		Query().
-		WithEdgesOfTreatment().
+		WithEdgesOfUnpaybill(func (q *ent.UnpaybillQuery){
+			q.QueryEdgesOfTreatment()
+			q.WithEdgesOfTreatment(func (t *ent.TreatmentQuery){
+				t.QueryEdgesOfPatientrecord()
+				t.WithEdgesOfPatientrecord()
+			})
+		}).
 		WithEdgesOfPaytype().
 		WithEdgesOfOfficer().
-		Where(bill.HasEdgesOfTreatmentWith(unpaybill.HasEdgesOfTreatmentWith(treatment.HasEdgesOfPatientrecordWith(patientrecord.IDEQ(int(id)))))).
+		Where(bill.HasEdgesOfUnpaybillWith(unpaybill.HasEdgesOfTreatmentWith(treatment.HasEdgesOfPatientrecordWith(patientrecord.IDEQ(int(id)))))).
 		All(context.Background())
 
 	if err != nil {
@@ -180,7 +192,13 @@ func (ctl *BillController) ListBill(c *gin.Context) {
 		Query().
 		WithEdgesOfOfficer().
 		WithEdgesOfPaytype().
-		WithEdgesOfTreatment().
+		WithEdgesOfUnpaybill(func (q *ent.UnpaybillQuery){
+			q.QueryEdgesOfTreatment()
+			q.WithEdgesOfTreatment(func (t *ent.TreatmentQuery){
+				t.QueryEdgesOfPatientrecord()
+				t.WithEdgesOfPatientrecord()
+			})
+		}).
 		Limit(limit).
 		Offset(offset).
 		All(context.Background())

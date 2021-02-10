@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-
+	
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
@@ -242,7 +242,7 @@ type Bills struct {
 
 // Bill defines the struct for the Bill
 type Bill struct {
-	Amount    string
+	Amount    int
 	Payer    string
 	Payercontact    string
 	Unpaybill int
@@ -1031,7 +1031,6 @@ func main() {
 			Unpaybill{"Paid", 3},
 			Unpaybill{"Paid", 4},
 			Unpaybill{"Paid", 5},
-			Unpaybill{"Paid", 6},
 			Unpaybill{"Paid", 7},
 			Unpaybill{"Paid", 8},
 			Unpaybill{"Unpay", 9},
@@ -1061,14 +1060,13 @@ func main() {
 	//Set Bill Data for search bill
 	bills := Bills{
 		Bill: []Bill{
-			Bill{"159","นายพงษ์นรินทร์ จันทร์สุข","0912345678",1,3,1},
-			Bill{"999","นางอ่านค่ำ นอนเช้า","0912300678",2,2,1},
-			Bill{"4500","นายหมองตัน สงสัย","0812345678",3,1,1},
-			Bill{"963","นายตาช่ำ แสงแยง","0987654321",4,1,1},
-			Bill{"2580","นางสาวญักกิรมุทะ มากโข","0999999999",5,2,1},
-			Bill{"466","นายหิวโซ เงินขาด","0888888888",6,3,1},
-			Bill{"2452","นางเห็นใจ ผู้เรียน","0654987123",7,3,1},
-			Bill{"8090","นายอ่ำ อึ้ง","0682145369",8,3,1},
+			Bill{159,"นายพงษ์นรินทร์ จันทร์สุข","0912345678",1,3,1},
+			Bill{999,"นางอ่านค่ำ นอนเช้า","0912300678",2,2,1},
+			Bill{4500,"นายหมองตัน สงสัย","0812345678",3,1,1},
+			Bill{963,"นายตาช่ำ แสงแยง","0987654321",4,1,1},
+			Bill{2580,"นางสาวญักกิรมุทะ มากโข","0999999999",5,2,1},
+			Bill{2452,"นางเห็นใจ ผู้เรียน","0654987123",7,3,1},
+			Bill{8090,"นายอ่ำ อึ้ง","0682145369",8,3,1},
 		},
 	}
 	for _, b := range bills.Bill {
@@ -1105,7 +1103,7 @@ func main() {
 		SetDate(times).
 		SetEdgesOfPaytype(paytype).
 		SetEdgesOfOfficer(f).
-		SetEdgesOfTreatment(unpay).
+		SetEdgesOfUnpaybill(unpay).
 		Save(context.Background())	
 	}
 	//^^^*******************************************************************^^^

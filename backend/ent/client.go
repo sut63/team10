@@ -494,15 +494,15 @@ func (c *BillClient) QueryEdgesOfOfficer(b *Bill) *FinancierQuery {
 	return query
 }
 
-// QueryEdgesOfTreatment queries the EdgesOfTreatment edge of a Bill.
-func (c *BillClient) QueryEdgesOfTreatment(b *Bill) *UnpaybillQuery {
+// QueryEdgesOfUnpaybill queries the EdgesOfUnpaybill edge of a Bill.
+func (c *BillClient) QueryEdgesOfUnpaybill(b *Bill) *UnpaybillQuery {
 	query := &UnpaybillQuery{config: c.config}
 	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
 		id := b.ID
 		step := sqlgraph.NewStep(
 			sqlgraph.From(bill.Table, bill.FieldID, id),
 			sqlgraph.To(unpaybill.Table, unpaybill.FieldID),
-			sqlgraph.Edge(sqlgraph.O2O, true, bill.EdgesOfTreatmentTable, bill.EdgesOfTreatmentColumn),
+			sqlgraph.Edge(sqlgraph.O2O, true, bill.EdgesOfUnpaybillTable, bill.EdgesOfUnpaybillColumn),
 		)
 		fromV = sqlgraph.Neighbors(b.driver.Dialect(), step)
 		return fromV, nil

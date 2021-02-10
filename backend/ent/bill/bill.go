@@ -20,8 +20,8 @@ const (
 	EdgeEdgesOfPaytype = "EdgesOfPaytype"
 	// EdgeEdgesOfOfficer holds the string denoting the edgesofofficer edge name in mutations.
 	EdgeEdgesOfOfficer = "EdgesOfOfficer"
-	// EdgeEdgesOfTreatment holds the string denoting the edgesoftreatment edge name in mutations.
-	EdgeEdgesOfTreatment = "EdgesOfTreatment"
+	// EdgeEdgesOfUnpaybill holds the string denoting the edgesofunpaybill edge name in mutations.
+	EdgeEdgesOfUnpaybill = "EdgesOfUnpaybill"
 
 	// Table holds the table name of the bill in the database.
 	Table = "bills"
@@ -39,13 +39,13 @@ const (
 	EdgesOfOfficerInverseTable = "financiers"
 	// EdgesOfOfficerColumn is the table column denoting the EdgesOfOfficer relation/edge.
 	EdgesOfOfficerColumn = "officer_id"
-	// EdgesOfTreatmentTable is the table the holds the EdgesOfTreatment relation/edge.
-	EdgesOfTreatmentTable = "bills"
-	// EdgesOfTreatmentInverseTable is the table name for the Unpaybill entity.
+	// EdgesOfUnpaybillTable is the table the holds the EdgesOfUnpaybill relation/edge.
+	EdgesOfUnpaybillTable = "bills"
+	// EdgesOfUnpaybillInverseTable is the table name for the Unpaybill entity.
 	// It exists in this package in order to avoid circular dependency with the "unpaybill" package.
-	EdgesOfTreatmentInverseTable = "unpaybills"
-	// EdgesOfTreatmentColumn is the table column denoting the EdgesOfTreatment relation/edge.
-	EdgesOfTreatmentColumn = "treatment_id"
+	EdgesOfUnpaybillInverseTable = "unpaybills"
+	// EdgesOfUnpaybillColumn is the table column denoting the EdgesOfUnpaybill relation/edge.
+	EdgesOfUnpaybillColumn = "treatment_id"
 )
 
 // Columns holds all SQL columns for bill fields.
@@ -66,7 +66,7 @@ var ForeignKeys = []string{
 
 var (
 	// AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
-	AmountValidator func(string) error
+	AmountValidator func(int) error
 	// PayerValidator is a validator for the "Payer" field. It is called by the builders before save.
 	PayerValidator func(string) error
 	// PayercontactValidator is a validator for the "Payercontact" field. It is called by the builders before save.

@@ -18,7 +18,6 @@ import { DefaultApi } from '../../api/apis';
 import { EntPaytype } from '../../api/models/EntPaytype';
 import { EntUnpaybill } from '../../api/models/EntUnpaybill';
 import { EntFinancier } from '../../api/models/EntFinancier';
-import { EntTreatment } from '../../api';
 import { EntUser } from '../../api/models/EntUser';
 
 import { Cookies } from 'react-cookie/cjs';//cookie
@@ -84,8 +83,6 @@ const CreateBill: FC<{}> = () => {
   const [financiers, setFinanciers] = React.useState<Partial<EntFinancier>>();
 
   const [unpaybills, setUnpaybills] = React.useState<EntUnpaybill[]>([]);
-  const [treatments, setTreatment] = React.useState<EntTreatment[]>([]);
-
   const [bill, setBill] = React.useState<Partial<Bill>>({});
 
   const [patientname, setPatient] = React.useState(String);
@@ -110,11 +107,6 @@ const CreateBill: FC<{}> = () => {
       setLoading(false);
       setFinanciers(res);
     };
-    const getTreatment = async () => {
-      const res = await http.listTreatment({ limit: 15000,offset: 0 });
-      setLoading(false);
-      setTreatment(res);
-    };
 
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
@@ -126,7 +118,6 @@ const CreateBill: FC<{}> = () => {
     getFinancier();
     getUnpaybill();
     getPaytype();
-    getTreatment();
     getImg();
   }, [loading]);
 
@@ -140,7 +131,7 @@ const CreateBill: FC<{}> = () => {
     console.log(bill);
   };
 
-  const checkCaseSaveError = (field: string) => {
+  const checkCaseSaveError = (field:string) => {
     switch (field) {
       case 'Payer':
         setAlerttitle("ชื่อนามสกุลผู้จ่ายไม่ถูกต้อง")
@@ -152,11 +143,11 @@ const CreateBill: FC<{}> = () => {
         return;
       case 'Amount':
         setAlerttitle("ค่ารักษาไม่ถูกต้อง")
-        setAlert("กรุณากรอกเป็นตัวเลข 0-9 และไม่ขึ้นต้นด้วยเลข 0")
+        setAlert("กรุณากรอกเป็นตัวเลขและมีค่าไม่น้อยกว่า 0")
         return;
       default:
         setAlerttitle("บันทึกข้อมูลไม่สำเร็จ")
-        setAlert("เกิดข้อผิดพลาดบางอย่าง กรุณาลองอีกครั้ง")
+        setAlert("กรุณาตรวจสอบข้อมูลอีกครั้ง")
 
         return;
     }
@@ -305,22 +296,22 @@ const CreateBill: FC<{}> = () => {
                       <TableRow>
                         <TableCell align="center" >เลขที่การรักษา</TableCell>
                         <TableCell align="center">ผู้รับการรักษา</TableCell>
-                        <TableCell align="center">ประเภทการรักษา</TableCell>
+                        <TableCell align="center">ยาที่จ่าย</TableCell>
                         <TableCell align="center">เรียกชำระเงิน</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {unpaybills.map(item => (treatments.filter(t => t.id === item.edges?.edgesOfTreatment?.id).map(item2 => (
+                      {unpaybills.map(item => (
                         <TableRow key={item.id}>
-                          <TableCell align="center">{item2.id}</TableCell>
-                          <TableCell align="center">{item2.edges?.edgesOfPatientrecord?.name}</TableCell>
-                          <TableCell align="center">{item2.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
+                          <TableCell align="center">{item.edges?.edgesOfTreatment?.id}</TableCell>
+                          <TableCell align="center">{item.edges?.edgesOfTreatment?.edges?.edgesOfPatientrecord?.name}</TableCell>
+                          <TableCell align="center">{item.edges?.edgesOfTreatment?.medicine}</TableCell>
                           <TableCell align="center">
                             <Button
                               onClick={() => {
                                 setunpaybill(item.id as number);
-                                setPatient(item2.edges?.edgesOfPatientrecord?.name as string);
-                                setTreatmentID(item2.id as number);
+                                setPatient(item.edges?.edgesOfTreatment?.edges?.edgesOfPatientrecord?.name as string);
+                                setTreatmentID(item.edges?.edgesOfTreatment?.id as number);
                               }}
                               style={{backgroundColor: "#276678"}}
                               variant = 'contained'
@@ -330,7 +321,7 @@ const CreateBill: FC<{}> = () => {
                               </Button>
                           </TableCell>
                         </TableRow>
-                      ))))}
+                      ))}
                     </TableBody>
                   </Table>
                 </TableContainer>
