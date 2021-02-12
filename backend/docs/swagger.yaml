@@ -141,8 +141,6 @@ definitions:
         type: string
       password:
         type: string
-      userstatus:
-        type: integer
     type: object
   ent.Abilitypatientrights:
     properties:
@@ -154,6 +152,9 @@ definitions:
         type: integer
       Operative:
         description: Operative holds the value of the "Operative" field.
+        type: integer
+      StayInHospital:
+        description: StayInHospital holds the value of the "StayInHospital" field.
         type: integer
       check:
         description: Check holds the value of the "check" field.
@@ -170,7 +171,7 @@ definitions:
     type: object
   ent.AbilitypatientrightsEdges:
     properties:
-      EdgesOfAbilitypatientrightsPatientrights:
+      edgesOfAbilitypatientrightsPatientrights:
         description: EdgesOfAbilitypatientrightsPatientrights holds the value of the
           EdgesOfAbilitypatientrightsPatientrights edge.
         items:
@@ -203,15 +204,15 @@ definitions:
     type: object
   ent.BillEdges:
     properties:
-      EdgesOfOfficer:
+      edgesOfOfficer:
         $ref: '#/definitions/ent.Financier'
         description: EdgesOfOfficer holds the value of the EdgesOfOfficer edge.
         type: object
-      EdgesOfPaytype:
+      edgesOfPaytype:
         $ref: '#/definitions/ent.Paytype'
         description: EdgesOfPaytype holds the value of the EdgesOfPaytype edge.
         type: object
-      EdgesOfUnpaybill:
+      edgesOfUnpaybill:
         $ref: '#/definitions/ent.Unpaybill'
         description: EdgesOfUnpaybill holds the value of the EdgesOfUnpaybill edge.
         type: object
@@ -233,7 +234,7 @@ definitions:
     type: object
   ent.BloodtypeEdges:
     properties:
-      EdgesOfPatientrecord:
+      edgesOfPatientrecord:
         description: EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord
           edge.
         items:
@@ -257,13 +258,13 @@ definitions:
     type: object
   ent.DepartmentEdges:
     properties:
-      EdgesOfDepartment2doctorinfo:
+      edgesOfDepartment2doctorinfo:
         description: EdgesOfDepartment2doctorinfo holds the value of the EdgesOfDepartment2doctorinfo
           edge.
         items:
           $ref: '#/definitions/ent.Doctorinfo'
         type: array
-      EdgesOfHistorytaking:
+      edgesOfHistorytaking:
         description: EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking
           edge.
         items:
@@ -284,16 +285,16 @@ definitions:
     type: object
   ent.DoctorEdges:
     properties:
-      EdgesOfDoctorinfo:
+      edgesOfDoctorinfo:
         $ref: '#/definitions/ent.Doctorinfo'
         description: EdgesOfDoctorinfo holds the value of the EdgesOfDoctorinfo edge.
         type: object
-      EdgesOfTreatment:
+      edgesOfTreatment:
         description: EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
         items:
           $ref: '#/definitions/ent.Treatment'
         type: array
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -324,24 +325,24 @@ definitions:
     type: object
   ent.DoctorinfoEdges:
     properties:
-      EdgesOfDepartment:
+      edgesOfDepartment:
         $ref: '#/definitions/ent.Department'
         description: EdgesOfDepartment holds the value of the EdgesOfDepartment edge.
         type: object
-      EdgesOfDoctor:
+      edgesOfDoctor:
         $ref: '#/definitions/ent.Doctor'
         description: EdgesOfDoctor holds the value of the EdgesOfDoctor edge.
         type: object
-      EdgesOfEducationlevel:
+      edgesOfEducationlevel:
         $ref: '#/definitions/ent.Educationlevel'
         description: EdgesOfEducationlevel holds the value of the EdgesOfEducationlevel
           edge.
         type: object
-      EdgesOfOfficeroom:
+      edgesOfOfficeroom:
         $ref: '#/definitions/ent.Officeroom'
         description: EdgesOfOfficeroom holds the value of the EdgesOfOfficeroom edge.
         type: object
-      EdgesOfPrename:
+      edgesOfPrename:
         $ref: '#/definitions/ent.Prename'
         description: EdgesOfPrename holds the value of the EdgesOfPrename edge.
         type: object
@@ -363,7 +364,7 @@ definitions:
     type: object
   ent.EducationlevelEdges:
     properties:
-      EdgesOfEducationlevel2doctorinfo:
+      edgesOfEducationlevel2doctorinfo:
         description: EdgesOfEducationlevel2doctorinfo holds the value of the EdgesOfEducationlevel2doctorinfo
           edge.
         items:
@@ -387,12 +388,12 @@ definitions:
     type: object
   ent.FinancierEdges:
     properties:
-      EdgesOfBills:
+      edgesOfBills:
         description: EdgesOfBills holds the value of the EdgesOfBills edge.
         items:
           $ref: '#/definitions/ent.Bill'
         type: array
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -414,7 +415,7 @@ definitions:
     type: object
   ent.GenderEdges:
     properties:
-      EdgesOfPatientrecord:
+      edgesOfPatientrecord:
         description: EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord
           edge.
         items:
@@ -462,20 +463,20 @@ definitions:
     type: object
   ent.HistorytakingEdges:
     properties:
-      EdgesOfDepartment:
+      edgesOfDepartment:
         $ref: '#/definitions/ent.Department'
         description: EdgesOfDepartment holds the value of the EdgesOfDepartment edge.
         type: object
-      EdgesOfNurse:
+      edgesOfNurse:
         $ref: '#/definitions/ent.Nurse'
         description: EdgesOfNurse holds the value of the EdgesOfNurse edge.
         type: object
-      EdgesOfPatientrecord:
+      edgesOfPatientrecord:
         $ref: '#/definitions/ent.Patientrecord'
         description: EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord
           edge.
         type: object
-      EdgesOfSymptomseverity:
+      edgesOfSymptomseverity:
         $ref: '#/definitions/ent.Symptomseverity'
         description: EdgesOfSymptomseverity holds the value of the EdgesOfSymptomseverity
           edge.
@@ -498,7 +499,7 @@ definitions:
     type: object
   ent.InsuranceEdges:
     properties:
-      EdgesOfInsurancePatientrights:
+      edgesOfInsurancePatientrights:
         description: EdgesOfInsurancePatientrights holds the value of the EdgesOfInsurancePatientrights
           edge.
         items:
@@ -522,19 +523,19 @@ definitions:
     type: object
   ent.MedicalrecordstaffEdges:
     properties:
-      EdgesOfMedicalrecordstaffPatientrights:
+      edgesOfMedicalrecordstaffPatientrights:
         description: EdgesOfMedicalrecordstaffPatientrights holds the value of the
           EdgesOfMedicalrecordstaffPatientrights edge.
         items:
           $ref: '#/definitions/ent.Patientrights'
         type: array
-      EdgesOfPatientrecord:
+      edgesOfPatientrecord:
         description: EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord
           edge.
         items:
           $ref: '#/definitions/ent.Patientrecord'
         type: array
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -562,13 +563,13 @@ definitions:
     type: object
   ent.NurseEdges:
     properties:
-      EdgesOfHistorytaking:
+      edgesOfHistorytaking:
         description: EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking
           edge.
         items:
           $ref: '#/definitions/ent.Historytaking'
         type: array
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -590,7 +591,7 @@ definitions:
     type: object
   ent.OfficeroomEdges:
     properties:
-      EdgesOfOfficeroom2doctorinfo:
+      edgesOfOfficeroom2doctorinfo:
         description: EdgesOfOfficeroom2doctorinfo holds the value of the EdgesOfOfficeroom2doctorinfo
           edge.
         items:
@@ -638,36 +639,36 @@ definitions:
     type: object
   ent.PatientrecordEdges:
     properties:
-      EdgesOfBloodtype:
+      edgesOfBloodtype:
         $ref: '#/definitions/ent.Bloodtype'
         description: EdgesOfBloodtype holds the value of the EdgesOfBloodtype edge.
         type: object
-      EdgesOfGender:
+      edgesOfGender:
         $ref: '#/definitions/ent.Gender'
         description: EdgesOfGender holds the value of the EdgesOfGender edge.
         type: object
-      EdgesOfHistorytaking:
+      edgesOfHistorytaking:
         description: EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking
           edge.
         items:
           $ref: '#/definitions/ent.Historytaking'
         type: array
-      EdgesOfMedicalrecordstaff:
+      edgesOfMedicalrecordstaff:
         $ref: '#/definitions/ent.Medicalrecordstaff'
         description: EdgesOfMedicalrecordstaff holds the value of the EdgesOfMedicalrecordstaff
           edge.
         type: object
-      EdgesOfPatientrecordPatientrights:
+      edgesOfPatientrecordPatientrights:
         description: EdgesOfPatientrecordPatientrights holds the value of the EdgesOfPatientrecordPatientrights
           edge.
         items:
           $ref: '#/definitions/ent.Patientrights'
         type: array
-      EdgesOfPrename:
+      edgesOfPrename:
         $ref: '#/definitions/ent.Prename'
         description: EdgesOfPrename holds the value of the EdgesOfPrename edge.
         type: object
-      EdgesOfTreatment:
+      edgesOfTreatment:
         description: EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
         items:
           $ref: '#/definitions/ent.Treatment'
@@ -703,22 +704,22 @@ definitions:
     type: object
   ent.PatientrightsEdges:
     properties:
-      EdgesOfPatientrightsAbilitypatientrights:
+      edgesOfPatientrightsAbilitypatientrights:
         $ref: '#/definitions/ent.Abilitypatientrights'
         description: EdgesOfPatientrightsAbilitypatientrights holds the value of the
           EdgesOfPatientrightsAbilitypatientrights edge.
         type: object
-      EdgesOfPatientrightsInsurance:
+      edgesOfPatientrightsInsurance:
         $ref: '#/definitions/ent.Insurance'
         description: EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance
           edge.
         type: object
-      EdgesOfPatientrightsMedicalrecordstaff:
+      edgesOfPatientrightsMedicalrecordstaff:
         $ref: '#/definitions/ent.Medicalrecordstaff'
         description: EdgesOfPatientrightsMedicalrecordstaff holds the value of the
           EdgesOfPatientrightsMedicalrecordstaff edge.
         type: object
-      EdgesOfPatientrightsPatientrecord:
+      edgesOfPatientrightsPatientrecord:
         $ref: '#/definitions/ent.Patientrecord'
         description: EdgesOfPatientrightsPatientrecord holds the value of the EdgesOfPatientrightsPatientrecord
           edge.
@@ -741,7 +742,7 @@ definitions:
     type: object
   ent.PaytypeEdges:
     properties:
-      EdgesOfBills:
+      edgesOfBills:
         description: EdgesOfBills holds the value of the EdgesOfBills edge.
         items:
           $ref: '#/definitions/ent.Bill'
@@ -764,13 +765,13 @@ definitions:
     type: object
   ent.PrenameEdges:
     properties:
-      EdgesOfPatientrecord:
+      edgesOfPatientrecord:
         description: EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord
           edge.
         items:
           $ref: '#/definitions/ent.Patientrecord'
         type: array
-      EdgesOfPrename2doctorinfo:
+      edgesOfPrename2doctorinfo:
         description: EdgesOfPrename2doctorinfo holds the value of the EdgesOfPrename2doctorinfo
           edge.
         items:
@@ -794,7 +795,7 @@ definitions:
     type: object
   ent.RegistrarEdges:
     properties:
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -816,7 +817,7 @@ definitions:
     type: object
   ent.SymptomseverityEdges:
     properties:
-      EdgesOfHistorytaking:
+      edgesOfHistorytaking:
         description: EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking
           edge.
         items:
@@ -849,21 +850,21 @@ definitions:
     type: object
   ent.TreatmentEdges:
     properties:
-      EdgesOfDoctor:
+      edgesOfDoctor:
         $ref: '#/definitions/ent.Doctor'
         description: EdgesOfDoctor holds the value of the EdgesOfDoctor edge.
         type: object
-      EdgesOfPatientrecord:
+      edgesOfPatientrecord:
         $ref: '#/definitions/ent.Patientrecord'
         description: EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord
           edge.
         type: object
-      EdgesOfTypetreatment:
+      edgesOfTypetreatment:
         $ref: '#/definitions/ent.Typetreatment'
         description: EdgesOfTypetreatment holds the value of the EdgesOfTypetreatment
           edge.
         type: object
-      EdgesOfUnpaybills:
+      edgesOfUnpaybills:
         $ref: '#/definitions/ent.Unpaybill'
         description: EdgesOfUnpaybills holds the value of the EdgesOfUnpaybills edge.
         type: object
@@ -885,7 +886,7 @@ definitions:
     type: object
   ent.TypetreatmentEdges:
     properties:
-      EdgesOfTreatment:
+      edgesOfTreatment:
         description: EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
         items:
           $ref: '#/definitions/ent.Treatment'
@@ -908,11 +909,11 @@ definitions:
     type: object
   ent.UnpaybillEdges:
     properties:
-      EdgesOfBills:
+      edgesOfBills:
         $ref: '#/definitions/ent.Bill'
         description: EdgesOfBills holds the value of the EdgesOfBills edge.
         type: object
-      EdgesOfTreatment:
+      edgesOfTreatment:
         $ref: '#/definitions/ent.Treatment'
         description: EdgesOfTreatment holds the value of the EdgesOfTreatment edge.
         type: object
@@ -940,60 +941,33 @@ definitions:
     type: object
   ent.UserEdges:
     properties:
-      EdgesOfDoctor:
+      edgesOfDoctor:
         $ref: '#/definitions/ent.Doctor'
         description: EdgesOfDoctor holds the value of the EdgesOfDoctor edge.
         type: object
-      EdgesOfFinancier:
+      edgesOfFinancier:
         $ref: '#/definitions/ent.Financier'
         description: EdgesOfFinancier holds the value of the EdgesOfFinancier edge.
         type: object
-      EdgesOfMedicalrecordstaff:
+      edgesOfMedicalrecordstaff:
         $ref: '#/definitions/ent.Medicalrecordstaff'
         description: EdgesOfMedicalrecordstaff holds the value of the EdgesOfMedicalrecordstaff
           edge.
         type: object
-      EdgesOfNurse:
+      edgesOfNurse:
         $ref: '#/definitions/ent.Nurse'
         description: EdgesOfNurse holds the value of the EdgesOfNurse edge.
         type: object
-      EdgesOfUser2registrar:
+      edgesOfUser2registrar:
         $ref: '#/definitions/ent.Registrar'
         description: EdgesOfUser2registrar holds the value of the EdgesOfUser2registrar
           edge.
         type: object
-      EdgesOfUserPatientrights:
+      edgesOfUserPatientrights:
         $ref: '#/definitions/ent.Patientrights'
         description: EdgesOfUserPatientrights holds the value of the EdgesOfUserPatientrights
           edge.
         type: object
-      EdgesOfUserstatus:
-        $ref: '#/definitions/ent.Userstatus'
-        description: EdgesOfUserstatus holds the value of the EdgesOfUserstatus edge.
-        type: object
-    type: object
-  ent.Userstatus:
-    properties:
-      Userstatus:
-        description: Userstatus holds the value of the "Userstatus" field.
-        type: string
-      edges:
-        $ref: '#/definitions/ent.UserstatusEdges'
-        description: |-
-          Edges holds the relations/edges for other nodes in the graph.
-          The values are being populated by the UserstatusQuery when eager-loading is set.
-        type: object
-      id:
-        description: ID of the ent.
-        type: integer
-    type: object
-  ent.UserstatusEdges:
-    properties:
-      EdgesOfUser:
-        description: EdgesOfUser holds the value of the EdgesOfUser edge.
-        items:
-          $ref: '#/definitions/ent.User'
-        type: array
     type: object
   gin.H:
     additionalProperties: true
@@ -3887,157 +3861,6 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a user entity by ID
-  /userstatus:
-    get:
-      description: list userstatus entities
-      operationId: list-userstatus
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/ent.Userstatus'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: List userstatus entities
-    post:
-      consumes:
-      - application/json
-      description: Create userstatus
-      operationId: create-userstatus
-      parameters:
-      - description: Userstatus entity
-        in: body
-        name: userstatus
-        required: true
-        schema:
-          $ref: '#/definitions/ent.Userstatus'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Userstatus'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Create userstatus
-  /userstatus/{id}:
-    delete:
-      description: get userstatus by ID
-      operationId: delete-userstatus
-      parameters:
-      - description: Userstatus ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/gin.H'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Delete a userstatus entity by ID
-    get:
-      description: get userstatus by ID
-      operationId: get-userstatus
-      parameters:
-      - description: Userstatus ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Userstatus'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Get a userstatus entity by ID
-    put:
-      consumes:
-      - application/json
-      description: update userstatus by ID
-      operationId: update-userstatus
-      parameters:
-      - description: Userstatus ID
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Userstatus entity
-        in: body
-        name: userstatus
-        required: true
-        schema:
-          $ref: '#/definitions/ent.Userstatus'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/ent.Userstatus'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/gin.H'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/gin.H'
-      summary: Update a userstatus entity by ID
 securityDefinitions:
   ApiKeyAuth:
     in: header

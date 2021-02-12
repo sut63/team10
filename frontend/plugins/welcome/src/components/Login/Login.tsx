@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { DefaultApi } from '../../api/apis';
-import { Alert ,AlertTitle } from '@material-ui/lab';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 
 import { useCookies } from 'react-cookie/cjs';//cookie
@@ -74,37 +74,44 @@ const Login: FC<{}> = () => {
 
   useEffect(() => {
     getUsers();
-    
+
   }, []);
 
   // set data to object Patientright
 
 
   const Login = async () => {
-    
-    users.map((item) => {  
-      if(item.email === Name && item.password === Password){
-      setAlert(false);
-      setStatus(false);
-      setCookie('Img', item.id , { path: '/' })
-      setCookie('Name', item.email, { path: '/' })
-      setCookie('Log', "true",{ path: '/' })
-      setCookie('Status', item.edges?.edgesOfUserstatus?.userstatus , { path: '/' })
-      setCookie('Fin', item.edges?.edgesOfFinancier?.id , { path: '/' })
-      setCookie('Med', item.edges?.edgesOfMedicalrecordstaff?.id , { path: '/' })
-      setCookie('Nur', item.edges?.edgesOfNurse?.id , { path: '/' })
-      setCookie('Doc', item.edges?.edgesOfDoctor?.id , { path: '/' })
-      setCookie('Reg', item.edges?.edgesOfUser2registrar?.id, { path: '/' })
-      window.location.reload(false)             
-    }
-    if(item.email != Name && item.password != Password){
-      setStatus(true);
-      setAlert(false);
-      setTimeout(() => {
+
+    users.map((item) => {
+      if (item.email === Name && item.password === Password) {
+        setAlert(false);
         setStatus(false);
-      }, 5000);     
-    }
-  });
+        let i = true
+        if (item.edges?.edgesOfFinancier?.id === undefined) { i = false }
+        if (item.edges?.edgesOfMedicalrecordstaff?.id === undefined) { i = false }
+        if (item.edges?.edgesOfNurse?.id === undefined) { i = false }
+        if (item.edges?.edgesOfDoctor?.id === undefined) { i = false }
+        if (item.edges?.edgesOfUser2registrar?.id === undefined) { i = false }
+        if(i){setCookie('Status', "Root", { path: '/' })}
+        setCookie('Img', item.id, { path: '/' })
+        setCookie('Name', item.email, { path: '/' })
+        setCookie('Log', "true", { path: '/' })
+        
+        setCookie('Fin', item.edges?.edgesOfFinancier?.id, { path: '/' })
+        setCookie('Med', item.edges?.edgesOfMedicalrecordstaff?.id, { path: '/' })
+        setCookie('Nur', item.edges?.edgesOfNurse?.id, { path: '/' })
+        setCookie('Doc', item.edges?.edgesOfDoctor?.id, { path: '/' })
+        setCookie('Reg', item.edges?.edgesOfUser2registrar?.id, { path: '/' })
+        window.location.reload(false)
+      }
+      if (item.email != Name && item.password != Password) {
+        setStatus(true);
+        setAlert(false);
+        setTimeout(() => {
+          setStatus(false);
+        }, 5000);
+      }
+    });
   }
 
 
@@ -120,9 +127,9 @@ const Login: FC<{}> = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      
+
       <div className={classes.paper}>
-        
+
         <form className={classes.form} noValidate>
           <FormControl variant="outlined" className={classes.formControl}>
             <Avatar className={classes.avatar}>
@@ -147,7 +154,7 @@ const Login: FC<{}> = () => {
             />&emsp;
 
             <TextField
-            
+
               name="Password"
               label="Password"
               variant="outlined"
@@ -158,34 +165,34 @@ const Login: FC<{}> = () => {
               onChange={PasswordChange}
             />
 
- 
+
           </FormControl>
         </form>
         <form className={classes.form} noValidate>
-        {Status ? (
-                  <div>
-                    {alert ? null : (
-                        <Alert severity="error">
-                            Email or Password not correct ,Try Again
-                        </Alert>
-                        )}
-                </div>
-                 ) : null}
-            <FormControl variant="outlined" className={classes.formControl}>
-              <Button
-                onClick={() => {
-                  
-                  Login();
-                }}
-                variant="contained"
-                color="primary"
-              >
-                
-                 Login
+          {Status ? (
+            <div>
+              {alert ? null : (
+                <Alert severity="error">
+                  Email or Password not correct ,Try Again
+                </Alert>
+              )}
+            </div>
+          ) : null}
+          <FormControl variant="outlined" className={classes.formControl}>
+            <Button
+              onClick={() => {
+
+                Login();
+              }}
+              variant="contained"
+              color="primary"
+            >
+
+              Login
              </Button>
-            </FormControl>
+          </FormControl>
            &emsp;
-             
+
 
         </form>
       </div>

@@ -17,6 +17,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import HomeIcon from '@material-ui/icons/Home';
 import PhoneIcon from '@material-ui/icons/Phone';
 import Divider from '@material-ui/core/Divider';
+import SingleBedIcon from '@material-ui/icons/SingleBed';
 import { Content } from '@backstage/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -89,122 +90,133 @@ export default function MoreInfo(id: any) {
           <div className={classes.paper}>
             <Grid container alignItems="center">
               <Content>
-                
-                  <List className={classes.root}>
-                    <div className={classes.section1}>
-                      <Grid container alignItems="center">
-                        <Grid item xs>
-                          <Typography gutterBottom variant="h4">
-                            ประวัติผู้ป่วย
+
+                <List className={classes.root}>
+                  <div className={classes.section1}>
+                    <Grid container alignItems="center">
+                      <Grid item xs>
+                        <Typography gutterBottom variant="h4">
+                          ประวัติผู้ป่วย
             </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography gutterBottom variant="h6">
-                            {no.edges?.edgesOfPatientrightsPatientrecord?.name}
-                          </Typography>
-                        </Grid>
                       </Grid>
-                      <Typography color="textSecondary" variant="body2">
+                      <Grid item>
+                        <Typography gutterBottom variant="h6">
+                          {no.edges?.edgesOfPatientrightsPatientrecord?.name}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Typography color="textSecondary" variant="body2">
 
-                      </Typography>
-                    </div>
-                    <Divider variant="inset" component="li" />
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <HomeIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary="ที่อยู่ : " secondary={no.edges?.edgesOfPatientrightsPatientrecord?.home} />
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
+                    </Typography>
+                  </div>
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <HomeIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary="ที่อยู่ : " secondary={no.edges?.edgesOfPatientrightsPatientrecord?.home} />
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
 
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <PhoneIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary="รหัสประจำตัวประชาชน" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.idcardnumber} />
-                    </ListItem>
-
-
-                    <Divider variant="inset" component="li" />
-
-
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <PhoneIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary="เบอร์โทร" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.phonenumber} />
-                    </ListItem>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <PhoneIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary="รหัสประจำตัวประชาชน" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.idcardnumber} />
+                  </ListItem>
 
 
+                  <Divider variant="inset" component="li" />
 
-                  </List>
 
-                
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <PhoneIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary="เบอร์โทร" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.phonenumber} />
+                  </ListItem>
+
+
+
+                </List>
+
+
               </Content>
         &emsp;
         <Content>
-               
 
-                  <List className={classes.root}>
-                    <div className={classes.section1}>
-                      <Grid container alignItems="center">
-                        <Grid item xs>
-                          <Typography gutterBottom variant="h4">
-                            สิทผู้ป่วย
+
+                <List className={classes.root}>
+                  <div className={classes.section1}>
+                    <Grid container alignItems="center">
+                      <Grid item xs>
+                        <Typography gutterBottom variant="h4">
+                          สิทผู้ป่วย
             </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Typography gutterBottom variant="h6">
-                            {no.permission}
-                          </Typography>
-                        </Grid>
                       </Grid>
-                      <Typography color="textSecondary" variant="body2">
+                      <Grid item>
+                        <Typography gutterBottom variant="h6">
+                          {no.permission}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Typography color="textSecondary" variant="body2">
 
-                      </Typography>
-                    </div>
-                    <Divider variant="inset" component="li" />
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <HomeIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary=" บริษัทประกันภัย : " secondary={no.edges?.edgesOfPatientrightsInsurance?.insurancecompany} />
-                    </ListItem>
-                    <Divider variant="inset" component="li" />
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <PhoneIcon />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText primary="เลขประกัน : " secondary={no.permission} />
-                    </ListItem>
+                    </Typography>
+                  </div>
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <HomeIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary=" บริษัทประกันภัย : " secondary={no.edges?.edgesOfPatientrightsInsurance?.insurancecompany} />
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <PhoneIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary="เลขประกัน : " secondary={no.permission} />
+                  </ListItem>
+
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <SingleBedIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary=" : " secondary={no.edges?.edgesOfPatientrightsAbilitypatientrights?.check} />
+                  </ListItem>
 
 
-                    <Divider variant="inset" component="li" />
-                    <ListItem>
 
-                    </ListItem>
+                  <Divider variant="inset" component="li" />
+                  <ListItem>
 
-
-
+                  </ListItem>
 
 
-                  </List>
-               
+
+
+
+                </List>
+
               </Content>
             </Grid>
           </div>
         </Fade>
       </Modal>
-   </div> 
+    </div>
   );
 }

@@ -26,8 +26,6 @@ const (
 	EdgeEdgesOfUser2registrar = "EdgesOfUser2registrar"
 	// EdgeEdgesOfDoctor holds the string denoting the edgesofdoctor edge name in mutations.
 	EdgeEdgesOfDoctor = "EdgesOfDoctor"
-	// EdgeEdgesOfUserstatus holds the string denoting the edgesofuserstatus edge name in mutations.
-	EdgeEdgesOfUserstatus = "EdgesOfUserstatus"
 
 	// Table holds the table name of the user in the database.
 	Table = "users"
@@ -73,13 +71,6 @@ const (
 	EdgesOfDoctorInverseTable = "doctors"
 	// EdgesOfDoctorColumn is the table column denoting the EdgesOfDoctor relation/edge.
 	EdgesOfDoctorColumn = "user_id"
-	// EdgesOfUserstatusTable is the table the holds the EdgesOfUserstatus relation/edge.
-	EdgesOfUserstatusTable = "users"
-	// EdgesOfUserstatusInverseTable is the table name for the Userstatus entity.
-	// It exists in this package in order to avoid circular dependency with the "userstatus" package.
-	EdgesOfUserstatusInverseTable = "userstatuses"
-	// EdgesOfUserstatusColumn is the table column denoting the EdgesOfUserstatus relation/edge.
-	EdgesOfUserstatusColumn = "userstatus_id"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -93,7 +84,6 @@ var Columns = []string{
 // ForeignKeys holds the SQL foreign-keys that are owned by the User type.
 var ForeignKeys = []string{
 	"user_id",
-	"userstatus_id",
 }
 
 var (

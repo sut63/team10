@@ -24,7 +24,7 @@ import (
 	"github.com/team10/app/ent/treatment"
 	"github.com/team10/app/ent/typetreatment"
 	"github.com/team10/app/ent/user"
-	"github.com/team10/app/ent/userstatus"
+	
 
 	//import by patientrights No.3
 	//vvv...............................vvv
@@ -63,7 +63,7 @@ type Users struct {
 
 // User defines the struct for the User
 type User struct {
-	Userstatus int
+	
 	Email      string
 	Password   string
 	Images     string
@@ -458,41 +458,27 @@ func main() {
 	//vvvvvvvvv-------------------------------------------------------------------vvvvvvvvv
 	// Set Postman By Team10 System
 	//vvv*******************************************************************vvv
-	// Set Userstatus Data
-	Userstatus := []string{"Root", "Fin", "Med", "Doc", "Nur", "Reg"}
-	for _, reg := range Userstatus {
-		client.Userstatus.
-			Create().
-			SetUserstatus(reg).
-			Save(context.Background())
-	}
+	
 	//##############################################################################################
 	// Set User Data
 	User := Users{
 		User: []User{
-			User{1, "B0", "1234", "Images/images1.txt"},
-			User{2, "B1", "1234", "Images/images2.txt"},
-			User{3, "B2", "1234", "Images/images3.txt"},
-			User{3, "B3", "1234", "Images/images4.txt"},
-			User{4, "B4", "1234", "Images/images5.txt"},
-			User{5, "B5", "1234", "Images/images6.txt"},
-			User{6, "B6", "1234", "Images/images7.txt"},
-			User{2, "nara_haru", "1234", "Images/images8.txt"},
-			User{3, "morani_rode", "1234", "Images/images9.txt"},
-			User{3, "faratell_yova", "1234", "Images/images10.txt"},
-			User{3, "pulla_visan", "1234", "Images/images11.txt"},
+			User{ "B0", "1234", "Images/images1.txt"},
+			User{ "B1", "1234", "Images/images2.txt"},
+			User{ "B2", "1234", "Images/images3.txt"},
+			User{ "B3", "1234", "Images/images4.txt"},
+			User{ "B4", "1234", "Images/images5.txt"},
+			User{ "B5", "1234", "Images/images6.txt"},
+			User{ "B6", "1234", "Images/images7.txt"},
+			User{ "nara_haru", "1234", "Images/images8.txt"},
+			User{ "morani_rode", "1234", "Images/images9.txt"},
+			User{ "faratell_yova", "1234", "Images/images10.txt"},
+			User{ "pulla_visan", "1234", "Images/images11.txt"},
 		},
 	}
 
 	for _, r := range User.User {
-		us, err := client.Userstatus.
-			Query().
-			Where(userstatus.IDEQ(int(r.Userstatus))).
-			Only(context.Background())
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
+		
 
 		img, err := ioutil.ReadFile(r.Images)
 
@@ -502,7 +488,7 @@ func main() {
 
 		client.User.
 			Create().
-			SetEdgesOfUserstatus(us).
+			
 			SetEmail(r.Email + "@gmail.com").
 			SetPassword(r.Password).
 			SetImages(string(img)).

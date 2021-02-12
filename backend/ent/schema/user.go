@@ -29,6 +29,6 @@ func (User) Edges() []ent.Edge {
 		edge.To("EdgesOfMedicalrecordstaff", Medicalrecordstaff.Type).StorageKey(edge.Column("user_id")).Unique(),
 		edge.To("EdgesOfUser2registrar", Registrar.Type).StorageKey(edge.Column("user_id")).Unique(),
 		edge.To("EdgesOfDoctor", Doctor.Type).StorageKey(edge.Column("user_id")).Unique(),
-		edge.From("EdgesOfUserstatus", Userstatus.Type).Ref("EdgesOfUser").Unique(),
+		
 	}
 }
