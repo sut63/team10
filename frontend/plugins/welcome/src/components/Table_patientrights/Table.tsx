@@ -50,7 +50,6 @@ const Table: FC<{}> = () => {
   const [alert2, setAlert2] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
   const [status, setStatus] = React.useState(false);
-
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
 
