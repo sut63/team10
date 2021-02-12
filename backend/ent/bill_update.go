@@ -32,8 +32,15 @@ func (bu *BillUpdate) Where(ps ...predicate.Bill) *BillUpdate {
 }
 
 // SetAmount sets the Amount field.
-func (bu *BillUpdate) SetAmount(s string) *BillUpdate {
-	bu.mutation.SetAmount(s)
+func (bu *BillUpdate) SetAmount(i int) *BillUpdate {
+	bu.mutation.ResetAmount()
+	bu.mutation.SetAmount(i)
+	return bu
+}
+
+// AddAmount adds i to Amount.
+func (bu *BillUpdate) AddAmount(i int) *BillUpdate {
+	bu.mutation.AddAmount(i)
 	return bu
 }
 
@@ -93,23 +100,23 @@ func (bu *BillUpdate) SetEdgesOfOfficer(f *Financier) *BillUpdate {
 	return bu.SetEdgesOfOfficerID(f.ID)
 }
 
-// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id.
-func (bu *BillUpdate) SetEdgesOfTreatmentID(id int) *BillUpdate {
-	bu.mutation.SetEdgesOfTreatmentID(id)
+// SetEdgesOfUnpaybillID sets the EdgesOfUnpaybill edge to Unpaybill by id.
+func (bu *BillUpdate) SetEdgesOfUnpaybillID(id int) *BillUpdate {
+	bu.mutation.SetEdgesOfUnpaybillID(id)
 	return bu
 }
 
-// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id if the given value is not nil.
-func (bu *BillUpdate) SetNillableEdgesOfTreatmentID(id *int) *BillUpdate {
+// SetNillableEdgesOfUnpaybillID sets the EdgesOfUnpaybill edge to Unpaybill by id if the given value is not nil.
+func (bu *BillUpdate) SetNillableEdgesOfUnpaybillID(id *int) *BillUpdate {
 	if id != nil {
-		bu = bu.SetEdgesOfTreatmentID(*id)
+		bu = bu.SetEdgesOfUnpaybillID(*id)
 	}
 	return bu
 }
 
-// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Unpaybill.
-func (bu *BillUpdate) SetEdgesOfTreatment(u *Unpaybill) *BillUpdate {
-	return bu.SetEdgesOfTreatmentID(u.ID)
+// SetEdgesOfUnpaybill sets the EdgesOfUnpaybill edge to Unpaybill.
+func (bu *BillUpdate) SetEdgesOfUnpaybill(u *Unpaybill) *BillUpdate {
+	return bu.SetEdgesOfUnpaybillID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -129,9 +136,9 @@ func (bu *BillUpdate) ClearEdgesOfOfficer() *BillUpdate {
 	return bu
 }
 
-// ClearEdgesOfTreatment clears the EdgesOfTreatment edge to Unpaybill.
-func (bu *BillUpdate) ClearEdgesOfTreatment() *BillUpdate {
-	bu.mutation.ClearEdgesOfTreatment()
+// ClearEdgesOfUnpaybill clears the EdgesOfUnpaybill edge to Unpaybill.
+func (bu *BillUpdate) ClearEdgesOfUnpaybill() *BillUpdate {
+	bu.mutation.ClearEdgesOfUnpaybill()
 	return bu
 }
 
@@ -222,7 +229,14 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := bu.mutation.Amount(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: bill.FieldAmount,
+		})
+	}
+	if value, ok := bu.mutation.AddedAmount(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
 			Value:  value,
 			Column: bill.FieldAmount,
 		})
@@ -318,12 +332,12 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if bu.mutation.EdgesOfTreatmentCleared() {
+	if bu.mutation.EdgesOfUnpaybillCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.EdgesOfTreatmentTable,
-			Columns: []string{bill.EdgesOfTreatmentColumn},
+			Table:   bill.EdgesOfUnpaybillTable,
+			Columns: []string{bill.EdgesOfUnpaybillColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -334,12 +348,12 @@ func (bu *BillUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := bu.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
+	if nodes := bu.mutation.EdgesOfUnpaybillIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.EdgesOfTreatmentTable,
-			Columns: []string{bill.EdgesOfTreatmentColumn},
+			Table:   bill.EdgesOfUnpaybillTable,
+			Columns: []string{bill.EdgesOfUnpaybillColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -372,8 +386,15 @@ type BillUpdateOne struct {
 }
 
 // SetAmount sets the Amount field.
-func (buo *BillUpdateOne) SetAmount(s string) *BillUpdateOne {
-	buo.mutation.SetAmount(s)
+func (buo *BillUpdateOne) SetAmount(i int) *BillUpdateOne {
+	buo.mutation.ResetAmount()
+	buo.mutation.SetAmount(i)
+	return buo
+}
+
+// AddAmount adds i to Amount.
+func (buo *BillUpdateOne) AddAmount(i int) *BillUpdateOne {
+	buo.mutation.AddAmount(i)
 	return buo
 }
 
@@ -433,23 +454,23 @@ func (buo *BillUpdateOne) SetEdgesOfOfficer(f *Financier) *BillUpdateOne {
 	return buo.SetEdgesOfOfficerID(f.ID)
 }
 
-// SetEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id.
-func (buo *BillUpdateOne) SetEdgesOfTreatmentID(id int) *BillUpdateOne {
-	buo.mutation.SetEdgesOfTreatmentID(id)
+// SetEdgesOfUnpaybillID sets the EdgesOfUnpaybill edge to Unpaybill by id.
+func (buo *BillUpdateOne) SetEdgesOfUnpaybillID(id int) *BillUpdateOne {
+	buo.mutation.SetEdgesOfUnpaybillID(id)
 	return buo
 }
 
-// SetNillableEdgesOfTreatmentID sets the EdgesOfTreatment edge to Unpaybill by id if the given value is not nil.
-func (buo *BillUpdateOne) SetNillableEdgesOfTreatmentID(id *int) *BillUpdateOne {
+// SetNillableEdgesOfUnpaybillID sets the EdgesOfUnpaybill edge to Unpaybill by id if the given value is not nil.
+func (buo *BillUpdateOne) SetNillableEdgesOfUnpaybillID(id *int) *BillUpdateOne {
 	if id != nil {
-		buo = buo.SetEdgesOfTreatmentID(*id)
+		buo = buo.SetEdgesOfUnpaybillID(*id)
 	}
 	return buo
 }
 
-// SetEdgesOfTreatment sets the EdgesOfTreatment edge to Unpaybill.
-func (buo *BillUpdateOne) SetEdgesOfTreatment(u *Unpaybill) *BillUpdateOne {
-	return buo.SetEdgesOfTreatmentID(u.ID)
+// SetEdgesOfUnpaybill sets the EdgesOfUnpaybill edge to Unpaybill.
+func (buo *BillUpdateOne) SetEdgesOfUnpaybill(u *Unpaybill) *BillUpdateOne {
+	return buo.SetEdgesOfUnpaybillID(u.ID)
 }
 
 // Mutation returns the BillMutation object of the builder.
@@ -469,9 +490,9 @@ func (buo *BillUpdateOne) ClearEdgesOfOfficer() *BillUpdateOne {
 	return buo
 }
 
-// ClearEdgesOfTreatment clears the EdgesOfTreatment edge to Unpaybill.
-func (buo *BillUpdateOne) ClearEdgesOfTreatment() *BillUpdateOne {
-	buo.mutation.ClearEdgesOfTreatment()
+// ClearEdgesOfUnpaybill clears the EdgesOfUnpaybill edge to Unpaybill.
+func (buo *BillUpdateOne) ClearEdgesOfUnpaybill() *BillUpdateOne {
+	buo.mutation.ClearEdgesOfUnpaybill()
 	return buo
 }
 
@@ -560,7 +581,14 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 	_spec.Node.ID.Value = id
 	if value, ok := buo.mutation.Amount(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: bill.FieldAmount,
+		})
+	}
+	if value, ok := buo.mutation.AddedAmount(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
 			Value:  value,
 			Column: bill.FieldAmount,
 		})
@@ -656,12 +684,12 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if buo.mutation.EdgesOfTreatmentCleared() {
+	if buo.mutation.EdgesOfUnpaybillCleared() {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.EdgesOfTreatmentTable,
-			Columns: []string{bill.EdgesOfTreatmentColumn},
+			Table:   bill.EdgesOfUnpaybillTable,
+			Columns: []string{bill.EdgesOfUnpaybillColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{
@@ -672,12 +700,12 @@ func (buo *BillUpdateOne) sqlSave(ctx context.Context) (b *Bill, err error) {
 		}
 		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
 	}
-	if nodes := buo.mutation.EdgesOfTreatmentIDs(); len(nodes) > 0 {
+	if nodes := buo.mutation.EdgesOfUnpaybillIDs(); len(nodes) > 0 {
 		edge := &sqlgraph.EdgeSpec{
 			Rel:     sqlgraph.O2O,
 			Inverse: true,
-			Table:   bill.EdgesOfTreatmentTable,
-			Columns: []string{bill.EdgesOfTreatmentColumn},
+			Table:   bill.EdgesOfUnpaybillTable,
+			Columns: []string{bill.EdgesOfUnpaybillColumn},
 			Bidi:    false,
 			Target: &sqlgraph.EdgeTarget{
 				IDSpec: &sqlgraph.FieldSpec{

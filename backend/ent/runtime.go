@@ -81,26 +81,30 @@ func init() {
 			return nil
 		}
 	}()
-	billFields := schema.Bill{}.Fields()
-	_ = billFields
-	// billDescAmount is the schema descriptor for Amount field.
-	billDescAmount := billFields[0].Descriptor()
-	// bill.AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
-	bill.AmountValidator = func() func(string) error {
-		validators := billDescAmount.Validators
-		fns := [...]func(string) error{
-			validators[0].(func(string) error),
-			validators[1].(func(string) error),
+	// abilitypatientrightsDescStayInHospital is the schema descriptor for StayInHospital field.
+	abilitypatientrightsDescStayInHospital := abilitypatientrightsFields[3].Descriptor()
+	// abilitypatientrights.StayInHospitalValidator is a validator for the "StayInHospital" field. It is called by the builders before save.
+	abilitypatientrights.StayInHospitalValidator = func() func(int) error {
+		validators := abilitypatientrightsDescStayInHospital.Validators
+		fns := [...]func(int) error{
+			validators[0].(func(int) error),
+			validators[1].(func(int) error),
 		}
-		return func(_Amount string) error {
+		return func(_StayInHospital int) error {
 			for _, fn := range fns {
-				if err := fn(_Amount); err != nil {
+				if err := fn(_StayInHospital); err != nil {
 					return err
 				}
 			}
 			return nil
 		}
 	}()
+	billFields := schema.Bill{}.Fields()
+	_ = billFields
+	// billDescAmount is the schema descriptor for Amount field.
+	billDescAmount := billFields[0].Descriptor()
+	// bill.AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
+	bill.AmountValidator = billDescAmount.Validators[0].(func(int) error)
 	// billDescPayer is the schema descriptor for Payer field.
 	billDescPayer := billFields[1].Descriptor()
 	// bill.PayerValidator is a validator for the "Payer" field. It is called by the builders before save.
@@ -366,15 +370,57 @@ func init() {
 	// patientrightsDescPermission is the schema descriptor for Permission field.
 	patientrightsDescPermission := patientrightsFields[1].Descriptor()
 	// patientrights.PermissionValidator is a validator for the "Permission" field. It is called by the builders before save.
-	patientrights.PermissionValidator = patientrightsDescPermission.Validators[0].(func(string) error)
+	patientrights.PermissionValidator = func() func(string) error {
+		validators := patientrightsDescPermission.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_Permission string) error {
+			for _, fn := range fns {
+				if err := fn(_Permission); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// patientrightsDescPermissionArea is the schema descriptor for PermissionArea field.
 	patientrightsDescPermissionArea := patientrightsFields[2].Descriptor()
 	// patientrights.PermissionAreaValidator is a validator for the "PermissionArea" field. It is called by the builders before save.
-	patientrights.PermissionAreaValidator = patientrightsDescPermissionArea.Validators[0].(func(string) error)
+	patientrights.PermissionAreaValidator = func() func(string) error {
+		validators := patientrightsDescPermissionArea.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_PermissionArea string) error {
+			for _, fn := range fns {
+				if err := fn(_PermissionArea); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	// patientrightsDescResponsible is the schema descriptor for Responsible field.
 	patientrightsDescResponsible := patientrightsFields[3].Descriptor()
 	// patientrights.ResponsibleValidator is a validator for the "Responsible" field. It is called by the builders before save.
-	patientrights.ResponsibleValidator = patientrightsDescResponsible.Validators[0].(func(string) error)
+	patientrights.ResponsibleValidator = func() func(string) error {
+		validators := patientrightsDescResponsible.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_Responsible string) error {
+			for _, fn := range fns {
+				if err := fn(_Responsible); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	paytypeFields := schema.Paytype{}.Fields()
 	_ = paytypeFields
 	// paytypeDescPaytype is the schema descriptor for paytype field.

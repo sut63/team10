@@ -14,6 +14,7 @@ var (
 		{Name: "operative", Type: field.TypeInt},
 		{Name: "medical_supplies", Type: field.TypeInt},
 		{Name: "examine", Type: field.TypeInt},
+		{Name: "stay_in_hospital", Type: field.TypeInt},
 		{Name: "check", Type: field.TypeString, Unique: true},
 	}
 	// AbilitypatientrightsTable holds the schema information for the "abilitypatientrights" table.
@@ -26,7 +27,7 @@ var (
 	// BillsColumns holds the columns for the "bills" table.
 	BillsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "amount", Type: field.TypeString},
+		{Name: "amount", Type: field.TypeInt},
 		{Name: "payer", Type: field.TypeString},
 		{Name: "payercontact", Type: field.TypeString, Size: 10},
 		{Name: "date", Type: field.TypeTime},

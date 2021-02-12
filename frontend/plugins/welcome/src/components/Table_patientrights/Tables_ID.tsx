@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import moment from 'moment';
 import MoreInfo from './Table_info'
 import { DefaultApi } from '../../api/apis';
 import { EntPatientrights } from '../../api/models/EntPatientrights';
@@ -92,8 +92,8 @@ console.log("sim",sim.sim)
                 <TableCell align="center">ความสามารถสิทธิ์</TableCell>
                 <TableCell align="center">ผู้ป่วย</TableCell>
                 <TableCell align="center">ผู้ดูแล</TableCell>
-                <TableCell align="center">วันที่สร้าง(ปี-เดือน-วัน)</TableCell>
-                <TableCell align="center">Manage</TableCell>
+                <TableCell align="center">วันที่สร้าง</TableCell>
+                <TableCell align="center">เพิ่มเติม</TableCell>
 
               </TableRow>
             </TableHead>
@@ -109,7 +109,7 @@ console.log("sim",sim.sim)
                     <TableCell align="center">{item.edges?.edgesOfPatientrightsAbilitypatientrights?.check}</TableCell>
                     <TableCell align="center">{item.edges?.edgesOfPatientrightsPatientrecord?.name}</TableCell>
                     <TableCell align="center">{item.responsible}</TableCell>
-                    <TableCell align="center">{item.permissionDate}</TableCell>
+                    <TableCell align="center">{moment(item.permissionDate).format('DD/MM/YYYY HH.mm น.')}</TableCell>
                     <TableCell align="center">
                     <MoreInfo id={item}></MoreInfo>
                     </TableCell>

@@ -13,6 +13,8 @@ const (
 	FieldMedicalSupplies = "medical_supplies"
 	// FieldExamine holds the string denoting the examine field in the database.
 	FieldExamine = "examine"
+	// FieldStayInHospital holds the string denoting the stayinhospital field in the database.
+	FieldStayInHospital = "stay_in_hospital"
 	// FieldCheck holds the string denoting the check field in the database.
 	FieldCheck = "check"
 
@@ -36,6 +38,7 @@ var Columns = []string{
 	FieldOperative,
 	FieldMedicalSupplies,
 	FieldExamine,
+	FieldStayInHospital,
 	FieldCheck,
 }
 
@@ -46,4 +49,6 @@ var (
 	MedicalSuppliesValidator func(int) error
 	// ExamineValidator is a validator for the "Examine" field. It is called by the builders before save.
 	ExamineValidator func(int) error
+	// StayInHospitalValidator is a validator for the "StayInHospital" field. It is called by the builders before save.
+	StayInHospitalValidator func(int) error
 )

@@ -67,6 +67,19 @@ func (au *AbilitypatientrightsUpdate) AddExamine(i int) *AbilitypatientrightsUpd
 	return au
 }
 
+// SetStayInHospital sets the StayInHospital field.
+func (au *AbilitypatientrightsUpdate) SetStayInHospital(i int) *AbilitypatientrightsUpdate {
+	au.mutation.ResetStayInHospital()
+	au.mutation.SetStayInHospital(i)
+	return au
+}
+
+// AddStayInHospital adds i to StayInHospital.
+func (au *AbilitypatientrightsUpdate) AddStayInHospital(i int) *AbilitypatientrightsUpdate {
+	au.mutation.AddStayInHospital(i)
+	return au
+}
+
 // SetCheck sets the check field.
 func (au *AbilitypatientrightsUpdate) SetCheck(s string) *AbilitypatientrightsUpdate {
 	au.mutation.SetCheck(s)
@@ -123,6 +136,11 @@ func (au *AbilitypatientrightsUpdate) Save(ctx context.Context) (int, error) {
 	if v, ok := au.mutation.Examine(); ok {
 		if err := abilitypatientrights.ExamineValidator(v); err != nil {
 			return 0, &ValidationError{Name: "Examine", err: fmt.Errorf("ent: validator failed for field \"Examine\": %w", err)}
+		}
+	}
+	if v, ok := au.mutation.StayInHospital(); ok {
+		if err := abilitypatientrights.StayInHospitalValidator(v); err != nil {
+			return 0, &ValidationError{Name: "StayInHospital", err: fmt.Errorf("ent: validator failed for field \"StayInHospital\": %w", err)}
 		}
 	}
 
@@ -235,6 +253,20 @@ func (au *AbilitypatientrightsUpdate) sqlSave(ctx context.Context) (n int, err e
 			Column: abilitypatientrights.FieldExamine,
 		})
 	}
+	if value, ok := au.mutation.StayInHospital(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: abilitypatientrights.FieldStayInHospital,
+		})
+	}
+	if value, ok := au.mutation.AddedStayInHospital(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: abilitypatientrights.FieldStayInHospital,
+		})
+	}
 	if value, ok := au.mutation.Check(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -337,6 +369,19 @@ func (auo *AbilitypatientrightsUpdateOne) AddExamine(i int) *Abilitypatientright
 	return auo
 }
 
+// SetStayInHospital sets the StayInHospital field.
+func (auo *AbilitypatientrightsUpdateOne) SetStayInHospital(i int) *AbilitypatientrightsUpdateOne {
+	auo.mutation.ResetStayInHospital()
+	auo.mutation.SetStayInHospital(i)
+	return auo
+}
+
+// AddStayInHospital adds i to StayInHospital.
+func (auo *AbilitypatientrightsUpdateOne) AddStayInHospital(i int) *AbilitypatientrightsUpdateOne {
+	auo.mutation.AddStayInHospital(i)
+	return auo
+}
+
 // SetCheck sets the check field.
 func (auo *AbilitypatientrightsUpdateOne) SetCheck(s string) *AbilitypatientrightsUpdateOne {
 	auo.mutation.SetCheck(s)
@@ -393,6 +438,11 @@ func (auo *AbilitypatientrightsUpdateOne) Save(ctx context.Context) (*Abilitypat
 	if v, ok := auo.mutation.Examine(); ok {
 		if err := abilitypatientrights.ExamineValidator(v); err != nil {
 			return nil, &ValidationError{Name: "Examine", err: fmt.Errorf("ent: validator failed for field \"Examine\": %w", err)}
+		}
+	}
+	if v, ok := auo.mutation.StayInHospital(); ok {
+		if err := abilitypatientrights.StayInHospitalValidator(v); err != nil {
+			return nil, &ValidationError{Name: "StayInHospital", err: fmt.Errorf("ent: validator failed for field \"StayInHospital\": %w", err)}
 		}
 	}
 
@@ -501,6 +551,20 @@ func (auo *AbilitypatientrightsUpdateOne) sqlSave(ctx context.Context) (a *Abili
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: abilitypatientrights.FieldExamine,
+		})
+	}
+	if value, ok := auo.mutation.StayInHospital(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: abilitypatientrights.FieldStayInHospital,
+		})
+	}
+	if value, ok := auo.mutation.AddedStayInHospital(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: abilitypatientrights.FieldStayInHospital,
 		})
 	}
 	if value, ok := auo.mutation.Check(); ok {

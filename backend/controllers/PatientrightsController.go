@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -57,25 +58,7 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 		return
 	}
 
-	if obj.Permission == "" {
-		c.JSON(400, gin.H{
-			"error": "เลขสิทธิ์ ไม่ถูกต้อง",
-		})
-		return
-	}
-	if obj.PermissionArea == "" {
-		c.JSON(400, gin.H{
-			"error": "พื้นที่ที่ใช้สิทธิ์ ไม่ถูกต้อง",
-		})
-		return
-	}
 
-	if obj.Responsible == "" {
-		c.JSON(400, gin.H{
-			"error": "ผู้รับผิดชอบดูแลสิทธิ์ ไม่ถูกต้อง",
-		})
-		return
-	}
 
 	Patientrecord, err := ctl.client.Patientrecord.
 		Query().
@@ -125,11 +108,9 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 		return
 	}
 
-	
-
 	settime := time.Now().Format("2006-01-02T15:04:05Z07:00")
 	t, err := time.Parse(time.RFC3339, settime)
-	
+
 	if err != nil {
 		c.JSON(500, gin.H{
 			"error": "ระบบบันทึกเวลาผิดพลาด",
@@ -150,9 +131,10 @@ func (ctl *PatientrightsController) CreatePatientrights(c *gin.Context) {
 		Save(context.Background())
 
 	if err != nil {
+		e := strings.Split(err.Error(), ":")
 		c.JSON(400, gin.H{
 			"status": false,
-			"error":  err,
+			"error":  e[2],
 		})
 		return
 	}

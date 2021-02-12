@@ -30,7 +30,11 @@ const cookies = new Cookies();
 const Status = cookies.get('Status');
 const Log = cookies.get('Log');
 
-
+const Fin = cookies.get('Fin')
+const Med = cookies.get('Med')
+const Nur = cookies.get('Nur')
+const Doc = cookies.get('Doc')
+const Reg = cookies.get('Reg')
 
 
 export const plugin = createPlugin({
@@ -49,13 +53,13 @@ export const plugin = createPlugin({
         router.registerRoute('/BillSearch', BillSearch);
         router.registerRoute('/createBill', CreateBill);
       }
-      if (Status == 'Med' || Status == 'Root' ) {
+      if (Status == 'Med' || Status == 'Root' || Med !== undefined) {
         router.registerRoute('/create_Patientrights', create_Patientrights);
         router.registerRoute('/Table_patientrights', Table_patientrights);
         router.registerRoute('/createPatientrecord', createPatientrecord);
         router.registerRoute('/tablePatientrecord', tablePatientrecord);
       }
-      if (Status == 'Nur' || Status == 'Root' ) {
+      if (Status == 'Nur' || Status == 'Root' || Nur !== undefined) {
         router.registerRoute('/createHistorytaking', createHistorytaking);
         router.registerRoute('/tableHistorytaking', tableHistorytaking);
       }

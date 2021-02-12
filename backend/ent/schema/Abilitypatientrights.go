@@ -18,6 +18,8 @@ func (Abilitypatientrights) Fields() []ent.Field {
 		field.Int("Operative").Positive().Max(101),       //หัตถการ
 		field.Int("MedicalSupplies").Positive().Max(101), //เวชภัณฑ์
 		field.Int("Examine").Positive().Max(101),         //ตรวจสุขภาพ และ ค่า แลป
+		field.Int("StayInHospital").Positive().Max(101),  //ค่า นอนโรงพยาบาล
+		
 		field.String("check").Unique(),                   //field ควบคุม
 
 	}
