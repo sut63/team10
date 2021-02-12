@@ -117,7 +117,8 @@ setSe(Pat);
             </div>
           ) : null}
             <Autocomplete
-              id="patientname" 
+              id="patientname"
+              freeSolo
               options={Patientrecord.map((option) => option.name)}
               onChange={handleChange}
               renderInput={(params) => (
