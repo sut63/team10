@@ -111,9 +111,6 @@ import {
     EntUser,
     EntUserFromJSON,
     EntUserToJSON,
-    EntUserstatus,
-    EntUserstatusFromJSON,
-    EntUserstatusToJSON,
 } from '../models';
 
 export interface CreateAbilitypatientrightsRequest {
@@ -188,10 +185,6 @@ export interface CreateUserRequest {
     user: ControllersUser;
 }
 
-export interface CreateUserstatusRequest {
-    userstatus: EntUserstatus;
-}
-
 export interface DeleteAbilitypatientrightsRequest {
     id: number;
 }
@@ -249,10 +242,6 @@ export interface DeleteUnpaybillRequest {
 }
 
 export interface DeleteUserRequest {
-    id: number;
-}
-
-export interface DeleteUserstatusRequest {
     id: number;
 }
 
@@ -349,10 +338,6 @@ export interface GetUnpaybillRequest {
 }
 
 export interface GetUserRequest {
-    id: number;
-}
-
-export interface GetUserstatusRequest {
     id: number;
 }
 
@@ -461,11 +446,6 @@ export interface ListUserRequest {
     offset?: number;
 }
 
-export interface ListUserstatusRequest {
-    limit?: number;
-    offset?: number;
-}
-
 export interface UpdateAbilitypatientrightsRequest {
     id: number;
     abilitypatientrights: EntAbilitypatientrights;
@@ -539,11 +519,6 @@ export interface UpdateUnpaybillRequest {
 export interface UpdateUserRequest {
     id: number;
     user: EntUser;
-}
-
-export interface UpdateUserstatusRequest {
-    id: number;
-    userstatus: EntUserstatus;
 }
 
 /**
@@ -1182,41 +1157,6 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * Create userstatus
-     * Create userstatus
-     */
-    async createUserstatusRaw(requestParameters: CreateUserstatusRequest): Promise<runtime.ApiResponse<EntUserstatus>> {
-        if (requestParameters.userstatus === null || requestParameters.userstatus === undefined) {
-            throw new runtime.RequiredError('userstatus','Required parameter requestParameters.userstatus was null or undefined when calling createUserstatus.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/userstatus`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: EntUserstatusToJSON(requestParameters.userstatus),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntUserstatusFromJSON(jsonValue));
-    }
-
-    /**
-     * Create userstatus
-     * Create userstatus
-     */
-    async createUserstatus(requestParameters: CreateUserstatusRequest): Promise<EntUserstatus> {
-        const response = await this.createUserstatusRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
      * get abilitypatientrights by ID
      * Delete a abilitypatientrights entity by ID
      */
@@ -1693,38 +1633,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async deleteUser(requestParameters: DeleteUserRequest): Promise<object> {
         const response = await this.deleteUserRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * get userstatus by ID
-     * Delete a userstatus entity by ID
-     */
-    async deleteUserstatusRaw(requestParameters: DeleteUserstatusRequest): Promise<runtime.ApiResponse<object>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteUserstatus.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/userstatus/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse<any>(response);
-    }
-
-    /**
-     * get userstatus by ID
-     * Delete a userstatus entity by ID
-     */
-    async deleteUserstatus(requestParameters: DeleteUserstatusRequest): Promise<object> {
-        const response = await this.deleteUserstatusRaw(requestParameters);
         return await response.value();
     }
 
@@ -2493,38 +2401,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getUser(requestParameters: GetUserRequest): Promise<EntUser> {
         const response = await this.getUserRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * get userstatus by ID
-     * Get a userstatus entity by ID
-     */
-    async getUserstatusRaw(requestParameters: GetUserstatusRequest): Promise<runtime.ApiResponse<EntUserstatus>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getUserstatus.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/userstatus/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntUserstatusFromJSON(jsonValue));
-    }
-
-    /**
-     * get userstatus by ID
-     * Get a userstatus entity by ID
-     */
-    async getUserstatus(requestParameters: GetUserstatusRequest): Promise<EntUserstatus> {
-        const response = await this.getUserstatusRaw(requestParameters);
         return await response.value();
     }
 
@@ -3369,42 +3245,6 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * list userstatus entities
-     * List userstatus entities
-     */
-    async listUserstatusRaw(requestParameters: ListUserstatusRequest): Promise<runtime.ApiResponse<Array<EntUserstatus>>> {
-        const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/userstatus`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntUserstatusFromJSON));
-    }
-
-    /**
-     * list userstatus entities
-     * List userstatus entities
-     */
-    async listUserstatus(requestParameters: ListUserstatusRequest): Promise<Array<EntUserstatus>> {
-        const response = await this.listUserstatusRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
      * update abilitypatientrights by ID
      * Update a abilitypatientrights entity by ID
      */
@@ -3986,45 +3826,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updateUser(requestParameters: UpdateUserRequest): Promise<EntUser> {
         const response = await this.updateUserRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * update userstatus by ID
-     * Update a userstatus entity by ID
-     */
-    async updateUserstatusRaw(requestParameters: UpdateUserstatusRequest): Promise<runtime.ApiResponse<EntUserstatus>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateUserstatus.');
-        }
-
-        if (requestParameters.userstatus === null || requestParameters.userstatus === undefined) {
-            throw new runtime.RequiredError('userstatus','Required parameter requestParameters.userstatus was null or undefined when calling updateUserstatus.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/userstatus/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: EntUserstatusToJSON(requestParameters.userstatus),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntUserstatusFromJSON(jsonValue));
-    }
-
-    /**
-     * update userstatus by ID
-     * Update a userstatus entity by ID
-     */
-    async updateUserstatus(requestParameters: UpdateUserstatusRequest): Promise<EntUserstatus> {
-        const response = await this.updateUserstatusRaw(requestParameters);
         return await response.value();
     }
 

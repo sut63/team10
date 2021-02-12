@@ -18,6 +18,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import PhoneIcon from '@material-ui/icons/Phone';
 import Divider from '@material-ui/core/Divider';
 import SingleBedIcon from '@material-ui/icons/SingleBed';
+import ContactsIcon from '@material-ui/icons/Contacts';
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { Content } from '@backstage/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,6 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function MoreInfo(id: any) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -123,7 +126,7 @@ export default function MoreInfo(id: any) {
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar>
-                        <PhoneIcon />
+                        <ContactsIcon />
                       </Avatar>
                     </ListItemAvatar>
                     <ListItemText primary="รหัสประจำตัวประชาชน" secondary={no.edges?.edgesOfPatientrightsPatientrecord?.idcardnumber} />
@@ -157,7 +160,7 @@ export default function MoreInfo(id: any) {
                     <Grid container alignItems="center">
                       <Grid item xs>
                         <Typography gutterBottom variant="h4">
-                          สิทผู้ป่วย
+                          สิทธิ์ผู้ป่วย
             </Typography>
                       </Grid>
                       <Grid item>
@@ -196,15 +199,45 @@ export default function MoreInfo(id: any) {
                         <SingleBedIcon />
                       </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary=" : " secondary={no.edges?.edgesOfPatientrightsAbilitypatientrights?.check} />
+
+
+                    <ListItemText primary="ความสามารถสิทธิ์ : " secondary={"ค่าเวชภัณฑ์ : " + no.edges?.edgesOfPatientrightsAbilitypatientrights?.medicalSupplies} /> 
                   </ListItem>
-
-
-
-                  <Divider variant="inset" component="li" />
                   <ListItem>
-
+                  <ListItemAvatar>
+                  
+                      <Avatar>
+                        <LocalHospitalIcon  />
+                      </Avatar>
+                    
+                    </ListItemAvatar>
+                    <ListItemText secondary={"ค่าหัตถการ : " + no.edges?.edgesOfPatientrightsAbilitypatientrights?.operative} />
                   </ListItem>
+                  <ListItem>
+                  <ListItemAvatar>
+                  
+                  <Avatar>
+                    <SingleBedIcon />
+                  </Avatar>
+                
+                </ListItemAvatar>
+                    <ListItemText secondary={"ค่านอนโรงพยาบาล :" + no.edges?.edgesOfPatientrightsAbilitypatientrights?.stayInHospital} />
+                  </ListItem>
+                  <ListItem>
+                  <ListItemAvatar>
+                  
+                  <Avatar>
+                    <SingleBedIcon />
+                  </Avatar>
+                
+                </ListItemAvatar>
+                    <ListItemText secondary={"ตรวจสุขภาพ และ ค่า แลป :" + no.edges?.edgesOfPatientrightsAbilitypatientrights?.examine} />
+                    </ListItem>
+
+                      <Divider variant="inset" component="li" />
+                      <ListItem>
+
+                      </ListItem>
 
 
 
