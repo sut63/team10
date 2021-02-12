@@ -6,7 +6,7 @@ import { DefaultApi } from '../../api/apis';
 import { EntUser } from '../../api/models/EntUser';
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { useEffect } from 'react';
-import { Avatar,TextField } from '@material-ui/core';
+import { Avatar, TextField } from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Alert } from '@material-ui/lab';
@@ -46,12 +46,13 @@ const Table: FC<{}> = () => {
   const [Pat, setPat] = React.useState<string>();
   const [Se, setSe] = React.useState<string>();
   const classes = useStyles();
-  const [alert, setAlert] = React.useState(true);
+  const [alert1, setAlert1] = React.useState(true);
+  const [alert2, setAlert2] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
   const [status, setStatus] = React.useState(false);
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
- 
+
 
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
@@ -59,34 +60,44 @@ const Table: FC<{}> = () => {
     const res = await http.listPatientrecord({ limit: 110, offset: 0 });
     setPatientrecord(res);
   };
-  const handleChange = (event : any, value : unknown) => {
+  const handleChange = (event: any, value: unknown) => {
     setPat(value as string);
   };
   const sc = async () => {
-    
-setSe(Pat);
+
+    setSe(Pat);
     var p = await http.listPatientrecord({ limit: 100, offset: 0 })
     let i = 0
-    for (let u of p){
-    if( (u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined))
-    i = i+1
-    
+    for (let u of p) {
+      if ((u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined))
+        i = i + 1
+
     }
     console.log("ผู้ป่วย = ", Pat)
 
-    if (i != 0) {
-      setStatus(true);
-      setAlert(true);
+    if (Pat === undefined || Pat === null) {
+      setAlert2(false);
     } else {
+      setAlert2(true);
+    }
+    if (i != 0) {
+      
       setStatus(true);
-      setAlert(false);
+      setAlert1(true);
+
+    } else {
+      
+      setStatus(true);
+      setAlert1(false);
+
     }
 
     setTimeout(() => {
       setStatus(false);
+
     }, 5000);
 
-    
+
   };
 
 
@@ -113,14 +124,20 @@ setSe(Pat);
 
           {status ? (
             <div>
-              {alert ? (
+              {alert1 ? (
                 <Alert severity="success">
                   พบสิทธิ์
                 </Alert>
               ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบสิทธ์
-                  </Alert>
+                  alert2 ? (
+                    <Alert severity="warning" style={{ marginTop: 20 }}>
+                      ไม่พบสิทธ์
+                    </Alert>
+                  ) : (
+                      <Alert severity="info" style={{ marginTop: 20 }}>
+                        แสดงข้อมูลทั้งหมด
+                      </Alert>
+                    )
                 )}
             </div>
           ) : null}
@@ -128,25 +145,25 @@ setSe(Pat);
           <FormControl variant="outlined" className={classes.formControl}>
             <Autocomplete
               id="patientname"
-                freeSolo
+              freeSolo
               options={Patientrecord.map((option) => option.name)}
               onChange={handleChange}
               renderInput={(params) => (
                 <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" />
               )}
             />
-            </FormControl>
-            <Button
-              onClick={() => {
-               sc();
-              }}
-              style={{ marginLeft: 10 }}
-              variant="contained"
-              color="primary"
-            >
-              ค้นหา
+          </FormControl>
+          <Button
+            onClick={() => {
+              sc();
+            }}
+            style={{ marginLeft: 10 }}
+            variant="contained"
+            color="primary"
+          >
+            ค้นหา
                </Button>&emsp;
-          
+
 
           <Link component={RouterLink} to="/">
             <Button variant="contained" color="primary">
