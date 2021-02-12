@@ -120,9 +120,15 @@ export default function ComponentsTable() {
       setLoading(false);
       setPatientrecord(res);
     };
+    const getImg = async () => {
+      const res = await http.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+    };
     getTreatment();
     getDocdor();
     getPatientrecord();
+    getImg();
   }, [loading]);
 
   const patientrecordhandlehange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -193,7 +199,6 @@ export default function ComponentsTable() {
           </Button>
           <div>&nbsp;&nbsp;&nbsp;</div>
           <Button
-<<<<<<< HEAD
             href="/createTreatment"
             variant="contained"
             style={{ backgroundColor: "#21b6ae" }}
@@ -204,9 +209,6 @@ export default function ComponentsTable() {
           <div>&nbsp;&nbsp;&nbsp;</div>
           <Button
             href="/"
-=======
-            href="/treatment"
->>>>>>> a78a3bb62a1beff8d41cc9f748ac5de9cd42e29f
             variant="contained"
             color="primary"
           >
