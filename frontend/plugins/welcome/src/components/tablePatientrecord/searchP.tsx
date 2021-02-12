@@ -25,7 +25,7 @@ const cookies = new Cookies();
 const Name = cookies.get('Name');
 const Img = cookies.get('Img');
 
-const Table: FC<{}> = () => {
+const searchP: FC<{}> = () => {
   const http = new DefaultApi();
   const useStyles = makeStyles(theme => ({
     table: {
@@ -154,4 +154,4 @@ setSe(Pat);
   );
 };
 
-export default Table;
+export default searchP;
