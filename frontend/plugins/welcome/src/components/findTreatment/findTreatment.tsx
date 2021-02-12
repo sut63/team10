@@ -120,9 +120,15 @@ export default function ComponentsTable() {
       setLoading(false);
       setPatientrecord(res);
     };
+    const getImg = async () => {
+      const res = await http.getUser({ id: Number(Img) });
+      setLoading(false);
+      setUsers(res);
+    };
     getTreatment();
     getDocdor();
     getPatientrecord();
+    getImg();
   }, [loading]);
 
   const patientrecordhandlehange = (event: React.ChangeEvent<{ value: unknown }>) => {
