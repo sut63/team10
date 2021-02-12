@@ -33,7 +33,6 @@ import (
 	"github.com/team10/app/ent/typetreatment"
 	"github.com/team10/app/ent/unpaybill"
 	"github.com/team10/app/ent/user"
-	"github.com/team10/app/ent/userstatus"
 
 	"github.com/facebookincubator/ent/dialect"
 	"github.com/facebookincubator/ent/dialect/sql"
@@ -93,8 +92,6 @@ type Client struct {
 	Unpaybill *UnpaybillClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
-	// Userstatus is the client for interacting with the Userstatus builders.
-	Userstatus *UserstatusClient
 }
 
 // NewClient creates a new client configured with the given options.
@@ -132,7 +129,6 @@ func (c *Client) init() {
 	c.Typetreatment = NewTypetreatmentClient(c.config)
 	c.Unpaybill = NewUnpaybillClient(c.config)
 	c.User = NewUserClient(c.config)
-	c.Userstatus = NewUserstatusClient(c.config)
 }
 
 // Open opens a database/sql.DB specified by the driver name and
@@ -189,7 +185,6 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Typetreatment:        NewTypetreatmentClient(cfg),
 		Unpaybill:            NewUnpaybillClient(cfg),
 		User:                 NewUserClient(cfg),
-		Userstatus:           NewUserstatusClient(cfg),
 	}, nil
 }
 
@@ -229,7 +224,6 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Typetreatment:        NewTypetreatmentClient(cfg),
 		Unpaybill:            NewUnpaybillClient(cfg),
 		User:                 NewUserClient(cfg),
-		Userstatus:           NewUserstatusClient(cfg),
 	}, nil
 }
 
@@ -282,7 +276,6 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Typetreatment.Use(hooks...)
 	c.Unpaybill.Use(hooks...)
 	c.User.Use(hooks...)
-	c.Userstatus.Use(hooks...)
 }
 
 // AbilitypatientrightsClient is a client for the Abilitypatientrights schema.
@@ -3216,122 +3209,7 @@ func (c *UserClient) QueryEdgesOfDoctor(u *User) *DoctorQuery {
 	return query
 }
 
-// QueryEdgesOfUserstatus queries the EdgesOfUserstatus edge of a User.
-func (c *UserClient) QueryEdgesOfUserstatus(u *User) *UserstatusQuery {
-	query := &UserstatusQuery{config: c.config}
-	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
-		id := u.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(user.Table, user.FieldID, id),
-			sqlgraph.To(userstatus.Table, userstatus.FieldID),
-			sqlgraph.Edge(sqlgraph.M2O, true, user.EdgesOfUserstatusTable, user.EdgesOfUserstatusColumn),
-		)
-		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
 // Hooks returns the client hooks.
 func (c *UserClient) Hooks() []Hook {
 	return c.hooks.User
-}
-
-// UserstatusClient is a client for the Userstatus schema.
-type UserstatusClient struct {
-	config
-}
-
-// NewUserstatusClient returns a client for the Userstatus from the given config.
-func NewUserstatusClient(c config) *UserstatusClient {
-	return &UserstatusClient{config: c}
-}
-
-// Use adds a list of mutation hooks to the hooks stack.
-// A call to `Use(f, g, h)` equals to `userstatus.Hooks(f(g(h())))`.
-func (c *UserstatusClient) Use(hooks ...Hook) {
-	c.hooks.Userstatus = append(c.hooks.Userstatus, hooks...)
-}
-
-// Create returns a create builder for Userstatus.
-func (c *UserstatusClient) Create() *UserstatusCreate {
-	mutation := newUserstatusMutation(c.config, OpCreate)
-	return &UserstatusCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Update returns an update builder for Userstatus.
-func (c *UserstatusClient) Update() *UserstatusUpdate {
-	mutation := newUserstatusMutation(c.config, OpUpdate)
-	return &UserstatusUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOne returns an update builder for the given entity.
-func (c *UserstatusClient) UpdateOne(u *Userstatus) *UserstatusUpdateOne {
-	mutation := newUserstatusMutation(c.config, OpUpdateOne, withUserstatus(u))
-	return &UserstatusUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// UpdateOneID returns an update builder for the given id.
-func (c *UserstatusClient) UpdateOneID(id int) *UserstatusUpdateOne {
-	mutation := newUserstatusMutation(c.config, OpUpdateOne, withUserstatusID(id))
-	return &UserstatusUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// Delete returns a delete builder for Userstatus.
-func (c *UserstatusClient) Delete() *UserstatusDelete {
-	mutation := newUserstatusMutation(c.config, OpDelete)
-	return &UserstatusDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
-}
-
-// DeleteOne returns a delete builder for the given entity.
-func (c *UserstatusClient) DeleteOne(u *Userstatus) *UserstatusDeleteOne {
-	return c.DeleteOneID(u.ID)
-}
-
-// DeleteOneID returns a delete builder for the given id.
-func (c *UserstatusClient) DeleteOneID(id int) *UserstatusDeleteOne {
-	builder := c.Delete().Where(userstatus.ID(id))
-	builder.mutation.id = &id
-	builder.mutation.op = OpDeleteOne
-	return &UserstatusDeleteOne{builder}
-}
-
-// Create returns a query builder for Userstatus.
-func (c *UserstatusClient) Query() *UserstatusQuery {
-	return &UserstatusQuery{config: c.config}
-}
-
-// Get returns a Userstatus entity by its id.
-func (c *UserstatusClient) Get(ctx context.Context, id int) (*Userstatus, error) {
-	return c.Query().Where(userstatus.ID(id)).Only(ctx)
-}
-
-// GetX is like Get, but panics if an error occurs.
-func (c *UserstatusClient) GetX(ctx context.Context, id int) *Userstatus {
-	u, err := c.Get(ctx, id)
-	if err != nil {
-		panic(err)
-	}
-	return u
-}
-
-// QueryEdgesOfUser queries the EdgesOfUser edge of a Userstatus.
-func (c *UserstatusClient) QueryEdgesOfUser(u *Userstatus) *UserQuery {
-	query := &UserQuery{config: c.config}
-	query.path = func(ctx context.Context) (fromV *sql.Selector, _ error) {
-		id := u.ID
-		step := sqlgraph.NewStep(
-			sqlgraph.From(userstatus.Table, userstatus.FieldID, id),
-			sqlgraph.To(user.Table, user.FieldID),
-			sqlgraph.Edge(sqlgraph.O2M, false, userstatus.EdgesOfUserTable, userstatus.EdgesOfUserColumn),
-		)
-		fromV = sqlgraph.Neighbors(u.driver.Dialect(), step)
-		return fromV, nil
-	}
-	return query
-}
-
-// Hooks returns the client hooks.
-func (c *UserstatusClient) Hooks() []Hook {
-	return c.hooks.Userstatus
 }

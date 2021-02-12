@@ -568,7 +568,6 @@ var (
 		{Name: "password", Type: field.TypeString},
 		{Name: "images", Type: field.TypeString},
 		{Name: "user_id", Type: field.TypeInt, Nullable: true},
-		{Name: "userstatus_id", Type: field.TypeInt, Nullable: true},
 	}
 	// UsersTable holds the schema information for the "users" table.
 	UsersTable = &schema.Table{
@@ -583,26 +582,7 @@ var (
 				RefColumns: []*schema.Column{PatientrightsColumns[0]},
 				OnDelete:   schema.SetNull,
 			},
-			{
-				Symbol:  "users_userstatuses_EdgesOfUser",
-				Columns: []*schema.Column{UsersColumns[5]},
-
-				RefColumns: []*schema.Column{UserstatusesColumns[0]},
-				OnDelete:   schema.SetNull,
-			},
 		},
-	}
-	// UserstatusesColumns holds the columns for the "userstatuses" table.
-	UserstatusesColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "userstatus", Type: field.TypeString, Unique: true},
-	}
-	// UserstatusesTable holds the schema information for the "userstatuses" table.
-	UserstatusesTable = &schema.Table{
-		Name:        "userstatuses",
-		Columns:     UserstatusesColumns,
-		PrimaryKey:  []*schema.Column{UserstatusesColumns[0]},
-		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
@@ -630,7 +610,6 @@ var (
 		TypetreatmentsTable,
 		UnpaybillsTable,
 		UsersTable,
-		UserstatusesTable,
 	}
 )
 
@@ -665,5 +644,4 @@ func init() {
 	TreatmentsTable.ForeignKeys[2].RefTable = TypetreatmentsTable
 	UnpaybillsTable.ForeignKeys[0].RefTable = TreatmentsTable
 	UsersTable.ForeignKeys[0].RefTable = PatientrightsTable
-	UsersTable.ForeignKeys[1].RefTable = UserstatusesTable
 }

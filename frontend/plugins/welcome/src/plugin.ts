@@ -49,21 +49,21 @@ export const plugin = createPlugin({
       if (Status == 'Root') {
         router.registerRoute('/reg', reg);
       }
-      if (Status == 'Fin' || Status == 'Root' ) {
+      if ( Status == 'Root' || Fin !== undefined) {
         router.registerRoute('/BillSearch', BillSearch);
         router.registerRoute('/createBill', CreateBill);
       }
-      if (Status == 'Med' || Status == 'Root' || Med !== undefined) {
+      if ( Status == 'Root' || Med !== undefined) {
         router.registerRoute('/create_Patientrights', create_Patientrights);
         router.registerRoute('/Table_patientrights', Table_patientrights);
         router.registerRoute('/createPatientrecord', createPatientrecord);
         router.registerRoute('/tablePatientrecord', tablePatientrecord);
       }
-      if (Status == 'Nur' || Status == 'Root' || Nur !== undefined) {
+      if ( Status == 'Root' || Nur !== undefined) {
         router.registerRoute('/createHistorytaking', createHistorytaking);
         router.registerRoute('/tableHistorytaking', tableHistorytaking);
       }
-      if (Status == 'Doc' || Status == 'Root' ) {
+      if ( Status == 'Root' || Doc !== undefined) {
         router.registerRoute('/Treatment', Treatment);
         router.registerRoute('/createTreatment', createTreatment);
         router.registerRoute('/findTreatment', findTreatment);
@@ -71,7 +71,7 @@ export const plugin = createPlugin({
 
       }
       
-      if (Status == 'Reg' || Status == 'Root' ) {
+      if ( Status == 'Root' || Reg !== undefined) {
         
         router.registerRoute('/Doctorinfo', CreateDoctorinfo);
         router.registerRoute('/Table_Doctors', Table_Doctors);

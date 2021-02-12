@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
 	"github.com/team10/app/ent/user"
-	"github.com/team10/app/ent/userstatus"
 )
 
 // UserController defines the struct for the user controller
@@ -16,11 +15,11 @@ type UserController struct {
 	client *ent.Client
 	router gin.IRouter
 }
+
 // User defines the struct for the User entity
 type User struct {
-	Userstatus int
-	Email      string
-	Password   string
+	Email    string
+	Password string
 	Images   string
 }
 
@@ -43,20 +42,9 @@ func (ctl *UserController) CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	us, err := ctl.client.Userstatus.
-		Query().
-		Where(userstatus.IDEQ(int(obj.Userstatus))).
-		Only(context.Background())
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": "saving failed",
-		})
-		return
-	}
 
 	u, err := ctl.client.User.
 		Create().
-		SetEdgesOfUserstatus(us).
 		SetEmail(obj.Email).
 		SetImages(obj.Images).
 		SetPassword(obj.Password).
@@ -98,7 +86,6 @@ func (ctl *UserController) GetUser(c *gin.Context) {
 		WithEdgesOfMedicalrecordstaff().
 		WithEdgesOfUser2registrar().
 		WithEdgesOfUserPatientrights().
-		WithEdgesOfUserstatus().
 		WithEdgesOfDoctor().
 		Where(user.IDEQ(int(id))).
 		Only(context.Background())
@@ -150,7 +137,6 @@ func (ctl *UserController) ListUser(c *gin.Context) {
 		WithEdgesOfMedicalrecordstaff().
 		WithEdgesOfUser2registrar().
 		WithEdgesOfUserPatientrights().
-		WithEdgesOfUserstatus().
 		WithEdgesOfDoctor().
 		Limit(limit).
 		Offset(offset).

@@ -48,7 +48,6 @@ type hooks struct {
 	Typetreatment        []ent.Hook
 	Unpaybill            []ent.Hook
 	User                 []ent.Hook
-	Userstatus           []ent.Hook
 }
 
 // Options applies the options on the config object.

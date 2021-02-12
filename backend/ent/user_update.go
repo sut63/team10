@@ -17,7 +17,6 @@ import (
 	"github.com/team10/app/ent/predicate"
 	"github.com/team10/app/ent/registrar"
 	"github.com/team10/app/ent/user"
-	"github.com/team10/app/ent/userstatus"
 )
 
 // UserUpdate is the builder for updating User entities.
@@ -166,25 +165,6 @@ func (uu *UserUpdate) SetEdgesOfDoctor(d *Doctor) *UserUpdate {
 	return uu.SetEdgesOfDoctorID(d.ID)
 }
 
-// SetEdgesOfUserstatusID sets the EdgesOfUserstatus edge to Userstatus by id.
-func (uu *UserUpdate) SetEdgesOfUserstatusID(id int) *UserUpdate {
-	uu.mutation.SetEdgesOfUserstatusID(id)
-	return uu
-}
-
-// SetNillableEdgesOfUserstatusID sets the EdgesOfUserstatus edge to Userstatus by id if the given value is not nil.
-func (uu *UserUpdate) SetNillableEdgesOfUserstatusID(id *int) *UserUpdate {
-	if id != nil {
-		uu = uu.SetEdgesOfUserstatusID(*id)
-	}
-	return uu
-}
-
-// SetEdgesOfUserstatus sets the EdgesOfUserstatus edge to Userstatus.
-func (uu *UserUpdate) SetEdgesOfUserstatus(u *Userstatus) *UserUpdate {
-	return uu.SetEdgesOfUserstatusID(u.ID)
-}
-
 // Mutation returns the UserMutation object of the builder.
 func (uu *UserUpdate) Mutation() *UserMutation {
 	return uu.mutation
@@ -223,12 +203,6 @@ func (uu *UserUpdate) ClearEdgesOfUser2registrar() *UserUpdate {
 // ClearEdgesOfDoctor clears the EdgesOfDoctor edge to Doctor.
 func (uu *UserUpdate) ClearEdgesOfDoctor() *UserUpdate {
 	uu.mutation.ClearEdgesOfDoctor()
-	return uu
-}
-
-// ClearEdgesOfUserstatus clears the EdgesOfUserstatus edge to Userstatus.
-func (uu *UserUpdate) ClearEdgesOfUserstatus() *UserUpdate {
-	uu.mutation.ClearEdgesOfUserstatus()
 	return uu
 }
 
@@ -543,41 +517,6 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		}
 		_spec.Edges.Add = append(_spec.Edges.Add, edge)
 	}
-	if uu.mutation.EdgesOfUserstatusCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: true,
-			Table:   user.EdgesOfUserstatusTable,
-			Columns: []string{user.EdgesOfUserstatusColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: userstatus.FieldID,
-				},
-			},
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := uu.mutation.EdgesOfUserstatusIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: true,
-			Table:   user.EdgesOfUserstatusTable,
-			Columns: []string{user.EdgesOfUserstatusColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: userstatus.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
-	}
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
@@ -728,25 +667,6 @@ func (uuo *UserUpdateOne) SetEdgesOfDoctor(d *Doctor) *UserUpdateOne {
 	return uuo.SetEdgesOfDoctorID(d.ID)
 }
 
-// SetEdgesOfUserstatusID sets the EdgesOfUserstatus edge to Userstatus by id.
-func (uuo *UserUpdateOne) SetEdgesOfUserstatusID(id int) *UserUpdateOne {
-	uuo.mutation.SetEdgesOfUserstatusID(id)
-	return uuo
-}
-
-// SetNillableEdgesOfUserstatusID sets the EdgesOfUserstatus edge to Userstatus by id if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableEdgesOfUserstatusID(id *int) *UserUpdateOne {
-	if id != nil {
-		uuo = uuo.SetEdgesOfUserstatusID(*id)
-	}
-	return uuo
-}
-
-// SetEdgesOfUserstatus sets the EdgesOfUserstatus edge to Userstatus.
-func (uuo *UserUpdateOne) SetEdgesOfUserstatus(u *Userstatus) *UserUpdateOne {
-	return uuo.SetEdgesOfUserstatusID(u.ID)
-}
-
 // Mutation returns the UserMutation object of the builder.
 func (uuo *UserUpdateOne) Mutation() *UserMutation {
 	return uuo.mutation
@@ -785,12 +705,6 @@ func (uuo *UserUpdateOne) ClearEdgesOfUser2registrar() *UserUpdateOne {
 // ClearEdgesOfDoctor clears the EdgesOfDoctor edge to Doctor.
 func (uuo *UserUpdateOne) ClearEdgesOfDoctor() *UserUpdateOne {
 	uuo.mutation.ClearEdgesOfDoctor()
-	return uuo
-}
-
-// ClearEdgesOfUserstatus clears the EdgesOfUserstatus edge to Userstatus.
-func (uuo *UserUpdateOne) ClearEdgesOfUserstatus() *UserUpdateOne {
-	uuo.mutation.ClearEdgesOfUserstatus()
 	return uuo
 }
 
@@ -1095,41 +1009,6 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (u *User, err error) {
 				IDSpec: &sqlgraph.FieldSpec{
 					Type:   field.TypeInt,
 					Column: doctor.FieldID,
-				},
-			},
-		}
-		for _, k := range nodes {
-			edge.Target.Nodes = append(edge.Target.Nodes, k)
-		}
-		_spec.Edges.Add = append(_spec.Edges.Add, edge)
-	}
-	if uuo.mutation.EdgesOfUserstatusCleared() {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: true,
-			Table:   user.EdgesOfUserstatusTable,
-			Columns: []string{user.EdgesOfUserstatusColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: userstatus.FieldID,
-				},
-			},
-		}
-		_spec.Edges.Clear = append(_spec.Edges.Clear, edge)
-	}
-	if nodes := uuo.mutation.EdgesOfUserstatusIDs(); len(nodes) > 0 {
-		edge := &sqlgraph.EdgeSpec{
-			Rel:     sqlgraph.M2O,
-			Inverse: true,
-			Table:   user.EdgesOfUserstatusTable,
-			Columns: []string{user.EdgesOfUserstatusColumn},
-			Bidi:    false,
-			Target: &sqlgraph.EdgeTarget{
-				IDSpec: &sqlgraph.FieldSpec{
-					Type:   field.TypeInt,
-					Column: userstatus.FieldID,
 				},
 			},
 		}
