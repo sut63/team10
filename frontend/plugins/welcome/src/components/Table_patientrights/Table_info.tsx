@@ -20,6 +20,14 @@ import Divider from '@material-ui/core/Divider';
 import SingleBedIcon from '@material-ui/icons/SingleBed';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import {
+  SiElectron,
+} from "react-icons/si";
+import { 
+  RiSyringeLine,
+  RiStethoscopeLine,
+ } from "react-icons/ri";
+
 import { Content } from '@backstage/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -196,7 +204,7 @@ export default function MoreInfo(id: any) {
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar>
-                        <SingleBedIcon />
+                        <RiSyringeLine />
                       </Avatar>
                     </ListItemAvatar>
 
@@ -207,7 +215,7 @@ export default function MoreInfo(id: any) {
                   <ListItemAvatar>
                   
                       <Avatar>
-                        <LocalHospitalIcon  />
+                        <RiStethoscopeLine  />
                       </Avatar>
                     
                     </ListItemAvatar>
@@ -227,7 +235,7 @@ export default function MoreInfo(id: any) {
                   <ListItemAvatar>
                   
                   <Avatar>
-                    <SingleBedIcon />
+                    <SiElectron />
                   </Avatar>
                 
                 </ListItemAvatar>
