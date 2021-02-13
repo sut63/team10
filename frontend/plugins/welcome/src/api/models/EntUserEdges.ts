@@ -38,10 +38,6 @@ import {
     EntRegistrarFromJSON,
     EntRegistrarFromJSONTyped,
     EntRegistrarToJSON,
-    EntUserstatus,
-    EntUserstatusFromJSON,
-    EntUserstatusFromJSONTyped,
-    EntUserstatusToJSON,
 } from './';
 
 /**
@@ -86,12 +82,6 @@ export interface EntUserEdges {
      * @memberof EntUserEdges
      */
     edgesOfUserPatientrights?: EntPatientrights;
-    /**
-     * 
-     * @type {EntUserstatus}
-     * @memberof EntUserEdges
-     */
-    edgesOfUserstatus?: EntUserstatus;
 }
 
 export function EntUserEdgesFromJSON(json: any): EntUserEdges {
@@ -110,7 +100,6 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'edgesOfNurse': !exists(json, 'EdgesOfNurse') ? undefined : EntNurseFromJSON(json['EdgesOfNurse']),
         'edgesOfUser2registrar': !exists(json, 'EdgesOfUser2registrar') ? undefined : EntRegistrarFromJSON(json['EdgesOfUser2registrar']),
         'edgesOfUserPatientrights': !exists(json, 'EdgesOfUserPatientrights') ? undefined : EntPatientrightsFromJSON(json['EdgesOfUserPatientrights']),
-        'edgesOfUserstatus': !exists(json, 'EdgesOfUserstatus') ? undefined : EntUserstatusFromJSON(json['EdgesOfUserstatus']),
     };
 }
 
@@ -129,7 +118,6 @@ export function EntUserEdgesToJSON(value?: EntUserEdges | null): any {
         'EdgesOfNurse': EntNurseToJSON(value.edgesOfNurse),
         'EdgesOfUser2registrar': EntRegistrarToJSON(value.edgesOfUser2registrar),
         'EdgesOfUserPatientrights': EntPatientrightsToJSON(value.edgesOfUserPatientrights),
-        'EdgesOfUserstatus': EntUserstatusToJSON(value.edgesOfUserstatus),
     };
 }
 

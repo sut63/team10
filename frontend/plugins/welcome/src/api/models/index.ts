@@ -54,5 +54,3 @@ export * from './EntUnpaybill';
 export * from './EntUnpaybillEdges';
 export * from './EntUser';
 export * from './EntUserEdges';
-export * from './EntUserstatus';
-export * from './EntUserstatusEdges';
