@@ -71,6 +71,7 @@ export function CardTeam({ name, id, system ,imgsut,linkto}: ProfileProps) {
             component="img"
             height="140"
             image={imgsut}  
+            id = {id}
           />
            </Link>
           <CardContent>
