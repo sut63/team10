@@ -96,20 +96,20 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 	
 	if obj.Symptom == "" {
 		c.JSON(400, gin.H{
-			"error": "Symptom ไม่ถูกต้อง",
+			"error": "Symptom ไม่ถูกต้อง กรุณากรอกเป็นภาษาไทย",
 		})
 		return
 	}
 	 
 	if  obj.Treat == ""{
 		c.JSON(400, gin.H{
-			"error": "Treat ไม่ถูกต้อง",
+			"error": "Treat ไม่ถูกต้อง กรุณากรอกเป็นภาษาไทย",
 		})
 		return
 	}
 	if obj.Medicine == ""{
 		c.JSON(400, gin.H{
-			"error": "Medicine ไม่ถูกต้อง",
+			"error": "Medicine ไม่ถูกต้อง กรุณากรอกเป็นภาษาไทย",
 		})
 		return
 	}

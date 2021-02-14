@@ -4,7 +4,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Grid, MenuItem, Button, TextField, FormControl, Select, Link, Typography } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Alert } from '@material-ui/lab';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import Swal from 'sweetalert2'; // alert
 import { Avatar } from '@material-ui/core';
 import { Cookies } from 'react-cookie/cjs';//cookie
@@ -67,8 +67,10 @@ const createTreatment: FC<{}> = () => {
   const http = new DefaultApi();
 
   const [status, setStatus] = React.useState(false);
-  const [alert, setAlert] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
+
+  const [msg, setAlert] = React.useState(String);
+  const [title, setAlerttitle] = React.useState(String);
 
   const [symptomError, setsymptomError] = React.useState('');
   const [treatError, settreatError] = React.useState('');
@@ -147,7 +149,7 @@ const createTreatment: FC<{}> = () => {
     const { value } = event.target;
     const validateValue = value.toString()
     //checkPattern(name, validateValue)
-    setTreatment({ ...treatment, [name]: value, doctor: doctors?.id });    
+    setTreatment({ ...treatment, [name]: value, doctor: doctors?.id });
   };
 
   const alertMessage = (icon: any, title: any) => {
@@ -155,8 +157,40 @@ const createTreatment: FC<{}> = () => {
       icon: icon,
       title: title,
     });
-  } 
- 
+  }
+
+  const checkCaseSaveError = (field: string) => {
+    switch (field) {
+      case 'Patientrecord not found':
+        alertMessage("error", "กรุณาเลือกผู้ป่วย");
+        return;
+      case 'Typetreatment not found':
+        alertMessage("error", "กรุณาเลือกรูปแบบการรักษา");
+        return;
+      case 'Symptom ไม่ถูกต้อง กรุณากรอกเป็นภาษาไทย':
+        alertMessage("error", "กรุณากรอกอาการต้องเป็นภาษาไทย");
+        return;
+      case 'Treat ไม่ถูกต้อง กรุณากรอกเป็นภาษาไทย':
+        alertMessage("error", "กรุณากรอกรายละเอียดการรักษาต้องเป็นภาษาไทย");
+        return;
+      case 'Medicine ไม่ถูกต้อง กรุณากรอกเป็นภาษาไทย':
+        alertMessage("error", "กรุณากรอกชื่อยาต้องเป็นภาษาไทย");
+        return;
+      case 'ent: validator failed for field "Symptom": value does not match validation':
+        alertMessage("error", "อาการต้องเป็นภาษาไทย");
+        return;
+      case 'ent: validator failed for field "Treat": value does not match validation':
+        alertMessage("error", "รายละเอียดการรักษาต้องเป็นภาษาไทย");
+        return;
+      case 'ent: validator failed for field "Medicine": value does not match validation':
+        alertMessage("error", "ชื่อยาต้องเป็นภาษาไทย");
+        return;
+      default:
+        alertMessage("error", "บันทึกข้อมูลไม่สำเร็จ");
+        return;
+    }
+  }
+
   const Create_Treatment = async () => {
     const apiUrl = 'http://localhost:8080/api/v1/Treatments';
     const requestOptions = {
@@ -168,37 +202,21 @@ const createTreatment: FC<{}> = () => {
     fetch(apiUrl, requestOptions)
       .then(response => response.json())
       .then(async data => {
-        console.log(data);
         console.log(data.error);
-        console.log(data.status);
+        console.log(data);
         if (data.status === true) {
           Toast.fire({
             icon: 'success',
             title: 'บันทึกข้อมูลสำเร็จ',
           });
         } else {
-          alertMessage("error",data.error);
+          checkCaseSaveError(data.error);
         }
       });
   };
 
   return (
     <div>
-      {status ? (
-        <div>
-          {alert ? (
-            <Alert severity="success">
-              บันทึกการรักษาสำเร็จ
-            </Alert>
-          ) : (
-              <Alert severity="warning" style={{ marginTop: 20 }}>
-                บันทึกการรักษาไม่สำเร็จ
-              </Alert>
-            )}
-        </div>
-      ) : null}
-
-
       <Page theme={pageTheme.home}>
         <Header style={HeaderCustom} title={`Treatment Department`}>
           <Avatar alt="Remy Sharp" src={Users?.images as string} />
