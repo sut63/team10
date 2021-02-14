@@ -324,7 +324,7 @@ const createTreatment: FC<{}> = () => {
                     </Typography>
                   </FormControl>
                 </form>
-                <br />
+                <br /> 
 
                 <Typography align="center">
                   <br />
@@ -332,7 +332,6 @@ const createTreatment: FC<{}> = () => {
                     onClick={() => {
                       Create_Treatment();
                     }}
-
                     variant="contained"
                     color="primary"
                   >
