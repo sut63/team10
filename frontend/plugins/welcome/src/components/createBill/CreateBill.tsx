@@ -170,11 +170,12 @@ const CreateBill: FC<{}> = () => {
             id: bill.unpaybill,
           }
           await http.updateUnpaybill({ id: bill.unpaybill as number, unpaybill: upb });
-          refreshPage();
+          
           setStatus(true);
           setErr(false);
           setTimeout(() => {
             setStatus(false);
+            refreshPage();
           }, 5000);
         } else {
           checkCaseSaveError(data.error.Name);
