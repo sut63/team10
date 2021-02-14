@@ -146,41 +146,9 @@ const createTreatment: FC<{}> = () => {
     const name = event.target.name as keyof typeof Create_Treatment;
     const { value } = event.target;
     const validateValue = value.toString()
-    checkPattern(name, validateValue)
+    //checkPattern(name, validateValue)
     setTreatment({ ...treatment, [name]: value, doctor: doctors?.id });    
   };
-
-// ฟังก์ชั่นสำหรับ validate symptomError
-const validatesymptom = (val: string) => {
-  return (!val || 0 === val.length) ? true : false;
-}
-
-// ฟังก์ชั่นสำหรับ validate treatError
-const validatetreat = (val: string) => {
-  return (!val || 0 === val.length) ? true : false;
-}
-
-// ฟังก์ชั่นสำหรับ validate medicineError
-const validatemedicine = (val: string) => {
-  return (!val || 0 === val.length) ? true : false;
-}
-
-  // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
-  const checkPattern = (id: string, value: string) => {
-    switch (id) {
-      case 'symptom':
-        validatesymptom(value) ? setsymptomError('') : setsymptomError('กรุณากรอกข้อมูลที่เป็นอักษรภาษาไทย');
-        return;
-      case 'treat':
-        validatetreat(value) ? settreatError('') : settreatError('กรุณากรอกข้อมูลที่เป็นอักษรภาษาไทย');
-        return;
-      case 'medicine':
-        validatemedicine(value) ? setmedicineError('') : setmedicineError('กรุณากรอกข้อมูลที่เป็นอักษรภาษาไทย')
-        return;      
-      default:
-        return;
-    }
-  }
 
   const alertMessage = (icon: any, title: any) => {
     Toast.fire({
@@ -280,7 +248,7 @@ const validatemedicine = (val: string) => {
                       <br />รูปแบบการรักษา
                         </Typography>
                     <Select
-                      name="typetreatment"
+                      name="Typetreatment"
                       value={treatment.typetreatment}
                       onChange={handleChange}
                     >
@@ -299,8 +267,8 @@ const validatemedicine = (val: string) => {
                     <Typography align="center" variant="h6">
                       <br />อาการ<br />
                       <TextField
-                        name="symptom"
-                        id="symptom"
+                        name="Symptom"
+                        id="Symptom"
                         className={classes.formControl}
                         value={treatment.symptom}
                         multiline
@@ -314,8 +282,8 @@ const validatemedicine = (val: string) => {
                     <Typography align="center" variant="h6">
                       <br />รายละเอียดการรักษา<br />
                       <TextField
-                        name="treat"
-                        id="treat"
+                        name="Treat"
+                        id="Treat"
                         className={classes.formControl}
                         value={treatment.treat}
                         multiline
@@ -329,8 +297,8 @@ const validatemedicine = (val: string) => {
                     <Typography align="center" variant="h6">
                       <br />ยารักษา<br />
                       <TextField
-                        name="medicine"
-                        id="medicine"
+                        name="Medicine"
+                        id="Medicine"
                         className={classes.formControl}
                         value={treatment.medicine}
                         multiline
