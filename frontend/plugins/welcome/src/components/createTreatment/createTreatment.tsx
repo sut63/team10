@@ -5,15 +5,7 @@ import { Grid, MenuItem, Button, TextField, FormControl, Select, Link, Typograph
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Alert } from '@material-ui/lab';
-import Paper from '@material-ui/core/Paper';
 import Swal from 'sweetalert2'; // alert
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import { Avatar } from '@material-ui/core';
 import { Cookies } from 'react-cookie/cjs';//cookie
 
@@ -154,10 +146,48 @@ const createTreatment: FC<{}> = () => {
     const name = event.target.name as keyof typeof Create_Treatment;
     const { value } = event.target;
     const validateValue = value.toString()
-    //checkPattern(name, validateValue)
+    checkPattern(name, validateValue)
     setTreatment({ ...treatment, [name]: value, doctor: doctors?.id });    
   };
-  
+
+// ฟังก์ชั่นสำหรับ validate symptomError
+const validatesymptom = (val: string) => {
+  return (!val || 0 === val.length) ? true : false;
+}
+
+// ฟังก์ชั่นสำหรับ validate treatError
+const validatetreat = (val: string) => {
+  return (!val || 0 === val.length) ? true : false;
+}
+
+// ฟังก์ชั่นสำหรับ validate medicineError
+const validatemedicine = (val: string) => {
+  return (!val || 0 === val.length) ? true : false;
+}
+
+  // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
+  const checkPattern = (id: string, value: string) => {
+    switch (id) {
+      case 'symptom':
+        validatesymptom(value) ? setsymptomError('') : setsymptomError('กรุณากรอกข้อมูลที่เป็นอักษรภาษาไทย');
+        return;
+      case 'treat':
+        validatetreat(value) ? settreatError('') : settreatError('กรุณากรอกข้อมูลที่เป็นอักษรภาษาไทย');
+        return;
+      case 'medicine':
+        validatemedicine(value) ? setmedicineError('') : setmedicineError('กรุณากรอกข้อมูลที่เป็นอักษรภาษาไทย')
+        return;      
+      default:
+        return;
+    }
+  }
+
+  const alertMessage = (icon: any, title: any) => {
+    Toast.fire({
+      icon: icon,
+      title: title,
+    });
+  } 
  
   const Create_Treatment = async () => {
     const apiUrl = 'http://localhost:8080/api/v1/Treatments';
@@ -179,10 +209,7 @@ const createTreatment: FC<{}> = () => {
             title: 'บันทึกข้อมูลสำเร็จ',
           });
         } else {
-          Toast.fire({
-            icon: 'error',
-            title: data.error,
-          });
+          alertMessage("error",data.error);
         }
       });
   };
@@ -273,7 +300,7 @@ const createTreatment: FC<{}> = () => {
                       <br />อาการ<br />
                       <TextField
                         name="symptom"
-                        id="Symptom"
+                        id="symptom"
                         className={classes.formControl}
                         value={treatment.symptom}
                         multiline
@@ -288,7 +315,7 @@ const createTreatment: FC<{}> = () => {
                       <br />รายละเอียดการรักษา<br />
                       <TextField
                         name="treat"
-                        id="Treat"
+                        id="treat"
                         className={classes.formControl}
                         value={treatment.treat}
                         multiline
@@ -303,7 +330,7 @@ const createTreatment: FC<{}> = () => {
                       <br />ยารักษา<br />
                       <TextField
                         name="medicine"
-                        id="Medicine"
+                        id="medicine"
                         className={classes.formControl}
                         value={treatment.medicine}
                         multiline
