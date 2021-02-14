@@ -335,10 +335,11 @@ const createTreatment: FC<{}> = () => {
                     variant="contained"
                     color="primary"
                   >
-                    บันทึกการรักษา
+                    บันทึกการรักษา 
                 </Button>
                 </Typography>
                 <br />
+                
                 <Typography align="center">
                   <Link component={RouterLink} to="/findTreatment">
                     <Button variant="contained" color="primary" style={{ backgroundColor: "#21b6ae" }}>
