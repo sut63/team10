@@ -42,8 +42,7 @@ export default function ComponanceTable(sim: any) {
   const api = new DefaultApi();
   const [Patientrecord, setPatientrecord] = useState<EntPatientrecord[]>(Array);
   const [loading, setLoading] = useState(true);
-  const [nc, setnc] = useState(true);
-  const [no, setno] = useState<EntPatientrecord>({});
+  
 
   const getPatientrecord = async () => {
     const res = await api.listPatientrecord({ limit: 100, offset: 0 });
@@ -52,13 +51,8 @@ export default function ComponanceTable(sim: any) {
   };
   useEffect(() => {
     getPatientrecord();
-    setnc(true);
   }, [loading]);
 
-  const Show = async (i: any) => {
-    setno(i);
-    setnc(false);
-  };
   var p = 0;
 
   for (var val of Patientrecord) {
