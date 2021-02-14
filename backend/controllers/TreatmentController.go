@@ -51,6 +51,14 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
+
+	if (int(obj.Doctor) + int(obj.Typetreatment) + int(obj.Patientrecord) + len(obj.Symptom) + len(obj.Treat) + len(obj.Medicine)  ) <= 0 {
+		c.JSON(400, gin.H{
+			"error": "บันทึกข้อมูลไม่สำเร็จ",
+		})
+		return
+	}
+
 	ttm, err := ctl.client.Typetreatment.
 		Query().
 		Where(typetreatment.IDEQ(int(obj.Typetreatment))).
@@ -61,6 +69,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
+
 	d, err := ctl.client.Doctor.
 		Query().
 		Where(doctor.IDEQ(int(obj.Doctor))).
@@ -71,6 +80,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
+
 	pr, err := ctl.client.Patientrecord.
 		Query().
 		Where(patientrecord.IDEQ(int(obj.Patientrecord))).
@@ -81,7 +91,9 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 		})
 		return
 	}
+
 	t := time.Now().Local()
+	
 	if obj.Symptom == "" {
 		c.JSON(400, gin.H{
 			"error": "Symptom ไม่ถูกต้อง",
