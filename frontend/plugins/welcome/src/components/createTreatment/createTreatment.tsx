@@ -245,7 +245,7 @@ const createTreatment: FC<{}> = () => {
                       <br />ผู้ป่วย
                         </Typography>
                     <Select
-                      name="patientrecord"
+                      name="Patientrecord"
                       value={treatment.patientrecord}
                       onChange={handleChange}
                     >
