@@ -245,7 +245,7 @@ const createTreatment: FC<{}> = () => {
                       <br />ผู้ป่วย
                         </Typography>
                     <Select
-                      name="patientrecord"
+                      name="Patientrecord"
                       value={treatment.patientrecord}
                       onChange={handleChange}
                     >
@@ -324,7 +324,7 @@ const createTreatment: FC<{}> = () => {
                     </Typography>
                   </FormControl>
                 </form>
-                <br />
+                <br /> 
 
                 <Typography align="center">
                   <br />
@@ -332,7 +332,6 @@ const createTreatment: FC<{}> = () => {
                     onClick={() => {
                       Create_Treatment();
                     }}
-
                     variant="contained"
                     color="primary"
                   >
