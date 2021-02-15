@@ -218,7 +218,7 @@ export default function CreateHistorytaking() {
     getImg();
 
     const getPatientrecords = async () => {
-      const res = await api.listPatientrecord({ limit: 3, offset: 0 });
+      const res = await api.listPatientrecord({ limit: 6, offset: 0 });
       setLoading(false);
       setPatientrecords(res);
     };

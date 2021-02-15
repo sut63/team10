@@ -53,7 +53,7 @@ const Table: FC<{}> = () => {
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
 
   const getPatientrecord = async () => {
-    const res = await http.listPatientrecord({ limit: 3, offset: 0 });
+    const res = await http.listPatientrecord({ limit: 6, offset: 0 });
     setPatientrecord(res);
   };
   const handleChange = (event : any, value : unknown) => {
