@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	_"errors"
+	
 	"time"
 	"github.com/gin-gonic/gin"
 	"github.com/team10/app/ent"
@@ -24,7 +24,7 @@ type BillController struct {
 
 // Bill defines the struct for the Bill entity
 type Bill struct {
-	Payer        string
+	Note        string
 	Payercontact string
 	Amount       string
 	Paytype      int
@@ -92,7 +92,7 @@ func (ctl *BillController) CreateBill(c *gin.Context) {
 }
 	u, err := ctl.client.Bill.
 		Create().
-		SetPayer(obj.Payer).
+		SetNote(obj.Note).
 		SetPayercontact(obj.Payercontact).
 		SetAmount(am).
 		SetDate(t).

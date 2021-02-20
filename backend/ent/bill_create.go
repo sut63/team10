@@ -29,15 +29,15 @@ func (bc *BillCreate) SetAmount(i int) *BillCreate {
 	return bc
 }
 
-// SetPayer sets the Payer field.
-func (bc *BillCreate) SetPayer(s string) *BillCreate {
-	bc.mutation.SetPayer(s)
-	return bc
-}
-
 // SetPayercontact sets the Payercontact field.
 func (bc *BillCreate) SetPayercontact(s string) *BillCreate {
 	bc.mutation.SetPayercontact(s)
+	return bc
+}
+
+// SetNote sets the Note field.
+func (bc *BillCreate) SetNote(s string) *BillCreate {
+	bc.mutation.SetNote(s)
 	return bc
 }
 
@@ -119,20 +119,20 @@ func (bc *BillCreate) Save(ctx context.Context) (*Bill, error) {
 			return nil, &ValidationError{Name: "Amount", err: fmt.Errorf("ent: validator failed for field \"Amount\": %w", err)}
 		}
 	}
-	if _, ok := bc.mutation.Payer(); !ok {
-		return nil, &ValidationError{Name: "Payer", err: errors.New("ent: missing required field \"Payer\"")}
-	}
-	if v, ok := bc.mutation.Payer(); ok {
-		if err := bill.PayerValidator(v); err != nil {
-			return nil, &ValidationError{Name: "Payer", err: fmt.Errorf("ent: validator failed for field \"Payer\": %w", err)}
-		}
-	}
 	if _, ok := bc.mutation.Payercontact(); !ok {
 		return nil, &ValidationError{Name: "Payercontact", err: errors.New("ent: missing required field \"Payercontact\"")}
 	}
 	if v, ok := bc.mutation.Payercontact(); ok {
 		if err := bill.PayercontactValidator(v); err != nil {
 			return nil, &ValidationError{Name: "Payercontact", err: fmt.Errorf("ent: validator failed for field \"Payercontact\": %w", err)}
+		}
+	}
+	if _, ok := bc.mutation.Note(); !ok {
+		return nil, &ValidationError{Name: "Note", err: errors.New("ent: missing required field \"Note\"")}
+	}
+	if v, ok := bc.mutation.Note(); ok {
+		if err := bill.NoteValidator(v); err != nil {
+			return nil, &ValidationError{Name: "Note", err: fmt.Errorf("ent: validator failed for field \"Note\": %w", err)}
 		}
 	}
 	if _, ok := bc.mutation.Date(); !ok {
@@ -206,14 +206,6 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 		})
 		b.Amount = value
 	}
-	if value, ok := bc.mutation.Payer(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: bill.FieldPayer,
-		})
-		b.Payer = value
-	}
 	if value, ok := bc.mutation.Payercontact(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -221,6 +213,14 @@ func (bc *BillCreate) createSpec() (*Bill, *sqlgraph.CreateSpec) {
 			Column: bill.FieldPayercontact,
 		})
 		b.Payercontact = value
+	}
+	if value, ok := bc.mutation.Note(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: bill.FieldNote,
+		})
+		b.Note = value
 	}
 	if value, ok := bc.mutation.Date(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

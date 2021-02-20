@@ -44,7 +44,7 @@ export function EntRegistrarEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
+        'edgesOfUser': !exists(json, 'edgesOfUser') ? undefined : EntUserFromJSON(json['edgesOfUser']),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntRegistrarEdgesToJSON(value?: EntRegistrarEdges | null): any {
     }
     return {
         
-        'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
+        'edgesOfUser': EntUserToJSON(value.edgesOfUser),
     };
 }
 

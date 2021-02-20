@@ -9,10 +9,10 @@ const (
 	FieldID = "id"
 	// FieldAmount holds the string denoting the amount field in the database.
 	FieldAmount = "amount"
-	// FieldPayer holds the string denoting the payer field in the database.
-	FieldPayer = "payer"
 	// FieldPayercontact holds the string denoting the payercontact field in the database.
 	FieldPayercontact = "payercontact"
+	// FieldNote holds the string denoting the note field in the database.
+	FieldNote = "note"
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 
@@ -52,8 +52,8 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldAmount,
-	FieldPayer,
 	FieldPayercontact,
+	FieldNote,
 	FieldDate,
 }
 
@@ -67,8 +67,8 @@ var ForeignKeys = []string{
 var (
 	// AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
 	AmountValidator func(int) error
-	// PayerValidator is a validator for the "Payer" field. It is called by the builders before save.
-	PayerValidator func(string) error
 	// PayercontactValidator is a validator for the "Payercontact" field. It is called by the builders before save.
 	PayercontactValidator func(string) error
+	// NoteValidator is a validator for the "Note" field. It is called by the builders before save.
+	NoteValidator func(string) error
 )

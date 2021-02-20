@@ -44,7 +44,7 @@ export function EntSymptomseverityEdgesFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'edgesOfHistorytaking': !exists(json, 'EdgesOfHistorytaking') ? undefined : ((json['EdgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
+        'edgesOfHistorytaking': !exists(json, 'edgesOfHistorytaking') ? undefined : ((json['edgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntSymptomseverityEdgesToJSON(value?: EntSymptomseverityEdges | 
     }
     return {
         
-        'EdgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
+        'edgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
     };
 }
 

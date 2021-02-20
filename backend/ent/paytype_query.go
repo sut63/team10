@@ -270,7 +270,7 @@ func (pq *PaytypeQuery) WithEdgesOfBills(opts ...func(*BillQuery)) *PaytypeQuery
 // Example:
 //
 //	var v []struct {
-//		Paytype string `json:"paytype,omitempty"`
+//		Paytype string `json:"Paytype,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -296,7 +296,7 @@ func (pq *PaytypeQuery) GroupBy(field string, fields ...string) *PaytypeGroupBy 
 // Example:
 //
 //	var v []struct {
-//		Paytype string `json:"paytype,omitempty"`
+//		Paytype string `json:"Paytype,omitempty"`
 //	}
 //
 //	client.Paytype.Query().

@@ -302,7 +302,7 @@ func (fq *FinancierQuery) WithEdgesOfUser(opts ...func(*UserQuery)) *FinancierQu
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		Name string `json:"Name,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -328,7 +328,7 @@ func (fq *FinancierQuery) GroupBy(field string, fields ...string) *FinancierGrou
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		Name string `json:"Name,omitempty"`
 //	}
 //
 //	client.Financier.Query().

@@ -27,6 +27,12 @@ import {
  */
 export interface EntPaytype {
     /**
+     * Paytype holds the value of the "Paytype" field.
+     * @type {string}
+     * @memberof EntPaytype
+     */
+    paytype?: string;
+    /**
      * 
      * @type {EntPaytypeEdges}
      * @memberof EntPaytype
@@ -38,12 +44,6 @@ export interface EntPaytype {
      * @memberof EntPaytype
      */
     id?: number;
-    /**
-     * Paytype holds the value of the "paytype" field.
-     * @type {string}
-     * @memberof EntPaytype
-     */
-    paytype?: string;
 }
 
 export function EntPaytypeFromJSON(json: any): EntPaytype {
@@ -56,9 +56,9 @@ export function EntPaytypeFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
+        'paytype': !exists(json, 'Paytype') ? undefined : json['Paytype'],
         'edges': !exists(json, 'edges') ? undefined : EntPaytypeEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
-        'paytype': !exists(json, 'paytype') ? undefined : json['paytype'],
     };
 }
 
@@ -71,9 +71,9 @@ export function EntPaytypeToJSON(value?: EntPaytype | null): any {
     }
     return {
         
+        'Paytype': value.paytype,
         'edges': EntPaytypeEdgesToJSON(value.edges),
         'id': value.id,
-        'paytype': value.paytype,
     };
 }
 

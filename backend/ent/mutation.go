@@ -803,8 +803,8 @@ type BillMutation struct {
 	id                       *int
 	_Amount                  *int
 	add_Amount               *int
-	_Payer                   *string
 	_Payercontact            *string
+	_Note                    *string
 	_Date                    *time.Time
 	clearedFields            map[string]struct{}
 	_EdgesOfPaytype          *int
@@ -953,43 +953,6 @@ func (m *BillMutation) ResetAmount() {
 	m.add_Amount = nil
 }
 
-// SetPayer sets the Payer field.
-func (m *BillMutation) SetPayer(s string) {
-	m._Payer = &s
-}
-
-// Payer returns the Payer value in the mutation.
-func (m *BillMutation) Payer() (r string, exists bool) {
-	v := m._Payer
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldPayer returns the old Payer value of the Bill.
-// If the Bill object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *BillMutation) OldPayer(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldPayer is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldPayer requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldPayer: %w", err)
-	}
-	return oldValue.Payer, nil
-}
-
-// ResetPayer reset all changes of the "Payer" field.
-func (m *BillMutation) ResetPayer() {
-	m._Payer = nil
-}
-
 // SetPayercontact sets the Payercontact field.
 func (m *BillMutation) SetPayercontact(s string) {
 	m._Payercontact = &s
@@ -1025,6 +988,43 @@ func (m *BillMutation) OldPayercontact(ctx context.Context) (v string, err error
 // ResetPayercontact reset all changes of the "Payercontact" field.
 func (m *BillMutation) ResetPayercontact() {
 	m._Payercontact = nil
+}
+
+// SetNote sets the Note field.
+func (m *BillMutation) SetNote(s string) {
+	m._Note = &s
+}
+
+// Note returns the Note value in the mutation.
+func (m *BillMutation) Note() (r string, exists bool) {
+	v := m._Note
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldNote returns the old Note value of the Bill.
+// If the Bill object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *BillMutation) OldNote(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldNote is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldNote requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldNote: %w", err)
+	}
+	return oldValue.Note, nil
+}
+
+// ResetNote reset all changes of the "Note" field.
+func (m *BillMutation) ResetNote() {
+	m._Note = nil
 }
 
 // SetDate sets the Date field.
@@ -1199,11 +1199,11 @@ func (m *BillMutation) Fields() []string {
 	if m._Amount != nil {
 		fields = append(fields, bill.FieldAmount)
 	}
-	if m._Payer != nil {
-		fields = append(fields, bill.FieldPayer)
-	}
 	if m._Payercontact != nil {
 		fields = append(fields, bill.FieldPayercontact)
+	}
+	if m._Note != nil {
+		fields = append(fields, bill.FieldNote)
 	}
 	if m._Date != nil {
 		fields = append(fields, bill.FieldDate)
@@ -1218,10 +1218,10 @@ func (m *BillMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case bill.FieldAmount:
 		return m.Amount()
-	case bill.FieldPayer:
-		return m.Payer()
 	case bill.FieldPayercontact:
 		return m.Payercontact()
+	case bill.FieldNote:
+		return m.Note()
 	case bill.FieldDate:
 		return m.Date()
 	}
@@ -1235,10 +1235,10 @@ func (m *BillMutation) OldField(ctx context.Context, name string) (ent.Value, er
 	switch name {
 	case bill.FieldAmount:
 		return m.OldAmount(ctx)
-	case bill.FieldPayer:
-		return m.OldPayer(ctx)
 	case bill.FieldPayercontact:
 		return m.OldPayercontact(ctx)
+	case bill.FieldNote:
+		return m.OldNote(ctx)
 	case bill.FieldDate:
 		return m.OldDate(ctx)
 	}
@@ -1257,19 +1257,19 @@ func (m *BillMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetAmount(v)
 		return nil
-	case bill.FieldPayer:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetPayer(v)
-		return nil
 	case bill.FieldPayercontact:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPayercontact(v)
+		return nil
+	case bill.FieldNote:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetNote(v)
 		return nil
 	case bill.FieldDate:
 		v, ok := value.(time.Time)
@@ -1346,11 +1346,11 @@ func (m *BillMutation) ResetField(name string) error {
 	case bill.FieldAmount:
 		m.ResetAmount()
 		return nil
-	case bill.FieldPayer:
-		m.ResetPayer()
-		return nil
 	case bill.FieldPayercontact:
 		m.ResetPayercontact()
+		return nil
+	case bill.FieldNote:
+		m.ResetNote()
 		return nil
 	case bill.FieldDate:
 		m.ResetDate()
@@ -3837,7 +3837,7 @@ type FinancierMutation struct {
 	op                   Op
 	typ                  string
 	id                   *int
-	name                 *string
+	_Name                *string
 	clearedFields        map[string]struct{}
 	_EdgesOfBills        map[int]struct{}
 	removed_EdgesOfBills map[int]struct{}
@@ -3926,21 +3926,21 @@ func (m *FinancierMutation) ID() (id int, exists bool) {
 	return *m.id, true
 }
 
-// SetName sets the name field.
+// SetName sets the Name field.
 func (m *FinancierMutation) SetName(s string) {
-	m.name = &s
+	m._Name = &s
 }
 
-// Name returns the name value in the mutation.
+// Name returns the Name value in the mutation.
 func (m *FinancierMutation) Name() (r string, exists bool) {
-	v := m.name
+	v := m._Name
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldName returns the old name value of the Financier.
+// OldName returns the old Name value of the Financier.
 // If the Financier object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
@@ -3958,9 +3958,9 @@ func (m *FinancierMutation) OldName(ctx context.Context) (v string, err error) {
 	return oldValue.Name, nil
 }
 
-// ResetName reset all changes of the "name" field.
+// ResetName reset all changes of the "Name" field.
 func (m *FinancierMutation) ResetName() {
-	m.name = nil
+	m._Name = nil
 }
 
 // AddEdgesOfBillIDs adds the EdgesOfBills edge to Bill by ids.
@@ -4059,7 +4059,7 @@ func (m *FinancierMutation) Type() string {
 // fields that were in/decremented, call AddedFields().
 func (m *FinancierMutation) Fields() []string {
 	fields := make([]string, 0, 1)
-	if m.name != nil {
+	if m._Name != nil {
 		fields = append(fields, financier.FieldName)
 	}
 	return fields
@@ -9491,7 +9491,7 @@ type PaytypeMutation struct {
 	op                   Op
 	typ                  string
 	id                   *int
-	paytype              *string
+	_Paytype             *string
 	clearedFields        map[string]struct{}
 	_EdgesOfBills        map[int]struct{}
 	removed_EdgesOfBills map[int]struct{}
@@ -9578,21 +9578,21 @@ func (m *PaytypeMutation) ID() (id int, exists bool) {
 	return *m.id, true
 }
 
-// SetPaytype sets the paytype field.
+// SetPaytype sets the Paytype field.
 func (m *PaytypeMutation) SetPaytype(s string) {
-	m.paytype = &s
+	m._Paytype = &s
 }
 
-// Paytype returns the paytype value in the mutation.
+// Paytype returns the Paytype value in the mutation.
 func (m *PaytypeMutation) Paytype() (r string, exists bool) {
-	v := m.paytype
+	v := m._Paytype
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldPaytype returns the old paytype value of the Paytype.
+// OldPaytype returns the old Paytype value of the Paytype.
 // If the Paytype object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
@@ -9610,9 +9610,9 @@ func (m *PaytypeMutation) OldPaytype(ctx context.Context) (v string, err error) 
 	return oldValue.Paytype, nil
 }
 
-// ResetPaytype reset all changes of the "paytype" field.
+// ResetPaytype reset all changes of the "Paytype" field.
 func (m *PaytypeMutation) ResetPaytype() {
-	m.paytype = nil
+	m._Paytype = nil
 }
 
 // AddEdgesOfBillIDs adds the EdgesOfBills edge to Bill by ids.
@@ -9672,7 +9672,7 @@ func (m *PaytypeMutation) Type() string {
 // fields that were in/decremented, call AddedFields().
 func (m *PaytypeMutation) Fields() []string {
 	fields := make([]string, 0, 1)
-	if m.paytype != nil {
+	if m._Paytype != nil {
 		fields = append(fields, paytype.FieldPaytype)
 	}
 	return fields

@@ -64,7 +64,7 @@ const HeaderCustom = {
 interface Bill {
   amount?: string;
   financier?: number;
-  payer?: string;
+  note?: string;
   payercontact?: string;
   paytype?: number;
   unpaybill?: number;
@@ -133,10 +133,7 @@ const CreateBill: FC<{}> = () => {
 
   const checkCaseSaveError = (field:string) => {
     switch (field) {
-      case 'Payer':
-        setAlerttitle("ชื่อนามสกุลผู้จ่ายไม่ถูกต้อง")
-        setAlert("กรุณากรอกเป็นตัวอักษร")
-        return;
+      
       case 'Payercontact':
         setAlerttitle("เบอร์โทรศัพท์ไม่ถูกต้อง")
         setAlert("กรุณากรอกเป็นตัวเลข 0-9 และขึ้นต้นด้วยเลข 0")
@@ -144,6 +141,10 @@ const CreateBill: FC<{}> = () => {
       case 'Amount':
         setAlerttitle("ค่ารักษาไม่ถูกต้อง")
         setAlert("กรุณากรอกเป็นตัวเลขและมีค่าไม่น้อยกว่า 0")
+        return;
+      case 'Note':
+        setAlerttitle("หมายเหตุไม่ถูกต้อง")
+        setAlert("ไม่สามารถกรอกสัญลักษณ์ในหมายเหตุ")
         return;
       default:
         setAlerttitle("บันทึกข้อมูลไม่สำเร็จ")
@@ -249,20 +250,21 @@ const CreateBill: FC<{}> = () => {
                       value={bill.amount}
                       size="small"
                       onChange={handleChange} />
-                    <br />ผู้ชำระค่ารักษา<br />
-                    <TextField
-                      name="payer"
-                      id="Payer"
-                      className={classes.formControl}
-                      value={bill.payer}
-                      size="small"
-                      onChange={handleChange} />
+                   
                     <br />เบอร์โทรติดต่อ<br />
                     <TextField
                       name="payercontact"
                       id="Payercontact"
                       className={classes.formControl}
                       value={bill.payercontact}
+                      size="small"
+                      onChange={handleChange} />
+                    <br />หมายเหตุ<br />
+                    <TextField
+                      name="note"
+                      id="Note"
+                      className={classes.formControl}
+                      value={bill.note}
                       size="small"
                       onChange={handleChange} />
                     <br />พนักงานการเงิน : {financiers?.name}<br/><br/>

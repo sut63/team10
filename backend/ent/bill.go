@@ -21,10 +21,10 @@ type Bill struct {
 	ID int `json:"id,omitempty"`
 	// Amount holds the value of the "Amount" field.
 	Amount int `json:"Amount,omitempty"`
-	// Payer holds the value of the "Payer" field.
-	Payer string `json:"Payer,omitempty"`
 	// Payercontact holds the value of the "Payercontact" field.
 	Payercontact string `json:"Payercontact,omitempty"`
+	// Note holds the value of the "Note" field.
+	Note string `json:"Note,omitempty"`
 	// Date holds the value of the "Date" field.
 	Date time.Time `json:"Date,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -95,8 +95,8 @@ func (*Bill) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
 		&sql.NullInt64{},  // Amount
-		&sql.NullString{}, // Payer
 		&sql.NullString{}, // Payercontact
+		&sql.NullString{}, // Note
 		&sql.NullTime{},   // Date
 	}
 }
@@ -128,14 +128,14 @@ func (b *Bill) assignValues(values ...interface{}) error {
 		b.Amount = int(value.Int64)
 	}
 	if value, ok := values[1].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Payer", values[1])
-	} else if value.Valid {
-		b.Payer = value.String
-	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field Payercontact", values[2])
+		return fmt.Errorf("unexpected type %T for field Payercontact", values[1])
 	} else if value.Valid {
 		b.Payercontact = value.String
+	}
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field Note", values[2])
+	} else if value.Valid {
+		b.Note = value.String
 	}
 	if value, ok := values[3].(*sql.NullTime); !ok {
 		return fmt.Errorf("unexpected type %T for field Date", values[3])
@@ -206,10 +206,10 @@ func (b *Bill) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", b.ID))
 	builder.WriteString(", Amount=")
 	builder.WriteString(fmt.Sprintf("%v", b.Amount))
-	builder.WriteString(", Payer=")
-	builder.WriteString(b.Payer)
 	builder.WriteString(", Payercontact=")
 	builder.WriteString(b.Payercontact)
+	builder.WriteString(", Note=")
+	builder.WriteString(b.Note)
 	builder.WriteString(", Date=")
 	builder.WriteString(b.Date.Format(time.ANSIC))
 	builder.WriteByte(')')

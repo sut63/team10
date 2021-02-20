@@ -29,7 +29,7 @@ func (fu *FinancierUpdate) Where(ps ...predicate.Financier) *FinancierUpdate {
 	return fu
 }
 
-// SetName sets the name field.
+// SetName sets the Name field.
 func (fu *FinancierUpdate) SetName(s string) *FinancierUpdate {
 	fu.mutation.SetName(s)
 	return fu
@@ -99,7 +99,7 @@ func (fu *FinancierUpdate) ClearEdgesOfUser() *FinancierUpdate {
 func (fu *FinancierUpdate) Save(ctx context.Context) (int, error) {
 	if v, ok := fu.mutation.Name(); ok {
 		if err := financier.NameValidator(v); err != nil {
-			return 0, &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
+			return 0, &ValidationError{Name: "Name", err: fmt.Errorf("ent: validator failed for field \"Name\": %w", err)}
 		}
 	}
 
@@ -268,7 +268,7 @@ type FinancierUpdateOne struct {
 	mutation *FinancierMutation
 }
 
-// SetName sets the name field.
+// SetName sets the Name field.
 func (fuo *FinancierUpdateOne) SetName(s string) *FinancierUpdateOne {
 	fuo.mutation.SetName(s)
 	return fuo
@@ -338,7 +338,7 @@ func (fuo *FinancierUpdateOne) ClearEdgesOfUser() *FinancierUpdateOne {
 func (fuo *FinancierUpdateOne) Save(ctx context.Context) (*Financier, error) {
 	if v, ok := fuo.mutation.Name(); ok {
 		if err := financier.NameValidator(v); err != nil {
-			return nil, &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
+			return nil, &ValidationError{Name: "Name", err: fmt.Errorf("ent: validator failed for field \"Name\": %w", err)}
 		}
 	}
 
