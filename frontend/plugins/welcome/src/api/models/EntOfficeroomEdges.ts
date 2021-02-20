@@ -44,7 +44,7 @@ export function EntOfficeroomEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'edgesOfOfficeroom2doctorinfo': !exists(json, 'EdgesOfOfficeroom2doctorinfo') ? undefined : ((json['EdgesOfOfficeroom2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'edgesOfOfficeroom2doctorinfo': !exists(json, 'edgesOfOfficeroom2doctorinfo') ? undefined : ((json['edgesOfOfficeroom2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntOfficeroomEdgesToJSON(value?: EntOfficeroomEdges | null): any
     }
     return {
         
-        'EdgesOfOfficeroom2doctorinfo': value.edgesOfOfficeroom2doctorinfo === undefined ? undefined : ((value.edgesOfOfficeroom2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
+        'edgesOfOfficeroom2doctorinfo': value.edgesOfOfficeroom2doctorinfo === undefined ? undefined : ((value.edgesOfOfficeroom2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
     };
 }
 

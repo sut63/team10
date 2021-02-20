@@ -44,7 +44,7 @@ export function EntPaytypeEdgesFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'edgesOfBills': !exists(json, 'EdgesOfBills') ? undefined : ((json['EdgesOfBills'] as Array<any>).map(EntBillFromJSON)),
+        'edgesOfBills': !exists(json, 'edgesOfBills') ? undefined : ((json['edgesOfBills'] as Array<any>).map(EntBillFromJSON)),
     };
 }
 
@@ -57,7 +57,7 @@ export function EntPaytypeEdgesToJSON(value?: EntPaytypeEdges | null): any {
     }
     return {
         
-        'EdgesOfBills': value.edgesOfBills === undefined ? undefined : ((value.edgesOfBills as Array<any>).map(EntBillToJSON)),
+        'edgesOfBills': value.edgesOfBills === undefined ? undefined : ((value.edgesOfBills as Array<any>).map(EntBillToJSON)),
     };
 }
 

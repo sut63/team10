@@ -74,10 +74,10 @@ export function EntHistorytakingEdgesFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'edgesOfDepartment': !exists(json, 'EdgesOfDepartment') ? undefined : EntDepartmentFromJSON(json['EdgesOfDepartment']),
-        'edgesOfNurse': !exists(json, 'EdgesOfNurse') ? undefined : EntNurseFromJSON(json['EdgesOfNurse']),
-        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : EntPatientrecordFromJSON(json['EdgesOfPatientrecord']),
-        'edgesOfSymptomseverity': !exists(json, 'EdgesOfSymptomseverity') ? undefined : EntSymptomseverityFromJSON(json['EdgesOfSymptomseverity']),
+        'edgesOfDepartment': !exists(json, 'edgesOfDepartment') ? undefined : EntDepartmentFromJSON(json['edgesOfDepartment']),
+        'edgesOfNurse': !exists(json, 'edgesOfNurse') ? undefined : EntNurseFromJSON(json['edgesOfNurse']),
+        'edgesOfPatientrecord': !exists(json, 'edgesOfPatientrecord') ? undefined : EntPatientrecordFromJSON(json['edgesOfPatientrecord']),
+        'edgesOfSymptomseverity': !exists(json, 'edgesOfSymptomseverity') ? undefined : EntSymptomseverityFromJSON(json['edgesOfSymptomseverity']),
     };
 }
 
@@ -90,10 +90,10 @@ export function EntHistorytakingEdgesToJSON(value?: EntHistorytakingEdges | null
     }
     return {
         
-        'EdgesOfDepartment': EntDepartmentToJSON(value.edgesOfDepartment),
-        'EdgesOfNurse': EntNurseToJSON(value.edgesOfNurse),
-        'EdgesOfPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrecord),
-        'EdgesOfSymptomseverity': EntSymptomseverityToJSON(value.edgesOfSymptomseverity),
+        'edgesOfDepartment': EntDepartmentToJSON(value.edgesOfDepartment),
+        'edgesOfNurse': EntNurseToJSON(value.edgesOfNurse),
+        'edgesOfPatientrecord': EntPatientrecordToJSON(value.edgesOfPatientrecord),
+        'edgesOfSymptomseverity': EntSymptomseverityToJSON(value.edgesOfSymptomseverity),
     };
 }
 

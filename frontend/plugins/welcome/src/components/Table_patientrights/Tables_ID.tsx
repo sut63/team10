@@ -54,7 +54,7 @@ export default function ComponentsTable(sim: any) {
 
 
   const getPatientrightss = async () => {
-    const res = await api.listPatientrights({ limit: 100, offset: 0 });
+    const res = await api.listPatientrights();
     setLoading(false);
     setPatientrightss(res);
 

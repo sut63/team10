@@ -84,11 +84,11 @@ export function EntDoctorinfoEdgesFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'edgesOfDepartment': !exists(json, 'EdgesOfDepartment') ? undefined : EntDepartmentFromJSON(json['EdgesOfDepartment']),
-        'edgesOfDoctor': !exists(json, 'EdgesOfDoctor') ? undefined : EntDoctorFromJSON(json['EdgesOfDoctor']),
-        'edgesOfEducationlevel': !exists(json, 'EdgesOfEducationlevel') ? undefined : EntEducationlevelFromJSON(json['EdgesOfEducationlevel']),
-        'edgesOfOfficeroom': !exists(json, 'EdgesOfOfficeroom') ? undefined : EntOfficeroomFromJSON(json['EdgesOfOfficeroom']),
-        'edgesOfPrename': !exists(json, 'EdgesOfPrename') ? undefined : EntPrenameFromJSON(json['EdgesOfPrename']),
+        'edgesOfDepartment': !exists(json, 'edgesOfDepartment') ? undefined : EntDepartmentFromJSON(json['edgesOfDepartment']),
+        'edgesOfDoctor': !exists(json, 'edgesOfDoctor') ? undefined : EntDoctorFromJSON(json['edgesOfDoctor']),
+        'edgesOfEducationlevel': !exists(json, 'edgesOfEducationlevel') ? undefined : EntEducationlevelFromJSON(json['edgesOfEducationlevel']),
+        'edgesOfOfficeroom': !exists(json, 'edgesOfOfficeroom') ? undefined : EntOfficeroomFromJSON(json['edgesOfOfficeroom']),
+        'edgesOfPrename': !exists(json, 'edgesOfPrename') ? undefined : EntPrenameFromJSON(json['edgesOfPrename']),
     };
 }
 
@@ -101,11 +101,11 @@ export function EntDoctorinfoEdgesToJSON(value?: EntDoctorinfoEdges | null): any
     }
     return {
         
-        'EdgesOfDepartment': EntDepartmentToJSON(value.edgesOfDepartment),
-        'EdgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
-        'EdgesOfEducationlevel': EntEducationlevelToJSON(value.edgesOfEducationlevel),
-        'EdgesOfOfficeroom': EntOfficeroomToJSON(value.edgesOfOfficeroom),
-        'EdgesOfPrename': EntPrenameToJSON(value.edgesOfPrename),
+        'edgesOfDepartment': EntDepartmentToJSON(value.edgesOfDepartment),
+        'edgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
+        'edgesOfEducationlevel': EntEducationlevelToJSON(value.edgesOfEducationlevel),
+        'edgesOfOfficeroom': EntOfficeroomToJSON(value.edgesOfOfficeroom),
+        'edgesOfPrename': EntPrenameToJSON(value.edgesOfPrename),
     };
 }
 

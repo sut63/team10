@@ -94,10 +94,10 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'edgesOfDoctor': !exists(json, 'EdgesOfDoctor') ? undefined : EntDoctorFromJSON(json['EdgesOfDoctor']),
-        'edgesOfFinancier': !exists(json, 'EdgesOfFinancier') ? undefined : EntFinancierFromJSON(json['EdgesOfFinancier']),
-        'edgesOfMedicalrecordstaff': !exists(json, 'EdgesOfMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['EdgesOfMedicalrecordstaff']),
-        'edgesOfNurse': !exists(json, 'EdgesOfNurse') ? undefined : EntNurseFromJSON(json['EdgesOfNurse']),
+        'edgesOfDoctor': !exists(json, 'edgesOfDoctor') ? undefined : EntDoctorFromJSON(json['edgesOfDoctor']),
+        'edgesOfFinancier': !exists(json, 'edgesOfFinancier') ? undefined : EntFinancierFromJSON(json['edgesOfFinancier']),
+        'edgesOfMedicalrecordstaff': !exists(json, 'edgesOfMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['edgesOfMedicalrecordstaff']),
+        'edgesOfNurse': !exists(json, 'edgesOfNurse') ? undefined : EntNurseFromJSON(json['edgesOfNurse']),
         'edgesOfUser2registrar': !exists(json, 'EdgesOfUser2registrar') ? undefined : EntRegistrarFromJSON(json['EdgesOfUser2registrar']),
         'edgesOfUserPatientrights': !exists(json, 'EdgesOfUserPatientrights') ? undefined : EntPatientrightsFromJSON(json['EdgesOfUserPatientrights']),
     };
@@ -112,10 +112,10 @@ export function EntUserEdgesToJSON(value?: EntUserEdges | null): any {
     }
     return {
         
-        'EdgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
-        'EdgesOfFinancier': EntFinancierToJSON(value.edgesOfFinancier),
-        'EdgesOfMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfMedicalrecordstaff),
-        'EdgesOfNurse': EntNurseToJSON(value.edgesOfNurse),
+        'edgesOfDoctor': EntDoctorToJSON(value.edgesOfDoctor),
+        'edgesOfFinancier': EntFinancierToJSON(value.edgesOfFinancier),
+        'edgesOfMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfMedicalrecordstaff),
+        'edgesOfNurse': EntNurseToJSON(value.edgesOfNurse),
         'EdgesOfUser2registrar': EntRegistrarToJSON(value.edgesOfUser2registrar),
         'EdgesOfUserPatientrights': EntPatientrightsToJSON(value.edgesOfUserPatientrights),
     };

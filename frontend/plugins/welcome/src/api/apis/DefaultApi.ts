@@ -411,11 +411,6 @@ export interface ListPatientrecordRequest {
     offset?: number;
 }
 
-export interface ListPatientrightsRequest {
-    limit?: number;
-    offset?: number;
-}
-
 export interface ListPrenameRequest {
     limit?: number;
     offset?: number;
@@ -2940,16 +2935,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list patientrights entities
      * List patientrights entities
      */
-    async listPatientrightsRaw(requestParameters: ListPatientrightsRequest): Promise<runtime.ApiResponse<Array<EntPatientrights>>> {
+    async listPatientrightsRaw(): Promise<runtime.ApiResponse<Array<EntPatientrights>>> {
         const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -2967,8 +2954,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list patientrights entities
      * List patientrights entities
      */
-    async listPatientrights(requestParameters: ListPatientrightsRequest): Promise<Array<EntPatientrights>> {
-        const response = await this.listPatientrightsRaw(requestParameters);
+    async listPatientrights(): Promise<Array<EntPatientrights>> {
+        const response = await this.listPatientrightsRaw();
         return await response.value();
     }
 
