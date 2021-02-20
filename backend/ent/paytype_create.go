@@ -20,7 +20,7 @@ type PaytypeCreate struct {
 	hooks    []Hook
 }
 
-// SetPaytype sets the paytype field.
+// SetPaytype sets the Paytype field.
 func (pc *PaytypeCreate) SetPaytype(s string) *PaytypeCreate {
 	pc.mutation.SetPaytype(s)
 	return pc
@@ -49,11 +49,11 @@ func (pc *PaytypeCreate) Mutation() *PaytypeMutation {
 // Save creates the Paytype in the database.
 func (pc *PaytypeCreate) Save(ctx context.Context) (*Paytype, error) {
 	if _, ok := pc.mutation.Paytype(); !ok {
-		return nil, &ValidationError{Name: "paytype", err: errors.New("ent: missing required field \"paytype\"")}
+		return nil, &ValidationError{Name: "Paytype", err: errors.New("ent: missing required field \"Paytype\"")}
 	}
 	if v, ok := pc.mutation.Paytype(); ok {
 		if err := paytype.PaytypeValidator(v); err != nil {
-			return nil, &ValidationError{Name: "paytype", err: fmt.Errorf("ent: validator failed for field \"paytype\": %w", err)}
+			return nil, &ValidationError{Name: "Paytype", err: fmt.Errorf("ent: validator failed for field \"Paytype\": %w", err)}
 		}
 	}
 	var (

@@ -4339,7 +4339,7 @@ var doc = `{
                 "financier": {
                     "type": "integer"
                 },
-                "payer": {
+                "note": {
                     "type": "string"
                 },
                 "payercontact": {
@@ -4604,8 +4604,8 @@ var doc = `{
                     "description": "Date holds the value of the \"Date\" field.",
                     "type": "string"
                 },
-                "Payer": {
-                    "description": "Payer holds the value of the \"Payer\" field.",
+                "Note": {
+                    "description": "Note holds the value of the \"Note\" field.",
                     "type": "string"
                 },
                 "Payercontact": {
@@ -4739,7 +4739,7 @@ var doc = `{
                         "$ref": "#/definitions/ent.Treatment"
                     }
                 },
-                "EdgesOfUser": {
+                "edgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -4839,6 +4839,10 @@ var doc = `{
         "ent.Financier": {
             "type": "object",
             "properties": {
+                "Name": {
+                    "description": "Name holds the value of the \"Name\" field.",
+                    "type": "string"
+                },
                 "edges": {
                     "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the FinancierQuery when eager-loading is set.",
                     "type": "object",
@@ -4847,10 +4851,6 @@ var doc = `{
                 "id": {
                     "description": "ID of the ent.",
                     "type": "integer"
-                },
-                "name": {
-                    "description": "Name holds the value of the \"name\" field.",
-                    "type": "string"
                 }
             }
         },
@@ -4864,7 +4864,7 @@ var doc = `{
                         "$ref": "#/definitions/ent.Bill"
                     }
                 },
-                "EdgesOfUser": {
+                "edgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -5041,7 +5041,7 @@ var doc = `{
                         "$ref": "#/definitions/ent.Patientrecord"
                     }
                 },
-                "EdgesOfUser": {
+                "edgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -5084,7 +5084,7 @@ var doc = `{
                         "$ref": "#/definitions/ent.Historytaking"
                     }
                 },
-                "EdgesOfUser": {
+                "edgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -5281,6 +5281,10 @@ var doc = `{
         "ent.Paytype": {
             "type": "object",
             "properties": {
+                "Paytype": {
+                    "description": "Paytype holds the value of the \"Paytype\" field.",
+                    "type": "string"
+                },
                 "edges": {
                     "description": "Edges holds the relations/edges for other nodes in the graph.\nThe values are being populated by the PaytypeQuery when eager-loading is set.",
                     "type": "object",
@@ -5289,10 +5293,6 @@ var doc = `{
                 "id": {
                     "description": "ID of the ent.",
                     "type": "integer"
-                },
-                "paytype": {
-                    "description": "Paytype holds the value of the \"paytype\" field.",
-                    "type": "string"
                 }
             }
         },
@@ -5366,7 +5366,7 @@ var doc = `{
         "ent.RegistrarEdges": {
             "type": "object",
             "properties": {
-                "EdgesOfUser": {
+                "edgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -5570,12 +5570,12 @@ var doc = `{
                     "type": "object",
                     "$ref": "#/definitions/ent.Nurse"
                 },
-                "EdgesOfUser2registrar": {
+                "edgesOfUser2registrar": {
                     "description": "EdgesOfUser2registrar holds the value of the EdgesOfUser2registrar edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Registrar"
                 },
-                "EdgesOfUserPatientrights": {
+                "edgesOfUserPatientrights": {
                     "description": "EdgesOfUserPatientrights holds the value of the EdgesOfUserPatientrights edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Patientrights"

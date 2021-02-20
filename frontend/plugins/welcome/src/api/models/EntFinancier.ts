@@ -27,6 +27,12 @@ import {
  */
 export interface EntFinancier {
     /**
+     * Name holds the value of the "Name" field.
+     * @type {string}
+     * @memberof EntFinancier
+     */
+    name?: string;
+    /**
      * 
      * @type {EntFinancierEdges}
      * @memberof EntFinancier
@@ -38,12 +44,6 @@ export interface EntFinancier {
      * @memberof EntFinancier
      */
     id?: number;
-    /**
-     * Name holds the value of the "name" field.
-     * @type {string}
-     * @memberof EntFinancier
-     */
-    name?: string;
 }
 
 export function EntFinancierFromJSON(json: any): EntFinancier {
@@ -56,9 +56,9 @@ export function EntFinancierFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
+        'name': !exists(json, 'Name') ? undefined : json['Name'],
         'edges': !exists(json, 'edges') ? undefined : EntFinancierEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
     };
 }
 
@@ -71,9 +71,9 @@ export function EntFinancierToJSON(value?: EntFinancier | null): any {
     }
     return {
         
+        'Name': value.name,
         'edges': EntFinancierEdgesToJSON(value.edges),
         'id': value.id,
-        'name': value.name,
     };
 }
 

@@ -15,8 +15,8 @@ type Paytype struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
-	// Paytype holds the value of the "paytype" field.
-	Paytype string `json:"paytype,omitempty"`
+	// Paytype holds the value of the "Paytype" field.
+	Paytype string `json:"Paytype,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
 	// The values are being populated by the PaytypeQuery when eager-loading is set.
 	Edges PaytypeEdges `json:"edges"`
@@ -44,7 +44,7 @@ func (e PaytypeEdges) EdgesOfBillsOrErr() ([]*Bill, error) {
 func (*Paytype) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullString{}, // paytype
+		&sql.NullString{}, // Paytype
 	}
 }
 
@@ -61,7 +61,7 @@ func (pa *Paytype) assignValues(values ...interface{}) error {
 	pa.ID = int(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field paytype", values[0])
+		return fmt.Errorf("unexpected type %T for field Paytype", values[0])
 	} else if value.Valid {
 		pa.Paytype = value.String
 	}
@@ -96,7 +96,7 @@ func (pa *Paytype) String() string {
 	var builder strings.Builder
 	builder.WriteString("Paytype(")
 	builder.WriteString(fmt.Sprintf("id=%v", pa.ID))
-	builder.WriteString(", paytype=")
+	builder.WriteString(", Paytype=")
 	builder.WriteString(pa.Paytype)
 	builder.WriteByte(')')
 	return builder.String()

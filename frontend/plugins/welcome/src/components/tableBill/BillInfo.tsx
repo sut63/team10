@@ -74,8 +74,9 @@ export default function MoreInfo( id : any) {
                         ยาที่จ่าย : &emsp;{bill.edges?.edgesOfUnpaybill?.edges?.edgesOfTreatment?.medicine}<br/>
                         ค่ารักษาทั้งหมด : &emsp;{bill.amount}<br/>
                         รูปแบบการชำระ : &emsp;{bill.edges?.edgesOfPaytype?.paytype}&emsp;
-                        ผู้จ่ายเงิน : &emsp;{bill.payer}<br/>
+                        
                         เบอร์ติดต่อผู้จ่าย : &emsp;{bill.payercontact}<br/>
+                        หมายเหตุ : &emsp;{bill.note}<br/>
                         วันเวลาที่จ่าย : &emsp;{bill.date}<br/>
                         ผู้รับเงิน : &emsp;{bill.edges?.edgesOfOfficer?.name}<br/>
                     </Typography>

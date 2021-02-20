@@ -31,6 +31,6 @@ var Columns = []string{
 }
 
 var (
-	// PaytypeValidator is a validator for the "paytype" field. It is called by the builders before save.
+	// PaytypeValidator is a validator for the "Paytype" field. It is called by the builders before save.
 	PaytypeValidator func(string) error
 )

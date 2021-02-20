@@ -98,8 +98,13 @@ export function EntUserEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'edgesOfFinancier': !exists(json, 'edgesOfFinancier') ? undefined : EntFinancierFromJSON(json['edgesOfFinancier']),
         'edgesOfMedicalrecordstaff': !exists(json, 'edgesOfMedicalrecordstaff') ? undefined : EntMedicalrecordstaffFromJSON(json['edgesOfMedicalrecordstaff']),
         'edgesOfNurse': !exists(json, 'edgesOfNurse') ? undefined : EntNurseFromJSON(json['edgesOfNurse']),
+<<<<<<< HEAD
         'edgesOfUser2registrar': !exists(json, 'EdgesOfUser2registrar') ? undefined : EntRegistrarFromJSON(json['EdgesOfUser2registrar']),
         'edgesOfUserPatientrights': !exists(json, 'EdgesOfUserPatientrights') ? undefined : EntPatientrightsFromJSON(json['EdgesOfUserPatientrights']),
+=======
+        'edgesOfUser2registrar': !exists(json, 'edgesOfUser2registrar') ? undefined : EntRegistrarFromJSON(json['edgesOfUser2registrar']),
+        'edgesOfUserPatientrights': !exists(json, 'edgesOfUserPatientrights') ? undefined : EntPatientrightsFromJSON(json['edgesOfUserPatientrights']),
+>>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 
@@ -116,8 +121,13 @@ export function EntUserEdgesToJSON(value?: EntUserEdges | null): any {
         'edgesOfFinancier': EntFinancierToJSON(value.edgesOfFinancier),
         'edgesOfMedicalrecordstaff': EntMedicalrecordstaffToJSON(value.edgesOfMedicalrecordstaff),
         'edgesOfNurse': EntNurseToJSON(value.edgesOfNurse),
+<<<<<<< HEAD
         'EdgesOfUser2registrar': EntRegistrarToJSON(value.edgesOfUser2registrar),
         'EdgesOfUserPatientrights': EntPatientrightsToJSON(value.edgesOfUserPatientrights),
+=======
+        'edgesOfUser2registrar': EntRegistrarToJSON(value.edgesOfUser2registrar),
+        'edgesOfUserPatientrights': EntPatientrightsToJSON(value.edgesOfUserPatientrights),
+>>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 

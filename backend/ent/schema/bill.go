@@ -23,13 +23,7 @@ func (Bill) Fields() []ent.Field {
 			}
 			return nil
 		}),
-		field.String("Payer").NotEmpty().
-		Validate(func(s string) error {
-			if (strings.ContainsAny(s,"1234567890")) {
-				return errors.New("Payer name can not have number init")
-			}
-			return nil
-		}),
+		
 		field.String("Payercontact").NotEmpty().MinLen(10).MaxLen(10).
 		Validate(func(s string) error {
 			match, _ := regexp.MatchString("[0]\\d",s)  
@@ -38,7 +32,15 @@ func (Bill) Fields() []ent.Field {
 			}
 			return nil
 		}),
-		
+
+		field.String("Note").NotEmpty().
+		Validate(func(s string) error {
+			if (strings.ContainsAny(s,"*+=/")) {
+				return errors.New("Note can not have symbol")
+			}
+			return nil
+		}),
+
 		field.Time("Date"),
 	}
 }

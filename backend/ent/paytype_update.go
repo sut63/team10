@@ -28,7 +28,7 @@ func (pu *PaytypeUpdate) Where(ps ...predicate.Paytype) *PaytypeUpdate {
 	return pu
 }
 
-// SetPaytype sets the paytype field.
+// SetPaytype sets the Paytype field.
 func (pu *PaytypeUpdate) SetPaytype(s string) *PaytypeUpdate {
 	pu.mutation.SetPaytype(s)
 	return pu
@@ -73,7 +73,7 @@ func (pu *PaytypeUpdate) RemoveEdgesOfBills(b ...*Bill) *PaytypeUpdate {
 func (pu *PaytypeUpdate) Save(ctx context.Context) (int, error) {
 	if v, ok := pu.mutation.Paytype(); ok {
 		if err := paytype.PaytypeValidator(v); err != nil {
-			return 0, &ValidationError{Name: "paytype", err: fmt.Errorf("ent: validator failed for field \"paytype\": %w", err)}
+			return 0, &ValidationError{Name: "Paytype", err: fmt.Errorf("ent: validator failed for field \"Paytype\": %w", err)}
 		}
 	}
 
@@ -207,7 +207,7 @@ type PaytypeUpdateOne struct {
 	mutation *PaytypeMutation
 }
 
-// SetPaytype sets the paytype field.
+// SetPaytype sets the Paytype field.
 func (puo *PaytypeUpdateOne) SetPaytype(s string) *PaytypeUpdateOne {
 	puo.mutation.SetPaytype(s)
 	return puo
@@ -252,7 +252,7 @@ func (puo *PaytypeUpdateOne) RemoveEdgesOfBills(b ...*Bill) *PaytypeUpdateOne {
 func (puo *PaytypeUpdateOne) Save(ctx context.Context) (*Paytype, error) {
 	if v, ok := puo.mutation.Paytype(); ok {
 		if err := paytype.PaytypeValidator(v); err != nil {
-			return nil, &ValidationError{Name: "paytype", err: fmt.Errorf("ent: validator failed for field \"paytype\": %w", err)}
+			return nil, &ValidationError{Name: "Paytype", err: fmt.Errorf("ent: validator failed for field \"Paytype\": %w", err)}
 		}
 	}
 

@@ -66,7 +66,11 @@ export function EntDoctorEdgesFromJSONTyped(json: any, ignoreDiscriminator: bool
         
         'edgesOfDoctorinfo': !exists(json, 'edgesOfDoctorinfo') ? undefined : EntDoctorinfoFromJSON(json['edgesOfDoctorinfo']),
         'edgesOfTreatment': !exists(json, 'edgesOfTreatment') ? undefined : ((json['edgesOfTreatment'] as Array<any>).map(EntTreatmentFromJSON)),
+<<<<<<< HEAD
         'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
+=======
+        'edgesOfUser': !exists(json, 'edgesOfUser') ? undefined : EntUserFromJSON(json['edgesOfUser']),
+>>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 
@@ -81,7 +85,11 @@ export function EntDoctorEdgesToJSON(value?: EntDoctorEdges | null): any {
         
         'edgesOfDoctorinfo': EntDoctorinfoToJSON(value.edgesOfDoctorinfo),
         'edgesOfTreatment': value.edgesOfTreatment === undefined ? undefined : ((value.edgesOfTreatment as Array<any>).map(EntTreatmentToJSON)),
+<<<<<<< HEAD
         'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
+=======
+        'edgesOfUser': EntUserToJSON(value.edgesOfUser),
+>>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 

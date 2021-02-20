@@ -14,7 +14,7 @@ type Paytype struct {
 // Fields of the Paytype.
 func (Paytype) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("paytype").NotEmpty().Unique(),
+		field.String("Paytype").NotEmpty().Unique(),
 	}
 }
 

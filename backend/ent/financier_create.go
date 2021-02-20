@@ -21,7 +21,7 @@ type FinancierCreate struct {
 	hooks    []Hook
 }
 
-// SetName sets the name field.
+// SetName sets the Name field.
 func (fc *FinancierCreate) SetName(s string) *FinancierCreate {
 	fc.mutation.SetName(s)
 	return fc
@@ -69,11 +69,11 @@ func (fc *FinancierCreate) Mutation() *FinancierMutation {
 // Save creates the Financier in the database.
 func (fc *FinancierCreate) Save(ctx context.Context) (*Financier, error) {
 	if _, ok := fc.mutation.Name(); !ok {
-		return nil, &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
+		return nil, &ValidationError{Name: "Name", err: errors.New("ent: missing required field \"Name\"")}
 	}
 	if v, ok := fc.mutation.Name(); ok {
 		if err := financier.NameValidator(v); err != nil {
-			return nil, &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
+			return nil, &ValidationError{Name: "Name", err: fmt.Errorf("ent: validator failed for field \"Name\": %w", err)}
 		}
 	}
 	var (

@@ -105,26 +105,8 @@ func init() {
 	billDescAmount := billFields[0].Descriptor()
 	// bill.AmountValidator is a validator for the "Amount" field. It is called by the builders before save.
 	bill.AmountValidator = billDescAmount.Validators[0].(func(int) error)
-	// billDescPayer is the schema descriptor for Payer field.
-	billDescPayer := billFields[1].Descriptor()
-	// bill.PayerValidator is a validator for the "Payer" field. It is called by the builders before save.
-	bill.PayerValidator = func() func(string) error {
-		validators := billDescPayer.Validators
-		fns := [...]func(string) error{
-			validators[0].(func(string) error),
-			validators[1].(func(string) error),
-		}
-		return func(_Payer string) error {
-			for _, fn := range fns {
-				if err := fn(_Payer); err != nil {
-					return err
-				}
-			}
-			return nil
-		}
-	}()
 	// billDescPayercontact is the schema descriptor for Payercontact field.
-	billDescPayercontact := billFields[2].Descriptor()
+	billDescPayercontact := billFields[1].Descriptor()
 	// bill.PayercontactValidator is a validator for the "Payercontact" field. It is called by the builders before save.
 	bill.PayercontactValidator = func() func(string) error {
 		validators := billDescPayercontact.Validators
@@ -137,6 +119,24 @@ func init() {
 		return func(_Payercontact string) error {
 			for _, fn := range fns {
 				if err := fn(_Payercontact); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
+	// billDescNote is the schema descriptor for Note field.
+	billDescNote := billFields[2].Descriptor()
+	// bill.NoteValidator is a validator for the "Note" field. It is called by the builders before save.
+	bill.NoteValidator = func() func(string) error {
+		validators := billDescNote.Validators
+		fns := [...]func(string) error{
+			validators[0].(func(string) error),
+			validators[1].(func(string) error),
+		}
+		return func(_Note string) error {
+			for _, fn := range fns {
+				if err := fn(_Note); err != nil {
 					return err
 				}
 			}
@@ -235,9 +235,9 @@ func init() {
 	educationlevel.LevelValidator = educationlevelDescLevel.Validators[0].(func(string) error)
 	financierFields := schema.Financier{}.Fields()
 	_ = financierFields
-	// financierDescName is the schema descriptor for name field.
+	// financierDescName is the schema descriptor for Name field.
 	financierDescName := financierFields[0].Descriptor()
-	// financier.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	// financier.NameValidator is a validator for the "Name" field. It is called by the builders before save.
 	financier.NameValidator = financierDescName.Validators[0].(func(string) error)
 	officeroomFields := schema.Officeroom{}.Fields()
 	_ = officeroomFields
@@ -423,9 +423,9 @@ func init() {
 	}()
 	paytypeFields := schema.Paytype{}.Fields()
 	_ = paytypeFields
-	// paytypeDescPaytype is the schema descriptor for paytype field.
+	// paytypeDescPaytype is the schema descriptor for Paytype field.
 	paytypeDescPaytype := paytypeFields[0].Descriptor()
-	// paytype.PaytypeValidator is a validator for the "paytype" field. It is called by the builders before save.
+	// paytype.PaytypeValidator is a validator for the "Paytype" field. It is called by the builders before save.
 	paytype.PaytypeValidator = paytypeDescPaytype.Validators[0].(func(string) error)
 	prenameFields := schema.Prename{}.Fields()
 	_ = prenameFields

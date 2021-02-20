@@ -6,7 +6,7 @@ definitions:
         type: string
       financier:
         type: integer
-      payer:
+      note:
         type: string
       payercontact:
         type: string
@@ -186,8 +186,8 @@ definitions:
       Date:
         description: Date holds the value of the "Date" field.
         type: string
-      Payer:
-        description: Payer holds the value of the "Payer" field.
+      Note:
+        description: Note holds the value of the "Note" field.
         type: string
       Payercontact:
         description: Payercontact holds the value of the "Payercontact" field.
@@ -294,7 +294,7 @@ definitions:
         items:
           $ref: '#/definitions/ent.Treatment'
         type: array
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -373,6 +373,9 @@ definitions:
     type: object
   ent.Financier:
     properties:
+      Name:
+        description: Name holds the value of the "Name" field.
+        type: string
       edges:
         $ref: '#/definitions/ent.FinancierEdges'
         description: |-
@@ -382,9 +385,6 @@ definitions:
       id:
         description: ID of the ent.
         type: integer
-      name:
-        description: Name holds the value of the "name" field.
-        type: string
     type: object
   ent.FinancierEdges:
     properties:
@@ -393,7 +393,7 @@ definitions:
         items:
           $ref: '#/definitions/ent.Bill'
         type: array
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -535,7 +535,7 @@ definitions:
         items:
           $ref: '#/definitions/ent.Patientrecord'
         type: array
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -569,7 +569,7 @@ definitions:
         items:
           $ref: '#/definitions/ent.Historytaking'
         type: array
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -727,6 +727,9 @@ definitions:
     type: object
   ent.Paytype:
     properties:
+      Paytype:
+        description: Paytype holds the value of the "Paytype" field.
+        type: string
       edges:
         $ref: '#/definitions/ent.PaytypeEdges'
         description: |-
@@ -736,9 +739,6 @@ definitions:
       id:
         description: ID of the ent.
         type: integer
-      paytype:
-        description: Paytype holds the value of the "paytype" field.
-        type: string
     type: object
   ent.PaytypeEdges:
     properties:
@@ -795,7 +795,7 @@ definitions:
     type: object
   ent.RegistrarEdges:
     properties:
-      EdgesOfUser:
+      edgesOfUser:
         $ref: '#/definitions/ent.User'
         description: EdgesOfUser holds the value of the EdgesOfUser edge.
         type: object
@@ -958,12 +958,12 @@ definitions:
         $ref: '#/definitions/ent.Nurse'
         description: EdgesOfNurse holds the value of the EdgesOfNurse edge.
         type: object
-      EdgesOfUser2registrar:
+      edgesOfUser2registrar:
         $ref: '#/definitions/ent.Registrar'
         description: EdgesOfUser2registrar holds the value of the EdgesOfUser2registrar
           edge.
         type: object
-      EdgesOfUserPatientrights:
+      edgesOfUserPatientrights:
         $ref: '#/definitions/ent.Patientrights'
         description: EdgesOfUserPatientrights holds the value of the EdgesOfUserPatientrights
           edge.

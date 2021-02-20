@@ -91,28 +91,28 @@ func IDLTE(id int) predicate.Paytype {
 	})
 }
 
-// Paytype applies equality check predicate on the "paytype" field. It's identical to PaytypeEQ.
+// Paytype applies equality check predicate on the "Paytype" field. It's identical to PaytypeEQ.
 func Paytype(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeEQ applies the EQ predicate on the "paytype" field.
+// PaytypeEQ applies the EQ predicate on the "Paytype" field.
 func PaytypeEQ(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeNEQ applies the NEQ predicate on the "paytype" field.
+// PaytypeNEQ applies the NEQ predicate on the "Paytype" field.
 func PaytypeNEQ(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeIn applies the In predicate on the "paytype" field.
+// PaytypeIn applies the In predicate on the "Paytype" field.
 func PaytypeIn(vs ...string) predicate.Paytype {
 	v := make([]interface{}, len(vs))
 	for i := range v {
@@ -129,7 +129,7 @@ func PaytypeIn(vs ...string) predicate.Paytype {
 	})
 }
 
-// PaytypeNotIn applies the NotIn predicate on the "paytype" field.
+// PaytypeNotIn applies the NotIn predicate on the "Paytype" field.
 func PaytypeNotIn(vs ...string) predicate.Paytype {
 	v := make([]interface{}, len(vs))
 	for i := range v {
@@ -146,63 +146,63 @@ func PaytypeNotIn(vs ...string) predicate.Paytype {
 	})
 }
 
-// PaytypeGT applies the GT predicate on the "paytype" field.
+// PaytypeGT applies the GT predicate on the "Paytype" field.
 func PaytypeGT(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeGTE applies the GTE predicate on the "paytype" field.
+// PaytypeGTE applies the GTE predicate on the "Paytype" field.
 func PaytypeGTE(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeLT applies the LT predicate on the "paytype" field.
+// PaytypeLT applies the LT predicate on the "Paytype" field.
 func PaytypeLT(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeLTE applies the LTE predicate on the "paytype" field.
+// PaytypeLTE applies the LTE predicate on the "Paytype" field.
 func PaytypeLTE(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeContains applies the Contains predicate on the "paytype" field.
+// PaytypeContains applies the Contains predicate on the "Paytype" field.
 func PaytypeContains(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.Contains(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeHasPrefix applies the HasPrefix predicate on the "paytype" field.
+// PaytypeHasPrefix applies the HasPrefix predicate on the "Paytype" field.
 func PaytypeHasPrefix(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.HasPrefix(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeHasSuffix applies the HasSuffix predicate on the "paytype" field.
+// PaytypeHasSuffix applies the HasSuffix predicate on the "Paytype" field.
 func PaytypeHasSuffix(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeEqualFold applies the EqualFold predicate on the "paytype" field.
+// PaytypeEqualFold applies the EqualFold predicate on the "Paytype" field.
 func PaytypeEqualFold(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.EqualFold(s.C(FieldPaytype), v))
 	})
 }
 
-// PaytypeContainsFold applies the ContainsFold predicate on the "paytype" field.
+// PaytypeContainsFold applies the ContainsFold predicate on the "Paytype" field.
 func PaytypeContainsFold(v string) predicate.Paytype {
 	return predicate.Paytype(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldPaytype), v))
