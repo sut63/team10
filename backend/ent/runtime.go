@@ -81,6 +81,24 @@ func init() {
 			return nil
 		}
 	}()
+	// abilitypatientrightsDescStayInHospital is the schema descriptor for StayInHospital field.
+	abilitypatientrightsDescStayInHospital := abilitypatientrightsFields[3].Descriptor()
+	// abilitypatientrights.StayInHospitalValidator is a validator for the "StayInHospital" field. It is called by the builders before save.
+	abilitypatientrights.StayInHospitalValidator = func() func(int) error {
+		validators := abilitypatientrightsDescStayInHospital.Validators
+		fns := [...]func(int) error{
+			validators[0].(func(int) error),
+			validators[1].(func(int) error),
+		}
+		return func(_StayInHospital int) error {
+			for _, fn := range fns {
+				if err := fn(_StayInHospital); err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}()
 	billFields := schema.Bill{}.Fields()
 	_ = billFields
 	// billDescAmount is the schema descriptor for Amount field.

@@ -21,6 +21,8 @@ type Abilitypatientrights struct {
 	MedicalSupplies int `json:"MedicalSupplies,omitempty"`
 	// Examine holds the value of the "Examine" field.
 	Examine int `json:"Examine,omitempty"`
+	// StayInHospital holds the value of the "StayInHospital" field.
+	StayInHospital int `json:"StayInHospital,omitempty"`
 	// Check holds the value of the "check" field.
 	Check string `json:"check,omitempty"`
 	// Edges holds the relations/edges for other nodes in the graph.
@@ -53,6 +55,7 @@ func (*Abilitypatientrights) scanValues() []interface{} {
 		&sql.NullInt64{},  // Operative
 		&sql.NullInt64{},  // MedicalSupplies
 		&sql.NullInt64{},  // Examine
+		&sql.NullInt64{},  // StayInHospital
 		&sql.NullString{}, // check
 	}
 }
@@ -84,8 +87,13 @@ func (a *Abilitypatientrights) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		a.Examine = int(value.Int64)
 	}
-	if value, ok := values[3].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field check", values[3])
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field StayInHospital", values[3])
+	} else if value.Valid {
+		a.StayInHospital = int(value.Int64)
+	}
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field check", values[4])
 	} else if value.Valid {
 		a.Check = value.String
 	}
@@ -126,6 +134,8 @@ func (a *Abilitypatientrights) String() string {
 	builder.WriteString(fmt.Sprintf("%v", a.MedicalSupplies))
 	builder.WriteString(", Examine=")
 	builder.WriteString(fmt.Sprintf("%v", a.Examine))
+	builder.WriteString(", StayInHospital=")
+	builder.WriteString(fmt.Sprintf("%v", a.StayInHospital))
 	builder.WriteString(", check=")
 	builder.WriteString(a.Check)
 	builder.WriteByte(')')

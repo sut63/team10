@@ -86,6 +86,8 @@ type AbilitypatientrightsMutation struct {
 	add_MedicalSupplies                              *int
 	_Examine                                         *int
 	add_Examine                                      *int
+	_StayInHospital                                  *int
+	add_StayInHospital                               *int
 	check                                            *string
 	clearedFields                                    map[string]struct{}
 	_EdgesOfAbilitypatientrightsPatientrights        map[int]struct{}
@@ -344,6 +346,63 @@ func (m *AbilitypatientrightsMutation) ResetExamine() {
 	m.add_Examine = nil
 }
 
+// SetStayInHospital sets the StayInHospital field.
+func (m *AbilitypatientrightsMutation) SetStayInHospital(i int) {
+	m._StayInHospital = &i
+	m.add_StayInHospital = nil
+}
+
+// StayInHospital returns the StayInHospital value in the mutation.
+func (m *AbilitypatientrightsMutation) StayInHospital() (r int, exists bool) {
+	v := m._StayInHospital
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStayInHospital returns the old StayInHospital value of the Abilitypatientrights.
+// If the Abilitypatientrights object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbilitypatientrightsMutation) OldStayInHospital(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStayInHospital is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStayInHospital requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStayInHospital: %w", err)
+	}
+	return oldValue.StayInHospital, nil
+}
+
+// AddStayInHospital adds i to StayInHospital.
+func (m *AbilitypatientrightsMutation) AddStayInHospital(i int) {
+	if m.add_StayInHospital != nil {
+		*m.add_StayInHospital += i
+	} else {
+		m.add_StayInHospital = &i
+	}
+}
+
+// AddedStayInHospital returns the value that was added to the StayInHospital field in this mutation.
+func (m *AbilitypatientrightsMutation) AddedStayInHospital() (r int, exists bool) {
+	v := m.add_StayInHospital
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetStayInHospital reset all changes of the "StayInHospital" field.
+func (m *AbilitypatientrightsMutation) ResetStayInHospital() {
+	m._StayInHospital = nil
+	m.add_StayInHospital = nil
+}
+
 // SetCheck sets the check field.
 func (m *AbilitypatientrightsMutation) SetCheck(s string) {
 	m.check = &s
@@ -437,7 +496,7 @@ func (m *AbilitypatientrightsMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *AbilitypatientrightsMutation) Fields() []string {
-	fields := make([]string, 0, 4)
+	fields := make([]string, 0, 5)
 	if m._Operative != nil {
 		fields = append(fields, abilitypatientrights.FieldOperative)
 	}
@@ -446,6 +505,9 @@ func (m *AbilitypatientrightsMutation) Fields() []string {
 	}
 	if m._Examine != nil {
 		fields = append(fields, abilitypatientrights.FieldExamine)
+	}
+	if m._StayInHospital != nil {
+		fields = append(fields, abilitypatientrights.FieldStayInHospital)
 	}
 	if m.check != nil {
 		fields = append(fields, abilitypatientrights.FieldCheck)
@@ -464,6 +526,8 @@ func (m *AbilitypatientrightsMutation) Field(name string) (ent.Value, bool) {
 		return m.MedicalSupplies()
 	case abilitypatientrights.FieldExamine:
 		return m.Examine()
+	case abilitypatientrights.FieldStayInHospital:
+		return m.StayInHospital()
 	case abilitypatientrights.FieldCheck:
 		return m.Check()
 	}
@@ -481,6 +545,8 @@ func (m *AbilitypatientrightsMutation) OldField(ctx context.Context, name string
 		return m.OldMedicalSupplies(ctx)
 	case abilitypatientrights.FieldExamine:
 		return m.OldExamine(ctx)
+	case abilitypatientrights.FieldStayInHospital:
+		return m.OldStayInHospital(ctx)
 	case abilitypatientrights.FieldCheck:
 		return m.OldCheck(ctx)
 	}
@@ -513,6 +579,13 @@ func (m *AbilitypatientrightsMutation) SetField(name string, value ent.Value) er
 		}
 		m.SetExamine(v)
 		return nil
+	case abilitypatientrights.FieldStayInHospital:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStayInHospital(v)
+		return nil
 	case abilitypatientrights.FieldCheck:
 		v, ok := value.(string)
 		if !ok {
@@ -537,6 +610,9 @@ func (m *AbilitypatientrightsMutation) AddedFields() []string {
 	if m.add_Examine != nil {
 		fields = append(fields, abilitypatientrights.FieldExamine)
 	}
+	if m.add_StayInHospital != nil {
+		fields = append(fields, abilitypatientrights.FieldStayInHospital)
+	}
 	return fields
 }
 
@@ -551,6 +627,8 @@ func (m *AbilitypatientrightsMutation) AddedField(name string) (ent.Value, bool)
 		return m.AddedMedicalSupplies()
 	case abilitypatientrights.FieldExamine:
 		return m.AddedExamine()
+	case abilitypatientrights.FieldStayInHospital:
+		return m.AddedStayInHospital()
 	}
 	return nil, false
 }
@@ -580,6 +658,13 @@ func (m *AbilitypatientrightsMutation) AddField(name string, value ent.Value) er
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddExamine(v)
+		return nil
+	case abilitypatientrights.FieldStayInHospital:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStayInHospital(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Abilitypatientrights numeric field %s", name)
@@ -617,6 +702,9 @@ func (m *AbilitypatientrightsMutation) ResetField(name string) error {
 		return nil
 	case abilitypatientrights.FieldExamine:
 		m.ResetExamine()
+		return nil
+	case abilitypatientrights.FieldStayInHospital:
+		m.ResetStayInHospital()
 		return nil
 	case abilitypatientrights.FieldCheck:
 		m.ResetCheck()
@@ -4522,7 +4610,8 @@ type HistorytakingMutation struct {
 	addrespiration                 *int
 	bp                             *int
 	addbp                          *int
-	oxygen                         *string
+	oxygen                         *int
+	addoxygen                      *int
 	symptom                        *string
 	datetime                       *time.Time
 	clearedFields                  map[string]struct{}
@@ -4960,12 +5049,13 @@ func (m *HistorytakingMutation) ResetBp() {
 }
 
 // SetOxygen sets the oxygen field.
-func (m *HistorytakingMutation) SetOxygen(s string) {
-	m.oxygen = &s
+func (m *HistorytakingMutation) SetOxygen(i int) {
+	m.oxygen = &i
+	m.addoxygen = nil
 }
 
 // Oxygen returns the oxygen value in the mutation.
-func (m *HistorytakingMutation) Oxygen() (r string, exists bool) {
+func (m *HistorytakingMutation) Oxygen() (r int, exists bool) {
 	v := m.oxygen
 	if v == nil {
 		return
@@ -4977,7 +5067,7 @@ func (m *HistorytakingMutation) Oxygen() (r string, exists bool) {
 // If the Historytaking object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *HistorytakingMutation) OldOxygen(ctx context.Context) (v string, err error) {
+func (m *HistorytakingMutation) OldOxygen(ctx context.Context) (v int, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldOxygen is allowed only on UpdateOne operations")
 	}
@@ -4991,9 +5081,28 @@ func (m *HistorytakingMutation) OldOxygen(ctx context.Context) (v string, err er
 	return oldValue.Oxygen, nil
 }
 
+// AddOxygen adds i to oxygen.
+func (m *HistorytakingMutation) AddOxygen(i int) {
+	if m.addoxygen != nil {
+		*m.addoxygen += i
+	} else {
+		m.addoxygen = &i
+	}
+}
+
+// AddedOxygen returns the value that was added to the oxygen field in this mutation.
+func (m *HistorytakingMutation) AddedOxygen() (r int, exists bool) {
+	v := m.addoxygen
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetOxygen reset all changes of the "oxygen" field.
 func (m *HistorytakingMutation) ResetOxygen() {
 	m.oxygen = nil
+	m.addoxygen = nil
 }
 
 // SetSymptom sets the symptom field.
@@ -5373,7 +5482,7 @@ func (m *HistorytakingMutation) SetField(name string, value ent.Value) error {
 		m.SetBp(v)
 		return nil
 	case historytaking.FieldOxygen:
-		v, ok := value.(string)
+		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -5419,6 +5528,9 @@ func (m *HistorytakingMutation) AddedFields() []string {
 	if m.addbp != nil {
 		fields = append(fields, historytaking.FieldBp)
 	}
+	if m.addoxygen != nil {
+		fields = append(fields, historytaking.FieldOxygen)
+	}
 	return fields
 }
 
@@ -5439,6 +5551,8 @@ func (m *HistorytakingMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedRespiration()
 	case historytaking.FieldBp:
 		return m.AddedBp()
+	case historytaking.FieldOxygen:
+		return m.AddedOxygen()
 	}
 	return nil, false
 }
@@ -5489,6 +5603,13 @@ func (m *HistorytakingMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddBp(v)
+		return nil
+	case historytaking.FieldOxygen:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddOxygen(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Historytaking numeric field %s", name)

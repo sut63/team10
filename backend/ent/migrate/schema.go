@@ -14,6 +14,7 @@ var (
 		{Name: "operative", Type: field.TypeInt},
 		{Name: "medical_supplies", Type: field.TypeInt},
 		{Name: "examine", Type: field.TypeInt},
+		{Name: "stay_in_hospital", Type: field.TypeInt},
 		{Name: "check", Type: field.TypeString, Unique: true},
 	}
 	// AbilitypatientrightsTable holds the schema information for the "abilitypatientrights" table.
@@ -217,7 +218,7 @@ var (
 		{Name: "pulse", Type: field.TypeInt},
 		{Name: "respiration", Type: field.TypeInt},
 		{Name: "bp", Type: field.TypeInt},
-		{Name: "oxygen", Type: field.TypeString},
+		{Name: "oxygen", Type: field.TypeInt},
 		{Name: "symptom", Type: field.TypeString},
 		{Name: "datetime", Type: field.TypeTime},
 		{Name: "department_id", Type: field.TypeInt, Nullable: true},

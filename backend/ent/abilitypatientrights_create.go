@@ -38,6 +38,12 @@ func (ac *AbilitypatientrightsCreate) SetExamine(i int) *AbilitypatientrightsCre
 	return ac
 }
 
+// SetStayInHospital sets the StayInHospital field.
+func (ac *AbilitypatientrightsCreate) SetStayInHospital(i int) *AbilitypatientrightsCreate {
+	ac.mutation.SetStayInHospital(i)
+	return ac
+}
+
 // SetCheck sets the check field.
 func (ac *AbilitypatientrightsCreate) SetCheck(s string) *AbilitypatientrightsCreate {
 	ac.mutation.SetCheck(s)
@@ -88,6 +94,14 @@ func (ac *AbilitypatientrightsCreate) Save(ctx context.Context) (*Abilitypatient
 	if v, ok := ac.mutation.Examine(); ok {
 		if err := abilitypatientrights.ExamineValidator(v); err != nil {
 			return nil, &ValidationError{Name: "Examine", err: fmt.Errorf("ent: validator failed for field \"Examine\": %w", err)}
+		}
+	}
+	if _, ok := ac.mutation.StayInHospital(); !ok {
+		return nil, &ValidationError{Name: "StayInHospital", err: errors.New("ent: missing required field \"StayInHospital\"")}
+	}
+	if v, ok := ac.mutation.StayInHospital(); ok {
+		if err := abilitypatientrights.StayInHospitalValidator(v); err != nil {
+			return nil, &ValidationError{Name: "StayInHospital", err: fmt.Errorf("ent: validator failed for field \"StayInHospital\": %w", err)}
 		}
 	}
 	if _, ok := ac.mutation.Check(); !ok {
@@ -176,6 +190,14 @@ func (ac *AbilitypatientrightsCreate) createSpec() (*Abilitypatientrights, *sqlg
 			Column: abilitypatientrights.FieldExamine,
 		})
 		a.Examine = value
+	}
+	if value, ok := ac.mutation.StayInHospital(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: abilitypatientrights.FieldStayInHospital,
+		})
+		a.StayInHospital = value
 	}
 	if value, ok := ac.mutation.Check(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
