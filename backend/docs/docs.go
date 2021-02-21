@@ -1208,6 +1208,46 @@ var doc = `{
                 }
             }
         },
+        "/doctorinfo": {
+            "get": {
+                "description": "search doctorinfo entities",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Search doctorinfo entities",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Key",
+                        "name": "key",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Doctorinfo"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
         "/doctorinfos": {
             "get": {
                 "description": "list doctorinfo entities",
@@ -1216,20 +1256,6 @@ var doc = `{
                 ],
                 "summary": "List doctorinfo entities",
                 "operationId": "list-doctorinfo",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",

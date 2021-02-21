@@ -169,30 +169,12 @@ func (ctl *DoctorinfoController) GetDoctorinfo(c *gin.Context) {
 // @Description list doctorinfo entities
 // @ID list-doctorinfo
 // @Produce json
-// @Param limit  query int false "Limit"
-// @Param offset query int false "Offset"
 // @Success 200 {array} ent.Doctorinfo
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /doctorinfos [get]
 func (ctl *DoctorinfoController) ListDoctorinfo(c *gin.Context) {
-	limitQuery := c.Query("limit")
-	limit := 10
-	if limitQuery != "" {
-		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
-		if err == nil {
-			limit = int(limit64)
-		}
-	}
-
-	offsetQuery := c.Query("offset")
-	offset := 0
-	if offsetQuery != "" {
-		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
-		if err == nil {
-			offset = int(offset64)
-		}
-	}
+	
 
 	doctorinfos, err := ctl.client.Doctorinfo.
 		Query().
@@ -201,8 +183,6 @@ func (ctl *DoctorinfoController) ListDoctorinfo(c *gin.Context) {
 		WithEdgesOfOfficeroom().
 		WithEdgesOfPrename().
 		WithEdgesOfDoctor().
-		Limit(limit).
-		Offset(offset).
 		All(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -243,6 +223,41 @@ func (ctl *DoctorinfoController) DeleteDoctorinfo(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{"result": fmt.Sprintf("ok deleted %v", id)})
+}
+
+
+// SearchDoctorinfo handles request to get a search of doctorinfo entities
+// @Summary Search doctorinfo entities
+// @Description search doctorinfo entities
+// @Produce json
+// @Param key  query string false "Key"
+// @Success 200 {array} ent.Doctorinfo
+// @Failure 400 {object} gin.H
+// @Failure 500 {object} gin.H
+// @Router /doctorinfo [get]
+func (  ctl *DoctorinfoController) SearchDoctorinfo(c *gin.Context) {
+	
+
+	
+	keyQuery := c.Request.URL.Query().Get("key")
+	
+	
+	
+	doctorinfos, err := ctl.client.Doctorinfo.
+		Query().
+		WithEdgesOfDepartment().
+		WithEdgesOfEducationlevel().
+		WithEdgesOfOfficeroom().
+		WithEdgesOfPrename().
+		WithEdgesOfDoctor().
+		Where(doctorinfo.LicensenumberEQ(keyQuery)).
+		All(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, doctorinfos)
 }
 
 // UpdateDoctorinfo handles PUT requests to update a doctorinfo entity
@@ -298,7 +313,9 @@ func NewDoctorinfoController(router gin.IRouter, client *ent.Client) *Doctorinfo
 // InitDoctorinfoController registers routes to the main engine
 func (ctl *DoctorinfoController) register() {
 	doctorinfos := ctl.router.Group("/doctorinfos")
+	doctorinfo := ctl.router.Group("/doctorinfo")
 
+	doctorinfo.GET("", ctl.SearchDoctorinfo)
 	doctorinfos.GET("", ctl.ListDoctorinfo)
 
 	// CRUD
