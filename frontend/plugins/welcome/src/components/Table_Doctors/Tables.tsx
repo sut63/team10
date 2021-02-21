@@ -125,8 +125,6 @@ export default function ComponentsTable(sim: any) {
                   <TableCell align="center">{item.edges.edgesOfOfficeroom.roomnumber}</TableCell>
 
 
-
-
                 </TableRow>
               ))}
           </TableBody>
