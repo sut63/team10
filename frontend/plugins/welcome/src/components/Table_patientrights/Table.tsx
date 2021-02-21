@@ -8,6 +8,7 @@ import { Cookies } from 'react-cookie/cjs';//cookie
 import { useEffect } from 'react';
 import { Avatar, TextField } from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
+import { EntPatientrights } from '../../api/models/EntPatientrights';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Alert } from '@material-ui/lab';
 import {
@@ -44,7 +45,7 @@ const Table: FC<{}> = () => {
     },
   }));
   const [Pat, setPat] = React.useState<string>();
-  const [Se, setSe] = React.useState<string>();
+  const [Se, setSe] = React.useState<EntPatientrights[]>(Array);
   const classes = useStyles();
   const [alert1, setAlert1] = React.useState(true);
   const [alert2, setAlert2] = React.useState(true);
@@ -64,10 +65,10 @@ const Table: FC<{}> = () => {
   };
   const sc = async () => {
 
-    setSe(Pat);
-    var p = await http.listPatientrecord({ limit: 100, offset: 0 })
+    var SePatientrecord = await http.listPatientrecord({ limit: 100, offset: 0 })
+    var SePatientrights = await http.patientrightsGet({ name:Pat,limit: 100, offset: 0 });
     let i = 0
-    for (let u of p) {
+    for (let u of SePatientrecord) {
       if ((u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined))
         i = i + 1
 

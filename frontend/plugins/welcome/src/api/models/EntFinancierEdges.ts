@@ -54,12 +54,8 @@ export function EntFinancierEdgesFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'edgesOfBills': !exists(json, 'edgesOfBills') ? undefined : ((json['edgesOfBills'] as Array<any>).map(EntBillFromJSON)),
-<<<<<<< HEAD
+        'edgesOfBills': !exists(json, 'EdgesOfBills') ? undefined : ((json['EdgesOfBills'] as Array<any>).map(EntBillFromJSON)),
         'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
-=======
-        'edgesOfUser': !exists(json, 'edgesOfUser') ? undefined : EntUserFromJSON(json['edgesOfUser']),
->>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 
@@ -72,12 +68,8 @@ export function EntFinancierEdgesToJSON(value?: EntFinancierEdges | null): any {
     }
     return {
         
-        'edgesOfBills': value.edgesOfBills === undefined ? undefined : ((value.edgesOfBills as Array<any>).map(EntBillToJSON)),
-<<<<<<< HEAD
+        'EdgesOfBills': value.edgesOfBills === undefined ? undefined : ((value.edgesOfBills as Array<any>).map(EntBillToJSON)),
         'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
-=======
-        'edgesOfUser': EntUserToJSON(value.edgesOfUser),
->>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 

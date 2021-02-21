@@ -64,13 +64,9 @@ export function EntMedicalrecordstaffEdgesFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'edgesOfMedicalrecordstaffPatientrights': !exists(json, 'edgesOfMedicalrecordstaffPatientrights') ? undefined : ((json['edgesOfMedicalrecordstaffPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
-        'edgesOfPatientrecord': !exists(json, 'edgesOfPatientrecord') ? undefined : ((json['edgesOfPatientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
-<<<<<<< HEAD
+        'edgesOfMedicalrecordstaffPatientrights': !exists(json, 'EdgesOfMedicalrecordstaffPatientrights') ? undefined : ((json['EdgesOfMedicalrecordstaffPatientrights'] as Array<any>).map(EntPatientrightsFromJSON)),
+        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : ((json['EdgesOfPatientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
         'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
-=======
-        'edgesOfUser': !exists(json, 'edgesOfUser') ? undefined : EntUserFromJSON(json['edgesOfUser']),
->>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 
@@ -83,13 +79,9 @@ export function EntMedicalrecordstaffEdgesToJSON(value?: EntMedicalrecordstaffEd
     }
     return {
         
-        'edgesOfMedicalrecordstaffPatientrights': value.edgesOfMedicalrecordstaffPatientrights === undefined ? undefined : ((value.edgesOfMedicalrecordstaffPatientrights as Array<any>).map(EntPatientrightsToJSON)),
-        'edgesOfPatientrecord': value.edgesOfPatientrecord === undefined ? undefined : ((value.edgesOfPatientrecord as Array<any>).map(EntPatientrecordToJSON)),
-<<<<<<< HEAD
+        'EdgesOfMedicalrecordstaffPatientrights': value.edgesOfMedicalrecordstaffPatientrights === undefined ? undefined : ((value.edgesOfMedicalrecordstaffPatientrights as Array<any>).map(EntPatientrightsToJSON)),
+        'EdgesOfPatientrecord': value.edgesOfPatientrecord === undefined ? undefined : ((value.edgesOfPatientrecord as Array<any>).map(EntPatientrecordToJSON)),
         'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
-=======
-        'edgesOfUser': EntUserToJSON(value.edgesOfUser),
->>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 

@@ -54,8 +54,8 @@ export function EntPrenameEdgesFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'edgesOfPatientrecord': !exists(json, 'edgesOfPatientrecord') ? undefined : ((json['edgesOfPatientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
-        'edgesOfPrename2doctorinfo': !exists(json, 'edgesOfPrename2doctorinfo') ? undefined : ((json['edgesOfPrename2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
+        'edgesOfPatientrecord': !exists(json, 'EdgesOfPatientrecord') ? undefined : ((json['EdgesOfPatientrecord'] as Array<any>).map(EntPatientrecordFromJSON)),
+        'edgesOfPrename2doctorinfo': !exists(json, 'EdgesOfPrename2doctorinfo') ? undefined : ((json['EdgesOfPrename2doctorinfo'] as Array<any>).map(EntDoctorinfoFromJSON)),
     };
 }
 
@@ -68,8 +68,8 @@ export function EntPrenameEdgesToJSON(value?: EntPrenameEdges | null): any {
     }
     return {
         
-        'edgesOfPatientrecord': value.edgesOfPatientrecord === undefined ? undefined : ((value.edgesOfPatientrecord as Array<any>).map(EntPatientrecordToJSON)),
-        'edgesOfPrename2doctorinfo': value.edgesOfPrename2doctorinfo === undefined ? undefined : ((value.edgesOfPrename2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
+        'EdgesOfPatientrecord': value.edgesOfPatientrecord === undefined ? undefined : ((value.edgesOfPatientrecord as Array<any>).map(EntPatientrecordToJSON)),
+        'EdgesOfPrename2doctorinfo': value.edgesOfPrename2doctorinfo === undefined ? undefined : ((value.edgesOfPrename2doctorinfo as Array<any>).map(EntDoctorinfoToJSON)),
     };
 }
 

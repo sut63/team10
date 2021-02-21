@@ -411,6 +411,11 @@ export interface ListPatientrecordRequest {
     offset?: number;
 }
 
+export interface ListPatientrightsRequest {
+    limit?: number;
+    offset?: number;
+}
+
 export interface ListPrenameRequest {
     limit?: number;
     offset?: number;
@@ -437,6 +442,12 @@ export interface ListTypetreatmentRequest {
 }
 
 export interface ListUserRequest {
+    limit?: number;
+    offset?: number;
+}
+
+export interface PatientrightsGetRequest {
+    name?: string;
     limit?: number;
     offset?: number;
 }
@@ -2935,8 +2946,16 @@ export class DefaultApi extends runtime.BaseAPI {
      * list patientrights entities
      * List patientrights entities
      */
-    async listPatientrightsRaw(): Promise<runtime.ApiResponse<Array<EntPatientrights>>> {
+    async listPatientrightsRaw(requestParameters: ListPatientrightsRequest): Promise<runtime.ApiResponse<Array<EntPatientrights>>> {
         const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -2954,8 +2973,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list patientrights entities
      * List patientrights entities
      */
-    async listPatientrights(): Promise<Array<EntPatientrights>> {
-        const response = await this.listPatientrightsRaw();
+    async listPatientrights(requestParameters: ListPatientrightsRequest): Promise<Array<EntPatientrights>> {
+        const response = await this.listPatientrightsRaw(requestParameters);
         return await response.value();
     }
 
@@ -3228,6 +3247,46 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async listUser(requestParameters: ListUserRequest): Promise<Array<EntUser>> {
         const response = await this.listUserRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * search patientrights entities
+     * Search patientrights entities
+     */
+    async patientrightsGetRaw(requestParameters: PatientrightsGetRequest): Promise<runtime.ApiResponse<Array<EntPatientrights>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.name !== undefined) {
+            queryParameters['name'] = requestParameters.name;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/patientrights`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntPatientrightsFromJSON));
+    }
+
+    /**
+     * search patientrights entities
+     * Search patientrights entities
+     */
+    async patientrightsGet(requestParameters: PatientrightsGetRequest): Promise<Array<EntPatientrights>> {
+        const response = await this.patientrightsGetRaw(requestParameters);
         return await response.value();
     }
 

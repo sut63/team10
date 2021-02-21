@@ -54,12 +54,8 @@ export function EntNurseEdgesFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'edgesOfHistorytaking': !exists(json, 'edgesOfHistorytaking') ? undefined : ((json['edgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
-<<<<<<< HEAD
+        'edgesOfHistorytaking': !exists(json, 'EdgesOfHistorytaking') ? undefined : ((json['EdgesOfHistorytaking'] as Array<any>).map(EntHistorytakingFromJSON)),
         'edgesOfUser': !exists(json, 'EdgesOfUser') ? undefined : EntUserFromJSON(json['EdgesOfUser']),
-=======
-        'edgesOfUser': !exists(json, 'edgesOfUser') ? undefined : EntUserFromJSON(json['edgesOfUser']),
->>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 
@@ -72,12 +68,8 @@ export function EntNurseEdgesToJSON(value?: EntNurseEdges | null): any {
     }
     return {
         
-        'edgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
-<<<<<<< HEAD
+        'EdgesOfHistorytaking': value.edgesOfHistorytaking === undefined ? undefined : ((value.edgesOfHistorytaking as Array<any>).map(EntHistorytakingToJSON)),
         'EdgesOfUser': EntUserToJSON(value.edgesOfUser),
-=======
-        'edgesOfUser': EntUserToJSON(value.edgesOfUser),
->>>>>>> 28acbb2f9f532069cd8194894e93c37cfa9421c0
     };
 }
 
