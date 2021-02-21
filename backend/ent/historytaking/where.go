@@ -136,7 +136,7 @@ func Bp(v int) predicate.Historytaking {
 }
 
 // Oxygen applies equality check predicate on the "oxygen" field. It's identical to OxygenEQ.
-func Oxygen(v string) predicate.Historytaking {
+func Oxygen(v int) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldOxygen), v))
 	})
@@ -613,21 +613,21 @@ func BpLTE(v int) predicate.Historytaking {
 }
 
 // OxygenEQ applies the EQ predicate on the "oxygen" field.
-func OxygenEQ(v string) predicate.Historytaking {
+func OxygenEQ(v int) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldOxygen), v))
 	})
 }
 
 // OxygenNEQ applies the NEQ predicate on the "oxygen" field.
-func OxygenNEQ(v string) predicate.Historytaking {
+func OxygenNEQ(v int) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldOxygen), v))
 	})
 }
 
 // OxygenIn applies the In predicate on the "oxygen" field.
-func OxygenIn(vs ...string) predicate.Historytaking {
+func OxygenIn(vs ...int) predicate.Historytaking {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -644,7 +644,7 @@ func OxygenIn(vs ...string) predicate.Historytaking {
 }
 
 // OxygenNotIn applies the NotIn predicate on the "oxygen" field.
-func OxygenNotIn(vs ...string) predicate.Historytaking {
+func OxygenNotIn(vs ...int) predicate.Historytaking {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -661,65 +661,30 @@ func OxygenNotIn(vs ...string) predicate.Historytaking {
 }
 
 // OxygenGT applies the GT predicate on the "oxygen" field.
-func OxygenGT(v string) predicate.Historytaking {
+func OxygenGT(v int) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldOxygen), v))
 	})
 }
 
 // OxygenGTE applies the GTE predicate on the "oxygen" field.
-func OxygenGTE(v string) predicate.Historytaking {
+func OxygenGTE(v int) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldOxygen), v))
 	})
 }
 
 // OxygenLT applies the LT predicate on the "oxygen" field.
-func OxygenLT(v string) predicate.Historytaking {
+func OxygenLT(v int) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldOxygen), v))
 	})
 }
 
 // OxygenLTE applies the LTE predicate on the "oxygen" field.
-func OxygenLTE(v string) predicate.Historytaking {
+func OxygenLTE(v int) predicate.Historytaking {
 	return predicate.Historytaking(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldOxygen), v))
-	})
-}
-
-// OxygenContains applies the Contains predicate on the "oxygen" field.
-func OxygenContains(v string) predicate.Historytaking {
-	return predicate.Historytaking(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldOxygen), v))
-	})
-}
-
-// OxygenHasPrefix applies the HasPrefix predicate on the "oxygen" field.
-func OxygenHasPrefix(v string) predicate.Historytaking {
-	return predicate.Historytaking(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldOxygen), v))
-	})
-}
-
-// OxygenHasSuffix applies the HasSuffix predicate on the "oxygen" field.
-func OxygenHasSuffix(v string) predicate.Historytaking {
-	return predicate.Historytaking(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldOxygen), v))
-	})
-}
-
-// OxygenEqualFold applies the EqualFold predicate on the "oxygen" field.
-func OxygenEqualFold(v string) predicate.Historytaking {
-	return predicate.Historytaking(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldOxygen), v))
-	})
-}
-
-// OxygenContainsFold applies the ContainsFold predicate on the "oxygen" field.
-func OxygenContainsFold(v string) predicate.Historytaking {
-	return predicate.Historytaking(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldOxygen), v))
 	})
 }
 

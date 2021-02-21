@@ -111,8 +111,15 @@ func (hu *HistorytakingUpdate) AddBp(i int) *HistorytakingUpdate {
 }
 
 // SetOxygen sets the oxygen field.
-func (hu *HistorytakingUpdate) SetOxygen(s string) *HistorytakingUpdate {
-	hu.mutation.SetOxygen(s)
+func (hu *HistorytakingUpdate) SetOxygen(i int) *HistorytakingUpdate {
+	hu.mutation.ResetOxygen()
+	hu.mutation.SetOxygen(i)
+	return hu
+}
+
+// AddOxygen adds i to oxygen.
+func (hu *HistorytakingUpdate) AddOxygen(i int) *HistorytakingUpdate {
+	hu.mutation.AddOxygen(i)
 	return hu
 }
 
@@ -389,7 +396,14 @@ func (hu *HistorytakingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := hu.mutation.Oxygen(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: historytaking.FieldOxygen,
+		})
+	}
+	if value, ok := hu.mutation.AddedOxygen(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
 			Value:  value,
 			Column: historytaking.FieldOxygen,
 		})
@@ -645,8 +659,15 @@ func (huo *HistorytakingUpdateOne) AddBp(i int) *HistorytakingUpdateOne {
 }
 
 // SetOxygen sets the oxygen field.
-func (huo *HistorytakingUpdateOne) SetOxygen(s string) *HistorytakingUpdateOne {
-	huo.mutation.SetOxygen(s)
+func (huo *HistorytakingUpdateOne) SetOxygen(i int) *HistorytakingUpdateOne {
+	huo.mutation.ResetOxygen()
+	huo.mutation.SetOxygen(i)
+	return huo
+}
+
+// AddOxygen adds i to oxygen.
+func (huo *HistorytakingUpdateOne) AddOxygen(i int) *HistorytakingUpdateOne {
+	huo.mutation.AddOxygen(i)
 	return huo
 }
 
@@ -921,7 +942,14 @@ func (huo *HistorytakingUpdateOne) sqlSave(ctx context.Context) (h *Historytakin
 	}
 	if value, ok := huo.mutation.Oxygen(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: historytaking.FieldOxygen,
+		})
+	}
+	if value, ok := huo.mutation.AddedOxygen(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
 			Value:  value,
 			Column: historytaking.FieldOxygen,
 		})

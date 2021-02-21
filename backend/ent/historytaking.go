@@ -33,7 +33,7 @@ type Historytaking struct {
 	// Bp holds the value of the "bp" field.
 	Bp int `json:"bp,omitempty"`
 	// Oxygen holds the value of the "oxygen" field.
-	Oxygen string `json:"oxygen,omitempty"`
+	Oxygen int `json:"oxygen,omitempty"`
 	// Symptom holds the value of the "symptom" field.
 	Symptom string `json:"symptom,omitempty"`
 	// Datetime holds the value of the "datetime" field.
@@ -128,7 +128,7 @@ func (*Historytaking) scanValues() []interface{} {
 		&sql.NullInt64{},   // pulse
 		&sql.NullInt64{},   // respiration
 		&sql.NullInt64{},   // bp
-		&sql.NullString{},  // oxygen
+		&sql.NullInt64{},   // oxygen
 		&sql.NullString{},  // symptom
 		&sql.NullTime{},    // datetime
 	}
@@ -186,10 +186,10 @@ func (h *Historytaking) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		h.Bp = int(value.Int64)
 	}
-	if value, ok := values[6].(*sql.NullString); !ok {
+	if value, ok := values[6].(*sql.NullInt64); !ok {
 		return fmt.Errorf("unexpected type %T for field oxygen", values[6])
 	} else if value.Valid {
-		h.Oxygen = value.String
+		h.Oxygen = int(value.Int64)
 	}
 	if value, ok := values[7].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field symptom", values[7])
@@ -287,7 +287,7 @@ func (h *Historytaking) String() string {
 	builder.WriteString(", bp=")
 	builder.WriteString(fmt.Sprintf("%v", h.Bp))
 	builder.WriteString(", oxygen=")
-	builder.WriteString(h.Oxygen)
+	builder.WriteString(fmt.Sprintf("%v", h.Oxygen))
 	builder.WriteString(", symptom=")
 	builder.WriteString(h.Symptom)
 	builder.WriteString(", datetime=")

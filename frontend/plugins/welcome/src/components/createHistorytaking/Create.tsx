@@ -9,7 +9,6 @@ import {
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import { Alert } from '@material-ui/lab';
 import { DefaultApi } from '../../api/apis';
 
 import MenuItem from '@material-ui/core/MenuItem';
@@ -142,18 +141,14 @@ export default function CreateHistorytaking() {
   const classes = useStyles();
   const api = new DefaultApi();
 
-  //const [deceased, setDeceased] = useState(String);
-  const [status, setStatus] = useState(false);
-  const [alert, setAlert] = useState(true);
-
-  const [hightError, sethightError] = React.useState('');
-  const [weightError, setweightError] = React.useState('');
-  const [tempError, settempError] = React.useState('');
-  const [pulseError, setpulseError] = React.useState('');
-  const [respirationError, setrespirationError] = React.useState('');
-  const [bpError, setbpError] = React.useState('');
-  const [oxygenError, setoxygenError] = React.useState('');
-  const [symptomError, setsymptomError] = React.useState('');
+  const [sethightError] = React.useState('');
+  const [setweightError] = React.useState('');
+  const [settempError] = React.useState('');
+  const [setpulseError] = React.useState('');
+  const [setrespirationError] = React.useState('');
+  const [setbpError] = React.useState('');
+  const [setoxygenError] = React.useState('');
+  const [setsymptomError] = React.useState('');
 
   const [nurses, setNurses] = React.useState<Partial<EntNurse>>();
   const [symptomseveritys, setSymptomseveritys] = useState<EntSymptomseverity[]>([]);
@@ -233,8 +228,7 @@ export default function CreateHistorytaking() {
   ) => {
     const name = event.target.name as keyof typeof CreateHistorytaking;
     const { value } = event.target;
-    const validateValue = value as string
-    checkPattern(name, validateValue)
+    //const validateValue = value as string
     setHistorytaking({ ...Historytaking, [name]: value });
   };
 
@@ -277,38 +271,6 @@ export default function CreateHistorytaking() {
   // ฟังก์ชั่นสำหรับ validate symptomError
   const validatesymptom = (val: string) => {
     return (!val || 0 === val.length) ? true : false;
-  }
-
-  // สำหรับตรวจสอบรูปแบบข้อมูลที่กรอก ว่าเป็นไปตามที่กำหนดหรือไม่
-  const checkPattern = (id: string, value: string) => {
-    switch (id) {
-      case 'hight':
-        validatehight(value) ? sethightError('') : sethightError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม');
-        return;
-      case 'weight':
-        validateweight(value) ? setweightError('') : setweightError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม');
-        return;
-      case 'temp':
-        validatetemp(value) ? settempError('') : settempError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม')
-        return;
-      case 'pulse':
-        validatepulse(value) ? setpulseError('') : setpulseError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็ม');
-        return;
-      case 'respiration':
-        validaterespiration(value) ? setrespirationError('') : setrespirationError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็ม');
-        return;
-      case 'bp':
-        validatebp(value) ? setbpError('') : setbpError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็ม')
-        return; 
-      case 'oxygen':
-        validateoxygen(value) ? setoxygenError('') : setoxygenError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม')
-        return;
-      case 'symptom':
-        validatesymptom(value) ? setsymptomError('') : setsymptomError('กรุณากรอกข้อมูลที่เป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยม')
-        return;
-      default:
-        return;
-    }
   }
   
   const alertMessage = (icon: any, title: any) => {
