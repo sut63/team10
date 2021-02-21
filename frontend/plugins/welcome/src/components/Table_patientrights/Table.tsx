@@ -69,15 +69,16 @@ const Table: FC<{}> = () => {
     setSe(Patientrights);
   }
 
-
+//console.log(Pat2)
   const sc = async () => {
-    var PatientrightsGet = await http.patientrightsGet({ name: Pat });
+    var PatientrightsGet = await http.patientrightsGet({ name: Pat2 });
     var Patientrights = await http.listPatientrights();
     
     
-    console.log("ผู้ป่วย = ", Pat)
+    //console.log("ผู้ป่วย = ", Pat)
     console.log(Pat2+" : "+Pat)
-    if (Pat === undefined || Pat === null && Pat2=== undefined ||  Pat2 === null ) {
+
+    if (Pat2=== undefined ||  Pat2 === null || Pat2 === '') {
       setSe(Patientrights);
       setAlert2(false);//แสดงข้อมูลทั้งหมด
     } else {
@@ -155,6 +156,9 @@ const Table: FC<{}> = () => {
               options={Patientrecord.map((option) => option.name)}
               inputValue={Pat2}
               onChange={handleChange}
+              onInputChange={(event, newInputValue) => {
+                setPat2(newInputValue);
+              }}
               renderInput={(params) => (
                 <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" />
               )}
