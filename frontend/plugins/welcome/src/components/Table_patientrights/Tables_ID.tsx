@@ -49,23 +49,11 @@ export default function ComponentsTable(sim: any) {
   const classes = useStyles();
   const api = new DefaultApi();
   
-  const [loading, setLoading] = useState(true);
 
 
 
-  const getPatientrightss = async () => {
-    //const res = await api.listPatientrights({ limit: 100, offset: 0 });
-    const res = await api.patientrightsGet({ name:sim.sim});
-    setLoading(false);
-    setPatientrightss(res);
 
-  };
-
-  useEffect(() => {
-
-    getPatientrightss();
-    
-  }, [loading]);
+ 
 
 
 

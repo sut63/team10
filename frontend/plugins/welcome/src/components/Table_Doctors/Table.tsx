@@ -6,7 +6,7 @@ import { DefaultApi } from '../../api/apis';
 import { EntUser } from '../../api/models/EntUser';
 import { Cookies } from 'react-cookie/cjs';//cookie
 import { useEffect } from 'react';
-import { Avatar,TextField } from '@material-ui/core';
+import { Avatar, TextField } from '@material-ui/core';
 import { EntDoctorinfo } from '../../api/models/EntDoctorinfo';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Alert } from '@material-ui/lab';
@@ -47,49 +47,61 @@ const Table: FC<{}> = () => {
     },
   }));
   const [Pat, setPat] = React.useState<string>();
-  const [Se, setSe] = React.useState<string>();
+  const [Se, setSe] =  React.useState<EntDoctorinfo[]>([]);
   const classes = useStyles();
-  const [alert, setAlert] = React.useState(true);
+  const [alert1, setAlert1] = React.useState(true);
+  const [alert2, setAlert2] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
   const [status, setStatus] = React.useState(false);
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
- 
+
   const [Doctorinfo, setDoctorinfo] = React.useState<EntDoctorinfo[]>([]);
 
   const getDoctorinfo = async () => {
-    const res = await http.listDoctorinfo({ limit: 110, offset: 0 });
+    const res = await http.listDoctorinfo();
     setDoctorinfo(res);
   };
-  const handleChange = (event : any, value : unknown) => {
+  const handleChange = (event: any, value: unknown) => {
     setPat(value as string);
   };
   const sc = async () => {
-    
-setSe(Pat);
-    var p = await http.listDoctorinfo({ limit: 1000000000, offset: 0 })
-    let i = 0
-    for (let u of p){
-      
-    if( u.licensenumber === Pat && u !== undefined)
-    i = i+1
-    
+
+   
+    var DoctorinfoGet = await http.doctorinfoGet({ key: Pat });
+    var Doctorinfo = await http.listDoctorinfo();
+
+    let i = false
+    if (DoctorinfoGet.length > 0) {
+      i = true
     }
     console.log("เเพทย์ = ", Pat)
 
-    if (i != 0) {
-      setStatus(true);
-      setAlert(true);
+    if (Pat === undefined || Pat === null) {
+      setSe(Doctorinfo);
+      setAlert2(false);
     } else {
+      setSe(DoctorinfoGet);
+      setAlert2(true);
+    }
+    if (i) {
+
       setStatus(true);
-      setAlert(false);
+      setAlert1(true);
+
+    } else {
+
+      setStatus(true);
+      setAlert1(false);
+
     }
 
     setTimeout(() => {
       setStatus(false);
+
     }, 5000);
 
-    
+
   };
 
 
@@ -119,14 +131,20 @@ setSe(Pat);
 
           {status ? (
             <div>
-              {alert ? (
+              {alert1 ? (
                 <Alert severity="success">
                   พบข้อมูล
                 </Alert>
               ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบข้อมูล
-                  </Alert>
+                  alert2 ? (
+                    <Alert severity="warning" style={{ marginTop: 20 }}>
+                      ไม่พบข้อมูล
+                    </Alert>
+                  ) : (
+                      <Alert severity="info" style={{ marginTop: 20 }}>
+                        แสดงข้อมูลทั้งหมด
+                      </Alert>
+                    )
                 )}
             </div>
           ) : null}
@@ -134,25 +152,25 @@ setSe(Pat);
           <FormControl variant="outlined" className={classes.formControl}>
             <Autocomplete
               id="licensenumber"
-             
+
               options={Doctorinfo.map((option) => option.licensenumber)}
               onChange={handleChange}
               renderInput={(params) => (
                 <TextField {...params} label="เลขใบประกอบวิชาชีพ" margin="normal" variant="outlined" />
               )}
             />
-            </FormControl>
-            <Button
-              onClick={() => {
-               sc();
-              }}
-              style={{ marginLeft: 10 }}
-              variant="contained"
-              color="primary"
-            >
-              ค้นหา
+          </FormControl>
+          <Button
+            onClick={() => {
+              sc();
+            }}
+            style={{ marginLeft: 10 }}
+            variant="contained"
+            color="primary"
+          >
+            ค้นหา
                </Button>&emsp;
-          
+
 
           <Link component={RouterLink} to="/">
             <Button variant="contained" color="primary">
