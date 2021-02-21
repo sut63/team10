@@ -65,6 +65,7 @@ const Table: FC<{}> = () => {
   };
   const sc = async () => {
 
+    
     var SePatientrecord = await http.listPatientrecord({ limit: 100, offset: 0 })
     var SePatientrights = await http.patientrightsGet({ name:Pat,limit: 100, offset: 0 });
     let i = 0
