@@ -56,7 +56,7 @@ const HistorytakingSearch: FC<{}> = () => {
   };
 
   const Start = async () => {
-    const res = await http.listHistorytaking({ offset: 0 });
+    const res = await http.listHistorytaking();
     setHistorytakings(res);
   };
 
@@ -127,11 +127,11 @@ const HistorytakingSearch: FC<{}> = () => {
             <div>
               {alert ? (
                 <Alert severity="success">
-                  พบข้อมูลผู้ป่วย
+                  พบบันทึกการซักประวัติผู้ป่วยนอก
                 </Alert>
               ) : (
                   <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบข้อมูลผู้ป่วย
+                    ไม่พบบันทึกการซักประวัติผู้ป่วยนอก
                   </Alert>
                 )}
             </div>
