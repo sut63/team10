@@ -211,9 +211,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		return
 	}
 
-	var o float32
-	oxygens, err := strconv.ParseFloat(obj.Oxygen, 64); 
-		o = float32(oxygens)
+	oxygens, err := strconv.Atoi(obj.Oxygen); 
 
 	if len(obj.Oxygen) <= 0 {
 		c.JSON(400, gin.H{
@@ -228,8 +226,6 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		})
 		return
 	}
-
-	fmtoxygen := fmt.Sprintf("%.2f", o)
 
 	if len(obj.Symptom) <= 0 {
 		c.JSON(400, gin.H{
@@ -250,7 +246,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		SetPulse(pulses).
 		SetRespiration(respirations).
 		SetBp(bps).
-		SetOxygen(fmtoxygen+"%").
+		SetOxygen(oxygens).
 		SetSymptom(obj.Symptom).
 		SetDatetime(times).
 		Save(context.Background())
