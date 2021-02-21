@@ -2427,7 +2427,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Historytaking'
+            items:
+              $ref: '#/definitions/ent.Historytaking'
+            type: array
         "400":
           description: Bad Request
           schema:

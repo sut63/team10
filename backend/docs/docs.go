@@ -2192,7 +2192,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Historytaking"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Historytaking"
+                            }
                         }
                     },
                     "400": {

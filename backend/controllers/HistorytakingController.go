@@ -271,7 +271,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 // @ID get-historytaking
 // @Produce  json
 // @Param id path int true "Historytaking ID"
-// @Success 200 {object} ent.Historytaking
+// @Success 200 {array} ent.Historytaking
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -291,8 +291,8 @@ func (ctl *HistorytakingController) GetHistorytaking(c *gin.Context) {
 		WithEdgesOfDepartment().
 		WithEdgesOfSymptomseverity().
 		WithEdgesOfPatientrecord().
-		Where(historytaking.IDEQ(int(id))).
-		Only(context.Background())
+		Where(historytaking.HasEdgesOfPatientrecordWith(patientrecord.IDEQ(int(id)))).
+		All(context.Background())
 	if err != nil {
 		c.JSON(404, gin.H{
 			"error": err.Error(),
