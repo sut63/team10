@@ -183,6 +183,62 @@ func (ctl *PatientrightsController) GetPatientrights(c *gin.Context) {
 	c.JSON(200, u)
 }
 
+// SearchPatientrights handles request to get a search of patientrights entities
+// @Summary Search patientrights entities
+// @Description search patientrights entities
+// @Produce json
+// @Param name  query string false "Name"
+// @Param limit  query int false "Limit"
+// @Param offset query int false "Offset"
+// @Success 200 {array} ent.Patientrights
+// @Failure 400 {object} gin.H
+// @Failure 500 {object} gin.H
+// @Router /patientrights [get]
+func (  ctl *PatientrightsController) SearchPatientrights(c *gin.Context) {
+	
+	limitQuery := c.Query("limit")
+	limit := 10
+	if limitQuery != "" {
+		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
+		if err == nil {
+			limit = int(limit64)
+		}
+	}
+
+	offsetQuery := c.Query("offset")
+	offset := 0
+	if offsetQuery != "" {
+		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
+		if err == nil {
+			offset = int(offset64)
+		}
+	}
+	
+	nameQuery := c.Request.URL.Query().Get("name")
+	
+	c.JSON(300,  gin.H{"tur": "name = "+nameQuery+" limit = "+fmt.Sprint(limit)+" offset = "+fmt.Sprint(offset)})
+	
+	patientrightss, err := ctl.client.Patientrights.
+		Query().
+		WithEdgesOfPatientrightsInsurance().
+		WithEdgesOfPatientrightsAbilitypatientrights().
+		WithEdgesOfPatientrightsPatientrecord().
+		WithEdgesOfPatientrightsMedicalrecordstaff().
+		Where(patientrights.
+			HasEdgesOfPatientrightsPatientrecordWith(patientrecord.
+				NameEQ(nameQuery))).
+		Limit(limit).
+		Offset(offset).
+		All(context.Background())
+	if err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, patientrightss)
+}
+
+
 // DeletePatientrights handles DELETE requests to delete a patientrights entity
 // @Summary Delete a patientrights entity by ID
 // @Description get patientrights by ID
@@ -316,9 +372,11 @@ func NewPatientrightsController(router gin.IRouter, client *ent.Client) *Patient
 // InitPatientrightsController registers routes to the main engine
 func (ctl *PatientrightsController) register() {
 	patientrightss := ctl.router.Group("/patientrightss")
+	patientrights := ctl.router.Group("/patientrights")
 
+	
+	patientrights.GET("", ctl.SearchPatientrights)
 	patientrightss.GET("", ctl.ListPatientrights)
-
 	// CRUD
 	patientrightss.POST("", ctl.CreatePatientrights)
 	patientrightss.GET(":id", ctl.GetPatientrights)

@@ -446,6 +446,12 @@ export interface ListUserRequest {
     offset?: number;
 }
 
+export interface PatientrightsGetRequest {
+    name?: string;
+    limit?: number;
+    offset?: number;
+}
+
 export interface UpdateAbilitypatientrightsRequest {
     id: number;
     abilitypatientrights: EntAbilitypatientrights;
@@ -3241,6 +3247,46 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async listUser(requestParameters: ListUserRequest): Promise<Array<EntUser>> {
         const response = await this.listUserRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * search patientrights entities
+     * Search patientrights entities
+     */
+    async patientrightsGetRaw(requestParameters: PatientrightsGetRequest): Promise<runtime.ApiResponse<Array<EntPatientrights>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.name !== undefined) {
+            queryParameters['name'] = requestParameters.name;
+        }
+
+        if (requestParameters.limit !== undefined) {
+            queryParameters['limit'] = requestParameters.limit;
+        }
+
+        if (requestParameters.offset !== undefined) {
+            queryParameters['offset'] = requestParameters.offset;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/patientrights`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntPatientrightsFromJSON));
+    }
+
+    /**
+     * search patientrights entities
+     * Search patientrights entities
+     */
+    async patientrightsGet(requestParameters: PatientrightsGetRequest): Promise<Array<EntPatientrights>> {
+        const response = await this.patientrightsGetRaw(requestParameters);
         return await response.value();
     }
 
