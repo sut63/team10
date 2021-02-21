@@ -1148,7 +1148,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Treatment'
+            items:
+              $ref: '#/definitions/ent.Treatment'
+            type: array
         "400":
           description: Bad Request
           schema:
@@ -2970,19 +2972,36 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Get a patientrecord entity by ID
+  /patientrights:
+    get:
+      description: search patientrights entities
+      parameters:
+      - description: Name
+        in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Patientrights'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Search patientrights entities
   /patientrightss:
     get:
       description: list patientrights entities
       operationId: list-patientrights
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
       produces:
       - application/json
       responses:
@@ -3111,7 +3130,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Patientrights'
+            items:
+              $ref: '#/definitions/ent.Patientrights'
+            type: array
         "400":
           description: Bad Request
           schema:

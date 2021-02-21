@@ -8,6 +8,7 @@ import { Cookies } from 'react-cookie/cjs';//cookie
 import { useEffect } from 'react';
 import { Avatar, TextField } from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
+import { EntPatientrights } from '../../api/models/EntPatientrights';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Alert } from '@material-ui/lab';
 import {
@@ -44,7 +45,7 @@ const Table: FC<{}> = () => {
     },
   }));
   const [Pat, setPat] = React.useState<string>();
-  const [Se, setSe] = React.useState<string>();
+  const [Se, setSe] = React.useState<EntPatientrights[]>(Array);
   const classes = useStyles();
   const [alert1, setAlert1] = React.useState(true);
   const [alert2, setAlert2] = React.useState(true);
@@ -62,24 +63,32 @@ const Table: FC<{}> = () => {
   const handleChange = (event: any, value: unknown) => {
     setPat(value as string);
   };
+
   const sc = async () => {
 
-    setSe(Pat);
-    var p = await http.listPatientrecord({ limit: 100, offset: 0 })
-    let i = 0
-    for (let u of p) {
-      if ((u.name === Pat && u.edges?.edgesOfPatientrecordPatientrights !== undefined))
-        i = i + 1
-
+    console.log("pat = " + Pat)
+    //var SePatientrightsList = await http.listPatientrights({ limit: 100, offset: 0 })
+    
+    var PatientrightsGet = await http.patientrightsGet({ name: Pat });
+    var Patientrights = await http.listPatientrights();
+    
+    console.log("uat"+PatientrightsGet)
+    let i = false
+    if(PatientrightsGet.length > 0 ){
+      i = true
+      console.log("1234")
     }
+    
     console.log("ผู้ป่วย = ", Pat)
 
     if (Pat === undefined || Pat === null) {
+      setSe(Patientrights);
       setAlert2(false);
     } else {
+      setSe(PatientrightsGet);
       setAlert2(true);
     }
-    if (i != 0) {
+    if (i) {
       
       setStatus(true);
       setAlert1(true);

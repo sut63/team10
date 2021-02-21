@@ -48,13 +48,14 @@ const useStyles = makeStyles(theme => ({
 export default function ComponentsTable(sim: any) {
   const classes = useStyles();
   const api = new DefaultApi();
-  const [Patientrightss, setPatientrightss] = useState<EntPatientrights[]>(Array);
+  
   const [loading, setLoading] = useState(true);
 
 
 
   const getPatientrightss = async () => {
-    const res = await api.listPatientrights({ limit: 100, offset: 0 });
+    //const res = await api.listPatientrights({ limit: 100, offset: 0 });
+    const res = await api.patientrightsGet({ name:sim.sim});
     setLoading(false);
     setPatientrightss(res);
 
@@ -70,12 +71,12 @@ export default function ComponentsTable(sim: any) {
 
   var p = 0;
 console.log("sim",sim.sim)
-  for (var val of Patientrightss) {
-    if (val.edges?.edgesOfPatientrightsPatientrecord?.name === sim.sim || sim.sim === undefined || sim.sim === null) {
+  
+    if (sim.sim.length > 0) {
       p = p + 1
     }
 
-  }
+  
 
 
 
@@ -98,9 +99,9 @@ console.log("sim",sim.sim)
               </TableRow>
             </TableHead>
             <TableBody>
-              {Patientrightss === undefined
+              {sim.sim === undefined
                 ? null
-                : Patientrightss.filter(i => i.edges?.edgesOfPatientrightsPatientrecord?.name === sim.sim || sim.sim === undefined || sim.sim === null).map((item: any) => (
+                : sim.sim.map((item: any) => (
                   <TableRow>
                     <TableCell align="center">{item.id}</TableCell>
                     <TableCell align="center">{item.edges?.edgesOfPatientrightsInsurance?.insurancecompany}</TableCell>

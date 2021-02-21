@@ -231,7 +231,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Treatment"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Treatment"
+                            }
                         }
                     },
                     "400": {
@@ -3009,6 +3012,46 @@ var doc = `{
                 }
             }
         },
+        "/patientrights": {
+            "get": {
+                "description": "search patientrights entities",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Search patientrights entities",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Patientrights"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
         "/patientrightss": {
             "get": {
                 "description": "list patientrights entities",
@@ -3017,20 +3060,6 @@ var doc = `{
                 ],
                 "summary": "List patientrights entities",
                 "operationId": "list-patientrights",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3174,7 +3203,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Patientrights"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Patientrights"
+                            }
                         }
                     },
                     "400": {

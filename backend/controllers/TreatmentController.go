@@ -156,7 +156,7 @@ func (ctl *TreatmentController) CreateTreatment(c *gin.Context) {
 // @ID get-Treatment
 // @Produce  json
 // @Param id path int true "Treatment ID"
-// @Success 200 {object} ent.Treatment
+// @Success 200 {array} ent.Treatment
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -171,11 +171,14 @@ func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
 	}
 	tm, err := ctl.client.Treatment.
 		Query().
-		WithEdgesOfDoctor().
+		WithEdgesOfDoctor(func (q *ent.DoctorQuery){
+			q.QueryEdgesOfDoctorinfo()
+			q.WithEdgesOfDoctorinfo()
+		}).
 		WithEdgesOfTypetreatment().
 		WithEdgesOfPatientrecord().
-		Where(treatment.IDEQ(int(id))).
-		Only(context.Background())
+		Where(treatment.HasEdgesOfPatientrecordWith(patientrecord.IDEQ(int(id)))).
+		All(context.Background())
 
 	if err != nil {
 		c.JSON(404, gin.H{
@@ -199,32 +202,16 @@ func (ctl *TreatmentController) GetTreatment(c *gin.Context) {
 // @Failure 500 {object} gin.H
 // @Router /Treatments [get]
 func (ctl *TreatmentController) ListTreatment(c *gin.Context) {
-	limitQuery := c.Query("limit")
-	limit := 10
-	if limitQuery != "" {
-		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
-		if err == nil {
-			limit = int(limit64)
-		}
-	}
-
-	offsetQuery := c.Query("offset")
-	offset := 0
-	if offsetQuery != "" {
-		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
-		if err == nil {
-			offset = int(offset64)
-		}
-	}
 
 	Treatment, err := ctl.client.Treatment.
 		Query().
-		WithEdgesOfDoctor().
+		WithEdgesOfDoctor(func (q *ent.DoctorQuery){
+			q.QueryEdgesOfDoctorinfo()
+			q.WithEdgesOfDoctorinfo()
+		}).
 		WithEdgesOfTypetreatment().
 		WithEdgesOfPatientrecord().
 		WithEdgesOfUnpaybills().
-		Limit(limit).
-		Offset(offset).
 		All(context.Background())
 
 	if err != nil {
