@@ -3,7 +3,7 @@ import MoreInfo from './prinfo'
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Cookies } from 'react-cookie/cjs';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Avatar, TextField, Paper, makeStyles, Button } from '@material-ui/core';
 import { Autocomplete, Alert } from '@material-ui/lab';
 import { Content, Header, Page, pageTheme, ContentHeader, Link, } from '@backstage/core';
