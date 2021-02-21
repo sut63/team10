@@ -155,7 +155,7 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 // @ID get-patientrecord
 // @Produce  json
 // @Param id path int true "Patientrecord ID"
-// @Success 200 {object} ent.Patientrecord
+// @Success 200 {array} ent.Patientrecord
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -178,7 +178,7 @@ func (ctl *PatientrecordController) GetPatientrecord(c *gin.Context) {
 		WithEdgesOfHistorytaking().
 		WithEdgesOfPatientrecordPatientrights().
 		Where(patientrecord.IDEQ(int(id))).
-		Only(context.Background())
+		All(context.Background())
 	if err != nil {
 		c.JSON(404, gin.H{
 			"error": err.Error(),
@@ -234,7 +234,6 @@ func (ctl *PatientrecordController) ListPatientrecord(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-
 	c.JSON(200, patientrecord)
 }
 
