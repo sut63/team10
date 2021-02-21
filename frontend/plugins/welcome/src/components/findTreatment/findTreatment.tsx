@@ -1,280 +1,168 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC } from 'react';
+import Textinfo from './textTreat'
 import { Link as RouterLink } from 'react-router-dom';
-import { ContentHeader, Content, Header, Page, pageTheme, Link, ItemCard } from '@backstage/core';
-import { FormControl, Select, InputLabel, MenuItem, TextField, Button, InputAdornment, Grid, Typography } from '@material-ui/core';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-//api
-import { DefaultApi } from '../../api/apis';
-//table
+
+import { Cookies } from 'react-cookie/cjs';
+import { useEffect, useState } from 'react';
+import { Avatar,TextField,Paper,makeStyles,Button} from '@material-ui/core';
+import { Autocomplete, Alert } from '@material-ui/lab';
+import { Content, Header, Page, pageTheme, ContentHeader, Link, } from '@backstage/core';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Textinfo from './textTreat';
-//entity
-import { EntTreatment } from '../../api/models/EntTreatment';
-import { EntUser } from '../../api/models/EntUser';
-import { EntPatientrecord } from '../../api/models/EntPatientrecord';
-import { EntDoctor } from '../../api/models/EntDoctor';
-//alert
-import Swal from 'sweetalert2'
-//icon
-import CancelTwoToneIcon from '@material-ui/icons/CancelTwoTone';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import SearchTwoToneIcon from '@material-ui/icons/SearchTwoTone';
-import DeleteTwoToneIcon from '@material-ui/icons/DeleteTwoTone';
-import { Avatar } from '@material-ui/core';
-import { Cookies } from 'react-cookie/cjs';//cookie
 
+import { DefaultApi } from '../../api/apis';
+import { EntUser } from '../../api/models/EntUser';
+import { EntTreatment } from '../../api/models/EntTreatment';
+import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 
 const cookies = new Cookies();
 const Name = cookies.get('Name');
-const Doc = cookies.get('Doc');
 const Img = cookies.get('Img');
 
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      display: 'block',
-      marginTop: theme.spacing(2),
-    },
-    formControl: {
-      width: 400,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(1),
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
+const findTreatment: FC<{}> = () => {
+  const http = new DefaultApi();
+  const useStyles = makeStyles(theme => ({
     table: {
       minWidth: 650,
     },
-  }),
-);
+    root: {
+      '& > *': {
+        borderBottom: 'unset',
+      },
+      width: '100%',
+      maxWidth: 360,
+      backgroundColor: theme.palette.background.paper,
 
-// header css
-const HeaderCustom = {
-  minHeight: '50px',
-};
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: toast => {
-    toast.addEventListener('mouseenter', Swal.stopTimer);
-    toast.addEventListener('mouseleave', Swal.resumeTimer);
-  },
-});
-
-
-export default function ComponentsTable() {
+    },
+  }));
+  
   const classes = useStyles();
-  const http = new DefaultApi();
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState(false);
+  const [alert, setAlert] = React.useState(true);
+  const [loading, setLoading] = React.useState(true);
+  const [status, setStatus] = React.useState(false);
 
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
-  const [treatmentid, setTreatmentId] = React.useState(Number);
-  const [treat, setTreat] = React.useState(String);
-  const [symptom, setSymptom] = React.useState(String);
-  const [medicine, setMedicine] = React.useState(String);
+  const [PatID, setPatID] = React.useState<number>(0);
+  const [treatments, setTreatments] = useState<EntTreatment[]>(Array);
+  const [Patientrecord, setPatientrecord] = useState<EntPatientrecord[]>([])
 
-  const [checkname, setcheckname] = useState(false);
-  const [treatment, setTreatment] = useState<EntTreatment[]>([])
-  const [doctor, setDoctor] = useState<EntDoctor[]>([])
-  const [patientrecord, setPatientrecord] = useState<EntPatientrecord[]>([])
+  const getPatientrecord = async () => {
+    const res = await http.listPatientrecord({ offset: 0 });
+    setPatientrecord(res);
+  };
 
+  const getTreatments = async () => {
+    const res = await http.getTreatment({ id: PatID })
+    setLoading(false);
+    setTreatments(res);
+    if (res.length != 0) {
+      setStatus(true);
+      setAlert(true);
+    } else {
+      setStatus(true);
+      setAlert(false);
+    }
+    setTimeout(() => {
+      setStatus(false);
+    }, 1000);
 
-  const [name, setname] = useState(String);
-  const alertMessage = (icon: any, title: any) => {
-    Toast.fire({
-      icon: icon,
-      title: title,
-    });
-    setSearch(false);
+  };
+
+  const handleChange = (event: any, value: unknown) => {
+    console.log(value)
+    Patientrecord.map(item => {
+      if (item.name === value) {
+        setPatID(item.id as number);
+      } else if (value === null) {
+        setPatID(0);
+      }
+    })
+  };
+  
+  const TexthandleChang = (event: React.ChangeEvent<{ value: unknown; }>) => {
+    console.log(event.target.value as string)
+    Patientrecord.map(item => {
+      if (item.name === event.target.value as string) {
+        setPatID(item.id as number);
+      } else if (event.target.value as string === null) {
+        setPatID(0);
+      }
+    })
   }
 
-  useEffect(() => {
-    const getTreatment = async () => {
-      const res = await http.listTreatment({ offset: 0 });
-      setLoading(false);
-      setTreatment(res);
-    };
-    const getDocdor = async () => {
-      const res = await http.listDoctor({ offset: 0 });
-      setLoading(false);
-      setDoctor(res);
-    };
-    const getPatientrecord = async () => {
-      const res = await http.listPatientrecord({ limit: 2, offset: 0 });
-      setLoading(false);
-      setPatientrecord(res);
-    };
+  useEffect(() => {        
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
       setLoading(false);
       setUsers(res);
-    };
-    getTreatment();
-    getDocdor();
+    };    
     getPatientrecord();
     getImg();
   }, [loading]);
 
-  const patientrecordhandlehange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSearch(false);
-    setcheckname(false);
-    setname(event.target.value as string);
-
-  };
-
-  const cleardata = () => {
-    setname("");
-    setSearch(false);
-    setcheckname(false);
-    setSearch(false);
-
-  }
-
-  const checkresearch = async () => {
-    var check = false;
-    treatment.map(item => {
-      if (name != "") {
-        if (item.edges?.edgesOfPatientrecord?.name?.includes(name)) {
-          setcheckname(true);
-          alertMessage("success", "ค้นหาข้อมูลบันทึกการรักษาสำเร็จ");
-          check = true;
-        }
-      }
-    })
-    if (!check) {
-      alertMessage("error", "ไม่พบชื่อผู้ป่วยในระบบ");
-    }
-    console.log(checkname)
-    if (name == "") {
-      alertMessage("info", "แสดงข้อมูลบันทึกการรักษาทั้งหมดทั้งหมดในระบบ");
-    }
+  
+  const SearchTreatment = async () => {
+    getTreatments();
   };
 
   return (
 
     <Page theme={pageTheme.home}>
-      <Header style={HeaderCustom} title={`Treatment Department`}>
+      <Header
+        title={`ส่วนบันทึกการรักษา`}>
         <Avatar alt="Remy Sharp" src={Users?.images as string} />
         <div style={{ marginLeft: 10 }}>{Name}</div>
       </Header>
       <Content>
-        <ContentHeader title="ค้นหาบันทึกการรักษา">
-          <div>&nbsp;&nbsp;&nbsp;</div>
+      <ContentHeader title="ค้นหาบันทึกการรักษา">
+          <br />
+          {status ? (
+            <div>
+              {alert ? (
+                <Alert severity="success">
+                  พบข้อมูลผู้ป่วย
+                </Alert>
+              ) : (
+                  <Alert severity="warning" style={{ marginTop: 20 }}>
+                    ไม่พบข้อมูลผู้ป่วย
+                  </Alert>
+                )}
+            </div>
+          ) : null}
+        &emsp;
+        <Autocomplete
+            id="patientname"
+            freeSolo
+            options={Patientrecord.map(option => option.name)}
+            onChange={handleChange}
+            closeText='Close'
+            renderInput={(params) => (
+              <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" onChange={TexthandleChang} style={{ width: "100ch" }} />
+            )}
+          />
+          &emsp;
           <Button
             onClick={() => {
-              checkresearch();
-              setSearch(true);
+              SearchTreatment();
             }}
             variant="contained"
-            color="secondary"
-            startIcon={<SearchTwoToneIcon />}
-          >
-            ค้นหาข้อมูล
-          </Button>
-          <div>&nbsp;&nbsp;&nbsp;</div>
-          <Button
-            onClick={() => {
-              cleardata();
-            }}
-            variant="contained"
-            startIcon={<DeleteTwoToneIcon />}
-          >
-            เคลียร์ข้อมูล
-          </Button>
-          <div>&nbsp;&nbsp;&nbsp;</div>
-          <Button
-            href="/createTreatment"
-            variant="contained"
-            style={{ backgroundColor: "#21b6ae" }}
             color="primary"
+            style={{backgroundColor: "#00af91",padding: '6px 12px',}}
           >
-            สร้างบันทึกการรักษา
-            </Button>
-          <div>&nbsp;&nbsp;&nbsp;</div>
-          <Button
-            href="/"
-            variant="contained"
-            color="primary"
-          >
-            กลับสู่หน้าหลัก
-          </Button>
+            ค้นหา
+               </Button>&emsp;
+            <Link component={RouterLink} to="/createTreatment">
+            <Button variant="contained">
+              กลับ
+           </Button>
+          </Link>
         </ContentHeader>
-
-        <div >
-          <form noValidate autoComplete="off">
-            <FormControl
-              fullWidth
-              variant="outlined"
-              size="small"
-            >
-              <div ><strong>กรอก "ชื่อผู้ป่วย" เพื่อทำการค้นหา</strong></div>
-              <TextField
-                id="name"
-                variant="outlined"
-                color="primary"
-                type="string"
-                size="small"
-                value={name}
-                onChange={patientrecordhandlehange}
-              />
-            </FormControl>
-          </form>
-        </div>
-        <Content>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>            
-            <Grid item xs={12}>
-              <Paper>
-                {search ? (
-                  <div>
-                    {  checkname ? (
-                      <TableContainer component={Paper}>
-                        <Table className={classes.table} aria-label="simple table">
-                          <TableHead>
-                            <TableRow>
-                              <TableCell align="center">เลขที่การรักษา</TableCell>
-                              <TableCell align="center">แพทย์</TableCell>
-                              <TableCell align="center">ผู้เข้ารับการรักษา</TableCell>
-                              <TableCell align="center">รูปแบบการรักษา</TableCell>
-                              <TableCell align="center">วันเวลาที่รักษา</TableCell>
-                              <TableCell align="center"></TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-
-                            {treatment.filter((filter: any) => filter.edges?.edgesOfPatientrecord?.name.includes(name)).map((item: any) => (doctor.filter(t => t.id === item.edges?.edgesOfDoctor?.id).map((item2: any) => (
-                              <TableRow key={item.id}>
-                                <TableCell align="center">{item.id}</TableCell>
-                                <TableCell align="center">{item2.edges?.edgesOfDoctorinfo?.doctorname} {item2.edges?.edgesOfDoctorinfo?.doctorsurname}</TableCell>
-                                <TableCell align="center">{item.edges?.edgesOfPatientrecord?.name}</TableCell>
-                                <TableCell align="center">{item.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
-                                <TableCell align="center">{item.datetreat}</TableCell>
-                                <TableCell align="center"><Textinfo id={item.id}></Textinfo></TableCell>  
-                              </TableRow>
-                            ))))}
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    )
-                      : name == "" ? (
-                        <div>
-                          <TableContainer component={Paper}>
+        <TableContainer component={Paper}>
                             <Table className={classes.table} aria-label="simple table">
                               <TableHead>
                                 <TableRow>
@@ -288,30 +176,22 @@ export default function ComponentsTable() {
                               </TableHead>
 
                               <TableBody>
-                                {treatment.map((item: any) => (doctor.filter(t => t.id === item.edges?.edgesOfDoctor?.id).map((item2: any) => (
-                                  <TableRow key={item.id}>
-                                    <TableCell align="center">{item.id}</TableCell>
-                                    <TableCell align="center">{item2.edges?.edgesOfDoctorinfo?.doctorname} {item2.edges?.edgesOfDoctorinfo?.doctorsurname}</TableCell>
-                                    <TableCell align="center">{item.edges?.edgesOfPatientrecord?.name}</TableCell>
-                                    <TableCell align="center">{item.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
-                                    <TableCell align="center">{item.datetreat}</TableCell>
-                                    <TableCell align="center"><Textinfo id={item.id}></Textinfo></TableCell>                          
-                                  </TableRow>
-                                ))))}
+                              {treatments.map(treatment => (
+                              <TableRow>
+                                <TableCell align="center">{treatment.id}</TableCell>
+                                <TableCell align="center">{treatment.edges?.edgesOfDoctor?.edges?.edgesOfDoctorinfo?.doctorname} {treatment.edges?.edgesOfDoctor?.edges?.edgesOfDoctorinfo?.doctorsurname}</TableCell>
+                                <TableCell align="center">{treatment.edges?.edgesOfPatientrecord?.name}</TableCell>
+                                <TableCell align="center">{treatment.edges?.edgesOfTypetreatment?.typetreatment}</TableCell>
+                                <TableCell align="center">{treatment.datetreat}</TableCell>
+                                <TableCell align="center"><Textinfo id={treatment.id}></Textinfo></TableCell>  
+                              </TableRow>
+                            ))}
                               </TableBody>
                             </Table>
                           </TableContainer>
-
-                        </div>
-                      ) : null}
-                  </div>
-                ) : null}
-              </Paper>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Content>
       </Content>
     </Page>
   );
-}
+};
+
+export default findTreatment;

@@ -58,10 +58,10 @@ export interface EntHistorytaking {
     id?: number;
     /**
      * Oxygen holds the value of the "oxygen" field.
-     * @type {string}
+     * @type {number}
      * @memberof EntHistorytaking
      */
-    oxygen?: string;
+    oxygen?: number;
     /**
      * Pulse holds the value of the "pulse" field.
      * @type {number}

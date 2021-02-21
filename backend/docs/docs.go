@@ -231,7 +231,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Treatment"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Treatment"
+                            }
                         }
                     },
                     "400": {
@@ -4993,7 +4996,7 @@ var doc = `{
                 },
                 "oxygen": {
                     "description": "Oxygen holds the value of the \"oxygen\" field.",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "pulse": {
                     "description": "Pulse holds the value of the \"pulse\" field.",
