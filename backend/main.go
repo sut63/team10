@@ -497,10 +497,20 @@ func main() {
 	//##############################################################################################
 	// Set Registrar Data
 	Registrar := []string{"Khatadet_khianchainat", "nara_haru", "morani_rode", "faratell_yova", "pulla_visan", "omaha_yad"}
-	for _, reg := range Registrar {
+	for i, reg := range Registrar {
+		u, err := client.User.
+			Query().
+			Where(user.IDEQ(i+1)).
+			Only(context.Background())
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
 		client.Registrar.
 			Create().
 			SetName(reg).
+			SetEdgesOfUser(u).
 			Save(context.Background())
 	}
 	//^^^*******************************************************************^^^

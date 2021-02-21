@@ -245,6 +245,10 @@ export interface DeleteUserRequest {
     id: number;
 }
 
+export interface DoctorinfoGetRequest {
+    key?: string;
+}
+
 export interface GetAbilitypatientrightsRequest {
     id: number;
 }
@@ -362,11 +366,6 @@ export interface ListDepartmentRequest {
 }
 
 export interface ListDoctorRequest {
-    limit?: number;
-    offset?: number;
-}
-
-export interface ListDoctorinfoRequest {
     limit?: number;
     offset?: number;
 }
@@ -1636,6 +1635,38 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * search doctorinfo entities
+     * Search doctorinfo entities
+     */
+    async doctorinfoGetRaw(requestParameters: DoctorinfoGetRequest): Promise<runtime.ApiResponse<Array<EntDoctorinfo>>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        if (requestParameters.key !== undefined) {
+            queryParameters['key'] = requestParameters.key;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/doctorinfo`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntDoctorinfoFromJSON));
+    }
+
+    /**
+     * search doctorinfo entities
+     * Search doctorinfo entities
+     */
+    async doctorinfoGet(requestParameters: DoctorinfoGetRequest): Promise<Array<EntDoctorinfo>> {
+        const response = await this.doctorinfoGetRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
      * get abilitypatientrights by ID
      * Get a abilitypatientrights entity by ID
      */
@@ -2587,16 +2618,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list doctorinfo entities
      * List doctorinfo entities
      */
-    async listDoctorinfoRaw(requestParameters: ListDoctorinfoRequest): Promise<runtime.ApiResponse<Array<EntDoctorinfo>>> {
+    async listDoctorinfoRaw(): Promise<runtime.ApiResponse<Array<EntDoctorinfo>>> {
         const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -2614,8 +2637,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list doctorinfo entities
      * List doctorinfo entities
      */
-    async listDoctorinfo(requestParameters: ListDoctorinfoRequest): Promise<Array<EntDoctorinfo>> {
-        const response = await this.listDoctorinfoRaw(requestParameters);
+    async listDoctorinfo(): Promise<Array<EntDoctorinfo>> {
+        const response = await this.listDoctorinfoRaw();
         return await response.value();
     }
 
