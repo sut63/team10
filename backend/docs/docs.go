@@ -231,7 +231,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Treatment"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Treatment"
+                            }
                         }
                     },
                     "400": {
