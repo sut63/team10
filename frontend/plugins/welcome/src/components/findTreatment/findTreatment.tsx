@@ -111,6 +111,7 @@ const findTreatment: FC<{}> = () => {
   };
 
   return (
+    
     <Page theme={pageTheme.home}>
       <Header
         title={`ส่วนบันทึกการรักษา`}>
