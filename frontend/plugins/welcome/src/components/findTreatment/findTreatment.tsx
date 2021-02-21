@@ -157,10 +157,17 @@ const findTreatment: FC<{}> = () => {
             ค้นหา
                </Button>&emsp;
             <Link component={RouterLink} to="/createTreatment">
-            <Button variant="contained">
-              กลับ
-           </Button>
-          </Link>
+            <Button variant="contained"
+            color="secondary">
+              บันทึกการรักษา
+           </Button>           
+          </Link>&emsp;
+          <Link component={RouterLink} to="/">
+            <Button variant="contained"
+            color="default">
+              กลับสู่หน้าหลัก
+           </Button>           
+          </Link>&emsp;
         </ContentHeader>
         <TableContainer component={Paper}>
                             <Table className={classes.table} aria-label="simple table">
