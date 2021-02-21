@@ -2087,7 +2087,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * get patientrecord by ID
      * Get a patientrecord entity by ID
      */
-    async getPatientrecordRaw(requestParameters: GetPatientrecordRequest): Promise<runtime.ApiResponse<EntPatientrecord>> {
+    async getPatientrecordRaw(requestParameters: GetPatientrecordRequest): Promise<runtime.ApiResponse<Array<EntPatientrecord>>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getPatientrecord.');
         }
@@ -2103,14 +2103,14 @@ export class DefaultApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntPatientrecordFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntPatientrecordFromJSON));
     }
 
     /**
      * get patientrecord by ID
      * Get a patientrecord entity by ID
      */
-    async getPatientrecord(requestParameters: GetPatientrecordRequest): Promise<EntPatientrecord> {
+    async getPatientrecord(requestParameters: GetPatientrecordRequest): Promise<Array<EntPatientrecord>> {
         const response = await this.getPatientrecordRaw(requestParameters);
         return await response.value();
     }
