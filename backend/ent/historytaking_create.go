@@ -61,8 +61,8 @@ func (hc *HistorytakingCreate) SetBp(i int) *HistorytakingCreate {
 }
 
 // SetOxygen sets the oxygen field.
-func (hc *HistorytakingCreate) SetOxygen(s string) *HistorytakingCreate {
-	hc.mutation.SetOxygen(s)
+func (hc *HistorytakingCreate) SetOxygen(i int) *HistorytakingCreate {
+	hc.mutation.SetOxygen(i)
 	return hc
 }
 
@@ -298,7 +298,7 @@ func (hc *HistorytakingCreate) createSpec() (*Historytaking, *sqlgraph.CreateSpe
 	}
 	if value, ok := hc.mutation.Oxygen(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
 			Value:  value,
 			Column: historytaking.FieldOxygen,
 		})

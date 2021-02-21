@@ -4644,7 +4644,8 @@ type HistorytakingMutation struct {
 	addrespiration                 *int
 	bp                             *int
 	addbp                          *int
-	oxygen                         *string
+	oxygen                         *int
+	addoxygen                      *int
 	symptom                        *string
 	datetime                       *time.Time
 	clearedFields                  map[string]struct{}
@@ -5082,12 +5083,13 @@ func (m *HistorytakingMutation) ResetBp() {
 }
 
 // SetOxygen sets the oxygen field.
-func (m *HistorytakingMutation) SetOxygen(s string) {
-	m.oxygen = &s
+func (m *HistorytakingMutation) SetOxygen(i int) {
+	m.oxygen = &i
+	m.addoxygen = nil
 }
 
 // Oxygen returns the oxygen value in the mutation.
-func (m *HistorytakingMutation) Oxygen() (r string, exists bool) {
+func (m *HistorytakingMutation) Oxygen() (r int, exists bool) {
 	v := m.oxygen
 	if v == nil {
 		return
@@ -5099,7 +5101,7 @@ func (m *HistorytakingMutation) Oxygen() (r string, exists bool) {
 // If the Historytaking object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *HistorytakingMutation) OldOxygen(ctx context.Context) (v string, err error) {
+func (m *HistorytakingMutation) OldOxygen(ctx context.Context) (v int, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, fmt.Errorf("OldOxygen is allowed only on UpdateOne operations")
 	}
@@ -5113,9 +5115,28 @@ func (m *HistorytakingMutation) OldOxygen(ctx context.Context) (v string, err er
 	return oldValue.Oxygen, nil
 }
 
+// AddOxygen adds i to oxygen.
+func (m *HistorytakingMutation) AddOxygen(i int) {
+	if m.addoxygen != nil {
+		*m.addoxygen += i
+	} else {
+		m.addoxygen = &i
+	}
+}
+
+// AddedOxygen returns the value that was added to the oxygen field in this mutation.
+func (m *HistorytakingMutation) AddedOxygen() (r int, exists bool) {
+	v := m.addoxygen
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
 // ResetOxygen reset all changes of the "oxygen" field.
 func (m *HistorytakingMutation) ResetOxygen() {
 	m.oxygen = nil
+	m.addoxygen = nil
 }
 
 // SetSymptom sets the symptom field.
@@ -5495,7 +5516,7 @@ func (m *HistorytakingMutation) SetField(name string, value ent.Value) error {
 		m.SetBp(v)
 		return nil
 	case historytaking.FieldOxygen:
-		v, ok := value.(string)
+		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
@@ -5541,6 +5562,9 @@ func (m *HistorytakingMutation) AddedFields() []string {
 	if m.addbp != nil {
 		fields = append(fields, historytaking.FieldBp)
 	}
+	if m.addoxygen != nil {
+		fields = append(fields, historytaking.FieldOxygen)
+	}
 	return fields
 }
 
@@ -5561,6 +5585,8 @@ func (m *HistorytakingMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedRespiration()
 	case historytaking.FieldBp:
 		return m.AddedBp()
+	case historytaking.FieldOxygen:
+		return m.AddedOxygen()
 	}
 	return nil, false
 }
@@ -5611,6 +5637,13 @@ func (m *HistorytakingMutation) AddField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.AddBp(v)
+		return nil
+	case historytaking.FieldOxygen:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddOxygen(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Historytaking numeric field %s", name)

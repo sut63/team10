@@ -218,7 +218,7 @@ var (
 		{Name: "pulse", Type: field.TypeInt},
 		{Name: "respiration", Type: field.TypeInt},
 		{Name: "bp", Type: field.TypeInt},
-		{Name: "oxygen", Type: field.TypeString},
+		{Name: "oxygen", Type: field.TypeInt},
 		{Name: "symptom", Type: field.TypeString},
 		{Name: "datetime", Type: field.TypeTime},
 		{Name: "department_id", Type: field.TypeInt, Nullable: true},

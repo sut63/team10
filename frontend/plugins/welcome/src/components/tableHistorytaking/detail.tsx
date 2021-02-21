@@ -81,7 +81,7 @@ export default function MoreInfo(id: any) {
                                 Pulse:&emsp;{historytaking.pulse}&emsp;times/min<br />
                                 Respiration:&emsp;{historytaking.respiration}&emsp;times/min<br />
                                 Blood pressure:&emsp;{historytaking.bp}&emsp;mm/Hg<br />
-                                %Oxygen:&emsp;{historytaking.oxygen}<br />
+                                %Oxygen:&emsp;{historytaking.oxygen}%<br />
                                 Sympton:&emsp;{historytaking.symptom}<br />
                                 Datetime:&emsp;{historytaking.datetime}<br />
                             </Typography>
