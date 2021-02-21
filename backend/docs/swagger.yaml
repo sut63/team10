@@ -2978,14 +2978,6 @@ paths:
         in: query
         name: name
         type: string
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
       produces:
       - application/json
       responses:
@@ -3008,15 +3000,6 @@ paths:
     get:
       description: list patientrights entities
       operationId: list-patientrights
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
       produces:
       - application/json
       responses:
@@ -3145,7 +3128,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/ent.Patientrights'
+            items:
+              $ref: '#/definitions/ent.Patientrights'
+            type: array
         "400":
           description: Bad Request
           schema:
