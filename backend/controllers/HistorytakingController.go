@@ -71,7 +71,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "nurse not found",
+			"error": "โปรดเลือกพยาบาลที่ซักประวัติ",
 		})
 		return
 	}
@@ -82,7 +82,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "symptomseverity not found",
+			"error": "โปรดเลือกระดับอาการสำคัญ",
 		})
 		return
 	}
@@ -93,7 +93,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "department not found",
+			"error": "โปรดเลือกแผนก",
 		})
 		return
 	}
@@ -104,7 +104,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		Only(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{
-			"error": "patientrecord not found",
+			"error": "โปรดเลือกผู้ป่วย",
 		})
 		return
 	}
