@@ -43,7 +43,6 @@ export default function ComponentsTable(sim: any) {
   const api = new DefaultApi();
   const [Historytakings, setHistorytakings] = useState<EntHistorytaking[]>(Array);
   const [loading, setLoading] = useState(true);
-  const [nc, setnc] = useState(true);
 
   const getHistorytakings = async () => {
     const res = await api.listHistorytaking({ limit: 100, offset: 0 });
@@ -55,7 +54,6 @@ export default function ComponentsTable(sim: any) {
   useEffect(() => {
 
     getHistorytakings();
-    setnc(true);
   }, [loading]);
 
   var p = 0;
@@ -102,7 +100,7 @@ export default function ComponentsTable(sim: any) {
                   <TableCell align="center">{item.pulse}</TableCell>
                   <TableCell align="center">{item.respiration}</TableCell>
                   <TableCell align="center">{item.bp}</TableCell>
-                  <TableCell align="center">{item.oxygen}</TableCell>
+                  <TableCell align="center">{item.oxygen}%</TableCell>
                   <TableCell align="center">{item.symptom}</TableCell>
                   <TableCell align="center">{item.edges?.edgesOfNurse?.name}</TableCell>
                   <TableCell align="center">{item.edges?.edgesOfSymptomseverity?.symptomseverity}</TableCell>
