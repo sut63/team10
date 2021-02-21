@@ -45,6 +45,7 @@ const Table: FC<{}> = () => {
     },
   }));
   const [Pat, setPat] = React.useState<string>();
+  const [Pat2, setPat2] = React.useState<string>();
   const [Se, setSe] = React.useState<EntPatientrights[]>(Array);
   const classes = useStyles();
   const [alert1, setAlert1] = React.useState(true);
@@ -73,29 +74,26 @@ const Table: FC<{}> = () => {
     var PatientrightsGet = await http.patientrightsGet({ name: Pat });
     var Patientrights = await http.listPatientrights();
     
-    let i = false
-    if(PatientrightsGet.length > 0 ){
-      i = true
-    }
+   
     
     console.log("ผู้ป่วย = ", Pat)
-
-    if (Pat === undefined || Pat === null) {
+    console.log(Pat2+" : "+Pat)
+    if (Pat === undefined || Pat === null && Pat2=== undefined ||  Pat2 === null ) {
       setSe(Patientrights);
-      setAlert2(false);
+      setAlert2(false);//แสดงข้อมูลทั้งหมด
     } else {
       setSe(PatientrightsGet);
-      setAlert2(true);
+      setAlert2(true);//ไม่พบสิทธ์
     }
-    if (i) {
+    if (PatientrightsGet.length > 0 ) {
       
       setStatus(true);
-      setAlert1(true);
+      setAlert1(true);//พบสิทธิ์
 
     } else {
       
       setStatus(true);
-      setAlert1(false);
+      setAlert1(false);//ใช้ Alert2
 
     }
 
@@ -156,6 +154,7 @@ const Table: FC<{}> = () => {
               id="patientname"
               freeSolo
               options={Patientrecord.map((option) => option.name)}
+              inputValue={Pat2}
               onChange={handleChange}
               renderInput={(params) => (
                 <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" />
