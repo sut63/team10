@@ -380,11 +380,6 @@ export interface ListGenderRequest {
     offset?: number;
 }
 
-export interface ListHistorytakingRequest {
-    limit?: number;
-    offset?: number;
-}
-
 export interface ListInsuranceRequest {
     limit?: number;
     offset?: number;
@@ -2746,16 +2741,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list historytaking entities
      * List historytaking entities
      */
-    async listHistorytakingRaw(requestParameters: ListHistorytakingRequest): Promise<runtime.ApiResponse<Array<EntHistorytaking>>> {
+    async listHistorytakingRaw(): Promise<runtime.ApiResponse<Array<EntHistorytaking>>> {
         const queryParameters: runtime.HTTPQuery = {};
-
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
-        }
-
-        if (requestParameters.offset !== undefined) {
-            queryParameters['offset'] = requestParameters.offset;
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -2773,8 +2760,8 @@ export class DefaultApi extends runtime.BaseAPI {
      * list historytaking entities
      * List historytaking entities
      */
-    async listHistorytaking(requestParameters: ListHistorytakingRequest): Promise<Array<EntHistorytaking>> {
-        const response = await this.listHistorytakingRaw(requestParameters);
+    async listHistorytaking(): Promise<Array<EntHistorytaking>> {
+        const response = await this.listHistorytakingRaw();
         return await response.value();
     }
 

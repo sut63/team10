@@ -56,7 +56,7 @@ const HistorytakingSearch: FC<{}> = () => {
   };
 
   const Start = async () => {
-    const res = await http.listHistorytaking({ offset: 0 });
+    const res = await http.listHistorytaking();
     setHistorytakings(res);
   };
 
