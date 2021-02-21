@@ -141,15 +141,6 @@ export default function CreateHistorytaking() {
   const classes = useStyles();
   const api = new DefaultApi();
 
-  const [sethightError] = React.useState('');
-  const [setweightError] = React.useState('');
-  const [settempError] = React.useState('');
-  const [setpulseError] = React.useState('');
-  const [setrespirationError] = React.useState('');
-  const [setbpError] = React.useState('');
-  const [setoxygenError] = React.useState('');
-  const [setsymptomError] = React.useState('');
-
   const [nurses, setNurses] = React.useState<Partial<EntNurse>>();
   const [symptomseveritys, setSymptomseveritys] = useState<EntSymptomseverity[]>([]);
   const [departments, setDepartments] = useState<EntDepartment[]>([]);

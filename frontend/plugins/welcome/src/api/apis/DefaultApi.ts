@@ -1928,7 +1928,7 @@ export class DefaultApi extends runtime.BaseAPI {
      * get historytaking by ID
      * Get a historytaking entity by ID
      */
-    async getHistorytakingRaw(requestParameters: GetHistorytakingRequest): Promise<runtime.ApiResponse<EntHistorytaking>> {
+    async getHistorytakingRaw(requestParameters: GetHistorytakingRequest): Promise<runtime.ApiResponse<Array<EntHistorytaking>>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getHistorytaking.');
         }
@@ -1944,14 +1944,14 @@ export class DefaultApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntHistorytakingFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntHistorytakingFromJSON));
     }
 
     /**
      * get historytaking by ID
      * Get a historytaking entity by ID
      */
-    async getHistorytaking(requestParameters: GetHistorytakingRequest): Promise<EntHistorytaking> {
+    async getHistorytaking(requestParameters: GetHistorytakingRequest): Promise<Array<EntHistorytaking>> {
         const response = await this.getHistorytakingRaw(requestParameters);
         return await response.value();
     }
