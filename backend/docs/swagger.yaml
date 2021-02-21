@@ -1769,19 +1769,36 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Update a department entity by ID
+  /doctorinfo:
+    get:
+      description: search doctorinfo entities
+      parameters:
+      - description: Key
+        in: query
+        name: key
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Doctorinfo'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Search doctorinfo entities
   /doctorinfos:
     get:
       description: list doctorinfo entities
       operationId: list-doctorinfo
-      parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
       produces:
       - application/json
       responses:
