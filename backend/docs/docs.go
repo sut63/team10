@@ -3019,18 +3019,6 @@ var doc = `{
                         "description": "Name",
                         "name": "name",
                         "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -3066,20 +3054,6 @@ var doc = `{
                 ],
                 "summary": "List patientrights entities",
                 "operationId": "list-patientrights",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -3223,7 +3197,10 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/ent.Patientrights"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ent.Patientrights"
+                            }
                         }
                     },
                     "400": {
@@ -4993,7 +4970,7 @@ var doc = `{
                 },
                 "oxygen": {
                     "description": "Oxygen holds the value of the \"oxygen\" field.",
-                    "type": "string"
+                    "type": "integer"
                 },
                 "pulse": {
                     "description": "Pulse holds the value of the \"pulse\" field.",

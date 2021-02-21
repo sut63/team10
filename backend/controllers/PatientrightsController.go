@@ -188,35 +188,17 @@ func (ctl *PatientrightsController) GetPatientrights(c *gin.Context) {
 // @Description search patientrights entities
 // @Produce json
 // @Param name  query string false "Name"
-// @Param limit  query int false "Limit"
-// @Param offset query int false "Offset"
 // @Success 200 {array} ent.Patientrights
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /patientrights [get]
 func (  ctl *PatientrightsController) SearchPatientrights(c *gin.Context) {
 	
-	limitQuery := c.Query("limit")
-	limit := 10
-	if limitQuery != "" {
-		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
-		if err == nil {
-			limit = int(limit64)
-		}
-	}
 
-	offsetQuery := c.Query("offset")
-	offset := 0
-	if offsetQuery != "" {
-		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
-		if err == nil {
-			offset = int(offset64)
-		}
-	}
 	
 	nameQuery := c.Request.URL.Query().Get("name")
 	
-	c.JSON(300,  gin.H{"tur": "name = "+nameQuery+" limit = "+fmt.Sprint(limit)+" offset = "+fmt.Sprint(offset)})
+	
 	
 	patientrightss, err := ctl.client.Patientrights.
 		Query().
@@ -227,8 +209,7 @@ func (  ctl *PatientrightsController) SearchPatientrights(c *gin.Context) {
 		Where(patientrights.
 			HasEdgesOfPatientrightsPatientrecordWith(patientrecord.
 				NameEQ(nameQuery))).
-		Limit(limit).
-		Offset(offset).
+
 		All(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -277,30 +258,12 @@ func (ctl *PatientrightsController) DeletePatientrights(c *gin.Context) {
 // @Description list patientrights entities
 // @ID list-patientrights
 // @Produce json
-// @Param limit  query int false "Limit"
-// @Param offset query int false "Offset"
 // @Success 200 {array} ent.Patientrights
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /patientrightss [get]
 func (ctl *PatientrightsController) ListPatientrights(c *gin.Context) {
-	limitQuery := c.Query("limit")
-	limit := 10
-	if limitQuery != "" {
-		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
-		if err == nil {
-			limit = int(limit64)
-		}
-	}
 
-	offsetQuery := c.Query("offset")
-	offset := 0
-	if offsetQuery != "" {
-		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
-		if err == nil {
-			offset = int(offset64)
-		}
-	}
 
 	patientrightss, err := ctl.client.Patientrights.
 		Query().
@@ -308,8 +271,6 @@ func (ctl *PatientrightsController) ListPatientrights(c *gin.Context) {
 		WithEdgesOfPatientrightsAbilitypatientrights().
 		WithEdgesOfPatientrightsPatientrecord().
 		WithEdgesOfPatientrightsMedicalrecordstaff().
-		Limit(limit).
-		Offset(offset).
 		All(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -327,7 +288,7 @@ func (ctl *PatientrightsController) ListPatientrights(c *gin.Context) {
 // @Produce  json
 // @Param id path int true "Patientrights ID"
 // @Param patientrights body ent.Patientrights true "Patientrights entity"
-// @Success 200 {object} ent.Patientrights
+// @Success 200 {array} ent.Patientrights
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
 // @Router /patientrightss/{id} [put]
