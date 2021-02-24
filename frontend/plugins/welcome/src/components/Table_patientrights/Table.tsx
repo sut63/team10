@@ -74,7 +74,6 @@ const Table: FC<{}> = () => {
     var PatientrightsGet = await http.patientrightsGet({ name: Pat2 });
     var Patientrights = await http.listPatientrights();
     
-    
     //console.log("ผู้ป่วย = ", Pat)
     console.log(Pat2+" : "+Pat)
 
