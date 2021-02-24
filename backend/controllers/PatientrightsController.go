@@ -208,7 +208,7 @@ func (  ctl *PatientrightsController) SearchPatientrights(c *gin.Context) {
 		WithEdgesOfPatientrightsMedicalrecordstaff().
 		Where(patientrights.
 			HasEdgesOfPatientrightsPatientrecordWith(patientrecord.
-				NameEQ(nameQuery))).
+				NameContains(nameQuery))).
 
 		All(context.Background())
 	if err != nil {
