@@ -70,7 +70,6 @@ const Table: FC<{}> = () => {
     console.log("i & k", i, " / ", k)
     setPatientrightsGet(i)
     setNumPage(k);
-    
     validate(i);
 
     if (i.length != 0){
