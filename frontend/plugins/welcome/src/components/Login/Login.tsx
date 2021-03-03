@@ -114,6 +114,12 @@ const Login: FC<{}> = () => {
     });
   }
 
+  const handleKeyDown = (e:any) => {
+    if (e.key === 'Enter') {
+      Login();
+    }
+  }
+
 
   const NameChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setName(event.target.value as string);
@@ -163,6 +169,7 @@ const Login: FC<{}> = () => {
 
               value={Password}
               onChange={PasswordChange}
+              onKeyDown={handleKeyDown}
             />
 
 
