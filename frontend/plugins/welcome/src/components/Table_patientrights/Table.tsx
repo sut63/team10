@@ -10,6 +10,7 @@ import { Avatar, TextField } from '@material-ui/core';
 import { EntPatientrecord } from '../../api/models/EntPatientrecord';
 import { EntPatientrights } from '../../api/models/EntPatientrights';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Pagination from '@material-ui/lab/Pagination';
 import { Alert } from '@material-ui/lab';
 import {
   Content,
@@ -46,7 +47,7 @@ const Table: FC<{}> = () => {
   }));
   const [Pat, setPat] = React.useState<string>();
   const [Pat2, setPat2] = React.useState<string>();
-  const [Se, setSe] = React.useState<EntPatientrights[]>(Array);
+  const [Sender, setSender] = React.useState<EntPatientrights[]>(Array);
   const classes = useStyles();
   const [alert1, setAlert1] = React.useState(true);
   const [alert2, setAlert2] = React.useState(true);
@@ -54,8 +55,71 @@ const Table: FC<{}> = () => {
   const [status, setStatus] = React.useState(false);
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
 
-
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
+  const [PatientrightsGet, setPatientrightsGet] = React.useState<EntPatientrights[]>([]);
+  //------------------------
+  const [page, setPage] = React.useState(1);
+  const [numpage, setNumPage] = React.useState(1);
+  var p = 5
+
+
+  const getPage = async () => {
+    const i = await http.patientrightsGet({ name: Pat2 });
+    let j = i.length;
+    let k = Math.ceil(j / p)
+    console.log("i & k", i, " / ", k)
+    setPatientrightsGet(i)
+    setNumPage(k);
+    
+    validate(i);
+
+    if (i.length != 0){
+      setPage(1);
+      let data = [i[0]]
+      for (let _i_ = 1; _i_ < p; _i_++) {
+        if (i[_i_] !== undefined) {
+          data.push(i[_i_])
+        }
+      }
+  
+      console.log("data = ", data)
+     setDataPage(data);
+    }
+  else{
+    setDataPage(i);
+  }
+
+
+
+  };
+
+
+  const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+   
+    if (PatientrightsGet.length != 0){
+    let v = (value - 1) * p
+    let data = [PatientrightsGet[0 + v]]
+    for (let _i_ = 1; _i_ < p; _i_++) {
+      if (PatientrightsGet[_i_ + v] !== undefined) {
+        data.push(PatientrightsGet[_i_ + v])
+      }
+    }
+
+    console.log("data = ", data)
+   setDataPage(data);
+  }
+else{
+  setDataPage( PatientrightsGet);
+}
+
+  };
+  const setDataPage = (event: any) => {
+    setSender(event);
+
+  };
+  //-------------------------
+
 
   const getPatientrecord = async () => {
     const res = await http.listPatientrecord({ limit: 110, offset: 0 });
@@ -64,33 +128,24 @@ const Table: FC<{}> = () => {
   const handleChange = (event: any, value: unknown) => {
     setPat(value as string);
   };
-  const startTable = async () => {
-    var Patientrights = await http.listPatientrights();
-    setSe(Patientrights);
-  }
 
-//console.log(Pat2)
-  const sc = async () => {
-    var PatientrightsGet = await http.patientrightsGet({ name: Pat2 });
-    var Patientrights = await http.listPatientrights();
+
+  const validate = (_j_:any) => {
     
-    //console.log("ผู้ป่วย = ", Pat)
-    console.log(Pat2+" : "+Pat)
+    if (Pat2 === undefined || Pat2 === null || Pat2 === '') {
 
-    if (Pat2=== undefined ||  Pat2 === null || Pat2 === '') {
-      setSe(Patientrights);
       setAlert2(false);//แสดงข้อมูลทั้งหมด
     } else {
-      setSe(PatientrightsGet);
+
       setAlert2(true);//ไม่พบสิทธ์
     }
-    if (PatientrightsGet.length > 0 ) {
-      
+    if (_j_.length > 0) {
+
       setStatus(true);
       setAlert1(true);//พบสิทธิ์
 
     } else {
-      
+
       setStatus(true);
       setAlert1(false);//ใช้ Alert2
 
@@ -113,8 +168,7 @@ const Table: FC<{}> = () => {
     getImg();
     getPatientrecord();
     setLoading(false);
-    startTable();
-   
+    getPage();
   }, [loading]);
 
   return (
@@ -131,17 +185,23 @@ const Table: FC<{}> = () => {
           {status ? (
             <div>
               {alert1 ? (
+                alert2 ? (
                 <Alert severity="success">
                   พบสิทธิ์
                 </Alert>
+                ) : (
+                  <Alert severity="info" style={{ marginTop: 20 }}>
+                    แสดงข้อมูลทั้งหมด
+                  </Alert>
+                )
               ) : (
                   alert2 ? (
                     <Alert severity="warning" style={{ marginTop: 20 }}>
                       ไม่พบสิทธ์
                     </Alert>
                   ) : (
-                      <Alert severity="info" style={{ marginTop: 20 }}>
-                        แสดงข้อมูลทั้งหมด
+                      <Alert severity="error" style={{ marginTop: 20 }}>
+                        ไม่มีข้อมูลในฐานข้อมูล
                       </Alert>
                     )
                 )}
@@ -165,8 +225,9 @@ const Table: FC<{}> = () => {
           </FormControl>
           <Button
             onClick={() => {
-              sc();
-            }}
+              getPage();
+            }
+            }
             style={{ marginLeft: 10 }}
             variant="contained"
             color="primary"
@@ -191,7 +252,13 @@ const Table: FC<{}> = () => {
         </ContentHeader>
         <div className={classes.root}>
 
-          <ComponanceTable sim={Se}></ComponanceTable>
+          <ComponanceTable sim={Sender}></ComponanceTable>
+
+        </div>
+        <br />
+        <div className={classes.root}>
+
+          <Pagination count={numpage} page={page} boundaryCount={2} onChange={handleChangePage} />
 
         </div>
 
