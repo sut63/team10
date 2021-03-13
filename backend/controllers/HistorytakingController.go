@@ -121,6 +121,12 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		})
 		return
 	}
+	if h < 0 {
+		c.JSON(400, gin.H{
+			"error": "ไม่สามารถกรอกค่าติดลบได้โปรดตรวจสอบอีกครั้ง",
+		})
+		return
+	}
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าส่วนสูงต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
@@ -138,6 +144,12 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		})
 		return
 	}
+	if w < 0 {
+		c.JSON(400, gin.H{
+			"error": "ไม่สามารถกรอกค่าติดลบได้โปรดตรวจสอบอีกครั้ง",
+		})
+		return
+	}
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าน้ำหนักต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
@@ -152,6 +164,12 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	if len(obj.Temp) <= 0 {
 		c.JSON(400, gin.H{
 			"error": "โปรดกรอกค่าอุณหภูมิร่างกาย",
+		})
+		return
+	}
+	if t < 0 {
+		c.JSON(400, gin.H{
+			"error": "ไม่สามารถกรอกค่าติดลบได้โปรดตรวจสอบอีกครั้ง",
 		})
 		return
 	}
