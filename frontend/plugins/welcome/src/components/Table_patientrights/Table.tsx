@@ -45,8 +45,8 @@ const Table: FC<{}> = () => {
       justifyContent: 'center',
     },
   }));
-  const [Pat, setPat] = React.useState<string>();
-  const [Pat2, setPat2] = React.useState<string>();
+
+  const [SearchName, setSearchName] = React.useState<string>();
   const [Sender, setSender] = React.useState<EntPatientrights[]>(Array);
   const classes = useStyles();
   const [alert1, setAlert1] = React.useState(true);
@@ -64,7 +64,7 @@ const Table: FC<{}> = () => {
 
 
   const getPage = async () => {
-    const i = await http.patientrightsGet({ name: Pat2 });
+    const i = await http.patientrightsGet({ name: SearchName });
     let j = i.length;
     let k = Math.ceil(j / p)
     console.log("i & k", i, " / ", k)
@@ -124,14 +124,12 @@ else{
     const res = await http.listPatientrecord({ limit: 110, offset: 0 });
     setPatientrecord(res);
   };
-  const handleChange = (event: any, value: unknown) => {
-    setPat(value as string);
-  };
+  
 
 
   const validate = (_j_:any) => {
     
-    if (Pat2 === undefined || Pat2 === null || Pat2 === '') {
+    if (SearchName === undefined || SearchName === null || SearchName === '') {
 
       setAlert2(false);//แสดงข้อมูลทั้งหมด
     } else {
@@ -212,10 +210,9 @@ else{
               id="patientname"
               freeSolo
               options={Patientrecord.map((option) => option.name)}
-              inputValue={Pat2}
-              onChange={handleChange}
+              inputValue={SearchName}
               onInputChange={(event, newInputValue) => {
-                setPat2(newInputValue);
+                setSearchName(newInputValue);
               }}
               renderInput={(params) => (
                 <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" />
