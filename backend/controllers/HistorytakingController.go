@@ -58,6 +58,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		return
 	}
 
+	
 	if (int(obj.Symptomseverity) + int(obj.Department) + int(obj.Patientrecord) + len(obj.Hight) + len(obj.Weight) + len(obj.Temp) + len(obj.Pulse) + len(obj.Respiration) + len(obj.Bp) + len(obj.Oxygen) + len(obj.Symptom) ) <= 0 {
 		c.JSON(400, gin.H{
 			"error": "บันทึกข้อมูลไม่สำเร็จ",
@@ -121,6 +122,12 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		})
 		return
 	}
+	if h < 0 {
+		c.JSON(400, gin.H{
+			"error": "ไม่สามารถกรอกค่าติดลบได้โปรดตรวจสอบอีกครั้ง",
+		})
+		return
+	}
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าส่วนสูงต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
@@ -138,6 +145,12 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		})
 		return
 	}
+	if w < 0 {
+		c.JSON(400, gin.H{
+			"error": "ไม่สามารถกรอกค่าติดลบได้โปรดตรวจสอบอีกครั้ง",
+		})
+		return
+	}
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "ค่าน้ำหนักต้องเป็นตัวเลขจำนวนเต็มหรือตัวเลขทศนิยมเท่านั้น",
@@ -152,6 +165,12 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 	if len(obj.Temp) <= 0 {
 		c.JSON(400, gin.H{
 			"error": "โปรดกรอกค่าอุณหภูมิร่างกาย",
+		})
+		return
+	}
+	if t < 0 {
+		c.JSON(400, gin.H{
+			"error": "ไม่สามารถกรอกค่าติดลบได้โปรดตรวจสอบอีกครั้ง",
 		})
 		return
 	}
@@ -266,32 +285,26 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 }
 
 // GetHistorytaking handles GET requests to retrieve a historytaking entity
-// @Summary Get a historytaking entity by ID
-// @Description get historytaking by ID
-// @ID get-historytaking
+// @Summary Get a historytaking entity by Name
+// @Description get historytaking by Name
+// @Name get-historytaking
 // @Produce  json
-// @Param id path int true "Historytaking ID"
+// @Param name path string true "Historytaking Name"
 // @Success 200 {array} ent.Historytaking
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
-// @Router /historytaking/{id} [get]
+// @Router /historytaking/{name} [get]
 func (ctl *HistorytakingController) GetHistorytaking(c *gin.Context) {
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
+	name := c.Param("name")
+	
 	pr, err := ctl.client.Historytaking.
 		Query().
 		WithEdgesOfNurse().
 		WithEdgesOfDepartment().
 		WithEdgesOfSymptomseverity().
 		WithEdgesOfPatientrecord().
-		Where(historytaking.HasEdgesOfPatientrecordWith(patientrecord.IDEQ(int(id)))).
+		Where(historytaking.HasEdgesOfPatientrecordWith(patientrecord.NameContains(name))).
 		All(context.Background())
 	if err != nil {
 		c.JSON(404, gin.H{
@@ -347,5 +360,5 @@ func (ctl *HistorytakingController) register() {
 
 	// CRUD
 	historytaking.POST("", ctl.CreateHistorytaking)
-	historytaking.GET(":id", ctl.GetHistorytaking)
+	historytaking.GET(":name", ctl.GetHistorytaking)
 }
