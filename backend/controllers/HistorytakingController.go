@@ -58,6 +58,7 @@ func (ctl *HistorytakingController) CreateHistorytaking(c *gin.Context) {
 		return
 	}
 
+	
 	if (int(obj.Symptomseverity) + int(obj.Department) + int(obj.Patientrecord) + len(obj.Hight) + len(obj.Weight) + len(obj.Temp) + len(obj.Pulse) + len(obj.Respiration) + len(obj.Bp) + len(obj.Oxygen) + len(obj.Symptom) ) <= 0 {
 		c.JSON(400, gin.H{
 			"error": "บันทึกข้อมูลไม่สำเร็จ",
