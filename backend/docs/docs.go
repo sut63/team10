@@ -2157,19 +2157,18 @@ var doc = `{
                 }
             }
         },
-        "/historytaking/{id}": {
+        "/historytaking/{name}": {
             "get": {
-                "description": "get historytaking by ID",
+                "description": "get historytaking by Name",
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Get a historytaking entity by ID",
-                "operationId": "get-historytaking",
+                "summary": "Get a historytaking entity by Name",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "Historytaking ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "Historytaking Name",
+                        "name": "name",
                         "in": "path",
                         "required": true
                     }
@@ -4648,7 +4647,7 @@ var doc = `{
         "ent.AbilitypatientrightsEdges": {
             "type": "object",
             "properties": {
-                "edgesOfAbilitypatientrightsPatientrights": {
+                "EdgesOfAbilitypatientrightsPatientrights": {
                     "description": "EdgesOfAbilitypatientrightsPatientrights holds the value of the EdgesOfAbilitypatientrightsPatientrights edge.",
                     "type": "array",
                     "items": {
@@ -4690,17 +4689,17 @@ var doc = `{
         "ent.BillEdges": {
             "type": "object",
             "properties": {
-                "edgesOfOfficer": {
+                "EdgesOfOfficer": {
                     "description": "EdgesOfOfficer holds the value of the EdgesOfOfficer edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Financier"
                 },
-                "edgesOfPaytype": {
+                "EdgesOfPaytype": {
                     "description": "EdgesOfPaytype holds the value of the EdgesOfPaytype edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Paytype"
                 },
-                "edgesOfUnpaybill": {
+                "EdgesOfUnpaybill": {
                     "description": "EdgesOfUnpaybill holds the value of the EdgesOfUnpaybill edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Unpaybill"
@@ -4728,7 +4727,7 @@ var doc = `{
         "ent.BloodtypeEdges": {
             "type": "object",
             "properties": {
-                "edgesOfPatientrecord": {
+                "EdgesOfPatientrecord": {
                     "description": "EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.",
                     "type": "array",
                     "items": {
@@ -4758,14 +4757,14 @@ var doc = `{
         "ent.DepartmentEdges": {
             "type": "object",
             "properties": {
-                "edgesOfDepartment2doctorinfo": {
+                "EdgesOfDepartment2doctorinfo": {
                     "description": "EdgesOfDepartment2doctorinfo holds the value of the EdgesOfDepartment2doctorinfo edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Doctorinfo"
                     }
                 },
-                "edgesOfHistorytaking": {
+                "EdgesOfHistorytaking": {
                     "description": "EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.",
                     "type": "array",
                     "items": {
@@ -4791,19 +4790,19 @@ var doc = `{
         "ent.DoctorEdges": {
             "type": "object",
             "properties": {
-                "edgesOfDoctorinfo": {
+                "EdgesOfDoctorinfo": {
                     "description": "EdgesOfDoctorinfo holds the value of the EdgesOfDoctorinfo edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Doctorinfo"
                 },
-                "edgesOfTreatment": {
+                "EdgesOfTreatment": {
                     "description": "EdgesOfTreatment holds the value of the EdgesOfTreatment edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Treatment"
                     }
                 },
-                "edgesOfUser": {
+                "EdgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -4843,27 +4842,27 @@ var doc = `{
         "ent.DoctorinfoEdges": {
             "type": "object",
             "properties": {
-                "edgesOfDepartment": {
+                "EdgesOfDepartment": {
                     "description": "EdgesOfDepartment holds the value of the EdgesOfDepartment edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Department"
                 },
-                "edgesOfDoctor": {
+                "EdgesOfDoctor": {
                     "description": "EdgesOfDoctor holds the value of the EdgesOfDoctor edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Doctor"
                 },
-                "edgesOfEducationlevel": {
+                "EdgesOfEducationlevel": {
                     "description": "EdgesOfEducationlevel holds the value of the EdgesOfEducationlevel edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Educationlevel"
                 },
-                "edgesOfOfficeroom": {
+                "EdgesOfOfficeroom": {
                     "description": "EdgesOfOfficeroom holds the value of the EdgesOfOfficeroom edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Officeroom"
                 },
-                "edgesOfPrename": {
+                "EdgesOfPrename": {
                     "description": "EdgesOfPrename holds the value of the EdgesOfPrename edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Prename"
@@ -4891,7 +4890,7 @@ var doc = `{
         "ent.EducationlevelEdges": {
             "type": "object",
             "properties": {
-                "edgesOfEducationlevel2doctorinfo": {
+                "EdgesOfEducationlevel2doctorinfo": {
                     "description": "EdgesOfEducationlevel2doctorinfo holds the value of the EdgesOfEducationlevel2doctorinfo edge.",
                     "type": "array",
                     "items": {
@@ -4921,14 +4920,14 @@ var doc = `{
         "ent.FinancierEdges": {
             "type": "object",
             "properties": {
-                "edgesOfBills": {
+                "EdgesOfBills": {
                     "description": "EdgesOfBills holds the value of the EdgesOfBills edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Bill"
                     }
                 },
-                "edgesOfUser": {
+                "EdgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -4956,7 +4955,7 @@ var doc = `{
         "ent.GenderEdges": {
             "type": "object",
             "properties": {
-                "edgesOfPatientrecord": {
+                "EdgesOfPatientrecord": {
                     "description": "EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.",
                     "type": "array",
                     "items": {
@@ -5018,22 +5017,22 @@ var doc = `{
         "ent.HistorytakingEdges": {
             "type": "object",
             "properties": {
-                "edgesOfDepartment": {
+                "EdgesOfDepartment": {
                     "description": "EdgesOfDepartment holds the value of the EdgesOfDepartment edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Department"
                 },
-                "edgesOfNurse": {
+                "EdgesOfNurse": {
                     "description": "EdgesOfNurse holds the value of the EdgesOfNurse edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Nurse"
                 },
-                "edgesOfPatientrecord": {
+                "EdgesOfPatientrecord": {
                     "description": "EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Patientrecord"
                 },
-                "edgesOfSymptomseverity": {
+                "EdgesOfSymptomseverity": {
                     "description": "EdgesOfSymptomseverity holds the value of the EdgesOfSymptomseverity edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Symptomseverity"
@@ -5061,7 +5060,7 @@ var doc = `{
         "ent.InsuranceEdges": {
             "type": "object",
             "properties": {
-                "edgesOfInsurancePatientrights": {
+                "EdgesOfInsurancePatientrights": {
                     "description": "EdgesOfInsurancePatientrights holds the value of the EdgesOfInsurancePatientrights edge.",
                     "type": "array",
                     "items": {
@@ -5091,21 +5090,21 @@ var doc = `{
         "ent.MedicalrecordstaffEdges": {
             "type": "object",
             "properties": {
-                "edgesOfMedicalrecordstaffPatientrights": {
+                "EdgesOfMedicalrecordstaffPatientrights": {
                     "description": "EdgesOfMedicalrecordstaffPatientrights holds the value of the EdgesOfMedicalrecordstaffPatientrights edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Patientrights"
                     }
                 },
-                "edgesOfPatientrecord": {
+                "EdgesOfPatientrecord": {
                     "description": "EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Patientrecord"
                     }
                 },
-                "edgesOfUser": {
+                "EdgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -5141,14 +5140,14 @@ var doc = `{
         "ent.NurseEdges": {
             "type": "object",
             "properties": {
-                "edgesOfHistorytaking": {
+                "EdgesOfHistorytaking": {
                     "description": "EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Historytaking"
                     }
                 },
-                "edgesOfUser": {
+                "EdgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -5176,7 +5175,7 @@ var doc = `{
         "ent.OfficeroomEdges": {
             "type": "object",
             "properties": {
-                "edgesOfOfficeroom2doctorinfo": {
+                "EdgesOfOfficeroom2doctorinfo": {
                     "description": "EdgesOfOfficeroom2doctorinfo holds the value of the EdgesOfOfficeroom2doctorinfo edge.",
                     "type": "array",
                     "items": {
@@ -5238,41 +5237,41 @@ var doc = `{
         "ent.PatientrecordEdges": {
             "type": "object",
             "properties": {
-                "edgesOfBloodtype": {
+                "EdgesOfBloodtype": {
                     "description": "EdgesOfBloodtype holds the value of the EdgesOfBloodtype edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Bloodtype"
                 },
-                "edgesOfGender": {
+                "EdgesOfGender": {
                     "description": "EdgesOfGender holds the value of the EdgesOfGender edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Gender"
                 },
-                "edgesOfHistorytaking": {
+                "EdgesOfHistorytaking": {
                     "description": "EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Historytaking"
                     }
                 },
-                "edgesOfMedicalrecordstaff": {
+                "EdgesOfMedicalrecordstaff": {
                     "description": "EdgesOfMedicalrecordstaff holds the value of the EdgesOfMedicalrecordstaff edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Medicalrecordstaff"
                 },
-                "edgesOfPatientrecordPatientrights": {
+                "EdgesOfPatientrecordPatientrights": {
                     "description": "EdgesOfPatientrecordPatientrights holds the value of the EdgesOfPatientrecordPatientrights edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Patientrights"
                     }
                 },
-                "edgesOfPrename": {
+                "EdgesOfPrename": {
                     "description": "EdgesOfPrename holds the value of the EdgesOfPrename edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Prename"
                 },
-                "edgesOfTreatment": {
+                "EdgesOfTreatment": {
                     "description": "EdgesOfTreatment holds the value of the EdgesOfTreatment edge.",
                     "type": "array",
                     "items": {
@@ -5320,22 +5319,22 @@ var doc = `{
         "ent.PatientrightsEdges": {
             "type": "object",
             "properties": {
-                "edgesOfPatientrightsAbilitypatientrights": {
+                "EdgesOfPatientrightsAbilitypatientrights": {
                     "description": "EdgesOfPatientrightsAbilitypatientrights holds the value of the EdgesOfPatientrightsAbilitypatientrights edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Abilitypatientrights"
                 },
-                "edgesOfPatientrightsInsurance": {
+                "EdgesOfPatientrightsInsurance": {
                     "description": "EdgesOfPatientrightsInsurance holds the value of the EdgesOfPatientrightsInsurance edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Insurance"
                 },
-                "edgesOfPatientrightsMedicalrecordstaff": {
+                "EdgesOfPatientrightsMedicalrecordstaff": {
                     "description": "EdgesOfPatientrightsMedicalrecordstaff holds the value of the EdgesOfPatientrightsMedicalrecordstaff edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Medicalrecordstaff"
                 },
-                "edgesOfPatientrightsPatientrecord": {
+                "EdgesOfPatientrightsPatientrecord": {
                     "description": "EdgesOfPatientrightsPatientrecord holds the value of the EdgesOfPatientrightsPatientrecord edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Patientrecord"
@@ -5363,7 +5362,7 @@ var doc = `{
         "ent.PaytypeEdges": {
             "type": "object",
             "properties": {
-                "edgesOfBills": {
+                "EdgesOfBills": {
                     "description": "EdgesOfBills holds the value of the EdgesOfBills edge.",
                     "type": "array",
                     "items": {
@@ -5393,14 +5392,14 @@ var doc = `{
         "ent.PrenameEdges": {
             "type": "object",
             "properties": {
-                "edgesOfPatientrecord": {
+                "EdgesOfPatientrecord": {
                     "description": "EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.",
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ent.Patientrecord"
                     }
                 },
-                "edgesOfPrename2doctorinfo": {
+                "EdgesOfPrename2doctorinfo": {
                     "description": "EdgesOfPrename2doctorinfo holds the value of the EdgesOfPrename2doctorinfo edge.",
                     "type": "array",
                     "items": {
@@ -5430,7 +5429,7 @@ var doc = `{
         "ent.RegistrarEdges": {
             "type": "object",
             "properties": {
-                "edgesOfUser": {
+                "EdgesOfUser": {
                     "description": "EdgesOfUser holds the value of the EdgesOfUser edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.User"
@@ -5458,7 +5457,7 @@ var doc = `{
         "ent.SymptomseverityEdges": {
             "type": "object",
             "properties": {
-                "edgesOfHistorytaking": {
+                "EdgesOfHistorytaking": {
                     "description": "EdgesOfHistorytaking holds the value of the EdgesOfHistorytaking edge.",
                     "type": "array",
                     "items": {
@@ -5500,22 +5499,22 @@ var doc = `{
         "ent.TreatmentEdges": {
             "type": "object",
             "properties": {
-                "edgesOfDoctor": {
+                "EdgesOfDoctor": {
                     "description": "EdgesOfDoctor holds the value of the EdgesOfDoctor edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Doctor"
                 },
-                "edgesOfPatientrecord": {
+                "EdgesOfPatientrecord": {
                     "description": "EdgesOfPatientrecord holds the value of the EdgesOfPatientrecord edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Patientrecord"
                 },
-                "edgesOfTypetreatment": {
+                "EdgesOfTypetreatment": {
                     "description": "EdgesOfTypetreatment holds the value of the EdgesOfTypetreatment edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Typetreatment"
                 },
-                "edgesOfUnpaybills": {
+                "EdgesOfUnpaybills": {
                     "description": "EdgesOfUnpaybills holds the value of the EdgesOfUnpaybills edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Unpaybill"
@@ -5543,7 +5542,7 @@ var doc = `{
         "ent.TypetreatmentEdges": {
             "type": "object",
             "properties": {
-                "edgesOfTreatment": {
+                "EdgesOfTreatment": {
                     "description": "EdgesOfTreatment holds the value of the EdgesOfTreatment edge.",
                     "type": "array",
                     "items": {
@@ -5573,12 +5572,12 @@ var doc = `{
         "ent.UnpaybillEdges": {
             "type": "object",
             "properties": {
-                "edgesOfBills": {
+                "EdgesOfBills": {
                     "description": "EdgesOfBills holds the value of the EdgesOfBills edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Bill"
                 },
-                "edgesOfTreatment": {
+                "EdgesOfTreatment": {
                     "description": "EdgesOfTreatment holds the value of the EdgesOfTreatment edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Treatment"
@@ -5614,32 +5613,32 @@ var doc = `{
         "ent.UserEdges": {
             "type": "object",
             "properties": {
-                "edgesOfDoctor": {
+                "EdgesOfDoctor": {
                     "description": "EdgesOfDoctor holds the value of the EdgesOfDoctor edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Doctor"
                 },
-                "edgesOfFinancier": {
+                "EdgesOfFinancier": {
                     "description": "EdgesOfFinancier holds the value of the EdgesOfFinancier edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Financier"
                 },
-                "edgesOfMedicalrecordstaff": {
+                "EdgesOfMedicalrecordstaff": {
                     "description": "EdgesOfMedicalrecordstaff holds the value of the EdgesOfMedicalrecordstaff edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Medicalrecordstaff"
                 },
-                "edgesOfNurse": {
+                "EdgesOfNurse": {
                     "description": "EdgesOfNurse holds the value of the EdgesOfNurse edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Nurse"
                 },
-                "edgesOfUser2registrar": {
+                "EdgesOfUser2registrar": {
                     "description": "EdgesOfUser2registrar holds the value of the EdgesOfUser2registrar edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Registrar"
                 },
-                "edgesOfUserPatientrights": {
+                "EdgesOfUserPatientrights": {
                     "description": "EdgesOfUserPatientrights holds the value of the EdgesOfUserPatientrights edge.",
                     "type": "object",
                     "$ref": "#/definitions/ent.Patientrights"

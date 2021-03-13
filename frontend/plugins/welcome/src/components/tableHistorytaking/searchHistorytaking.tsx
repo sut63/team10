@@ -14,6 +14,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Pagination from '@material-ui/lab/Pagination';
 
 import { DefaultApi } from '../../api/apis';
 import { EntUser } from '../../api/models/EntUser';
@@ -30,6 +31,11 @@ const HistorytakingSearch: FC<{}> = () => {
     table: {
       minWidth: 650,
     },
+    pagestyle: {
+      flexGrow: 1,
+      display: 'flex',
+      justifyContent: 'center',
+    },
     root: {
       '& > *': {
         borderBottom: 'unset',
@@ -37,18 +43,19 @@ const HistorytakingSearch: FC<{}> = () => {
       width: '100%',
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
-
     },
   }));
 
   const [PatID, setPatID] = React.useState<number>(0);
   const classes = useStyles();
+  const [Search, setSearch] = React.useState<string>('');
   const [alert, setAlert] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
   const [status, setStatus] = React.useState(false);
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
-  const [Historytakings, setHistorytakings] = useState<EntHistorytaking[]>(Array);
+  const [ShowHistorytakings, setShowHistorytakings] = useState<EntHistorytaking[]>(Array);
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
+  const [HistoryGet, setHistoryGet] = React.useState<EntHistorytaking[]>([]);
 
   const getPatientrecord = async () => {
     const res = await http.listPatientrecord({ offset: 0 });
@@ -57,25 +64,35 @@ const HistorytakingSearch: FC<{}> = () => {
 
   const Start = async () => {
     const res = await http.listHistorytaking();
-    setHistorytakings(res);
-  };
+    const i = res;
+    let j = i.length;
+    let k = Math.ceil(j / p)
+    console.log("i & k", i, " / ", k)
+    setHistoryGet(i)
+    setNumPage(k);
 
-  const getHistorytakings = async () => {
-    const res = await http.getHistorytaking({ id: PatID })
-    setLoading(false);
-    setHistorytakings(res);
-    if (res.length != 0 || PatID === undefined || PatID === null) {
-      setStatus(true);
-      setAlert(true);
-    } else {
-      setStatus(true);
-      setAlert(false);
+    if (i.length != 0) {
+      setPage(1);
+      let data = [i[0]]
+      for (let _i_ = 1; _i_ < p; _i_++) {
+        if (i[_i_] !== undefined) {
+          data.push(i[_i_])
+        }
+      }
+
+      console.log("data = ", data)
+      setDataPage(data);
     }
-    setTimeout(() => {
-      setStatus(false);
-    }, 1000);
-
+    else {
+      setDataPage(i);
+    }
   };
+
+  const handleKeyDown = (e:any) => {
+    if (e.key === 'Enter') {
+      getPage();
+    }
+  }
 
   const handleChange = (event: any, value: unknown) => {
     console.log(value)
@@ -87,6 +104,80 @@ const HistorytakingSearch: FC<{}> = () => {
       }
     })
   };
+
+  //------------------------
+  const [page, setPage] = React.useState(1);
+  const [numpage, setNumPage] = React.useState(1);
+  var p = 5
+
+
+  const getPage = async () => {
+    const res = await http.historytakingNameGet({ name: Search })
+    setLoading(false);
+    if (res.length != 0 || PatID === undefined || PatID === null) {
+      setStatus(true);
+      setAlert(true);
+    } else {
+      setStatus(true);
+      setAlert(false);
+    }
+    setTimeout(() => {
+      setStatus(false);
+    }, 1000);
+
+    const i = res;
+    let j = i.length;
+    let k = Math.ceil(j / p)
+    console.log("i & k", i, " / ", k)
+    setHistoryGet(i)
+    setNumPage(k);
+
+    if (i.length != 0) {
+      setPage(1);
+      let data = [i[0]]
+      for (let _i_ = 1; _i_ < p; _i_++) {
+        if (i[_i_] !== undefined) {
+          data.push(i[_i_])
+        }
+      }
+
+      console.log("data = ", data)
+      setDataPage(data);
+    }
+    else {
+      setDataPage(i);
+    }
+
+
+
+  };
+
+
+  const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+
+    if (HistoryGet.length != 0) {
+      let v = (value - 1) * p
+      let data = [HistoryGet[0 + v]]
+      for (let _i_ = 1; _i_ < p; _i_++) {
+        if (HistoryGet[_i_ + v] !== undefined) {
+          data.push(HistoryGet[_i_ + v])
+        }
+      }
+
+      console.log("data = ", data)
+      setDataPage(data);
+    }
+    else {
+      setDataPage(HistoryGet);
+    }
+
+  };
+  const setDataPage = (event: any) => {
+    setShowHistorytakings(event);
+
+  };
+  //-------------------------
 
   const TexthandleChang = (event: React.ChangeEvent<{ value: unknown; }>) => {
     console.log(event.target.value as string)
@@ -109,9 +200,6 @@ const HistorytakingSearch: FC<{}> = () => {
     Start();
 
   }, [loading]);
-  const SearchHistorytaking = async () => {
-    getHistorytakings();
-  };
 
   return (
     <Page theme={pageTheme.home}>
@@ -130,10 +218,10 @@ const HistorytakingSearch: FC<{}> = () => {
                   พบบันทึกการซักประวัติผู้ป่วยนอก
                 </Alert>
               ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบบันทึกการซักประวัติผู้ป่วยนอก
-                  </Alert>
-                )}
+                <Alert severity="warning" style={{ marginTop: 20 }}>
+                  ไม่พบบันทึกการซักประวัติผู้ป่วยนอก
+                </Alert>
+              )}
             </div>
           ) : null}
         &emsp;
@@ -141,7 +229,14 @@ const HistorytakingSearch: FC<{}> = () => {
             id="patientname"
             freeSolo
             options={Patientrecord.map(option => option.name)}
+            inputValue={Search}
+            onKeyDown={handleKeyDown}
             onChange={handleChange}
+            onInputChange={(event, newInputValue) => {
+              setSearch(newInputValue);
+            }
+
+            }
             closeText='Close'
             renderInput={(params) => (
               <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" onChange={TexthandleChang} style={{ width: "100ch" }} />
@@ -150,7 +245,7 @@ const HistorytakingSearch: FC<{}> = () => {
           &emsp;
           <Button
             onClick={() => {
-              SearchHistorytaking();
+              getPage();
             }}
             variant="contained"
             color="primary"
@@ -170,7 +265,7 @@ const HistorytakingSearch: FC<{}> = () => {
            </Button>
           </Link>
         </ContentHeader>
-          <TableContainer component={Paper}>
+        <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -192,7 +287,7 @@ const HistorytakingSearch: FC<{}> = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {Historytakings.map(item => (
+              {ShowHistorytakings.map(item => (
                 <TableRow>
                   <TableCell align="center">{item.id}</TableCell>
                   <TableCell align="center">{item.hight}</TableCell>
@@ -215,7 +310,11 @@ const HistorytakingSearch: FC<{}> = () => {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>  
+        </TableContainer>
+        <br />
+        <div className={classes.pagestyle}>
+          <Pagination count={numpage} page={page} boundaryCount={2} onChange={handleChangePage} />
+        </div>
       </Content>
     </Page>
   );

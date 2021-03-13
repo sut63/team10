@@ -285,10 +285,6 @@ export interface GetGenderRequest {
     id: number;
 }
 
-export interface GetHistorytakingRequest {
-    id: number;
-}
-
 export interface GetInsuranceRequest {
     id: number;
 }
@@ -343,6 +339,10 @@ export interface GetUnpaybillRequest {
 
 export interface GetUserRequest {
     id: number;
+}
+
+export interface HistorytakingNameGetRequest {
+    name: string;
 }
 
 export interface ListAbilitypatientrightsRequest {
@@ -1950,38 +1950,6 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
-     * get historytaking by ID
-     * Get a historytaking entity by ID
-     */
-    async getHistorytakingRaw(requestParameters: GetHistorytakingRequest): Promise<runtime.ApiResponse<Array<EntHistorytaking>>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getHistorytaking.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/historytaking/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntHistorytakingFromJSON));
-    }
-
-    /**
-     * get historytaking by ID
-     * Get a historytaking entity by ID
-     */
-    async getHistorytaking(requestParameters: GetHistorytakingRequest): Promise<Array<EntHistorytaking>> {
-        const response = await this.getHistorytakingRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
      * get Insurance by ID
      * Get a Insurance entity by ID
      */
@@ -2426,6 +2394,38 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getUser(requestParameters: GetUserRequest): Promise<EntUser> {
         const response = await this.getUserRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * get historytaking by Name
+     * Get a historytaking entity by Name
+     */
+    async historytakingNameGetRaw(requestParameters: HistorytakingNameGetRequest): Promise<runtime.ApiResponse<Array<EntHistorytaking>>> {
+        if (requestParameters.name === null || requestParameters.name === undefined) {
+            throw new runtime.RequiredError('name','Required parameter requestParameters.name was null or undefined when calling historytakingNameGet.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/historytaking/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(requestParameters.name))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(EntHistorytakingFromJSON));
+    }
+
+    /**
+     * get historytaking by Name
+     * Get a historytaking entity by Name
+     */
+    async historytakingNameGet(requestParameters: HistorytakingNameGetRequest): Promise<Array<EntHistorytaking>> {
+        const response = await this.historytakingNameGetRaw(requestParameters);
         return await response.value();
     }
 
