@@ -31,6 +31,11 @@ const HistorytakingSearch: FC<{}> = () => {
     table: {
       minWidth: 650,
     },
+    pagestyle: {
+      flexGrow: 1,
+      display: 'flex',
+      justifyContent: 'center',
+    },
     root: {
       '& > *': {
         borderBottom: 'unset',
@@ -38,7 +43,6 @@ const HistorytakingSearch: FC<{}> = () => {
       width: '100%',
       maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
-
     },
   }));
 
@@ -83,6 +87,12 @@ const HistorytakingSearch: FC<{}> = () => {
       setDataPage(i);
     }
   };
+
+  const handleKeyDown = (e:any) => {
+    if (e.key === 'Enter') {
+      getPage();
+    }
+  }
 
   const handleChange = (event: any, value: unknown) => {
     console.log(value)
@@ -220,6 +230,7 @@ const HistorytakingSearch: FC<{}> = () => {
             freeSolo
             options={Patientrecord.map(option => option.name)}
             inputValue={Search}
+            onKeyDown={handleKeyDown}
             onChange={handleChange}
             onInputChange={(event, newInputValue) => {
               setSearch(newInputValue);
@@ -234,7 +245,6 @@ const HistorytakingSearch: FC<{}> = () => {
           &emsp;
           <Button
             onClick={() => {
-              //SearchHistorytaking();
               getPage();
             }}
             variant="contained"
@@ -302,7 +312,7 @@ const HistorytakingSearch: FC<{}> = () => {
           </Table>
         </TableContainer>
         <br />
-        <div className={classes.root}>
+        <div className={classes.pagestyle}>
           <Pagination count={numpage} page={page} boundaryCount={2} onChange={handleChangePage} />
         </div>
       </Content>
