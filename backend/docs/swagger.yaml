@@ -2402,16 +2402,15 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Create historytaking
-  /historytaking/{id}:
+  /historytaking/{name}:
     get:
-      description: get historytaking by ID
-      operationId: get-historytaking
+      description: get historytaking by Name
       parameters:
-      - description: Historytaking ID
+      - description: Historytaking Name
         in: path
-        name: id
+        name: name
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -2433,7 +2432,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Get a historytaking entity by ID
+      summary: Get a historytaking entity by Name
   /insurances:
     get:
       description: list insurance entities
