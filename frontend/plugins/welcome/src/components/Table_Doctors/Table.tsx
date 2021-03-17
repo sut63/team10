@@ -47,6 +47,7 @@ const Table: FC<{}> = () => {
     },
   }));
   const [Pat, setPat] = React.useState<string>();
+  const [Pat2, setPat2] = React.useState<string>();
   const [Se, setSe] =  React.useState<EntDoctorinfo[]>([]);
   const classes = useStyles();
   const [alert1, setAlert1] = React.useState(true);
@@ -68,16 +69,16 @@ const Table: FC<{}> = () => {
   const sc = async () => {
 
    
-    var DoctorinfoGet = await http.doctorinfoGet({ key: Pat });
-    var Doctorinfo = await http.listDoctorinfo();
+    var DoctorinfoGet = await http.doctorinfoGet({ key: Pat2 });
 
-    let i = false
+
+      let i = false
     if (DoctorinfoGet.length > 0) {
       i = true
     }
-    console.log("เเพทย์ = ", Pat)
+    console.log("เเพทย์ = ", Pat2)
 
-    if (Pat === undefined || Pat === null) {
+    if (Pat2=== undefined ||  Pat2 === null || Pat2 === '' ) {
       setSe(Doctorinfo);
       setAlert2(false);
     } else {
@@ -152,9 +153,13 @@ const Table: FC<{}> = () => {
           <FormControl variant="outlined" className={classes.formControl}>
             <Autocomplete
               id="licensenumber"
-
+              freeSolo
               options={Doctorinfo.map((option) => option.licensenumber)}
+              inputValue={Pat2}
               onChange={handleChange}
+              onInputChange={(event, newInputValue) => {
+                setPat2(newInputValue);
+              }}
               renderInput={(params) => (
                 <TextField {...params} label="เลขใบประกอบวิชาชีพ" margin="normal" variant="outlined" />
               )}
