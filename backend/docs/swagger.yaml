@@ -2949,16 +2949,15 @@ paths:
           schema:
             $ref: '#/definitions/gin.H'
       summary: Create patientrecord
-  /patientrecord/{id}:
+  /patientrecord/{name}:
     get:
-      description: get patientrecord by ID
-      operationId: get-patientrecord
+      description: get patientrecord by Name
       parameters:
-      - description: Patientrecord ID
+      - description: Patientrecord Name
         in: path
-        name: id
+        name: name
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -2980,7 +2979,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/gin.H'
-      summary: Get a patientrecord entity by ID
+      summary: Get a patientrecord entity by Name
   /patientrights:
     get:
       description: search patientrights entities
