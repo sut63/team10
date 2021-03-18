@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
   root: {
-   // width: '100%',
+    // width: '100%',
     maxWidth: 360,
     minWidth: 360,
 
@@ -48,87 +48,87 @@ const useStyles = makeStyles(theme => ({
 export default function ComponentsTable(sim: any) {
   const classes = useStyles();
   const api = new DefaultApi();
-  
 
 
 
 
- 
+
+
 
 
 
   var p = 0;
-console.log("sim",sim.sim)
-  
-    if (sim.sim.length > 0) {
-      p = p + 1
-    }
+  console.log("sim", sim.sim)
 
-  
-
-
-
-    if (p !== 0) {
-      return (
-
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">No.</TableCell>
-                <TableCell align="center">ชื่อ ประกัน</TableCell>
-                <TableCell align="center">Medicalrecordstaff</TableCell>
-                <TableCell align="center">ความสามารถสิทธิ์</TableCell>
-                <TableCell align="center">ผู้ป่วย</TableCell>
-                <TableCell align="center">ผู้ดูแล</TableCell>
-                <TableCell align="center">วันที่สร้าง</TableCell>
-                <TableCell align="center">เพิ่มเติม</TableCell>
-
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sim.sim === undefined
-                ? null
-                : sim.sim.map((item: any) => (
-                  <TableRow>
-                    <TableCell align="center">{item.id}</TableCell>
-                    <TableCell align="center">{item.edges?.edgesOfPatientrightsInsurance?.insurancecompany}</TableCell>
-                    <TableCell align="center">{item.edges?.edgesOfPatientrightsMedicalrecordstaff?.name}</TableCell>
-
-                    <TableCell align="center">{item.edges?.edgesOfPatientrightsAbilitypatientrights?.check}</TableCell>
-                    <TableCell align="center">{item.edges?.edgesOfPatientrightsPatientrecord?.name}</TableCell>
-                    <TableCell align="center">{item.responsible}</TableCell>
-                    <TableCell align="center">{moment(item.permissionDate).format('DD/MM/YYYY HH.mm น.')}</TableCell>
-                    <TableCell align="center">
-                    <MoreInfo id={item}></MoreInfo>
-                    </TableCell>
-
-
-
-
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      );
-    } else {
-      return (
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">ไม่พบสิทธ์</TableCell>
-              </TableRow>
-
-            </TableHead>
-
-          </Table>
-        </TableContainer>
-      );
-    }
-  
+  if (sim.sim.length > 0) {
+    p = p + 1
   }
+
+
+
+
+
+  if (p !== 0) {
+    return (
+
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">No.</TableCell>
+              <TableCell align="center">ชื่อ ประกัน</TableCell>
+              <TableCell align="center">Medicalrecordstaff</TableCell>
+              <TableCell align="center">ความสามารถสิทธิ์</TableCell>
+              <TableCell align="center">ผู้ป่วย</TableCell>
+              <TableCell align="center">ผู้ดูแล</TableCell>
+              <TableCell align="center">วันที่สร้าง</TableCell>
+              <TableCell align="center">เพิ่มเติม</TableCell>
+
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {sim.sim === undefined
+              ? null
+              : sim.sim.map((item: any) => (
+                <TableRow>
+                  <TableCell align="center">{item.id}</TableCell>
+                  <TableCell align="center">{item.edges?.edgesOfPatientrightsInsurance?.insurancecompany}</TableCell>
+                  <TableCell align="center">{item.edges?.edgesOfPatientrightsMedicalrecordstaff?.name}</TableCell>
+
+                  <TableCell align="center">{item.edges?.edgesOfPatientrightsAbilitypatientrights?.check}</TableCell>
+                  <TableCell align="center">{item.edges?.edgesOfPatientrightsPatientrecord?.name}</TableCell>
+                  <TableCell align="center">{item.responsible}</TableCell>
+                  <TableCell align="center">{moment(item.permissionDate).format('DD/MM/YYYY HH.mm น.')}</TableCell>
+                  <TableCell align="center">
+                    <MoreInfo id={item}></MoreInfo>
+                  </TableCell>
+
+
+
+
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  } else {
+    return (
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">ไม่พบสิทธ์</TableCell>
+            </TableRow>
+
+          </TableHead>
+
+        </Table>
+      </TableContainer>
+    );
+  }
+
+}
 
 
 
