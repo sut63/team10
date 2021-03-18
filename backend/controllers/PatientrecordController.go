@@ -150,24 +150,19 @@ func (ctl *PatientrecordController) CreatePatientrecord(c *gin.Context) {
 }
 
 // GetPatientrecord handles GET requests to retrieve a patientrecord entity
-// @Summary Get a patientrecord entity by ID
-// @Description get patientrecord by ID
-// @ID get-patientrecord
+// @Summary Get a patientrecord entity by Name
+// @Description get patientrecord by Name
+// @Name get-patientrecord
 // @Produce  json
-// @Param id path int true "Patientrecord ID"
+// @Param name path string true "Patientrecord Name"
 // @Success 200 {array} ent.Patientrecord
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H
 // @Failure 500 {object} gin.H
-// @Router /patientrecord/{id} [get]
+// @Router /patientrecord/{name} [get]
 func (ctl *PatientrecordController) GetPatientrecord(c *gin.Context) {
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-	if err != nil {
-		c.JSON(400, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
+	name := c.Param("name")
+	
 
 	pr, err := ctl.client.Patientrecord.
 		Query().
@@ -177,7 +172,7 @@ func (ctl *PatientrecordController) GetPatientrecord(c *gin.Context) {
 		WithEdgesOfPrename().
 		WithEdgesOfHistorytaking().
 		WithEdgesOfPatientrecordPatientrights().
-		Where(patientrecord.IDEQ(int(id))).
+		Where(patientrecord.NameContains(name)).
 		All(context.Background())
 	if err != nil {
 		c.JSON(404, gin.H{
@@ -201,23 +196,7 @@ func (ctl *PatientrecordController) GetPatientrecord(c *gin.Context) {
 // @Failure 500 {object} gin.H
 // @Router /patientrecord [get]
 func (ctl *PatientrecordController) ListPatientrecord(c *gin.Context) {
-	limitQuery := c.Query("limit")
-	limit := 10
-	if limitQuery != "" {
-		limit64, err := strconv.ParseInt(limitQuery, 10, 64)
-		if err == nil {
-			limit = int(limit64)
-		}
-	}
 
-	offsetQuery := c.Query("offset")
-	offset := 0
-	if offsetQuery != "" {
-		offset64, err := strconv.ParseInt(offsetQuery, 10, 64)
-		if err == nil {
-			offset = int(offset64)
-		}
-	}
 
 	patientrecord, err := ctl.client.Patientrecord.
 		Query().
@@ -227,8 +206,6 @@ func (ctl *PatientrecordController) ListPatientrecord(c *gin.Context) {
 		WithEdgesOfPrename().
 		WithEdgesOfHistorytaking().
 		WithEdgesOfPatientrecordPatientrights().
-		Limit(limit).
-		Offset(offset).
 		All(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -255,5 +232,5 @@ func (ctl *PatientrecordController) register() {
 
 	// CRUD
 	patientrecord.POST("", ctl.CreatePatientrecord)
-	patientrecord.GET(":id", ctl.GetPatientrecord)
+	patientrecord.GET(":name", ctl.GetPatientrecord)
 }

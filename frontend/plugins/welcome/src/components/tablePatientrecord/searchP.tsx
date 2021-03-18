@@ -49,7 +49,7 @@ const searchP: FC<{}> = () => {
   const [Users, setUsers] = React.useState<Partial<EntUser>>();
   const [Patientrecords, setPatientrecords] = React.useState<EntPatientrecord[]>(Array);
   const [Patientrecord, setPatientrecord] = React.useState<EntPatientrecord[]>([]);
-
+  const [Search, setSearch] = React.useState<string>('');
   const getPatientrecord = async () => {
     const res = await http.listPatientrecord({});
     setPatientrecord(res);
@@ -60,8 +60,14 @@ const searchP: FC<{}> = () => {
     setPatientrecords(res);
   };
 
+  const handleKeyDown = (e:any) => {
+    if (e.key === 'Enter') {
+      SearchPatientrecord();
+    }
+  }
+
   const getPatientrecords = async () => {
-    const res = await http.getPatientrecord({ id: PatID })
+    const res = await http.patientrecordNameGet({ name: Search })
     setLoading(false);
     setPatientrecords(res);
     if (res.length != 0 || PatID === undefined || PatID === null) {
@@ -129,10 +135,10 @@ const searchP: FC<{}> = () => {
                   พบข้อมูลผู้ป่วย
                 </Alert>
               ) : (
-                  <Alert severity="warning" style={{ marginTop: 20 }}>
-                    ไม่พบข้อมูลผู้ป่วย
-                  </Alert>
-                )}
+                <Alert severity="warning" style={{ marginTop: 20 }}>
+                  ไม่พบข้อมูลผู้ป่วย
+                </Alert>
+              )}
             </div>
           ) : null}
         &emsp;
@@ -141,6 +147,12 @@ const searchP: FC<{}> = () => {
             freeSolo
             options={Patientrecord.map(option => option.name)}
             onChange={handleChange}
+            inputValue={Search}
+            onKeyDown={handleKeyDown}
+            onInputChange={(event, newInputValue) => {
+              setSearch(newInputValue);
+            }
+            }
             closeText='Close'
             renderInput={(params) => (
               <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" onChange={TexthandleChang} style={{ width: "100ch" }} />
