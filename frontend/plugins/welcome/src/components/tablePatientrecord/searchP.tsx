@@ -24,7 +24,7 @@ const cookies = new Cookies();
 const Name = cookies.get('Name');
 const Img = cookies.get('Img');
 
-const BillSearch: FC<{}> = () => {
+const searchP: FC<{}> = () => {
   const http = new DefaultApi();
   const useStyles = makeStyles(theme => ({
     table: {
@@ -219,4 +219,4 @@ const BillSearch: FC<{}> = () => {
 
 };
 
-export default BillSearch;
+export default searchP;
