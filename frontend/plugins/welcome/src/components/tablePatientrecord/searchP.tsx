@@ -94,16 +94,6 @@ const searchP: FC<{}> = () => {
     })
   };
 
-  const TexthandleChang = (event: React.ChangeEvent<{ value: unknown; }>) => {
-    console.log(event.target.value as string)
-    Patientrecord.map(item => {
-      if (item.name === event.target.value as string) {
-        setPatID(item.id as number);
-      } else if (event.target.value as string === null) {
-        setPatID(0);
-      }
-    })
-  }
   useEffect(() => {
     const getImg = async () => {
       const res = await http.getUser({ id: Number(Img) });
@@ -155,7 +145,7 @@ const searchP: FC<{}> = () => {
             }
             closeText='Close'
             renderInput={(params) => (
-              <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined" onChange={TexthandleChang} style={{ width: "100ch" }} />
+              <TextField {...params} label="ชื่อผู้ป่วย" margin="normal" variant="outlined"  style={{ width: "100ch" }} />
             )}
           />
           <Button
