@@ -1,1 +1,2 @@
-go  run C:\team10\backend\main.go
+cd C:\team10\backend 
+go run main.go
