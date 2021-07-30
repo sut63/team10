@@ -1,1 +1,1 @@
-go C:\team10\backend run main.go
+go  run C:\team10\backend\main.go
