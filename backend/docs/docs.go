@@ -2978,19 +2978,18 @@ var doc = `{
                 }
             }
         },
-        "/patientrecord/{id}": {
+        "/patientrecord/{name}": {
             "get": {
-                "description": "get patientrecord by ID",
+                "description": "get patientrecord by Name",
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Get a patientrecord entity by ID",
-                "operationId": "get-patientrecord",
+                "summary": "Get a patientrecord entity by Name",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "Patientrecord ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "Patientrecord Name",
+                        "name": "name",
                         "in": "path",
                         "required": true
                     }
